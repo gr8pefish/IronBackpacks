@@ -1,0 +1,5 @@
+# Items
+item.ironbackpacks:basicBackpack.name=Basic Backpack
+
+# Creative Tab
+itemGroup.ironbackpacks=Iron Backpacks

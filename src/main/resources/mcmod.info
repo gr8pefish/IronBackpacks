@@ -1,0 +1,16 @@
+[
+{
+  "modid": "basemod",
+  "name": "Base Mod",
+  "description": "Base mod to build from.",
+  "version": "0.0.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["ModDeveloper"],
+  "credits": "TehNut for creating this base for me.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
