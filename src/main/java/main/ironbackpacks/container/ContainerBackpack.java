@@ -15,17 +15,21 @@ public class ContainerBackpack extends Container {
 //    private int posY;
 //    private int posZ;
 
-    private final EntityPlayer player;
+    private EntityPlayer player;
     private final World world;
 
+    public InventoryBackpack inventory;
+
 //    public ContainerBackpack(InventoryPlayer inventoryPlayer, World world, int x, int y, int z) {
-    public ContainerBackpack(EntityPlayer player, InventoryBackpack backpackInventory) {
-        this.player = player;
+    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory) {
+        this.player = entityPlayer;
         this.world = player.worldObj;
+        this.inventory = backpackInventory;
 
-        bindBackpackInventory(backpackInventory);
-
-        bindPlayerInventory(player.inventory);
+//        bindBackpackInventory(backpackInventory);
+//        player = ((InventoryPlayer) entityPlayer.inventory).player;
+        layoutContainer(entityPlayer.inventory, backpackInventory, 200, 222, IronBackpackType.BASIC); //TODO - not always basic type
+//        bindPlayerInventory(player.inventory);
 
     }
 
@@ -51,48 +55,113 @@ public class ContainerBackpack extends Container {
         }
     }
 
-    @Override //copied from vanilla
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
-        ItemStack var2 = null;
-        Slot var3 = (Slot) this.inventorySlots.get(slotIndex);
+    protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize, IronBackpackType type){ // IronChestType type, int xSize, int ySize) {
 
-        if (var3 != null && var3.getHasStack()) {
-            ItemStack var4 = var3.getStack();
-            var2 = var4.copy();
-
-            if (slotIndex == 0) {
-                if (!this.mergeItemStack(var4, 10, 46, true)) {
-                    return null;
-                }
-
-                var3.onSlotChange(var4, var2);
-            } else if (slotIndex >= 10 && slotIndex < 37) {
-                if (!this.mergeItemStack(var4, 1, 10, false)) {
-                    return null;
-                }
-            } else if (slotIndex >= 37 && slotIndex < 46) {
-                if (!this.mergeItemStack(var4, 1, 10, false)) {
-                    return null;
-                }
-            } else if (!this.mergeItemStack(var4, 10, 46, false)) {
-                return null;
+        //adds chest's slots
+        for (int chestRow = 0; chestRow < type.getRowCount(); chestRow++) {
+            for (int chestCol = 0; chestCol < type.getRowLength(); chestCol++) {
+                addSlotToContainer(new BackpackSlot(chestInventory, chestCol + chestRow * type.getRowLength(), 20 + chestCol * 18, 18 + chestRow * 18));
             }
-
-            if (var4.stackSize == 0) {
-                var3.putStack((ItemStack) null);
-            } else {
-                var3.onSlotChanged();
-            }
-
-            if (var4.stackSize == var2.stackSize) {
-                return null;
-            }
-
-            var3.onPickupFromSlot(player, var4);
         }
 
-        return var2;
+        //adds player's inventory
+        int leftCol = (xSize - 162) / 2 + 1;
+        for (int playerInvRow = 0; playerInvRow < 3; playerInvRow++)
+        {
+            for (int playerInvCol = 0; playerInvCol < 9; playerInvCol++)
+            {
+                addSlotToContainer(new Slot(playerInventory, playerInvCol + playerInvRow * 9 + 9, leftCol + playerInvCol * 18, ySize - (4 - playerInvRow) * 18 - 10));
+            }
+
+        }
+
+        //adds player's hotbar
+        for (int hotbarSlot = 0; hotbarSlot < 9; hotbarSlot++)
+        {
+            addSlotToContainer(new Slot(playerInventory, hotbarSlot, leftCol + hotbarSlot * 18, ySize - 24));
+        }
     }
+
+
+//    @Override //copied from vanilla TODO - shift clicking broken
+//    public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
+//        ItemStack var2 = null;
+//        Slot var3 = (Slot) this.inventorySlots.get(slotIndex);
+//
+//        if (var3 != null && var3.getHasStack()) {
+//            ItemStack var4 = var3.getStack();
+//            var2 = var4.copy();
+//
+//            if (slotIndex == 0) {
+//                if (!this.mergeItemStack(var4, 10, 46, true)) {
+//                    return null;
+//                }
+//
+//                var3.onSlotChange(var4, var2);
+//            } else if (slotIndex >= 10 && slotIndex < 37) {
+//                if (!this.mergeItemStack(var4, 1, 10, false)) {
+//                    return null;
+//                }
+//            } else if (slotIndex >= 37 && slotIndex < 46) {
+//                if (!this.mergeItemStack(var4, 1, 10, false)) {
+//                    return null;
+//                }
+//            } else if (!this.mergeItemStack(var4, 10, 46, false)) {
+//                return null;
+//            }
+//
+//            if (var4.stackSize == 0) {
+//                var3.putStack((ItemStack) null);
+//            } else {
+//                var3.onSlotChanged();
+//            }
+//
+//            if (var4.stackSize == var2.stackSize) {
+//                return null;
+//            }
+//
+//            var3.onPickupFromSlot(player, var4);
+//        }
+//
+//        return var2;
+//    }
+
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer p, int i)
+    {
+        ItemStack itemstack = null;
+        Slot slot = (Slot) inventorySlots.get(i);
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            if (i < IronBackpackType.BASIC.size)
+            {
+                if (!mergeItemStack(itemstack1, IronBackpackType.BASIC.size, inventorySlots.size(), true))
+                {
+                    return null;
+                }
+            }
+            else if (!BackpackSlot.acceptsStack(itemstack1))
+            {
+                return null;
+            }
+            else if (!mergeItemStack(itemstack1, 0, IronBackpackType.BASIC.size, false))
+            {
+                return null;
+            }
+            if (itemstack1.stackSize == 0)
+            {
+                slot.putStack(null);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+        return itemstack;
+    }
+
 
     @Override
     public boolean canInteractWith(EntityPlayer arg0) {
@@ -104,7 +173,8 @@ public class ContainerBackpack extends Container {
         super.onContainerClosed(player);
 
         if (!player.worldObj.isRemote) {
-//            this.craftingMatrix.onGuiSaved(player);
+            this.inventory.onGuiSaved(player);
+            System.out.println("saving");
             //TODO - save items with NBT
         }
     }

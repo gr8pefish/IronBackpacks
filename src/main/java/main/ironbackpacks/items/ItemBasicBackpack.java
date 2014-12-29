@@ -8,6 +8,6 @@ import net.minecraft.world.World;
 public class ItemBasicBackpack extends ItemBaseBackpack {
 
     public ItemBasicBackpack() {
-        super("basicBackpack", "backpack_item");
+        super("basicBackpack", "backpack_dl");
     }
 }

@@ -29,14 +29,15 @@ public class BackpackGui extends GuiContainer {
         super(container);
         this.player = container.getPlayer();
         this.container = container;
-//        this.xSize = 160;
-//        this.ySize = 160;
+
+        this.xSize = 200;
+        this.ySize = 222;
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        this.fontRendererObj.drawString(StatCollector.translateToLocal(ItemRegistry.basicBackpack.getUnlocalizedName() + ".name"), 28, 6, 4210752);
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("backpack.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal(ItemRegistry.basicBackpack.getUnlocalizedName() + ".name"), 20, 6, 4210752);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
 //        buttonList.add()
     }
@@ -53,12 +54,12 @@ public class BackpackGui extends GuiContainer {
 //    }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
+    protected void drawGuiContainerBackgroundLayer(float opacity, int x, int y) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(Textures.Gui.BASIC_BACKPACK);
 
-        int j = (this.width - this.xSize) / 2;
-        int k = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(j, k, 0, 0, this.xSize, this.ySize);
+        int j = (width - xSize) / 2;
+        int k = (height - ySize) / 2;
+        this.drawTexturedModalRect(j + 12, k, 0, 0, xSize, ySize);
     }
 }
