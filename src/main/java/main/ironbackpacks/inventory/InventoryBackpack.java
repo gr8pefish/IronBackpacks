@@ -33,9 +33,7 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
 
         this.inventory = new ItemStack[this.getSizeInventory()];
 
-        readFromNBT(stack.getTagCompound()); //TODO - read from NBT
-        System.out.println("Reading");
-
+        readFromNBT(stack.getTagCompound());
     }
 
     @Override
@@ -122,11 +120,10 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
         return true; //handled by BackpackSlot
     }
 
-    //AT THE TIME OF THIS COMMENT SAVING WORKS LIKE AN ENDER BACKPACK
     public void onGuiSaved(EntityPlayer entityPlayer){
         if (stack != null){
             save();
-        }else{System.out.println("Not saving in GUI");}
+        }
     }
 
     public void save(){
@@ -134,8 +131,7 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
 
         if (nbtTagCompound == null) {
             nbtTagCompound = new NBTTagCompound();
-            System.out.println("New NBT Tag compound for stack");
-        }else{System.out.println("no new compound");}
+        }
 
         writeToNBT(nbtTagCompound);
         stack.setTagCompound(nbtTagCompound);
@@ -158,33 +154,6 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
     }
 
     public void readFromNBT(NBTTagCompound nbtTagCompound){
-//        stack = findParentItemStack(player);
-//        if (stack != null) {
-//            nbtTagCompound = stack.getTagCompound();
-//            System.out.println("got stack");
-//        }
-
-        if (nbtTagCompound != null){
-            System.out.println("not null in load");
-            if (nbtTagCompound.hasKey("Items")){
-                System.out.println("has items key");
-            }
-        }else{System.out.println("Null load");}
-
-//        if (nbtTagCompound != null && nbtTagCompound.hasKey("Items")){
-//            System.out.println("Has items reading");
-//            NBTTagList nbttaglist = nbtTagCompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-//            inventory = new ItemStack[getSizeInventory()];
-//            for (int i = 0; i < nbttaglist.tagCount(); i++) {
-//                NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-//                int j = nbttagcompound1.getByte("Slot") & 0xff;
-//                if (j >= 0 && j < inventory.length) {
-//                    inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-//                }
-//            }
-//        }
-
-
         stack = findParentItemStack(player);
         if (stack != null) {
             nbtTagCompound = stack.getTagCompound();
@@ -205,18 +174,6 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
     }
 
     public void writeToNBT(NBTTagCompound nbtTagCompound){
-//        NBTTagList nbttaglist = new NBTTagList();
-//        for (int i = 0; i < inventory.length; i++) {
-//            if (inventory[i] != null) {
-//                System.out.println("Got an item to save");
-//                NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-//                nbttagcompound1.setByte("Slot", (byte) i);
-//                inventory[i].writeToNBT(nbttagcompound1);
-//                nbttaglist.appendTag(nbttagcompound1);
-//            }
-//        }
-//        nbtTagCompound.setTag("Items", nbttaglist);
-
         nbtTagCompound = findParentItemStack(player).getTagCompound();
 
         // Write the ItemStacks in the inventory to NBT

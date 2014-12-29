@@ -6,6 +6,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import main.ironbackpacks.items.ItemBasicBackpack;
 import main.ironbackpacks.util.GuiHandler;
 import main.ironbackpacks.items.ItemRecipeRegistry;
 import main.ironbackpacks.items.ItemRegistry;
@@ -20,8 +21,8 @@ public class IronBackpacks {
 	public static final CreativeTabs creativeTab = new CreativeTabs(ModInformation.ID) {
 		@Override
 		public Item getTabIconItem() {
-			return Items.iron_ingot;
-		} //TODO change icon for creative tab
+			return ItemRegistry.basicBackpack; //TODO change icon for creative tab
+		}
 	};
 
 	@SidedProxy(clientSide = ModInformation.CLIENTPROXY, serverSide = ModInformation.COMMONPROXY)

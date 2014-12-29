@@ -82,51 +82,7 @@ public class ContainerBackpack extends Container {
         }
     }
 
-
-//    @Override //copied from vanilla TODO - shift clicking broken
-//    public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
-//        ItemStack var2 = null;
-//        Slot var3 = (Slot) this.inventorySlots.get(slotIndex);
-//
-//        if (var3 != null && var3.getHasStack()) {
-//            ItemStack var4 = var3.getStack();
-//            var2 = var4.copy();
-//
-//            if (slotIndex == 0) {
-//                if (!this.mergeItemStack(var4, 10, 46, true)) {
-//                    return null;
-//                }
-//
-//                var3.onSlotChange(var4, var2);
-//            } else if (slotIndex >= 10 && slotIndex < 37) {
-//                if (!this.mergeItemStack(var4, 1, 10, false)) {
-//                    return null;
-//                }
-//            } else if (slotIndex >= 37 && slotIndex < 46) {
-//                if (!this.mergeItemStack(var4, 1, 10, false)) {
-//                    return null;
-//                }
-//            } else if (!this.mergeItemStack(var4, 10, 46, false)) {
-//                return null;
-//            }
-//
-//            if (var4.stackSize == 0) {
-//                var3.putStack((ItemStack) null);
-//            } else {
-//                var3.onSlotChanged();
-//            }
-//
-//            if (var4.stackSize == var2.stackSize) {
-//                return null;
-//            }
-//
-//            var3.onPickupFromSlot(player, var4);
-//        }
-//
-//        return var2;
-//    }
-
-    @Override
+    @Override //copied from IronChests
     public ItemStack transferStackInSlot(EntityPlayer p, int i)
     {
         ItemStack itemstack = null;
@@ -135,7 +91,7 @@ public class ContainerBackpack extends Container {
         {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-            if (i < IronBackpackType.BASIC.size)
+            if (i < IronBackpackType.BASIC.size) //TODO- change to dynamic sizing
             {
                 if (!mergeItemStack(itemstack1, IronBackpackType.BASIC.size, inventorySlots.size(), true))
                 {
@@ -174,8 +130,6 @@ public class ContainerBackpack extends Container {
 
         if (!player.worldObj.isRemote) {
             this.inventory.onGuiSaved(player);
-            System.out.println("saving");
-            //TODO - save items with NBT
         }
     }
 

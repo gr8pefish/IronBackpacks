@@ -14,10 +14,10 @@ public class BackpackSlot extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack itemStack) {
-        return !(itemStack.getItem() instanceof ItemBasicBackpack); //TODO change to any child of itemBaseBackpack
+        return !(itemStack.getItem() instanceof ItemBaseBackpack);
     }
 
     public static boolean acceptsStack(ItemStack itemStack){
-        return !(itemStack.getItem() instanceof ItemBasicBackpack);
+        return !(itemStack.getItem() instanceof ItemBaseBackpack);
     }
 }
