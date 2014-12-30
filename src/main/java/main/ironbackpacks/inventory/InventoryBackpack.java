@@ -24,16 +24,22 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
     protected ItemStack[] inventory;
 
     private Container eventHandler;
+    private IronBackpackType type;
 
     //Instantiated from GuiHandler
-    public InventoryBackpack(EntityPlayer player, ItemStack itemStack){
+    public InventoryBackpack(EntityPlayer player, ItemStack itemStack, IronBackpackType type){
 
         this.stack = itemStack;
         this.player = player;
 
+        this.type = type;
         this.inventory = new ItemStack[this.getSizeInventory()];
 
         readFromNBT(stack.getTagCompound());
+    }
+
+    public IronBackpackType getType(){
+        return type;
     }
 
     @Override
@@ -82,7 +88,7 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
 
     @Override
     public String getInventoryName() {
-        return IronBackpackType.BASIC.fancyName;
+        return IronBackpackType.BASIC.name;
     } //TODO multiple types
 
     @Override

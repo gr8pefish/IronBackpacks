@@ -20,16 +20,28 @@ public class ContainerBackpack extends Container {
 
     public InventoryBackpack inventory;
 
+    public IronBackpackType type;
+    public int xSize;
+    public int ySize;
+
 //    public ContainerBackpack(InventoryPlayer inventoryPlayer, World world, int x, int y, int z) {
+    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type, int xSize, int ySize){
+        this.player = entityPlayer;
+        this.world = player.worldObj;
+        this.inventory = backpackInventory;
+        this.type = type;
+        this.xSize = xSize;
+        this.ySize = ySize;
+
+        layoutContainer(entityPlayer.inventory, backpackInventory, xSize, ySize, type);
+    }
+
     public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory) {
         this.player = entityPlayer;
         this.world = player.worldObj;
         this.inventory = backpackInventory;
 
-//        bindBackpackInventory(backpackInventory);
-//        player = ((InventoryPlayer) entityPlayer.inventory).player;
         layoutContainer(entityPlayer.inventory, backpackInventory, 200, 222, IronBackpackType.BASIC); //TODO - not always basic type
-//        bindPlayerInventory(player.inventory);
 
     }
 
