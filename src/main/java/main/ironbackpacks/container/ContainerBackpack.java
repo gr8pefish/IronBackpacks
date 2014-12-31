@@ -9,25 +9,22 @@ import net.minecraft.world.World;
 
 public class ContainerBackpack extends Container {
 
-//    public InventoryBackpack inventoryBackpack = new InventoryBackpack(this, 9, 4);
-//    private World world;
-//    private int posX;
-//    private int posY;
-//    private int posZ;
-
     private EntityPlayer player;
-    private final World world;
-
     public InventoryBackpack inventory;
-
     public IronBackpackType type;
-    public int xSize;
-    public int ySize;
+    public int xSize = 0;
+    public int ySize = 0;
 
-//    public ContainerBackpack(InventoryPlayer inventoryPlayer, World world, int x, int y, int z) {
+    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type){
+        this.player = entityPlayer;
+        this.inventory = backpackInventory;
+        this.type = type;
+
+        layoutContainer(entityPlayer.inventory, backpackInventory, xSize, ySize, type);
+    }
+
     public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type, int xSize, int ySize){
         this.player = entityPlayer;
-        this.world = player.worldObj;
         this.inventory = backpackInventory;
         this.type = type;
         this.xSize = xSize;
@@ -36,38 +33,8 @@ public class ContainerBackpack extends Container {
         layoutContainer(entityPlayer.inventory, backpackInventory, xSize, ySize, type);
     }
 
-    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory) {
-        this.player = entityPlayer;
-        this.world = player.worldObj;
-        this.inventory = backpackInventory;
-
-        layoutContainer(entityPlayer.inventory, backpackInventory, 200, 222, IronBackpackType.BASIC); //TODO - not always basic type
-
-    }
-
-    protected void bindBackpackInventory(InventoryBackpack backpackInventory) {
-        //TODO - make dynamic with config sizes
-        for (int i = 0; i < 4; i++){
-            for (int j = 0; j < 9; j++){
-                addSlotToContainer(new Slot(backpackInventory, j + i * 9 + 9, 8 + j * 18, 84 + i + 18));
-            }
-        }
-    }
-
-    protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 9; j++) {
-                addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9,
-                        20 + j * 18, 84 + i * 18));
-            }
-        }
-
-        for (int i = 0; i < 9; i++) {
-            addSlotToContainer(new Slot(inventoryPlayer, i, /*8*/ 20 + i * 18, 142));
-        }
-    }
-
-    protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize, IronBackpackType type){ // IronChestType type, int xSize, int ySize) {
+    //credit to cpw
+    protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize, IronBackpackType type){
 
         //adds chest's slots
         for (int chestRow = 0; chestRow < type.getRowCount(); chestRow++) {
@@ -103,9 +70,9 @@ public class ContainerBackpack extends Container {
         {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-            if (i < IronBackpackType.BASIC.size) //TODO- change to dynamic sizing
+            if (i < type.getSize())
             {
-                if (!mergeItemStack(itemstack1, IronBackpackType.BASIC.size, inventorySlots.size(), true))
+                if (!mergeItemStack(itemstack1, type.getSize(), inventorySlots.size(), true))
                 {
                     return null;
                 }
@@ -114,7 +81,7 @@ public class ContainerBackpack extends Container {
             {
                 return null;
             }
-            else if (!mergeItemStack(itemstack1, 0, IronBackpackType.BASIC.size, false))
+            else if (!mergeItemStack(itemstack1, 0, type.getSize(), false))
             {
                 return null;
             }
@@ -132,7 +99,7 @@ public class ContainerBackpack extends Container {
 
 
     @Override
-    public boolean canInteractWith(EntityPlayer arg0) {
+    public boolean canInteractWith(EntityPlayer player) {
         return true;
     }
 

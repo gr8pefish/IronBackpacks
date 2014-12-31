@@ -1,5 +1,6 @@
 # Items
-item.ironbackpacks:basicBackpack.name=Basic Backpack
+item.ironbackpacks:singleBackpack.name=Basic Backpack
+item.ironbackpacks:doubleBackpack.name=Advanced Backpack
 
 # Creative Tab
 itemGroup.ironbackpacks=Iron Backpacks

@@ -6,7 +6,7 @@ package main.ironbackpacks;
 
 public class ModInformation {
 
-	public static final String NAME = "Iron Backpacks";
+	public static final String NAME = "Iron backpacks";
 	public static final String ID = "ironbackpacks";
 	public static final String CHANNEL = "irnbkpks";
 	public static final String DEPEND = "";

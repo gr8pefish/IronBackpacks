@@ -12,6 +12,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class ItemRecipeRegistry {
 
 	public static void registerItemRecipes() {
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemRegistry.basicBackpack),  new Object[]{"LSL", "LSL", "LLL", 'L', Items.leather, 'S', "plankWood"}));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemRegistry.singleBackpack),  new Object[]{"LSL", "LSL", "LLL", 'L', Items.leather, 'S', "plankWood"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemRegistry.doubleBackpack),  new Object[]{"LLL", "LSL", "LLL", 'L', Items.leather, 'S', "plankWood"}));
 	}
 }

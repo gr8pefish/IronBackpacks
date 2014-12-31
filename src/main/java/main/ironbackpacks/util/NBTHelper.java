@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.UUID;
 
+//credit due to sapient
 public class NBTHelper {
 
     public static boolean hasUUID(ItemStack itemStack){

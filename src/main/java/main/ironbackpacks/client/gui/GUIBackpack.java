@@ -22,7 +22,8 @@ public class GUIBackpack extends GuiContainer {
     //credit where it is due: a lot of this is cpw's code from IronChests
     public enum ResourceList {
 
-        BASIC(new ResourceLocation(ModInformation.ID, "textures/guis/inventory.png"));
+        SINGLE(new ResourceLocation(ModInformation.ID, "textures/guis/single_chest.png")),
+        DOUBLE(new ResourceLocation(ModInformation.ID, "textures/guis/double_chest.png"));
 
         public final ResourceLocation location;
 
@@ -33,7 +34,8 @@ public class GUIBackpack extends GuiContainer {
 
     public enum GUI {
 
-        BASIC(200, 222, ResourceList.BASIC, IronBackpackType.BASIC);
+        SINGLE(200, 168, ResourceList.SINGLE, IronBackpackType.SINGLE),
+        DOUBLE(200, 222, ResourceList.DOUBLE, IronBackpackType.DOUBLE);
 
         private int xSize;
         private int ySize;
@@ -51,7 +53,7 @@ public class GUIBackpack extends GuiContainer {
             return new ContainerBackpack(player, backpack, mainType, xSize, ySize);
         }
 
-        public static GUIBackpack buildGUI(IronBackpackType type, EntityPlayer player, InventoryBackpack backpack) {
+        public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack) {
             return new GUIBackpack(values()[backpack.getType().ordinal()], player, backpack);
         }
     }
@@ -74,7 +76,7 @@ public class GUIBackpack extends GuiContainer {
         this.mc.getTextureManager().bindTexture(type.guiResourceList.location);
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
-        drawTexturedModalRect(x+12, y, 0, 0, xSize, ySize); //TODO - the +12 should be unnecessary
+        drawTexturedModalRect(x+12, y, 0, 0, xSize, ySize);
     }
 
     @Override

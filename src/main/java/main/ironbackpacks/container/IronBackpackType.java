@@ -2,12 +2,12 @@ package main.ironbackpacks.container;
 
 public enum IronBackpackType {
 
-    BASIC(54, 9, "basicBackpack");
+    SINGLE(27, 9, "singleBackpack"),
+    DOUBLE(54, 9, "doubleBackpack");
 
-    int size;
-    private int rowLength;
+    private int size; //number of slots
+    private int rowLength; //number of rows
     public String name;
-//    public String textureLocation;
 
     IronBackpackType(int size, int rowLength, String fancyName){
         this.size = size;
@@ -23,9 +23,7 @@ public enum IronBackpackType {
         return rowLength;
     }
 
-    public int getSize() {
-        return size;
-    }
+    public int getSize() { return size; }
 
     public String getName() {return name; }
 }

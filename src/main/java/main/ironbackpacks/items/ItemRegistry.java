@@ -7,18 +7,26 @@ package main.ironbackpacks.items;
  */
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import main.ironbackpacks.items.backpacks.ItemDoubleBackpack;
+import main.ironbackpacks.items.backpacks.ItemSingleBackpack;
 import net.minecraft.item.Item;
 
 public class ItemRegistry {
 
 	//items
-    public static Item basicBackpack;
+    public static Item singleBackpack;
+    public static Item doubleBackpack;
 
 
     //Register all items here
 	public static void registerItems() {
 
-        basicBackpack = new ItemBasicBackpack();
-        GameRegistry.registerItem(basicBackpack, "Basic Backpack");
+        singleBackpack = new ItemSingleBackpack();
+        GameRegistry.registerItem(singleBackpack, "Basic Backpack");
+
+        doubleBackpack = new ItemDoubleBackpack();
+        GameRegistry.registerItem(doubleBackpack, "Advanced Backpack");
+
+
 	}
 }

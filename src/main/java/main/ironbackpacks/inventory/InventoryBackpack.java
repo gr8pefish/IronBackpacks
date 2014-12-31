@@ -2,28 +2,22 @@ package main.ironbackpacks.inventory;
 
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.container.IronBackpackType;
-import main.ironbackpacks.items.ItemBasicBackpack;
+import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.UUID;
 
-public class InventoryBackpack implements IInventory { //extend IInvBasic ?
+public class InventoryBackpack implements IInventory {
 
     public ItemStack stack;
     public EntityPlayer player;
-
     protected ItemStack[] inventory;
-
-    private Container eventHandler;
     private IronBackpackType type;
 
     //Instantiated from GuiHandler
@@ -44,7 +38,7 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
 
     @Override
     public int getSizeInventory() {
-        return IronBackpackType.BASIC.getSize(); //TODO - multiple sizes
+        return type.getSize();
     }
 
     @Override
@@ -58,14 +52,12 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
             if (inventory[slotIndex].stackSize <= amount) {
                 ItemStack itemstack = inventory[slotIndex];
                 inventory[slotIndex] = null;
-//                markDirty();
                 return itemstack;
             }
             ItemStack itemstack1 = inventory[slotIndex].splitStack(amount);
             if (inventory[slotIndex].stackSize == 0) {
                 inventory[slotIndex] = null;
             }
-//            markDirty();
             return itemstack1;
         }
         else {
@@ -88,8 +80,8 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
 
     @Override
     public String getInventoryName() {
-        return IronBackpackType.BASIC.name;
-    } //TODO multiple types
+        return type.getName();
+    }
 
     @Override
     public boolean hasCustomInventoryName() {
@@ -126,6 +118,7 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
         return true; //handled by BackpackSlot
     }
 
+    //credit to sapient for a lot of this saving code
     public void onGuiSaved(EntityPlayer entityPlayer){
         if (stack != null){
             save();
@@ -149,7 +142,7 @@ public class InventoryBackpack implements IInventory { //extend IInvBasic ?
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++){
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
-                if (itemStack != null && itemStack.getItem() instanceof ItemBasicBackpack && NBTHelper.hasUUID(itemStack)){
+                if (itemStack != null && itemStack.getItem() instanceof ItemBaseBackpack && NBTHelper.hasUUID(itemStack)){
                     if (itemStack.getTagCompound().getLong(ModInformation.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(ModInformation.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
                         return itemStack;
                     }
