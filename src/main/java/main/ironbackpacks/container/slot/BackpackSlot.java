@@ -1,4 +1,4 @@
-package main.ironbackpacks.container;
+package main.ironbackpacks.container.slot;
 
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import net.minecraft.inventory.IInventory;

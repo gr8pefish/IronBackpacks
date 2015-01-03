@@ -1,11 +1,11 @@
 package main.ironbackpacks.container;
 
+import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.inventory.InventoryBackpack;
+import main.ironbackpacks.items.backpacks.IronBackpackType;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 public class ContainerBackpack extends Container {
 

@@ -1,4 +1,4 @@
-package main.ironbackpacks.container;
+package main.ironbackpacks.items.backpacks;
 
 public enum IronBackpackType {
 

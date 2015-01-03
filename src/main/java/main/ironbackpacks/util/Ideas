@@ -1,9 +1,30 @@
 To Do:
 
+Figure out:
+    upgrade recipe while keeping inventory
+    how to add upgrades to backpacks
+        need a check so not multiple upgrades of same type
+        add tooltip depending on upgrades
+        extended shapelessRecipe with upgradeRecipe to customize input/output?
+
+Tiers:
+    Wood
+    Iron
+    Gold
+    Diamond
+
+    Reed
+    Leather
+    Feather
+
 Upgrades:
-    NEI search bar
-    buttons for moving from inventories quicker (backpack to inv, inv to backpack, inv+hot-bar to backpack)
+    Search upgrade - NEI search bar
+    Button upgrade - buttons for moving from inventories quicker (backpack to inv, inv to backpack, inv+hot-bar to backpack)
     Nesting upgrade - lower tier goes in higher tier
+    Hopper upgrade - keeps an item stocked
+    Condenser upgrade - compresses items
+    Filter upgrade - automatically picks up specified items
+    Inventory upgrade - extends inventory (probably only will be used in final tier)
 
 Misc features:
-    Shift click to rename
+    Shift click to open alternate gui to rename/edit upgrades

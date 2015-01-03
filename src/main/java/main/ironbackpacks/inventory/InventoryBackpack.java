@@ -1,15 +1,15 @@
 package main.ironbackpacks.inventory;
 
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.container.IronBackpackType;
+import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
 import java.util.UUID;
 
@@ -118,6 +118,46 @@ public class InventoryBackpack implements IInventory {
         return true; //handled by BackpackSlot
     }
 
+
+    public void saveNBT(){ //TODO - move so it saves only after crafted with an upgrade
+        ItemStack parentStack = findParentItemStack(player);
+        NBTTagCompound nbtTagCompound = parentStack.getTagCompound();
+
+        int[] savedData = getUpgradesFromNBT(parentStack);
+
+        //Save the upgrades, if any
+        NBTTagList tagList1 = new NBTTagList();
+        for (int i = 0; i < 3; i++){ //change so it chooses the correct upgrade slot to update in the save
+            if (savedData[i] == 0){  //alter so this line works with ^
+                NBTTagCompound tagCompound = new NBTTagCompound();
+                tagCompound.setByte("Upgrade", (byte) 1); //set the byte to the UpgradeConstants.values() that corresponds to whichever upgrade was used
+                tagList1.appendTag(tagCompound);
+            }
+        }
+        nbtTagCompound.setTag("Upgrades", tagList1);
+    }
+
+    public int[] getUpgradesFromNBT(ItemStack stack) {
+        int[] upgrades = new int[3]; //default [0,0,0]
+        if (stack != null) {
+            NBTTagCompound nbtTagCompound = stack.getTagCompound();
+            if (nbtTagCompound != null) {
+                if(nbtTagCompound.hasKey("Upgrades")) {
+                    NBTTagList tagList = nbtTagCompound.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND);
+                    for (int i = 0; i < tagList.tagCount(); i++) {
+                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                        int hasUpgrade = stackTag.getByte("Upgrade");
+                        if (hasUpgrade != 0){ //true
+                            upgrades[i] = hasUpgrade;
+                        }
+                    }
+                }
+            }
+        }
+        return upgrades;
+    }
+
+
     //credit to sapient for a lot of this saving code
     public void onGuiSaved(EntityPlayer entityPlayer){
         if (stack != null){
@@ -157,15 +197,17 @@ public class InventoryBackpack implements IInventory {
         if (stack != null) {
             nbtTagCompound = stack.getTagCompound();
 
-            if (nbtTagCompound != null && nbtTagCompound.hasKey("Items")) {
-                NBTTagList tagList = nbtTagCompound.getTagList("Items", 10);
-                this.inventory = new ItemStack[this.getSizeInventory()];
+            if (nbtTagCompound != null){
+                if (nbtTagCompound.hasKey("Items")) {
+                    NBTTagList tagList = nbtTagCompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+                    this.inventory = new ItemStack[this.getSizeInventory()];
 
-                for (int i = 0; i < tagList.tagCount(); i++) {
-                    NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    int j = stackTag.getByte("Slot");
-                    if (i >= 0 && i <= inventory.length) {
-                        this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                    for (int i = 0; i < tagList.tagCount(); i++) {
+                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                        int j = stackTag.getByte("Slot");
+                        if (i >= 0 && i <= inventory.length) {
+                            this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                        }
                     }
                 }
             }
@@ -177,7 +219,6 @@ public class InventoryBackpack implements IInventory {
 
         // Write the ItemStacks in the inventory to NBT
         NBTTagList tagList = new NBTTagList();
-
         for (int i = 0; i < inventory.length; i++) {
             if (inventory[i] != null) {
                 NBTTagCompound tagCompound = new NBTTagCompound();

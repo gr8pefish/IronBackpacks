@@ -2,6 +2,9 @@
 item.ironbackpacks:singleBackpack.name=Basic Backpack
 item.ironbackpacks:doubleBackpack.name=Advanced Backpack
 
+item.ironbackpacks:buttonUpgrade.name=Button Upgrade
+item.ironbackpacks:nestingUpgrade.name=Nesting Upgrade
+
 # Creative Tab
 itemGroup.ironbackpacks=Iron Backpacks
 

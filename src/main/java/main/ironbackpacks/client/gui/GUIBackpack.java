@@ -4,16 +4,14 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.container.ContainerBackpack;
-import main.ironbackpacks.container.IronBackpackType;
+import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.inventory.InventoryBackpack;
-import main.ironbackpacks.items.ItemRegistry;
+import main.ironbackpacks.items.upgrades.UpgradeTypes;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
@@ -53,19 +51,36 @@ public class GUIBackpack extends GuiContainer {
             return new ContainerBackpack(player, backpack, mainType, xSize, ySize);
         }
 
-        public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack) {
-            return new GUIBackpack(values()[backpack.getType().ordinal()], player, backpack);
+        public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack, int upgrade1, int upgrade2, int upgrade3) {
+            return new GUIBackpack(values()[backpack.getType().ordinal()], player, backpack, upgrade1, upgrade2, upgrade3);
         }
     }
 
     private GUI type;
 
-    private GUIBackpack(GUI type, EntityPlayer player, InventoryBackpack backpack) {
+//    private UpgradeTypes upgrade1;
+//    private UpgradeTypes upgrade2;
+//    private UpgradeTypes upgrade3;
+
+    private GUIBackpack(GUI type, EntityPlayer player, InventoryBackpack backpack, int upgrade1, int upgrade2, int upgrade3) {
         super(type.makeContainer(player, backpack));
         this.type = type;
         this.xSize = type.xSize;
         this.ySize = type.ySize;
         this.allowUserInput = false;
+
+        if (upgrade1 != 0){
+            UpgradeTypes upgrade = UpgradeTypes.values()[upgrade1];
+//            upgrade.doGuiAlteration(); TODO
+        }
+        if (upgrade2 != 0){
+            UpgradeTypes upgrade = UpgradeTypes.values()[upgrade2];
+//            this.upgrade2 = upgrade;
+        }
+        if (upgrade3 != 0){
+            UpgradeTypes upgrade = UpgradeTypes.values()[upgrade3];
+//            this.upgrade3 = upgrade;
+        }
     }
 
     @Override
@@ -83,5 +98,9 @@ public class GUIBackpack extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         this.fontRendererObj.drawString(StatCollector.translateToLocal("item." + ModInformation.ID + ":" + type.mainType.getName() + ".name"), 20, 6, 4210752); //TODO - dynamic sizing
         this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
+    }
+
+    public void buttonUpgrade(){
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 30 + 2, 4210752);
     }
 }
