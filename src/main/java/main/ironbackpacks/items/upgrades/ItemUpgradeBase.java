@@ -12,10 +12,6 @@ public abstract class ItemUpgradeBase extends ItemBase{
         this.typeID = typeID;
     }
 
-    public abstract void alterGui(); //changes the Gui by adding whatever the upgrade does, if anything
-
-    public abstract void alterContainer(); //changes the container by adding whatever the upgrade does, if anything
-
     public int getTypeID(){
         return this.typeID;
     }

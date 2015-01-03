@@ -6,6 +6,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import main.ironbackpacks.network.PacketHandler;
 import main.ironbackpacks.util.GuiHandler;
 import main.ironbackpacks.items.ItemRecipeRegistry;
 import main.ironbackpacks.items.ItemRegistry;
@@ -31,6 +32,7 @@ public class IronBackpacks {
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		PacketHandler.init();
 		ItemRegistry.registerItems();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());

@@ -7,6 +7,7 @@ import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.inventory.InventoryBackpack;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.upgrades.UpgradeTypes;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -21,18 +22,28 @@ import java.util.UUID;
 
 public class ItemBaseBackpack extends ItemBase {
 
-    protected int id;
+    private int guiId;
+    private int typeID;
     private int upgradeSlots;
+    private int upgradeIndex;
 
-    public ItemBaseBackpack(String unlocName, String textureName,int id, int upgradeSlots) {
+    public ItemBaseBackpack(String unlocName, String textureName,int id, int upgradeSlots, int typeID) {
         super(unlocName, textureName);
         setMaxStackSize(1);
-        this.id = id;
+        this.guiId = id;
+        this.typeID = typeID;
         this.upgradeSlots = upgradeSlots;
+        this.upgradeIndex = upgradeSlots-1;
     }
+
+    public int getTypeId() { return typeID;}
 
     public int getUpgradeSlots(){
         return upgradeSlots;
+    }
+
+    public int getUpgradeIndex(){
+        return upgradeIndex;
     }
 
     @Override
@@ -41,7 +52,7 @@ public class ItemBaseBackpack extends ItemBase {
             return itemStack;
         }else {
 //            NBTHelper.setUUID(itemStack); //TODO - need to add this in?
-            int[] upgrades;
+            int[] upgrades; //TODO - set upgrades when not right clicked - possible cause of error/bug
 
             if (!player.isSneaking()) {
                 upgrades = getUpgradesFromNBT(player, itemStack);
@@ -49,7 +60,7 @@ public class ItemBaseBackpack extends ItemBase {
                 int y = upgrades[1];
                 int z = upgrades[2];
 
-                player.openGui(IronBackpacks.instance, id, world, x, y, z);
+                player.openGui(IronBackpacks.instance, guiId, world, x, y, z);
                 return itemStack;
             }else{
                 return itemStack; //TODO - alternate GUI for renaming here
@@ -80,7 +91,6 @@ public class ItemBaseBackpack extends ItemBase {
 
     public int[] getUpgradesFromNBT(ItemStack stack) { //TODO - Unckecked
         int[] upgrades = new int[3]; //default [0,0,0]
-//        ItemStack stack = findParentItemStack(player, parent);
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
@@ -96,18 +106,17 @@ public class ItemBaseBackpack extends ItemBase {
                 }
             }
         }
-        System.out.println("Upgrades: "+upgrades[0]+upgrades[1]+upgrades[2]);
         return upgrades;
     }
 
     public ItemStack findParentItemStack(EntityPlayer entityPlayer, ItemStack stack){
         if (NBTHelper.hasUUID(stack)){
-            UUID parentUUID = new UUID(stack.getTagCompound().getLong(ModInformation.MOST_SIG_UUID), stack.getTagCompound().getLong(ModInformation.LEAST_SIG_UUID));
+            UUID parentUUID = new UUID(stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++){
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
                 if (itemStack != null && itemStack.getItem() instanceof ItemBaseBackpack && NBTHelper.hasUUID(itemStack)){
-                    if (itemStack.getTagCompound().getLong(ModInformation.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(ModInformation.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
+                    if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
                         return itemStack;
                     }
                 }
@@ -121,11 +130,8 @@ public class ItemBaseBackpack extends ItemBase {
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) {
         int[] upgrades = this.getUpgradesFromNBT(itemStack);
         for (int i = 0; i < this.upgradeSlots; i++){
-//            if (upgrades[i] == 0) {
-//                list.add("Empty upgrade slot");
-//            }else{
             list.add(UpgradeTypes.values()[upgrades[i]].getFancyName());
-//            }
         }
     }
+
 }

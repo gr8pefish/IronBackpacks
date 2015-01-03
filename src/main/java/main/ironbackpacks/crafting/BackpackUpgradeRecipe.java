@@ -1,6 +1,8 @@
 package main.ironbackpacks.crafting;
 
 import com.sun.istack.internal.Nullable;
+import main.ironbackpacks.inventory.InventoryBackpack;
+import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.ItemUpgradeBase;
 import main.ironbackpacks.items.upgrades.UpgradeTypes;
@@ -16,6 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.oredict.OreDictionary;
@@ -152,22 +155,24 @@ public class BackpackUpgradeRecipe implements IRecipe {
     }
 
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {\
+    public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
 
         ItemStack backpack = getFirstBackpack(inventoryCrafting);
         ItemStack result = backpack.copy();
         int[] upgrades = ((ItemBaseBackpack) result.getItem()).getUpgradesFromNBT(result);
         NBTTagCompound nbtTagCompound = result.getTagCompound();
-        boolean upgradeFound = false;
-//        NBTTagByteArray tagArray = new NBTTagByteArray(new byte[3]);
+
+        if (nbtTagCompound == null){
+            nbtTagCompound = new NBTTagCompound();
+            nbtTagCompound.setTag("Items", new NBTTagList());
+            result.setTagCompound(nbtTagCompound);
+        }
+
+        boolean upgradeFound = false; //will put upgrade in first valid slot
         NBTTagList tagList = new NBTTagList();
-//        NBTTagList subList = new NBTTagList();
-//        nbtTagCompound.setTag("Upgrades", new NBTTagList()); //this fixes crash
-        int counter = -1;
+        int currentSlot = 0;
         for (int integer : upgrades){
-            counter++;
-            System.out.println("Counter: " + counter);
-            if (integer == 0 && counter <= ((ItemBaseBackpack) result.getItem()).getUpgradeSlots()){ //If an empty upgrade slot and backpack can support upgrade
+            if (integer == 0 && currentSlot <= ((ItemBaseBackpack)result.getItem()).getUpgradeIndex() && !hasUpgradeAlready(upgrades, inventoryCrafting)){ //If an empty upgrade slot and backpack can support upgrade
                 if (!upgradeFound){
                     ItemStack upgrade = getFirstUpgrade(inventoryCrafting);
                     ItemUpgradeBase upgradeBase = (ItemUpgradeBase) upgrade.getItem();
@@ -175,26 +180,40 @@ public class BackpackUpgradeRecipe implements IRecipe {
                     tagCompound.setByte("Upgrade", (byte) upgradeBase.getTypeID());
                     tagList.appendTag(tagCompound);
                     upgradeFound = true;
-
-                    System.out.println("Setting upgrade slot: "+counter+" to "+UpgradeTypes.values()[upgradeBase.getTypeID()].getFancyName()); //TODO - not saving NBT upgrade data right?
                 }else{
                     NBTTagCompound tagCompound = new NBTTagCompound();
                     tagCompound.setByte("Upgrade", (byte) integer);
                     tagList.appendTag(tagCompound);
+                }
+            }else{
+                NBTTagCompound tagCompound = new NBTTagCompound();
+                tagCompound.setByte("Upgrade", (byte) integer);
+                tagList.appendTag(tagCompound);
+            }
+            currentSlot++;
+        }
 
-                    System.out.println("Setting upgrade slot: "+counter+" to default: "+integer);
+        nbtTagCompound.setTag("Upgrades", tagList);
+
+        if (upgradeFound) {
+            return result;
+        }else{
+            return null;
+        }
+    }
+
+    protected boolean hasUpgradeAlready(int[] upgrades, InventoryCrafting inventoryCrafting){
+        ItemStack upgrade = getFirstUpgrade(inventoryCrafting);
+        ItemUpgradeBase upgradeBase = (ItemUpgradeBase) upgrade.getItem();
+        for (int integer: upgrades) {
+            if (integer != 0) {
+                if (upgradeBase.getTypeID() == integer){
+                    return true;
                 }
             }
         }
-        nbtTagCompound.setTag("Upgrades", tagList); //TODO -crash here w/ null pointer
-//        nbtTagCompound.setIntArray("Upgrades", tagArray);
-        return result;
+        return false;
     }
-
-//    @Override
-//    public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
-//        return this.recipeOutput.copy();
-//    }
 
     @Override
     public int getRecipeSize() {

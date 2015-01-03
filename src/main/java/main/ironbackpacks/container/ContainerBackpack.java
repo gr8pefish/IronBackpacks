@@ -1,8 +1,12 @@
 package main.ironbackpacks.container;
 
 import main.ironbackpacks.container.slot.BackpackSlot;
+import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.inventory.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.util.IronBackpacksConstants;
+import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
@@ -37,9 +41,16 @@ public class ContainerBackpack extends Container {
     protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize, IronBackpackType type){
 
         //adds chest's slots
+        ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player);
+        int[] upgrades = ((ItemBaseBackpack) baseBackpack.getItem()).getUpgradesFromNBT(baseBackpack);
+
         for (int chestRow = 0; chestRow < type.getRowCount(); chestRow++) {
             for (int chestCol = 0; chestCol < type.getRowLength(); chestCol++) {
-                addSlotToContainer(new BackpackSlot(chestInventory, chestCol + chestRow * type.getRowLength(), 20 + chestCol * 18, 18 + chestRow * 18));
+                if (hasNestingUpgrade(upgrades[0], upgrades[1], upgrades[2])){
+                    addSlotToContainer(new NestingBackpackSlot(chestInventory, chestCol + chestRow * type.getRowLength(), 20 + chestCol * 18, 18 + chestRow * 18, this.type));
+                }else {
+                    addSlotToContainer(new BackpackSlot(chestInventory, chestCol + chestRow * type.getRowLength(), 20 + chestCol * 18, 18 + chestRow * 18));
+                }
             }
         }
 
@@ -61,6 +72,10 @@ public class ContainerBackpack extends Container {
         }
     }
 
+    protected boolean hasNestingUpgrade(int upgrade1, int upgrade2, int upgrade3){
+        return (upgrade1 == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID || upgrade2 == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID || upgrade3 == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID);
+    }
+
     @Override //copied from IronChests
     public ItemStack transferStackInSlot(EntityPlayer p, int i)
     {
@@ -70,17 +85,17 @@ public class ContainerBackpack extends Container {
         {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-            if (i < type.getSize())
+            if (i < type.getSize()) //if clicking from backpack to player
             {
                 if (!mergeItemStack(itemstack1, type.getSize(), inventorySlots.size(), true))
                 {
                     return null;
                 }
             }
-            else if (!BackpackSlot.acceptsStack(itemstack1))
-            {
+            else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1)){ //slot 1 is a backpackSlot
                 return null;
             }
+
             else if (!mergeItemStack(itemstack1, 0, type.getSize(), false))
             {
                 return null;
@@ -97,7 +112,6 @@ public class ContainerBackpack extends Container {
         return itemstack;
     }
 
-
     @Override
     public boolean canInteractWith(EntityPlayer player) {
         return true;
@@ -113,4 +127,27 @@ public class ContainerBackpack extends Container {
     }
 
     public EntityPlayer getPlayer() { return player; }
+
+    public void backpackToInventory(){
+        for (int i = 0; i <= type.getSize(); i++) {
+            transferStackInSlot(player, i);
+        }
+    }
+
+    public void inventoryToBackpack(){
+        int start = type.getSize();
+        int end = start + player.inventory.getSizeInventory() - player.inventory.getHotbarSize() - 4; //Not sure why it is 4 too large...
+        for (int i = start; i < end; i++){
+            transferStackInSlot(player, i);
+        }
+    }
+
+    public void hotbarToBackpack(){
+        int start = type.getSize() + player.inventory.getSizeInventory() - player.inventory.getHotbarSize() - 4;
+        int end = start + this.player.inventory.getHotbarSize();
+        for (int i = start; i < end; i++){
+            transferStackInSlot(player, i);
+        }
+    }
+
 }

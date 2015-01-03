@@ -28,8 +28,8 @@ public class ItemRecipeRegistry {
 		Item[] upgrades = ItemRegistry.getUpgrades();
 
 		for (Item backpack : backpacks){
-			for (Item upgrade : upgrades){ //TODO - uses basic backpacks, not the one currently in the crafting grid
-				GameRegistry.addRecipe(new BackpackUpgradeRecipe(new ItemStack(backpack), new ItemStack(upgrade), new ItemStack(backpack))); //TODO - just returns generic backpacks
+			for (Item upgrade : upgrades){
+				GameRegistry.addRecipe(new BackpackUpgradeRecipe(new ItemStack(backpack), new ItemStack(upgrade), new ItemStack(backpack)));
 			}
 		}
 	}

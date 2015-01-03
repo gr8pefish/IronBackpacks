@@ -3,6 +3,7 @@ package main.ironbackpacks.inventory;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -119,25 +120,7 @@ public class InventoryBackpack implements IInventory {
     }
 
 
-    public void saveNBT(){ //TODO - move so it saves only after crafted with an upgrade
-        ItemStack parentStack = findParentItemStack(player);
-        NBTTagCompound nbtTagCompound = parentStack.getTagCompound();
-
-        int[] savedData = getUpgradesFromNBT(parentStack);
-
-        //Save the upgrades, if any
-        NBTTagList tagList1 = new NBTTagList();
-        for (int i = 0; i < 3; i++){ //change so it chooses the correct upgrade slot to update in the save
-            if (savedData[i] == 0){  //alter so this line works with ^
-                NBTTagCompound tagCompound = new NBTTagCompound();
-                tagCompound.setByte("Upgrade", (byte) 1); //set the byte to the UpgradeConstants.values() that corresponds to whichever upgrade was used
-                tagList1.appendTag(tagCompound);
-            }
-        }
-        nbtTagCompound.setTag("Upgrades", tagList1);
-    }
-
-    public int[] getUpgradesFromNBT(ItemStack stack) {
+    public int[] getUpgradesFromNBT(ItemStack stack) { //TODO - use for init?
         int[] upgrades = new int[3]; //default [0,0,0]
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
@@ -178,12 +161,12 @@ public class InventoryBackpack implements IInventory {
 
     public ItemStack findParentItemStack(EntityPlayer entityPlayer){
         if (NBTHelper.hasUUID(stack)){
-            UUID parentUUID = new UUID(stack.getTagCompound().getLong(ModInformation.MOST_SIG_UUID), stack.getTagCompound().getLong(ModInformation.LEAST_SIG_UUID));
+            UUID parentUUID = new UUID(stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++){
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
                 if (itemStack != null && itemStack.getItem() instanceof ItemBaseBackpack && NBTHelper.hasUUID(itemStack)){
-                    if (itemStack.getTagCompound().getLong(ModInformation.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(ModInformation.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
+                    if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
                         return itemStack;
                     }
                 }
