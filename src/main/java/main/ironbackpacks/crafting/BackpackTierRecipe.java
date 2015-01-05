@@ -1,5 +1,6 @@
 package main.ironbackpacks.crafting;
 
+import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.ItemUpgradeBase;
 import net.minecraft.block.Block;
@@ -16,19 +17,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class BackpackUpgradeRecipe implements IRecipe {
+public class BackpackTierRecipe implements IRecipe {
 
     /** Is the ItemStack that you get when craft the recipe. */
     private final ItemStack recipeOutput;
     /** Is a List of ItemStack that composes the recipe. */
     public final List recipeItems;
 
-    public BackpackUpgradeRecipe(ItemStack recipeOutput, List recipeItems){
+    public BackpackTierRecipe(ItemStack recipeOutput, List recipeItems){
         this.recipeItems = recipeItems;
         this.recipeOutput = recipeOutput;
     }
 
-    public BackpackUpgradeRecipe(ItemStack recipeOutput, Object... items){
+    public BackpackTierRecipe(ItemStack recipeOutput, Object... items){
         this(recipeOutput, getItemStacks(items));
     }
 
@@ -37,6 +38,7 @@ public class BackpackUpgradeRecipe implements IRecipe {
         List<Object> recipeItems = new ArrayList<Object>();
         for (Object in : items)
         {
+            System.out.println("GOT AN ITEM: "+in.toString());
             if (in instanceof ItemStack)
                 recipeItems.add(((ItemStack) in).copy());
             else if (in instanceof Item)
@@ -47,7 +49,8 @@ public class BackpackUpgradeRecipe implements IRecipe {
                 recipeItems.add(OreDictionary.getOres((String) in));
             else
             {
-                String ret = "Invalid shapeless ore recipe: ";
+                System.out.println("THE CULPRIT: "+in.toString());
+                String ret = "Invalid shaped ore recipe: ";
                 for (Object tmp : items)
                     ret += tmp + ", ";
                 throw new RuntimeException(ret);
@@ -71,22 +74,6 @@ public class BackpackUpgradeRecipe implements IRecipe {
 
         return null;
     }
-
-    public static ItemStack getFirstUpgrade(InventoryCrafting inventoryCrafting){
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 3; ++j)
-            {
-                ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-
-                if (itemstack != null && (itemstack.getItem() instanceof ItemUpgradeBase))
-                    return itemstack;
-            }
-        }
-
-        return null;
-    }
-
 
     @Override
     public boolean matches(InventoryCrafting inventoryCrafting, World world)
@@ -146,62 +133,23 @@ public class BackpackUpgradeRecipe implements IRecipe {
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
 
+        ItemStack result;
         ItemStack backpack = getFirstBackpack(inventoryCrafting);
-        ItemStack result = backpack.copy();
-        int[] upgrades = ((ItemBaseBackpack) result.getItem()).getUpgradesFromNBT(result);
-        NBTTagCompound nbtTagCompound = result.getTagCompound();
+        NBTTagCompound nbtTagCompound = backpack.getTagCompound();
 
         if (nbtTagCompound == null){
             nbtTagCompound = new NBTTagCompound();
             nbtTagCompound.setTag("Items", new NBTTagList());
-            result.setTagCompound(nbtTagCompound);
+            nbtTagCompound.setTag("Upgrades", new NBTTagList());
+            backpack.setTagCompound(nbtTagCompound);
         }
 
-        boolean upgradeFound = false; //will put upgrade in first valid slot
-        NBTTagList tagList = new NBTTagList();
-        int currentSlot = 0;
-        for (int integer : upgrades){
-            if (integer == 0 && currentSlot <= ((ItemBaseBackpack)result.getItem()).getUpgradeIndex() && !hasUpgradeAlready(upgrades, inventoryCrafting)){ //If an empty upgrade slot and backpack can support upgrade
-                if (!upgradeFound){
-                    ItemStack upgrade = getFirstUpgrade(inventoryCrafting);
-                    ItemUpgradeBase upgradeBase = (ItemUpgradeBase) upgrade.getItem();
-                    NBTTagCompound tagCompound = new NBTTagCompound();
-                    tagCompound.setByte("Upgrade", (byte) upgradeBase.getTypeID());
-                    tagList.appendTag(tagCompound);
-                    upgradeFound = true;
-                }else{
-                    NBTTagCompound tagCompound = new NBTTagCompound();
-                    tagCompound.setByte("Upgrade", (byte) integer);
-                    tagList.appendTag(tagCompound);
-                }
-            }else{
-                NBTTagCompound tagCompound = new NBTTagCompound();
-                tagCompound.setByte("Upgrade", (byte) integer);
-                tagList.appendTag(tagCompound);
-            }
-            currentSlot++;
-        }
+        ItemBaseBackpack backpackItem = (ItemBaseBackpack)backpack.getItem();
+        Item[] backpacks = ItemRegistry.getBackpacks();
+        result = new ItemStack(backpacks[backpackItem.getTypeId()]);
+        result.setTagCompound(backpack.getTagCompound());
 
-        nbtTagCompound.setTag("Upgrades", tagList);
-
-        if (upgradeFound) {
-            return result;
-        }else{
-            return null;
-        }
-    }
-
-    protected boolean hasUpgradeAlready(int[] upgrades, InventoryCrafting inventoryCrafting){
-        ItemStack upgrade = getFirstUpgrade(inventoryCrafting);
-        ItemUpgradeBase upgradeBase = (ItemUpgradeBase) upgrade.getItem();
-        for (int integer: upgrades) {
-            if (integer != 0) {
-                if (upgradeBase.getTypeID() == integer){
-                    return true;
-                }
-            }
-        }
-        return false;
+        return result;
     }
 
     @Override

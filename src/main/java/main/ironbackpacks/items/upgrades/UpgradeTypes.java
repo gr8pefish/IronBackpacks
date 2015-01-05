@@ -1,10 +1,7 @@
 package main.ironbackpacks.items.upgrades;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
-import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.items.ItemRegistry;
-
-import java.lang.reflect.Method;
+import main.ironbackpacks.items.upgrades.upgradeItems.ItemButtonUpgrade;
+import main.ironbackpacks.items.upgrades.upgradeItems.ItemNestingUpgrade;
 
 public enum UpgradeTypes { //TODO - useless class?
 

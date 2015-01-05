@@ -1,8 +1,8 @@
 package main.ironbackpacks.items.upgrades;
 
-import main.ironbackpacks.client.gui.GUIBackpack;
+import main.ironbackpacks.client.gui.inventory.GUIBackpack;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.StatCollector;
 
 public enum UpgradeMethods {
 
@@ -30,5 +30,27 @@ public enum UpgradeMethods {
 
     public abstract void doGuiAlteration(GUIBackpack gui, FontRenderer fontRenderer, int xSize, int ySize);
     public abstract void doContainerAlteration();
+
+    public static boolean hasButtonUpgrade(int[] upgrades){
+        boolean hasUpgrade = false;
+        for (int i = 0; i < upgrades.length; i++){
+            if (upgrades[i] == IronBackpacksConstants.Upgrades.BUTTON_UPGRADE_ID){
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
+    public static boolean hasNestingUpgrade(int[] upgrades){
+        boolean hasUpgrade = false;
+        for (int i = 0; i < upgrades.length; i++){
+            if (upgrades[i] == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID){
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
 
 }

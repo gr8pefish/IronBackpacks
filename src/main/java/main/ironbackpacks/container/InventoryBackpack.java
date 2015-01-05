@@ -1,4 +1,4 @@
-package main.ironbackpacks.inventory;
+package main.ironbackpacks.container;
 
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.items.backpacks.IronBackpackType;

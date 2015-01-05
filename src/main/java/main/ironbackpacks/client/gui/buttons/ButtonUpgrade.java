@@ -1,4 +1,4 @@
-package main.ironbackpacks.client.gui;
+package main.ironbackpacks.client.gui.buttons;
 
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;

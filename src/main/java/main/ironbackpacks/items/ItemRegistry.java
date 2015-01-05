@@ -7,26 +7,32 @@ package main.ironbackpacks.items;
  */
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import main.ironbackpacks.items.backpacks.ItemDoubleBackpack;
-import main.ironbackpacks.items.backpacks.ItemSingleBackpack;
-import main.ironbackpacks.items.upgrades.ItemButtonUpgrade;
-import main.ironbackpacks.items.upgrades.ItemNestingUpgrade;
+import main.ironbackpacks.items.backpacks.backpackItems.ItemDiamondBackpack;
+import main.ironbackpacks.items.backpacks.backpackItems.ItemIronBackpack;
+import main.ironbackpacks.items.backpacks.backpackItems.ItemBasicBackpack;
+import main.ironbackpacks.items.backpacks.backpackItems.ItemGoldBackpack;
+import main.ironbackpacks.items.upgrades.upgradeItems.ItemButtonUpgrade;
+import main.ironbackpacks.items.upgrades.upgradeItems.ItemNestingUpgrade;
 import net.minecraft.item.Item;
 
 public class ItemRegistry {
 
 	//backpacks
-    public static Item singleBackpack;
-    public static Item doubleBackpack;
+    public static Item basicBackpack;
+    public static Item ironBackpack;
+    public static Item goldBackpack;
+    public static Item diamondBackpack;
 
     //upgrades
     public static Item buttonUpgrade;
     public static Item nestingUpgrade;
 
     public static Item[] getBackpacks(){
-        Item[] backpacks = new Item[2]; //TODO - change from hardcoded to dynamic
-        backpacks[0] = singleBackpack;
-        backpacks[1] = doubleBackpack;
+        Item[] backpacks = new Item[4]; //TODO - change from hardcoded to dynamic
+        backpacks[0] = basicBackpack;
+        backpacks[1] = ironBackpack;
+        backpacks[2] = goldBackpack;
+        backpacks[3] = diamondBackpack;
         return backpacks;
     }
 
@@ -42,10 +48,14 @@ public class ItemRegistry {
 	public static void registerItems() {
 
         //backpacks
-        singleBackpack = new ItemSingleBackpack();
-        GameRegistry.registerItem(singleBackpack, "Basic Backpack");
-        doubleBackpack = new ItemDoubleBackpack();
-        GameRegistry.registerItem(doubleBackpack, "Advanced Backpack");
+        basicBackpack = new ItemBasicBackpack();
+        GameRegistry.registerItem(basicBackpack, "basicBackpack");
+        ironBackpack = new ItemIronBackpack();
+        GameRegistry.registerItem(ironBackpack, "ironBackpack");
+        goldBackpack = new ItemGoldBackpack();
+        GameRegistry.registerItem(goldBackpack, "goldBackpack");
+        diamondBackpack = new ItemDiamondBackpack();
+        GameRegistry.registerItem(diamondBackpack, "diamondBackpack");
 
         //upgrades
         buttonUpgrade = new ItemButtonUpgrade();

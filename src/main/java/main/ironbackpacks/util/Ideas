@@ -1,30 +1,42 @@
 To Do:
+    Fancier config file
+
+
+Balance/Play With:
+
 
 Bugs:
-    Button upgrade applied only after it is opened once
+
 
 Figure out:
+    Damage Bar to show fullness? - with config show on/off
 
 Tiers:
-    Wood
-    Iron
-    Gold
-    Diamond
+    Leather[DONE]
+    Iron[DONE]
+    Gold[DONE]
+    Diamond[DONE]
 
     Reed
     Leather
     Feather
 
+Types:
+    Item
+    Barrel
+    Fluid - acts like bucket when right click
+
 Upgrades:
     Search upgrade - NEI search bar
-    Button upgrade[DONE] - add in backpack to inventory/backpack to hotbar by splitting up backpack to inventory into 2 buttons?
+    Button upgrade[DONE] - add another to move everything from inventory to backpack? Condense items button?
     Nesting upgrade[DONE] - lower tier goes in higher tier
     Hopper upgrade - keeps an item stocked
     Condenser upgrade - compresses items
     Filter upgrade - automatically picks up specified items
     Inventory upgrade - extends inventory (probably only will be used in final tier)
+    Camelpack upgrade - eat from it
+    Umbrella upgrade - slow fall
 
 Misc features:
     Shift click to open alternate gui to rename/edit upgrades
-
-    Barrel backpack/upgrade - decide which and implement
+    Add in colorable backpack recipe with dyes

@@ -2,10 +2,9 @@ package main.ironbackpacks.container;
 
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
-import main.ironbackpacks.inventory.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
-import main.ironbackpacks.util.IronBackpacksConstants;
+import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
@@ -46,7 +45,7 @@ public class ContainerBackpack extends Container {
 
         for (int chestRow = 0; chestRow < type.getRowCount(); chestRow++) {
             for (int chestCol = 0; chestCol < type.getRowLength(); chestCol++) {
-                if (hasNestingUpgrade(upgrades[0], upgrades[1], upgrades[2])){
+                if (UpgradeMethods.hasNestingUpgrade(upgrades)){
                     addSlotToContainer(new NestingBackpackSlot(chestInventory, chestCol + chestRow * type.getRowLength(), 20 + chestCol * 18, 18 + chestRow * 18, this.type));
                 }else {
                     addSlotToContainer(new BackpackSlot(chestInventory, chestCol + chestRow * type.getRowLength(), 20 + chestCol * 18, 18 + chestRow * 18));
@@ -70,10 +69,6 @@ public class ContainerBackpack extends Container {
         {
             addSlotToContainer(new Slot(playerInventory, hotbarSlot, leftCol + hotbarSlot * 18, ySize - 24));
         }
-    }
-
-    protected boolean hasNestingUpgrade(int upgrade1, int upgrade2, int upgrade3){
-        return (upgrade1 == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID || upgrade2 == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID || upgrade3 == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID);
     }
 
     @Override //copied from IronChests

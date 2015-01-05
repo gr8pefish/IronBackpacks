@@ -1,10 +1,7 @@
-package main.ironbackpacks.items.upgrades;
+package main.ironbackpacks.items.upgrades.upgradeItems;
 
-import main.ironbackpacks.client.gui.GUIBackpack;
+import main.ironbackpacks.items.upgrades.ItemUpgradeBase;
 import main.ironbackpacks.util.IronBackpacksConstants;
-import net.minecraft.util.StatCollector;
-
-import java.lang.reflect.Method;
 
 public class ItemButtonUpgrade extends ItemUpgradeBase {
 

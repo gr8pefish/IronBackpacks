@@ -3,8 +3,6 @@ package main.ironbackpacks.items.backpacks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.inventory.InventoryBackpack;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.upgrades.UpgradeTypes;
 import main.ironbackpacks.util.IronBackpacksConstants;
@@ -16,7 +14,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,7 +24,7 @@ public class ItemBaseBackpack extends ItemBase {
     private int upgradeSlots;
     private int upgradeIndex;
 
-    public ItemBaseBackpack(String unlocName, String textureName,int id, int upgradeSlots, int typeID) {
+    public ItemBaseBackpack(String unlocName, String textureName, int id, int upgradeSlots, int typeID) {
         super(unlocName, textureName);
         setMaxStackSize(1);
         this.guiId = id;
@@ -51,16 +48,9 @@ public class ItemBaseBackpack extends ItemBase {
         if (world.isRemote){
             return itemStack;
         }else {
-//            NBTHelper.setUUID(itemStack); //TODO - need to add this in?
-            int[] upgrades; //TODO - set upgrades when not right clicked - possible cause of error/bug
-
+            NBTHelper.setUUID(itemStack);
             if (!player.isSneaking()) {
-                upgrades = getUpgradesFromNBT(player, itemStack);
-                int x = upgrades[0];
-                int y = upgrades[1];
-                int z = upgrades[2];
-
-                player.openGui(IronBackpacks.instance, guiId, world, x, y, z);
+                player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ);
                 return itemStack;
             }else{
                 return itemStack; //TODO - alternate GUI for renaming here
