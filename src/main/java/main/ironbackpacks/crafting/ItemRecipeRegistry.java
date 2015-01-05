@@ -27,8 +27,6 @@ public class ItemRecipeRegistry {
 
 	public static void registerItemRecipes() {
 
-//		System.out.println(Item.itemRegistry.getObject("ironbackpacks:basicBackpack").toString());
-
 		registerBasicRecipe(ItemRegistry.basicBackpack, ConfigHandler.basicBackpackRecipe);
 
 		RecipeSorter.register("BackpackUpgrade", BackpackUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, "");
@@ -56,19 +54,9 @@ public class ItemRecipeRegistry {
 		String[] diamondBackpackRecipe = ConfigHandler.diamondBackpackRecipe;
 		String[][] recipes = {ironBackpackRecipe, goldBackpackRecipe, diamondBackpackRecipe};
 
-
-//		Item[] tierRecipeItems = new Item[3];
-//		tierRecipeItems[0] = Items.iron_ingot;
-//		tierRecipeItems[1] = Items.gold_ingot;
-//		tierRecipeItems[2] = Items.diamond;
-
 		for (int i = 1; i < backpacks.length; i++){ //start at 1 b/c first backpack can't be upgraded
 			Object[] theRecipe = getOreRecipe(recipes[i-1]);
 			GameRegistry.addRecipe(new BackpackTierRecipe(new ItemStack(backpacks[i]), theRecipe));
-//			GameRegistry.addRecipe(new BackpackTierRecipe(new ItemStack(backpacks[i]),
-//					new ItemStack(tierRecipeItems[i-1]), new ItemStack(tierRecipeItems[i-1]), new ItemStack(tierRecipeItems[i-1]),
-//							new ItemStack(tierRecipeItems[i-1]), new ItemStack(backpacks[i-1]), new ItemStack(tierRecipeItems[i-1]),
-//									new ItemStack(tierRecipeItems[i-1]), new ItemStack(tierRecipeItems[i-1]), new ItemStack(tierRecipeItems[i-1])));
 		}
 	}
 

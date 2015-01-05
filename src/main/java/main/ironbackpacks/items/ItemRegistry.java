@@ -59,9 +59,9 @@ public class ItemRegistry {
 
         //upgrades
         buttonUpgrade = new ItemButtonUpgrade();
-        GameRegistry.registerItem(buttonUpgrade, "Button Upgrade");
+        GameRegistry.registerItem(buttonUpgrade, "buttonUpgrade");
         nestingUpgrade = new ItemNestingUpgrade();
-        GameRegistry.registerItem(nestingUpgrade, "Nesting Upgrade");
+        GameRegistry.registerItem(nestingUpgrade, "nestingUpgrade");
 
 
 	}

@@ -12,51 +12,20 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class BackpackTierRecipe implements IRecipe {
+public class BackpackTierRecipe extends ShapedOreRecipe {
 
     /** Is the ItemStack that you get when craft the recipe. */
     private final ItemStack recipeOutput;
-    /** Is a List of ItemStack that composes the recipe. */
-    public final List recipeItems;
-
-    public BackpackTierRecipe(ItemStack recipeOutput, List recipeItems){
-        this.recipeItems = recipeItems;
-        this.recipeOutput = recipeOutput;
-    }
 
     public BackpackTierRecipe(ItemStack recipeOutput, Object... items){
-        this(recipeOutput, getItemStacks(items));
-    }
-
-    public static List<Object> getItemStacks(Object[] items)
-    {
-        List<Object> recipeItems = new ArrayList<Object>();
-        for (Object in : items)
-        {
-            System.out.println("GOT AN ITEM: "+in.toString());
-            if (in instanceof ItemStack)
-                recipeItems.add(((ItemStack) in).copy());
-            else if (in instanceof Item)
-                recipeItems.add(new ItemStack((Item) in));
-            else if (in instanceof Block)
-                recipeItems.add(new ItemStack((Block) in));
-            else if (in instanceof String)
-                recipeItems.add(OreDictionary.getOres((String) in));
-            else
-            {
-                System.out.println("THE CULPRIT: "+in.toString());
-                String ret = "Invalid shaped ore recipe: ";
-                for (Object tmp : items)
-                    ret += tmp + ", ";
-                throw new RuntimeException(ret);
-            }
-        }
-        return recipeItems;
+        super(recipeOutput, items);
+        this.recipeOutput = recipeOutput;
     }
 
     public static ItemStack getFirstBackpack(InventoryCrafting inventoryCrafting)
@@ -75,60 +44,6 @@ public class BackpackTierRecipe implements IRecipe {
         return null;
     }
 
-    @Override
-    public boolean matches(InventoryCrafting inventoryCrafting, World world)
-    {
-        ArrayList<Object> required = new ArrayList<Object>(this.recipeItems);
-
-        ItemStack backpack = getFirstBackpack(inventoryCrafting);
-        if (backpack == null)
-            return false;
-
-        for (int x = 0; x < inventoryCrafting.getSizeInventory(); x++)
-        {
-            ItemStack slot = inventoryCrafting.getStackInSlot(x);
-
-            if (slot != null)
-            {
-                boolean inRecipe = false;
-                Iterator<Object> req = required.iterator();
-
-                while (req.hasNext())
-                {
-                    boolean match = false;
-
-                    Object next = req.next();
-
-                    if (next instanceof ItemStack)
-                    {
-                        match = OreDictionary.itemMatches((ItemStack) next, slot, false);
-                    }
-                    else if (next instanceof ArrayList)
-                    {
-                        Iterator<ItemStack> itr = ((ArrayList<ItemStack>) next).iterator();
-                        while (itr.hasNext() && !match)
-                        {
-                            match = OreDictionary.itemMatches(itr.next(), slot, false);
-                        }
-                    }
-
-                    if (match)
-                    {
-                        inRecipe = true;
-                        required.remove(next);
-                        break;
-                    }
-                }
-
-                if (!inRecipe)
-                {
-                    return false;
-                }
-            }
-        }
-
-        return required.isEmpty();
-    }
 
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
@@ -150,11 +65,6 @@ public class BackpackTierRecipe implements IRecipe {
         result.setTagCompound(backpack.getTagCompound());
 
         return result;
-    }
-
-    @Override
-    public int getRecipeSize() {
-        return this.recipeItems.size();
     }
 
     @Override
