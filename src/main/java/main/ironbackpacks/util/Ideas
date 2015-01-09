@@ -1,15 +1,12 @@
 To Do:
-    Fancier config file
-
 
 Balance/Play With:
-
+    Fancier config file
+    Most of the default recipes
 
 Bugs:
 
-
 Figure out:
-    Damage Bar to show fullness? - with config show on/off
 
 Tiers:
     Leather[DONE]
@@ -30,17 +27,39 @@ Upgrades:
     Search upgrade - NEI search bar
     Button upgrade[DONE] - add another to move everything from inventory to backpack? Condense items button?
     Nesting upgrade[DONE] - lower tier goes in higher tier
+    Renaming upgrade[WIP] - rename the backpack, included by default -change background color of text box to light brown (see anvil) + redo button to say "rename"
     Hopper upgrade - keeps an item stocked
     Condenser upgrade - compresses items
     Filter upgrade - automatically picks up specified items
     Inventory upgrade - extends inventory (probably only will be used in final tier)
     Camelpack upgrade - eat from it
     Umbrella upgrade - slow fall
+    KeepOnDeath upgrade - really expensive but keep backpack on death
+    RemoveUpgrades upgrade - unlikely because difficulty implementing
+    UpgradeAddon upgrade - adds another upgrade slot
+
+Textures:
+    Change "name" button to "rename"
+
+    Redo:
+        Nest
+        Nest upgrade
+        Button Upgrade
+        all the backpacks?
+
+    Do:
+        Damage Bar Upgrade
+        Filter Upgrade
 
 Misc features:
-    Shift click to open alternate gui to rename/edit upgrades
     Add in colorable backpack recipe with dyes
+    Crafting - support damage values
+    Add tiers to upgrades (so you need at least tier x of backpack to apply it)
 
 Mod Support:
-    NEI with recipes
+    NEI with recipes[DONE]
     Inventory Tweaks
+
+Future Refactoring:
+    Change upgrades to be one item differentiated by damage value
+

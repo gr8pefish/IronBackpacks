@@ -1,4 +1,4 @@
-package main.ironbackpacks.container;
+package main.ironbackpacks.container.backpack;
 
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
@@ -8,6 +8,7 @@ import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ContainerBackpack extends Container {
@@ -105,6 +106,19 @@ public class ContainerBackpack extends Container {
             }
         }
         return itemstack;
+    }
+
+    public ItemStack transferStackInSlot(ItemStack itemToPutInBackpack)
+    {
+        ItemStack itemstack1 = itemToPutInBackpack;
+        if (!mergeItemStack(itemstack1, 0, type.getSize(), false))
+        {
+            return null;
+        }
+        else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1)){ //slot 1 is a backpackSlot
+            return null;
+        }
+        return itemToPutInBackpack;
     }
 
     @Override

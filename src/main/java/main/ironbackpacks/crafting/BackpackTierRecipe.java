@@ -60,8 +60,8 @@ public class BackpackTierRecipe extends ShapedOreRecipe {
         }
 
         ItemBaseBackpack backpackItem = (ItemBaseBackpack)backpack.getItem();
-        Item[] backpacks = ItemRegistry.getBackpacks();
-        result = new ItemStack(backpacks[backpackItem.getTypeId()]);
+        ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
+        result = new ItemStack(backpacks.get(backpackItem.getTypeId()));
         result.setTagCompound(backpack.getTagCompound());
 
         return result;

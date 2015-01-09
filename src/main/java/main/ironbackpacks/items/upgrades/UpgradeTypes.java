@@ -2,38 +2,27 @@ package main.ironbackpacks.items.upgrades;
 
 import main.ironbackpacks.items.upgrades.upgradeItems.ItemButtonUpgrade;
 import main.ironbackpacks.items.upgrades.upgradeItems.ItemNestingUpgrade;
+import net.minecraft.util.StatCollector;
 
-public enum UpgradeTypes { //TODO - useless class?
+public enum UpgradeTypes { //TODO - refactor, only used in tooltip
 
-    NONE("Empty Upgrade Slot", null, null),
-    BUTTON("Button Upgrade", ItemButtonUpgrade.class, null),
-    NESTING("Nesting Upgrade", null, ItemNestingUpgrade.class);
+    NONE(StatCollector.translateToLocal("emptyUpgradeSlot")),
+    BUTTON(StatCollector.translateToLocal("item.ironbackpacks:buttonUpgrade.name")),
+    NESTING(StatCollector.translateToLocal("item.ironbackpacks:nestingUpgrade.name")),
+    DAMAGE_BAR(StatCollector.translateToLocal("item.ironbackpacks:damageBarUpgrade.name")),
+    RENAMING(StatCollector.translateToLocal("item.ironbackpacks:renamingUpgrade.name")),
+    FILTER(StatCollector.translateToLocal("item.ironbackpacks:filterUpgrade.name")),
+    HOPPER(StatCollector.translateToLocal("item.ironbackpacks:hopperUpgrade.name")),
+    CONDENSER(StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"));
 
     public String fancyName;
-    public Class guiMethod;
-    public Class containerMethod;
 
-    UpgradeTypes(String fancyName, Class guiMethod, Class containerMethod){
+    UpgradeTypes(String fancyName){
         this.fancyName = fancyName;
-        this.guiMethod = guiMethod;                 //method to call that changes the gui
-        this.containerMethod = containerMethod; //method to call that changes the container
     }
 
     public String getFancyName(){
         return this.fancyName;
     }
 
-//    public void doGuiAlteration(){
-//        if (guiMethod != null) {
-//            Method alterGui = ReflectionUtil.getMethod(guiMethod, "alterGui", null);
-//            ReflectionUtil.invokeMethod(alterGui, guiMethod, null);
-//        }
-//    }
-//
-//    public void doContainerAlteration(){
-//        if (containerMethod != null) {
-//            Method alterContainer = ReflectionUtil.getMethod(containerMethod, "alterContainer", null);
-//            ReflectionUtil.invokeMethod(alterContainer, containerMethod, null);
-//        }
-//    }
 }

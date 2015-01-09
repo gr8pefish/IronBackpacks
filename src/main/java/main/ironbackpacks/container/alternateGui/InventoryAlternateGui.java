@@ -1,9 +1,11 @@
-package main.ironbackpacks.container;
+package main.ironbackpacks.container.alternateGui;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksConstants;
+import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -14,32 +16,30 @@ import net.minecraftforge.common.util.Constants;
 
 import java.util.UUID;
 
-public class InventoryBackpack implements IInventory {
+public class InventoryAlternateGui implements IInventory{
 
     public ItemStack stack;
     public EntityPlayer player;
     protected ItemStack[] inventory;
-    private IronBackpackType type;
+    public IronBackpackType type;
 
-    //Instantiated from GuiHandler
-    public InventoryBackpack(EntityPlayer player, ItemStack itemStack, IronBackpackType type){
+    protected int invSize = 0; //TODO - resize depending on numberOfAlternateGuiUpgrades
+
+    public InventoryAlternateGui(EntityPlayer player, ItemStack itemStack, IronBackpackType type){
 
         this.stack = itemStack;
         this.player = player;
-
         this.type = type;
+
+        this.invSize = UpgradeMethods.getAlternateGuiUpgradeSlots(IronBackpacksHelper.getUpgradesFromNBT(itemStack));
         this.inventory = new ItemStack[this.getSizeInventory()];
 
         readFromNBT(stack.getTagCompound());
     }
 
-    public IronBackpackType getType(){
-        return type;
-    }
-
     @Override
     public int getSizeInventory() {
-        return type.getSize();
+        return invSize;
     }
 
     @Override
@@ -64,6 +64,7 @@ public class InventoryBackpack implements IInventory {
         else {
             return null;
         }
+//        return null;
     }
 
     @Override
@@ -96,7 +97,7 @@ public class InventoryBackpack implements IInventory {
 
     @Override
     public void markDirty() {
-    //
+        //
     }
 
     @Override
@@ -106,40 +107,18 @@ public class InventoryBackpack implements IInventory {
 
     @Override
     public void openInventory() {
-    //
+        //
     }
 
     @Override
     public void closeInventory() {
-    //
+        //
     }
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
         return true; //handled by BackpackSlot
     }
-
-
-    public int[] getUpgradesFromNBT(ItemStack stack) { //TODO - use for init?
-        int[] upgrades = new int[3]; //default [0,0,0]
-        if (stack != null) {
-            NBTTagCompound nbtTagCompound = stack.getTagCompound();
-            if (nbtTagCompound != null) {
-                if(nbtTagCompound.hasKey("Upgrades")) {
-                    NBTTagList tagList = nbtTagCompound.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND);
-                    for (int i = 0; i < tagList.tagCount(); i++) {
-                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int hasUpgrade = stackTag.getByte("Upgrade");
-                        if (hasUpgrade != 0){ //true
-                            upgrades[i] = hasUpgrade;
-                        }
-                    }
-                }
-            }
-        }
-        return upgrades;
-    }
-
 
     //credit to sapient for a lot of this saving code
     public void onGuiSaved(EntityPlayer entityPlayer){
@@ -181,8 +160,8 @@ public class InventoryBackpack implements IInventory {
             nbtTagCompound = stack.getTagCompound();
 
             if (nbtTagCompound != null){
-                if (nbtTagCompound.hasKey("Items")) {
-                    NBTTagList tagList = nbtTagCompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+                if (nbtTagCompound.hasKey("Filter")) {
+                    NBTTagList tagList = nbtTagCompound.getTagList("Filter", Constants.NBT.TAG_COMPOUND);
                     this.inventory = new ItemStack[this.getSizeInventory()];
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
@@ -210,8 +189,9 @@ public class InventoryBackpack implements IInventory {
                 tagList.appendTag(tagCompound);
             }
         }
-        nbtTagCompound.setTag("Items", tagList);
+        nbtTagCompound.setTag("Filter", tagList);
     }
 
 
 }
+

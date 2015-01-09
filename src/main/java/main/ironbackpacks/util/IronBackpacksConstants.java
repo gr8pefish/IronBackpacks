@@ -17,8 +17,16 @@ public class IronBackpacksConstants {
     }
 
     public static final class Upgrades{
+
         public static final int BUTTON_UPGRADE_ID = 1;
         public static final int NESTING_UPGRADE_ID = 2;
+        public static final int DAMAGE_BAR_UPGRADE_ID = 3;
+
+        //Alternate Gui
+        public static final int RENAMING_UPGRADE_ID = 4;
+        public static final int FILTER_UPGRADE_ID = 5;
+        public static final int HOPPER_UPGRADE_ID = 6;
+        public static final int CONDENSER_UPGRADE_ID = 7;
     }
 
     public static final class Gui{
@@ -28,7 +36,7 @@ public class IronBackpacksConstants {
     }
 
     public static final class Resources {
-        public static final ResourceLocation WIDGETS = new ResourceLocation(ModInformation.ID, "textures/guis/widgets_dl.png");
+        public static final ResourceLocation WIDGETS = new ResourceLocation(ModInformation.ID, "textures/guis/widgets.png");
     }
 
     public static final class Miscellaneous{

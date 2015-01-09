@@ -4,17 +4,19 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.client.gui.buttons.ButtonUpgrade;
-import main.ironbackpacks.container.ContainerBackpack;
+import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
-import main.ironbackpacks.container.InventoryBackpack;
+import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.network.IronBackpacksMessage;
-import main.ironbackpacks.network.PacketHandler;
+import main.ironbackpacks.network.ButtonUpgradeMessage;
+import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
@@ -79,6 +81,7 @@ public class GUIBackpack extends GuiContainer {
 
     private GUI type;
     private ContainerBackpack container;
+    private EntityPlayer player;
 
     private ButtonUpgrade backpack_to_inventory_BUTTON;
     private ButtonUpgrade inventory_to_backpack_BUTTON;
@@ -91,6 +94,7 @@ public class GUIBackpack extends GuiContainer {
         super(type.makeContainer(player, backpack));
         this.container = (ContainerBackpack) type.makeContainer(player, backpack);
         this.type = type;
+        this.player = player;
         this.xSize = type.xSize;
         this.ySize = type.ySize;
         this.allowUserInput = false;
@@ -129,7 +133,8 @@ public class GUIBackpack extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("item." + ModInformation.ID + ":" + type.mainType.getName() + ".name"), 20, 6, 4210752);
+        ItemStack itemStack = IronBackpacksHelper.getBackpack(this.player);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752);
         this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
     }
 
@@ -137,13 +142,13 @@ public class GUIBackpack extends GuiContainer {
     protected void actionPerformed(GuiButton button) {
         if (button == backpack_to_inventory_BUTTON) {
             this.container.backpackToInventory();
-            PacketHandler.INSTANCE.sendToServer(new IronBackpacksMessage(IronBackpacksMessage.BACKPACK_TO_INVENTORY));
+            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.BACKPACK_TO_INVENTORY));
         } else if (button == inventory_to_backpack_BUTTON) {
             this.container.inventoryToBackpack();
-            PacketHandler.INSTANCE.sendToServer(new IronBackpacksMessage(IronBackpacksMessage.INVENTORY_TO_BACKPACK));
+            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.INVENTORY_TO_BACKPACK));
         } else if (button == hotbar_to_backpack_BUTTON) {
             this.container.hotbarToBackpack();
-            PacketHandler.INSTANCE.sendToServer(new IronBackpacksMessage(IronBackpacksMessage.HOTBAR_TO_BACKPACK));
+            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.HOTBAR_TO_BACKPACK));
         }
     }
 

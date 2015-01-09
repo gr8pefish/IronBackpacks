@@ -6,19 +6,22 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import main.ironbackpacks.container.ContainerBackpack;
+import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
+import main.ironbackpacks.container.backpack.ContainerBackpack;
 
-public class IronBackpacksMessage implements IMessage {
+public class ButtonUpgradeMessage implements IMessage {
 
-    int action;
+    private int action;
 
     public static final int BACKPACK_TO_INVENTORY = 1;
     public static final int INVENTORY_TO_BACKPACK = 2;
     public static final int HOTBAR_TO_BACKPACK = 3;
 
-    public IronBackpacksMessage() {}
+    public static final int RENAME = 4;
 
-    public IronBackpacksMessage(int action) {
+    public ButtonUpgradeMessage() {}
+
+    public ButtonUpgradeMessage(int action) {
         this.action = action;
     }
 
@@ -32,10 +35,10 @@ public class IronBackpacksMessage implements IMessage {
         ByteBufUtils.writeVarShort(buf, action);
     }
 
-    public static class Handler implements IMessageHandler<IronBackpacksMessage, IMessage> {
+    public static class Handler implements IMessageHandler<ButtonUpgradeMessage, IMessage> {
 
         @Override
-        public IMessage onMessage(IronBackpacksMessage message, MessageContext ctx) {
+        public IMessage onMessage(ButtonUpgradeMessage message, MessageContext ctx) {
             ContainerBackpack container;
             switch (message.action) {
                 case BACKPACK_TO_INVENTORY:

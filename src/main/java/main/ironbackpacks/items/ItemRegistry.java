@@ -11,9 +11,14 @@ import main.ironbackpacks.items.backpacks.backpackItems.ItemDiamondBackpack;
 import main.ironbackpacks.items.backpacks.backpackItems.ItemIronBackpack;
 import main.ironbackpacks.items.backpacks.backpackItems.ItemBasicBackpack;
 import main.ironbackpacks.items.backpacks.backpackItems.ItemGoldBackpack;
-import main.ironbackpacks.items.upgrades.upgradeItems.ItemButtonUpgrade;
-import main.ironbackpacks.items.upgrades.upgradeItems.ItemNestingUpgrade;
+import main.ironbackpacks.items.craftingItems.ItemNest;
+import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
+import main.ironbackpacks.items.upgrades.upgradeItems.*;
+import main.ironbackpacks.util.ConfigHandler;
 import net.minecraft.item.Item;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class ItemRegistry {
 
@@ -26,20 +31,36 @@ public class ItemRegistry {
     //upgrades
     public static Item buttonUpgrade;
     public static Item nestingUpgrade;
+    public static Item renamingUpgrade;
+    public static Item damageBarUpgrade;
+    public static Item filterUpgrade;
+    public static Item hopperUpgrade;
+    public static Item condenserUpgrade;
 
-    public static Item[] getBackpacks(){
-        Item[] backpacks = new Item[4]; //TODO - change from hardcoded to dynamic
-        backpacks[0] = basicBackpack;
-        backpacks[1] = ironBackpack;
-        backpacks[2] = goldBackpack;
-        backpacks[3] = diamondBackpack;
+    //misc
+    public static Item nest;
+    public static Item upgradeCore;
+
+    public static ArrayList<Item> getBackpacks(){
+        ArrayList<Item> backpacks = new ArrayList<Item>();
+        backpacks.add(basicBackpack);
+        backpacks.add(ironBackpack);
+        backpacks.add(goldBackpack);
+        backpacks.add(diamondBackpack);
         return backpacks;
     }
 
-    public static Item[] getUpgrades(){
-        Item[] upgrades = new Item[2];
-        upgrades[0] = buttonUpgrade;
-        upgrades[1] = nestingUpgrade;
+    public static ArrayList<Item> getUpgrades(){
+        ArrayList<Item> upgrades = new ArrayList<Item>();
+        upgrades.add(buttonUpgrade);
+        upgrades.add(nestingUpgrade);
+        if (ConfigHandler.renamingUpgradeRequired){
+            upgrades.add(renamingUpgrade);
+        }
+        upgrades.add(damageBarUpgrade);
+        upgrades.add(filterUpgrade);
+        upgrades.add(hopperUpgrade);
+        upgrades.add(condenserUpgrade);
         return upgrades;
     }
 
@@ -62,6 +83,24 @@ public class ItemRegistry {
         GameRegistry.registerItem(buttonUpgrade, "buttonUpgrade");
         nestingUpgrade = new ItemNestingUpgrade();
         GameRegistry.registerItem(nestingUpgrade, "nestingUpgrade");
+        if (ConfigHandler.renamingUpgradeRequired){
+            renamingUpgrade = new ItemRenamingUpgrade();
+            GameRegistry.registerItem(renamingUpgrade, "renamingUpgrade");
+        }
+        damageBarUpgrade = new ItemDamageBarUpgrade();
+        GameRegistry.registerItem(damageBarUpgrade, "damageBarUpgrade");
+        filterUpgrade = new ItemFilterUpgrade();
+        GameRegistry.registerItem(filterUpgrade, "filterUpgrade");
+        hopperUpgrade = new ItemHopperUpgrade();
+        GameRegistry.registerItem(hopperUpgrade, "hopperUpgrade");
+        condenserUpgrade = new ItemCondenserUpgrade();
+        GameRegistry.registerItem(condenserUpgrade, "condenserUpgrade");
+
+        //misc
+        nest = new ItemNest();
+        GameRegistry.registerItem(nest, "nest");
+        upgradeCore = new ItemUpgradeCore();
+        GameRegistry.registerItem(upgradeCore, "upgradeCore");
 
 
 	}
