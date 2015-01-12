@@ -1,7 +1,9 @@
 package main.ironbackpacks.container.alternateGui;
 
 import main.ironbackpacks.container.backpack.InventoryBackpack;
+import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.GhostSlot;
+import main.ironbackpacks.container.slot.MaxStackSizeOneSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,31 +37,14 @@ public class ContainerAlternateGui extends Container {
 
     protected void layoutContainer(IInventory playerInventory, IInventory customInv, int xSize, int ySize){
 
-//        //adds chest's slots
-//        ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player);
-//        int[] upgrades = ((ItemBaseBackpack) baseBackpack.getItem()).getUpgradesFromNBT(baseBackpack);
-//
-//        for (int chestRow = 0; chestRow < type.getRowCount(); chestRow++) {
-//            for (int chestCol = 0; chestCol < type.getRowLength(); chestCol++) {
-//                if (UpgradeMethods.hasNestingUpgrade(upgrades)){
-//                    addSlotToContainer(new NestingBackpackSlot(chestInventory, chestCol + chestRow * type.getRowLength(), 20 + chestCol * 18, 18 + chestRow * 18, this.type));
-//                }else {
-//                    addSlotToContainer(new BackpackSlot(chestInventory, chestCol + chestRow * type.getRowLength(), 20 + chestCol * 18, 18 + chestRow * 18));
-//                }
-//            }
-//        }
-
         //adds slots depending on upgrades
         int rowCount = (int) Math.floor(customInv.getSizeInventory() / 9);
-        boolean hasHopperUpgrade = customInv.getSizeInventory() % 9 == 1;  //since hopper upgrade is only one slot
-        int yStart = UpgradeMethods.hasRenamingUpgrade(IronBackpacksHelper.getUpgradesFromNBT(IronBackpacksHelper.getBackpack(player))) ? 20 : 40;
+        int colCount = 9;
+        int yStart = UpgradeMethods.hasRenamingUpgrade(IronBackpacksHelper.getUpgradesFromNBT(IronBackpacksHelper.getBackpack(player))) ? 18 : 0;
         for (int row = 0; row < rowCount; row++){
-            int colCount = hasHopperUpgrade ? 1 : 9; //will place the hopper upgrade slot first
-            hasHopperUpgrade = false;
-            yStart += 35;
+            yStart += 36;
             for (int col = 0; col < colCount; col++){
-                int xSpot = colCount == 1 ? 70 : 20 + col * 18; //center if it hopper slot
-                addSlotToContainer(new GhostSlot(customInv, col + row * colCount, xSpot, yStart));
+                addSlotToContainer(new MaxStackSizeOneSlot(customInv, row + col * rowCount, 20 + (col * 18), yStart)); //TODO - ghostSlot
             }
         }
 
@@ -82,6 +67,13 @@ public class ContainerAlternateGui extends Container {
         }
     }
 
+    @Override //disables shift-clicking (because ghost slots)
+    public ItemStack transferStackInSlot(EntityPlayer p, int i) //TODO? - depends upon implementation of ghostSlot
+    {
+        return null;
+    }
+
+
     @Override
     public boolean canInteractWith(EntityPlayer player) {
         return true;
@@ -91,9 +83,9 @@ public class ContainerAlternateGui extends Container {
     public void onContainerClosed(EntityPlayer player) {
         super.onContainerClosed(player);
 
-//        if (!player.worldObj.isRemote) {
-//            this.inventory.onGuiSaved(player);
-//        }
+        if (!player.worldObj.isRemote) {
+            this.inventory.onGuiSaved(player);
+        }
     }
 
     public EntityPlayer getPlayer() { return player; }

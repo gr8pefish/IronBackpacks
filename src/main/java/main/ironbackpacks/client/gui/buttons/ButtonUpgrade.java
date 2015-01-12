@@ -11,6 +11,8 @@ public class ButtonUpgrade extends GuiButton {
     public static final int INVENTORY_TO_BACKPACK = 1;
     public static final int HOTBAR_TO_BACKPACK = 2;
 
+    public static final int CONDENSE_BACKPACK = 3;
+
     public static final ResourceLocation widgetTextures = IronBackpacksConstants.Resources.WIDGETS;
 
     private int iconOffsetX = 0;
@@ -28,6 +30,9 @@ public class ButtonUpgrade extends GuiButton {
         } else if (type == BACKPACK_TO_INVENTORY) {
             iconOffsetX = 64;
             iconOffsetY = 0;
+        } else if (type == CONDENSE_BACKPACK) {
+            iconOffsetX = 64;
+            iconOffsetY = 48;
         }
     }
 

@@ -28,13 +28,13 @@ public class GUIBackpack extends GuiContainer {
     public enum ResourceList { //TODO - move to constants?
 
         BASIC(new ResourceLocation(ModInformation.ID,
-                "textures/guis/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png")),
+                "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png")),
         IRON(new ResourceLocation(ModInformation.ID,
-                "textures/guis/"+String.valueOf(ConfigHandler.enumIronBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpack.sizeX.getValue())+".png")),
+                "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpack.sizeX.getValue())+".png")),
         GOLD(new ResourceLocation(ModInformation.ID,
-                "textures/guis/"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeX.getValue())+".png")),
+                "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeX.getValue())+".png")),
         DIAMOND(new ResourceLocation(ModInformation.ID,
-                "textures/guis/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"));
+                "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"));
 
         public final ResourceLocation location;
 
@@ -86,6 +86,7 @@ public class GUIBackpack extends GuiContainer {
     private ButtonUpgrade backpack_to_inventory_BUTTON;
     private ButtonUpgrade inventory_to_backpack_BUTTON;
     private ButtonUpgrade hotbar_to_backpack_BUTTON;
+    private ButtonUpgrade condense_backpack_BUTTON;
     private boolean hasAButtonUpgrade;
 
 //    private int[] upgrades;
@@ -117,6 +118,7 @@ public class GUIBackpack extends GuiContainer {
             this.buttonList.add(this.backpack_to_inventory_BUTTON =  new ButtonUpgrade(1, xStart - 20, yStart - 96, 11, 11, ButtonUpgrade.BACKPACK_TO_INVENTORY));
             this.buttonList.add(this.hotbar_to_backpack_BUTTON    =  new ButtonUpgrade(2, xStart - 40, yStart - 96, 11, 11, ButtonUpgrade.HOTBAR_TO_BACKPACK));
             this.buttonList.add(this.inventory_to_backpack_BUTTON =  new ButtonUpgrade(3, xStart - 60, yStart - 96, 11, 11, ButtonUpgrade.INVENTORY_TO_BACKPACK));
+            this.buttonList.add(this.condense_backpack_BUTTON     =  new ButtonUpgrade(4, xStart - 80, yStart - 96, 11, 11, ButtonUpgrade.CONDENSE_BACKPACK));
         }
     }
 
@@ -149,6 +151,10 @@ public class GUIBackpack extends GuiContainer {
         } else if (button == hotbar_to_backpack_BUTTON) {
             this.container.hotbarToBackpack();
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.HOTBAR_TO_BACKPACK));
+        } else if (button == condense_backpack_BUTTON) {
+            System.out.println("CLIENT SIDE");
+            this.container.condenseBackpack(this.player);
+            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.CONDENSE_BACKPACK));
         }
     }
 

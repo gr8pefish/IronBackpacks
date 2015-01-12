@@ -111,8 +111,9 @@ public class ContainerBackpack extends Container {
     public ItemStack transferStackInSlot(ItemStack itemToPutInBackpack)
     {
         ItemStack itemstack1 = itemToPutInBackpack;
-        if (!mergeItemStack(itemstack1, 0, type.getSize(), false))
+        if (!mergeItemStack(itemstack1, 0, type.getSize(), false)) //stack, startIndex, endIndex,
         {
+            System.out.println("Failing here"); //TODO - something is wrong here
             return null;
         }
         else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1)){ //slot 1 is a backpackSlot
@@ -131,6 +132,13 @@ public class ContainerBackpack extends Container {
         super.onContainerClosed(player);
 
         if (!player.worldObj.isRemote) {
+            this.inventory.onGuiSaved(player);
+        }
+    }
+
+    public void save(EntityPlayer player) {
+        if (!player.worldObj.isRemote) {
+            System.out.println("SAVING");
             this.inventory.onGuiSaved(player);
         }
     }
@@ -157,6 +165,32 @@ public class ContainerBackpack extends Container {
         for (int i = start; i < end; i++){
             transferStackInSlot(player, i);
         }
+    }
+
+    public void condenseBackpack(EntityPlayer player){ //HERE IS THE ERROR
+        System.out.println("Before changes");
+        for (int i = 0; i <= type.getSize(); i++) {
+            ItemStack currStack = inventory.getStackInSlot(i);
+            if (currStack != null) {
+                System.out.println("Item in slot: "+i+") "+inventory.getStackInSlot(i));
+                if (currStack.stackSize == 0){
+                    inventory.setInventorySlotContents(i, null);
+                }else {
+                    mergeItemStack(inventory.getStackInSlot(i), 0, type.getSize(), false);
+                }
+            }
+        }
+        System.out.println("After changes");
+        for (int i = 0; i <= type.getSize(); i++) {
+            ItemStack currStack = inventory.getStackInSlot(i);
+            if (currStack != null) {
+                System.out.println("Item in slot: " + i + ") " + inventory.getStackInSlot(i));
+//                if (currStack.stackSize == 0) { //NOT-IDEAL HACK
+//                    inventory.setInventorySlotContents(i, null);
+//                }
+            }
+        }
+//        save(player); //not needed
     }
 
 }

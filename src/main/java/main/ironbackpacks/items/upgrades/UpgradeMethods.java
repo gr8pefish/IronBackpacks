@@ -13,6 +13,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
+import java.util.ArrayList;
+
 public enum UpgradeMethods {
 
     NONE{
@@ -121,19 +123,20 @@ public enum UpgradeMethods {
         return hasUpgrade;
     }
 
+    //note - doesn't include renaming upgrade
     public static int getAlternateGuiUpgradesCount(int[] upgrades){ //TODO - make these more dynamic
         int numberOfUpgrades = 0;
         if (!ConfigHandler.renamingUpgradeRequired) {
             numberOfUpgrades = 1;
             for (int i = 0; i < upgrades.length; i++) {
-                if (upgrades[i] == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID || upgrades[i] == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
+                if (upgrades[i] == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
                         upgrades[i] == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrades[i] == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
             }
         }else{
             for (int i = 0; i < upgrades.length; i++) {
-                if (upgrades[i] == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID || upgrades[i] == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
+                if (upgrades[i] == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
                         upgrades[i] == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrades[i] == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
@@ -142,21 +145,45 @@ public enum UpgradeMethods {
         return numberOfUpgrades;
     }
 
-    public static Item[] getFilterItems(ItemStack stack){
-        Item[] returnArray = new Item[9]; //TODO - hardcoded
-
-        ItemBaseBackpack backpack = ((ItemBaseBackpack) stack.getItem());
-
+    public static ArrayList<ItemStack> getFilterItems(ItemStack stack){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
         if (nbtTagCompound != null){
             if (nbtTagCompound.hasKey("Filter")) {
                 NBTTagList tagList = nbtTagCompound.getTagList("Filter", Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    int j = stackTag.getByte("Slot");
-                    if (i >= 0 && i <= 9) { //TODO - hardcoded
-                        returnArray[j] = ItemStack.loadItemStackFromNBT(stackTag).getItem();
-                    }
+                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    public static ArrayList<ItemStack> getHopperItems(ItemStack stack){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        if (nbtTagCompound != null){
+            if (nbtTagCompound.hasKey("Hopper")) {
+                NBTTagList tagList = nbtTagCompound.getTagList("Hopper", Constants.NBT.TAG_COMPOUND);
+                for (int i = 0; i < tagList.tagCount(); i++) {
+                    NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    public static ArrayList<ItemStack> getCondenserItems(ItemStack stack){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        if (nbtTagCompound != null){
+            if (nbtTagCompound.hasKey("Condenser")) {
+                NBTTagList tagList = nbtTagCompound.getTagList("Condenser", Constants.NBT.TAG_COMPOUND);
+                for (int i = 0; i < tagList.tagCount(); i++) {
+                    NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
                 }
             }
         }
@@ -166,7 +193,8 @@ public enum UpgradeMethods {
     public static int getAlternateGuiUpgradeSlots(int[] upgrades) {
         int slots = 0;
         for (int i = 0; i < upgrades.length; i++) {
-            if (upgrades[i] == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID) {
+            if (upgrades[i] == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
+                    upgrades[i] == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrades[i] == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                 slots += 9; //TODO - hardcoded
             }
         }

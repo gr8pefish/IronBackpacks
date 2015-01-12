@@ -26,12 +26,14 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
 
     public enum ResourceList { //TODO - move to constants?
 
-        NONE(new ResourceLocation(ModInformation.ID, "textures/guis/BASIC_alternateGui.png")), //yes, it is supposed to be the same
-        BASIC(new ResourceLocation(ModInformation.ID, "textures/guis/BASIC_alternateGui.png")),
-        ONE(new ResourceLocation(ModInformation.ID, "textures/guis/ONE_alternateGui.png")),
-        TWO(new ResourceLocation(ModInformation.ID, "textures/guis/TWO_alternateGui.png")),
-        THREE(new ResourceLocation(ModInformation.ID, "textures/guis/THREE_alternateGui.png")),
-        FOUR(new ResourceLocation(ModInformation.ID, "textures/guis/FOUR_alternateGui.png"));
+        ZERO(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/ZERO_alternateGui.png")),
+        ONE(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/ONE_alternateGui.png")),
+        TWO(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/TWO_alternateGui.png")),
+        THREE(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/THREE_alternateGui.png")),
+
+        RENAMING_ONE(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/RENAMING_ONE_alternateGui.png")),
+        RENAMING_TWO(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/RENAMING_TWO_alternateGui.png")),
+        RENAMING_THREE(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/RENAMING_THREE_alternateGui.png"));
 
         public final ResourceLocation location;
 
@@ -43,12 +45,15 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
 
     public enum GUI {
 
-        NONE( 200, 137, ResourceList.NONE),
-        BASIC(200, 137, ResourceList.BASIC),
-        ONE(  200, 168, ResourceList.ONE),
-        TWO(  200, 200, ResourceList.TWO),
-        THREE(200, 200, ResourceList.THREE),
-        FOUR( 200, 200, ResourceList.FOUR);
+        ZERO( 200, 114 + 18, ResourceList.ZERO),
+        ONE(  200, 114 + (18*2), ResourceList.ONE),
+        TWO(  200, 114 + (18*4), ResourceList.TWO),
+        THREE(200, 114 + (18*6), ResourceList.THREE),
+
+        RENAMING_ZERO( 200, 114 + 18, ResourceList.ZERO),
+        RENAMING_ONE(  200, 114 + (18*3), ResourceList.RENAMING_ONE),
+        RENAMING_TWO(  200, 114 + (18*5), ResourceList.RENAMING_TWO),
+        RENAMING_THREE(200, 114 + (18*7), ResourceList.RENAMING_THREE);
 
         private int xSize;
         private int ySize;
@@ -65,7 +70,8 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         }
 
         public static GUIBackpackAlternate buildGUIAlternate(EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
-            return new GUIBackpackAlternate(values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades)], player, inv, upgrades, backpackType);
+            GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades) + 4] : values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades)]; //shifts to correct index if renaming
+            return new GUIBackpackAlternate(gui, player, inv, upgrades, backpackType);
         }
     }
 
@@ -93,7 +99,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         this.xSize = type.xSize;
         this.ySize = type.ySize;
 
-        this.hasNoUpgrades = type.equals(GUI.NONE);
+        this.hasNoUpgrades = type.equals(GUI.ZERO);
         this.hasRenamingUpgrade = UpgradeMethods.hasRenamingUpgrade(upgrades);
         this.hasFilterUpgrade = UpgradeMethods.hasFilterUpgrade(upgrades);
         this.hasHopperUpgrade = UpgradeMethods.hasHopperUpgrade(upgrades);
@@ -110,15 +116,15 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         if (this.hasRenamingUpgrade){
             this.allowUserInput = true;
 
-            this.textField = new GuiTextField(this.fontRendererObj, xStart + 20, yStart + 23, 103, 12);  //x,y,width,height
+            this.textField = new GuiTextField(this.fontRendererObj, xStart + 20, yStart + 21, 103, 12);  //x,y,width,height
 
             this.textField.setTextColor(-1); //TODO - play around with colors? - set background color
             this.textField.setDisabledTextColour(-1);
-            this.textField.setMaxStringLength(30);
+            this.textField.setMaxStringLength(29);
 
             Keyboard.enableRepeatEvents(true);
 
-            this.buttonList.add(this.renameButton = new RenameButton(1, xStart + xSize - 57, yStart + 24, 25, 10, RenameButton.RENAME_BUTTON));
+            this.buttonList.add(this.renameButton = new RenameButton(1, xStart + xSize - 57, yStart + 22, 25, 10, RenameButton.RENAME_BUTTON));
         }
     }
 
@@ -140,16 +146,16 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
         if (this.hasNoUpgrades){
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("noValidUpgradesFound"), 20, 23, 4210752);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("noValidUpgradesFound"), 20, 22, 4210752);
         }
-        int yStart = this.hasRenamingUpgrade ? 45 : 15;
-        if (this.hasHopperUpgrade){
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:hopperUpgrade.name"),20, yStart, 4210752);
-            yStart += 20;
-        }
+        int yStart = this.hasRenamingUpgrade ? 43 : 24;
         if (this.hasFilterUpgrade){
             this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterUpgrade.name"),20, yStart, 4210752);
-            yStart += 20;
+            yStart += 36;
+        }
+        if (this.hasHopperUpgrade){
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:hopperUpgrade.name"),20, yStart, 4210752);
+            yStart += 36;
         }
         if (this.hasCondenserUpgrade){
             this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),20, yStart, 4210752);

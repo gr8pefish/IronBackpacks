@@ -17,6 +17,7 @@ public class BackpackSlot extends Slot {
     }
 
     public boolean acceptsStack(ItemStack itemStack){
+        //TODO - check if the player had
         return !(itemStack.getItem() instanceof ItemBaseBackpack);
     }
 }

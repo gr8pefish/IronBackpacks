@@ -10,9 +10,11 @@ item.ironbackpacks:damageBarUpgrade.name=Damage Bar Upgrade
 item.ironbackpacks:filterUpgrade.name=Filter Upgrade
 item.ironbackpacks:hopperUpgrade.name=Hopper Upgrade
 item.ironbackpacks:condenserUpgrade.name=Condenser Upgrade
+item.ironbackpacks:renamingUpgrade.name=Renaming Upgrade
 
 item.ironbackpacks:nest.name=Nest
 item.ironbackpacks:upgradeCore.name=Upgrade Core
+
 
 # Creative Tab
 itemGroup.ironbackpacks=Iron Backpacks

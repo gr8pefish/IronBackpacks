@@ -7,7 +7,7 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemNestingUpgrade extends ItemUpgradeBase {
 
     public ItemNestingUpgrade(){
-        super("nestingUpgrade", "nesting_upgrade", IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID, "Allows you to place any backpack of a previous tier inside the backpack.");
+        super("nestingUpgrade", "nestingUpgrade", IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID, "Allows you to place any backpack","of a previous tier inside the backpack.");
     }
 
 }

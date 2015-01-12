@@ -41,6 +41,8 @@ public class ItemBaseBackpack extends ItemBase {
 
     public int getTypeId() { return typeID;}
 
+    public int getGuiId() { return guiId;}
+
     public int getUpgradeSlots(){
         return upgradeSlots;
     }

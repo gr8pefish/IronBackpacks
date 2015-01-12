@@ -16,6 +16,7 @@ public class ButtonUpgradeMessage implements IMessage {
     public static final int BACKPACK_TO_INVENTORY = 1;
     public static final int INVENTORY_TO_BACKPACK = 2;
     public static final int HOTBAR_TO_BACKPACK = 3;
+    public static final int CONDENSE_BACKPACK = 4;
 
     public static final int RENAME = 4;
 
@@ -52,6 +53,11 @@ public class ButtonUpgradeMessage implements IMessage {
                 case HOTBAR_TO_BACKPACK:
                     container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
                     container.hotbarToBackpack();
+                    break;
+                case CONDENSE_BACKPACK:
+                    container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
+                    System.out.println("SERVER SIDE");
+                    container.condenseBackpack(ctx.getServerHandler().playerEntity);
                     break;
             }
             return null; //no return message necessary

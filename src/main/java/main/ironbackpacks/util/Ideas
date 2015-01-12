@@ -1,10 +1,12 @@
 To Do:
+    ContainerBackpack.condenseItemStacks
 
 Balance/Play With:
     Fancier config file
     Most of the default recipes
 
 Bugs:
+    Items move around in alternate gui when another alt. gui upgrade is added
 
 Figure out:
 
@@ -25,36 +27,34 @@ Types:
 
 Upgrades:
     Search upgrade - NEI search bar
-    Button upgrade[DONE] - add another to move everything from inventory to backpack? Condense items button?
+    Button upgrade[DONE] - Condense items button? -If ghostSlot doesn't work, add buttons for shift-clicking-like feature for alt gui upgrades
     Nesting upgrade[DONE] - lower tier goes in higher tier
-    Renaming upgrade[WIP] - rename the backpack, included by default -change background color of text box to light brown (see anvil) + redo button to say "rename"
-    Hopper upgrade - keeps an item stocked
-    Condenser upgrade - compresses items
-    Filter upgrade - automatically picks up specified items
+    Renaming upgrade{ALT GUI}[WIP] - rename the backpack, included by default -change background color of text box to light brown (see anvil) + redo button to say "rename"
+    Hopper upgrade{ALT GUI} - keeps an item stocked - needs to have at least 1 of target item in player's inventory to resupply
+    Condenser upgrade{ALT GUI}[DONE] - compresses items
+    Filter upgrade{ALT GUI}[DONE] - automatically picks up specified items - Button to alter fuzzy behavior?
     Inventory upgrade - extends inventory (probably only will be used in final tier)
     Camelpack upgrade - eat from it
     Umbrella upgrade - slow fall
     KeepOnDeath upgrade - really expensive but keep backpack on death
-    RemoveUpgrades upgrade - unlikely because difficulty implementing
-    UpgradeAddon upgrade - adds another upgrade slot
+    UpgradeAddon upgrade - adds another upgrade slot - would have to store UpgradeCount as NBT data
+
+    If add another alt.Gui upgrade have to check recipe before applying (b/c can only have 3 alt. gui upgrades (plus naming) due to gui sizing limitation unless I expand the gui horizontally).
 
 Textures:
-    Change "name" button to "rename"
+    Change "name" button to "rename" - background as button w/ overlayed localized name?
 
     Redo:
         Nest
         Nest upgrade
-        Button Upgrade
         all the backpacks?
 
     Do:
-        Damage Bar Upgrade
-        Filter Upgrade
 
 Misc features:
     Add in colorable backpack recipe with dyes
     Crafting - support damage values
-    Add tiers to upgrades (so you need at least tier x of backpack to apply it)
+    Add tiers to upgrades (so you need at least tier x of backpack to apply upgrade y)
 
 Mod Support:
     NEI with recipes[DONE]

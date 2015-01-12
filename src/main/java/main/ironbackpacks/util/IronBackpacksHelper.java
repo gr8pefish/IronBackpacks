@@ -9,6 +9,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
+import java.util.ArrayList;
+
 //credit to sapient
 public class IronBackpacksHelper {
 
@@ -34,7 +36,11 @@ public class IronBackpacksHelper {
         return backpack;
     }
 
-    public static ItemStack getFilterBackpack(EntityPlayer player){
+    public static ArrayList<ArrayList<ItemStack>> getFilterCondenserAndHopperBackpacks(EntityPlayer player){
+        ArrayList<ItemStack> filterBackpacks = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> condenserBackpacks = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> hopperBackpacks = new ArrayList<ItemStack>();
+        ArrayList<ArrayList<ItemStack>> returnArray = new ArrayList<ArrayList<ItemStack>>();
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack stack = player.inventory.getStackInSlot(i);
 
@@ -42,12 +48,37 @@ public class IronBackpacksHelper {
                 ItemStack backpack = player.inventory.getStackInSlot(i);
                 int[] upgrades = getUpgradesFromNBT(backpack);
                 if (UpgradeMethods.hasFilterUpgrade(upgrades)){
-                    return backpack;
+                    filterBackpacks.add(backpack);
+                }
+                if (UpgradeMethods.hasCondenserUpgrade(upgrades)){
+                    condenserBackpacks.add(backpack);
+                }
+                if (UpgradeMethods.hasHopperUpgrade(upgrades)){
+                    hopperBackpacks.add(backpack);
                 }
             }
         }
-        return null;
+        returnArray.add(filterBackpacks);
+        returnArray.add(condenserBackpacks);
+        returnArray.add(hopperBackpacks);
+        return returnArray;
     }
+
+//    public static ArrayList<ItemStack> getCondenserBackpacks(EntityPlayer player){
+//        ArrayList<ItemStack> backpacks = new ArrayList<ItemStack>();
+//        for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+//            ItemStack stack = player.inventory.getStackInSlot(i);
+//
+//            if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
+//                ItemStack backpack = player.inventory.getStackInSlot(i);
+//                int[] upgrades = getUpgradesFromNBT(backpack);
+//                if (UpgradeMethods.hasCondenserUpgrade(upgrades)){
+//                    backpacks.add(backpack);
+//                }
+//            }
+//        }
+//        return backpacks;
+//    }
 
     public static int[] getUpgradesFromNBT(ItemStack stack) { //TODO - Make this go everywhere
         int[] upgrades = new int[3]; //default [0,0,0]
