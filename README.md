@@ -1,4 +1,4 @@
-#A Mod Thad Adds Upgradable Backpacks!
+#A Mod That Adds Upgradable Backpacks!
 
 For more information see the MCF post [here](link goes here).
 

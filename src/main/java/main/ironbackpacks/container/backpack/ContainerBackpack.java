@@ -7,9 +7,16 @@ import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ContainerBackpack extends Container {
 
@@ -113,7 +120,7 @@ public class ContainerBackpack extends Container {
         ItemStack itemstack1 = itemToPutInBackpack;
         if (!mergeItemStack(itemstack1, 0, type.getSize(), false)) //stack, startIndex, endIndex,
         {
-            System.out.println("Failing here"); //TODO - something is wrong here
+            System.out.println("Failing here"); //TODO - something is occasionally wrong here (w/ mergeItemStack - solution is custom implementation)
             return null;
         }
         else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1)){ //slot 1 is a backpackSlot
@@ -138,7 +145,6 @@ public class ContainerBackpack extends Container {
 
     public void save(EntityPlayer player) {
         if (!player.worldObj.isRemote) {
-            System.out.println("SAVING");
             this.inventory.onGuiSaved(player);
         }
     }
@@ -146,7 +152,7 @@ public class ContainerBackpack extends Container {
     public EntityPlayer getPlayer() { return player; }
 
     public void backpackToInventory(){
-        for (int i = 0; i <= type.getSize(); i++) {
+        for (int i = 0; i <= type.getSize()+1; i++) {
             transferStackInSlot(player, i);
         }
     }
@@ -167,30 +173,121 @@ public class ContainerBackpack extends Container {
         }
     }
 
-    public void condenseBackpack(EntityPlayer player){ //HERE IS THE ERROR
-        System.out.println("Before changes");
-        for (int i = 0; i <= type.getSize(); i++) {
-            ItemStack currStack = inventory.getStackInSlot(i);
-            if (currStack != null) {
-                System.out.println("Item in slot: "+i+") "+inventory.getStackInSlot(i));
-                if (currStack.stackSize == 0){
-                    inventory.setInventorySlotContents(i, null);
-                }else {
-                    mergeItemStack(inventory.getStackInSlot(i), 0, type.getSize(), false);
+    public void sort(){
+        if (!inventorySlots.isEmpty() && !inventoryItemStacks.isEmpty()){
+            mergeStacks();
+            swapStacks();
+            reorderStacks();
+        }
+    }
+
+    private void mergeStacks(){
+        for (int i = 0; i < type.getSize(); i++){
+            Slot tempSlot = (Slot) inventorySlots.get(i);
+            if (tempSlot!= null && tempSlot.getHasStack()){
+                ItemStack tempStack = tempSlot.getStack();
+                if (tempStack!= null && tempStack.stackSize < tempStack.getMaxStackSize()){
+                    fillSlot(tempSlot, i+1);
                 }
             }
         }
-        System.out.println("After changes");
-        for (int i = 0; i <= type.getSize(); i++) {
-            ItemStack currStack = inventory.getStackInSlot(i);
-            if (currStack != null) {
-                System.out.println("Item in slot: " + i + ") " + inventory.getStackInSlot(i));
-//                if (currStack.stackSize == 0) { //NOT-IDEAL HACK
-//                    inventory.setInventorySlotContents(i, null);
-//                }
+    }
+
+    private void fillSlot(Slot slotToFill, int startIndex){
+        ItemStack stackToFill = slotToFill.getStack();
+        int fillAmt = stackToFill.getMaxStackSize() - stackToFill.stackSize;
+        if (fillAmt > 0){
+            for (int i = startIndex; i < type.getSize(); i++){
+                stackToFill = slotToFill.getStack();
+                fillAmt = stackToFill.getMaxStackSize() - stackToFill.stackSize;
+                Slot tempSlot = (Slot) inventorySlots.get(i);
+                if (tempSlot != null && tempSlot.getHasStack()){
+                    ItemStack tempStack = tempSlot.getStack();
+                    if (tempStack.stackSize > 0 && tempStack.isItemEqual(stackToFill)){
+                        if (tempStack.stackSize > fillAmt){
+                            tempSlot.decrStackSize(fillAmt);
+                            slotToFill.putStack(new ItemStack(stackToFill.getItem(), stackToFill.getMaxStackSize(), stackToFill.getItemDamage()));
+                            slotToFill.onSlotChanged();
+                            break;
+                        }else{
+                            tempSlot.putStack(null);
+                            slotToFill.putStack(new ItemStack(stackToFill.getItem(), stackToFill.stackSize + tempStack.stackSize, stackToFill.getItemDamage()));
+                            slotToFill.onSlotChanged();
+                        }
+                    }
+                }
             }
         }
-//        save(player); //not needed
     }
+
+    private void swapStacks(){
+        ArrayList<Integer> indicesOfSlotsWithItems = new ArrayList<Integer>();
+        for (int i = 0; i < type.getSize(); i++){
+            Slot tempSlot = (Slot) inventorySlots.get(i);
+            if (tempSlot!= null && tempSlot.getHasStack()){
+                ItemStack tempStack = tempSlot.getStack();
+                if (tempStack!= null && tempStack.stackSize > 0){
+                    indicesOfSlotsWithItems.add(i);
+                }
+            }
+        }
+
+        if (indicesOfSlotsWithItems.get(indicesOfSlotsWithItems.size()-1) != (indicesOfSlotsWithItems.size()-1)){ //if not already swapped so no null slots,
+            for (int i = 0; i < indicesOfSlotsWithItems.size(); i++){
+                Slot tempSlot = (Slot) inventorySlots.get(i);
+                if (tempSlot!= null) {
+                    if (!tempSlot.getHasStack()) {
+                        swapNull(tempSlot, (Slot) inventorySlots.get(indicesOfSlotsWithItems.get(i)));
+                    }
+                }
+            }
+        }
+    }
+
+    private void swapNull(Slot nullSlot, Slot stackSlot){
+        if (stackSlot != null && stackSlot.getHasStack()) {
+            nullSlot.putStack(stackSlot.getStack());
+            stackSlot.putStack(null);
+            stackSlot.onSlotChanged();
+        }
+    }
+
+    private void reorderStacks(){
+        ArrayList<ItemStack> itemStacks = new ArrayList<ItemStack>(countLengthOfStacks());
+        for (int i = 0; i < type.getSize(); i++){
+            Slot tempSlot = (Slot) inventorySlots.get(i);
+            if (tempSlot != null && tempSlot.getHasStack()) {
+                itemStacks.add(tempSlot.getStack());
+            } else {
+                break;
+            }
+        }
+        Collections.sort(itemStacks, new ItemStackNameComparator());
+        for (int i = 0; i < itemStacks.size(); i++){
+            Slot tempSlot = (Slot) inventorySlots.get(i);
+            tempSlot.putStack(itemStacks.get(i));
+        }
+    }
+
+    private class ItemStackNameComparator implements Comparator<ItemStack> {
+        @Override
+        public int compare(ItemStack stack1, ItemStack stack2) {
+            return stack1.getDisplayName().compareToIgnoreCase(stack2.getDisplayName());
+        }
+    }
+
+    private int countLengthOfStacks(){
+        int total = 0;
+        for (int i = 0; i < type.getSize(); i++){
+            Slot tempSlot = (Slot) inventorySlots.get(i);
+            if (tempSlot != null && tempSlot.getHasStack()) {
+                total++;
+            } else {
+                return total;
+            }
+        }
+        return total;
+    }
+
 
 }

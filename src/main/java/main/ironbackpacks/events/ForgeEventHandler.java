@@ -178,11 +178,11 @@ public class ForgeEventHandler {
                             }
                         }
                     }
+                    container.sort();
                     container.onContainerClosed(event.entityPlayer);
                 }
             }
         }
-//        event.setResult(Event.Result.DENY);
     }
 
 }

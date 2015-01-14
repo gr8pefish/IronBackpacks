@@ -97,7 +97,7 @@ public class InventoryBackpack implements IInventory {
 
     @Override
     public void markDirty() {
-    //
+        saveWithSideCheck(this.player); //onSlotChanged()
     }
 
     @Override
@@ -145,6 +145,12 @@ public class InventoryBackpack implements IInventory {
     public void onGuiSaved(EntityPlayer entityPlayer){
         if (stack != null){
             save();
+        }
+    }
+
+    public void saveWithSideCheck(EntityPlayer player){
+        if (!player.worldObj.isRemote) {
+            onGuiSaved(player);
         }
     }
 

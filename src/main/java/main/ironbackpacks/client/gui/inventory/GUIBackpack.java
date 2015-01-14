@@ -152,8 +152,7 @@ public class GUIBackpack extends GuiContainer {
             this.container.hotbarToBackpack();
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.HOTBAR_TO_BACKPACK));
         } else if (button == condense_backpack_BUTTON) {
-            System.out.println("CLIENT SIDE");
-            this.container.condenseBackpack(this.player);
+            this.container.sort();
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.CONDENSE_BACKPACK));
         }
     }

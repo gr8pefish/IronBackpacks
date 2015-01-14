@@ -56,8 +56,7 @@ public class ButtonUpgradeMessage implements IMessage {
                     break;
                 case CONDENSE_BACKPACK:
                     container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
-                    System.out.println("SERVER SIDE");
-                    container.condenseBackpack(ctx.getServerHandler().playerEntity);
+                    container.sort();
                     break;
             }
             return null; //no return message necessary
