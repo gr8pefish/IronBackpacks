@@ -6,6 +6,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemButtonUpgrade extends ItemUpgradeBase {
 
     public ItemButtonUpgrade(){
-        super("buttonUpgrade", "buttonUpgrade", IronBackpacksConstants.Upgrades.BUTTON_UPGRADE_ID, "Adds buttons to quickly move items","to and from your backpack.");
+        super("buttonUpgrade", "buttonUpgrade", IronBackpacksConstants.Upgrades.BUTTON_UPGRADE_ID, "Adds buttons to quickly move items","to and from your backpack, as well as","a button to sort your backpack quickly.");
     }
 }

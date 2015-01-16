@@ -4,9 +4,10 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.client.gui.buttons.ButtonUpgrade;
 
 public class NetworkingHandler {
+
+    //Place to register all my messages and networkWrapper
 
     public static SimpleNetworkWrapper network;
 

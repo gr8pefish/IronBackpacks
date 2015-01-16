@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-public class GhostSlot extends BackpackSlot{ //TODO - currently just filler code
+public class GhostSlot extends BackpackSlot{ //TODO - currently just filler code, make it work
 
     public int index;
 

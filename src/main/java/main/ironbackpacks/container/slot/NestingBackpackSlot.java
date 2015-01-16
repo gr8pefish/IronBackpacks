@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 
 public class NestingBackpackSlot extends BackpackSlot {
 
+    //allows backpacks of previous tiers to be placed in this slot
+
     private IronBackpackType type;
 
     public NestingBackpackSlot(IInventory iInventory, int index, int x, int y, IronBackpackType type) {

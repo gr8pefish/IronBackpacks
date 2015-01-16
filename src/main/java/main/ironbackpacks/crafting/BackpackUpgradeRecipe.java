@@ -2,20 +2,12 @@ package main.ironbackpacks.crafting;
 
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.ItemUpgradeBase;
-import net.minecraft.block.Block;
+import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
 
@@ -63,7 +55,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
 
         ItemStack backpack = getFirstBackpack(inventoryCrafting);
         ItemStack result = backpack.copy();
-        int[] upgrades = ((ItemBaseBackpack) result.getItem()).getUpgradesFromNBT(result);
+        int[] upgrades = IronBackpacksHelper.getUpgradesFromNBT(result);
         NBTTagCompound nbtTagCompound = result.getTagCompound();
 
         if (nbtTagCompound == null){

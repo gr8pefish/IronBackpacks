@@ -3,16 +3,13 @@ package main.ironbackpacks.container.backpack;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.*;
-import net.minecraft.item.Item;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +24,8 @@ public class ContainerBackpack extends Container {
     public int ySize = 0;
 
     public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type){
+        //overloaded constructor for when size is irrelevant
+
         this.player = entityPlayer;
         this.inventory = backpackInventory;
         this.type = type;
@@ -44,19 +43,19 @@ public class ContainerBackpack extends Container {
         layoutContainer(entityPlayer.inventory, backpackInventory, xSize, ySize, type);
     }
 
-    //credit to cpw
+    //credit to cpw for basic layout of adding backpack's slots
     protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize, IronBackpackType type){
 
         //adds chest's slots
         ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player);
-        int[] upgrades = ((ItemBaseBackpack) baseBackpack.getItem()).getUpgradesFromNBT(baseBackpack);
+        int[] upgrades = IronBackpacksHelper.getUpgradesFromNBT(baseBackpack);
 
-        for (int chestRow = 0; chestRow < type.getRowCount(); chestRow++) {
-            for (int chestCol = 0; chestCol < type.getRowLength(); chestCol++) {
+        for (int backpackRow = 0; backpackRow < type.getRowCount(); backpackRow++) {
+            for (int backpackCol = 0; backpackCol < type.getRowLength(); backpackCol++) {
                 if (UpgradeMethods.hasNestingUpgrade(upgrades)){
-                    addSlotToContainer(new NestingBackpackSlot(chestInventory, chestCol + chestRow * type.getRowLength(), 20 + chestCol * 18, 18 + chestRow * 18, this.type));
+                    addSlotToContainer(new NestingBackpackSlot(chestInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18, this.type));
                 }else {
-                    addSlotToContainer(new BackpackSlot(chestInventory, chestCol + chestRow * type.getRowLength(), 20 + chestCol * 18, 18 + chestRow * 18));
+                    addSlotToContainer(new BackpackSlot(chestInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18));
                 }
             }
         }
@@ -95,7 +94,7 @@ public class ContainerBackpack extends Container {
                     return null;
                 }
             }
-            else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1)){ //slot 1 is a backpackSlot
+            else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1)){ //slot 1 represents either the NestingBackpackSLot or the BackpackSlot
                 return null;
             }
 
@@ -143,6 +142,8 @@ public class ContainerBackpack extends Container {
         }
     }
 
+    //=====================HELPER METHODS============================
+
     public void save(EntityPlayer player) {
         if (!player.worldObj.isRemote) {
             this.inventory.onGuiSaved(player);
@@ -173,11 +174,14 @@ public class ContainerBackpack extends Container {
         }
     }
 
+
+    //===========================Sorting Algorithm=============================
+
     public void sort(){
         if (!inventorySlots.isEmpty() && !inventoryItemStacks.isEmpty()){
-            mergeStacks();
-            swapStacks();
-            reorderStacks();
+            mergeStacks(); //merge all the items together into the least possible number of stacks
+            swapStacks();  //then swap out the null stacks/blank spaces so that the backpack's stacks with items are condensed into the smallest area possible
+            reorderStacks(); //finally reorder the stacks (I am using alphabetization by the stack's display names).
         }
     }
 
@@ -226,18 +230,19 @@ public class ContainerBackpack extends Container {
             Slot tempSlot = (Slot) inventorySlots.get(i);
             if (tempSlot!= null && tempSlot.getHasStack()){
                 ItemStack tempStack = tempSlot.getStack();
-                if (tempStack!= null && tempStack.stackSize > 0){
+                if (tempStack != null && tempStack.stackSize > 0){
                     indicesOfSlotsWithItems.add(i);
                 }
             }
         }
-
-        if (indicesOfSlotsWithItems.get(indicesOfSlotsWithItems.size()-1) != (indicesOfSlotsWithItems.size()-1)){ //if not already swapped so no null slots,
-            for (int i = 0; i < indicesOfSlotsWithItems.size(); i++){
-                Slot tempSlot = (Slot) inventorySlots.get(i);
-                if (tempSlot!= null) {
-                    if (!tempSlot.getHasStack()) {
-                        swapNull(tempSlot, (Slot) inventorySlots.get(indicesOfSlotsWithItems.get(i)));
+        if (!indicesOfSlotsWithItems.isEmpty()) {
+            if (indicesOfSlotsWithItems.get(indicesOfSlotsWithItems.size() - 1) != (indicesOfSlotsWithItems.size() - 1)) { //if not already swapped so no null slots,
+                for (int i = 0; i < indicesOfSlotsWithItems.size(); i++) {
+                    Slot tempSlot = (Slot) inventorySlots.get(i);
+                    if (tempSlot != null) {
+                        if (!tempSlot.getHasStack()) {
+                            swapNull(tempSlot, (Slot) inventorySlots.get(indicesOfSlotsWithItems.get(i)));
+                        }
                     }
                 }
             }
@@ -262,10 +267,12 @@ public class ContainerBackpack extends Container {
                 break;
             }
         }
-        Collections.sort(itemStacks, new ItemStackNameComparator());
-        for (int i = 0; i < itemStacks.size(); i++){
-            Slot tempSlot = (Slot) inventorySlots.get(i);
-            tempSlot.putStack(itemStacks.get(i));
+        if (!itemStacks.isEmpty()) {
+            Collections.sort(itemStacks, new ItemStackNameComparator());
+            for (int i = 0; i < itemStacks.size(); i++) {
+                Slot tempSlot = (Slot) inventorySlots.get(i);
+                tempSlot.putStack(itemStacks.get(i));
+            }
         }
     }
 

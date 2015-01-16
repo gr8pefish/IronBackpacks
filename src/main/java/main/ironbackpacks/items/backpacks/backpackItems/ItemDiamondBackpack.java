@@ -8,6 +8,8 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemDiamondBackpack extends ItemBaseBackpack{
 
     public ItemDiamondBackpack() {
-        super("diamondBackpack", "backpack_diamond_dl", 3, ConfigHandler.enumDiamondBackpack.upgradeSlots.getValue(), IronBackpacksConstants.Backpacks.DIAMOND_ID);
+        super("diamondBackpack", "backpack_diamond", 3, ConfigHandler.enumDiamondBackpack.upgradeSlots.getValue(), IronBackpacksConstants.Backpacks.DIAMOND_ID);
     }
+
+
 }

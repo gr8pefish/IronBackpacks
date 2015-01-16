@@ -6,9 +6,10 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
-import main.ironbackpacks.container.backpack.ContainerBackpack;
 
 public class RenameMessage implements IMessage {
+
+    //Message for the renaming upgrade
 
     private String newName;
 

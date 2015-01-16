@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 
 public class BackpackSlot extends Slot {
 
+    //very basic slot that all the other BackpackSlots will extend if they need additional functionality
+
     public BackpackSlot(IInventory iInventory, int index, int x, int y) {
         super(iInventory, index, x, y);
     }
@@ -17,7 +19,6 @@ public class BackpackSlot extends Slot {
     }
 
     public boolean acceptsStack(ItemStack itemStack){
-        //TODO - check if the player had
         return !(itemStack.getItem() instanceof ItemBaseBackpack);
     }
 }

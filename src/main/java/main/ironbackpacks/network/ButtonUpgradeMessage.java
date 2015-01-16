@@ -6,10 +6,11 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 
 public class ButtonUpgradeMessage implements IMessage {
+
+    //Messages sent from the gui that are only used if the backpack has the button upgrade
 
     private int action;
 
@@ -18,9 +19,7 @@ public class ButtonUpgradeMessage implements IMessage {
     public static final int HOTBAR_TO_BACKPACK = 3;
     public static final int CONDENSE_BACKPACK = 4;
 
-    public static final int RENAME = 4;
-
-    public ButtonUpgradeMessage() {}
+    public ButtonUpgradeMessage() {} //default constructor is necessary
 
     public ButtonUpgradeMessage(int action) {
         this.action = action;

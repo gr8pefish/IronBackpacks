@@ -1,30 +1,25 @@
 package main.ironbackpacks.events;
 
-import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import java.util.ArrayList;
 
 public class ForgeEventHandler {
+
+    //All the events that fire on the Forge Event bus
 
     @SubscribeEvent
     public void onItemPickupEvent(EntityItemPickupEvent event) {
@@ -32,7 +27,7 @@ public class ForgeEventHandler {
             return;
         else{
             ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksHelper.getFilterCondenserAndHopperBackpacks(event.entityPlayer);
-            boolean doFilter = checkHopperUpgrade(event, backpacks.get(0));
+            boolean doFilter = checkHopperUpgrade(event, backpacks.get(0)); //doFilter is false if the itemEntity is in the hopperUpgrade's slots and the itemEntity's stackSize < refillSize
             if (doFilter) {
                 checkFilterUpgrade(event, backpacks.get(1));
             }
@@ -130,7 +125,7 @@ public class ForgeEventHandler {
                     for (ItemStack filterItem : filterItems) {
                         if (filterItem != null) {
                             if (event.item.getEntityItem().isItemEqual(filterItem)) {
-                                container.transferStackInSlot(event.item.getEntityItem());
+                                container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
                             }
                         }
                     }
@@ -140,7 +135,7 @@ public class ForgeEventHandler {
         }
     }
 
-    public void checkCondenserUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){ //TODO - test w/ println
+    public void checkCondenserUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){
         CraftingManager craftingManager = CraftingManager.getInstance();
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
@@ -150,7 +145,7 @@ public class ForgeEventHandler {
                     ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
 
                     ContainerWorkbench containerWorkbench = new ContainerWorkbench(event.entityPlayer.inventory, event.item.worldObj, 0, 0, 0);
-                    InventoryCrafting inventoryCrafting = new InventoryCrafting(containerWorkbench, 3, 3);
+                    InventoryCrafting inventoryCrafting = new InventoryCrafting(containerWorkbench, 3, 3); //fake workbench/inventory for checking matching recipe
 
                     ArrayList<ItemStack> condenserItems = UpgradeMethods.getCondenserItems(backpack);
                     for (ItemStack condenserItem : condenserItems) {
@@ -162,7 +157,7 @@ public class ForgeEventHandler {
                                     if (theStack != null && theStack.stackSize >= 9 && theStack.isItemEqual(condenserItem)) {
                                         ItemStack myStack = new ItemStack(theStack.getItem(), 1, theStack.getItemDamage()); //stackSize of 1
                                         for (int i = 0; i < 9; i++) {
-                                            inventoryCrafting.setInventorySlotContents(i, myStack);
+                                            inventoryCrafting.setInventorySlotContents(i, myStack); //3x3 crafting grid full of the item
                                         }
                                         ItemStack recipeOutput = craftingManager.findMatchingRecipe(inventoryCrafting, event.item.worldObj);
                                         if (recipeOutput != null) {
@@ -178,7 +173,7 @@ public class ForgeEventHandler {
                             }
                         }
                     }
-                    container.sort();
+                    container.sort(); //sort items
                     container.onContainerClosed(event.entityPlayer);
                 }
             }

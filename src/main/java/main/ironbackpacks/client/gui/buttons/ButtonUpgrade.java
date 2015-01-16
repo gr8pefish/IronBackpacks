@@ -10,7 +10,6 @@ public class ButtonUpgrade extends GuiButton {
     public static final int BACKPACK_TO_INVENTORY = 0;
     public static final int INVENTORY_TO_BACKPACK = 1;
     public static final int HOTBAR_TO_BACKPACK = 2;
-
     public static final int CONDENSE_BACKPACK = 3;
 
     public static final ResourceLocation widgetTextures = IronBackpacksConstants.Resources.WIDGETS;
@@ -41,6 +40,7 @@ public class ButtonUpgrade extends GuiButton {
         if (this.visible) {
             minecraft.getTextureManager().bindTexture(widgetTextures);
 
+            //hover is used to change the color of the button by altering the texture location when a player's mouse if over the button
             boolean hover = mPosX >= this.xPosition && mPosY >= this.yPosition && mPosX < this.xPosition + this.width && mPosY < this.yPosition + this.height;
             int h = getHoverState(hover);
 

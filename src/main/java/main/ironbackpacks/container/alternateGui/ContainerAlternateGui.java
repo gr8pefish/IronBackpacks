@@ -1,8 +1,5 @@
 package main.ironbackpacks.container.alternateGui;
 
-import main.ironbackpacks.container.backpack.InventoryBackpack;
-import main.ironbackpacks.container.slot.BackpackSlot;
-import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.container.slot.MaxStackSizeOneSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
@@ -84,9 +81,11 @@ public class ContainerAlternateGui extends Container {
         super.onContainerClosed(player);
 
         if (!player.worldObj.isRemote) {
-            this.inventory.onGuiSaved(player);
+            this.inventory.onGuiSaved(player); //only save on server side
         }
     }
+
+    //=====================HELPER METHODS============================
 
     public EntityPlayer getPlayer() { return player; }
 

@@ -11,9 +11,12 @@ import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
 
-//credit to sapient
+
 public class IronBackpacksHelper {
 
+    //Helper methods used throughout the mod
+
+    //credit to sapient
     public static ItemStack getBackpack(EntityPlayer player) {
         ItemStack backpack = null;
 
@@ -64,23 +67,7 @@ public class IronBackpacksHelper {
         return returnArray;
     }
 
-//    public static ArrayList<ItemStack> getCondenserBackpacks(EntityPlayer player){
-//        ArrayList<ItemStack> backpacks = new ArrayList<ItemStack>();
-//        for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-//            ItemStack stack = player.inventory.getStackInSlot(i);
-//
-//            if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
-//                ItemStack backpack = player.inventory.getStackInSlot(i);
-//                int[] upgrades = getUpgradesFromNBT(backpack);
-//                if (UpgradeMethods.hasCondenserUpgrade(upgrades)){
-//                    backpacks.add(backpack);
-//                }
-//            }
-//        }
-//        return backpacks;
-//    }
-
-    public static int[] getUpgradesFromNBT(ItemStack stack) { //TODO - Make this go everywhere
+    public static int[] getUpgradesFromNBT(ItemStack stack) {
         int[] upgrades = new int[3]; //default [0,0,0]
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();

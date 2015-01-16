@@ -1,10 +1,8 @@
 package main.ironbackpacks.items.upgrades;
 
-import main.ironbackpacks.items.upgrades.upgradeItems.ItemButtonUpgrade;
-import main.ironbackpacks.items.upgrades.upgradeItems.ItemNestingUpgrade;
 import net.minecraft.util.StatCollector;
 
-public enum UpgradeTypes { //TODO - refactor, only used in tooltip
+public enum UpgradeNames {
 
     NONE(StatCollector.translateToLocal("emptyUpgradeSlot")),
     BUTTON(StatCollector.translateToLocal("item.ironbackpacks:buttonUpgrade.name")),
@@ -17,7 +15,7 @@ public enum UpgradeTypes { //TODO - refactor, only used in tooltip
 
     public String fancyName;
 
-    UpgradeTypes(String fancyName){
+    UpgradeNames(String fancyName){
         this.fancyName = fancyName;
     }
 

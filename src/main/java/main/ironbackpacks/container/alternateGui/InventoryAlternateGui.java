@@ -1,6 +1,7 @@
 package main.ironbackpacks.container.alternateGui;
 
-import main.ironbackpacks.IronBackpacks;
+import main.ironbackpacks.container.slot.BackpackSlot;
+import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
@@ -33,10 +34,10 @@ public class InventoryAlternateGui implements IInventory {
         this.type = type;
         this.upgrades = IronBackpacksHelper.getUpgradesFromNBT(itemStack);
 
-        this.invSize = UpgradeMethods.getAlternateGuiUpgradeSlots(this.upgrades);
+        this.invSize = UpgradeMethods.getAlternateGuiUpgradeSlots(this.upgrades); //dynamic, size is based on number of alt. gui. upgrades
         this.inventory = new ItemStack[this.getSizeInventory()];
 
-        readFromNBT(stack.getTagCompound());
+        readFromNBT(stack.getTagCompound()); //to initialize stacks //TODO - if you add an upgrade, move the items so they are in their correct slots
     }
 
     @Override
@@ -117,8 +118,25 @@ public class InventoryAlternateGui implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
-        return true; //handled by BackpackSlot
-    } //TODO so I can differentiate validItems in each upgrade type and only have 1 type of slot
+        if (UpgradeMethods.hasFilterUpgrade(this.upgrades)){
+            if (UpgradeMethods.hasNestingUpgrade(this.upgrades)) {
+                NestingBackpackSlot myslot = new NestingBackpackSlot(this, index, 0, 0, this.type);
+                return myslot.acceptsStack(itemStack);
+            }else{
+                BackpackSlot mySlot = new BackpackSlot(this, index, 0,0);
+                return mySlot.acceptsStack(itemStack);
+            }
+        }else if (UpgradeMethods.hasHopperUpgrade(this.upgrades)){
+            return itemStack.isStackable();
+        }else if (UpgradeMethods.hasCondenserUpgrade(this.upgrades)){
+            return itemStack.isStackable();
+        }else{
+            System.out.println("Impossible error in isItemValidForSLot in InventoryAlternateGui");
+            return false;
+        }
+    }
+
+    //=====================HELPER METHODS============================
 
     //credit to sapient for a lot of this saving code
     public void onGuiSaved(EntityPlayer entityPlayer) {
@@ -202,7 +220,7 @@ public class InventoryAlternateGui implements IInventory {
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         nbtTagCompound = findParentItemStack(player).getTagCompound();
 
-        int startIndex = 0;
+        int startIndex = 0; //need to start/increment at the slot number appropriate to the amount of valid upgrades
         int rows = this.invSize / 9; //because mc lays out the container by rows, not columns
         // Write the ItemStacks in the inventory to NBT
         if (UpgradeMethods.hasFilterUpgrade(this.upgrades)) {

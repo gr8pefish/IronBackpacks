@@ -8,7 +8,7 @@ public enum IronBackpackType {
     BASIC(IronBackpacksConstants.Backpacks.BASIC_ID,
             ConfigHandler.enumBasicBackpack.sizeX.getValue() * ConfigHandler.enumBasicBackpack.sizeY.getValue(),
             ConfigHandler.enumBasicBackpack.sizeX.getValue(),
-            "basicBackpack"),
+            "basicBackpack"), //id, size, rowLength, name
     IRON(IronBackpacksConstants.Backpacks.IRON_ID,
             ConfigHandler.enumIronBackpack.sizeX.getValue() * ConfigHandler.enumIronBackpack.sizeY.getValue(),
             ConfigHandler.enumIronBackpack.sizeX.getValue(),

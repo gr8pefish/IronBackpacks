@@ -1,13 +1,7 @@
 package main.ironbackpacks.items.upgrades;
 
-import main.ironbackpacks.client.gui.inventory.GUIBackpack;
-import main.ironbackpacks.container.alternateGui.InventoryAlternateGui;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -15,37 +9,14 @@ import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
 
-public enum UpgradeMethods {
+public class UpgradeMethods {
 
-    NONE{
-        @Override
-        public void doGuiAlteration(GUIBackpack gui, FontRenderer fontRenderer, int xSize, int ySize) {
-
-        }
-        @Override
-        public void doContainerAlteration(){
-
-        }
-    },
-    BUTTON{
-        @Override
-        public void doGuiAlteration(GUIBackpack gui, FontRenderer fontRenderer, int xSize, int ySize) {
-////            fontRenderer.drawString("Button", xSize - 20, ySize - 96 + 2, 4210752);
-//            fontRenderer.drawString(StatCollector.translateToLocal("player.inventor"), 20, ySize - 96 + 2, 4210752);
-        }
-        @Override
-        public void doContainerAlteration(){
-
-        }
-    };
-
-    public abstract void doGuiAlteration(GUIBackpack gui, FontRenderer fontRenderer, int xSize, int ySize);
-    public abstract void doContainerAlteration();
+    //===============================hasUpgradeX Methods=====================================
 
     public static boolean hasButtonUpgrade(int[] upgrades){
         boolean hasUpgrade = false;
-        for (int i = 0; i < upgrades.length; i++){
-            if (upgrades[i] == IronBackpacksConstants.Upgrades.BUTTON_UPGRADE_ID){
+        for (int upgrade: upgrades){
+            if (upgrade == IronBackpacksConstants.Upgrades.BUTTON_UPGRADE_ID){
                 hasUpgrade = true;
                 break;
             }
@@ -55,8 +26,8 @@ public enum UpgradeMethods {
 
     public static boolean hasNestingUpgrade(int[] upgrades){
         boolean hasUpgrade = false;
-        for (int i = 0; i < upgrades.length; i++){
-            if (upgrades[i] == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID){
+        for (int upgrade: upgrades){
+            if (upgrade == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID){
                 hasUpgrade = true;
                 break;
             }
@@ -69,8 +40,8 @@ public enum UpgradeMethods {
         if (!ConfigHandler.renamingUpgradeRequired){
             return true;
         }else {
-            for (int i = 0; i < upgrades.length; i++) {
-                if (upgrades[i] == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID) {
+            for (int upgrade: upgrades) {
+                if (upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID) {
                     hasUpgrade = true;
                     break;
                 }
@@ -81,8 +52,8 @@ public enum UpgradeMethods {
 
     public static boolean hasDamageBarUpgrade(int[] upgrades){
         boolean hasUpgrade = false;
-        for (int i = 0; i < upgrades.length; i++) {
-            if (upgrades[i] == IronBackpacksConstants.Upgrades.DAMAGE_BAR_UPGRADE_ID) {
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.DAMAGE_BAR_UPGRADE_ID) {
                 hasUpgrade = true;
                 break;
             }
@@ -92,8 +63,8 @@ public enum UpgradeMethods {
 
     public static boolean hasFilterUpgrade(int[] upgrades){
         boolean hasUpgrade = false;
-        for (int i = 0; i < upgrades.length; i++) {
-            if (upgrades[i] == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID) {
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID) {
                 hasUpgrade = true;
                 break;
             }
@@ -103,8 +74,8 @@ public enum UpgradeMethods {
 
     public static boolean hasHopperUpgrade(int[] upgrades) {
         boolean hasUpgrade = false;
-        for (int i = 0; i < upgrades.length; i++) {
-            if (upgrades[i] == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID) {
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID) {
                 hasUpgrade = true;
                 break;
             }
@@ -114,8 +85,8 @@ public enum UpgradeMethods {
 
     public static boolean hasCondenserUpgrade(int[] upgrades) {
         boolean hasUpgrade = false;
-        for (int i = 0; i < upgrades.length; i++) {
-            if (upgrades[i] == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                 hasUpgrade = true;
                 break;
             }
@@ -123,26 +94,39 @@ public enum UpgradeMethods {
         return hasUpgrade;
     }
 
+    //=============================Other Methods====================================
+
     //note - doesn't include renaming upgrade
-    public static int getAlternateGuiUpgradesCount(int[] upgrades){ //TODO - make these more dynamic
+    public static int getAlternateGuiUpgradesCount(int[] upgrades){
         int numberOfUpgrades = 0;
         if (!ConfigHandler.renamingUpgradeRequired) {
             numberOfUpgrades = 1;
-            for (int i = 0; i < upgrades.length; i++) {
-                if (upgrades[i] == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
-                        upgrades[i] == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrades[i] == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+            for (int upgrade: upgrades) {
+                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
+                        upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
             }
         }else{
-            for (int i = 0; i < upgrades.length; i++) {
-                if (upgrades[i] == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
-                        upgrades[i] == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrades[i] == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+            for (int upgrade: upgrades) {
+                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
+                        upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
             }
         }
         return numberOfUpgrades;
+    }
+
+    public static int getAlternateGuiUpgradeSlots(int[] upgrades) {
+        int slots = 0;
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
+                    upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+                slots += 9; //hardcoded
+            }
+        }
+        return slots;
     }
 
     public static ArrayList<ItemStack> getFilterItems(ItemStack stack){
@@ -189,18 +173,5 @@ public enum UpgradeMethods {
         }
         return returnArray;
     }
-
-    public static int getAlternateGuiUpgradeSlots(int[] upgrades) {
-        int slots = 0;
-        for (int i = 0; i < upgrades.length; i++) {
-            if (upgrades[i] == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID ||
-                    upgrades[i] == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrades[i] == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
-                slots += 9; //TODO - hardcoded
-            }
-        }
-        return slots;
-    }
-
-
 
 }

@@ -1,26 +1,21 @@
 package main.ironbackpacks.items;
 
-/*
- * Class to register your blocks in.
- * The order that you list them here is the order they are registered.
- * Keep that in mind if you like nicely organized creative tabs.
- */
-
 import cpw.mods.fml.common.registry.GameRegistry;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemDiamondBackpack;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemIronBackpack;
 import main.ironbackpacks.items.backpacks.backpackItems.ItemBasicBackpack;
+import main.ironbackpacks.items.backpacks.backpackItems.ItemDiamondBackpack;
 import main.ironbackpacks.items.backpacks.backpackItems.ItemGoldBackpack;
+import main.ironbackpacks.items.backpacks.backpackItems.ItemIronBackpack;
 import main.ironbackpacks.items.craftingItems.ItemNest;
 import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.util.ConfigHandler;
 import net.minecraft.item.Item;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ItemRegistry {
+
+    //Class to register your blocks in.
 
 	//backpacks
     public static Item basicBackpack;
@@ -54,16 +49,15 @@ public class ItemRegistry {
         ArrayList<Item> upgrades = new ArrayList<Item>();
         upgrades.add(buttonUpgrade);
         upgrades.add(nestingUpgrade);
+        upgrades.add(damageBarUpgrade);
         if (ConfigHandler.renamingUpgradeRequired){
             upgrades.add(renamingUpgrade);
         }
-        upgrades.add(damageBarUpgrade);
         upgrades.add(filterUpgrade);
         upgrades.add(hopperUpgrade);
         upgrades.add(condenserUpgrade);
         return upgrades;
     }
-
 
     //Register all items here
 	public static void registerItems() {

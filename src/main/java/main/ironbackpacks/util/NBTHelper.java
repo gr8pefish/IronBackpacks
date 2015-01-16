@@ -5,8 +5,9 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.UUID;
 
-//credit due to sapient
 public class NBTHelper {
+
+    //Code for making sure the itemStack is unique, credit goes to sapient for almost all of this code
 
     public static boolean hasUUID(ItemStack itemStack){
         return hasTag(itemStack, IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) && hasTag(itemStack, IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID);

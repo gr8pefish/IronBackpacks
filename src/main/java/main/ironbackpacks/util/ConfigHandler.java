@@ -1,20 +1,16 @@
 package main.ironbackpacks.util;
 
-import main.ironbackpacks.items.ItemRegistry;
-import net.minecraft.item.Item;
-import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ConfigHandler {
 
+    //================Enums (for easy reference by name rather than some number) ============================
+
     public static int[] basicBackpack;
-    public enum enumBasicBackpack{ //TODO - there must be a better way...
+    public enum enumBasicBackpack{ //TODO - there must be a better way to init these enums...
         upgradeSlots(basicBackpack[0]),
         sizeX(basicBackpack[1]),
         sizeY(basicBackpack[2]);
@@ -68,6 +64,9 @@ public class ConfigHandler {
 
     private static final int valuesToLoad = 3; //upgradeSlots, sizeX, sizeY
 
+    //==================== All the publicly accessible values====================================
+
+
     public static String[] basicBackpackRecipe;
     public static String[] ironBackpackRecipe;
     public static String[] goldBackpackRecipe;
@@ -86,13 +85,18 @@ public class ConfigHandler {
 
     public static boolean renamingUpgradeRequired;
 
+    //========================init====================================
+
     public static void init(File file){
+
         Configuration config = new Configuration(file);
 
         basicBackpack = new int[valuesToLoad];
         ironBackpack = new int[valuesToLoad];
         goldBackpack = new int[valuesToLoad];
         diamondBackpack = new int[valuesToLoad];
+
+        ///======================================================Recipe defaults================================
 
         String[] basicRecipe = {"items.leather", "items.leather", "items.leather", "items.leather", "blocks.chest", "items.leather", "items.leather", "items.leather", "items.leather"};
         String[] ironRecipe = {"ingotIron", "ingotIron", "ingotIron", "ingotIron", "items.ironbackpacks:basicBackpack", "ingotIron", "ingotIron", "ingotIron", "ingotIron"};
@@ -110,6 +114,8 @@ public class ConfigHandler {
         String[] upgradeCoreRecipeDefault = {"items.leather","items.string","items.leather", "items.string", "items.paper", "items.string", "items.leather", "items.string", "items.leather"};
         String[] nestRecipeDefault = {"stickWood","stickWood","stickWood", "stickWood", "items.egg", "stickWood", "stickWood", "stickWood", "stickWood"};
 
+        //===================================================Categories======================================
+
         config.load();
 
         config.addCustomCategoryComment("5) Recipes", "Each recipe has 9 lines, each corresponding to the next slot in the crafting grid. " +
@@ -126,6 +132,10 @@ public class ConfigHandler {
 //        upgradeSlotsCategory.setComment(" The number of upgrade slots for each type of backpack.");
         //TODO - the categories are sorted alphabetically instead of in this order, so it looks weird - new TreeMap of categories using reflection
         //TODO - config.setCategoryPropertyOrder [maybe, if I deem it necessary]
+
+
+        //============================================Initializing everything, the numbers keep them in the order I want=======================================
+
         basicBackpack[0] = config.get("1) Basic Backpack", "1) Upgrade Slots", 0, "The number of upgrades on the backpack. Default 0.").getInt();
         basicBackpack[1] = config.get("1) Basic Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
         basicBackpack[2] = config.get("1) Basic Backpack", "3) Number of Rows", 2, "The size of the backpack. Between 1 and 7. Default 2.").getInt();
@@ -159,6 +169,6 @@ public class ConfigHandler {
 
         renamingUpgradeRequired = config.get("6) Miscellaneous", "1) Renaming Upgrade Required", false, "If the renaming upgrade is required to rename the backpack. Default is false (so you can rename backpacks natively).").getBoolean();
 
-        config.save();
+        config.save(); //Don't forget to save
     }
 }

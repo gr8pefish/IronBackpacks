@@ -1,13 +1,11 @@
 package main.ironbackpacks.container.backpack;
 
-import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -120,26 +118,8 @@ public class InventoryBackpack implements IInventory {
         return true; //handled by BackpackSlot
     }
 
-    public int[] getUpgradesFromNBT(ItemStack stack) { //TODO - use for init?
-        int[] upgrades = new int[3]; //default [0,0,0]
-        if (stack != null) {
-            NBTTagCompound nbtTagCompound = stack.getTagCompound();
-            if (nbtTagCompound != null) {
-                if(nbtTagCompound.hasKey("Upgrades")) {
-                    NBTTagList tagList = nbtTagCompound.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND);
-                    for (int i = 0; i < tagList.tagCount(); i++) {
-                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int hasUpgrade = stackTag.getByte("Upgrade");
-                        if (hasUpgrade != 0){ //true
-                            upgrades[i] = hasUpgrade;
-                        }
-                    }
-                }
-            }
-        }
-        return upgrades;
-    }
 
+    //=====================HELPER METHODS============================
 
     //credit to sapient for a lot of this saving code
     public void onGuiSaved(EntityPlayer entityPlayer){
@@ -165,7 +145,7 @@ public class InventoryBackpack implements IInventory {
         stack.setTagCompound(nbtTagCompound);
     }
 
-    public ItemStack findParentItemStack(EntityPlayer entityPlayer){
+    public ItemStack findParentItemStack(EntityPlayer entityPlayer){ //to make sure the stack is unique
         if (NBTHelper.hasUUID(stack)){
             UUID parentUUID = new UUID(stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++){
@@ -218,15 +198,6 @@ public class InventoryBackpack implements IInventory {
         }
         nbtTagCompound.setTag("Items", tagList);
     }
-
-//    public boolean addItemToInv(ItemStack itemStack){
-//        for (int i = 0; i < getSizeInventory(); i++){
-//            ItemStack stack = getStackInSlot(i);
-//            if (stack != null && stack.stackSize < stack.getMaxStackSize() && stack.getItem().equals(itemStack.getItem())){
-//                ItemStack stack1 = itemStack.copy();
-//            }
-//        }
-//    }
 
 
 }

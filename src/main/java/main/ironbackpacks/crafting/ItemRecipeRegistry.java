@@ -1,17 +1,11 @@
 package main.ironbackpacks.crafting;
 
-/*
- * General place to do all your item related recipe stuff and things.
- */
-
 import cpw.mods.fml.common.registry.GameRegistry;
-import main.ironbackpacks.crafting.BackpackUpgradeRecipe;
 import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.util.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -20,22 +14,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class ItemRecipeRegistry {
 
 	public static String[] oreNames = OreDictionary.getOreNames();
-	public static List ores = Arrays.asList(oreNames);
+	public static List ores = Arrays.asList(oreNames); //cached for slightly better efficiency
 
 	public static void registerItemRecipes() {
 
-		registerBasicRecipe(ItemRegistry.basicBackpack, ConfigHandler.basicBackpackRecipe);
-		registerUpgradeRecipes();
-		registerMiscRecipes();
+		registerBasicRecipe(ItemRegistry.basicBackpack, ConfigHandler.basicBackpackRecipe); //register the basic backpack as a recipe
+		registerUpgradeRecipes(); //register the recipes ot make the upgrades
+		registerMiscRecipes(); //register the miscellaneous items' recipes
 
-		RecipeSorter.register("BackpackUpgrade", BackpackUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, "");
-		RecipeSorter.register("BackpackTier", BackpackTierRecipe.class, RecipeSorter.Category.SHAPED, "");
-		registerBackpackUpgradeRecipes();
-		registerBackpackTierRecipes();
+		RecipeSorter.register("BackpackUpgrade", BackpackUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
+		RecipeSorter.register("BackpackTier", BackpackTierRecipe.class, RecipeSorter.Category.SHAPED, ""); //register my special recipe
+		registerBackpackUpgradeRecipes(); //register the recipes to add upgrades to backpacks
+		registerBackpackTierRecipes(); //register the recipes to upgrade a backpack to the next tier
 	}
 
 	public static  void registerMiscRecipes(){
@@ -81,36 +74,15 @@ public class ItemRecipeRegistry {
 	}
 
 	private static void registerBasicRecipe(Item output, String[] recipe){
-//		if (hasOreDictItem(recipe)){
-		registerBasicOreRecipe(output, recipe);
-//		}else{
-//			registerBasicNonOreRecipe(output, recipe);
-//		}
+		registerBasicOreRecipe(output, recipe); //currently just using ore recipes, but keeping this method for future ease of change
 	}
 
-//	private static void registerBasicNonOreRecipe(Item output, String[] recipe){
-//		ItemStack[] theRecipe = new ItemStack[9];
-//		for (int i = 0; i < theRecipe.length; i++){
-//			theRecipe[i] = new ItemStack((Item) Item.itemRegistry.getObject(recipe[i].trim()));
-//		}
-//
-//		GameRegistry.addRecipe(new ShapedRecipes(3,3, theRecipe, new ItemStack(output)));
-//	}
 
 	private static void registerBasicOreRecipe(Item output, String[] recipe){
 		Object[] theRecipe = getOreRecipe(recipe);
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(output), theRecipe));
 	}
 
-//	private static Boolean hasOreDictItem(String[] input){
-//		boolean useOreDic = false;
-//		for (String item : input){
-//			if (ores.contains(item.trim())){
-//				useOreDic = true;
-//			}
-//		}
-//		return useOreDic;
-//	}
 
 	protected static boolean isOreDict(String input){
 		return ores.contains(input.trim());
@@ -123,8 +95,8 @@ public class ItemRecipeRegistry {
 				returnArray[3+i] = (char) ('0' + (i/2));
 			}else if (input[i/2].trim().equals("none")){
 				returnArray[3+i] = "none";
-			}else{
-				returnArray[3+i] = isOreDict(input[i/2].trim()) ? input[i/2].trim() : isItem(input[i/2].trim()) ? getItem(input[i/2].trim()) : getBlock(input[i/2].trim());; //(Item) Item.itemRegistry.getObject(input[i/2].trim());
+			}else{ //return the oreDict entry or the item/block
+				returnArray[3+i] = isOreDict(input[i/2].trim()) ? input[i/2].trim() : isItem(input[i/2].trim()) ? getItem(input[i/2].trim()) : getBlock(input[i/2].trim());; //Double ternary!? Say what?
 			}
 		}
 		return returnArray;

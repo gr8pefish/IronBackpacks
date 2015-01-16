@@ -7,6 +7,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenameButton extends GuiButton {
 
+    //A class for the button used ot rename the backpack
+
     public static final int RENAME_BUTTON = 0;
 
     public static final ResourceLocation widgetTextures = IronBackpacksConstants.Resources.WIDGETS;
@@ -28,6 +30,7 @@ public class RenameButton extends GuiButton {
         if (this.visible) {
             minecraft.getTextureManager().bindTexture(widgetTextures);
 
+            //hover is used to change the color of the button by altering the texture location when a player's mouse if over the button
             boolean hover = mPosX >= this.xPosition && mPosY >= this.yPosition && mPosX < this.xPosition + this.width && mPosY < this.yPosition + this.height;
             int h = getHoverState(hover);
 

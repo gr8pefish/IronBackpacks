@@ -5,6 +5,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class IronBackpacksConstants {
 
+    //A lot (but not all) of the constants used in this mod
+
     public static final class General{
 
     }
@@ -30,8 +32,6 @@ public class IronBackpacksConstants {
     }
 
     public static final class Gui{
-        public static final ResourceLocation BASIC_BACKPACK_LOCATION =
-                new ResourceLocation(ModInformation.ID, ""+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY)+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX));
 
     }
 

@@ -5,8 +5,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.client.gui.buttons.ButtonUpgrade;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
+import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.ButtonUpgradeMessage;
 import main.ironbackpacks.network.NetworkingHandler;
@@ -25,7 +25,7 @@ import org.lwjgl.opengl.GL11;
 public class GUIBackpack extends GuiContainer {
 
     //credit where it is due: a lot of this is based on cpw's code from IronChests
-    public enum ResourceList { //TODO - move to constants?
+    public enum ResourceList {
 
         BASIC(new ResourceLocation(ModInformation.ID,
                 "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png")),
@@ -74,6 +74,7 @@ public class GUIBackpack extends GuiContainer {
             return new ContainerBackpack(player, backpack, mainType, xSize, ySize);
         }
 
+        //called from GuiHandler
         public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack, int[] upgrades) {
             return new GUIBackpack(values()[backpack.getType().ordinal()], player, backpack, upgrades);
         }
@@ -89,8 +90,6 @@ public class GUIBackpack extends GuiContainer {
     private ButtonUpgrade condense_backpack_BUTTON;
     private boolean hasAButtonUpgrade;
 
-//    private int[] upgrades;
-
     private GUIBackpack(GUI type, EntityPlayer player, InventoryBackpack backpack, int[] upgrades) {
         super(type.makeContainer(player, backpack));
         this.container = (ContainerBackpack) type.makeContainer(player, backpack);
@@ -100,17 +99,15 @@ public class GUIBackpack extends GuiContainer {
         this.ySize = type.ySize;
         this.allowUserInput = false;
         this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(upgrades);
-
-//        for (int item: upgrades){
-//            UpgradeMethods.values()[item].doGuiAlteration(this, this.fontRendererObj, this.xSize, this.ySize);
-//        }
-
     }
+
 
     @Override
     public void initGui(){
+
         super.initGui();
-        if (this.hasAButtonUpgrade) {
+
+        if (this.hasAButtonUpgrade) { //add all the buttons
 
             int xStart = ((width - xSize) / 2) + xSize - 12;
             int yStart = ((height - ySize) / 2) + ySize;
@@ -125,7 +122,7 @@ public class GUIBackpack extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
     {
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F); //set color to default, just in case
 
         this.mc.getTextureManager().bindTexture(type.guiResourceList.location);
         int x = (width - xSize) / 2;
@@ -136,12 +133,12 @@ public class GUIBackpack extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         ItemStack itemStack = IronBackpacksHelper.getBackpack(this.player);
-        this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
         this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(GuiButton button) { //called whenever a button is pressed
         if (button == backpack_to_inventory_BUTTON) {
             this.container.backpackToInventory();
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.BACKPACK_TO_INVENTORY));

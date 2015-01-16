@@ -6,8 +6,6 @@ import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.items.upgrades.UpgradeTypes;
-import main.ironbackpacks.network.ButtonUpgradeMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.RenameMessage;
 import main.ironbackpacks.util.IronBackpacksHelper;
@@ -24,8 +22,9 @@ import org.lwjgl.opengl.GL11;
 
 public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
 
-    public enum ResourceList { //TODO - move to constants?
-
+    public enum ResourceList {
+        //The two lists here in ResourceList and in GUI below are because of the option to either include
+        //the renaming upgrade or not (via config), which shifts the locations of everything in the gui.
         ZERO(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/ZERO_alternateGui.png")),
         ONE(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/ONE_alternateGui.png")),
         TWO(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/TWO_alternateGui.png")),
@@ -69,6 +68,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             return new ContainerAlternateGui(player, inv, xSize, ySize);
         }
 
+        //called from GuiHandler
         public static GUIBackpackAlternate buildGUIAlternate(EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
             GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades) + 4] : values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades)]; //shifts to correct index if renaming
             return new GUIBackpackAlternate(gui, player, inv, upgrades, backpackType);
@@ -131,7 +131,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
     {
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F); //rests colors
 
         this.mc.getTextureManager().bindTexture(type.guiResourceList.location);
         int x = (width - xSize) / 2;
@@ -145,6 +145,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752);
         this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
+        //draw the titles of all the upgrades in their correct positions
         if (this.hasNoUpgrades){
             this.fontRendererObj.drawString(StatCollector.translateToLocal("noValidUpgradesFound"), 20, 22, 4210752);
         }
@@ -159,7 +160,6 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         }
         if (this.hasCondenserUpgrade){
             this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),20, yStart, 4210752);
-//            yStart += 20; //last one so unnecessary
         }
     }
 
@@ -167,8 +167,8 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     protected void keyTyped(char char1, int int1)
     {
         if (this.hasRenamingUpgrade) {
-            if (this.textField.textboxKeyTyped(char1, int1)){
-                //
+            if (this.textField.textboxKeyTyped(char1, int1)){ //TODO-fix?
+                //I seem to need to call this to process the key
             }else {
                 super.keyTyped(char1, int1);
             }
@@ -176,20 +176,6 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             super.keyTyped(char1, int1);
         }
     }
-
-//    private void updateItemNaming()
-//    {
-//        String s = this.textField.getText();
-//        Slot slot = this.container.getSlot(0);
-//
-//        if (slot != null && slot.getHasStack() && !slot.getStack().hasDisplayName() && s.equals(slot.getStack().getDisplayName()))
-//        {
-//            s = "";
-//        }
-//
-//        this.container.updateItemName(s); //get player's held item + rename that
-//        this.mc.thePlayer.sendQueue.addToSendQueue(new C17PacketCustomPayload("MC|ItemName", s.getBytes(Charsets.UTF_8)));
-//    }
 
     @Override
     protected void mouseClicked(int int1, int int2, int int3)
