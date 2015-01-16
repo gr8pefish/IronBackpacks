@@ -1,12 +1,15 @@
 To Do:
 
-
 Balance/Play With:
     Fancier config file
     Most of the default recipes
 
 Bugs:
-    Items move around in alternate gui when another alt. gui upgrade is added
+    IMPORTANT:
+
+    Less important:
+        Items move around in alternate gui when another alt. gui upgrade is added
+        UUID not working?
 
 Figure out:
 

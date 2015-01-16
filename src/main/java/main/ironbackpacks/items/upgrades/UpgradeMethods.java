@@ -109,7 +109,7 @@ public class UpgradeMethods {
             }
         }else{
             for (int upgrade: upgrades) {
-                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID
+                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
