@@ -69,16 +69,16 @@ jar {
 }
 
 // add a source jar
-task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
+//task sourceJar(type: Jar) {
+//    from sourceSets.main.allSource
+//    classifier = 'sources'
+//}
 
 // add a javadoc jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    from javadoc.destinationDir
-    classifier = 'javadoc'
-}
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    from javadoc.destinationDir
+//    classifier = 'javadoc'
+//}
 
 // because the normal output has been made to be obfuscated
 task deobfJar(type: Jar) {
@@ -86,7 +86,8 @@ task deobfJar(type: Jar) {
     classifier = 'deobf'
 }
 
-tasks.build.dependsOn sourceJar, javadocJar, deobfJar
+//tasks.build.dependsOn sourceJar, javadocJar, deobfJar
+tasks.build.dependsOn deobfJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
