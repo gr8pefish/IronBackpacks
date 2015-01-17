@@ -46,6 +46,7 @@ public class ItemRecipeRegistry {
 		registerBasicRecipe(ItemRegistry.filterUpgrade, ConfigHandler.filterUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.hopperUpgrade, ConfigHandler.hopperUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.condenserUpgrade, ConfigHandler.condenserUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.keepOnDeathUpgrade, ConfigHandler.keepOnDeathUpgradeRecipe);
 	}
 
 	public static void registerBackpackUpgradeRecipes(){

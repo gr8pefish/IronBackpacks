@@ -1,7 +1,9 @@
 package main.ironbackpacks.items.upgrades;
 
+import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
+import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -87,6 +89,18 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (int upgrade: upgrades) {
             if (upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
+    public static boolean hasKeepOnDeathUpgrade(ItemStack stack){
+        int[] upgrades = IronBackpacksHelper.getUpgradesFromNBT(stack);
+        boolean hasUpgrade = false;
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_UPGRADE_ID) {
                 hasUpgrade = true;
                 break;
             }

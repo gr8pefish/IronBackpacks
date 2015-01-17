@@ -85,6 +85,15 @@ public class ContainerAlternateGui extends Container {
         }
     }
 
+    @Override
+    public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) {
+        // this will prevent the player from interacting with the item that opened the inventory:
+        if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getStack().isItemEqual(player.getHeldItem())) {
+            return null;
+        }
+        return super.slotClick(slot, button, flag, player);
+    }
+
     //=====================HELPER METHODS============================
 
     public EntityPlayer getPlayer() { return player; }

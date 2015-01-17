@@ -1,6 +1,7 @@
 package main.ironbackpacks.util;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.io.File;
 
@@ -79,6 +80,7 @@ public class ConfigHandler {
     public static String[] filterUpgradeRecipe;
     public static String[] hopperUpgradeRecipe;
     public static String[] condenserUpgradeRecipe;
+    public static String[] keepOnDeathUpgradeRecipe;
 
     public static String[] nestRecipe;
     public static String[] upgradeCoreRecipe;
@@ -110,6 +112,7 @@ public class ConfigHandler {
         String[] filterRecipe = {"items.string","items.paper","items.string", "items.paper", "items.ironbackpacks:upgradeCore", "items.paper", "items.string", "items.paper", "items.string"};
         String[] hopperRecipe = {"none","blocks.hopper","none", "blocks.hopper", "items.ironbackpacks:upgradeCore", "blocks.hopper", "none", "blocks.hopper", "none"};
         String[] condenserRecipe = {"items.string","items.leather","items.string", "items.leather", "items.ironbackpacks:upgradeCore", "items.leather", "items.string", "items.leather", "items.string"};
+        String[] keepOnDeathRecipe = {"blockDiamond","record","blockDiamond", "record", "items.ironbackpacks:upgradeCore", "record", "blockDiamond", "record", "blockDiamond"};
 
         String[] upgradeCoreRecipeDefault = {"items.leather","items.string","items.leather", "items.string", "items.paper", "items.string", "items.leather", "items.string", "items.leather"};
         String[] nestRecipeDefault = {"stickWood","stickWood","stickWood", "stickWood", "items.egg", "stickWood", "stickWood", "stickWood", "stickWood"};
@@ -162,7 +165,8 @@ public class ConfigHandler {
         damageBarUpgradeRecipe = config.get("5) Recipes", "8) Damage Bar Upgrade Recipe", damageBarRecipe, "The recipe for the damage bar upgrade.").getStringList();
         filterUpgradeRecipe = config.get("5) Recipes", "9) Filter Upgrade Recipe", filterRecipe, "The recipe for the filter upgrade.").getStringList();
         hopperUpgradeRecipe = config.get("5) Recipes", "10) Hopper Upgrade Recipe", hopperRecipe, "The recipe for the hopper upgrade.").getStringList();
-        condenserUpgradeRecipe = config.get("5) Recipes", "9) Condenser Upgrade Recipe", condenserRecipe, "The recipe for the condenser upgrade.").getStringList();
+        condenserUpgradeRecipe = config.get("5) Recipes", "11) Condenser Upgrade Recipe", condenserRecipe, "The recipe for the condenser upgrade.").getStringList();
+        keepOnDeathUpgradeRecipe = config.get("5) Recipes", "12) Keep On Death Upgrade Recipe", keepOnDeathRecipe, "The recipe for the upgrade that allows you to keep the backpack upon dying.").getStringList();
 
         nestRecipe = config.get("5) Recipes", "10) Nest Recipe", nestRecipeDefault, "The recipe for the crafting item - nest.").getStringList();
         upgradeCoreRecipe = config.get("5) Recipes", "11) Upgrade Core Recipe", upgradeCoreRecipeDefault, "The recipe for the crafting item - upgrade core.").getStringList();

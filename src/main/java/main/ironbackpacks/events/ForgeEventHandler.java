@@ -6,12 +6,16 @@ import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
+import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.IronBackpacksHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 
@@ -36,15 +40,20 @@ public class ForgeEventHandler {
 
     }
 
-//    @SubscribeEvent
-//    public void onItemPlacedEvent(){
-//
-//    }
+    @SubscribeEvent
+    public void onDeath(LivingDeathEvent event){
+        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer){ //server side
+            CommonProxy.saveBackpackOnDeath((EntityPlayer) event.entity); //if player has any backpacks with keepOnDeathUpgrade then they are saved for when they spawn
+        }
+    }
 
     @SubscribeEvent
-    public void playerDiesEvent(PlayerDropsEvent event){
-        //if save backpack on death upgrade, don't drop the item
+    public void onEntityJoinWorld(EntityJoinWorldEvent event){
+        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer){ //server side
+            CommonProxy.loadBackpackOnDeath((EntityPlayer) event.entity); //if player had any backpacks with keepOnDeathUpgrade then they spawn with them
+        }
     }
+
 
     public boolean checkHopperUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){
         boolean doFilter = true;

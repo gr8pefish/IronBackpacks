@@ -6,6 +6,7 @@ import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.items.upgrades.UpgradeNames;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -114,7 +115,7 @@ public class ItemBaseBackpack extends ItemBase {
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) {
         int[] upgrades = IronBackpacksHelper.getUpgradesFromNBT(itemStack);
         for (int i = 0; i < this.upgradeSlots; i++){
-            list.add(UpgradeNames.values()[upgrades[i]].getFancyName());
+            list.add(IronBackpacksConstants.Upgrades.LOCALIZED_NAMES[upgrades[i]]);
         }
     }
 

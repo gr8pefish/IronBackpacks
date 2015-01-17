@@ -6,6 +6,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemFilterUpgrade extends ItemUpgradeBase{
 
     public ItemFilterUpgrade(){
-        super("filterUpgrade", "filterUpgrade", IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID, "Adds a configurable filter of items","that the backpack will automatically collect.");
+        super("filterUpgrade", "filterUpgrade", IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID, IronBackpacksConstants.Upgrades.FILTER_DESCRIPTION);
     }
 }

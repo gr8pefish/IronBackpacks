@@ -31,6 +31,7 @@ public class ItemRegistry {
     public static Item filterUpgrade;
     public static Item hopperUpgrade;
     public static Item condenserUpgrade;
+    public static Item keepOnDeathUpgrade;
 
     //misc
     public static Item nest;
@@ -56,6 +57,7 @@ public class ItemRegistry {
         upgrades.add(filterUpgrade);
         upgrades.add(hopperUpgrade);
         upgrades.add(condenserUpgrade);
+        upgrades.add(keepOnDeathUpgrade);
         return upgrades;
     }
 
@@ -89,13 +91,14 @@ public class ItemRegistry {
         GameRegistry.registerItem(hopperUpgrade, "hopperUpgrade");
         condenserUpgrade = new ItemCondenserUpgrade();
         GameRegistry.registerItem(condenserUpgrade, "condenserUpgrade");
+        keepOnDeathUpgrade = new ItemKeepOnDeathUpgrade();
+        GameRegistry.registerItem(keepOnDeathUpgrade, "keepOnDeathUpgrade");
 
         //misc
         nest = new ItemNest();
         GameRegistry.registerItem(nest, "nest");
         upgradeCore = new ItemUpgradeCore();
         GameRegistry.registerItem(upgradeCore, "upgradeCore");
-
 
 	}
 }

@@ -6,6 +6,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemRenamingUpgrade extends ItemUpgradeBase {
 
     public ItemRenamingUpgrade(){
-        super("renamingUpgrade", "renamingUpgrade", IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID, "Allows you to rename the backpack.");
+        super("renamingUpgrade", "renamingUpgrade", IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID, IronBackpacksConstants.Upgrades.RENAMING_DESCRIPTION);
     }
 }

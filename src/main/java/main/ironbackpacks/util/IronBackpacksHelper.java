@@ -87,4 +87,17 @@ public class IronBackpacksHelper {
         return upgrades;
     }
 
+    public static void setUpgradesToNBT(int[] upgrades, ItemStack stack){
+        if (stack != null) {
+            NBTTagCompound nbtTagCompound = stack.getTagCompound();
+            NBTTagList tagList = new NBTTagList();
+            for (int upgrade: upgrades) {
+                NBTTagCompound tagCompound = new NBTTagCompound();
+                tagCompound.setByte("Upgrade", (byte) upgrade);
+                tagList.appendTag(tagCompound);
+            }
+            nbtTagCompound.setTag("Upgrades", tagList);
+        }
+    }
+
 }
