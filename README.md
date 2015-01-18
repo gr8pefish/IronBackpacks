@@ -4,16 +4,20 @@ For more information see the MCF post [here](http://www.minecraftforum.net/forum
 
 #Issue Reporting
 
-Please include the following:
+Before posting anything, please check if the issue has already been posted/resolved.
+
+If it has not, please include the following:
 
 * Minecraft version
 * Iron Backpacks version
 * Forge version/build
 * Versions of any mods potentially related to the issue
 * Any relevant screenshots are greatly appreciated.
+* Steps to reproduce
 * For crashes:
- * Steps to reproduce
  * ForgeModLoader-client-0.log (the FML log) from the root folder of the client
+
+The more detailed you are the easier it is for me. Thank you!
 
 #Other
 
