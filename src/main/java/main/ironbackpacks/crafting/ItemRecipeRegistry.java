@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +35,11 @@ public class ItemRecipeRegistry {
 	public static  void registerMiscRecipes(){
 		registerBasicRecipe(ItemRegistry.nest, ConfigHandler.nestRecipe);
 		registerBasicRecipe(ItemRegistry.upgradeCore, ConfigHandler.upgradeCoreRecipe);
+
+		registerShapelessRecipe(ItemRegistry.jeweledFeather, ConfigHandler.jeweledFeatherRecipe);
+		registerShapelessRecipe(ItemRegistry.treatedLeather, ConfigHandler.treatedLeatherRecipe);
 	}
+
 
 	public static void registerUpgradeRecipes(){
 		registerBasicRecipe(ItemRegistry.buttonUpgrade, ConfigHandler.buttonUpgradeRecipe);
@@ -78,12 +83,32 @@ public class ItemRecipeRegistry {
 		registerBasicOreRecipe(output, recipe); //currently just using ore recipes, but keeping this method for future ease of change
 	}
 
+	private static void registerShapelessRecipe(Item output, String[] recipe) {
+		Object[] theRecipe = getShapelessOreRecipe(recipe);
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(output), theRecipe));
+	}
 
 	private static void registerBasicOreRecipe(Item output, String[] recipe){
 		Object[] theRecipe = getOreRecipe(recipe);
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(output), theRecipe));
 	}
 
+	private static Object[] getShapelessOreRecipe(String[] input){
+		Object[] returnArray = new Object[input.length];
+		for (int i = 0; i < input.length; i++){
+			if (input[i].contains(";")){
+				String[] splitString = input[i].split(";");
+				if (isItem(splitString[0])) {
+					returnArray[i] = new ItemStack(getItem(splitString[0]), 1, Integer.valueOf(splitString[1]));
+				}else{
+					returnArray[i] = new ItemStack(getBlock(splitString[0]), 1, Integer.valueOf(splitString[1]));
+				}
+			}else{
+				returnArray[i] = isOreDict(input[i].trim()) ? input[i].trim() : isItem(input[i].trim()) ? getItem(input[i].trim()) : getBlock(input[i].trim());
+			}
+		}
+		return returnArray;
+	}
 
 	protected static boolean isOreDict(String input){
 		return ores.contains(input.trim());
@@ -97,7 +122,7 @@ public class ItemRecipeRegistry {
 			}else if (input[i/2].trim().equals("none")){
 				returnArray[3+i] = "none";
 			}else{ //return the oreDict entry or the item/block
-				returnArray[3+i] = isOreDict(input[i/2].trim()) ? input[i/2].trim() : isItem(input[i/2].trim()) ? getItem(input[i/2].trim()) : getBlock(input[i/2].trim());; //Double ternary!? Say what?
+				returnArray[3+i] = isOreDict(input[i/2].trim()) ? input[i/2].trim() : isItem(input[i/2].trim()) ? getItem(input[i/2].trim()) : getBlock(input[i/2].trim()); //Double ternary!? Say what?
 			}
 		}
 		return returnArray;

@@ -5,7 +5,9 @@ import main.ironbackpacks.items.backpacks.backpackItems.ItemBasicBackpack;
 import main.ironbackpacks.items.backpacks.backpackItems.ItemDiamondBackpack;
 import main.ironbackpacks.items.backpacks.backpackItems.ItemGoldBackpack;
 import main.ironbackpacks.items.backpacks.backpackItems.ItemIronBackpack;
+import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;
 import main.ironbackpacks.items.craftingItems.ItemNest;
+import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
 import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.util.ConfigHandler;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 
 public class ItemRegistry {
 
-    //Class to register your blocks in.
+    //Class to register your items in.
 
 	//backpacks
     public static Item basicBackpack;
@@ -36,6 +38,8 @@ public class ItemRegistry {
     //misc
     public static Item nest;
     public static Item upgradeCore;
+    public static Item jeweledFeather;
+    public static Item treatedLeather;
 
     public static ArrayList<Item> getBackpacks(){
         ArrayList<Item> backpacks = new ArrayList<Item>();
@@ -99,6 +103,10 @@ public class ItemRegistry {
         GameRegistry.registerItem(nest, "nest");
         upgradeCore = new ItemUpgradeCore();
         GameRegistry.registerItem(upgradeCore, "upgradeCore");
+        jeweledFeather = new ItemJeweledFeather();
+        GameRegistry.registerItem(jeweledFeather, "jeweledFeather");
+        treatedLeather = new ItemTreatedLeather();
+        GameRegistry.registerItem(treatedLeather, "treatedLeather");
 
 	}
 }

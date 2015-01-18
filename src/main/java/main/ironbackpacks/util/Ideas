@@ -1,4 +1,6 @@
 To Do:
+    change hardcoded upgrade[] lengths (find in path => new int[3])
+    balance default recipes for release
 
 Balance/Play With:
     Fancier config file
@@ -18,10 +20,6 @@ Tiers:
     Gold[DONE]
     Diamond[DONE]
 
-    Reed
-    Leather
-    Feather
-
 Types:
     Item
     Barrel
@@ -38,7 +36,7 @@ Upgrades:
     Inventory upgrade - extends inventory (probably only will be used in final tier)
     Camelpack upgrade - eat from it
     Umbrella upgrade - slow fall
-    KeepOnDeath upgrade - really expensive but keep backpack on death
+    KeepOnDeath upgrade[DONE] - really expensive but keep backpack on death
     UpgradeAddon upgrade - adds another upgrade slot - would have to store UpgradeCount as NBT data
 
     If add another alt.Gui upgrade have to check recipe before applying (b/c can only have 3 alt. gui upgrades (plus naming) due to gui sizing limitation unless I expand the gui horizontally).
