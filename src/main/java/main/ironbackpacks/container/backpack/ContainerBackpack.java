@@ -1,5 +1,6 @@
 package main.ironbackpacks.container.backpack;
 
+import invtweaks.api.container.ChestContainer;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+@ChestContainer //Inventory tweaks
 public class ContainerBackpack extends Container {
 
     private EntityPlayer player;
@@ -303,6 +305,16 @@ public class ContainerBackpack extends Container {
             }
         }
         return total;
+    }
+
+    @ChestContainer.RowSizeCallback //Inventory tweaks
+    public int getNumColumns(){
+        return type.getRowLength();
+    }
+
+    @ChestContainer.IsLargeCallback //Inventory tweaks
+    public boolean getVerticalButtons(){
+        return false;
     }
 
 

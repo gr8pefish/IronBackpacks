@@ -1,10 +1,8 @@
 To Do:
     change hardcoded upgrade[] lengths (find in path => new int[3])
-    balance default recipes for release
 
 Balance/Play With:
     Fancier config file
-    Most of the default recipes
 
 Bugs:
     IMPORTANT:
@@ -13,6 +11,10 @@ Bugs:
         Items move around in alternate gui when another alt. gui upgrade is added
 
 Figure out:
+    How to render a backpack on your back
+        (look at better storage's code)
+        #vazkii on espernet
+
 
 Tiers:
     Leather[DONE]
@@ -38,6 +40,8 @@ Upgrades:
     Umbrella upgrade - slow fall
     KeepOnDeath upgrade[DONE] - really expensive but keep backpack on death
     UpgradeAddon upgrade - adds another upgrade slot - would have to store UpgradeCount as NBT data
+    Furnace Upgrade{ALT GUI} - smelt things in your backpack using smelt-able materials from the backpack? //Will have to change something with alt-gui as noted below
+    Ender Upgrade - links this backpack to your ender chest
 
     If add another alt.Gui upgrade have to check recipe before applying (b/c can only have 3 alt. gui upgrades (plus naming) due to gui sizing limitation unless I expand the gui horizontally).
 
