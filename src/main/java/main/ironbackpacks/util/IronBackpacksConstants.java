@@ -29,8 +29,9 @@ public class IronBackpacksConstants {
         //Alternate Gui
         public static final int RENAMING_UPGRADE_ID = 5;
         public static final int FILTER_UPGRADE_ID = 6;
-        public static final int HOPPER_UPGRADE_ID = 7;
-        public static final int CONDENSER_UPGRADE_ID = 8;
+        public static final int FILTER_MOD_SPECIFIC_UPGRADE_ID = 7;
+        public static final int HOPPER_UPGRADE_ID = 8;
+        public static final int CONDENSER_UPGRADE_ID = 9;
 
         //================Upgrade Info===================
         public static final String[] BUTTON_DESCRIPTION = {"Adds buttons to quickly move items","to and from your backpack, as well as","a button to sort your backpack quickly."};
@@ -40,6 +41,7 @@ public class IronBackpacksConstants {
         //Alternate Gui
         public static final String[] RENAMING_DESCRIPTION = {"Allows you to rename the backpack."};
         public static final String[] FILTER_DESCRIPTION = {"Adds a configurable filter of items","that the backpack will automatically collect."};
+        public static final String[] FILTER_MOD_SPECIFIC_DESCRIPTION = {"Alters the filter so that it will now pick up any item","that is from the same mod as the item(s) in the filter slots."};
         public static final String[] HOPPER_DESCRIPTION = {"Allows you to specify an item to keep stocked","in your inventory/hotbar","which is supplied from your backpack."};
         public static final String[] CONDENSER_DESCRIPTION = {"Allows you to specify a set of items","to be compressed upon entering your backpack."};
         //All together now
@@ -51,6 +53,7 @@ public class IronBackpacksConstants {
                 StatCollector.translateToLocal("item.ironbackpacks:keepOnDeathUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:renamingUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:filterUpgrade.name"),
+                StatCollector.translateToLocal("item.ironbackpacks:filterModSpecificUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:hopperUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name")};
 

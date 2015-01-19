@@ -86,6 +86,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     private boolean hasNoUpgrades;
     private boolean hasRenamingUpgrade;
     private boolean hasFilterUpgrade;
+    private boolean hasFilterModSpecificUpgrade;
     private boolean hasHopperUpgrade;
     private boolean hasCondenserUpgrade;
 
@@ -102,6 +103,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         this.hasNoUpgrades = type.equals(GUI.ZERO);
         this.hasRenamingUpgrade = UpgradeMethods.hasRenamingUpgrade(upgrades);
         this.hasFilterUpgrade = UpgradeMethods.hasFilterUpgrade(upgrades);
+        this.hasFilterModSpecificUpgrade = UpgradeMethods.hasFilterModSpecificUpgrade(upgrades);
         this.hasHopperUpgrade = UpgradeMethods.hasHopperUpgrade(upgrades);
         this.hasCondenserUpgrade = UpgradeMethods.hasCondenserUpgrade(upgrades);
     }
@@ -152,6 +154,9 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         int yStart = this.hasRenamingUpgrade ? 43 : 24;
         if (this.hasFilterUpgrade){
             this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterUpgrade.name"),20, yStart, 4210752);
+            yStart += 36;
+        }else if (this.hasFilterModSpecificUpgrade){
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterModSpecificUpgrade.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (this.hasHopperUpgrade){

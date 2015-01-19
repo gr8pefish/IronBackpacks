@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class IronBackpacksHelper {
@@ -50,7 +51,7 @@ public class IronBackpacksHelper {
             if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
                 ItemStack backpack = player.inventory.getStackInSlot(i);
                 int[] upgrades = getUpgradesFromNBT(backpack);
-                if (UpgradeMethods.hasFilterUpgrade(upgrades)){
+                if (UpgradeMethods.hasFilterUpgrade(upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(upgrades)){
                     filterBackpacks.add(backpack);
                 }
                 if (UpgradeMethods.hasCondenserUpgrade(upgrades)){
@@ -68,7 +69,7 @@ public class IronBackpacksHelper {
     }
 
     public static int[] getUpgradesFromNBT(ItemStack stack) {
-        int[] upgrades = new int[3]; //default [0,0,0]
+        int[] upgrades = new int[ConfigHandler.enumDiamondBackpack.upgradeSlots.getValue()]; //default [0,0,0]
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
@@ -79,12 +80,19 @@ public class IronBackpacksHelper {
                         int hasUpgrade = stackTag.getByte("Upgrade");
                         if (hasUpgrade != 0){ //true
                             upgrades[i] = hasUpgrade;
+//                            upgrades = addElements(upgrades, hasUpgrade);
                         }
                     }
                 }
             }
         }
         return upgrades;
+    }
+
+    public static int[] addElements(int[] original, int add){
+        original  = Arrays.copyOf(original, original.length + 1);
+        original[original.length - 1] = add;
+        return original;
     }
 
     public static void setUpgradesToNBT(int[] upgrades, ItemStack stack){

@@ -1,13 +1,10 @@
 package main.ironbackpacks.proxies;
 
-import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.ArrayList;
 import java.util.UUID;

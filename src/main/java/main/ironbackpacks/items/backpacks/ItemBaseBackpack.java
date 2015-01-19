@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.items.upgrades.UpgradeNames;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.NBTHelper;

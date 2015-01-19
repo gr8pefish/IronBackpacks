@@ -223,7 +223,7 @@ public class InventoryAlternateGui implements IInventory {
         int startIndex = 0; //need to start/increment at the slot number appropriate to the amount of valid upgrades
         int rows = this.invSize / 9; //because mc lays out the container by rows, not columns
         // Write the ItemStacks in the inventory to NBT
-        if (UpgradeMethods.hasFilterUpgrade(this.upgrades)) {
+        if (UpgradeMethods.hasFilterUpgrade(this.upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();
             for (int i = startIndex; i < startIndex + (rows * 9); i += rows) {
                 if (inventory[i] != null) {

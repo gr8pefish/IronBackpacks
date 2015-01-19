@@ -31,6 +31,7 @@ public class ItemRegistry {
     public static Item renamingUpgrade;
     public static Item damageBarUpgrade;
     public static Item filterUpgrade;
+    public static Item filterModSpecificUpgrade;
     public static Item hopperUpgrade;
     public static Item condenserUpgrade;
     public static Item keepOnDeathUpgrade;
@@ -59,6 +60,7 @@ public class ItemRegistry {
             upgrades.add(renamingUpgrade);
         }
         upgrades.add(filterUpgrade);
+        upgrades.add(filterModSpecificUpgrade);
         upgrades.add(hopperUpgrade);
         upgrades.add(condenserUpgrade);
         upgrades.add(keepOnDeathUpgrade);
@@ -97,6 +99,8 @@ public class ItemRegistry {
         GameRegistry.registerItem(condenserUpgrade, "condenserUpgrade");
         keepOnDeathUpgrade = new ItemKeepOnDeathUpgrade();
         GameRegistry.registerItem(keepOnDeathUpgrade, "keepOnDeathUpgrade");
+        filterModSpecificUpgrade = new ItemFilterModSpecificUpgrade();
+        GameRegistry.registerItem(filterModSpecificUpgrade, "filterModSpecificUpgrade");
 
         //misc
         nest = new ItemNest();

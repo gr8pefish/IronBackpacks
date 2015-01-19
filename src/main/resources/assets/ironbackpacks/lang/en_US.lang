@@ -8,6 +8,7 @@ item.ironbackpacks:buttonUpgrade.name=Button Upgrade
 item.ironbackpacks:nestingUpgrade.name=Nesting Upgrade
 item.ironbackpacks:damageBarUpgrade.name=Damage Bar Upgrade
 item.ironbackpacks:filterUpgrade.name=Filter Upgrade
+item.ironbackpacks:filterModSpecificUpgrade.name=Filter Upgrade (Mod Specific)
 item.ironbackpacks:hopperUpgrade.name=Restocking Upgrade
 item.ironbackpacks:condenserUpgrade.name=Crafting Upgrade
 item.ironbackpacks:renamingUpgrade.name=Renaming Upgrade

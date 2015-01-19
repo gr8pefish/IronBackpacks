@@ -2,6 +2,7 @@ package main.ironbackpacks.crafting;
 
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.ItemUpgradeBase;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -64,18 +65,25 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
             result.setTagCompound(nbtTagCompound);
         }
 
+        //TODO - corner case, applies eternity upgrade in slot 1, filter upgrade in slot 2, dies, it will apply mod specific to slot 1 (not slot 2)
+
         boolean upgradeFound = false; //will put upgrade in first valid slot
         NBTTagList tagList = new NBTTagList();
         int currentSlot = 0;
+        ItemStack upgrade = getFirstUpgrade(inventoryCrafting);
+        ItemUpgradeBase upgradeBase = null;
+        if (upgrade != null) {
+            upgradeBase = (ItemUpgradeBase) upgrade.getItem();
+        }
         for (int integer : upgrades){
-            if (integer == 0 && currentSlot <= ((ItemBaseBackpack)result.getItem()).getUpgradeIndex() && !hasUpgradeAlready(upgrades, inventoryCrafting)){ //If an empty upgrade slot and backpack can support upgrade
+            if ((integer == 0 || (integer == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID && (upgradeBase != null && upgradeBase.getTypeID() == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID)))&& currentSlot <= ((ItemBaseBackpack)result.getItem()).getUpgradeIndex() && !hasUpgradeAlready(upgrades, inventoryCrafting)){ //If an empty upgrade slot and backpack can support upgrade
                 if (!upgradeFound){
-                    ItemStack upgrade = getFirstUpgrade(inventoryCrafting);
-                    ItemUpgradeBase upgradeBase = (ItemUpgradeBase) upgrade.getItem();
                     NBTTagCompound tagCompound = new NBTTagCompound();
-                    tagCompound.setByte("Upgrade", (byte) upgradeBase.getTypeID());
-                    tagList.appendTag(tagCompound);
-                    upgradeFound = true;
+                    if (upgradeBase != null) {
+                        tagCompound.setByte("Upgrade", (byte) upgradeBase.getTypeID());
+                        tagList.appendTag(tagCompound);
+                        upgradeFound = true;
+                    }
                 }else{
                     NBTTagCompound tagCompound = new NBTTagCompound();
                     tagCompound.setByte("Upgrade", (byte) integer);
@@ -105,6 +113,11 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
             if (integer != 0) {
                 if (upgradeBase.getTypeID() == integer){
                     return true;
+                }
+                if (upgradeBase.getTypeID() == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID){
+                    if (integer == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID){
+                        return true;
+                    }
                 }
             }
         }

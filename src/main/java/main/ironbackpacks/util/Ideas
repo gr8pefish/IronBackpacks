@@ -1,5 +1,7 @@
 To Do:
-    change hardcoded upgrade[] lengths (find in path => new int[3])
+    Hover over buttons for a few seconds gives tooltips (inv tweaks does this)
+    Double check event handler working fine
+    Clicking on inventory (chest) with backpack empties backpack into inventory
 
 Balance/Play With:
     Fancier config file
@@ -15,6 +17,7 @@ Figure out:
         (look at better storage's code)
         #vazkii on espernet
 
+    Ghost slot implementation (ender io?)
 
 Tiers:
     Leather[DONE]
@@ -28,20 +31,20 @@ Types:
     Fluid - acts like bucket when right click
 
 Upgrades:
-    Search upgrade - NEI search bar
-    Button upgrade[DONE] - Condense items button? -If ghostSlot doesn't work, add buttons for shift-clicking-like feature for alt gui upgrades
+    Button upgrade[DONE] -If ghostSlot doesn't work, add buttons for shift-clicking-like feature for alt gui upgrades
     Nesting upgrade[DONE] - lower tier goes in higher tier
     Renaming upgrade{ALT GUI}[DONE?] - rename the backpack, included by default -change background color of text box to light brown (see anvil) + redo button to say "rename"
     Hopper upgrade{ALT GUI}[DONE] - keeps an item stocked - needs to have at least 1 of target item in player's inventory to resupply
     Condenser upgrade{ALT GUI}[DONE] - compresses items
     Filter upgrade{ALT GUI}[DONE] - automatically picks up specified items - Button to alter fuzzy behavior?
-    Inventory upgrade - extends inventory (probably only will be used in final tier)
+    Inventory upgrade? - extends inventory (probably only will be used in final tier)
     Camelpack upgrade - eat from it
     Umbrella upgrade - slow fall
     KeepOnDeath upgrade[DONE] - really expensive but keep backpack on death
-    UpgradeAddon upgrade - adds another upgrade slot - would have to store UpgradeCount as NBT data
+    UpgradeAddon upgrade - adds another upgrade slot - would have to change how I deal with upgrades; store Upgrades all as NBT data (length of array is upgradeCount)
     Furnace Upgrade{ALT GUI} - smelt things in your backpack using smelt-able materials from the backpack? //Will have to change something with alt-gui as noted below
     Ender Upgrade - links this backpack to your ender chest
+    Mod Specific Filter upgrade - makes it so that the filter upgrade will pick up any item from mod x, where x is the mod that an item in the filter slot is from.
 
     If add another alt.Gui upgrade have to check recipe before applying (b/c can only have 3 alt. gui upgrades (plus naming) due to gui sizing limitation unless I expand the gui horizontally).
 
@@ -60,7 +63,7 @@ Misc features:
 
 Mod Support:
     NEI with recipes[DONE]
-    Inventory Tweaks
+    Inventory Tweaks[DONE]
 
 Future Refactoring:
     Full localization

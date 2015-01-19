@@ -49,6 +49,7 @@ public class ItemRecipeRegistry {
 		}
 		registerBasicRecipe(ItemRegistry.damageBarUpgrade, ConfigHandler.damageBarUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.filterUpgrade, ConfigHandler.filterUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.filterModSpecificUpgrade, ConfigHandler.filterModSpecificUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.hopperUpgrade, ConfigHandler.hopperUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.condenserUpgrade, ConfigHandler.condenserUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.keepOnDeathUpgrade, ConfigHandler.keepOnDeathUpgradeRecipe);

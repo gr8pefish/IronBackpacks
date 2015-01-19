@@ -1,9 +1,6 @@
 package main.ironbackpacks.util;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.io.File;
 
@@ -80,6 +77,7 @@ public class ConfigHandler {
     public static String[] renamingUpgradeRecipe;
     public static String[] damageBarUpgradeRecipe;
     public static String[] filterUpgradeRecipe;
+    public static String[] filterModSpecificUpgradeRecipe;
     public static String[] hopperUpgradeRecipe;
     public static String[] condenserUpgradeRecipe;
     public static String[] keepOnDeathUpgradeRecipe;
@@ -118,14 +116,15 @@ public class ConfigHandler {
         String[] damageBarRecipe = {"items.ironbackpacks:treatedLeather","items.bowl","items.ironbackpacks:treatedLeather", "items.string", "items.ironbackpacks:upgradeCore", "items.string", "items.ironbackpacks:treatedLeather", "items.bowl", "items.ironbackpacks:treatedLeather"};
         //done
         String[] filterRecipe = {"items.ender_pearl","items.spider_eye","items.ender_pearl", "items.paper", "items.ironbackpacks:upgradeCore", "items.paper", "items.ender_pearl", "items.spider_eye", "items.ender_pearl"};
-        //done
+        //done? -too hard?
         String[] hopperRecipe = {"none","blocks.hopper","none", "blocks.hopper", "items.ironbackpacks:upgradeCore", "blocks.hopper", "none", "blocks.hopper", "none"};
         //done
         String[] condenserRecipe = {"gemLapis","blockLapis","gemLapis", "blocks.crafting_table", "items.ironbackpacks:upgradeCore", "blocks.crafting_table", "dustRedstone", "blockRedstone", "dustRedstone"};
         //done
         String[] keepOnDeathRecipe = {"blockDiamond","record","blockDiamond", "record", "items.ironbackpacks:upgradeCore", "record", "blockDiamond", "record", "blockDiamond"};
         //done
-
+        String[] filterModSpecificRecipe = {"none","blocks.hopper","none", "blocks.hopper", "items.ironbackpacks:filterUpgrade", "blocks.hopper", "none", "blocks.hopper", "none"};
+        //tweak
 
         String[] upgradeCoreRecipeDefault = {"items.leather","items.string","items.leather", "items.string", "items.paper", "items.string", "items.leather", "items.string", "items.leather"};
         //done
@@ -184,14 +183,15 @@ public class ConfigHandler {
         renamingUpgradeRecipe = config.get("5) Recipes", "7) Renaming Upgrade Recipe", renamingRecipe, "The recipe for the renaming upgrade. Only used if the upgrade is required (another option in config)").getStringList();
         damageBarUpgradeRecipe = config.get("5) Recipes", "8) Damage Bar Upgrade Recipe", damageBarRecipe, "The recipe for the damage bar upgrade.").getStringList();
         filterUpgradeRecipe = config.get("5) Recipes", "9) Filter Upgrade Recipe", filterRecipe, "The recipe for the filter upgrade.").getStringList();
-        hopperUpgradeRecipe = config.get("5) Recipes", "10) Hopper Upgrade Recipe", hopperRecipe, "The recipe for the hopper upgrade.").getStringList();
-        condenserUpgradeRecipe = config.get("5) Recipes", "11) Condenser Upgrade Recipe", condenserRecipe, "The recipe for the condenser upgrade.").getStringList();
-        keepOnDeathUpgradeRecipe = config.get("5) Recipes", "12) Keep On Death Upgrade Recipe", keepOnDeathRecipe, "The recipe for the upgrade that allows you to keep the backpack upon dying.").getStringList();
+        filterModSpecificUpgradeRecipe = config.get("5) Recipes", "10) Filter Upgrade Recipe", filterModSpecificRecipe, "The recipe for the mod specific filter upgrade.").getStringList();
+        hopperUpgradeRecipe = config.get("5) Recipes", "11) Hopper Upgrade Recipe", hopperRecipe, "The recipe for the hopper upgrade.").getStringList();
+        condenserUpgradeRecipe = config.get("5) Recipes", "12) Condenser Upgrade Recipe", condenserRecipe, "The recipe for the condenser upgrade.").getStringList();
+        keepOnDeathUpgradeRecipe = config.get("5) Recipes", "13) Keep On Death Upgrade Recipe", keepOnDeathRecipe, "The recipe for the upgrade that allows you to keep the backpack upon dying.").getStringList();
 
-        nestRecipe = config.get("5) Recipes", "10) Nest Recipe", nestRecipeDefault, "The recipe for the crafting item - nest.").getStringList();
-        upgradeCoreRecipe = config.get("5) Recipes", "11) Upgrade Core Recipe", upgradeCoreRecipeDefault, "The recipe for the crafting item - upgrade core.").getStringList();
-        jeweledFeatherRecipe = config.get("5) Recipes", "12) Jeweled Feather Recipe", jeweledFeatherDefault, "The recipe for the crafting item - jeweled feather. Shapeless Recipe, must be less than 9 items.").getStringList();
-        treatedLeatherRecipe = config.get("5) Recipes", "13) Treated Leather Recipe", treatedLeatherDefault, "The recipe for the crafting item - treated leather. Shapeless Recipe, must be less than 9 items. Default includes lime dye.").getStringList();
+        nestRecipe = config.get("5) Recipes", "14) Nest Recipe", nestRecipeDefault, "The recipe for the crafting item - nest.").getStringList();
+        upgradeCoreRecipe = config.get("5) Recipes", "15) Upgrade Core Recipe", upgradeCoreRecipeDefault, "The recipe for the crafting item - upgrade core.").getStringList();
+        jeweledFeatherRecipe = config.get("5) Recipes", "16) Jeweled Feather Recipe", jeweledFeatherDefault, "The recipe for the crafting item - jeweled feather. Shapeless Recipe, must be less than 9 items.").getStringList();
+        treatedLeatherRecipe = config.get("5) Recipes", "17) Treated Leather Recipe", treatedLeatherDefault, "The recipe for the crafting item - treated leather. Shapeless Recipe, must be less than 9 items. Default includes lime dye.").getStringList();
 
         renamingUpgradeRequired = config.get("6) Miscellaneous", "1) Renaming Upgrade Required", false, "If the renaming upgrade is required to rename the backpack. Default is false (so you can rename backpacks natively).").getBoolean();
 
