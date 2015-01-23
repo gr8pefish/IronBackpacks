@@ -6,6 +6,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
+import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 
 public class ButtonUpgradeMessage implements IMessage {
@@ -14,10 +15,12 @@ public class ButtonUpgradeMessage implements IMessage {
 
     private int action;
 
-    public static final int BACKPACK_TO_INVENTORY = 1;
-    public static final int INVENTORY_TO_BACKPACK = 2;
-    public static final int HOTBAR_TO_BACKPACK = 3;
-    public static final int CONDENSE_BACKPACK = 4;
+    public static final int BACKPACK_TO_INVENTORY = 11;
+    public static final int INVENTORY_TO_BACKPACK = 12;
+    public static final int HOTBAR_TO_BACKPACK = 13;
+    public static final int CONDENSE_BACKPACK = 14;
+
+//    public static final int CLEAR_ROW = 5;
 
     public ButtonUpgradeMessage() {} //default constructor is necessary
 
@@ -40,6 +43,7 @@ public class ButtonUpgradeMessage implements IMessage {
         @Override
         public IMessage onMessage(ButtonUpgradeMessage message, MessageContext ctx) {
             ContainerBackpack container;
+            ContainerAlternateGui altContainer;
             switch (message.action) {
                 case BACKPACK_TO_INVENTORY:
                     container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
@@ -56,6 +60,10 @@ public class ButtonUpgradeMessage implements IMessage {
                 case CONDENSE_BACKPACK:
                     container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
                     container.sort();
+                    break;
+                default: //1,2,3,4 for button in alt gui remove slots in row
+                    altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
+                    altContainer.removeSlotsInRow(message.action);
                     break;
             }
             return null; //no return message necessary

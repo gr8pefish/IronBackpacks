@@ -120,7 +120,7 @@ public class UpgradeMethods {
 
     //=============================Other Methods====================================
 
-    //note - doesn't include renaming upgrade
+    //note - includes renaming upgrade
     public static int getAlternateGuiUpgradesCount(int[] upgrades){
         int numberOfUpgrades = 0;
         if (!ConfigHandler.renamingUpgradeRequired) {

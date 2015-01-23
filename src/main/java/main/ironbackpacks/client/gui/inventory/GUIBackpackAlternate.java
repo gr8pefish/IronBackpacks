@@ -1,11 +1,13 @@
 package main.ironbackpacks.client.gui.inventory;
 
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.client.gui.buttons.ButtonUpgrade;
 import main.ironbackpacks.client.gui.buttons.RenameButton;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
+import main.ironbackpacks.network.ButtonUpgradeMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.RenameMessage;
 import main.ironbackpacks.util.IronBackpacksHelper;
@@ -83,6 +85,15 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     private GuiTextField textField;
     private RenameButton renameButton;
 
+    private ButtonUpgrade row1;
+    private ButtonUpgrade row2;
+    private ButtonUpgrade row3;
+    private ButtonUpgrade row4;
+    private int rowToClear;
+
+    private int idRow;
+    private int upgradeCount;
+    private boolean hasButtonUpgrade;
     private boolean hasNoUpgrades;
     private boolean hasRenamingUpgrade;
     private boolean hasFilterUpgrade;
@@ -100,12 +111,17 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         this.xSize = type.xSize;
         this.ySize = type.ySize;
 
+        this.upgradeCount = UpgradeMethods.getAlternateGuiUpgradesCount(upgrades);
         this.hasNoUpgrades = type.equals(GUI.ZERO);
+        this.hasButtonUpgrade = UpgradeMethods.hasButtonUpgrade(upgrades);
         this.hasRenamingUpgrade = UpgradeMethods.hasRenamingUpgrade(upgrades);
         this.hasFilterUpgrade = UpgradeMethods.hasFilterUpgrade(upgrades);
         this.hasFilterModSpecificUpgrade = UpgradeMethods.hasFilterModSpecificUpgrade(upgrades);
         this.hasHopperUpgrade = UpgradeMethods.hasHopperUpgrade(upgrades);
         this.hasCondenserUpgrade = UpgradeMethods.hasCondenserUpgrade(upgrades);
+
+        this.rowToClear = 1;
+        this.idRow = this.hasRenamingUpgrade ? 2 : 1;
     }
 
     @Override
@@ -147,24 +163,44 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752);
         this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
-        //draw the titles of all the upgrades in their correct positions
+        //draw the titles of all the upgrades in their correct positions and add the buttons (if valid)
         if (this.hasNoUpgrades){
             this.fontRendererObj.drawString(StatCollector.translateToLocal("noValidUpgradesFound"), 20, 22, 4210752);
         }
         int yStart = this.hasRenamingUpgrade ? 43 : 24;
+        int yStartButton = ((height - ySize) / 2) + (this.hasRenamingUpgrade ? 40 : 21);
+        int xStart = ((width - xSize) / 2) + xSize - 12 - 20;
         if (this.hasFilterUpgrade){
             this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterUpgrade.name"),20, yStart, 4210752);
+            if (this.hasButtonUpgrade) {
+                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
+                this.idRow++;
+            }
             yStart += 36;
+            yStartButton += 36;
         }else if (this.hasFilterModSpecificUpgrade){
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterModSpecificUpgrade.name"), 20, yStart, 4210752);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterModSpecificUpgrade.name"),20, yStart, 4210752);
+            if (this.hasButtonUpgrade){
+                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
+                this.idRow++;
+            }
             yStart += 36;
+            yStartButton += 36;
         }
         if (this.hasHopperUpgrade){
             this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:hopperUpgrade.name"),20, yStart, 4210752);
+            if (this.hasButtonUpgrade){
+                this.buttonList.add(this.row2 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
+                this.idRow++;
+            }
             yStart += 36;
+            yStartButton += 36;
         }
         if (this.hasCondenserUpgrade){
             this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),20, yStart, 4210752);
+            if (this.hasButtonUpgrade){
+                this.buttonList.add(this.row3 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
+            }
         }
     }
 
@@ -207,6 +243,15 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         if (button == renameButton) {
             this.container.renameBackpack(this.textField.getText());
             NetworkingHandler.network.sendToServer(new RenameMessage(this.textField.getText()));
+        }else if (button == this.buttonList.get(1)){ //TODO - null check?
+            this.container.removeSlotsInRow(1);
+            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(1));
+        }else if (button == this.buttonList.get(2)){
+            this.container.removeSlotsInRow(2);
+            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(2));
+        }else if (button == this.buttonList.get(3)){
+            this.container.removeSlotsInRow(3);
+            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(3));
         }
     }
 

@@ -112,10 +112,10 @@ public class GUIBackpack extends GuiContainer {
             int xStart = ((width - xSize) / 2) + xSize - 12;
             int yStart = ((height - ySize) / 2) + ySize;
 
-            this.buttonList.add(this.backpack_to_inventory_BUTTON =  new ButtonUpgrade(1, xStart - 20, yStart - 96, 11, 11, ButtonUpgrade.BACKPACK_TO_INVENTORY));
-            this.buttonList.add(this.hotbar_to_backpack_BUTTON    =  new ButtonUpgrade(2, xStart - 40, yStart - 96, 11, 11, ButtonUpgrade.HOTBAR_TO_BACKPACK));
-            this.buttonList.add(this.inventory_to_backpack_BUTTON =  new ButtonUpgrade(3, xStart - 60, yStart - 96, 11, 11, ButtonUpgrade.INVENTORY_TO_BACKPACK));
-            this.buttonList.add(this.condense_backpack_BUTTON     =  new ButtonUpgrade(4, xStart - 80, yStart - 96, 11, 11, ButtonUpgrade.CONDENSE_BACKPACK));
+            this.buttonList.add(this.backpack_to_inventory_BUTTON =  new ButtonUpgrade(10, xStart - 20, yStart - 96, 11, 11, ButtonUpgrade.BACKPACK_TO_INVENTORY));
+            this.buttonList.add(this.hotbar_to_backpack_BUTTON    =  new ButtonUpgrade(11, xStart - 40, yStart - 96, 11, 11, ButtonUpgrade.HOTBAR_TO_BACKPACK));
+            this.buttonList.add(this.inventory_to_backpack_BUTTON =  new ButtonUpgrade(12, xStart - 60, yStart - 96, 11, 11, ButtonUpgrade.INVENTORY_TO_BACKPACK));
+            this.buttonList.add(this.condense_backpack_BUTTON     =  new ButtonUpgrade(13, xStart - 80, yStart - 96, 11, 11, ButtonUpgrade.SORT_BACKPACK));
         }
     }
 

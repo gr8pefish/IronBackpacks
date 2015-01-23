@@ -1,7 +1,16 @@
 To Do:
-    Hover over buttons for a few seconds gives tooltips (inv tweaks does this)
-    Double check event handler working fine
     Clicking on inventory (chest) with backpack empties backpack into inventory
+
+    Figure out filter expansion (18 slots) upgrade
+        Just add another filter upgrade (extended) and this expands by 9 slots and another row (so I need to do more textures)
+        Add in filter (ore Dictionary) version too [and maybe other versions if I think of them]
+            That means furnace upgrade can be an option for taking up row #4 as well
+
+    Add button upgrade expansion to alt gui - [c] on same line as upgrade name aligned right which clears the items in that row
+        Change y-spacing, it is off
+
+MCF Posting:
+    Upload default recipe screenshots
 
 Balance/Play With:
     Fancier config file
@@ -10,14 +19,14 @@ Bugs:
     IMPORTANT:
 
     Less important:
-        Items move around in alternate gui when another alt. gui upgrade is added
+
 
 Figure out:
     How to render a backpack on your back
         (look at better storage's code)
         #vazkii on espernet
 
-    Ghost slot implementation (ender io?)
+    Recipe removal? (craft w/ upgrade present and it will remove it) - will mess up in NBT loading as currently coded
 
 Tiers:
     Leather[DONE]
@@ -44,7 +53,7 @@ Upgrades:
     UpgradeAddon upgrade - adds another upgrade slot - would have to change how I deal with upgrades; store Upgrades all as NBT data (length of array is upgradeCount)
     Furnace Upgrade{ALT GUI} - smelt things in your backpack using smelt-able materials from the backpack? //Will have to change something with alt-gui as noted below
     Ender Upgrade - links this backpack to your ender chest
-    Mod Specific Filter upgrade - makes it so that the filter upgrade will pick up any item from mod x, where x is the mod that an item in the filter slot is from.
+    Mod Specific Filter upgrade[DONE] - makes it so that the filter upgrade will pick up any item from mod x, where x is the mod that an item in the filter slot is from.
 
     If add another alt.Gui upgrade have to check recipe before applying (b/c can only have 3 alt. gui upgrades (plus naming) due to gui sizing limitation unless I expand the gui horizontally).
 
@@ -66,5 +75,10 @@ Mod Support:
     Inventory Tweaks[DONE]
 
 Future Refactoring:
+
+    Make the scope of fields/methods less public
+
     Full localization
+        Includes tooltips
+        Buttons (if applicable)
 

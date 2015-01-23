@@ -1,7 +1,9 @@
 package main.ironbackpacks.client.gui.buttons;
 
+import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 
@@ -10,6 +12,12 @@ public class RenameButton extends GuiButton {
     //A class for the button used ot rename the backpack
 
     public static final int RENAME_BUTTON = 0;
+
+    protected String[] backpackTooltip = {"Renames the backpack", "to whatever is written", "in the text box."};
+    private int tooltipWidth = -1;
+    private int tooltipDelay = ConfigHandler.tooltipDelay;
+    private int hoverTime = 0;
+    private long prevSystemTime = 0;
 
     public static final ResourceLocation widgetTextures = IronBackpacksConstants.Resources.WIDGETS;
 
@@ -37,6 +45,47 @@ public class RenameButton extends GuiButton {
             int fromLeft = iconOffsetX + (h-1) * 28;
 
             this.drawTexturedModalRect(this.xPosition, this.yPosition, fromLeft, iconOffsetY, 25, 10);
+
+            //Thank you inventory tweaks
+
+            //draws tooltips if you hover over the buttons for long enough
+            if(hover) {
+                long systemTime = System.currentTimeMillis();
+                if(prevSystemTime != 0) {
+                    hoverTime += systemTime - prevSystemTime;
+                }
+                prevSystemTime = systemTime;
+            } else {
+                hoverTime = 0;
+                prevSystemTime = 0;
+            }
+            if(hoverTime > tooltipDelay) {
+
+                FontRenderer fontRenderer = minecraft.fontRenderer;
+
+                // Compute tooltip params
+                int x = mPosX + 12, y = mPosY - 11 * backpackTooltip.length;
+                if(tooltipWidth == -1) {
+                    for(String line : backpackTooltip) {
+                        tooltipWidth = Math.max(fontRenderer.getStringWidth(line), tooltipWidth);
+                    }
+                }
+                if(x + tooltipWidth > minecraft.currentScreen.width) {
+                    x = minecraft.currentScreen.width - tooltipWidth;
+                }
+
+                // Draw background
+                drawGradientRect(x - 3, y - 3, x + tooltipWidth + 3, y + 11 * backpackTooltip.length, 0xc0000000,
+                        0xc0000000);
+
+                // Draw lines
+                int lineCount = 0;
+                for(String line : backpackTooltip) {
+                    int j1 = y + (lineCount++) * 11;
+                    int k = -1;
+                    fontRenderer.drawStringWithShadow(line, x, j1, k);
+                }
+            }
         }
     }
 

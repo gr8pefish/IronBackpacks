@@ -88,6 +88,7 @@ public class ConfigHandler {
     public static String[] treatedLeatherRecipe;
 
     public static boolean renamingUpgradeRequired;
+    public static int tooltipDelay;
 
     //========================init====================================
 
@@ -194,6 +195,7 @@ public class ConfigHandler {
         treatedLeatherRecipe = config.get("5) Recipes", "17) Treated Leather Recipe", treatedLeatherDefault, "The recipe for the crafting item - treated leather. Shapeless Recipe, must be less than 9 items. Default includes lime dye.").getStringList();
 
         renamingUpgradeRequired = config.get("6) Miscellaneous", "1) Renaming Upgrade Required", false, "If the renaming upgrade is required to rename the backpack. Default is false (so you can rename backpacks natively).").getBoolean();
+        tooltipDelay = config.get("6) Miscellaneous", "2) Tooltip Delay", 1500, "The delay (in milliseconds) until a tooltip will appear over the buttons. Default is 1500 (so 1.5 seconds).").getInt();
 
         config.save(); //Don't forget to save
     }

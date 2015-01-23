@@ -47,7 +47,7 @@ public class InventoryAlternateGui implements IInventory {
 
     @Override
     public ItemStack getStackInSlot(int slotIndex) {
-        return slotIndex >= this.getSizeInventory() ? null : this.inventory[slotIndex];
+        return (slotIndex >= this.getSizeInventory() || slotIndex < 0) ? null : this.inventory[slotIndex];
     }
 
     @Override
@@ -75,9 +75,11 @@ public class InventoryAlternateGui implements IInventory {
 
     @Override
     public void setInventorySlotContents(int slotIndex, ItemStack itemStack) {
-        this.inventory[slotIndex] = itemStack;
-        if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
-            itemStack.stackSize = getInventoryStackLimit();
+        if (slotIndex >= 0 && slotIndex < this.inventory.length) {
+            this.inventory[slotIndex] = itemStack;
+            if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
+                itemStack.stackSize = getInventoryStackLimit();
+            }
         }
     }
 
@@ -219,13 +221,11 @@ public class InventoryAlternateGui implements IInventory {
 
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         nbtTagCompound = findParentItemStack(player).getTagCompound();
-
         int startIndex = 0; //need to start/increment at the slot number appropriate to the amount of valid upgrades
-        int rows = this.invSize / 9; //because mc lays out the container by rows, not columns
         // Write the ItemStacks in the inventory to NBT
         if (UpgradeMethods.hasFilterUpgrade(this.upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();
-            for (int i = startIndex; i < startIndex + (rows * 9); i += rows) {
+            for (int i = startIndex; i < startIndex + 9; i++) {
                 if (inventory[i] != null) {
                     NBTTagCompound tagCompound = new NBTTagCompound();
                     tagCompound.setByte("Slot", (byte) i);
@@ -233,12 +233,12 @@ public class InventoryAlternateGui implements IInventory {
                     tagList.appendTag(tagCompound);
                 }
             }
-            startIndex++;
+            startIndex += 9;
             nbtTagCompound.setTag("Filter", tagList);
         }
         if (UpgradeMethods.hasHopperUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();
-            for (int i = startIndex; i < startIndex + (rows * 9); i += rows) {
+            for (int i = startIndex; i < startIndex + 9; i++) {
                 if (inventory[i] != null) {
                     NBTTagCompound tagCompound = new NBTTagCompound();
                     tagCompound.setByte("Slot", (byte) i);
@@ -246,12 +246,12 @@ public class InventoryAlternateGui implements IInventory {
                     tagList.appendTag(tagCompound);
                 }
             }
-            startIndex++;
+            startIndex += 9;
             nbtTagCompound.setTag("Hopper", tagList);
         }
         if (UpgradeMethods.hasCondenserUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();
-            for (int i = startIndex; i < startIndex + (rows * 9); i += rows) {
+            for (int i = startIndex; i < startIndex + 9; i++) {
                 if (inventory[i] != null) {
                     NBTTagCompound tagCompound = new NBTTagCompound();
                     tagCompound.setByte("Slot", (byte) i);
@@ -259,7 +259,7 @@ public class InventoryAlternateGui implements IInventory {
                     tagList.appendTag(tagCompound);
                 }
             }
-            startIndex++;
+            startIndex += 9;
             nbtTagCompound.setTag("Condenser", tagList);
         }
     }

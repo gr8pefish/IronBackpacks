@@ -13,6 +13,6 @@ public class MaxStackSizeOneSlot extends BackpackSlot{
     @Override
     public int getSlotStackLimit()
     {
-        return 1;
+        return 0;
     }
 }

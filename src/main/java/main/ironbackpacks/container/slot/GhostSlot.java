@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-public class GhostSlot extends BackpackSlot{ //TODO - currently just filler code, make it work
+public class GhostSlot extends BackpackSlot{
 
     public int index;
 
@@ -14,37 +14,23 @@ public class GhostSlot extends BackpackSlot{ //TODO - currently just filler code
         this.index = index;
     }
 
-    public void onPickupFromSlot(EntityPlayer player, ItemStack stack)
-    {
-        stack = null;
-        this.onSlotChanged();
+    @Override
+    public boolean canTakeStack(EntityPlayer player){
+        return true;
     }
 
     @Override
-    public int getSlotStackLimit()
-    {
-        return 1;
-    }
-
-    @Override
-    public ItemStack decrStackSize(int amt)
-    {
+    public ItemStack decrStackSize(int par1){
         return null;
     }
 
     @Override
-    public void putStack(ItemStack stack)
-    {
-        this.inventory.setInventorySlotContents(this.index, stack);
-        this.onSlotChanged();
+    public void putStack(ItemStack itemStack){
+        if(itemStack != null) {
+            itemStack.stackSize = 1;
+        }
+        inventory.setInventorySlotContents(index, itemStack);
+        onSlotChanged();
     }
 
-    @Override
-    public boolean isItemValid(ItemStack itemStack) {
-        return acceptsStack(itemStack);
-    }
-
-    public boolean acceptsStack(ItemStack itemStack){
-        return !(itemStack.getItem() instanceof ItemBaseBackpack);
-    }
 }
