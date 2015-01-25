@@ -57,7 +57,7 @@ public class IronBackpacksConstants {
         public static final String[] HOPPER_DESCRIPTION = {"Allows you to specify an item to keep stocked","in your inventory/hotbar","which is supplied from your backpack."};
         public static final String[] CONDENSER_DESCRIPTION = {"Allows you to specify a set of items","to be compressed upon entering your backpack."};
 
-        public static final ArrayList<Integer> ALT_GUI_UPGRADE_IDS = new ArrayList<>(Arrays.asList(
+        public static final ArrayList<Integer> ALT_GUI_UPGRADE_IDS = new ArrayList<Integer>(Arrays.asList(
                 RENAMING_UPGRADE_ID,
                 FILTER_BASIC_UPGRADE_ID,
                 FILTER_FUZZY_UPGRADE_ID,

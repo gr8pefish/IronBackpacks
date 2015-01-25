@@ -69,7 +69,7 @@ public class IronBackpacksHelper {
     }
 
     public static int[] getUpgradesAppliedFromNBT(ItemStack stack) {
-        ArrayList<Integer> upgradesArrayList = new ArrayList<>();
+        ArrayList<Integer> upgradesArrayList = new ArrayList<Integer>();
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {

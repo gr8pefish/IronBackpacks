@@ -210,7 +210,7 @@ public class ForgeEventHandler {
 
     public ArrayList<String> getOreDict(ItemStack itemStack){
         int[] ids = OreDictionary.getOreIDs(itemStack);
-        ArrayList<String> retList = new ArrayList<>();
+        ArrayList<String> retList = new ArrayList<String>();
         if (ids.length > 0){
             for (int i = 0; i < ids.length; i++) {
                 if (i > 0 && !retList.contains(OreDictionary.getOreName(ids[i]))) { //no duplicates
