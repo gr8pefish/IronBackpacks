@@ -10,7 +10,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class IronBackpacksHelper {
@@ -50,8 +49,9 @@ public class IronBackpacksHelper {
 
             if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
                 ItemStack backpack = player.inventory.getStackInSlot(i);
-                int[] upgrades = getUpgradesFromNBT(backpack);
-                if (UpgradeMethods.hasFilterUpgrade(upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(upgrades)){
+                int[] upgrades = getUpgradesAppliedFromNBT(backpack);
+                if (UpgradeMethods.hasFilterBasicUpgrade(upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(upgrades) ||
+                        UpgradeMethods.hasFilterFuzzyUpgrade(upgrades) || UpgradeMethods.hasFilterOreDictUpgrade(upgrades)){
                     filterBackpacks.add(backpack);
                 }
                 if (UpgradeMethods.hasCondenserUpgrade(upgrades)){
@@ -68,8 +68,8 @@ public class IronBackpacksHelper {
         return returnArray;
     }
 
-    public static int[] getUpgradesFromNBT(ItemStack stack) {
-        int[] upgrades = new int[ConfigHandler.enumDiamondBackpack.upgradeSlots.getValue()]; //default [0,0,0]
+    public static int[] getUpgradesAppliedFromNBT(ItemStack stack) {
+        ArrayList<Integer> upgradesArrayList = new ArrayList<>();
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
@@ -79,30 +79,72 @@ public class IronBackpacksHelper {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int hasUpgrade = stackTag.getByte("Upgrade");
                         if (hasUpgrade != 0){ //true
-                            upgrades[i] = hasUpgrade;
-//                            upgrades = addElements(upgrades, hasUpgrade);
+                            upgradesArrayList.add(hasUpgrade);
                         }
                     }
                 }
             }
         }
-        return upgrades;
+        return toIntArray(upgradesArrayList);
     }
 
-    public static int[] addElements(int[] original, int add){
-        original  = Arrays.copyOf(original, original.length + 1);
-        original[original.length - 1] = add;
-        return original;
+    private static int[] toIntArray(ArrayList<Integer> list)  {
+        int[] ret = new int[list.size()];
+        int i = 0;
+        for (Integer e : list)
+            ret[i++] = e.intValue();
+        return ret;
     }
 
-    public static void setUpgradesToNBT(int[] upgrades, ItemStack stack){
+    public static int getUpgradePointsUsed(int[] upgrades){
+        int counter = 0;
+        for (int upgrade : upgrades){
+            counter += IronBackpacksConstants.Upgrades.UPGRADE_POINTS[upgrade];
+        }
+        return counter;
+    }
+
+    public static int getTotalUpgradePointsFromNBT(ItemStack stack){
+        ItemBaseBackpack backpack = (ItemBaseBackpack) stack.getItem();
+        int upgradeCount = backpack.getUpgradeSlots(); //from initialization via config
+        int extraPoints = getAdditionalUpgradesUpgradeCount(stack);
+        return (upgradeCount + extraPoints);
+    }
+
+    public static int getAdditionalUpgradesUpgradeCount(ItemStack stack){
+        if (stack != null) {
+            NBTTagCompound nbtTagCompound = stack.getTagCompound();
+            if (nbtTagCompound != null) {
+                if (nbtTagCompound.hasKey("AdditionalPoints")) {
+                    return nbtTagCompound.getIntArray("AdditionalPoints")[0];  //[pointsAdded, upgradesApplied]
+                }
+            }
+        }
+        return 0;
+    }
+
+    public static int getAdditionalUpgradesTimesApplied(ItemStack stack){
+        if (stack != null) {
+            NBTTagCompound nbtTagCompound = stack.getTagCompound();
+            if (nbtTagCompound != null) {
+                if (nbtTagCompound.hasKey("AdditionalPoints")) {
+                    return nbtTagCompound.getIntArray("AdditionalPoints")[1];  //[pointsAdded, upgradesApplied]
+                }
+            }
+        }
+        return 0;
+    }
+
+    public static void removeKeepOnDeathUpgrade(int[] upgrades, ItemStack stack){
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             NBTTagList tagList = new NBTTagList();
             for (int upgrade: upgrades) {
-                NBTTagCompound tagCompound = new NBTTagCompound();
-                tagCompound.setByte("Upgrade", (byte) upgrade);
-                tagList.appendTag(tagCompound);
+                if (!(upgrade == IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_UPGRADE_ID)) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    tagCompound.setByte("Upgrade", (byte) upgrade);
+                    tagList.appendTag(tagCompound);
+                }
             }
             nbtTagCompound.setTag("Upgrades", tagList);
         }

@@ -7,12 +7,15 @@ item.ironbackpacks:diamondBackpack.name=Diamond Backpack
 item.ironbackpacks:buttonUpgrade.name=Button Upgrade
 item.ironbackpacks:nestingUpgrade.name=Nesting Upgrade
 item.ironbackpacks:damageBarUpgrade.name=Damage Bar Upgrade
-item.ironbackpacks:filterUpgrade.name=Filter Upgrade
-item.ironbackpacks:filterModSpecificUpgrade.name=Filter Upgrade (Mod Specific)
+item.ironbackpacks:filterBasicUpgrade.name=Basic Filter Upgrade
+item.ironbackpacks:filterFuzzyUpgrade.name=Fuzzy Filter Upgrade
+item.ironbackpacks:filterOreDictUpgrade.name=Ore Dictionary Filter Upgrade
+item.ironbackpacks:filterModSpecificUpgrade.name=Mod Specific Filter Upgrade
 item.ironbackpacks:hopperUpgrade.name=Restocking Upgrade
 item.ironbackpacks:condenserUpgrade.name=Crafting Upgrade
 item.ironbackpacks:renamingUpgrade.name=Renaming Upgrade
 item.ironbackpacks:keepOnDeathUpgrade.name=Eternity Upgrade
+item.ironbackpacks:additionalUpgradePointsUpgrade.name=Additional Upgrade Points Upgrade
 
 item.ironbackpacks:nest.name=Nest
 item.ironbackpacks:upgradeCore.name=Upgrade Core

@@ -1,7 +1,6 @@
 package main.ironbackpacks.proxies;
 
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -31,14 +30,7 @@ public class CommonProxy {
 
         if (deadPlayerID != null && player.getGameProfile().getId().equals(deadPlayerID)) {
             for (ItemStack backpack : keepOnDeathBackpacks) {
-                int[] upgrades = IronBackpacksHelper.getUpgradesFromNBT(backpack);
-                for (int i = 0; i < upgrades.length; i++){
-                    if (upgrades[i] == IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_UPGRADE_ID){
-                        upgrades[i] = 0; //removes keepOnDeathUpgrade
-                        break;
-                    }
-                }
-                IronBackpacksHelper.setUpgradesToNBT(upgrades, backpack);
+                IronBackpacksHelper.removeKeepOnDeathUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack), backpack);
                 player.inventory.addItemStackToInventory(backpack);
             }
             keepOnDeathBackpacks.clear();

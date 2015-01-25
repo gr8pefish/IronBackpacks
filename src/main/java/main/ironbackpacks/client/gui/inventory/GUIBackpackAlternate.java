@@ -96,7 +96,9 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     private boolean hasButtonUpgrade;
     private boolean hasNoUpgrades;
     private boolean hasRenamingUpgrade;
-    private boolean hasFilterUpgrade;
+    private boolean hasFilterBasicUpgrade;
+    private boolean hasFilterFuzzyUpgrade;
+    private boolean hasFilterOreDictUpgrade;
     private boolean hasFilterModSpecificUpgrade;
     private boolean hasHopperUpgrade;
     private boolean hasCondenserUpgrade;
@@ -115,7 +117,9 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         this.hasNoUpgrades = type.equals(GUI.ZERO);
         this.hasButtonUpgrade = UpgradeMethods.hasButtonUpgrade(upgrades);
         this.hasRenamingUpgrade = UpgradeMethods.hasRenamingUpgrade(upgrades);
-        this.hasFilterUpgrade = UpgradeMethods.hasFilterUpgrade(upgrades);
+        this.hasFilterBasicUpgrade = UpgradeMethods.hasFilterBasicUpgrade(upgrades);
+        this.hasFilterFuzzyUpgrade = UpgradeMethods.hasFilterFuzzyUpgrade(upgrades);
+        this.hasFilterOreDictUpgrade = UpgradeMethods.hasFilterOreDictUpgrade(upgrades);
         this.hasFilterModSpecificUpgrade = UpgradeMethods.hasFilterModSpecificUpgrade(upgrades);
         this.hasHopperUpgrade = UpgradeMethods.hasHopperUpgrade(upgrades);
         this.hasCondenserUpgrade = UpgradeMethods.hasCondenserUpgrade(upgrades);
@@ -169,16 +173,35 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         }
         int yStart = this.hasRenamingUpgrade ? 43 : 24;
         int yStartButton = ((height - ySize) / 2) + (this.hasRenamingUpgrade ? 40 : 21);
-        int xStart = ((width - xSize) / 2) + xSize - 12 - 20;
-        if (this.hasFilterUpgrade){
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterUpgrade.name"),20, yStart, 4210752);
+        int xStart = ((width - xSize) / 2) + xSize - 12 - 19;
+        if (this.hasFilterBasicUpgrade) {
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterBasicUpgrade.name"), 20, yStart, 4210752);
             if (this.hasButtonUpgrade) {
-                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
+                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
                 this.idRow++;
             }
             yStart += 36;
             yStartButton += 36;
-        }else if (this.hasFilterModSpecificUpgrade){
+        }
+        if (this.hasFilterFuzzyUpgrade) {
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterFuzzyUpgrade.name"), 20, yStart, 4210752);
+            if (this.hasButtonUpgrade) {
+                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
+                this.idRow++;
+            }
+            yStart += 36;
+            yStartButton += 36;
+        }
+        if (this.hasFilterOreDictUpgrade) {
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterOreDictUpgrade.name"), 20, yStart, 4210752);
+            if (this.hasButtonUpgrade) {
+                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
+                this.idRow++;
+            }
+            yStart += 36;
+            yStartButton += 36;
+        }
+        if (this.hasFilterModSpecificUpgrade){
             this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterModSpecificUpgrade.name"),20, yStart, 4210752);
             if (this.hasButtonUpgrade){
                 this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
@@ -243,13 +266,13 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         if (button == renameButton) {
             this.container.renameBackpack(this.textField.getText());
             NetworkingHandler.network.sendToServer(new RenameMessage(this.textField.getText()));
-        }else if (button == this.buttonList.get(1)){ //TODO - null check?
+        }else if (this.buttonList.size() > 1 && button == this.buttonList.get(1)){
             this.container.removeSlotsInRow(1);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(1));
-        }else if (button == this.buttonList.get(2)){
+        }else if (this.buttonList.size() > 2 && button == this.buttonList.get(2)){
             this.container.removeSlotsInRow(2);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(2));
-        }else if (button == this.buttonList.get(3)){
+        }else if (this.buttonList.size() > 3 && button == this.buttonList.get(3)){
             this.container.removeSlotsInRow(3);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(3));
         }

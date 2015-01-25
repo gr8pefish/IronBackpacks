@@ -50,7 +50,7 @@ public class ContainerBackpack extends Container {
 
         //adds chest's slots
         ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player);
-        int[] upgrades = IronBackpacksHelper.getUpgradesFromNBT(baseBackpack);
+        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(baseBackpack);
 
         for (int backpackRow = 0; backpackRow < type.getRowCount(); backpackRow++) {
             for (int backpackCol = 0; backpackCol < type.getRowLength(); backpackCol++) {
@@ -121,7 +121,7 @@ public class ContainerBackpack extends Container {
         ItemStack itemstack1 = itemToPutInBackpack;
         if (!mergeItemStack(itemstack1, 0, type.getSize(), false)) //stack, startIndex, endIndex,
         {
-            System.out.println("Failing here"); //TODO - something is occasionally wrong here (w/ mergeItemStack - solution is custom implementation)
+//            System.out.println("Failing here"); //TODO - something is occasionally wrong/odd here (w/ mergeItemStack - solution is custom implementation)
             return null;
         }
         else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1)){ //slot 1 is a backpackSlot

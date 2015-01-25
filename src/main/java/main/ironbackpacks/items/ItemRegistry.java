@@ -10,6 +10,10 @@ import main.ironbackpacks.items.craftingItems.ItemNest;
 import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
 import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
+import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.ItemFilterBasicUpgrade;
+import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.ItemFilterFuzzyUpgrade;
+import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.ItemFilterModSpecificUpgrade;
+import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.ItemFilterOreDictUpgrade;
 import main.ironbackpacks.util.ConfigHandler;
 import net.minecraft.item.Item;
 
@@ -30,11 +34,14 @@ public class ItemRegistry {
     public static Item nestingUpgrade;
     public static Item renamingUpgrade;
     public static Item damageBarUpgrade;
-    public static Item filterUpgrade;
+    public static Item filterBasicUpgrade;
+    public static Item filterFuzzyUpgrade;
+    public static Item filterOreDictUpgrade;
     public static Item filterModSpecificUpgrade;
     public static Item hopperUpgrade;
     public static Item condenserUpgrade;
     public static Item keepOnDeathUpgrade;
+    public static Item additonalUpgradesUpgrade;
 
     //misc
     public static Item nest;
@@ -59,11 +66,14 @@ public class ItemRegistry {
         if (ConfigHandler.renamingUpgradeRequired){
             upgrades.add(renamingUpgrade);
         }
-        upgrades.add(filterUpgrade);
+        upgrades.add(filterBasicUpgrade);
+        upgrades.add(filterFuzzyUpgrade);
+        upgrades.add(filterOreDictUpgrade);
         upgrades.add(filterModSpecificUpgrade);
         upgrades.add(hopperUpgrade);
         upgrades.add(condenserUpgrade);
         upgrades.add(keepOnDeathUpgrade);
+        upgrades.add(additonalUpgradesUpgrade);
         return upgrades;
     }
 
@@ -91,8 +101,8 @@ public class ItemRegistry {
         }
         damageBarUpgrade = new ItemDamageBarUpgrade();
         GameRegistry.registerItem(damageBarUpgrade, "damageBarUpgrade");
-        filterUpgrade = new ItemFilterUpgrade();
-        GameRegistry.registerItem(filterUpgrade, "filterUpgrade");
+        filterBasicUpgrade = new ItemFilterBasicUpgrade();
+        GameRegistry.registerItem(filterBasicUpgrade, "filterBasicUpgrade");
         hopperUpgrade = new ItemHopperUpgrade();
         GameRegistry.registerItem(hopperUpgrade, "hopperUpgrade");
         condenserUpgrade = new ItemCondenserUpgrade();
@@ -101,6 +111,12 @@ public class ItemRegistry {
         GameRegistry.registerItem(keepOnDeathUpgrade, "keepOnDeathUpgrade");
         filterModSpecificUpgrade = new ItemFilterModSpecificUpgrade();
         GameRegistry.registerItem(filterModSpecificUpgrade, "filterModSpecificUpgrade");
+        additonalUpgradesUpgrade = new ItemAdditionalUpgradePointsUpgrade();
+        GameRegistry.registerItem(additonalUpgradesUpgrade, "additionalUpgradeSlotsUpgrade");
+        filterFuzzyUpgrade = new ItemFilterFuzzyUpgrade();
+        GameRegistry.registerItem(filterFuzzyUpgrade, "filterFuzzyUpgrade");
+        filterOreDictUpgrade = new ItemFilterOreDictUpgrade();
+        GameRegistry.registerItem(filterOreDictUpgrade, "filterOreDictUpgrade");
 
         //misc
         nest = new ItemNest();

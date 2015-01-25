@@ -1,13 +1,9 @@
 To Do:
-    Clicking on inventory (chest) with backpack empties backpack into inventory
+    Config recipes oreDict vs normal
 
     Figure out filter expansion (18 slots) upgrade
-        Just add another filter upgrade (extended) and this expands by 9 slots and another row (so I need to do more textures)
-        Add in filter (ore Dictionary) version too [and maybe other versions if I think of them]
-            That means furnace upgrade can be an option for taking up row #4 as well
-
-    Add button upgrade expansion to alt gui - [c] on same line as upgrade name aligned right which clears the items in that row
-        Change y-spacing, it is off
+        Filter that takes up 3 rows?
+        super Adv (buttons underneath each slot to toggle functionality, maybe scrollbar too)
 
 MCF Posting:
     Upload default recipe screenshots
@@ -26,7 +22,6 @@ Figure out:
         (look at better storage's code)
         #vazkii on espernet
 
-    Recipe removal? (craft w/ upgrade present and it will remove it) - will mess up in NBT loading as currently coded
 
 Tiers:
     Leather[DONE]
@@ -47,10 +42,11 @@ Upgrades:
     Condenser upgrade{ALT GUI}[DONE] - compresses items
     Filter upgrade{ALT GUI}[DONE] - automatically picks up specified items - Button to alter fuzzy behavior?
     Inventory upgrade? - extends inventory (probably only will be used in final tier)
+    Quick deposit - Clicking on inventory (chest) with backpack empties backpack into inventory
     Camelpack upgrade - eat from it
     Umbrella upgrade - slow fall
     KeepOnDeath upgrade[DONE] - really expensive but keep backpack on death
-    UpgradeAddon upgrade - adds another upgrade slot - would have to change how I deal with upgrades; store Upgrades all as NBT data (length of array is upgradeCount)
+    UpgradeAddon upgrade[DONE] - adds more upgrade points
     Furnace Upgrade{ALT GUI} - smelt things in your backpack using smelt-able materials from the backpack? //Will have to change something with alt-gui as noted below
     Ender Upgrade - links this backpack to your ender chest
     Mod Specific Filter upgrade[DONE] - makes it so that the filter upgrade will pick up any item from mod x, where x is the mod that an item in the filter slot is from.
@@ -62,10 +58,11 @@ Textures:
 
     Redo:
 
+
     Do:
 
+
 Misc features:
-    Add in colorable backpack recipe with dyes
     Crafting - support meta/damage values
     Add tiers to upgrades (so you need at least tier x of backpack to apply upgrade y)
     Add nests to world-gen

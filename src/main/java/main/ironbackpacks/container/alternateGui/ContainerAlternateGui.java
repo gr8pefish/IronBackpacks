@@ -1,9 +1,7 @@
 package main.ironbackpacks.container.alternateGui;
 
 import invtweaks.api.container.ChestContainer;
-import invtweaks.api.container.InventoryContainer;
 import main.ironbackpacks.container.slot.GhostSlot;
-import main.ironbackpacks.container.slot.MaxStackSizeOneSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,7 +39,7 @@ public class ContainerAlternateGui extends Container {
         //adds slots depending on upgrades
         int rowCount = (int) Math.floor(customInv.getSizeInventory() / 9);
         int colCount = 9;
-        int yStart = UpgradeMethods.hasRenamingUpgrade(IronBackpacksHelper.getUpgradesFromNBT(IronBackpacksHelper.getBackpack(player))) ? 18 : 0;
+        int yStart = UpgradeMethods.hasRenamingUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(IronBackpacksHelper.getBackpack(player))) ? 18 : 0;
         for (int row = 0; row < rowCount; row++){
             yStart += 36;
             for (int col = 0; col < colCount; col++){
@@ -69,7 +67,7 @@ public class ContainerAlternateGui extends Container {
     }
 
     @Override //disables shift-clicking (because ghost slots)
-    public ItemStack transferStackInSlot(EntityPlayer p, int i) //TODO? - depends upon implementation of ghostSlot
+    public ItemStack transferStackInSlot(EntityPlayer p, int i)
     {
         return null;
     }

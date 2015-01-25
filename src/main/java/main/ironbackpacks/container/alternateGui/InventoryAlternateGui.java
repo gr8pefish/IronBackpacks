@@ -32,12 +32,12 @@ public class InventoryAlternateGui implements IInventory {
         this.stack = itemStack;
         this.player = player;
         this.type = type;
-        this.upgrades = IronBackpacksHelper.getUpgradesFromNBT(itemStack);
+        this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack);
 
         this.invSize = UpgradeMethods.getAlternateGuiUpgradeSlots(this.upgrades); //dynamic, size is based on number of alt. gui. upgrades
         this.inventory = new ItemStack[this.getSizeInventory()];
 
-        readFromNBT(stack.getTagCompound()); //to initialize stacks //TODO - if you add an upgrade, move the items so they are in their correct slots
+        readFromNBT(stack.getTagCompound()); //to initialize stacks
     }
 
     @Override
@@ -120,7 +120,7 @@ public class InventoryAlternateGui implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
-        if (UpgradeMethods.hasFilterUpgrade(this.upgrades)){
+        if (UpgradeMethods.hasFilterBasicUpgrade(this.upgrades)){
             if (UpgradeMethods.hasNestingUpgrade(this.upgrades)) {
                 NestingBackpackSlot myslot = new NestingBackpackSlot(this, index, 0, 0, this.type);
                 return myslot.acceptsStack(itemStack);
@@ -182,8 +182,22 @@ public class InventoryAlternateGui implements IInventory {
             if (nbtTagCompound != null) {
                 this.inventory = new ItemStack[this.getSizeInventory()];
 
-                if (nbtTagCompound.hasKey("Filter")) {
-                    NBTTagList tagList = nbtTagCompound.getTagList("Filter", Constants.NBT.TAG_COMPOUND);
+                int upgradeRemoved = 100; //high enough to not matter
+                if (nbtTagCompound.hasKey("Removed")){
+                    upgradeRemoved = nbtTagCompound.getInteger("Removed") - 1; //-1 b/c renaming upgrade (no slots)
+                    if (upgradeRemoved < 0) upgradeRemoved = 100; //naming upgrade shouldn't affect slots
+                    nbtTagCompound.removeTag("Removed");
+                }
+                int upgradeAdded = 100; //high enough to not matter
+                if (nbtTagCompound.hasKey("Added")){
+                    upgradeAdded = nbtTagCompound.getInteger("Added") - 1; //-1 b/c renaming upgrade (no slots)
+                    if (upgradeAdded < 0) upgradeAdded = 100; //naming upgrade shouldn't affect slots
+                    nbtTagCompound.removeTag("Added");
+                }
+
+                if (!UpgradeMethods.hasFilterBasicUpgrade(this.upgrades)) nbtTagCompound.removeTag("FilterBasic");
+                if (nbtTagCompound.hasKey("FilterBasic")) {
+                    NBTTagList tagList = nbtTagCompound.getTagList("FilterBasic", Constants.NBT.TAG_COMPOUND);
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
@@ -193,23 +207,67 @@ public class InventoryAlternateGui implements IInventory {
                         }
                     }
                 }
+
+                if (!UpgradeMethods.hasFilterFuzzyUpgrade(this.upgrades)) nbtTagCompound.removeTag("FilterFuzzy");
+                if (nbtTagCompound.hasKey("FilterFuzzy")) {
+                    NBTTagList tagList = nbtTagCompound.getTagList("FilterFuzzy", Constants.NBT.TAG_COMPOUND);
+
+                    for (int i = 0; i < tagList.tagCount(); i++) {
+                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                        int j = (upgradeRemoved < 1) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot"); //index (1) is hardcoded
+                        if (upgradeAdded < 1) j+=9;
+                        if (i >= 0 && i <= 9) {
+                            this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                        }
+                    }
+                }
+                if (!UpgradeMethods.hasFilterOreDictUpgrade(this.upgrades)) nbtTagCompound.removeTag("FilterOreDict");
+                if (nbtTagCompound.hasKey("FilterOreDict")) {
+                    NBTTagList tagList = nbtTagCompound.getTagList("FilterOreDict", Constants.NBT.TAG_COMPOUND);
+
+                    for (int i = 0; i < tagList.tagCount(); i++) {
+                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                        int j = (upgradeRemoved < 2) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot");
+                        if (upgradeAdded < 2) j+=9;
+                        if (i >= 0 && i <= 9) {
+                            this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                        }
+                    }
+                }
+                if (!UpgradeMethods.hasFilterModSpecificUpgrade(this.upgrades)) nbtTagCompound.removeTag("FilterModSpecific");
+                if (nbtTagCompound.hasKey("FilterModSpecific")) {
+                    NBTTagList tagList = nbtTagCompound.getTagList("FilterModSpecific", Constants.NBT.TAG_COMPOUND);
+
+                    for (int i = 0; i < tagList.tagCount(); i++) {
+                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                        int j = (upgradeRemoved < 3) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot");
+                        if (upgradeAdded < 3) j+=9;
+                        if (i >= 0 && i <= 9) {
+                            this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                        }
+                    }
+                }
+                if (!UpgradeMethods.hasHopperUpgrade(this.upgrades)) nbtTagCompound.removeTag("Hopper");
                 if (nbtTagCompound.hasKey("Hopper")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Hopper", Constants.NBT.TAG_COMPOUND);
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = stackTag.getByte("Slot");
+                        int j = (upgradeRemoved < 4) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot");
+                        if (upgradeAdded < 4) j+=9;
                         if (i >= 0 && i <= 9) {
                             this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
                     }
                 }
+                if (!UpgradeMethods.hasCondenserUpgrade(this.upgrades)) nbtTagCompound.removeTag("Condenser");
                 if (nbtTagCompound.hasKey("Condenser")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Condenser", Constants.NBT.TAG_COMPOUND);
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = stackTag.getByte("Slot");
+                        int j = (upgradeRemoved < 5) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot");
+                        if (upgradeAdded < 5) j+=9;
                         if (i >= 0 && i <= 9) {
                             this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
@@ -222,8 +280,9 @@ public class InventoryAlternateGui implements IInventory {
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         nbtTagCompound = findParentItemStack(player).getTagCompound();
         int startIndex = 0; //need to start/increment at the slot number appropriate to the amount of valid upgrades
+
         // Write the ItemStacks in the inventory to NBT
-        if (UpgradeMethods.hasFilterUpgrade(this.upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(this.upgrades)) {
+        if (UpgradeMethods.hasFilterBasicUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();
             for (int i = startIndex; i < startIndex + 9; i++) {
                 if (inventory[i] != null) {
@@ -234,7 +293,46 @@ public class InventoryAlternateGui implements IInventory {
                 }
             }
             startIndex += 9;
-            nbtTagCompound.setTag("Filter", tagList);
+            nbtTagCompound.setTag("FilterBasic", tagList);
+        }
+        if (UpgradeMethods.hasFilterFuzzyUpgrade(this.upgrades)) {
+            NBTTagList tagList = new NBTTagList();
+            for (int i = startIndex; i < startIndex + 9; i++) {
+                if (inventory[i] != null) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    tagCompound.setByte("Slot", (byte) i);
+                    inventory[i].writeToNBT(tagCompound);
+                    tagList.appendTag(tagCompound);
+                }
+            }
+            startIndex += 9;
+            nbtTagCompound.setTag("FilterFuzzy", tagList);
+        }
+        if (UpgradeMethods.hasFilterOreDictUpgrade(this.upgrades)) {
+            NBTTagList tagList = new NBTTagList();
+            for (int i = startIndex; i < startIndex + 9; i++) {
+                if (inventory[i] != null) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    tagCompound.setByte("Slot", (byte) i);
+                    inventory[i].writeToNBT(tagCompound);
+                    tagList.appendTag(tagCompound);
+                }
+            }
+            startIndex += 9;
+            nbtTagCompound.setTag("FilterOreDict", tagList);
+        }
+        if (UpgradeMethods.hasFilterModSpecificUpgrade(this.upgrades)) {
+            NBTTagList tagList = new NBTTagList();
+            for (int i = startIndex; i < startIndex + 9; i++) {
+                if (inventory[i] != null) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    tagCompound.setByte("Slot", (byte) i);
+                    inventory[i].writeToNBT(tagCompound);
+                    tagList.appendTag(tagCompound);
+                }
+            }
+            startIndex += 9;
+            nbtTagCompound.setTag("FilterModSpecific", tagList);
         }
         if (UpgradeMethods.hasHopperUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();

@@ -48,11 +48,14 @@ public class ItemRecipeRegistry {
 			registerBasicRecipe(ItemRegistry.renamingUpgrade, ConfigHandler.renamingUpgradeRecipe);
 		}
 		registerBasicRecipe(ItemRegistry.damageBarUpgrade, ConfigHandler.damageBarUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.filterUpgrade, ConfigHandler.filterUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.filterBasicUpgrade, ConfigHandler.filterBasicUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.filterFuzzyUpgrade, ConfigHandler.filterFuzzyUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.filterOreDictUpgrade, ConfigHandler.filterOreDictUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.filterModSpecificUpgrade, ConfigHandler.filterModSpecificUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.hopperUpgrade, ConfigHandler.hopperUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.condenserUpgrade, ConfigHandler.condenserUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.keepOnDeathUpgrade, ConfigHandler.keepOnDeathUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.additonalUpgradesUpgrade, ConfigHandler.additionalUpgradesUpgradeRecipe);
 	}
 
 	public static void registerBackpackUpgradeRecipes(){

@@ -62,10 +62,32 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasFilterUpgrade(int[] upgrades){
+    public static boolean hasFilterBasicUpgrade(int[] upgrades){
         boolean hasUpgrade = false;
         for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID) {
+            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID) {
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
+    public static boolean hasFilterFuzzyUpgrade(int[] upgrades){
+        boolean hasUpgrade = false;
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID) {
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
+    public static boolean hasFilterOreDictUpgrade(int[] upgrades){
+        boolean hasUpgrade = false;
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID) {
                 hasUpgrade = true;
                 break;
             }
@@ -107,7 +129,7 @@ public class UpgradeMethods {
     }
 
     public static boolean hasKeepOnDeathUpgrade(ItemStack stack){
-        int[] upgrades = IronBackpacksHelper.getUpgradesFromNBT(stack);
+        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
         boolean hasUpgrade = false;
         for (int upgrade: upgrades) {
             if (upgrade == IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_UPGRADE_ID) {
@@ -126,14 +148,17 @@ public class UpgradeMethods {
         if (!ConfigHandler.renamingUpgradeRequired) {
             numberOfUpgrades = 1;
             for (int upgrade: upgrades) {
-                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
+                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
             }
         }else{
             for (int upgrade: upgrades) {
-                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
+                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
@@ -145,7 +170,8 @@ public class UpgradeMethods {
     public static int getAlternateGuiUpgradeSlots(int[] upgrades) {
         int slots = 0;
         for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
+            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
+                    || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
                     || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                 slots += 9; //hardcoded
             }
@@ -153,12 +179,91 @@ public class UpgradeMethods {
         return slots;
     }
 
-    public static ArrayList<ItemStack> getFilterItems(ItemStack stack){
+    public static int getAltGuiUpgradesUsed(int[] upgrades){
+        int counter = 0;
+        if (!ConfigHandler.renamingUpgradeRequired) {
+            for (int upgrade : upgrades) {
+                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+                    counter++;
+                }
+            }
+        }else{
+            for (int upgrade : upgrades) {
+                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
+    public static int getFilterUpgradesUsed(int[] upgrades){
+        int counter = 0;
+        for (int upgrade : upgrades){
+            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
+                    || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public static ArrayList<ItemStack> getBasicFilterItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
         if (nbtTagCompound != null){
-            if (nbtTagCompound.hasKey("Filter")) {
-                NBTTagList tagList = nbtTagCompound.getTagList("Filter", Constants.NBT.TAG_COMPOUND);
+            if (nbtTagCompound.hasKey("FilterBasic")) {
+                NBTTagList tagList = nbtTagCompound.getTagList("FilterBasic", Constants.NBT.TAG_COMPOUND);
+                for (int i = 0; i < tagList.tagCount(); i++) {
+                    NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    public static ArrayList<ItemStack> getFuzzyFilterItems(ItemStack stack){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        if (nbtTagCompound != null){
+            if (nbtTagCompound.hasKey("FilterFuzzy")) {
+                NBTTagList tagList = nbtTagCompound.getTagList("FilterFuzzy", Constants.NBT.TAG_COMPOUND);
+                for (int i = 0; i < tagList.tagCount(); i++) {
+                    NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    public static ArrayList<ItemStack> getOreDictFilterItems(ItemStack stack){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        if (nbtTagCompound != null){
+            if (nbtTagCompound.hasKey("FilterOreDict")) {
+                NBTTagList tagList = nbtTagCompound.getTagList("FilterOreDict", Constants.NBT.TAG_COMPOUND);
+                for (int i = 0; i < tagList.tagCount(); i++) {
+                    NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    public static ArrayList<ItemStack> getModSpecificFilterItems(ItemStack stack){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        if (nbtTagCompound != null){
+            if (nbtTagCompound.hasKey("FilterModSpecific")) {
+                NBTTagList tagList = nbtTagCompound.getTagList("FilterModSpecific", Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                     returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
@@ -197,6 +302,7 @@ public class UpgradeMethods {
         }
         return returnArray;
     }
+
 
 
 }

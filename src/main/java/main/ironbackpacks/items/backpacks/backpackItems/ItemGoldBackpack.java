@@ -7,6 +7,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemGoldBackpack extends ItemBaseBackpack {
 
     public ItemGoldBackpack() {
-        super("goldBackpack", "backpack_gold", 2, ConfigHandler.enumGoldBackpack.upgradeSlots.getValue(), IronBackpacksConstants.Backpacks.GOLD_ID);
+        super("goldBackpack", "backpack_gold", 2, ConfigHandler.enumGoldBackpack.upgradePoints.getValue(), IronBackpacksConstants.Backpacks.GOLD_ID);
     }
 }

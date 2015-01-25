@@ -17,6 +17,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 
@@ -143,16 +144,9 @@ public class ForgeEventHandler {
                 IronBackpackType type = IronBackpackType.values()[((ItemBaseBackpack) backpack.getItem()).getGuiId()];
                 ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
-                    ArrayList<ItemStack> filterItems = UpgradeMethods.getFilterItems(backpack);
-                    if (UpgradeMethods.hasFilterModSpecificUpgrade(IronBackpacksHelper.getUpgradesFromNBT(backpack))){
-                        for (ItemStack filterItem : filterItems) {
-                            if (filterItem != null) {
-                                if (getModName(event.item.getEntityItem()).equals(getModName(filterItem))){
-                                    container.transferStackInSlot(event.item.getEntityItem());
-                                }
-                            }
-                        }
-                    }else{
+                    int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
+                    if (UpgradeMethods.hasFilterBasicUpgrade(upgrades)){
+                        ArrayList<ItemStack> filterItems = UpgradeMethods.getBasicFilterItems(backpack);
                         for (ItemStack filterItem : filterItems) {
                             if (filterItem != null) {
                                 if (event.item.getEntityItem().isItemEqual(filterItem)) {
@@ -161,7 +155,42 @@ public class ForgeEventHandler {
                             }
                         }
                     }
-
+                    if (UpgradeMethods.hasFilterModSpecificUpgrade(upgrades)) {
+                        ArrayList<ItemStack> filterItems = UpgradeMethods.getModSpecificFilterItems(backpack);
+                        for (ItemStack filterItem : filterItems) {
+                            if (filterItem != null) {
+                                if (getModName(event.item.getEntityItem()).equals(getModName(filterItem))) {
+                                    container.transferStackInSlot(event.item.getEntityItem());
+                                }
+                            }
+                        }
+                    }
+                    if (UpgradeMethods.hasFilterFuzzyUpgrade(upgrades)){
+                        ArrayList<ItemStack> filterItems = UpgradeMethods.getFuzzyFilterItems(backpack);
+                        for (ItemStack filterItem : filterItems) {
+                            if (filterItem != null) {
+                                if (event.item.getEntityItem().getItem() == filterItem.getItem()) {
+                                    container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                                }
+                            }
+                        }
+                    }
+                    if (UpgradeMethods.hasFilterOreDictUpgrade(upgrades)){
+                        ArrayList<ItemStack> filterItems = UpgradeMethods.getOreDictFilterItems(backpack);
+                        ArrayList<String> itemEntityOre = getOreDict(event.item.getEntityItem());
+                        for (ItemStack filterItem : filterItems) {
+                            if (filterItem != null) {
+                                ArrayList<String> filterItemOre = getOreDict(filterItem);
+                                if (itemEntityOre != null && filterItemOre != null) {
+                                    for (String oreName : itemEntityOre) {
+                                        if (filterItemOre.contains(oreName)) {
+                                            container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 container.onContainerClosed(event.entityPlayer);
             }
@@ -177,6 +206,22 @@ public class ForgeEventHandler {
         }else{
             return "vanilla";
         }
+    }
+
+    public ArrayList<String> getOreDict(ItemStack itemStack){
+        int[] ids = OreDictionary.getOreIDs(itemStack);
+        ArrayList<String> retList = new ArrayList<>();
+        if (ids.length > 0){
+            for (int i = 0; i < ids.length; i++) {
+                if (i > 0 && !retList.contains(OreDictionary.getOreName(ids[i]))) { //no duplicates
+//                    System.out.println(OreDictionary.getOreName(ids[i]));
+                    retList.add(OreDictionary.getOreName(ids[i]));
+                }else{
+                    retList.add(OreDictionary.getOreName(ids[i]));
+                }
+            }
+        }
+        return retList.isEmpty() ? null : retList;
     }
 
     public void checkCondenserUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){

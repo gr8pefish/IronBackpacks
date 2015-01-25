@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
+import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.NBTHelper;
@@ -14,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
+import org.lwjgl.input.Keyboard;
 
 import java.util.List;
 
@@ -27,8 +29,8 @@ public class ItemBaseBackpack extends ItemBase {
     public ItemBaseBackpack(String unlocName, String textureName, int id, int upgradeSlots, int typeID) {
         super(unlocName, textureName);
         setMaxStackSize(1);
-        this.guiId = id;
-        this.typeID = typeID;
+        this.guiId = id; //0,1,2,3
+        this.typeID = typeID; //1,2,3,4
         this.upgradeSlots = upgradeSlots;
         this.upgradeIndex = upgradeSlots-1;
     }
@@ -48,7 +50,7 @@ public class ItemBaseBackpack extends ItemBase {
     @Override
     public boolean showDurabilityBar(ItemStack stack)
     {
-        int[] upgrades = IronBackpacksHelper.getUpgradesFromNBT(stack);
+        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
         return UpgradeMethods.hasDamageBarUpgrade(upgrades);
     }
 
@@ -112,9 +114,25 @@ public class ItemBaseBackpack extends ItemBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) {
-        int[] upgrades = IronBackpacksHelper.getUpgradesFromNBT(itemStack);
-        for (int i = 0; i < this.upgradeSlots; i++){
-            list.add(IronBackpacksConstants.Upgrades.LOCALIZED_NAMES[upgrades[i]]);
+        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack);
+        int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(itemStack);
+        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+            int upgradesUsed = 0;
+            for (int upgrade : upgrades){
+                list.add(IronBackpacksConstants.Upgrades.LOCALIZED_NAMES[upgrade]);
+                upgradesUsed += IronBackpacksConstants.Upgrades.UPGRADE_POINTS[upgrade];
+            }
+            if (upgrades.length > 0) list.add(""); //blank line for spacing/aesthetics
+            list.add(upgradesUsed + "/" +totalUpgradePoints + " upgrade points used."); //upgrades used
+            list.add(UpgradeMethods.getAltGuiUpgradesUsed(upgrades) + "/" + IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED + " alternate gui upgrades used."); //alt gui used
+            if (ConfigHandler.renamingUpgradeRequired) list.add("(The "+IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED+"th upgrade must include the renaming upgrade)");
+            int tierUpgradeCount = ConfigHandler.additionalUpgradesLimit + this.getGuiId(); //hardcoded with 4 tiers
+            if (tierUpgradeCount > 0) list.add((IronBackpacksHelper.getAdditionalUpgradesTimesApplied(itemStack) * ConfigHandler.additionalUpgradesIncrease) +
+                    "/" + (tierUpgradeCount * ConfigHandler.additionalUpgradesIncrease) + " additional upgrade points added."); //additional upgrade times used
+        }else{
+            if (totalUpgradePoints > 0) {
+                list.add("Hold shift for more info.");
+            }
         }
     }
 
