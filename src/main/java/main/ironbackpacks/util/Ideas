@@ -1,9 +1,11 @@
 To Do:
-    Config recipes oreDict vs normal
 
     Figure out filter expansion (18 slots) upgrade
         Filter that takes up 3 rows?
         super Adv (buttons underneath each slot to toggle functionality, maybe scrollbar too)
+
+    Shift right clicking on crafting table/station opens up backpack gui beside it (like tinker's)
+
 
 MCF Posting:
     Upload default recipe screenshots
@@ -15,7 +17,7 @@ Bugs:
     IMPORTANT:
 
     Less important:
-
+        Quick Deposit not actually moving any stacks (search in path for print statements + remove them when done)
 
 Figure out:
     How to render a backpack on your back
@@ -47,11 +49,9 @@ Upgrades:
     Umbrella upgrade - slow fall
     KeepOnDeath upgrade[DONE] - really expensive but keep backpack on death
     UpgradeAddon upgrade[DONE] - adds more upgrade points
-    Furnace Upgrade{ALT GUI} - smelt things in your backpack using smelt-able materials from the backpack? //Will have to change something with alt-gui as noted below
     Ender Upgrade - links this backpack to your ender chest
+    Ticking upgrade - allows the backpack to tick, repairing TiCon toolss
     Mod Specific Filter upgrade[DONE] - makes it so that the filter upgrade will pick up any item from mod x, where x is the mod that an item in the filter slot is from.
-
-    If add another alt.Gui upgrade have to check recipe before applying (b/c can only have 3 alt. gui upgrades (plus naming) due to gui sizing limitation unless I expand the gui horizontally).
 
 Textures:
     Change "name" button to "rename" - background as button w/ overlayed localized name?

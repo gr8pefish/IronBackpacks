@@ -1,18 +1,17 @@
 package main.ironbackpacks.crafting;
 
-import main.ironbackpacks.container.alternateGui.InventoryAlternateGui;
-import main.ironbackpacks.items.ItemBase;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.ItemUpgradeBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.nbt.NBTTagIntArray;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class BackpackUpgradeRecipe extends ShapelessOreRecipe {

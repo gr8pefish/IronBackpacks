@@ -30,6 +30,7 @@ public class IronBackpacksConstants {
         public static final int DAMAGE_BAR_UPGRADE_ID = 3;
         public static final int KEEP_ON_DEATH_UPGRADE_ID = 4;
         public static final int ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID = 10;
+        public static final int QUICK_DEPOSIT_UPGRADE_ID = 13;
         //Alternate Gui
         public static final int RENAMING_UPGRADE_ID = 5;
         public static final int FILTER_BASIC_UPGRADE_ID = 6;
@@ -47,6 +48,7 @@ public class IronBackpacksConstants {
         private static String formatting1 = ConfigHandler.additionalUpgradesIncrease == 1 ? "upgrade point" : ConfigHandler.additionalUpgradesIncrease + " upgrade points";
         private static String formatting2 = ConfigHandler.additionalUpgradesLimit+3 == 1 ? "once" : ConfigHandler.additionalUpgradesLimit+3 + " times";
         public static final String[] ADDITIONAL_UPGRADE_SLOTS_DESCRIPTION = {"Adds another " + formatting1 + " to", "the backpack. Can be applied " + formatting2, "to the highest tier backpack."};
+        public static final String[] QUICK_DEPOSIT_DESCRIPTION = {"When you shift right click on an inventory with this upgrade","the backpack will attempt to empty it's contents into the inventory."};
 
         //Alternate Gui
         public static final String[] RENAMING_DESCRIPTION = {"Allows you to rename the backpack."};
@@ -80,7 +82,9 @@ public class IronBackpacksConstants {
                 StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),
                 StatCollector.translateToLocal("emptyUpgradeSlot")+"...", //additional upgrade slot
                 StatCollector.translateToLocal("item.ironbackpacks:filterFuzzyUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:filterOreDictUpgrade.name")};
+                StatCollector.translateToLocal("item.ironbackpacks:filterOreDictUpgrade.name"),
+                StatCollector.translateToLocal("item.ironbackpacks:quickDepositUpgrade.name")};
+
 
         public static final int[] UPGRADE_POINTS = {
                 0, //blank upgrade
@@ -95,12 +99,12 @@ public class IronBackpacksConstants {
                 ConfigHandler.condenserUpgradeCost,
                 0, //additional upgrade slots
                 ConfigHandler.filterFuzzyUpgradeCost,
-                ConfigHandler.filterOreDictUpgradeCost
+                ConfigHandler.filterOreDictUpgradeCost,
+                ConfigHandler.quickDepositUpgradeCost
         };
 
         //===========================Misc==================================
         public static final int ALT_GUI_UPGRADES_ALLOWED = ConfigHandler.renamingUpgradeRequired ? 4 : 3;
-        public static final int FILTER_UPGRADES_ALLOWED = 2;
 
     }
 

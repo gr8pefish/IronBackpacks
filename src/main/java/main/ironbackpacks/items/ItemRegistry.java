@@ -42,6 +42,7 @@ public class ItemRegistry {
     public static Item condenserUpgrade;
     public static Item keepOnDeathUpgrade;
     public static Item additonalUpgradesUpgrade;
+    public static Item quickDepositUpgrade;
 
     //misc
     public static Item nest;
@@ -74,6 +75,7 @@ public class ItemRegistry {
         upgrades.add(condenserUpgrade);
         upgrades.add(keepOnDeathUpgrade);
         upgrades.add(additonalUpgradesUpgrade);
+        upgrades.add(quickDepositUpgrade);
         return upgrades;
     }
 
@@ -117,6 +119,8 @@ public class ItemRegistry {
         GameRegistry.registerItem(filterFuzzyUpgrade, "filterFuzzyUpgrade");
         filterOreDictUpgrade = new ItemFilterOreDictUpgrade();
         GameRegistry.registerItem(filterOreDictUpgrade, "filterOreDictUpgrade");
+        quickDepositUpgrade = new ItemQuickDepositUpgrade();
+        GameRegistry.registerItem(quickDepositUpgrade, "quickDepositUpgrade");
 
         //misc
         nest = new ItemNest();

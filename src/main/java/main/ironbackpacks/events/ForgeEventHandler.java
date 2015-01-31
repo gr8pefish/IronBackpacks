@@ -214,7 +214,6 @@ public class ForgeEventHandler {
         if (ids.length > 0){
             for (int i = 0; i < ids.length; i++) {
                 if (i > 0 && !retList.contains(OreDictionary.getOreName(ids[i]))) { //no duplicates
-//                    System.out.println(OreDictionary.getOreName(ids[i]));
                     retList.add(OreDictionary.getOreName(ids[i]));
                 }else{
                     retList.add(OreDictionary.getOreName(ids[i]));

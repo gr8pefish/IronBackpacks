@@ -26,6 +26,8 @@ public class ItemBaseBackpack extends ItemBase {
     private int upgradeSlots;
     private int upgradeIndex;
 
+    private boolean openAltGui;
+
     public ItemBaseBackpack(String unlocName, String textureName, int id, int upgradeSlots, int typeID) {
         super(unlocName, textureName);
         setMaxStackSize(1);
@@ -33,6 +35,8 @@ public class ItemBaseBackpack extends ItemBase {
         this.typeID = typeID; //1,2,3,4
         this.upgradeSlots = upgradeSlots;
         this.upgradeIndex = upgradeSlots-1;
+
+        openAltGui = true;
     }
 
     public int getTypeId() { return typeID;}
@@ -104,11 +108,26 @@ public class ItemBaseBackpack extends ItemBase {
             if (!player.isSneaking()) {
                 player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ);
                 return itemStack;
-            }else{
-                player.openGui(IronBackpacks.instance, (guiId * -1) - 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+            }else {
+                if (openAltGui) player.openGui(IronBackpacks.instance, (guiId * -1) - 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+                else openAltGui = true;
                 return itemStack;
             }
         }
+    }
+
+    @Override
+    public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        if (!world.isRemote) { //server side
+            if (!player.isSneaking()) { //only do it when player is sneaking
+                return false;
+            }
+            if (UpgradeMethods.hasQuickDepositUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack))) {
+                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, x, y, z);
+                return !openAltGui;
+            }
+        }
+        return false;
     }
 
     @Override

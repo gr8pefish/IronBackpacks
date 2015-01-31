@@ -1,11 +1,18 @@
 package main.ironbackpacks.items.upgrades;
 
+import main.ironbackpacks.container.backpack.InventoryBackpack;
+import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
@@ -128,7 +135,18 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasKeepOnDeathUpgrade(ItemStack stack){
+    public static boolean hasQuickDepositUpgrade(int[] upgrades) {
+        boolean hasUpgrade = false;
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_UPGRADE_ID) {
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
+    public static boolean hasKeepOnDeathUpgrade(ItemStack stack){ //only one that takes itemStack as a parameter
         int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
         boolean hasUpgrade = false;
         for (int upgrade: upgrades) {
@@ -150,7 +168,8 @@ public class UpgradeMethods {
             for (int upgrade: upgrades) {
                 if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
             }
@@ -304,5 +323,76 @@ public class UpgradeMethods {
     }
 
 
+    //======================================================================Transfer From Backpack To Inventory========================================================================
+
+    public static boolean transferFromBackpackToInventory(EntityPlayer player, ItemStack backpack, World world, int x, int y, int z){
+        TileEntity targeted = world.getTileEntity(x, y, z);
+        if (targeted != null){
+            IInventory inv = getTargetedInventory(targeted);
+            if (inv != null) {
+                return transferItemsToContainer(player, backpack, inv);
+            }
+        }
+        return false;
+    }
+
+    private static IInventory getTargetedInventory(TileEntity tile){
+        if (tile == null || !(tile instanceof IInventory)) {
+            return null;
+        }
+        return (IInventory) tile;
+    }
+
+
+    private static boolean transferItemsToContainer(EntityPlayer player, ItemStack backpack, IInventory transferTo){
+        boolean returnValue = false;
+        IronBackpackType type = IronBackpackType.values()[((ItemBaseBackpack) backpack.getItem()).getGuiId()];
+        InventoryBackpack inventoryBackpack = new InventoryBackpack(player, backpack, type);
+        if (transferTo.getSizeInventory() > 0 && !(inventoryBackpack.isEmpty())){ //if have a valid inventory to transfer to and have items to transfer
+            for (int i = 0; i < inventoryBackpack.getSizeInventory(); i++){
+                ItemStack stackToMove = inventoryBackpack.getStackInSlot(i);
+                if (stackToMove != null && stackToMove.stackSize > 0){
+                    ItemStack remainder = putInFirstValidSlot(transferTo, stackToMove);
+                    inventoryBackpack.setInventorySlotContents(i, remainder);
+                    inventoryBackpack.onGuiSaved(player);
+                    returnValue = true;
+                }
+            }
+        }
+        return returnValue;
+    }
+
+    private static ItemStack putInFirstValidSlot(IInventory transferTo, ItemStack stackToTransfer){
+        for (int i = 0; i < transferTo.getSizeInventory(); i++){
+            ItemStack tempStack = transferTo.getStackInSlot(i);
+            if (tempStack == null){
+                if (transferTo.isItemValidForSlot(i, stackToTransfer)){
+                    transferTo.setInventorySlotContents(i, stackToTransfer);
+                    transferTo.markDirty();
+                    return null;
+                }
+            }else if (tempStack.stackSize <= 0){//leave it alone
+            }else{ //stack present, check if merge possible
+                if (tempStack.isItemEqual(stackToTransfer) && tempStack.stackSize < tempStack.getMaxStackSize()){ //can merge
+                    int amountToResupply = tempStack.getMaxStackSize() - tempStack.stackSize;
+                    if (stackToTransfer.stackSize >= amountToResupply) { //stackToTransfer will leave a remainder if merged
+                        //merge what you can and set stackToTransfer to the remainder
+                        transferTo.setInventorySlotContents(i, new ItemStack(tempStack.getItem(), tempStack.getMaxStackSize(), tempStack.getItemDamage()));
+                        transferTo.markDirty();
+                        int oldStackSize = stackToTransfer.stackSize;
+                        stackToTransfer.stackSize = oldStackSize - amountToResupply;
+                        //don't return, try to use up the stack completely by continuing to iterate
+                    }else{
+                        //use up the stackToTransfer and increment the stackSize of tempStack
+                        transferTo.setInventorySlotContents(i, new ItemStack(tempStack.getItem(), tempStack.stackSize + stackToTransfer.stackSize, tempStack.getItemDamage()));
+                        transferTo.markDirty();
+                        return null;
+                    }
+
+                }
+            }
+        }
+        return stackToTransfer;
+    }
 
 }

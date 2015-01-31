@@ -121,6 +121,16 @@ public class InventoryBackpack implements IInventory {
 
     //=====================HELPER METHODS============================
 
+    //checks if the backpack contains any items
+    public boolean isEmpty(){
+        for (ItemStack stack : inventory) {
+            if (stack != null && stack.stackSize > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     //credit to sapient for a lot of this saving code
     public void onGuiSaved(EntityPlayer entityPlayer){
         if (stack != null){
