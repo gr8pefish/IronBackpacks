@@ -2,6 +2,7 @@ package main.ironbackpacks.proxies;
 
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
+import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,35 +19,30 @@ public class CommonProxy {
             ItemStack tempStack = player.inventory.getStackInSlot(i);
             if (tempStack != null && UpgradeMethods.hasKeepOnDeathUpgrade(tempStack)) {
                 NBTTagCompound tagCompound = new NBTTagCompound();
-                tempStack.writeToNBT(tagCompound);
+                ItemStack stackToAdd = IronBackpacksHelper.removeKeepOnDeathUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(tempStack), tempStack); //removes upgrade
+                stackToAdd.writeToNBT(tagCompound);
                 tagList.appendTag(tagCompound);
 
                 player.inventory.setInventorySlotContents(i, null); //set to null so it doesn't drop
             }
         }
 
-        NBTTagCompound compound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-        compound.setTag(key, tagList);
-
-        System.out.println("saved");
+        NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        rootPersistentCompound.setTag(key, tagList);
+        if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
+            player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
 
     }
 
 
     public static void loadBackpackOnDeath(EntityPlayer player) {
-        System.out.println("loading");
-
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-        System.out.println(rootPersistentCompound.hasKey(key)); //print statement
-        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(key)){
-            System.out.println("has key");
+        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(key)){// && rootPersistentCompound.hasKey(key)){
             NBTTagList tagList = rootPersistentCompound.getTagList(key, Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < tagList.tagCount(); i++) {
-                System.out.println("I: "+i);
                 player.inventory.addItemStackToInventory(ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(i)));
             }
+            rootPersistentCompound.removeTag(key); //clears the data
         }
-
-
     }
 }

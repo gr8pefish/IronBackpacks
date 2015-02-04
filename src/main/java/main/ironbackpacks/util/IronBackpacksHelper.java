@@ -4,6 +4,7 @@ package main.ironbackpacks.util;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -135,7 +136,7 @@ public class IronBackpacksHelper {
         return 0;
     }
 
-    public static void removeKeepOnDeathUpgrade(int[] upgrades, ItemStack stack){
+    public static ItemStack removeKeepOnDeathUpgrade(int[] upgrades, ItemStack stack){
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             NBTTagList tagList = new NBTTagList();
@@ -147,7 +148,9 @@ public class IronBackpacksHelper {
                 }
             }
             nbtTagCompound.setTag("Upgrades", tagList);
+            return stack;
         }
+        return null;
     }
 
 }
