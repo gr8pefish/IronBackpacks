@@ -13,6 +13,7 @@ import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.proxies.GuiHandler;
 import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.util.VersionCheckerSupport;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,6 +41,8 @@ public class IronBackpacks {
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+
+		VersionCheckerSupport.init();
 
 		File config = event.getSuggestedConfigurationFile();
 		ConfigHandler.init(config);

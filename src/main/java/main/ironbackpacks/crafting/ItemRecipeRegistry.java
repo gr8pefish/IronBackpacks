@@ -57,6 +57,7 @@ public class ItemRecipeRegistry {
 		registerBasicRecipe(ItemRegistry.keepOnDeathUpgrade, ConfigHandler.keepOnDeathUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.additonalUpgradesUpgrade, ConfigHandler.additionalUpgradesUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.quickDepositUpgrade, ConfigHandler.quickDepositUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.filterAdvancedUpgrade, ConfigHandler.filterAdvancedUpgradeRecipe);
 	}
 
 	public static void registerBackpackUpgradeRecipes(){

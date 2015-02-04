@@ -134,4 +134,15 @@ public class ContainerAlternateGui extends Container {
     }
 
 
+    public void changeAdvFilterSlots(String side) {
+        switch (side){
+            case "left":
+                System.out.println("SHIFT TO LEFT");
+                break;
+            case "right":
+                System.out.println("SHIFT TO RIGHT");
+                break;
+        }
+        //TODO
+    }
 }

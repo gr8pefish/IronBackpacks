@@ -10,14 +10,26 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
-public class RenameButton extends GuiButton {
+public class AdvancedFilterButtons extends GuiButton {
 
-    //A class for the button used ot rename the backpack
+    public static final int MOVE_LEFT = 1;
+    public static final int MOVE_RIGHT = 2;
+    public static final int EXACT = 3;
+    public static final int FUZZY = 4;
+    public static final int ORE_DICT = 5;
+    public static final int MOD_SPECIFIC = 6;
 
-    public static final int RENAME_BUTTON = 0;
+    public int buttonType;
 
-    protected String[] backpackTooltip = {"Renames the backpack", "to whatever is written", "in the text box."};
-    private int tooltipWidth = -1;
+    public String[] moveRightTooltip = {"Moves right"}; //TODO - tooltip shows # of slots left in direction if I don't wraparound
+    public String[] moveLeftTooltip = {"Moves left"};
+    public String[] exactTooltip = {"Exact Matching"};
+    public String[] fuzzyTooltip = {"Fuzzy Matching"};
+    public String[] oreDictTooltip = {"Ore Dictionary Matching"};
+    public String[] modSpecificTooltip = {"Mod Specific Matching"};
+
+    public String[] tooltipInstance;
+    public int tooltipWidth = -1;
     private int tooltipDelay = ConfigHandler.tooltipDelay;
     private int hoverTime = 0;
     private long prevSystemTime = 0;
@@ -27,15 +39,46 @@ public class RenameButton extends GuiButton {
     private int iconOffsetX = 0;
     private int iconOffsetY = 0;
 
-    public RenameButton(int id, int xPos, int yPos, int width, int height, int type) {
+    public AdvancedFilterButtons(int id, int xPos, int yPos, int width, int height, int type) {
         super(id, xPos, yPos, width, height, "");
-
-        if (type == RENAME_BUTTON) {
-            iconOffsetX = 1;
-            iconOffsetY = 1;
+        this.width = width;
+        this.height = height;
+        buttonType = type;
+        switch (type){
+            case MOVE_LEFT:
+                iconOffsetX = 18;
+                iconOffsetY = 57;
+                this.tooltipInstance = moveLeftTooltip;
+                break;
+            case MOVE_RIGHT:
+                iconOffsetX = 18;
+                iconOffsetY = 37;
+                this.tooltipInstance = moveRightTooltip;
+                break;
+            case EXACT:
+                iconOffsetX = 0;
+                iconOffsetY = 13;
+                this.tooltipInstance = exactTooltip;
+                break;
+            case FUZZY:
+                iconOffsetX = 0;
+                iconOffsetY = 19;
+                this.tooltipInstance = fuzzyTooltip;
+                break;
+            case ORE_DICT:
+                iconOffsetX = 0;
+                iconOffsetY = 25;
+                this.tooltipInstance = oreDictTooltip;
+                break;
+            case MOD_SPECIFIC:
+                iconOffsetX = 0;
+                iconOffsetY = 31;
+                this.tooltipInstance = modSpecificTooltip;
+                break;
         }
     }
 
+    //    @SideOnly(Side.CLIENT);
     @Override
     public void drawButton(Minecraft minecraft, int mPosX, int mPosY) {
         if (this.visible) {
@@ -45,9 +88,9 @@ public class RenameButton extends GuiButton {
             boolean hover = mPosX >= this.xPosition && mPosY >= this.yPosition && mPosX < this.xPosition + this.width && mPosY < this.yPosition + this.height;
             int h = getHoverState(hover);
 
-            int fromLeft = iconOffsetX + (h-1) * 28;
+            int fromLeft = iconOffsetX + (h-1) * (this.width+1);
 
-            this.drawTexturedModalRect(this.xPosition, this.yPosition, fromLeft, iconOffsetY, 25, 10);
+            this.drawTexturedModalRect(this.xPosition, this.yPosition, fromLeft, iconOffsetY, this.width, this.height);
 
             //Thank you inventory tweaks
 
@@ -67,9 +110,9 @@ public class RenameButton extends GuiButton {
                 FontRenderer fontRenderer = minecraft.fontRenderer;
 
                 // Compute tooltip params
-                int x = mPosX + 12, y = mPosY - 11 * backpackTooltip.length;
+                int x = mPosX + 12, y = mPosY - 11 * this.tooltipInstance.length;
                 if(tooltipWidth == -1) {
-                    for(String line : backpackTooltip) {
+                    for(String line : this.tooltipInstance) {
                         tooltipWidth = Math.max(fontRenderer.getStringWidth(line), tooltipWidth);
                     }
                 }
@@ -78,12 +121,12 @@ public class RenameButton extends GuiButton {
                 }
 
                 // Draw background
-                drawGradientRect(x - 3, y - 3, x + tooltipWidth + 3, y + 11 * backpackTooltip.length, 0xc0000000,
+                drawGradientRect(x - 3, y - 3, x + tooltipWidth + 3, y + 11 * this.tooltipInstance.length, 0xc0000000,
                         0xc0000000);
 
                 // Draw lines
                 int lineCount = 0;
-                for(String line : backpackTooltip) {
+                for(String line : this.tooltipInstance) {
                     int j1 = y + (lineCount++) * 11;
                     int k = -1;
                     fontRenderer.drawStringWithShadow(line, x, j1, k);
@@ -91,5 +134,4 @@ public class RenameButton extends GuiButton {
             }
         }
     }
-
 }

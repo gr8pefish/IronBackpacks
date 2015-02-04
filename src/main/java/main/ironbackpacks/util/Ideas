@@ -3,9 +3,16 @@ To Do:
     Figure out filter expansion (18 slots) upgrade
         Filter that takes up 3 rows?
         super Adv (buttons underneath each slot to toggle functionality, maybe scrollbar too)
+            scroll mouse wheel in slots to move (addition to the buttons)?
 
-    Shift right clicking on crafting table/station opens up backpack gui beside it (like tinker's)
 
+
+
+Changelog:
+    Changed default recipe for filter recipe
+    Added support for version checker - not sure if working
+        Add special section for compatibility in MCF posting
+    ...
 
 MCF Posting:
     Upload default recipe screenshots
@@ -17,7 +24,6 @@ Bugs:
     IMPORTANT:
 
     Less important:
-        Quick Deposit not actually moving any stacks (search in path for print statements + remove them when done)
 
 Figure out:
     How to render a backpack on your back
@@ -44,7 +50,7 @@ Upgrades:
     Condenser upgrade{ALT GUI}[DONE] - compresses items
     Filter upgrade{ALT GUI}[DONE] - automatically picks up specified items - Button to alter fuzzy behavior?
     Inventory upgrade? - extends inventory (probably only will be used in final tier)
-    Quick deposit - Clicking on inventory (chest) with backpack empties backpack into inventory
+    Quick deposit[DONE] - Clicking on inventory (chest) with backpack empties backpack into inventory
     Camelpack upgrade - eat from it
     Umbrella upgrade - slow fall
     KeepOnDeath upgrade[DONE] - really expensive but keep backpack on death
@@ -63,13 +69,14 @@ Textures:
 
 
 Misc features:
-    Crafting - support meta/damage values
+    Recipes via config - support meta/damage values
     Add tiers to upgrades (so you need at least tier x of backpack to apply upgrade y)
     Add nests to world-gen
 
 Mod Support:
     NEI with recipes[DONE]
     Inventory Tweaks[DONE]
+    Version Checker[Check if working okay once update]
 
 Future Refactoring:
 
@@ -78,4 +85,6 @@ Future Refactoring:
     Full localization
         Includes tooltips
         Buttons (if applicable)
+
+    Changes Networking to use bytes if possible
 

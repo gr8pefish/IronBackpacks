@@ -1,5 +1,7 @@
 package main.ironbackpacks.client.gui.buttons;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
@@ -7,6 +9,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 
+@SideOnly(Side.CLIENT)
 public class ButtonUpgrade extends GuiButton {
 
     public static final int BACKPACK_TO_INVENTORY = 10;
@@ -75,7 +78,7 @@ public class ButtonUpgrade extends GuiButton {
 
             int fromLeft = iconOffsetX + (h-1) * 16;
 
-            this.drawTexturedModalRect(this.xPosition, this.yPosition, fromLeft, iconOffsetY, 16, 16);
+            this.drawTexturedModalRect(this.xPosition, this.yPosition, fromLeft, iconOffsetY, 11, 12);
 
             //Thank you inventory tweaks
 

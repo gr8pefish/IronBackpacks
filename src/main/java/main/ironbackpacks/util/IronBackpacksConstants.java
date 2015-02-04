@@ -23,8 +23,7 @@ public class IronBackpacksConstants {
     }
 
     public static final class Upgrades{
-
-        //=============IDs====================
+        //=============IDs==================== (not in order so that it doesn't break when updating)
         public static final int BUTTON_UPGRADE_ID = 1;
         public static final int NESTING_UPGRADE_ID = 2;
         public static final int DAMAGE_BAR_UPGRADE_ID = 3;
@@ -39,6 +38,7 @@ public class IronBackpacksConstants {
         public static final int CONDENSER_UPGRADE_ID = 9;
         public static final int FILTER_FUZZY_UPGRADE_ID = 11;
         public static final int FILTER_OREDICT_UPGRADE_ID = 12;
+        public static final int FILTER_ADVANCED_UPGRADE_ID =14;
 
         //================Upgrade Info===================
         public static final String[] BUTTON_DESCRIPTION = {"Adds buttons to quickly move items","to and from your backpack, as well as","a button to sort your backpack quickly."};
@@ -58,6 +58,7 @@ public class IronBackpacksConstants {
         public static final String[] FILTER_OREDICT_DESCRIPTION = {"Similar to the basic filter, except the backpack will ","pick up any item that is registered in the ore dictionary","as the same as the item(s) in the filter slot."};
         public static final String[] HOPPER_DESCRIPTION = {"Allows you to specify an item to keep stocked","in your inventory/hotbar","which is supplied from your backpack."};
         public static final String[] CONDENSER_DESCRIPTION = {"Allows you to specify a set of items","to be compressed upon entering your backpack."};
+        public static final String[] FILTER_ADVANCED_DESCRIPTION = {"Similar to the basic filter, except the filter","has 18 slots and each slots has configurable options."};
 
         public static final ArrayList<Integer> ALT_GUI_UPGRADE_IDS = new ArrayList<Integer>(Arrays.asList(
                 RENAMING_UPGRADE_ID,
@@ -65,6 +66,7 @@ public class IronBackpacksConstants {
                 FILTER_FUZZY_UPGRADE_ID,
                 FILTER_OREDICT_UPGRADE_ID,
                 FILTER_MOD_SPECIFIC_UPGRADE_ID,
+                FILTER_ADVANCED_UPGRADE_ID,
                 HOPPER_UPGRADE_ID,
                 CONDENSER_UPGRADE_ID
                 ));
@@ -83,7 +85,9 @@ public class IronBackpacksConstants {
                 StatCollector.translateToLocal("emptyUpgradeSlot")+"...", //additional upgrade slot
                 StatCollector.translateToLocal("item.ironbackpacks:filterFuzzyUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:filterOreDictUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:quickDepositUpgrade.name")};
+                StatCollector.translateToLocal("item.ironbackpacks:quickDepositUpgrade.name"),
+                StatCollector.translateToLocal("item.ironbackpacks:filterAdvancedUpgrade.name")
+        };
 
 
         public static final int[] UPGRADE_POINTS = {
@@ -100,7 +104,8 @@ public class IronBackpacksConstants {
                 0, //additional upgrade slots
                 ConfigHandler.filterFuzzyUpgradeCost,
                 ConfigHandler.filterOreDictUpgradeCost,
-                ConfigHandler.quickDepositUpgradeCost
+                ConfigHandler.quickDepositUpgradeCost,
+                ConfigHandler.filterAdvancedUpgradeCost
         };
 
         //===========================Misc==================================

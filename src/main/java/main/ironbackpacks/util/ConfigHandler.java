@@ -85,6 +85,7 @@ public class ConfigHandler {
     public static String[] keepOnDeathUpgradeRecipe;
     public static String[] additionalUpgradesUpgradeRecipe;
     public static String[] quickDepositUpgradeRecipe;
+    public static String[] filterAdvancedUpgradeRecipe;
 
     public static int buttonUpgradeCost;
     public static int nestingUpgradeCost;
@@ -99,6 +100,7 @@ public class ConfigHandler {
     public static int keepOnDeathUpgradeCost;
 //    public static int additionalUpgradesUpgradeCost; //Always 0, otherwise it overrides a slot and is pointless
     public static int quickDepositUpgradeCost;
+    public static int filterAdvancedUpgradeCost;
 
     public static String[] nestRecipe;
     public static String[] upgradeCoreRecipe;
@@ -136,8 +138,8 @@ public class ConfigHandler {
         //done
         String[] damageBarRecipe = {"items.ironbackpacks:treatedLeather","items.bowl","items.ironbackpacks:treatedLeather", "items.string", "items.ironbackpacks:upgradeCore", "items.string", "items.ironbackpacks:treatedLeather", "items.bowl", "items.ironbackpacks:treatedLeather"};
         //done
-        String[] filterBasicRecipe = {"items.ender_pearl","items.spider_eye","items.ender_pearl", "items.paper", "items.ironbackpacks:upgradeCore", "items.paper", "items.ender_pearl", "items.spider_eye", "items.ender_pearl"};
-        //done? -too hard?
+        String[] filterBasicRecipe = {"items.ironbackpacks:treatedLeather","items.ender_pearl","items.ironbackpacks:treatedLeather", "items.paper", "items.ironbackpacks:upgradeCore", "items.paper", "items.ironbackpacks:treatedLeather", "items.ender_pearl", "items.ironbackpacks:treatedLeather"};
+        //done
         String[] hopperRecipe = {"none","blocks.hopper","none", "blocks.hopper", "items.ironbackpacks:upgradeCore", "blocks.hopper", "none", "blocks.hopper", "none"};
         //done
         String[] condenserRecipe = {"gemLapis","blockLapis","gemLapis", "blocks.crafting_table", "items.ironbackpacks:upgradeCore", "blocks.crafting_table", "dustRedstone", "blockRedstone", "dustRedstone"};
@@ -150,6 +152,8 @@ public class ConfigHandler {
         //done
         String[] filterOreDictRecipe = {"none","items.clock","none", "items.clock", "items.ironbackpacks:filterBasicUpgrade", "items.clock", "none", "items.clock", "none"};
         //done
+        String[] filterAdvancedRecipe = {"blockGold","blockIron","blockGold", "blockIron", "items.ironbackpacks:filterBasicUpgrade", "blockIron", "blockGold", "blockIron", "blockGold"};
+        //TODO - tweak
         String[] additionalUpgradesRecipe = {"blockEmerald","record","blockEmerald", "record", "items.ironbackpacks:upgradeCore", "record", "blockEmerald", "record", "blockEmerald"};
         //done
         String[] quickDepositRecipe = {"slimeball","blocks.piston","slimeball", "slimeball", "items.ironbackpacks:upgradeCore", "slimeball", "blocks.piston", "slimeball", "blocks.piston"};
@@ -216,16 +220,17 @@ public class ConfigHandler {
         filterFuzzyUpgradeRecipe = config.get("5) Recipes", "10) Fuzzy Filter Upgrade Recipe", filterFuzzyRecipe, "The recipe for the fuzzy filter upgrade.").getStringList();
         filterOreDictUpgradeRecipe = config.get("5) Recipes", "11) Ore Dictionary Filter Upgrade Recipe", filterOreDictRecipe, "The recipe for the ore dictionary filter upgrade.").getStringList();
         filterModSpecificUpgradeRecipe = config.get("5) Recipes", "12) Mod Specific Filter Upgrade Recipe", filterModSpecificRecipe, "The recipe for the mod specific filter upgrade.").getStringList();
-        hopperUpgradeRecipe = config.get("5) Recipes", "13) Resupply Upgrade Recipe", hopperRecipe, "The recipe for the resupply upgrade.").getStringList();
-        condenserUpgradeRecipe = config.get("5) Recipes", "14) Condenser Upgrade Recipe", condenserRecipe, "The recipe for the condenser upgrade.").getStringList();
-        keepOnDeathUpgradeRecipe = config.get("5) Recipes", "15) Keep On Death Upgrade Recipe", keepOnDeathRecipe, "The recipe for the upgrade that allows you to keep the backpack upon dying.").getStringList();
-        additionalUpgradesUpgradeRecipe = config.get("5) Recipes", "16) Additional Upgrade Slots Recipe", additionalUpgradesRecipe, "The recipe for the upgrade which gives the backpack a configurable amount of additional upgrade points.").getStringList();
-        quickDepositUpgradeRecipe = config.get("5) Recipes", "17) Quick Deposit Upgrade Recipe", quickDepositRecipe, "The recipe for the upgrade which gives the backpack the ability to empty it's contents into an inventory.").getStringList();
+        filterAdvancedUpgradeRecipe = config.get("5) Recipes", "13) Advanced Filter Upgrade Recipe", filterAdvancedRecipe, "The recipe for the advanced filter upgrade.").getStringList();
+        hopperUpgradeRecipe = config.get("5) Recipes", "14) Resupply Upgrade Recipe", hopperRecipe, "The recipe for the resupply upgrade.").getStringList();
+        condenserUpgradeRecipe = config.get("5) Recipes", "15) Condenser Upgrade Recipe", condenserRecipe, "The recipe for the condenser upgrade.").getStringList();
+        keepOnDeathUpgradeRecipe = config.get("5) Recipes", "16) Keep On Death Upgrade Recipe", keepOnDeathRecipe, "The recipe for the upgrade that allows you to keep the backpack upon dying.").getStringList();
+        additionalUpgradesUpgradeRecipe = config.get("5) Recipes", "17) Additional Upgrade Slots Recipe", additionalUpgradesRecipe, "The recipe for the upgrade which gives the backpack a configurable amount of additional upgrade points.").getStringList();
+        quickDepositUpgradeRecipe = config.get("5) Recipes", "18) Quick Deposit Upgrade Recipe", quickDepositRecipe, "The recipe for the upgrade which gives the backpack the ability to empty it's contents into an inventory.").getStringList();
 
-        nestRecipe = config.get("5) Recipes", "17) Nest Recipe", nestRecipeDefault, "The recipe for the crafting item - nest.").getStringList();
-        upgradeCoreRecipe = config.get("5) Recipes", "18) Upgrade Core Recipe", upgradeCoreRecipeDefault, "The recipe for the crafting item - upgrade core.").getStringList();
-        jeweledFeatherRecipe = config.get("5) Recipes", "19) Jeweled Feather Recipe", jeweledFeatherDefault, "The recipe for the crafting item - jeweled feather. Shapeless Recipe, must be less than 9 items.").getStringList();
-        treatedLeatherRecipe = config.get("5) Recipes", "20) Treated Leather Recipe", treatedLeatherDefault, "The recipe for the crafting item - treated leather. Shapeless Recipe, must be less than 9 items. Default includes lime dye.").getStringList();
+        nestRecipe = config.get("5) Recipes", "19) Nest Recipe", nestRecipeDefault, "The recipe for the crafting item - nest.").getStringList();
+        upgradeCoreRecipe = config.get("5) Recipes", "20) Upgrade Core Recipe", upgradeCoreRecipeDefault, "The recipe for the crafting item - upgrade core.").getStringList();
+        jeweledFeatherRecipe = config.get("5) Recipes", "21) Jeweled Feather Recipe", jeweledFeatherDefault, "The recipe for the crafting item - jeweled feather. Shapeless Recipe, must be less than 9 items.").getStringList();
+        treatedLeatherRecipe = config.get("5) Recipes", "22) Treated Leather Recipe", treatedLeatherDefault, "The recipe for the crafting item - treated leather. Shapeless Recipe, must be less than 9 items. Default includes lime dye.").getStringList();
 
         buttonUpgradeCost = config.get("6) Upgrade Costs", "1) Button Upgrade Recipe", 2, "The cost for the button upgrade. Default 2.").getInt();
         nestingUpgradeCost = config.get("6) Upgrade Costs", "2) Nesting Upgrade Recipe", 3, "The cost for the nesting upgrade. Default 3.").getInt();
@@ -235,11 +240,12 @@ public class ConfigHandler {
         filterFuzzyUpgradeCost = config.get("6) Upgrade Costs", "6) Fuzzy Filter Upgrade Recipe", 4, "The cost for the fuzzy filter upgrade. Default 4.").getInt();
         filterOreDictUpgradeCost = config.get("6) Upgrade Costs", "7) Ore Dictionary Filter Upgrade Recipe", 4, "The cost for the ore dictionary filter upgrade. Default 4.").getInt();
         filterModSpecificUpgradeCost = config.get("6) Upgrade Costs", "8) Mod Specific Filter Upgrade Recipe", 4, "The cost for the mod specific filter upgrade. Default 4.").getInt();
-        hopperUpgradeCost = config.get("6) Upgrade Costs", "9) Resupply Upgrade Recipe", 2, "The cost for the resupply upgrade. Default 2.").getInt();
-        condenserUpgradeCost = config.get("6) Upgrade Costs", "10) Condenser Upgrade Recipe", 3, "The cost for the crafting upgrade. Default 3.").getInt();
-        keepOnDeathUpgradeCost = config.get("6) Upgrade Costs", "11) Keep On Death Upgrade Recipe", 5, "The cost for the upgrade that allows you to keep the backpack upon dying. Default 5.").getInt();
+        filterAdvancedUpgradeCost = config.get("6) Upgrade Costs", "9) Advanced Filter Upgrade Recipe", 6, "The cost for the advanced filter upgrade. Default 6.").getInt();
+        hopperUpgradeCost = config.get("6) Upgrade Costs", "10) Resupply Upgrade Recipe", 2, "The cost for the resupply upgrade. Default 2.").getInt();
+        condenserUpgradeCost = config.get("6) Upgrade Costs", "11) Condenser Upgrade Recipe", 3, "The cost for the crafting upgrade. Default 3.").getInt();
+        keepOnDeathUpgradeCost = config.get("6) Upgrade Costs", "12) Keep On Death Upgrade Recipe", 5, "The cost for the upgrade that allows you to keep the backpack upon dying. Default 5.").getInt();
 //        additionalUpgradesUpgradeCost = config.get("6) Upgrade Costs", "10) Additional Upgrade Slots Recipe", 0, "The cost for the upgrade which gives the backpack another upgrade slot. Default 1.").getInt();
-        quickDepositUpgradeCost = config.get("6) Upgrade Costs", "12) Quick Deposit Upgrade Recipe", 2, "The cost for the quick deposit upgrade. Default 2.").getInt();
+        quickDepositUpgradeCost = config.get("6) Upgrade Costs", "13) Quick Deposit Upgrade Recipe", 2, "The cost for the quick deposit upgrade. Default 2.").getInt();
 
         renamingUpgradeRequired = config.get("7) Miscellaneous", "1) Renaming Upgrade Required", false, "If the renaming upgrade is required to rename the backpack. Default is false (so you can rename backpacks natively).").getBoolean();
         tooltipDelay = config.get("7) Miscellaneous", "2) Tooltip Delay", 1500, "The delay (in milliseconds) until a tooltip will appear over the buttons. Default is 1500 (so 1.5 seconds).").getInt();

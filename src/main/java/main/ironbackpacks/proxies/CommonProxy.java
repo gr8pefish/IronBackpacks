@@ -1,41 +1,52 @@
 package main.ironbackpacks.proxies;
 
+import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.UUID;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
 public class CommonProxy {
 
-    protected static UUID deadPlayerID = null;
-    protected static ArrayList<ItemStack> keepOnDeathBackpacks = new ArrayList<ItemStack>();
+    private static String key = ModInformation.ID+"PersistedData";
 
     public static void saveBackpackOnDeath(EntityPlayer player) {
-
-        deadPlayerID = player.getGameProfile().getId();
+        NBTTagList tagList = new NBTTagList();
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack tempStack = player.inventory.getStackInSlot(i);
             if (tempStack != null && UpgradeMethods.hasKeepOnDeathUpgrade(tempStack)) {
-                keepOnDeathBackpacks.add(tempStack);
+                NBTTagCompound tagCompound = new NBTTagCompound();
+                tempStack.writeToNBT(tagCompound);
+                tagList.appendTag(tagCompound);
+
                 player.inventory.setInventorySlotContents(i, null); //set to null so it doesn't drop
             }
         }
+
+        NBTTagCompound compound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        compound.setTag(key, tagList);
+
+        System.out.println("saved");
+
     }
 
 
     public static void loadBackpackOnDeath(EntityPlayer player) {
+        System.out.println("loading");
 
-        if (deadPlayerID != null && player.getGameProfile().getId().equals(deadPlayerID)) {
-            for (ItemStack backpack : keepOnDeathBackpacks) {
-                IronBackpacksHelper.removeKeepOnDeathUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack), backpack);
-                player.inventory.addItemStackToInventory(backpack);
+        NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        System.out.println(rootPersistentCompound.hasKey(key)); //print statement
+        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(key)){
+            System.out.println("has key");
+            NBTTagList tagList = rootPersistentCompound.getTagList(key, Constants.NBT.TAG_COMPOUND);
+            for (int i = 0; i < tagList.tagCount(); i++) {
+                System.out.println("I: "+i);
+                player.inventory.addItemStackToInventory(ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(i)));
             }
-            keepOnDeathBackpacks.clear();
-            deadPlayerID = null;
         }
+
 
     }
 }

@@ -10,10 +10,7 @@ import main.ironbackpacks.items.craftingItems.ItemNest;
 import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
 import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
-import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.ItemFilterBasicUpgrade;
-import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.ItemFilterFuzzyUpgrade;
-import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.ItemFilterModSpecificUpgrade;
-import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.ItemFilterOreDictUpgrade;
+import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
 import main.ironbackpacks.util.ConfigHandler;
 import net.minecraft.item.Item;
 
@@ -43,6 +40,7 @@ public class ItemRegistry {
     public static Item keepOnDeathUpgrade;
     public static Item additonalUpgradesUpgrade;
     public static Item quickDepositUpgrade;
+    public static Item filterAdvancedUpgrade;
 
     //misc
     public static Item nest;
@@ -76,6 +74,7 @@ public class ItemRegistry {
         upgrades.add(keepOnDeathUpgrade);
         upgrades.add(additonalUpgradesUpgrade);
         upgrades.add(quickDepositUpgrade);
+        upgrades.add(filterAdvancedUpgrade);
         return upgrades;
     }
 
@@ -121,6 +120,8 @@ public class ItemRegistry {
         GameRegistry.registerItem(filterOreDictUpgrade, "filterOreDictUpgrade");
         quickDepositUpgrade = new ItemQuickDepositUpgrade();
         GameRegistry.registerItem(quickDepositUpgrade, "quickDepositUpgrade");
+        filterAdvancedUpgrade = new ItemFilterAdvancedUpgrade();
+        GameRegistry.registerItem(filterAdvancedUpgrade, "filterAdvancedUpgrade");
 
         //misc
         nest = new ItemNest();

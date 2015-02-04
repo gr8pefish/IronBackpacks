@@ -113,6 +113,17 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
+    public static boolean hasFilterAdvancedUpgrade(int[] upgrades) {
+        boolean hasUpgrade = false;
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID) {
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
     public static boolean hasHopperUpgrade(int[] upgrades) {
         boolean hasUpgrade = false;
         for (int upgrade: upgrades) {
@@ -158,6 +169,7 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
+
     //=============================Other Methods====================================
 
     //note - includes renaming upgrade
@@ -168,7 +180,7 @@ public class UpgradeMethods {
             for (int upgrade: upgrades) {
                 if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
@@ -176,7 +188,7 @@ public class UpgradeMethods {
         }else{
             for (int upgrade: upgrades) {
                 if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     numberOfUpgrades++;
@@ -186,12 +198,13 @@ public class UpgradeMethods {
         return numberOfUpgrades;
     }
 
-    public static int getAlternateGuiUpgradeSlots(int[] upgrades) {
+    public static int getAlternateGuiUpgradeSlots(int[] upgrades) { //adds only 9 slots for advanced still
         int slots = 0;
         for (int upgrade: upgrades) {
             if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
                     || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                    || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+                    || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID
+                    || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID) {
                 slots += 9; //hardcoded
             }
         }
@@ -204,29 +217,19 @@ public class UpgradeMethods {
             for (int upgrade : upgrades) {
                 if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID) {
                     counter++;
                 }
             }
         }else{
             for (int upgrade : upgrades) {
                 if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                     counter++;
                 }
-            }
-        }
-        return counter;
-    }
-
-    public static int getFilterUpgradesUsed(int[] upgrades){
-        int counter = 0;
-        for (int upgrade : upgrades){
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
-                    || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID){
-                counter++;
             }
         }
         return counter;
