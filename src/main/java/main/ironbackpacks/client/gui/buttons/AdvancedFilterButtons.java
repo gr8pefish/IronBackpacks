@@ -12,12 +12,35 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class AdvancedFilterButtons extends GuiButton {
 
-    public static final int MOVE_LEFT = 1;
-    public static final int MOVE_RIGHT = 2;
-    public static final int EXACT = 3;
-    public static final int FUZZY = 4;
-    public static final int ORE_DICT = 5;
-    public static final int MOD_SPECIFIC = 6;
+    public static final int MOVE_LEFT = 5;
+    public static final int MOVE_RIGHT = 6;
+    public static final int EXACT = 1;
+    public static final int FUZZY = 2;
+    public static final int ORE_DICT = 3;
+    public static final int MOD_SPECIFIC = 4;
+
+
+    /*
+    int startIndex
+    for (int i = 0; i < 18; i++){
+        saveStackInSlot //parallel arrays
+        saveFilterType
+    }
+
+    load(){ //also is the drawCode for client side
+        for (int i = startIndex; i < startIndex + 9;i++){
+            slot[i].putStackfromNBT(i)
+            drawFilterFromNBT(i)
+        }
+    }
+
+    onCLick(){
+        ifAdvFilterSlot(){
+            syncStackInSlot(slotClicked) //save to NBT
+        }
+    }
+
+     */
 
     public int buttonType;
 
@@ -30,7 +53,7 @@ public class AdvancedFilterButtons extends GuiButton {
 
     public String[] tooltipInstance;
     public int tooltipWidth = -1;
-    private int tooltipDelay = ConfigHandler.tooltipDelay;
+    private int tooltipDelay = 0;
     private int hoverTime = 0;
     private long prevSystemTime = 0;
 
@@ -132,6 +155,28 @@ public class AdvancedFilterButtons extends GuiButton {
                     fontRenderer.drawStringWithShadow(line, x, j1, k);
                 }
             }
+        }
+    }
+
+//    @Override
+//    public boolean mousePressed(Minecraft mc, int x, int y) {
+//        if(super.mousePressed(mc, x, y)) {
+//            if (this.buttonType < AdvancedFilterButtons.MOD_SPECIFIC){
+//                this.buttonType = this.buttonType++;
+//            }else{
+//                this.buttonType = AdvancedFilterButtons.EXACT;
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
+
+    public static int incrementType(GuiButton button){
+        int type = ((AdvancedFilterButtons)button).buttonType;
+        if (type < AdvancedFilterButtons.MOD_SPECIFIC){
+            return ++type;
+        }else{
+            return AdvancedFilterButtons.EXACT;
         }
     }
 }

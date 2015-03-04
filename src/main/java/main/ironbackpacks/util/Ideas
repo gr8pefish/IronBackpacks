@@ -5,6 +5,20 @@ To Do:
         super Adv (buttons underneath each slot to toggle functionality, maybe scrollbar too)
             scroll mouse wheel in slots to move (addition to the buttons)?
 
+            implement 18 slots, hide with xPos/yPos (-999 hides), move what you need to be visible
+            move up a pixel alt. gui. so that it looks nicer w/ one adv. filter
+
+        BUGS:
+            tooltips showing behind items
+            broke clear buttons
+            probably have to change things w/ 18 slots instead of 9 (ex: altering slots to keep items when removing or adding alt. gui. upgrades)
+            flicker on buttons for inv tweaks when initGui() (remove buttons for alt. gui. to fix)
+
+    Adv. nesting upgrade (allows any backpack)
+
+    Add in option where right clicking a backpack item in an inventory opens gui of said backpack
+
+
 
 
 
@@ -12,6 +26,9 @@ Changelog:
     Changed default recipe for filter recipe
     Added support for version checker - not sure if working
         Add special section for compatibility in MCF posting
+    Changed how eternity upgrade works internally
+    TODO: Added Advanced Filter Upgrade
+    TODO: Added Advanced Nesting Upgrade
     ...
 
 MCF Posting:
@@ -24,6 +41,8 @@ Bugs:
     IMPORTANT:
 
     Less important:
+        Diamond backpack buttons not moving items correctly - backpack to inv button
+        Check NBT/meta/damage when trying to combine stacks - ItemStack.areItemStackTagsEqual
 
 Figure out:
     How to render a backpack on your back

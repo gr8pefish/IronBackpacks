@@ -7,6 +7,9 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
+import main.ironbackpacks.util.IronBackpacksHelper;
+
+import java.util.ArrayList;
 
 public class AdvancedFilterMessage implements IMessage{
 
@@ -14,8 +17,8 @@ public class AdvancedFilterMessage implements IMessage{
 
     private int action;
 
-    public static final int MOVE_LEFT = 1;
-    public static final int MOVE_RIGHT = 2;
+    public static final int MOVE_LEFT = 5;
+    public static final int MOVE_RIGHT = 6;
 
 
     public AdvancedFilterMessage() {} //default constructor is necessary
@@ -48,18 +51,13 @@ public class AdvancedFilterMessage implements IMessage{
                     container = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
                     container.changeAdvFilterSlots("right");
                     break;
-//                case HOTBAR_TO_BACKPACK:
-//                    container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
-//                    container.hotbarToBackpack();
-//                    break;
-//                case CONDENSE_BACKPACK:
-//                    container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
-//                    container.sort();
-//                    break;
-//                default: //1,2,3,4 for button in alt gui remove slots in row
-//                    altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
-//                    altContainer.removeSlotsInRow(message.action);
-//                    break;
+                default: //to change button status with it's index
+                    ArrayList<Integer> list = IronBackpacksHelper.getNumbersFromOneNumber(message.action);
+                    container = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
+                    System.out.println("LIST ENTRIES: "+list.get(0) + ", "+list.get(1));
+                    container.setAdvFilterButtonType(list.get(0), list.get(1));
+//                    IronBackpacksHelper.setAdvFilterTypeToNBT();
+
             }
             return null; //no return message necessary
         }

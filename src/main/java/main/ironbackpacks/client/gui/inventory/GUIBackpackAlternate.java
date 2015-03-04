@@ -15,6 +15,7 @@ import main.ironbackpacks.network.ButtonUpgradeMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.RenameMessage;
 import main.ironbackpacks.util.IronBackpacksHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -79,9 +80,9 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         }
 
         //called from GuiHandler
-        public static GUIBackpackAlternate buildGUIAlternate(EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
+        public static GUIBackpackAlternate buildGUIAlternate(ItemStack backpack, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
             GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades) + 3] : values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades)]; //shifts to correct index if renaming
-            return new GUIBackpackAlternate(gui, player, inv, upgrades, backpackType);
+            return new GUIBackpackAlternate(backpack, gui, player, inv, upgrades, backpackType);
         }
     }
 
@@ -89,6 +90,8 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     private ContainerAlternateGui container;
     private IronBackpackType backpackType;
     private EntityPlayer player;
+    private ItemStack backpackStack;
+    private InventoryAlternateGui inventoryAlternateGui;
 
     private GuiTextField textField;
     private RenameButton renameButton;
@@ -101,6 +104,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     private AdvancedFilterButtons moveLeft;
     private AdvancedFilterButtons moveRight;
     private ArrayList<AdvancedFilterButtons> advFilters = new ArrayList<AdvancedFilterButtons>();
+    private int advFilterStartPoint;
 
     private int idRow;
     private int upgradeCount;
@@ -115,12 +119,14 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     private boolean hasCondenserUpgrade;
     private boolean hasFilterAdvancedUpgrade;
 
-    private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
+    private GUIBackpackAlternate(ItemStack backpackStack, GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
         super(type.makeContainer(player, inv));
         this.player = player;
         this.container = (ContainerAlternateGui) type.makeContainer(player, inv);
         this.type = type;
         this.backpackType = backpackType;
+        this.backpackStack = backpackStack;
+//        this.inventoryAlternateGui = inv;
 
         this.xSize = type.xSize;
         this.ySize = type.ySize;
@@ -139,6 +145,8 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
 
         this.rowToClear = 1;
         this.idRow = this.hasRenamingUpgrade ? 2 : 1;
+        this.advFilterStartPoint = 0;
+
     }
 
     @Override
@@ -158,9 +166,10 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             this.textField.setMaxStringLength(29);
 
             Keyboard.enableRepeatEvents(true);
-
-            this.buttonList.add(this.renameButton = new RenameButton(1, xStart + xSize - 57, yStart + 22, 25, 10, RenameButton.RENAME_BUTTON));
         }
+
+        drawButtons();
+
     }
 
     @Override
@@ -168,102 +177,156 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F); //rests colors
 
-        this.mc.getTextureManager().bindTexture(type.guiResourceList.location);
+        mc.getTextureManager().bindTexture(type.guiResourceList.location);
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         drawTexturedModalRect(x+12, y, 0, 0, xSize, ySize);
+
+//        drawButtons();
+    }
+
+    private void drawButtons(){
+
+        buttonList.clear();
+
+        //draw all the buttons if you have the correct upgrade(s)
+        if (hasRenamingUpgrade){
+            int xStart = ((width - xSize) / 2);
+            int yStart = ((height - ySize) / 2);
+            buttonList.add(renameButton = new RenameButton(1, xStart + xSize - 57, yStart + 22, 25, 10, RenameButton.RENAME_BUTTON));
+        }
+
+        int yStartButton = ((height - ySize) / 2) + (hasRenamingUpgrade ? 40 : 21);
+        int xStart = ((width - xSize) / 2) + xSize - 12 - 19;
+        if (hasFilterBasicUpgrade) {
+            if (hasButtonUpgrade) {
+                buttonList.add(row1 = new ButtonUpgrade(idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
+                idRow++;
+            }
+            yStartButton += 36;
+        }
+        if (hasFilterFuzzyUpgrade) {
+            if (hasButtonUpgrade) {
+                buttonList.add(row1 = new ButtonUpgrade(idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
+                idRow++;
+            }
+            yStartButton += 36;
+        }
+        if (hasFilterOreDictUpgrade) {
+            if (hasButtonUpgrade) {
+                buttonList.add(row1 = new ButtonUpgrade(idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
+                idRow++;
+            }
+            yStartButton += 36;
+        }
+        if (hasFilterModSpecificUpgrade){
+            if (hasButtonUpgrade){
+                buttonList.add(row1 = new ButtonUpgrade(idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
+                idRow++;
+            }
+            yStartButton += 36;
+        }
+        if (hasFilterAdvancedUpgrade){
+            buttonList.add(moveLeft = new AdvancedFilterButtons(4, guiLeft + 15, yStartButton + 17, 4, 9, AdvancedFilterButtons.MOVE_LEFT));
+            buttonList.add(moveRight = new AdvancedFilterButtons(5, xStart + 12, yStartButton + 17, 4, 9, AdvancedFilterButtons.MOVE_RIGHT));
+            int positionStart = 20;
+            advFilters.clear();
+            AdvancedFilterButtons temp;
+            if (container.inventory.advFilterButtonStartPoint + 9 > 18) {
+                int overlap = 9 - (18 - container.inventory.advFilterButtonStartPoint);
+                for (int i = container.inventory.advFilterButtonStartPoint; i < 18; i++) {
+                    buttonList.add(temp = new AdvancedFilterButtons(6 + i, guiLeft + positionStart, yStartButton + 31, 16, 5, container.inventory.advFilterButtonStates[i]));//IronBackpacksHelper.getAdvFilterTypeFromNBT(advFilterStartPoint + i, backpackStack)));
+                    advFilters.add(temp);
+                    positionStart += 18;
+                }
+                for (int i = 0; i < overlap; i++) {
+                    buttonList.add(temp = new AdvancedFilterButtons(6 + i, guiLeft + positionStart, yStartButton + 31, 16, 5, container.inventory.advFilterButtonStates[i]));//IronBackpacksHelper.getAdvFilterTypeFromNBT(advFilterStartPoint + i, backpackStack)));
+                    advFilters.add(temp);
+                    positionStart += 18;
+                }
+            }else {
+                for (int i = container.inventory.advFilterButtonStartPoint; i < container.inventory.advFilterButtonStartPoint + 9; i++) {
+                    buttonList.add(temp = new AdvancedFilterButtons(6 + i, guiLeft + positionStart, yStartButton + 31, 16, 5, container.inventory.advFilterButtonStates[i]));//IronBackpacksHelper.getAdvFilterTypeFromNBT(advFilterStartPoint + i, backpackStack)));
+                    advFilters.add(temp);
+                    positionStart += 18;
+                }
+            }
+            if (hasButtonUpgrade){
+                buttonList.add(row1 = new ButtonUpgrade(idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
+                idRow++;
+            }
+            yStartButton += 36;
+        }
+        if (hasHopperUpgrade){
+            if (hasButtonUpgrade){
+                buttonList.add(row2 = new ButtonUpgrade(idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
+                idRow++;
+            }
+            yStartButton += 36;
+        }
+        if (hasCondenserUpgrade){
+            if (hasButtonUpgrade){
+                buttonList.add(row3 = new ButtonUpgrade(idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
+            }
+            yStartButton += 36;
+        }
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        ItemStack itemStack = IronBackpacksHelper.getBackpack(this.player);
-        this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752);
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96+4, 4210752);
 
-        //draw the titles of all the upgrades in their correct positions and add the buttons (if valid)
-        if (this.hasNoUpgrades){
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("noValidUpgradesFound"), 20, 22, 4210752);
-        }
-        int yStart = this.hasRenamingUpgrade ? 44 : 25;
-        int yStartButton = ((height - ySize) / 2) + (this.hasRenamingUpgrade ? 40 : 21);
-        int xStart = ((width - xSize) / 2) + xSize - 12 - 19;
-        if (this.hasFilterBasicUpgrade) {
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterBasicUpgrade.name"), 20, yStart, 4210752);
-            if (this.hasButtonUpgrade) {
-                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
-                this.idRow++;
-            }
+        ItemStack itemStack = IronBackpacksHelper.getBackpack(player);
+        fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752);
+        fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, ySize - 96 + 4, 4210752);
+
+        //draw the titles of all the upgrades in their correct positions
+        if (hasNoUpgrades)
+            fontRendererObj.drawString(StatCollector.translateToLocal("noValidUpgradesFound"), 20, 22, 4210752);
+        int yStart = hasRenamingUpgrade ? 44 : 25;
+        if (hasFilterBasicUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterBasicUpgrade.name"), 20, yStart, 4210752);
             yStart += 36;
-            yStartButton += 36;
         }
-        if (this.hasFilterFuzzyUpgrade) {
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterFuzzyUpgrade.name"), 20, yStart, 4210752);
-            if (this.hasButtonUpgrade) {
-                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
-                this.idRow++;
-            }
+        if (hasFilterFuzzyUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterFuzzyUpgrade.name"), 20, yStart, 4210752);
             yStart += 36;
-            yStartButton += 36;
         }
-        if (this.hasFilterOreDictUpgrade) {
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterOreDictUpgrade.name"), 20, yStart, 4210752);
-            if (this.hasButtonUpgrade) {
-                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
-                this.idRow++;
-            }
+        if (hasFilterOreDictUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterOreDictUpgrade.name"), 20, yStart, 4210752);
             yStart += 36;
-            yStartButton += 36;
         }
-        if (this.hasFilterModSpecificUpgrade){
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterModSpecificUpgrade.name"),20, yStart, 4210752);
-            if (this.hasButtonUpgrade){
-                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
-                this.idRow++;
-            }
+        if (hasFilterModSpecificUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterModSpecificUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
-            yStartButton += 36;
         }
-        if (this.hasFilterAdvancedUpgrade){
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterAdvancedUpgrade.name"),20, yStart, 4210752);
-            this.buttonList.add(this.moveLeft = new AdvancedFilterButtons(4, this.guiLeft + 15, yStartButton + 17, 4, 9, AdvancedFilterButtons.MOVE_LEFT));
-            this.buttonList.add(this.moveRight = new AdvancedFilterButtons(5, xStart + 12, yStartButton + 17, 4, 9, AdvancedFilterButtons.MOVE_RIGHT));
-            int start = 20;
-            advFilters.clear();
-            AdvancedFilterButtons temp;
-            for (int i = 0; i < 9; i++){
-                this.buttonList.add(temp = new AdvancedFilterButtons(6 + i, this.guiLeft + start, yStartButton + 31, 16, 5, AdvancedFilterButtons.EXACT));
-                advFilters.add(temp);
-                start += 18;
-            }
-            if (this.hasButtonUpgrade){
-                this.buttonList.add(this.row1 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
-                this.idRow++;
-            }
+        if (hasFilterAdvancedUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterAdvancedUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
-            yStartButton += 36;
         }
-        if (this.hasHopperUpgrade){
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:hopperUpgrade.name"),20, yStart, 4210752);
-            if (this.hasButtonUpgrade){
-                this.buttonList.add(this.row2 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
-                this.idRow++;
-            }
+        if (hasHopperUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:hopperUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
-            yStartButton += 36;
         }
-        if (this.hasCondenserUpgrade){
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),20, yStart, 4210752);
-            if (this.hasButtonUpgrade){
-                this.buttonList.add(this.row3 = new ButtonUpgrade(this.idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
-            }
+        if (hasCondenserUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),20, yStart, 4210752);
+            yStart += 36;
         }
+
+//        drawButtons();
+//        initGui();
+
     }
+
+//    @Override
+//    private void updateFilterButtons(){
+//
+//    }
 
     @Override
     protected void keyTyped(char char1, int int1)
     {
-        if (this.hasRenamingUpgrade) {
-            if (this.textField.textboxKeyTyped(char1, int1)){ //TODO-fix?
+        if (hasRenamingUpgrade) {
+            if (textField.textboxKeyTyped(char1, int1)){ //TODO-fix?
                 //I seem to need to call this to process the key
             }else {
                 super.keyTyped(char1, int1);
@@ -277,8 +340,8 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     protected void mouseClicked(int int1, int int2, int int3)
     {
         super.mouseClicked(int1, int2, int3);
-        if (this.hasRenamingUpgrade) {
-            this.textField.mouseClicked(int1, int2, int3);
+        if (hasRenamingUpgrade) {
+            textField.mouseClicked(int1, int2, int3);
         }
     }
 
@@ -288,55 +351,54 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         super.drawScreen(int1, int2, float1);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_BLEND);
-        if (this.hasRenamingUpgrade) {
-            this.textField.drawTextBox();
+        if (hasRenamingUpgrade) {
+            textField.drawTextBox();
         }
     }
+
+
+//    @Override
+//    public void onGuiClosed() //already saves in onContainerClosed
+//    {
+//        if (mc.thePlayer != null)
+//        {
+//            container.inventory.onGuiSaved(mc.thePlayer);
+//            inventorySlots.onContainerClosed(mc.thePlayer);
+//        }
+//    }
 
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button == renameButton) {
-            this.container.renameBackpack(this.textField.getText());
-            NetworkingHandler.network.sendToServer(new RenameMessage(this.textField.getText()));
+            container.renameBackpack(textField.getText());
+            NetworkingHandler.network.sendToServer(new RenameMessage(textField.getText()));
         }else if(button == moveLeft) {
-            this.container.changeAdvFilterSlots("left");
+            container.changeAdvFilterSlots("left");
             NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(AdvancedFilterMessage.MOVE_LEFT));
+            initGui();
         }else if(button == moveRight) {
-            this.container.changeAdvFilterSlots("right");
+            container.changeAdvFilterSlots("right");
             NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(AdvancedFilterMessage.MOVE_RIGHT));
+            initGui();
         }else if (button instanceof AdvancedFilterButtons && advFilters.contains(button)){
             System.out.println("ADV FILTER BUTTON PRESSED");
             System.out.println("SLOT: "+advFilters.indexOf(button));
-            incrementFilter(this.buttonList, button);
-            System.out.println("INCREMENTED");
-        }else if (this.buttonList.size() > 1 && button == this.buttonList.get(1)){
-            this.container.removeSlotsInRow(1);
+//            IronBackpacksHelper.setAdvFilterTypeToNBT(advFilters.indexOf(button), backpackStack, incrementType(button)); //client side changes
+            container.setAdvFilterButtonType(advFilters.indexOf(button)+container.inventory.advFilterButtonStartPoint, AdvancedFilterButtons.incrementType(button)); //change inventory on client side, should be instant
+//            Minecraft.getMinecraft().playerController.sendEnchantPacket(1, IronBackpacksHelper.setOneNumberFromTwo(advFilters.indexOf(button) + 1, AdvancedFilterButtons.incrementType(button))); //server for persistence when save/quit
+            NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(IronBackpacksHelper.setOneNumberFromTwo(advFilters.indexOf(button) + 1 + container.inventory.advFilterButtonStartPoint, AdvancedFilterButtons.incrementType(button))));
+            initGui();
+        }else if (buttonList.size() > 1 && button == buttonList.get(1)){
+            container.removeSlotsInRow(1);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(1));
-        }else if (this.buttonList.size() > 2 && button == this.buttonList.get(2)){
-            this.container.removeSlotsInRow(2);
+        }else if (buttonList.size() > 2 && button == buttonList.get(2)){
+            container.removeSlotsInRow(2);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(2));
-        }else if (this.buttonList.size() > 3 && button == this.buttonList.get(3)){
-            this.container.removeSlotsInRow(3);
+        }else if (buttonList.size() > 3 && button == buttonList.get(3)){
+            container.removeSlotsInRow(3);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(3));
         }
-    }
-
-    private void incrementFilter(List buttonList, GuiButton button){
-        int addIndex = this.buttonList.indexOf(button);
-        AdvancedFilterButtons temp;
-        this.buttonList.add(addIndex, temp = new AdvancedFilterButtons(button.id, button.xPosition, button.yPosition, button.width, button.height, incrementType(button)));
-        advFilters.remove(button);
-        advFilters.add(temp);
-        this.buttonList.remove(button);
-    }
-
-    private int incrementType(GuiButton button){
-        int type = ((AdvancedFilterButtons)button).buttonType;
-        if (type < AdvancedFilterButtons.MOD_SPECIFIC){
-            return ++type;
-        }else{
-            return AdvancedFilterButtons.EXACT;
-        }
+        System.out.println("First button state client side:"+container.inventory.advFilterButtonStates[0]);
     }
 
 }

@@ -1,28 +1,41 @@
 package main.ironbackpacks.container.alternateGui;
 
 import invtweaks.api.container.ChestContainer;
+import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
 import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import scala.Int;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ChestContainer
 public class ContainerAlternateGui extends Container {
 
+//    private ItemStack stack;
     private EntityPlayer player;
     public InventoryAlternateGui inventory;
     public int xSize = 0;
     public int ySize = 0;
+
+    private int[] buttonStates;
+    private int filterAdvSlotIdStart;
+    private int[] upgrades;
 
     public ContainerAlternateGui(EntityPlayer entityPlayer, InventoryAlternateGui inventoryAlternateGui, int xSize, int ySize){
         this.player = entityPlayer;
         this.inventory = inventoryAlternateGui;
         this.xSize = xSize;
         this.ySize = ySize;
+
+        this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(IronBackpacksHelper.getBackpack(player));
 
         layoutContainer(entityPlayer.inventory, inventoryAlternateGui, xSize, ySize);
     }
@@ -31,22 +44,39 @@ public class ContainerAlternateGui extends Container {
         this.player = entityPlayer;
         this.inventory = inventoryAlternateGui;
 
+        this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(IronBackpacksHelper.getBackpack(player));
+
         layoutContainer(entityPlayer.inventory, inventoryAlternateGui, xSize, ySize);
     }
 
     protected void layoutContainer(IInventory playerInventory, IInventory customInv, int xSize, int ySize){
 
+        int advFilterRow = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) ? 0 : -1;
+        if (UpgradeMethods.hasFilterBasicUpgrade(upgrades)) advFilterRow++;
+        if (UpgradeMethods.hasFilterFuzzyUpgrade(upgrades)) advFilterRow++;
+        if (UpgradeMethods.hasFilterOreDictUpgrade(upgrades)) advFilterRow++;
+        if (UpgradeMethods.hasFilterModSpecificUpgrade(upgrades)) advFilterRow++;
+
         //adds slots depending on upgrades
-        int rowCount = (int) Math.floor(customInv.getSizeInventory() / 9);
+        int rowCount = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) ? (int) Math.floor((customInv.getSizeInventory() - 9) / 9) : (int) Math.floor(customInv.getSizeInventory() / 9);
         int colCount = 9;
-        int yStart = UpgradeMethods.hasRenamingUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(IronBackpacksHelper.getBackpack(player))) ? 18 : 0;
+        int advFilterModifier = 0;
+        int yStart = UpgradeMethods.hasRenamingUpgrade(upgrades) ? 18 : 0;
         for (int row = 0; row < rowCount; row++){
             yStart += 36;
             for (int col = 0; col < colCount; col++){
-                addSlotToContainer(new GhostSlot(customInv, col + row * colCount, 20 + col * 18, yStart)); //old - customInv, row + col * rowCount, 20 + (col * 18), yStart)
+                addSlotToContainer(new GhostSlot(customInv, col + advFilterModifier + row * colCount, 20 + col * 18, yStart)); //old - customInv, row + col * rowCount, 20 + (col * 18), yStart)
+//                System.out.println("Added slot: "+(col + advFilterModifier + row * colCount));
+            }
+            if (row == advFilterRow){
+                for (int col = colCount; col < colCount+9; col++){
+                    addSlotToContainer(new GhostSlot(customInv, col + row * colCount, 20 + col * 18, yStart));
+//                    System.out.println("Added adv slot: "+(col+row*colCount));
+                }
+                advFilterModifier = 9;
             }
         }
-
+        filterAdvSlotIdStart = advFilterRow * 9;
 
         //adds player's inventory
         int leftCol = (xSize - 162) / 2 + 1;
@@ -85,6 +115,14 @@ public class ContainerAlternateGui extends Container {
         if (!player.worldObj.isRemote) {
             this.inventory.onGuiSaved(player); //only save on server side
         }
+    }
+
+    @Override
+    public boolean enchantItem(EntityPlayer player, int data)
+    {
+        ArrayList<Integer> numbers = IronBackpacksHelper.getNumbersFromOneNumber(data); //splits the data into 2 values, slot and button value
+        this.inventory.setAdvFilterButtonType(numbers.get(0), numbers.get(1));
+        return true;
     }
 
     @Override
@@ -133,16 +171,54 @@ public class ContainerAlternateGui extends Container {
         }
     }
 
+    public void initFilterSlots(){
+        //remove all from visible
+        for (int i= 0; i < 9; i++){
+//            getSlot(filterAdvSlotIdStart+i).putStack(new ItemStack(Items.blaze_rod)); //works
+            getSlot(filterAdvSlotIdStart+i+9).xDisplayPosition = -999; //doesn't work
+//            System.out.println("hiding Adv Slot: "+(filterAdvSlotIdStart+i)); //correct slot already known to be okay
+        }
+
+        //move valid slots back into place
+        for (int i = 0; i < 9; i++){
+            getSlot(getAdvFilterId(i)).xDisplayPosition = (20 + (i * 18));
+        }
+    }
+
 
     public void changeAdvFilterSlots(String side) {
         switch (side){
             case "left":
                 System.out.println("SHIFT TO LEFT");
+                if (inventory.advFilterButtonStartPoint == 0)
+                    inventory.advFilterButtonStartPoint = 17;
+                else
+                    inventory.advFilterButtonStartPoint--;
+                System.out.println("Shift to "+inventory.advFilterButtonStartPoint);
                 break;
             case "right":
                 System.out.println("SHIFT TO RIGHT");
+                if (inventory.advFilterButtonStartPoint == 17)
+                    inventory.advFilterButtonStartPoint = 0;
+                else
+                    inventory.advFilterButtonStartPoint++;
+                System.out.println("Shift to "+inventory.advFilterButtonStartPoint);
                 break;
         }
-        //TODO
+
+        initFilterSlots();
     }
+
+    private int getAdvFilterId(int orderNumber){ //TODO: TEST this (w/ overlap especially)
+        if (inventory.advFilterButtonStartPoint + orderNumber > 17){
+            int overlap = 9 - (18 - inventory.advFilterButtonStartPoint);
+            return (filterAdvSlotIdStart + overlap);
+        }else
+            return (filterAdvSlotIdStart + orderNumber);
+    }
+
+    public void setAdvFilterButtonType(int index, int typeToSetTo){
+        inventory.advFilterButtonStates[index] = (byte)typeToSetTo;
+    }
+
 }

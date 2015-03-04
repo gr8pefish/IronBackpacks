@@ -1,5 +1,6 @@
 package main.ironbackpacks.container.alternateGui;
 
+import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
@@ -11,10 +12,10 @@ import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.*;
 import net.minecraftforge.common.util.Constants;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 public class InventoryAlternateGui implements IInventory {
@@ -24,6 +25,9 @@ public class InventoryAlternateGui implements IInventory {
     protected ItemStack[] inventory;
     public IronBackpackType type;
     private int[] upgrades;
+
+    public byte[] advFilterButtonStates;
+    public int advFilterButtonStartPoint;
 
     protected int invSize;
 
@@ -36,6 +40,10 @@ public class InventoryAlternateGui implements IInventory {
 
         this.invSize = UpgradeMethods.getAlternateGuiUpgradeSlots(this.upgrades); //dynamic, size is based on number of alt. gui. upgrades
         this.inventory = new ItemStack[this.getSizeInventory()];
+
+        advFilterButtonStates = new byte[18];
+        Arrays.fill(advFilterButtonStates, (byte)AdvancedFilterButtons.EXACT);
+        advFilterButtonStartPoint = 0;
 
         readFromNBT(stack.getTagCompound()); //to initialize stacks
     }
@@ -247,14 +255,41 @@ public class InventoryAlternateGui implements IInventory {
                         }
                     }
                 }
+                if (!UpgradeMethods.hasFilterAdvancedUpgrade(this.upgrades)) {
+                    nbtTagCompound.removeTag("FilterAdvSlots");
+                    nbtTagCompound.removeTag("FilterAdvButtons");
+                }else {
+                    if (nbtTagCompound.hasKey("FilterAdvSlots")) {
+                        NBTTagList tagList = nbtTagCompound.getTagList("FilterAdvSlots", Constants.NBT.TAG_COMPOUND);
+
+                        for (int i = 0; i < tagList.tagCount(); i++) { //TODO - 18 slots here
+                            NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                            int j = (upgradeRemoved < 4) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot");
+                            if (upgradeAdded < 4) j += 9;
+                            if (i >= 0 && i <= 9) {
+                                this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                            }
+                        }
+                    }
+                    if (nbtTagCompound.hasKey("FilterAdvButtons")) {
+                        byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag("FilterAdvButtons")).func_150292_c(); //gets byte array
+                        for (int i = 0; i < bytes.length; i++) {
+                            if (bytes[i] == 0) bytes[i] = (byte)AdvancedFilterButtons.EXACT;
+                            advFilterButtonStates[i] = bytes[i];
+                        }
+                    }
+                    if (nbtTagCompound.hasKey("FilterAdvStart")) {
+                        advFilterButtonStartPoint = nbtTagCompound.getByte("FilterAdvStart");
+                    }
+                }
                 if (!UpgradeMethods.hasHopperUpgrade(this.upgrades)) nbtTagCompound.removeTag("Hopper");
                 if (nbtTagCompound.hasKey("Hopper")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Hopper", Constants.NBT.TAG_COMPOUND);
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = (upgradeRemoved < 4) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot");
-                        if (upgradeAdded < 4) j+=9;
+                        int j = (upgradeRemoved < 5) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot");
+                        if (upgradeAdded < 5) j+=9;
                         if (i >= 0 && i <= 9) {
                             this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
@@ -266,13 +301,14 @@ public class InventoryAlternateGui implements IInventory {
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = (upgradeRemoved < 5) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot");
-                        if (upgradeAdded < 5) j+=9;
+                        int j = (upgradeRemoved < 6) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot");
+                        if (upgradeAdded < 6) j+=9;
                         if (i >= 0 && i <= 9) {
                             this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
                     }
                 }
+
             }
         }
     }
@@ -334,6 +370,25 @@ public class InventoryAlternateGui implements IInventory {
             startIndex += 9;
             nbtTagCompound.setTag("FilterModSpecific", tagList);
         }
+        if (UpgradeMethods.hasFilterAdvancedUpgrade(this.upgrades)) {
+            NBTTagList tagListSlots = new NBTTagList();
+            byte[] byteArray = new byte[18];
+            for (int i = startIndex; i < startIndex + 18; i++) {
+                if (inventory[i] != null) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    tagCompound.setByte("Slot", (byte) i);
+                    inventory[i].writeToNBT(tagCompound);
+                    tagListSlots.appendTag(tagCompound);
+                }
+            }
+            for (int i = 0; i < 18; i++){
+                byteArray[i] = advFilterButtonStates[i];
+            }
+            startIndex += 18;
+            nbtTagCompound.setTag("FilterAdvSlots", tagListSlots);
+            nbtTagCompound.setTag("FilterAdvButtons", new NBTTagByteArray(byteArray));
+            nbtTagCompound.setTag("FilterAdvStart", new NBTTagByte((byte)advFilterButtonStartPoint));
+        }
         if (UpgradeMethods.hasHopperUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();
             for (int i = startIndex; i < startIndex + 9; i++) {
@@ -360,6 +415,11 @@ public class InventoryAlternateGui implements IInventory {
             startIndex += 9;
             nbtTagCompound.setTag("Condenser", tagList);
         }
+    }
+
+
+    public void setAdvFilterButtonType(int index, int typeToSetTo){
+        advFilterButtonStates[index] = (byte)typeToSetTo;
     }
 
 

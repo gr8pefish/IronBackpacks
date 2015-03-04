@@ -3,6 +3,7 @@ package main.ironbackpacks.items.backpacks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
+import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.ConfigHandler;
@@ -26,6 +27,7 @@ public class ItemBaseBackpack extends ItemBase {
     private int upgradeSlots;
     private int upgradeIndex;
 
+    private boolean initializedAdvFilter;
     private boolean openAltGui;
 
     public ItemBaseBackpack(String unlocName, String textureName, int id, int upgradeSlots, int typeID) {
@@ -37,6 +39,7 @@ public class ItemBaseBackpack extends ItemBase {
         this.upgradeIndex = upgradeSlots-1;
 
         openAltGui = true;
+        initializedAdvFilter = false;
     }
 
     public int getTypeId() { return typeID;}
@@ -105,6 +108,10 @@ public class ItemBaseBackpack extends ItemBase {
             return itemStack;
         }else {
             NBTHelper.setUUID(itemStack);
+//            if (!initializedAdvFilter){
+//                IronBackpacksHelper.setAdvFilterTypeToNBT(0, itemStack, AdvancedFilterButtons.EXACT);
+//                initializedAdvFilter = true;
+//            }
             if (!player.isSneaking()) {
                 player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ);
                 return itemStack;
