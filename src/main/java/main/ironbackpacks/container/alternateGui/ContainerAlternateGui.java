@@ -175,7 +175,7 @@ public class ContainerAlternateGui extends Container {
         //remove all from visible
         for (int i= 0; i < 9; i++){
 //            getSlot(filterAdvSlotIdStart+i).putStack(new ItemStack(Items.blaze_rod)); //works
-            getSlot(filterAdvSlotIdStart+i+9).xDisplayPosition = -999; //doesn't work
+            getSlot(filterAdvSlotIdStart+i).xDisplayPosition = -999; //doesn't work
 //            System.out.println("hiding Adv Slot: "+(filterAdvSlotIdStart+i)); //correct slot already known to be okay
         }
 
