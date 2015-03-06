@@ -6,6 +6,7 @@ import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -25,7 +26,6 @@ public class ContainerAlternateGui extends Container {
     public int xSize = 0;
     public int ySize = 0;
 
-    private int[] buttonStates;
     private int filterAdvSlotIdStart;
     private int[] upgrades;
 
@@ -38,6 +38,8 @@ public class ContainerAlternateGui extends Container {
         this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(IronBackpacksHelper.getBackpack(player));
 
         layoutContainer(entityPlayer.inventory, inventoryAlternateGui, xSize, ySize);
+        if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades))
+            initFilterSlots();
     }
 
     public ContainerAlternateGui(EntityPlayer entityPlayer, InventoryAlternateGui inventoryAlternateGui){
@@ -47,6 +49,8 @@ public class ContainerAlternateGui extends Container {
         this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(IronBackpacksHelper.getBackpack(player));
 
         layoutContainer(entityPlayer.inventory, inventoryAlternateGui, xSize, ySize);
+        if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades))
+            initFilterSlots();
     }
 
     protected void layoutContainer(IInventory playerInventory, IInventory customInv, int xSize, int ySize){
@@ -56,27 +60,18 @@ public class ContainerAlternateGui extends Container {
         if (UpgradeMethods.hasFilterFuzzyUpgrade(upgrades)) advFilterRow++;
         if (UpgradeMethods.hasFilterOreDictUpgrade(upgrades)) advFilterRow++;
         if (UpgradeMethods.hasFilterModSpecificUpgrade(upgrades)) advFilterRow++;
+        filterAdvSlotIdStart = advFilterRow * 9;
 
         //adds slots depending on upgrades
-        int rowCount = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) ? (int) Math.floor((customInv.getSizeInventory() - 9) / 9) : (int) Math.floor(customInv.getSizeInventory() / 9);
+        int rowCount = (int) Math.floor(customInv.getSizeInventory() / 9);
         int colCount = 9;
-        int advFilterModifier = 0;
         int yStart = UpgradeMethods.hasRenamingUpgrade(upgrades) ? 18 : 0;
         for (int row = 0; row < rowCount; row++){
             yStart += 36;
             for (int col = 0; col < colCount; col++){
-                addSlotToContainer(new GhostSlot(customInv, col + advFilterModifier + row * colCount, 20 + col * 18, yStart)); //old - customInv, row + col * rowCount, 20 + (col * 18), yStart)
-//                System.out.println("Added slot: "+(col + advFilterModifier + row * colCount));
-            }
-            if (row == advFilterRow){
-                for (int col = colCount; col < colCount+9; col++){
-                    addSlotToContainer(new GhostSlot(customInv, col + row * colCount, 20 + col * 18, yStart));
-//                    System.out.println("Added adv slot: "+(col+row*colCount));
-                }
-                advFilterModifier = 9;
+                addSlotToContainer(new GhostSlot(customInv, col + row * colCount, 20 + col * 18, yStart)); //old - customInv, row + col * rowCount, 20 + (col * 18), yStart)
             }
         }
-        filterAdvSlotIdStart = advFilterRow * 9;
 
         //adds player's inventory
         int leftCol = (xSize - 162) / 2 + 1;
@@ -111,6 +106,7 @@ public class ContainerAlternateGui extends Container {
     @Override
     public void onContainerClosed(EntityPlayer player) {
         super.onContainerClosed(player);
+        if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades)) saveSlots();
 
         if (!player.worldObj.isRemote) {
             this.inventory.onGuiSaved(player); //only save on server side
@@ -172,49 +168,53 @@ public class ContainerAlternateGui extends Container {
     }
 
     public void initFilterSlots(){
-        //remove all from visible
+        //clears slots //TODO: remove? because put in null from nbt anyway?
         for (int i= 0; i < 9; i++){
-//            getSlot(filterAdvSlotIdStart+i).putStack(new ItemStack(Items.blaze_rod)); //works
-            getSlot(filterAdvSlotIdStart+i).xDisplayPosition = -999; //doesn't work
-//            System.out.println("hiding Adv Slot: "+(filterAdvSlotIdStart+i)); //correct slot already known to be okay
+            getSlot(filterAdvSlotIdStart+i).putStack(null);
         }
 
-        //move valid slots back into place
-        for (int i = 0; i < 9; i++){
-            getSlot(getAdvFilterId(i)).xDisplayPosition = (20 + (i * 18));
+        //put what should be in the slots in them
+        for (int i= 0; i < 9; i++){
+            getSlot(filterAdvSlotIdStart+i).putStack(inventory.advFilterStacks[getWraparoundIndex(i)]);
         }
+
     }
 
 
     public void changeAdvFilterSlots(String side) {
+
+        saveSlots();
+
         switch (side){
             case "left":
-                System.out.println("SHIFT TO LEFT");
                 if (inventory.advFilterButtonStartPoint == 0)
                     inventory.advFilterButtonStartPoint = 17;
                 else
                     inventory.advFilterButtonStartPoint--;
-                System.out.println("Shift to "+inventory.advFilterButtonStartPoint);
                 break;
             case "right":
-                System.out.println("SHIFT TO RIGHT");
                 if (inventory.advFilterButtonStartPoint == 17)
                     inventory.advFilterButtonStartPoint = 0;
                 else
                     inventory.advFilterButtonStartPoint++;
-                System.out.println("Shift to "+inventory.advFilterButtonStartPoint);
                 break;
         }
 
         initFilterSlots();
     }
 
-    private int getAdvFilterId(int orderNumber){ //TODO: TEST this (w/ overlap especially)
+
+    public int getWraparoundIndex(int orderNumber){
         if (inventory.advFilterButtonStartPoint + orderNumber > 17){
-            int overlap = 9 - (18 - inventory.advFilterButtonStartPoint);
-            return (filterAdvSlotIdStart + overlap);
+            return (orderNumber + inventory.advFilterButtonStartPoint) - 18;
         }else
-            return (filterAdvSlotIdStart + orderNumber);
+            return (inventory.advFilterButtonStartPoint + orderNumber);
+    }
+
+    private void saveSlots(){
+        for (int i = 0; i < 9; i++) {
+            inventory.advFilterStacks[getWraparoundIndex(i)] = getSlot(filterAdvSlotIdStart + i).getStack();
+        }
     }
 
     public void setAdvFilterButtonType(int index, int typeToSetTo){

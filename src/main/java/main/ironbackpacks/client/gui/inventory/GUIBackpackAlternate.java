@@ -168,6 +168,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             Keyboard.enableRepeatEvents(true);
         }
 
+//        container.initFilterSlots();
         drawButtons();
 
     }
@@ -375,19 +376,23 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         }else if(button == moveLeft) {
             container.changeAdvFilterSlots("left");
             NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(AdvancedFilterMessage.MOVE_LEFT));
-            initGui();
+            drawButtons();
         }else if(button == moveRight) {
             container.changeAdvFilterSlots("right");
             NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(AdvancedFilterMessage.MOVE_RIGHT));
-            initGui();
+            drawButtons();
         }else if (button instanceof AdvancedFilterButtons && advFilters.contains(button)){
             System.out.println("ADV FILTER BUTTON PRESSED");
             System.out.println("SLOT: "+advFilters.indexOf(button));
-//            IronBackpacksHelper.setAdvFilterTypeToNBT(advFilters.indexOf(button), backpackStack, incrementType(button)); //client side changes
-            container.setAdvFilterButtonType(advFilters.indexOf(button)+container.inventory.advFilterButtonStartPoint, AdvancedFilterButtons.incrementType(button)); //change inventory on client side, should be instant
-//            Minecraft.getMinecraft().playerController.sendEnchantPacket(1, IronBackpacksHelper.setOneNumberFromTwo(advFilters.indexOf(button) + 1, AdvancedFilterButtons.incrementType(button))); //server for persistence when save/quit
-            NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(IronBackpacksHelper.setOneNumberFromTwo(advFilters.indexOf(button) + 1 + container.inventory.advFilterButtonStartPoint, AdvancedFilterButtons.incrementType(button))));
-            initGui();
+
+//            container.setAdvFilterButtonType(advFilters.indexOf(button)+container.inventory.advFilterButtonStartPoint, AdvancedFilterButtons.incrementType(button)); //change inventory on client side, should be instant
+            container.setAdvFilterButtonType(container.getWraparoundIndex(advFilters.indexOf(button)), AdvancedFilterButtons.incrementType(button));
+
+//            NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(IronBackpacksHelper.setOneNumberFromTwo(advFilters.indexOf(button) + 1 + container.inventory.advFilterButtonStartPoint, AdvancedFilterButtons.incrementType(button))));
+
+            NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(IronBackpacksHelper.setOneNumberFromTwo(container.getWraparoundIndex(advFilters.indexOf(button) + 1), AdvancedFilterButtons.incrementType(button))));
+
+            drawButtons();
         }else if (buttonList.size() > 1 && button == buttonList.get(1)){
             container.removeSlotsInRow(1);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(1));
@@ -398,7 +403,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             container.removeSlotsInRow(3);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(3));
         }
-        System.out.println("First button state client side:"+container.inventory.advFilterButtonStates[0]);
+//        System.out.println("First button state client side:"+container.inventory.advFilterButtonStates[0]);
     }
 
 }

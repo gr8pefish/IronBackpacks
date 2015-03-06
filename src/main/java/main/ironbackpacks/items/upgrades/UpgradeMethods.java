@@ -206,7 +206,7 @@ public class UpgradeMethods {
                     || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
                 slots += 9; //hardcoded
             }else if (upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID){
-                slots += 18;
+                slots += 9;
             }
         }
         return slots;

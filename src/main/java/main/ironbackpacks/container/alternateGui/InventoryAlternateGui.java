@@ -26,6 +26,8 @@ public class InventoryAlternateGui implements IInventory {
     public IronBackpackType type;
     private int[] upgrades;
 
+
+    public ItemStack[] advFilterStacks;
     public byte[] advFilterButtonStates;
     public int advFilterButtonStartPoint;
 
@@ -44,6 +46,8 @@ public class InventoryAlternateGui implements IInventory {
         advFilterButtonStates = new byte[18];
         Arrays.fill(advFilterButtonStates, (byte)AdvancedFilterButtons.EXACT);
         advFilterButtonStartPoint = 0;
+
+        advFilterStacks = new ItemStack[18];
 
         readFromNBT(stack.getTagCompound()); //to initialize stacks
     }
@@ -259,16 +263,29 @@ public class InventoryAlternateGui implements IInventory {
                     nbtTagCompound.removeTag("FilterAdvSlots");
                     nbtTagCompound.removeTag("FilterAdvButtons");
                 }else {
-                    if (nbtTagCompound.hasKey("FilterAdvSlots")) {
-                        NBTTagList tagList = nbtTagCompound.getTagList("FilterAdvSlots", Constants.NBT.TAG_COMPOUND);
+                    if (nbtTagCompound.hasKey("FilterAdvAllSlots")) {
+                        NBTTagList tagList = nbtTagCompound.getTagList("FilterAdvAllSlots", Constants.NBT.TAG_COMPOUND);
 
-                        for (int i = 0; i < tagList.tagCount(); i++) { //TODO - 18 slots here
+                        for (int i = 0; i < tagList.tagCount(); i++) { //TODO: check start point
+//                            System.out.println(tagList.tagCount());
                             NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                            int j = (upgradeRemoved < 4) ? stackTag.getByte("Slot") - 9 : stackTag.getByte("Slot");
-                            if (upgradeAdded < 4) j += 9;
-                            if (i >= 0 && i <= 9) {
-                                this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
-                            }
+//                            int j = -1;
+//                            if (stackTag.hasKey("Slot")) {
+//                                int j = (upgradeRemoved < 4) ? (stackTag.getByte("Slot") - 9) : stackTag.getByte("Slot");
+//                                if (upgradeAdded < 4) j += 9;
+//                                if (i >= 0 && i <= 9) {
+//                                    this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+//                                    if (stackTag != null){
+//                                        System.out.println("placing "+stackTag+" to slot "+j);
+//                                    }
+//                            }else if (i >= 0 && i < 18) { //MORE TAGS?
+//                                    advFilterStacks[i] = ItemStack.loadItemStackFromNBT(stackTag);
+//                                    if (stackTag != null) {
+//                                        System.out.println("loaded in " + stackTag + " to slot " + i);
+//                                    }
+//                                }
+//                            }
+                            advFilterStacks[stackTag.getByte("Slot")] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
                     }
                     if (nbtTagCompound.hasKey("FilterAdvButtons")) {
@@ -372,20 +389,49 @@ public class InventoryAlternateGui implements IInventory {
         }
         if (UpgradeMethods.hasFilterAdvancedUpgrade(this.upgrades)) {
             NBTTagList tagListSlots = new NBTTagList();
-            byte[] byteArray = new byte[18];
-            for (int i = startIndex; i < startIndex + 18; i++) {
-                if (inventory[i] != null) {
+//            for (int i = startIndex; i < startIndex + 9; i++) {
+//                if (inventory[i] != null) {
+//                    NBTTagCompound tagCompound = new NBTTagCompound();
+//                    tagCompound.setByte("Slot", (byte) i);
+//                    inventory[i].writeToNBT(tagCompound);
+//                    tagListSlots.appendTag(tagCompound);
+//                }
+//            }
+
+//            for (int i = startIndex; i < startIndex + 9; i++){
+//                if (inventory[i] != null) {
+//                    NBTTagCompound tagCompound = new NBTTagCompound();
+//                    tagCompound.setByte("Slot", (byte) i);
+//                    inventory[i].writeToNBT(tagCompound);
+//                    tagListSlots.appendTag(tagCompound);
+//                }
+//            }
+//            for (int i = 0; i < 18; i++){
+//                if (advFilterStacks[i] != null) {
+//                    NBTTagCompound tagCompound = new NBTTagCompound();
+//                    advFilterStacks[i].writeToNBT(tagCompound);
+//                    tagListSlots.appendTag(tagCompound);
+//                }
+//            }
+
+            NBTTagList tagListAllSlots = new NBTTagList();
+            for (int i = 0; i < 18; i++){
+                if (advFilterStacks[i] != null) {
                     NBTTagCompound tagCompound = new NBTTagCompound();
                     tagCompound.setByte("Slot", (byte) i);
-                    inventory[i].writeToNBT(tagCompound);
-                    tagListSlots.appendTag(tagCompound);
+                    advFilterStacks[i].writeToNBT(tagCompound);
+                    tagListAllSlots.appendTag(tagCompound);
+                    System.out.println("Saved (in inventory) in advFilterSlots index "+i);
                 }
             }
+
+            byte[] byteArray = new byte[18];
             for (int i = 0; i < 18; i++){
                 byteArray[i] = advFilterButtonStates[i];
             }
-            startIndex += 18;
-            nbtTagCompound.setTag("FilterAdvSlots", tagListSlots);
+            startIndex += 9;
+//            nbtTagCompound.setTag("FilterAdvShownSlots", tagListSlots);
+            nbtTagCompound.setTag("FilterAdvAllSlots", tagListAllSlots);
             nbtTagCompound.setTag("FilterAdvButtons", new NBTTagByteArray(byteArray));
             nbtTagCompound.setTag("FilterAdvStart", new NBTTagByte((byte)advFilterButtonStartPoint));
         }
