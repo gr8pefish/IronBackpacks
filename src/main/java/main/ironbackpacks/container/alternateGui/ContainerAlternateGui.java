@@ -1,6 +1,7 @@
 package main.ironbackpacks.container.alternateGui;
 
 import invtweaks.api.container.ChestContainer;
+import invtweaks.api.container.InventoryContainer;
 import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
 import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
@@ -18,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@ChestContainer
+//@ChestContainer
+@InventoryContainer
 public class ContainerAlternateGui extends Container {
 
 //    private ItemStack stack;

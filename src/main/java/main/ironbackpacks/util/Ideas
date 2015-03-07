@@ -2,17 +2,17 @@ To Do:
 
     Figure out filter expansion (18 slots) upgrade
 
-        make it actually filter the items in event handler
-
         scroll mouse wheel in slots to move (addition to the buttons)?
         move (all alt gui) up a pixel alt. gui. so that it looks nicer w/ adv. filter
 
         BUGS:
             move tooltips to foreground
             broke clear buttons
-            flicker on buttons for inv tweaks when initGui() (remove buttons for alt. gui. to fix)
 
             refactor 2 numbers from one number
+
+            SLIGHT:
+                Still slight flicker with the one remaining inv tweaks button
 
     Adv. nesting upgrade (allows any backpack)
 
