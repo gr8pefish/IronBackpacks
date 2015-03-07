@@ -4,8 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
-import main.ironbackpacks.client.gui.buttons.ButtonUpgrade;
-import main.ironbackpacks.client.gui.buttons.RenameButton;
+import main.ironbackpacks.client.gui.buttons.BasicTooltipButton;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
@@ -15,7 +14,6 @@ import main.ironbackpacks.network.ButtonUpgradeMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.RenameMessage;
 import main.ironbackpacks.util.IronBackpacksHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -94,19 +92,36 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     private InventoryAlternateGui inventoryAlternateGui;
 
     private GuiTextField textField;
-    private RenameButton renameButton;
+//    private RenameButton renameButton;
+    private BasicTooltipButton renameButton;
 
-    private ButtonUpgrade row1;
-    private ButtonUpgrade row2;
-    private ButtonUpgrade row3;
-    private ButtonUpgrade row4;
+//    private BasicTooltipButton row1;
+//    private BasicTooltipButton row2;
+//    private BasicTooltipButton row3;
+//    private BasicTooltipButton row4;
+//    private AdvancedFilterButtons moveLeft;
+//    private AdvancedFilterButtons moveRight;
+
+    private BasicTooltipButton row1;
+    private BasicTooltipButton row2;
+    private BasicTooltipButton row3;
+    private BasicTooltipButton row4;
+    private BasicTooltipButton moveLeft;
+    private BasicTooltipButton moveRight;
+
+    private ArrayList<BasicTooltipButton> advFilters = new ArrayList<BasicTooltipButton>();
     private int rowToClear;
-    private AdvancedFilterButtons moveLeft;
-    private AdvancedFilterButtons moveRight;
-    private ArrayList<AdvancedFilterButtons> advFilters = new ArrayList<AdvancedFilterButtons>();
     private int advFilterStartPoint;
+    private ArrayList<BasicTooltipButton> tooltipButtons = new ArrayList<BasicTooltipButton>();
 
-    private int idRow;
+    private BasicTooltipButton[] rowIndeces = new BasicTooltipButton[3];
+    private int rowIndex;
+
+    private long prevSystemTime;
+    private int hoverTime;
+
+
+    //    private int idRow;
     private int upgradeCount;
     private boolean hasButtonUpgrade;
     private boolean hasNoUpgrades;
@@ -143,8 +158,14 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         this.hasCondenserUpgrade = UpgradeMethods.hasCondenserUpgrade(upgrades);
         this.hasFilterAdvancedUpgrade = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades);
 
+//        this.rowIndeces = {row1, row2, row3};
+        this.rowIndex = 0;
+        rowIndeces[0] = row1;
+        rowIndeces[1] = row2;
+        rowIndeces[2] = row3;
+
         this.rowToClear = 1;
-        this.idRow = this.hasRenamingUpgrade ? 2 : 1;
+//        this.idRow = this.hasRenamingUpgrade ? 2 : 1;
         this.advFilterStartPoint = 0;
 
     }
@@ -170,6 +191,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
 
 //        container.initFilterSlots();
         drawButtons();
+//        drawInfoStrings();
 
     }
 
@@ -188,96 +210,108 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
 
     private void drawButtons(){
 
-        System.out.println("new buttons");
-
         buttonList.clear();
 
         //draw all the buttons if you have the correct upgrade(s)
         if (hasRenamingUpgrade){
             int xStart = ((width - xSize) / 2);
             int yStart = ((height - ySize) / 2);
-            buttonList.add(renameButton = new RenameButton(1, xStart + xSize - 57, yStart + 22, 25, 10, RenameButton.RENAME_BUTTON));
+            buttonList.add(renameButton = new BasicTooltipButton(BasicTooltipButton.RENAME, xStart + xSize - 57, yStart + 22, 25, 10, BasicTooltipButton.RENAME, true, "", "Renames the backpack."));
+            tooltipButtons.add(renameButton);
         }
 
         int yStartButton = ((height - ySize) / 2) + (hasRenamingUpgrade ? 40 : 21);
         int xStart = ((width - xSize) / 2) + xSize - 12 - 19;
+
+//        BasicTooltipButton[] rowIndeces = {row1, row2, row3};
+
         if (hasFilterBasicUpgrade) {
             if (hasButtonUpgrade) {
-                buttonList.add(row1 = new ButtonUpgrade(idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
-                idRow++;
+                buttonList.add(rowIndeces[rowIndex] = new BasicTooltipButton(rowIndex, xStart, yStartButton, 11, 11, BasicTooltipButton.CLEAR_ROW, true, "", "Clears the basic filter items."));
+                rowIndex++;
             }
             yStartButton += 36;
         }
         if (hasFilterFuzzyUpgrade) {
             if (hasButtonUpgrade) {
-                buttonList.add(row1 = new ButtonUpgrade(idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
-                idRow++;
+                buttonList.add(rowIndeces[rowIndex] = new BasicTooltipButton(rowIndex, xStart, yStartButton, 11, 11, BasicTooltipButton.CLEAR_ROW, true, "", "Clears the fuzzy filter items."));
+                rowIndex++;
             }
             yStartButton += 36;
         }
         if (hasFilterOreDictUpgrade) {
             if (hasButtonUpgrade) {
-                buttonList.add(row1 = new ButtonUpgrade(idRow, xStart, yStartButton, 11, 11, ButtonUpgrade.CLEAR_ROW));
-                idRow++;
+                buttonList.add(rowIndeces[rowIndex] = new BasicTooltipButton(rowIndex, xStart, yStartButton, 11, 11, BasicTooltipButton.CLEAR_ROW, true, "", "Clears the ore dictionary", "filter items."));
+                rowIndex++;
             }
             yStartButton += 36;
         }
         if (hasFilterModSpecificUpgrade){
             if (hasButtonUpgrade){
-                buttonList.add(row1 = new ButtonUpgrade(idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
-                idRow++;
+                buttonList.add(rowIndeces[rowIndex] = new BasicTooltipButton(rowIndex, xStart, yStartButton, 11,11, BasicTooltipButton.CLEAR_ROW, true, "", "Clears the mod specific", "filter items."));
+                rowIndex++;
             }
             yStartButton += 36;
         }
         if (hasFilterAdvancedUpgrade){
-            buttonList.add(moveLeft = new AdvancedFilterButtons(4, guiLeft + 15, yStartButton + 17, 4, 9, AdvancedFilterButtons.MOVE_LEFT));
-            buttonList.add(moveRight = new AdvancedFilterButtons(5, xStart + 12, yStartButton + 17, 4, 9, AdvancedFilterButtons.MOVE_RIGHT));
-            int positionStart = 20;
+            buttonList.add(moveLeft = new BasicTooltipButton(BasicTooltipButton.MOVE_LEFT, guiLeft + 15, yStartButton + 17, 4, 9, BasicTooltipButton.MOVE_LEFT, true, "", "Shift to the left."));
+            buttonList.add(moveRight = new BasicTooltipButton(BasicTooltipButton.MOVE_RIGHT, xStart + 12, yStartButton + 17, 4, 9, BasicTooltipButton.MOVE_RIGHT, true, "", "Shift to the right."));
+            tooltipButtons.add(moveLeft);
+            tooltipButtons.add(moveRight);
+
+            int xPositionStart = 20;
             advFilters.clear();
-            AdvancedFilterButtons temp;
+            BasicTooltipButton temp;
             if (container.inventory.advFilterButtonStartPoint + 9 > 18) {
                 int overlap = 9 - (18 - container.inventory.advFilterButtonStartPoint);
                 for (int i = container.inventory.advFilterButtonStartPoint; i < 18; i++) {
-                    buttonList.add(temp = new AdvancedFilterButtons(6 + i, guiLeft + positionStart, yStartButton + 31, 16, 5, container.inventory.advFilterButtonStates[i]));//IronBackpacksHelper.getAdvFilterTypeFromNBT(advFilterStartPoint + i, backpackStack)));
+                    int type = container.inventory.advFilterButtonStates[i];
+                    buttonList.add(temp = new BasicTooltipButton(6 + i, guiLeft + xPositionStart, yStartButton + 31, 16, 5, type, false, "", BasicTooltipButton.advTooltipsArray[type-1]));//IronBackpacksHelper.getAdvFilterTypeFromNBT(advFilterStartPoint + i, backpackStack)));
                     advFilters.add(temp);
-                    positionStart += 18;
+                    xPositionStart += 18;
+                    tooltipButtons.add(temp);
                 }
                 for (int i = 0; i < overlap; i++) {
-                    buttonList.add(temp = new AdvancedFilterButtons(6 + i, guiLeft + positionStart, yStartButton + 31, 16, 5, container.inventory.advFilterButtonStates[i]));//IronBackpacksHelper.getAdvFilterTypeFromNBT(advFilterStartPoint + i, backpackStack)));
+                    int type = container.inventory.advFilterButtonStates[i];
+                    buttonList.add(temp = new BasicTooltipButton(6 + i, guiLeft + xPositionStart, yStartButton + 31, 16, 5, type, false, "", BasicTooltipButton.advTooltipsArray[type-1]));//IronBackpacksHelper.getAdvFilterTypeFromNBT(advFilterStartPoint + i, backpackStack)));
                     advFilters.add(temp);
-                    positionStart += 18;
+                    xPositionStart += 18;
+                    tooltipButtons.add(temp);
                 }
             }else {
                 for (int i = container.inventory.advFilterButtonStartPoint; i < container.inventory.advFilterButtonStartPoint + 9; i++) {
-                    buttonList.add(temp = new AdvancedFilterButtons(6 + i, guiLeft + positionStart, yStartButton + 31, 16, 5, container.inventory.advFilterButtonStates[i]));//IronBackpacksHelper.getAdvFilterTypeFromNBT(advFilterStartPoint + i, backpackStack)));
+                    int type = container.inventory.advFilterButtonStates[i];
+                    buttonList.add(temp = new BasicTooltipButton(6 + i, guiLeft + xPositionStart, yStartButton + 31, 16, 5, type, false, "", BasicTooltipButton.advTooltipsArray[type-1]));//IronBackpacksHelper.getAdvFilterTypeFromNBT(advFilterStartPoint + i, backpackStack)));
                     advFilters.add(temp);
-                    positionStart += 18;
+                    xPositionStart += 18;
+                    tooltipButtons.add(temp);
                 }
             }
             if (hasButtonUpgrade){
-                buttonList.add(row1 = new ButtonUpgrade(idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
-                idRow++;
+                buttonList.add(rowIndeces[rowIndex] = new BasicTooltipButton(rowIndex, xStart, yStartButton, 11,11, BasicTooltipButton.CLEAR_ROW, true, "", "Resets the advanced filter."));
+                rowIndex++;
             }
             yStartButton += 36;
         }
         if (hasHopperUpgrade){
             if (hasButtonUpgrade){
-                buttonList.add(row2 = new ButtonUpgrade(idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
-                idRow++;
+                buttonList.add(rowIndeces[rowIndex] = new BasicTooltipButton(rowIndex, xStart, yStartButton, 11,11, BasicTooltipButton.CLEAR_ROW, true, "", "Clears the", "restocking items."));
+                rowIndex++;
             }
             yStartButton += 36;
         }
         if (hasCondenserUpgrade){
             if (hasButtonUpgrade){
-                buttonList.add(row3 = new ButtonUpgrade(idRow, xStart, yStartButton, 11,11, ButtonUpgrade.CLEAR_ROW));
+                buttonList.add(rowIndeces[rowIndex] = new BasicTooltipButton(rowIndex, xStart, yStartButton, 11,11, BasicTooltipButton.CLEAR_ROW, true, "", "Clears the", "crafting items."));
             }
-            yStartButton += 36;
+        }
+
+        for (int i = 0; i < rowIndex; i++){
+            tooltipButtons.add(rowIndeces[rowIndex]);
         }
     }
 
-    @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-
+    private void drawInfoStrings(){
         ItemStack itemStack = IronBackpacksHelper.getBackpack(player);
         fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752);
         fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, ySize - 96 + 4, 4210752);
@@ -314,16 +348,48 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
         }
+    }
 
-//        drawButtons();
-//        initGui();
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        drawInfoStrings();
+        drawHoveringOverTooltipButton(mouseX, mouseY);
+    }
 
+    private void drawHoveringOverTooltipButton(int mouseX, int mouseY){
+        int w = (this.width - this.xSize) / 2; //X axis on GUI
+        int h = (this.height - this.ySize) / 2; //Y axis on GUI
+
+        BasicTooltipButton curr = null;
+        for (BasicTooltipButton button : tooltipButtons){
+            if (button != null && button.mouseInButton(mouseX, mouseY)) { //TODO: add timer check
+                curr = button;
+                break;
+            }
+        }
+        if (curr != null){
+            if (curr.getHoverTime() == 0)
+                this.drawHoveringText(curr.getTooltip(), (int) mouseX - w, (int) mouseY - h, fontRendererObj);
+            else {
+                long systemTime = System.currentTimeMillis();
+                if (prevSystemTime != 0)
+                    hoverTime += systemTime - prevSystemTime;
+                prevSystemTime = systemTime;
+
+                if (hoverTime > curr.getHoverTime())
+                    this.drawHoveringText(curr.getTooltip(), (int) mouseX - w, (int) mouseY - h, fontRendererObj);
+            }
+        }else{
+            hoverTime = 0;
+            prevSystemTime = 0;
+        }
     }
 
 //    @Override
 //    private void updateFilterButtons(){
 //
 //    }
+
 
     @Override
     protected void keyTyped(char char1, int int1)
@@ -372,19 +438,22 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             container.changeAdvFilterSlots("right");
             NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(AdvancedFilterMessage.MOVE_RIGHT));
             drawButtons();
-        }else if (button instanceof AdvancedFilterButtons && advFilters.contains(button)){
-            container.setAdvFilterButtonType(container.getWraparoundIndex(advFilters.indexOf(button)), AdvancedFilterButtons.incrementType(button));
-            NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(IronBackpacksHelper.setOneNumberFromTwo(container.getWraparoundIndex(advFilters.indexOf(button) + 1), AdvancedFilterButtons.incrementType(button))));
+        }else if (advFilters.contains(button)){
+            container.setAdvFilterButtonType(container.getWraparoundIndex(advFilters.indexOf(button)), BasicTooltipButton.incrementType(button));
+            NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(IronBackpacksHelper.setOneNumberFromTwo(container.getWraparoundIndex(advFilters.indexOf(button) + 1), BasicTooltipButton.incrementType(button))));
             drawButtons();
         }else if (buttonList.size() > 1 && button == buttonList.get(1)){
             container.removeSlotsInRow(1);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(1));
+            drawButtons();
         }else if (buttonList.size() > 2 && button == buttonList.get(2)){
             container.removeSlotsInRow(2);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(2));
+            drawButtons();
         }else if (buttonList.size() > 3 && button == buttonList.get(3)) {
             container.removeSlotsInRow(3);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(3));
+            drawButtons();
         }
     }
 

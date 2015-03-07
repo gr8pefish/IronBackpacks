@@ -146,7 +146,7 @@ public class AdvancedFilterButtons extends GuiButton {
 
                 GL11.glPushMatrix();
 //                GL11.glTranslatef(0,0,10);
-//                GL11.glTranslatef((float)0,(float)0,(float)10);
+                GL11.glTranslatef((float)0,(float)0,(float)300);
 
                 // Draw background
                 drawGradientRect(x - 3, y - 3, x + tooltipWidth + 3, y + 11 * this.tooltipInstance.length, 0xc0000000,
@@ -160,7 +160,7 @@ public class AdvancedFilterButtons extends GuiButton {
                     fontRenderer.drawStringWithShadow(line, x, j1, k);
                 }
 
-                GL11.glTranslatef((float)0,(float)0,(float)300);
+//                GL11.glTranslatef((float)0,(float)0,(float)300);
                 GL11.glPopMatrix();
             }
         }

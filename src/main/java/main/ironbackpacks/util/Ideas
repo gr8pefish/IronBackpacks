@@ -6,7 +6,7 @@ To Do:
         move (all alt gui) up a pixel alt. gui. so that it looks nicer w/ adv. filter
 
         BUGS:
-            move tooltips to foreground
+            tooltips not updating on adv gui types
             broke clear buttons
 
             refactor 2 numbers from one number

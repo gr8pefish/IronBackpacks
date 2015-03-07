@@ -3,6 +3,7 @@ package main.ironbackpacks.client.gui.inventory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.client.gui.buttons.BasicTooltipButton;
 import main.ironbackpacks.client.gui.buttons.ButtonUpgrade;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
@@ -20,6 +21,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GUIBackpack extends GuiContainer {
@@ -84,11 +88,15 @@ public class GUIBackpack extends GuiContainer {
     private ContainerBackpack container;
     private EntityPlayer player;
 
-    private ButtonUpgrade backpack_to_inventory_BUTTON;
-    private ButtonUpgrade inventory_to_backpack_BUTTON;
-    private ButtonUpgrade hotbar_to_backpack_BUTTON;
-    private ButtonUpgrade condense_backpack_BUTTON;
+    private BasicTooltipButton backpack_to_inventory_BUTTON;
+    private BasicTooltipButton inventory_to_backpack_BUTTON;
+    private BasicTooltipButton hotbar_to_backpack_BUTTON;
+    private BasicTooltipButton condense_backpack_BUTTON;
     private boolean hasAButtonUpgrade;
+
+    private ArrayList<BasicTooltipButton> tooltipButtons;
+    private long prevSystemTime;
+    private int hoverTime;
 
     private GUIBackpack(GUI type, EntityPlayer player, InventoryBackpack backpack, int[] upgrades) {
         super(type.makeContainer(player, backpack));
@@ -99,6 +107,7 @@ public class GUIBackpack extends GuiContainer {
         this.ySize = type.ySize;
         this.allowUserInput = false;
         this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(upgrades);
+        tooltipButtons = new ArrayList<BasicTooltipButton>();
     }
 
 
@@ -112,10 +121,18 @@ public class GUIBackpack extends GuiContainer {
             int xStart = ((width - xSize) / 2) + xSize - 12;
             int yStart = ((height - ySize) / 2) + ySize;
 
-            this.buttonList.add(this.backpack_to_inventory_BUTTON =  new ButtonUpgrade(10, xStart - 20, yStart - 96, 11, 11, ButtonUpgrade.BACKPACK_TO_INVENTORY));
-            this.buttonList.add(this.hotbar_to_backpack_BUTTON    =  new ButtonUpgrade(11, xStart - 40, yStart - 96, 11, 11, ButtonUpgrade.HOTBAR_TO_BACKPACK));
-            this.buttonList.add(this.inventory_to_backpack_BUTTON =  new ButtonUpgrade(12, xStart - 60, yStart - 96, 11, 11, ButtonUpgrade.INVENTORY_TO_BACKPACK));
-            this.buttonList.add(this.condense_backpack_BUTTON     =  new ButtonUpgrade(13, xStart - 80, yStart - 96, 11, 11, ButtonUpgrade.SORT_BACKPACK));
+            this.buttonList.add(this.backpack_to_inventory_BUTTON =  new BasicTooltipButton(BasicTooltipButton.BACKPACK_TO_INVENTORY, xStart - 20, yStart - 96, 11, 11, BasicTooltipButton.BACKPACK_TO_INVENTORY, true, "",
+                    "Moves items from the", "backpack to your inventory."));
+            this.buttonList.add(this.hotbar_to_backpack_BUTTON    =  new BasicTooltipButton(BasicTooltipButton.HOTBAR_TO_BACKPACK, xStart - 40, yStart - 96, 11, 11, BasicTooltipButton.HOTBAR_TO_BACKPACK, true, "",
+                    "Moves items from your", "hotbar to the backpack."));
+            this.buttonList.add(this.inventory_to_backpack_BUTTON =  new BasicTooltipButton(BasicTooltipButton.INVENTORY_TO_BACKPACK, xStart - 60, yStart - 96, 11, 11, BasicTooltipButton.INVENTORY_TO_BACKPACK, true, "",
+                    "Moves items from your", "inventory to the backpack"));
+            this.buttonList.add(this.condense_backpack_BUTTON     =  new BasicTooltipButton(BasicTooltipButton.SORT_BACKPACK, xStart - 80, yStart - 96, 11, 11, BasicTooltipButton.SORT_BACKPACK, true, "",
+                    "Sorts and condenses the","items in the backpack", "(by localized, alphabetical name)"));
+            tooltipButtons.add(backpack_to_inventory_BUTTON);
+            tooltipButtons.add(hotbar_to_backpack_BUTTON);
+            tooltipButtons.add(inventory_to_backpack_BUTTON);
+            tooltipButtons.add(condense_backpack_BUTTON);
         }
     }
 
@@ -131,10 +148,35 @@ public class GUIBackpack extends GuiContainer {
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         ItemStack itemStack = IronBackpacksHelper.getBackpack(this.player);
         this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
         this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
+
+        int k = (this.width - this.xSize) / 2; //X axis on GUI
+        int l = (this.height - this.ySize) / 2; //Y axis on GUI
+
+        BasicTooltipButton curr = null;
+        for (BasicTooltipButton button : tooltipButtons){
+            if (button.mouseInButton(mouseX, mouseY)) { //TODO: add timer check
+                curr = button;
+                break;
+            }
+        }
+        if (curr != null){
+            long systemTime = System.currentTimeMillis();
+            if(prevSystemTime != 0) {
+                hoverTime += systemTime - prevSystemTime;
+            }
+            prevSystemTime = systemTime;
+            if(hoverTime > curr.getHoverTime()) {
+                this.drawHoveringText(curr.getTooltip(), (int) mouseX - k, (int) mouseY - l, fontRendererObj);
+            }
+        }else{
+            hoverTime = 0;
+            prevSystemTime = 0;
+        }
+
     }
 
     @Override

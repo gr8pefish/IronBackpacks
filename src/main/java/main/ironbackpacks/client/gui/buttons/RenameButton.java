@@ -16,11 +16,17 @@ public class RenameButton extends GuiButton {
 
     public static final int RENAME_BUTTON = 0;
 
+
     protected String[] backpackTooltip = {"Renames the backpack", "to whatever is written", "in the text box."};
     private int tooltipWidth = -1;
     private int tooltipDelay = ConfigHandler.tooltipDelay;
     private int hoverTime = 0;
     private long prevSystemTime = 0;
+
+    public int xPos;
+    public int yPos;
+    public int width;
+    public int height;
 
     public static final ResourceLocation widgetTextures = IronBackpacksConstants.Resources.WIDGETS;
 
@@ -29,6 +35,11 @@ public class RenameButton extends GuiButton {
 
     public RenameButton(int id, int xPos, int yPos, int width, int height, int type) {
         super(id, xPos, yPos, width, height, "");
+
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.width = width;
+        this.height = height;
 
         if (type == RENAME_BUTTON) {
             iconOffsetX = 1;

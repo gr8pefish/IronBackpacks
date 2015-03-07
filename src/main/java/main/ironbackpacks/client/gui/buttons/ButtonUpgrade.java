@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class ButtonUpgrade extends GuiButton {
@@ -119,6 +120,7 @@ public class ButtonUpgrade extends GuiButton {
                     int k = -1;
                     fontRenderer.drawStringWithShadow(line, x, j1, k);
                 }
+
             }
         }
     }
