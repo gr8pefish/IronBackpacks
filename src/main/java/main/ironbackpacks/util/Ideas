@@ -1,24 +1,28 @@
 To Do:
 
     Figure out filter expansion (18 slots) upgrade
-        Filter that takes up 3 rows?
-        super Adv (buttons underneath each slot to toggle functionality, maybe scrollbar too)
-            scroll mouse wheel in slots to move (addition to the buttons)?
 
-            implement 18 slots, hide with xPos/yPos (-999 hides), move what you need to be visible
-            move up a pixel alt. gui. so that it looks nicer w/ one adv. filter
+        make it actually filter the items in event handler
+
+        scroll mouse wheel in slots to move (addition to the buttons)?
+        move (all alt gui) up a pixel alt. gui. so that it looks nicer w/ adv. filter
+
+
 
         BUGS:
-            tooltips showing behind items
+            move tooltips to foreground
             broke clear buttons
-            probably have to change things w/ 18 slots instead of 9 (ex: altering slots to keep items when removing or adding alt. gui. upgrades)
             flicker on buttons for inv tweaks when initGui() (remove buttons for alt. gui. to fix)
+
+            refactor 2 numbers from one number
 
     Adv. nesting upgrade (allows any backpack)
 
     Add in option where right clicking a backpack item in an inventory opens gui of said backpack
 
+    Update config
 
+    Test quick deposit upgrade more (just to make sure)
 
 
 
@@ -27,6 +31,7 @@ Changelog:
     Added support for version checker - not sure if working
         Add special section for compatibility in MCF posting
     Changed how eternity upgrade works internally
+    Added quick deposit upgrade
     TODO: Added Advanced Filter Upgrade
     TODO: Added Advanced Nesting Upgrade
     ...

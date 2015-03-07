@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import scala.Int;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @ChestContainer
@@ -162,8 +163,14 @@ public class ContainerAlternateGui extends Container {
     }
 
     public void removeSlotsInRow(int row){ //for the button upgrade
-        for (int i = (row-1)*9; i < row*9; i++){
-            inventory.setInventorySlotContents(i, null);
+        System.out.println(row);
+        if (row == filterAdvSlotIdStart/9){
+            Arrays.fill(inventory.advFilterStacks, null);
+            initFilterSlots();
+        }else {
+            for (int i = (row - 1) * 9; i < row * 9; i++) {
+                inventory.setInventorySlotContents(i, null);
+            }
         }
     }
 

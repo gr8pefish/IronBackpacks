@@ -188,6 +188,8 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
 
     private void drawButtons(){
 
+        System.out.println("new buttons");
+
         buttonList.clear();
 
         //draw all the buttons if you have the correct upgrade(s)
@@ -357,17 +359,6 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         }
     }
 
-
-//    @Override
-//    public void onGuiClosed() //already saves in onContainerClosed
-//    {
-//        if (mc.thePlayer != null)
-//        {
-//            container.inventory.onGuiSaved(mc.thePlayer);
-//            inventorySlots.onContainerClosed(mc.thePlayer);
-//        }
-//    }
-
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button == renameButton) {
@@ -382,16 +373,8 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(AdvancedFilterMessage.MOVE_RIGHT));
             drawButtons();
         }else if (button instanceof AdvancedFilterButtons && advFilters.contains(button)){
-            System.out.println("ADV FILTER BUTTON PRESSED");
-            System.out.println("SLOT: "+advFilters.indexOf(button));
-
-//            container.setAdvFilterButtonType(advFilters.indexOf(button)+container.inventory.advFilterButtonStartPoint, AdvancedFilterButtons.incrementType(button)); //change inventory on client side, should be instant
             container.setAdvFilterButtonType(container.getWraparoundIndex(advFilters.indexOf(button)), AdvancedFilterButtons.incrementType(button));
-
-//            NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(IronBackpacksHelper.setOneNumberFromTwo(advFilters.indexOf(button) + 1 + container.inventory.advFilterButtonStartPoint, AdvancedFilterButtons.incrementType(button))));
-
             NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(IronBackpacksHelper.setOneNumberFromTwo(container.getWraparoundIndex(advFilters.indexOf(button) + 1), AdvancedFilterButtons.incrementType(button))));
-
             drawButtons();
         }else if (buttonList.size() > 1 && button == buttonList.get(1)){
             container.removeSlotsInRow(1);
@@ -399,11 +382,10 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         }else if (buttonList.size() > 2 && button == buttonList.get(2)){
             container.removeSlotsInRow(2);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(2));
-        }else if (buttonList.size() > 3 && button == buttonList.get(3)){
+        }else if (buttonList.size() > 3 && button == buttonList.get(3)) {
             container.removeSlotsInRow(3);
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(3));
         }
-//        System.out.println("First button state client side:"+container.inventory.advFilterButtonStates[0]);
     }
 
 }

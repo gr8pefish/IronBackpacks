@@ -260,31 +260,14 @@ public class InventoryAlternateGui implements IInventory {
                     }
                 }
                 if (!UpgradeMethods.hasFilterAdvancedUpgrade(this.upgrades)) {
-                    nbtTagCompound.removeTag("FilterAdvSlots");
+                    nbtTagCompound.removeTag("FilterAdvAllSlots");
                     nbtTagCompound.removeTag("FilterAdvButtons");
+                    nbtTagCompound.removeTag("FilterAdvStart");
                 }else {
                     if (nbtTagCompound.hasKey("FilterAdvAllSlots")) {
                         NBTTagList tagList = nbtTagCompound.getTagList("FilterAdvAllSlots", Constants.NBT.TAG_COMPOUND);
-
-                        for (int i = 0; i < tagList.tagCount(); i++) { //TODO: check start point
-//                            System.out.println(tagList.tagCount());
+                        for (int i = 0; i < tagList.tagCount(); i++) {
                             NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-//                            int j = -1;
-//                            if (stackTag.hasKey("Slot")) {
-//                                int j = (upgradeRemoved < 4) ? (stackTag.getByte("Slot") - 9) : stackTag.getByte("Slot");
-//                                if (upgradeAdded < 4) j += 9;
-//                                if (i >= 0 && i <= 9) {
-//                                    this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
-//                                    if (stackTag != null){
-//                                        System.out.println("placing "+stackTag+" to slot "+j);
-//                                    }
-//                            }else if (i >= 0 && i < 18) { //MORE TAGS?
-//                                    advFilterStacks[i] = ItemStack.loadItemStackFromNBT(stackTag);
-//                                    if (stackTag != null) {
-//                                        System.out.println("loaded in " + stackTag + " to slot " + i);
-//                                    }
-//                                }
-//                            }
                             advFilterStacks[stackTag.getByte("Slot")] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
                     }
@@ -388,32 +371,6 @@ public class InventoryAlternateGui implements IInventory {
             nbtTagCompound.setTag("FilterModSpecific", tagList);
         }
         if (UpgradeMethods.hasFilterAdvancedUpgrade(this.upgrades)) {
-            NBTTagList tagListSlots = new NBTTagList();
-//            for (int i = startIndex; i < startIndex + 9; i++) {
-//                if (inventory[i] != null) {
-//                    NBTTagCompound tagCompound = new NBTTagCompound();
-//                    tagCompound.setByte("Slot", (byte) i);
-//                    inventory[i].writeToNBT(tagCompound);
-//                    tagListSlots.appendTag(tagCompound);
-//                }
-//            }
-
-//            for (int i = startIndex; i < startIndex + 9; i++){
-//                if (inventory[i] != null) {
-//                    NBTTagCompound tagCompound = new NBTTagCompound();
-//                    tagCompound.setByte("Slot", (byte) i);
-//                    inventory[i].writeToNBT(tagCompound);
-//                    tagListSlots.appendTag(tagCompound);
-//                }
-//            }
-//            for (int i = 0; i < 18; i++){
-//                if (advFilterStacks[i] != null) {
-//                    NBTTagCompound tagCompound = new NBTTagCompound();
-//                    advFilterStacks[i].writeToNBT(tagCompound);
-//                    tagListSlots.appendTag(tagCompound);
-//                }
-//            }
-
             NBTTagList tagListAllSlots = new NBTTagList();
             for (int i = 0; i < 18; i++){
                 if (advFilterStacks[i] != null) {
@@ -421,16 +378,14 @@ public class InventoryAlternateGui implements IInventory {
                     tagCompound.setByte("Slot", (byte) i);
                     advFilterStacks[i].writeToNBT(tagCompound);
                     tagListAllSlots.appendTag(tagCompound);
-                    System.out.println("Saved (in inventory) in advFilterSlots index "+i);
                 }
             }
 
-            byte[] byteArray = new byte[18];
+            byte[] byteArray = new byte[18]; //TODO: better copy to byte (or just send over int array)
             for (int i = 0; i < 18; i++){
                 byteArray[i] = advFilterButtonStates[i];
             }
             startIndex += 9;
-//            nbtTagCompound.setTag("FilterAdvShownSlots", tagListSlots);
             nbtTagCompound.setTag("FilterAdvAllSlots", tagListAllSlots);
             nbtTagCompound.setTag("FilterAdvButtons", new NBTTagByteArray(byteArray));
             nbtTagCompound.setTag("FilterAdvStart", new NBTTagByte((byte)advFilterButtonStartPoint));

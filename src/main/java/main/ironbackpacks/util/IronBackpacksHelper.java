@@ -199,7 +199,7 @@ public class IronBackpacksHelper {
                 return returnList;
             }else{ //3 numbers
                 returnList.add(Integer.parseInt(allNumbers.substring(0, 1)) - 1);
-                returnList.add(Integer.parseInt(allNumbers.substring(1, 3)));
+                returnList.add(Integer.parseInt(allNumbers.substring(1, 3))); //TODO: can cause error if only 2 items (ex: 0:2)
                 return returnList;
             }
         }
