@@ -1,5 +1,6 @@
 package main.ironbackpacks.items.upgrades;
 
+import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
@@ -9,6 +10,7 @@ import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagByteArray;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -296,6 +298,84 @@ public class UpgradeMethods {
         return returnArray;
     }
 
+    public static ItemStack[] getAdvFilterAllItems(ItemStack stack) {
+        ItemStack[] advFilterStacks = new ItemStack[18];
+        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        if (nbtTagCompound != null){
+            if (nbtTagCompound.hasKey("FilterAdvAllSlots")) {
+                NBTTagList tagList = nbtTagCompound.getTagList("FilterAdvAllSlots", Constants.NBT.TAG_COMPOUND);
+                for (int i = 0; i < tagList.tagCount(); i++) {
+                    NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                    advFilterStacks[stackTag.getByte("Slot")] = ItemStack.loadItemStackFromNBT(stackTag);
+                }
+            }
+        }
+        return advFilterStacks;
+    }
+
+    public static byte[] getAdvFilterButtonStates(ItemStack stack) {
+        byte[] advFilterButtonStates = new byte[18];
+        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        if (nbtTagCompound != null){
+            if (nbtTagCompound.hasKey("FilterAdvButtons")) {
+                byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag("FilterAdvButtons")).func_150292_c(); //gets byte array
+                for (int i = 0; i < bytes.length; i++) {
+                    if (bytes[i] == 0) bytes[i] = (byte) AdvancedFilterButtons.EXACT;
+                    advFilterButtonStates[i] = bytes[i];
+                }
+            }
+        }
+        return advFilterButtonStates;
+    }
+
+    public static ArrayList<ItemStack> getAdvFilterBasicItems(ItemStack[] itemStacks, byte[] buttonStates){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        for (int i = 0; i < itemStacks.length; i++){
+            if (itemStacks[i] != null){
+                if (buttonStates[i] == (byte)AdvancedFilterButtons.EXACT){
+                    returnArray.add(itemStacks[i]);
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    public static ArrayList<ItemStack> getAdvFilterFuzzyItems(ItemStack[] itemStacks, byte[] buttonStates){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        for (int i = 0; i < itemStacks.length; i++){
+            if (itemStacks[i] != null){
+                if (buttonStates[i] == (byte)AdvancedFilterButtons.FUZZY){
+                    returnArray.add(itemStacks[i]);
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    public static ArrayList<ItemStack> getAdvFilterModSpecificItems(ItemStack[] itemStacks, byte[] buttonStates){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        for (int i = 0; i < itemStacks.length; i++){
+            if (itemStacks[i] != null){
+                if (buttonStates[i] == (byte)AdvancedFilterButtons.MOD_SPECIFIC){
+                    returnArray.add(itemStacks[i]);
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    public static ArrayList<ItemStack> getAdvFilterOreDictItems(ItemStack[] itemStacks, byte[] buttonStates){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        for (int i = 0; i < itemStacks.length; i++){
+            if (itemStacks[i] != null){
+                if (buttonStates[i] == (byte)AdvancedFilterButtons.ORE_DICT){
+                    returnArray.add(itemStacks[i]);
+                }
+            }
+        }
+        return returnArray;
+    }
+
     public static ArrayList<ItemStack> getHopperItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
@@ -398,5 +478,6 @@ public class UpgradeMethods {
         }
         return stackToTransfer;
     }
+
 
 }

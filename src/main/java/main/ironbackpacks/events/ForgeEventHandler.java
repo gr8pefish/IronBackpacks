@@ -145,54 +145,77 @@ public class ForgeEventHandler {
                 ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
-                    if (UpgradeMethods.hasFilterBasicUpgrade(upgrades)){
-                        ArrayList<ItemStack> filterItems = UpgradeMethods.getBasicFilterItems(backpack);
-                        for (ItemStack filterItem : filterItems) {
-                            if (filterItem != null) {
-                                if (event.item.getEntityItem().isItemEqual(filterItem)) {
-                                    container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
-                                }
-                            }
-                        }
+
+                    if (UpgradeMethods.hasFilterBasicUpgrade(upgrades))
+                        transferWithBasicFilter(UpgradeMethods.getBasicFilterItems(backpack), event, container);
+
+                    if (UpgradeMethods.hasFilterModSpecificUpgrade(upgrades))
+                        transferWithModSpecificFilter(UpgradeMethods.getModSpecificFilterItems(backpack), event, container);
+
+                    if (UpgradeMethods.hasFilterFuzzyUpgrade(upgrades))
+                        transferWithFuzzyFilter(UpgradeMethods.getFuzzyFilterItems(backpack), event, container);
+
+                    if (UpgradeMethods.hasFilterOreDictUpgrade(upgrades))
+                        transferWithOreDictFilter(UpgradeMethods.getOreDictFilterItems(backpack), getOreDict(event.item.getEntityItem()), event, container);
+
+                    if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades)) {
+                        ItemStack[] advFilterItems = UpgradeMethods.getAdvFilterAllItems(backpack);
+                        byte[] advFilterButtonStates = UpgradeMethods.getAdvFilterButtonStates(backpack);
+
+                        transferWithBasicFilter(UpgradeMethods.getAdvFilterBasicItems(advFilterItems, advFilterButtonStates), event, container);
+                        transferWithModSpecificFilter(UpgradeMethods.getAdvFilterModSpecificItems(advFilterItems, advFilterButtonStates), event, container);
+                        transferWithFuzzyFilter(UpgradeMethods.getAdvFilterFuzzyItems(advFilterItems, advFilterButtonStates), event, container);
+                        transferWithOreDictFilter(UpgradeMethods.getAdvFilterOreDictItems(advFilterItems, advFilterButtonStates), getOreDict(event.item.getEntityItem()), event, container);
                     }
-                    if (UpgradeMethods.hasFilterModSpecificUpgrade(upgrades)) {
-                        ArrayList<ItemStack> filterItems = UpgradeMethods.getModSpecificFilterItems(backpack);
-                        for (ItemStack filterItem : filterItems) {
-                            if (filterItem != null) {
-                                if (getModName(event.item.getEntityItem()).equals(getModName(filterItem))) {
-                                    container.transferStackInSlot(event.item.getEntityItem());
-                                }
-                            }
-                        }
-                    }
-                    if (UpgradeMethods.hasFilterFuzzyUpgrade(upgrades)){
-                        ArrayList<ItemStack> filterItems = UpgradeMethods.getFuzzyFilterItems(backpack);
-                        for (ItemStack filterItem : filterItems) {
-                            if (filterItem != null) {
-                                if (event.item.getEntityItem().getItem() == filterItem.getItem()) {
-                                    container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
-                                }
-                            }
-                        }
-                    }
-                    if (UpgradeMethods.hasFilterOreDictUpgrade(upgrades)){
-                        ArrayList<ItemStack> filterItems = UpgradeMethods.getOreDictFilterItems(backpack);
-                        ArrayList<String> itemEntityOre = getOreDict(event.item.getEntityItem());
-                        for (ItemStack filterItem : filterItems) {
-                            if (filterItem != null) {
-                                ArrayList<String> filterItemOre = getOreDict(filterItem);
-                                if (itemEntityOre != null && filterItemOre != null) {
-                                    for (String oreName : itemEntityOre) {
-                                        if (filterItemOre.contains(oreName)) {
-                                            container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
-                                        }
-                                    }
-                                }
-                            }
+
+                }
+                container.onContainerClosed(event.entityPlayer);
+            }
+        }
+    }
+
+    private void transferWithOreDictFilter(ArrayList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
+        for (ItemStack filterItem : filterItems) {
+            if (filterItem != null) {
+                ArrayList<String> filterItemOre = getOreDict(filterItem);
+                if (itemEntityOre != null && filterItemOre != null) {
+                    for (String oreName : itemEntityOre) {
+                        if (filterItemOre.contains(oreName)) {
+                            container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
                         }
                     }
                 }
-                container.onContainerClosed(event.entityPlayer);
+            }
+        }
+    }
+
+    private void transferWithBasicFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
+        for (ItemStack filterItem : filterItems) {
+            if (filterItem != null) {
+                if (event.item.getEntityItem().isItemEqual(filterItem)) {
+                    container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                }
+            }
+        }
+    }
+
+
+    private void transferWithFuzzyFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
+        for (ItemStack filterItem : filterItems) {
+            if (filterItem != null) {
+                if (event.item.getEntityItem().getItem() == filterItem.getItem()) {
+                    container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                }
+            }
+        }
+    }
+
+    private void transferWithModSpecificFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
+        for (ItemStack filterItem : filterItems) {
+            if (filterItem != null) {
+                if (getModName(event.item.getEntityItem()).equals(getModName(filterItem))) {
+                    container.transferStackInSlot(event.item.getEntityItem());
+                }
             }
         }
     }

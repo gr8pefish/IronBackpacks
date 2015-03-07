@@ -55,7 +55,8 @@ public class IronBackpacksHelper {
                 ItemStack backpack = player.inventory.getStackInSlot(i);
                 int[] upgrades = getUpgradesAppliedFromNBT(backpack);
                 if (UpgradeMethods.hasFilterBasicUpgrade(upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(upgrades) ||
-                        UpgradeMethods.hasFilterFuzzyUpgrade(upgrades) || UpgradeMethods.hasFilterOreDictUpgrade(upgrades)){
+                        UpgradeMethods.hasFilterFuzzyUpgrade(upgrades) || UpgradeMethods.hasFilterOreDictUpgrade(upgrades) ||
+                        UpgradeMethods.hasFilterAdvancedUpgrade(upgrades)) {
                     filterBackpacks.add(backpack);
                 }
                 if (UpgradeMethods.hasCondenserUpgrade(upgrades)){
