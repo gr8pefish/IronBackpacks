@@ -13,9 +13,9 @@ public class NetworkingHandler {
 
     public static void initPackets() {
         network = NetworkRegistry.INSTANCE.newSimpleChannel(ModInformation.CHANNEL);
-        registerMessage(ButtonUpgradeMessage.Handler.class, ButtonUpgradeMessage.class, Side.SERVER);
         registerMessage(RenameMessage.Handler.class, RenameMessage.class, Side.SERVER);
-        registerMessage(AdvancedFilterMessage.Handler.class, AdvancedFilterMessage.class, Side.SERVER);
+        registerMessage(AdvFilterTypesMessage.Handler.class, AdvFilterTypesMessage.class, Side.SERVER);
+        registerMessage(SingleByteMessage.Handler.class, SingleByteMessage.class, Side.SERVER);
     }
 
     private static int nextPacketId = 0;

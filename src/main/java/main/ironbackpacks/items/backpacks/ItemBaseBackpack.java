@@ -3,7 +3,6 @@ package main.ironbackpacks.items.backpacks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.ConfigHandler;

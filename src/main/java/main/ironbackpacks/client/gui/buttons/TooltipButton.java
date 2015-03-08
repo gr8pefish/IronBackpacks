@@ -13,6 +13,8 @@ import java.util.ArrayList;
 @SideOnly(Side.CLIENT)
 public class TooltipButton extends GuiButton implements ITooltipButton {
 
+    //TODO: ButtonTypes.class so can just pass in class object with reference to button type's specific data
+
     //rename button
     public static final int RENAME = 0;
 

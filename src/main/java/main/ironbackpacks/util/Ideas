@@ -4,11 +4,6 @@ To Do:
 
         scroll mouse wheel in slots to move (addition to the buttons)?
 
-        BUGS:
-            refactor 2 numbers from one number
-                refactor all of messages
-
-
     Adv. nesting upgrade (allows any backpack)
 
     Add in option where right clicking a backpack item in an inventory opens gui of said backpack
@@ -25,7 +20,9 @@ Changelog:
         Add special section for compatibility in MCF posting
     Changed how eternity upgrade works internally
     Added quick deposit upgrade
-    TODO: Added Advanced Filter Upgrade
+    Added Advanced Filter Upgrade
+    Changed how buttons work internally
+    Changed how messages work internally
     TODO: Added Advanced Nesting Upgrade
     ...
 

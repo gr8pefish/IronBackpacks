@@ -8,8 +8,8 @@ import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.network.ButtonUpgradeMessage;
 import main.ironbackpacks.network.NetworkingHandler;
+import main.ironbackpacks.network.SingleByteMessage;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
@@ -184,16 +184,16 @@ public class GUIBackpack extends GuiContainer {
     protected void actionPerformed(GuiButton button) { //called whenever a button is pressed
         if (button == backpack_to_inventory_BUTTON) {
             this.container.backpackToInventory();
-            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.BACKPACK_TO_INVENTORY));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.BACKPACK_TO_INVENTORY));
         } else if (button == inventory_to_backpack_BUTTON) {
             this.container.inventoryToBackpack();
-            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.INVENTORY_TO_BACKPACK));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.INVENTORY_TO_BACKPACK));
         } else if (button == hotbar_to_backpack_BUTTON) {
             this.container.hotbarToBackpack();
-            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.HOTBAR_TO_BACKPACK));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.HOTBAR_TO_BACKPACK));
         } else if (button == condense_backpack_BUTTON) {
             this.container.sort();
-            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(ButtonUpgradeMessage.CONDENSE_BACKPACK));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.SORT_BACKPACK));
         }
     }
 

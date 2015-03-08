@@ -8,10 +8,10 @@ import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.network.AdvancedFilterMessage;
-import main.ironbackpacks.network.ButtonUpgradeMessage;
+import main.ironbackpacks.network.AdvFilterTypesMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.RenameMessage;
+import main.ironbackpacks.network.SingleByteMessage;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -387,31 +387,33 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             NetworkingHandler.network.sendToServer(new RenameMessage(textField.getText()));
         }else if(button == moveLeft) {
             container.changeAdvFilterSlots("left");
-            NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(AdvancedFilterMessage.MOVE_LEFT));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_LEFT));
             drawButtons();
         }else if(button == moveRight) {
             container.changeAdvFilterSlots("right");
-            NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(AdvancedFilterMessage.MOVE_RIGHT));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_RIGHT));
             drawButtons();
         }else if (advFilters.contains(button)) {
             System.out.println("PRESSED A BUTTON");
-            container.setAdvFilterButtonType(container.getWraparoundIndex(advFilters.indexOf(button)), TooltipButton.incrementType(button));
-            NetworkingHandler.network.sendToServer(new AdvancedFilterMessage(IronBackpacksHelper.setOneNumberFromTwo(container.getWraparoundIndex(advFilters.indexOf(button) + 1), TooltipButton.incrementType(button))));
+            byte slot = (byte) container.getWraparoundIndex(advFilters.indexOf(button));
+            byte changeTo = (byte) TooltipButton.incrementType(button);
+            container.setAdvFilterButtonType(slot, changeTo);
+            NetworkingHandler.network.sendToServer(new AdvFilterTypesMessage(slot, changeTo));
             drawButtons();
         }else if (button == rowIndeces[0]) {
             System.out.println("ROW 1");
             container.removeSlotsInRow(1);
-            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(1));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.CLEAR_ROW_1));
             drawButtons();
         }else if (button == rowIndeces[1]) {
             System.out.println("ROW 2");
             container.removeSlotsInRow(2);
-            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(2));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.CLEAR_ROW_2));
             drawButtons();
         }else if (button == rowIndeces[2]) {
             System.out.println("ROW 3");
             container.removeSlotsInRow(3);
-            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(3));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.CLEAR_ROW_3));
             drawButtons();
         }
     }

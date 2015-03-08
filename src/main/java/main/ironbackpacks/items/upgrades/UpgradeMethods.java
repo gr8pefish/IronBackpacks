@@ -1,6 +1,6 @@
 package main.ironbackpacks.items.upgrades;
 
-import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
+import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
@@ -320,7 +320,7 @@ public class UpgradeMethods {
             if (nbtTagCompound.hasKey("FilterAdvButtons")) {
                 byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag("FilterAdvButtons")).func_150292_c(); //gets byte array
                 for (int i = 0; i < bytes.length; i++) {
-                    if (bytes[i] == 0) bytes[i] = (byte) AdvancedFilterButtons.EXACT;
+                    if (bytes[i] == 0) bytes[i] = (byte) TooltipButton.EXACT;
                     advFilterButtonStates[i] = bytes[i];
                 }
             }
@@ -332,7 +332,7 @@ public class UpgradeMethods {
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte)AdvancedFilterButtons.EXACT){
+                if (buttonStates[i] == (byte) TooltipButton.EXACT){
                     returnArray.add(itemStacks[i]);
                 }
             }
@@ -344,7 +344,7 @@ public class UpgradeMethods {
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte)AdvancedFilterButtons.FUZZY){
+                if (buttonStates[i] == (byte)TooltipButton.FUZZY){
                     returnArray.add(itemStacks[i]);
                 }
             }
@@ -356,7 +356,7 @@ public class UpgradeMethods {
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte)AdvancedFilterButtons.MOD_SPECIFIC){
+                if (buttonStates[i] == (byte)TooltipButton.MOD_SPECIFIC){
                     returnArray.add(itemStacks[i]);
                 }
             }
@@ -368,7 +368,7 @@ public class UpgradeMethods {
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte)AdvancedFilterButtons.ORE_DICT){
+                if (buttonStates[i] == (byte)TooltipButton.ORE_DICT){
                     returnArray.add(itemStacks[i]);
                 }
             }

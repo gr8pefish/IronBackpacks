@@ -1,6 +1,5 @@
 package main.ironbackpacks.container.alternateGui;
 
-import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
@@ -13,7 +12,10 @@ import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.nbt.NBTTagByteArray;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.Arrays;
@@ -275,7 +277,7 @@ public class InventoryAlternateGui implements IInventory {
                     if (nbtTagCompound.hasKey("FilterAdvButtons")) {
                         byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag("FilterAdvButtons")).func_150292_c(); //gets byte array
                         for (int i = 0; i < bytes.length; i++) {
-                            if (bytes[i] == 0) bytes[i] = (byte)AdvancedFilterButtons.EXACT;
+                            if (bytes[i] == 0) bytes[i] = (byte)TooltipButton.EXACT;
                             advFilterButtonStates[i] = bytes[i];
                         }
                     }

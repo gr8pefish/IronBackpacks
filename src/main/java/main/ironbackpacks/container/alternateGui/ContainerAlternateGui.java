@@ -2,23 +2,18 @@ package main.ironbackpacks.container.alternateGui;
 
 import invtweaks.api.container.ChestContainer;
 import invtweaks.api.container.InventoryContainer;
-import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import scala.Int;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 //@ChestContainer
 @InventoryContainer
