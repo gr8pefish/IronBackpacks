@@ -177,13 +177,13 @@ public class InventoryBackpack implements IInventory {
             nbtTagCompound = stack.getTagCompound();
 
             if (nbtTagCompound != null){
-                if (nbtTagCompound.hasKey("Items")) {
-                    NBTTagList tagList = nbtTagCompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ITEMS)) {
+                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.ITEMS, Constants.NBT.TAG_COMPOUND);
                     this.inventory = new ItemStack[this.getSizeInventory()];
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = stackTag.getByte("Slot");
+                        int j = stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
                         if (i >= 0 && i <= inventory.length) {
                             this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
@@ -201,12 +201,12 @@ public class InventoryBackpack implements IInventory {
         for (int i = 0; i < inventory.length; i++) {
             if (inventory[i] != null) {
                 NBTTagCompound tagCompound = new NBTTagCompound();
-                tagCompound.setByte("Slot", (byte) i);
+                tagCompound.setByte(IronBackpacksConstants.NBTKeys.SLOT, (byte) i);
                 inventory[i].writeToNBT(tagCompound);
                 tagList.appendTag(tagCompound);
             }
         }
-        nbtTagCompound.setTag("Items", tagList);
+        nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ITEMS, tagList);
     }
 
 

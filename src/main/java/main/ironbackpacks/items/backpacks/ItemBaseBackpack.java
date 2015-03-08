@@ -26,7 +26,6 @@ public class ItemBaseBackpack extends ItemBase {
     private int upgradeSlots;
     private int upgradeIndex;
 
-    private boolean initializedAdvFilter;
     private boolean openAltGui;
 
     public ItemBaseBackpack(String unlocName, String textureName, int id, int upgradeSlots, int typeID) {
@@ -38,7 +37,6 @@ public class ItemBaseBackpack extends ItemBase {
         this.upgradeIndex = upgradeSlots-1;
 
         openAltGui = true;
-        initializedAdvFilter = false;
     }
 
     public int getTypeId() { return typeID;}
@@ -107,10 +105,6 @@ public class ItemBaseBackpack extends ItemBase {
             return itemStack;
         }else {
             NBTHelper.setUUID(itemStack);
-//            if (!initializedAdvFilter){
-//                IronBackpacksHelper.setAdvFilterTypeToNBT(0, itemStack, AdvancedFilterButtons.EXACT);
-//                initializedAdvFilter = true;
-//            }
             if (!player.isSneaking()) {
                 player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ);
                 return itemStack;

@@ -21,7 +21,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 
-public class ForgeEventHandler {
+public class ForgeEventHandler { //TODO: refactor to nicer
 
     //All the events that fire on the Forge Event bus
 

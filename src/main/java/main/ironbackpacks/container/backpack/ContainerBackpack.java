@@ -196,7 +196,7 @@ public class ContainerBackpack extends Container {
         }
     }
 
-    private void mergeStacks(){
+    private void mergeStacks(){ //TODO: make not override w/NBT
         for (int i = 0; i < type.getSize(); i++){
             Slot tempSlot = (Slot) inventorySlots.get(i);
             if (tempSlot!= null && tempSlot.getHasStack()){

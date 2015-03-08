@@ -5,6 +5,7 @@ import invtweaks.api.container.InventoryContainer;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -187,13 +188,13 @@ public class ContainerAlternateGui extends Container {
         saveSlots();
 
         switch (side){
-            case "left":
+            case IronBackpacksConstants.Miscellaneous.MOVE_LEFT:
                 if (inventory.advFilterButtonStartPoint == 0)
                     inventory.advFilterButtonStartPoint = 17;
                 else
                     inventory.advFilterButtonStartPoint--;
                 break;
-            case "right":
+            case IronBackpacksConstants.Miscellaneous.MOVE_RIGHT:
                 if (inventory.advFilterButtonStartPoint == 17)
                     inventory.advFilterButtonStartPoint = 0;
                 else

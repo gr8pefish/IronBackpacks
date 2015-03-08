@@ -2,6 +2,7 @@ package main.ironbackpacks.crafting;
 
 import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -44,8 +45,8 @@ public class BackpackTierRecipe extends ShapedOreRecipe {
 
         if (nbtTagCompound == null){
             nbtTagCompound = new NBTTagCompound();
-            nbtTagCompound.setTag("Items", new NBTTagList());
-            nbtTagCompound.setTag("Upgrades", new NBTTagList());
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ITEMS, new NBTTagList());
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADES, new NBTTagList());
             backpack.setTagCompound(nbtTagCompound);
         }
 

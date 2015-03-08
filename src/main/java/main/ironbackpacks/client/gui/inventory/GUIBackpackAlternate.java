@@ -14,6 +14,7 @@ import main.ironbackpacks.network.AdvFilterTypesMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.RenameMessage;
 import main.ironbackpacks.network.SingleByteMessage;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -82,47 +83,28 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         }
 
         //called from GuiHandler
-        public static GUIBackpackAlternate buildGUIAlternate(ItemStack backpack, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
+        public static GUIBackpackAlternate buildGUIAlternate(EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
             GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades) + 3] : values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades)]; //shifts to correct index if renaming
-            return new GUIBackpackAlternate(backpack, gui, player, inv, upgrades, backpackType);
+            return new GUIBackpackAlternate(gui, player, inv, upgrades, backpackType);
         }
     }
 
     private GUI type;
     private ContainerAlternateGui container;
-    private IronBackpackType backpackType;
     private EntityPlayer player;
-    private ItemStack backpackStack;
-    private InventoryAlternateGui inventoryAlternateGui;
 
     private GuiTextField textField;
-//    private RenameButton renameButton;
     private TooltipButton renameButton;
-
-//    private BasicTooltipButton row1;
-//    private BasicTooltipButton row2;
-//    private BasicTooltipButton row3;
-//    private BasicTooltipButton row4;
-//    private AdvancedFilterButtons moveLeft;
-//    private AdvancedFilterButtons moveRight;
-
     private TooltipButton moveLeft;
     private TooltipButton moveRight;
 
     private ArrayList<TooltipButton> advFilters = new ArrayList<TooltipButton>();
-//    private int rowToClear;
-//    private int advFilterStartPoint;
     private ArrayList<TooltipButton> tooltipButtons = new ArrayList<TooltipButton>();
-
     private TooltipButton[] rowIndeces = new TooltipButton[3];
-//    private int rowIndex;
 
     private long prevSystemTime;
     private int hoverTime;
 
-
-    //    private int idRow;
-//    private int upgradeCount;
     private boolean hasButtonUpgrade;
     private boolean hasNoUpgrades;
     private boolean hasRenamingUpgrade;
@@ -134,19 +116,15 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     private boolean hasCondenserUpgrade;
     private boolean hasFilterAdvancedUpgrade;
 
-    private GUIBackpackAlternate(ItemStack backpackStack, GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
+    private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
         super(type.makeContainer(player, inv));
         this.player = player;
         this.container = (ContainerAlternateGui) type.makeContainer(player, inv);
         this.type = type;
-        this.backpackType = backpackType;
-        this.backpackStack = backpackStack;
-//        this.inventoryAlternateGui = inv;
 
         this.xSize = type.xSize;
         this.ySize = type.ySize;
 
-//        this.upgradeCount = UpgradeMethods.getAlternateGuiUpgradesCount(upgrades);
         this.hasNoUpgrades = type.equals(GUI.ZERO);
         this.hasButtonUpgrade = UpgradeMethods.hasButtonUpgrade(upgrades);
         this.hasRenamingUpgrade = UpgradeMethods.hasRenamingUpgrade(upgrades);
@@ -158,12 +136,6 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
         this.hasCondenserUpgrade = UpgradeMethods.hasCondenserUpgrade(upgrades);
         this.hasFilterAdvancedUpgrade = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades);
 
-//        this.rowIndeces = {row1, row2, row3};
-//        this.rowIndex = 0;
-
-//        this.rowToClear = 1;
-//        this.idRow = this.hasRenamingUpgrade ? 2 : 1;
-//        this.advFilterStartPoint = 0;
 
     }
 
@@ -186,9 +158,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             Keyboard.enableRepeatEvents(true);
         }
 
-//        container.initFilterSlots();
         drawButtons();
-//        drawInfoStrings();
 
     }
 
@@ -391,11 +361,11 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             container.renameBackpack(textField.getText());
             NetworkingHandler.network.sendToServer(new RenameMessage(textField.getText()));
         }else if(button == moveLeft) {
-            container.changeAdvFilterSlots("left");
+            container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
             NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_LEFT));
             drawButtons();
         }else if(button == moveRight) {
-            container.changeAdvFilterSlots("right");
+            container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_RIGHT);
             NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_RIGHT));
             drawButtons();
         }else if (advFilters.contains(button)) {
@@ -472,11 +442,11 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
                 int wheelState = Mouse.getEventDWheel();
                 if (wheelState != 0) {
                     if ((wheelState/120) == 1){
-                        container.changeAdvFilterSlots("right");
+                        container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_RIGHT);
                         NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_RIGHT));
                         drawButtons();
                     }else{
-                        container.changeAdvFilterSlots("left");
+                        container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
                         NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_LEFT));
                         drawButtons();
                     }

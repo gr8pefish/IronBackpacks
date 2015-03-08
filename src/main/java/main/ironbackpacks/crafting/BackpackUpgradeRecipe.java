@@ -14,7 +14,7 @@ import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
+public class BackpackUpgradeRecipe extends ShapelessOreRecipe { //TODO: refactor
 
     /** Is the ItemStack that you get when craft the recipe. */
     private final ItemStack recipeOutput;
@@ -72,7 +72,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
         NBTTagCompound nbtTagCompound = result.getTagCompound();
         if (nbtTagCompound == null){
             nbtTagCompound = new NBTTagCompound();
-            nbtTagCompound.setTag("Items", new NBTTagList());
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ITEMS, new NBTTagList());
             result.setTagCompound(nbtTagCompound);
         }
 
@@ -86,9 +86,9 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
                 }else {
                     if (IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints) {
                         if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID()))
-                            nbtTagCompound.setTag("Added", new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getTypeID()))); //int value of upgrade added
+                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getTypeID()))); //int value of upgrade added
                         NBTTagCompound tagCompound = new NBTTagCompound();
-                        tagCompound.setByte("Upgrade", (byte) upgradeToApplyBase.getTypeID());
+                        tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgradeToApplyBase.getTypeID());
                         tagList.appendTag(tagCompound);
                         upgradeFound = true;
                     }
@@ -107,19 +107,19 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
                         //not adding the old recipe is the same outcome as removing the recipe, so no code needed here
                         upgradeFound = true;
                         if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID()))
-                            nbtTagCompound.setTag("Removed", new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getTypeID()))); //int value of upgrade removed
+                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getTypeID()))); //int value of upgrade removed
                     } else { //save old contents to new tag
                         NBTTagCompound tagCompound = new NBTTagCompound();
-                        tagCompound.setByte("Upgrade", (byte) upgrade);
+                        tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgrade);
                         tagList.appendTag(tagCompound);
                     }
                 }
                 if (!upgradeFound && !(upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID)){ //if not already applied
                     if (canApplyUpgrade(upgradeToApplyBase, upgrades, totalUpgradePoints)){
                         if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID()))
-                            nbtTagCompound.setTag("Added", new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getTypeID()))); //int value of upgrade added
+                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getTypeID()))); //int value of upgrade added
                         NBTTagCompound tagCompound = new NBTTagCompound();
-                        tagCompound.setByte("Upgrade", (byte) upgradeToApplyBase.getTypeID());
+                        tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgradeToApplyBase.getTypeID());
                         tagList.appendTag(tagCompound);
                         upgradeFound = true;
                     }
@@ -129,7 +129,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
             upgradeFound = applyAdditional(nbtTagCompound, result);
         }
 
-        nbtTagCompound.setTag("Upgrades", tagList);
+        nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADES, tagList);
         if (upgradeFound) {
             return result;
         }else{
@@ -156,16 +156,16 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
     private boolean applyAdditional(NBTTagCompound nbtTagCompound, ItemStack backpack){ //nbt out of scope, will changes apply?
         ItemBaseBackpack backpackBase = (ItemBaseBackpack) backpack.getItem();
         if (backpackBase == null) return false;
-        if (nbtTagCompound.hasKey("AdditionalPoints")){
-            int[] oldValuesArray = nbtTagCompound.getIntArray("AdditionalPoints");
+        if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS)){
+            int[] oldValuesArray = nbtTagCompound.getIntArray(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS);
             if (oldValuesArray[1] < ConfigHandler.additionalUpgradesLimit + backpackBase.getGuiId()){
-                nbtTagCompound.setTag("AdditionalPoints", new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradesIncrease + oldValuesArray[0], ++oldValuesArray[1]})); //[pointsAdded, upgradesApplied]
+                nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS, new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradesIncrease + oldValuesArray[0], ++oldValuesArray[1]})); //[pointsAdded, upgradesApplied]
                 return true;
             }
 
         }else{
             if (ConfigHandler.additionalUpgradesLimit + backpackBase.getGuiId() > 0) {
-                nbtTagCompound.setTag("AdditionalPoints", new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradesIncrease, 1})); //[pointsAdded, upgradesApplied]
+                nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS, new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradesIncrease, 1})); //[pointsAdded, upgradesApplied]
                 return true;
             }
         }

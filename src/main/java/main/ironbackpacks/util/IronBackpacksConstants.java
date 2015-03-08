@@ -125,14 +125,19 @@ public class IronBackpacksConstants {
         public static final String UPGRADES = "Upgrades";
         public static final String UPGRADE = "Upgrade";
         public static final String ADDITIONAL_POINTS = "AdditionalPoints";
-        public static final String;
-        public static final String;
-        public static final String;
-        public static final String;
-        public static final String;
-        public static final String;
-        public static final String;
-        public static final String;
+        public static final String FILTER_BASIC = "FilterBasic";
+        public static final String FILTER_FUZZY = "FilterFuzzy";
+        public static final String FILTER_ORE_DICT = "FilterOreDict";
+        public static final String FILTER_MOD_SPECIFIC = "FilterModSpecific";
+        public static final String FILTER_ADV_ALL_SLOTS = "FilterAdvAllSlots";
+        public static final String FILTER_ADV_BUTTONS = "FilterAdvButtons";
+        public static final String FILTER_ADV_START = "FilterAdvStart";
+        public static final String SLOT = "Slot";
+        public static final String HOPPER = "Hopper";
+        public static final String CONDENSER = "Condenser";
+        public static final String ITEMS = "Items";
+        public static final String ADDED = "Added";
+        public static final String REMOVED = "Removed";
     }
 
     public static final class Miscellaneous{

@@ -122,13 +122,13 @@ public class GUIBackpack extends GuiContainer {
             int xStart = ((width - xSize) / 2) + xSize - 12;
             int yStart = ((height - ySize) / 2) + ySize;
 
-            this.buttonList.add(this.backpack_to_inventory_BUTTON =  new TooltipButton(TooltipButton.BACKPACK_TO_INVENTORY, xStart - 20, yStart - 96, 11, 11, TooltipButton.BACKPACK_TO_INVENTORY, true, "",
+            buttonList.add(this.backpack_to_inventory_BUTTON =  new TooltipButton(TooltipButton.BACKPACK_TO_INVENTORY, xStart - 20, yStart - 96, 11, 11, TooltipButton.BACKPACK_TO_INVENTORY, true, "",
                     "Moves items from the", "backpack to your inventory."));
-            this.buttonList.add(this.hotbar_to_backpack_BUTTON    =  new TooltipButton(TooltipButton.HOTBAR_TO_BACKPACK, xStart - 40, yStart - 96, 11, 11, TooltipButton.HOTBAR_TO_BACKPACK, true, "",
+            buttonList.add(this.hotbar_to_backpack_BUTTON    =  new TooltipButton(TooltipButton.HOTBAR_TO_BACKPACK, xStart - 40, yStart - 96, 11, 11, TooltipButton.HOTBAR_TO_BACKPACK, true, "",
                     "Moves items from your", "hotbar to the backpack."));
-            this.buttonList.add(this.inventory_to_backpack_BUTTON =  new TooltipButton(TooltipButton.INVENTORY_TO_BACKPACK, xStart - 60, yStart - 96, 11, 11, TooltipButton.INVENTORY_TO_BACKPACK, true, "",
+            buttonList.add(this.inventory_to_backpack_BUTTON =  new TooltipButton(TooltipButton.INVENTORY_TO_BACKPACK, xStart - 60, yStart - 96, 11, 11, TooltipButton.INVENTORY_TO_BACKPACK, true, "",
                     "Moves items from your", "inventory to the backpack"));
-            this.buttonList.add(this.condense_backpack_BUTTON     =  new TooltipButton(TooltipButton.SORT_BACKPACK, xStart - 80, yStart - 96, 11, 11, TooltipButton.SORT_BACKPACK, true, "",
+            buttonList.add(this.condense_backpack_BUTTON     =  new TooltipButton(TooltipButton.SORT_BACKPACK, xStart - 80, yStart - 96, 11, 11, TooltipButton.SORT_BACKPACK, true, "",
                     "Sorts and condenses the","items in the backpack", "(by localized, alphabetical name)"));
             tooltipButtons.add(backpack_to_inventory_BUTTON);
             tooltipButtons.add(hotbar_to_backpack_BUTTON);
