@@ -5,20 +5,19 @@ import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
 
 @SideOnly(Side.CLIENT)
-public class BasicTooltipButton extends GuiButton implements ITooltipButton {
+public class TooltipButton extends GuiButton implements ITooltipButton {
 
     //rename button
     public static final int RENAME = 0;
 
     //button upgrade buttons
-    public static final int CLEAR_ROW = 10; //can be 10-12
+    public static final int CLEAR_ROW = 11; //can be 11-13
     public static final int BACKPACK_TO_INVENTORY = 5;
     public static final int INVENTORY_TO_BACKPACK = 6;
     public static final int HOTBAR_TO_BACKPACK = 7;
@@ -47,7 +46,7 @@ public class BasicTooltipButton extends GuiButton implements ITooltipButton {
     private ArrayList<String> tooltips;
     private int hoverTime;
 
-    public BasicTooltipButton(int id, int xPos, int yPos, int width, int height, int type, boolean delay, String text, String... tooltipLines) {
+    public TooltipButton(int id, int xPos, int yPos, int width, int height, int type, boolean delay, String text, String... tooltipLines) {
         super(id, xPos, yPos, width, height, text); // "" for empty text
 
         this.type = type;
@@ -121,7 +120,7 @@ public class BasicTooltipButton extends GuiButton implements ITooltipButton {
 
             int fromLeft = iconOffsetX + (h - 1) * (this.width + 1);
 
-            int heightToUse = (type <= SORT_BACKPACK && type >= BACKPACK_TO_INVENTORY) ? this.height + 1 : this.height;
+            int heightToUse = ((type <= SORT_BACKPACK && type >= BACKPACK_TO_INVENTORY) || (type == CLEAR_ROW)) ? this.height + 1 : this.height;
 
             this.drawTexturedModalRect(this.xPosition, this.yPosition, fromLeft, iconOffsetY, this.width, heightToUse);
         }
@@ -143,11 +142,11 @@ public class BasicTooltipButton extends GuiButton implements ITooltipButton {
     }
 
     public static int incrementType(GuiButton button){
-        int type = ((BasicTooltipButton)button).type;
-        if (type < BasicTooltipButton.MOD_SPECIFIC){
+        int type = ((TooltipButton)button).type;
+        if (type < TooltipButton.MOD_SPECIFIC){
             return ++type;
         }else{
-            return BasicTooltipButton.EXACT;
+            return TooltipButton.EXACT;
         }
     }
 }

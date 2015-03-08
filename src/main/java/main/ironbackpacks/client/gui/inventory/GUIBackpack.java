@@ -3,8 +3,7 @@ package main.ironbackpacks.client.gui.inventory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.client.gui.buttons.BasicTooltipButton;
-import main.ironbackpacks.client.gui.buttons.ButtonUpgrade;
+import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
@@ -23,7 +22,6 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GUIBackpack extends GuiContainer {
@@ -88,13 +86,13 @@ public class GUIBackpack extends GuiContainer {
     private ContainerBackpack container;
     private EntityPlayer player;
 
-    private BasicTooltipButton backpack_to_inventory_BUTTON;
-    private BasicTooltipButton inventory_to_backpack_BUTTON;
-    private BasicTooltipButton hotbar_to_backpack_BUTTON;
-    private BasicTooltipButton condense_backpack_BUTTON;
+    private TooltipButton backpack_to_inventory_BUTTON;
+    private TooltipButton inventory_to_backpack_BUTTON;
+    private TooltipButton hotbar_to_backpack_BUTTON;
+    private TooltipButton condense_backpack_BUTTON;
     private boolean hasAButtonUpgrade;
 
-    private ArrayList<BasicTooltipButton> tooltipButtons;
+    private ArrayList<TooltipButton> tooltipButtons;
     private long prevSystemTime;
     private int hoverTime;
 
@@ -107,7 +105,7 @@ public class GUIBackpack extends GuiContainer {
         this.ySize = type.ySize;
         this.allowUserInput = false;
         this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(upgrades);
-        tooltipButtons = new ArrayList<BasicTooltipButton>();
+        tooltipButtons = new ArrayList<TooltipButton>();
     }
 
 
@@ -116,18 +114,21 @@ public class GUIBackpack extends GuiContainer {
 
         super.initGui();
 
+        buttonList.clear();
+        tooltipButtons.clear();
+
         if (this.hasAButtonUpgrade) { //add all the buttons
 
             int xStart = ((width - xSize) / 2) + xSize - 12;
             int yStart = ((height - ySize) / 2) + ySize;
 
-            this.buttonList.add(this.backpack_to_inventory_BUTTON =  new BasicTooltipButton(BasicTooltipButton.BACKPACK_TO_INVENTORY, xStart - 20, yStart - 96, 11, 11, BasicTooltipButton.BACKPACK_TO_INVENTORY, true, "",
+            this.buttonList.add(this.backpack_to_inventory_BUTTON =  new TooltipButton(TooltipButton.BACKPACK_TO_INVENTORY, xStart - 20, yStart - 96, 11, 11, TooltipButton.BACKPACK_TO_INVENTORY, true, "",
                     "Moves items from the", "backpack to your inventory."));
-            this.buttonList.add(this.hotbar_to_backpack_BUTTON    =  new BasicTooltipButton(BasicTooltipButton.HOTBAR_TO_BACKPACK, xStart - 40, yStart - 96, 11, 11, BasicTooltipButton.HOTBAR_TO_BACKPACK, true, "",
+            this.buttonList.add(this.hotbar_to_backpack_BUTTON    =  new TooltipButton(TooltipButton.HOTBAR_TO_BACKPACK, xStart - 40, yStart - 96, 11, 11, TooltipButton.HOTBAR_TO_BACKPACK, true, "",
                     "Moves items from your", "hotbar to the backpack."));
-            this.buttonList.add(this.inventory_to_backpack_BUTTON =  new BasicTooltipButton(BasicTooltipButton.INVENTORY_TO_BACKPACK, xStart - 60, yStart - 96, 11, 11, BasicTooltipButton.INVENTORY_TO_BACKPACK, true, "",
+            this.buttonList.add(this.inventory_to_backpack_BUTTON =  new TooltipButton(TooltipButton.INVENTORY_TO_BACKPACK, xStart - 60, yStart - 96, 11, 11, TooltipButton.INVENTORY_TO_BACKPACK, true, "",
                     "Moves items from your", "inventory to the backpack"));
-            this.buttonList.add(this.condense_backpack_BUTTON     =  new BasicTooltipButton(BasicTooltipButton.SORT_BACKPACK, xStart - 80, yStart - 96, 11, 11, BasicTooltipButton.SORT_BACKPACK, true, "",
+            this.buttonList.add(this.condense_backpack_BUTTON     =  new TooltipButton(TooltipButton.SORT_BACKPACK, xStart - 80, yStart - 96, 11, 11, TooltipButton.SORT_BACKPACK, true, "",
                     "Sorts and condenses the","items in the backpack", "(by localized, alphabetical name)"));
             tooltipButtons.add(backpack_to_inventory_BUTTON);
             tooltipButtons.add(hotbar_to_backpack_BUTTON);
@@ -156,9 +157,9 @@ public class GUIBackpack extends GuiContainer {
         int k = (this.width - this.xSize) / 2; //X axis on GUI
         int l = (this.height - this.ySize) / 2; //Y axis on GUI
 
-        BasicTooltipButton curr = null;
-        for (BasicTooltipButton button : tooltipButtons){
-            if (button.mouseInButton(mouseX, mouseY)) { //TODO: add timer check
+        TooltipButton curr = null;
+        for (TooltipButton button : tooltipButtons){
+            if (button.mouseInButton(mouseX, mouseY)) {
                 curr = button;
                 break;
             }

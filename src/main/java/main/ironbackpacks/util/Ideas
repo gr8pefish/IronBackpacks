@@ -3,16 +3,13 @@ To Do:
     Figure out filter expansion (18 slots) upgrade
 
         scroll mouse wheel in slots to move (addition to the buttons)?
-        move (all alt gui) up a pixel alt. gui. so that it looks nicer w/ adv. filter
 
         BUGS:
-            tooltips not updating on adv gui types
-            broke clear buttons
+            broke clear buttons - clears odd rows sometimes, also no tooltip
 
             refactor 2 numbers from one number
+                refactor all of messages
 
-            SLIGHT:
-                Still slight flicker with the one remaining inv tweaks button
 
     Adv. nesting upgrade (allows any backpack)
 

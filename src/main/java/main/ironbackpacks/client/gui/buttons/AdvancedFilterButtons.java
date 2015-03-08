@@ -45,7 +45,7 @@ public class AdvancedFilterButtons extends GuiButton {
 
     public int buttonType;
 
-    public String[] moveRightTooltip = {"Moves right"}; //TODO - tooltip shows # of slots left in direction if I don't wraparound
+    public String[] moveRightTooltip = {"Moves right"};
     public String[] moveLeftTooltip = {"Moves left"};
     public String[] exactTooltip = {"Exact Matching"};
     public String[] fuzzyTooltip = {"Fuzzy Matching"};

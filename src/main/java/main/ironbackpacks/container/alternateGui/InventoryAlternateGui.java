@@ -1,7 +1,7 @@
 package main.ironbackpacks.container.alternateGui;
 
 import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
-import main.ironbackpacks.client.gui.buttons.BasicTooltipButton;
+import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
@@ -45,7 +45,7 @@ public class InventoryAlternateGui implements IInventory {
         this.inventory = new ItemStack[this.getSizeInventory()];
 
         advFilterButtonStates = new byte[18];
-        Arrays.fill(advFilterButtonStates, (byte) BasicTooltipButton.EXACT);
+        Arrays.fill(advFilterButtonStates, (byte) TooltipButton.EXACT);
         advFilterButtonStartPoint = 0;
 
         advFilterStacks = new ItemStack[18];

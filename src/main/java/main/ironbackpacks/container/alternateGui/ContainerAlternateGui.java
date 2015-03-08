@@ -3,6 +3,7 @@ package main.ironbackpacks.container.alternateGui;
 import invtweaks.api.container.ChestContainer;
 import invtweaks.api.container.InventoryContainer;
 import main.ironbackpacks.client.gui.buttons.AdvancedFilterButtons;
+import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
@@ -165,9 +166,10 @@ public class ContainerAlternateGui extends Container {
     }
 
     public void removeSlotsInRow(int row){ //for the button upgrade
-        System.out.println(row);
-        if (row == filterAdvSlotIdStart/9){
+        System.out.println("Clearing row: "+row);
+        if (row == filterAdvSlotIdStart/9){ //TODO: not working right (ex: row 1 clears row 2 adv.)
             Arrays.fill(inventory.advFilterStacks, null);
+            Arrays.fill(inventory.advFilterButtonStates, (byte)TooltipButton.EXACT);
             initFilterSlots();
         }else {
             for (int i = (row - 1) * 9; i < row * 9; i++) {
