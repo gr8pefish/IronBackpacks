@@ -121,9 +121,27 @@ public class IronBackpacksConstants {
         public static final ResourceLocation WIDGETS = new ResourceLocation(ModInformation.ID, "textures/guis/widgets.png");
     }
 
+    public static final class NBTKeys {
+        public static final String UPGRADES = "Upgrades";
+        public static final String UPGRADE = "Upgrade";
+        public static final String ADDITIONAL_POINTS = "AdditionalPoints";
+        public static final String;
+        public static final String;
+        public static final String;
+        public static final String;
+        public static final String;
+        public static final String;
+        public static final String;
+        public static final String;
+    }
+
     public static final class Miscellaneous{
         public static final String MOST_SIG_UUID = "MostSigUUID";
         public static final String LEAST_SIG_UUID = "LeastSigUUID";
+
+        public static final String MOVE_RIGHT = "right";
+        public static final String MOVE_LEFT = "left";
+
     }
 
 }

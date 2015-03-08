@@ -8,6 +8,7 @@ import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
+import main.ironbackpacks.util.Logger;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -148,7 +149,7 @@ public class InventoryAlternateGui implements IInventory {
         }else if (UpgradeMethods.hasCondenserUpgrade(this.upgrades)){
             return itemStack.isStackable();
         }else{
-            System.out.println("Impossible error in isItemValidForSLot in InventoryAlternateGui");
+            Logger.error("Impossible error in isItemValidForSLot in InventoryAlternateGui");
             return false;
         }
     }

@@ -7,6 +7,8 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
+import main.ironbackpacks.util.IronBackpacksConstants;
+import main.ironbackpacks.util.Logger;
 
 public class SingleByteMessage implements IMessage{
     //Messages sent from the gui that are only used if the backpack has the button upgrade
@@ -66,11 +68,11 @@ public class SingleByteMessage implements IMessage{
                     break;
                 case MOVE_LEFT:
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
-                    altContainer.changeAdvFilterSlots("left");
+                    altContainer.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
                     break;
                 case MOVE_RIGHT:
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
-                    altContainer.changeAdvFilterSlots("right");
+                    altContainer.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_RIGHT);
                     break;
                 case CLEAR_ROW_1:
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
@@ -85,7 +87,7 @@ public class SingleByteMessage implements IMessage{
                     altContainer.removeSlotsInRow(3);
                     break;
                 default:
-                    System.out.println("Error in sending message for Iron Backpacks in SingleByteMessage");
+                    Logger.error("Error in sending message for Iron Backpacks in SingleByteMessage");
                     break;
             }
             return null; //no return message necessary

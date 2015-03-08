@@ -1,11 +1,13 @@
 package main.ironbackpacks.client.gui.inventory;
 
+import cpw.mods.fml.client.config.GuiUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.alternateGui.InventoryAlternateGui;
+import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.AdvFilterTypesMessage;
@@ -15,13 +17,16 @@ import main.ironbackpacks.network.SingleByteMessage;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -394,24 +399,20 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_RIGHT));
             drawButtons();
         }else if (advFilters.contains(button)) {
-            System.out.println("PRESSED A BUTTON");
             byte slot = (byte) container.getWraparoundIndex(advFilters.indexOf(button));
             byte changeTo = (byte) TooltipButton.incrementType(button);
             container.setAdvFilterButtonType(slot, changeTo);
             NetworkingHandler.network.sendToServer(new AdvFilterTypesMessage(slot, changeTo));
             drawButtons();
         }else if (button == rowIndeces[0]) {
-            System.out.println("ROW 1");
             container.removeSlotsInRow(1);
             NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.CLEAR_ROW_1));
             drawButtons();
         }else if (button == rowIndeces[1]) {
-            System.out.println("ROW 2");
             container.removeSlotsInRow(2);
             NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.CLEAR_ROW_2));
             drawButtons();
         }else if (button == rowIndeces[2]) {
-            System.out.println("ROW 3");
             container.removeSlotsInRow(3);
             NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.CLEAR_ROW_3));
             drawButtons();
@@ -451,5 +452,38 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             textField.drawTextBox();
         }
     }
+
+    private boolean isMouseOverSlot(Slot slot, int mPosX, int mPosY) {
+        mPosX -= this.guiLeft;
+        mPosY -= this.guiTop;
+        return mPosX >= slot.xDisplayPosition - 1 && mPosX < slot.xDisplayPosition + 16 + 1 && mPosY >= slot.yDisplayPosition - 1 && mPosY < slot.yDisplayPosition + 16 + 1;
+    }
+
+    @Override
+    public void handleMouseInput() {
+        super.handleMouseInput();
+
+        int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
+        int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
+
+        for (int i = 0; i < 9; i++){
+            GhostSlot slot = (GhostSlot) container.getSlot(container.getFilterAdvSlotIdStart()+ i);
+            if (isMouseOverSlot(slot, x, y)) {
+                int wheelState = Mouse.getEventDWheel();
+                if (wheelState != 0) {
+                    if ((wheelState/120) == 1){
+                        container.changeAdvFilterSlots("right");
+                        NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_RIGHT));
+                        drawButtons();
+                    }else{
+                        container.changeAdvFilterSlots("left");
+                        NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_LEFT));
+                        drawButtons();
+                    }
+                }
+            }
+        }
+    }
+
 
 }

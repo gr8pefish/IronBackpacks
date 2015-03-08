@@ -21,4 +21,5 @@ public class BackpackSlot extends Slot {
     public boolean acceptsStack(ItemStack itemStack){
         return !(itemStack.getItem() instanceof ItemBaseBackpack);
     }
+
 }

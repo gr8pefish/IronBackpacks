@@ -75,11 +75,11 @@ public class IronBackpacksHelper {
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
-                if(nbtTagCompound.hasKey("Upgrades")) {
-                    NBTTagList tagList = nbtTagCompound.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND);
+                if(nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.UPGRADES)) {
+                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.UPGRADES, Constants.NBT.TAG_COMPOUND);
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int hasUpgrade = stackTag.getByte("Upgrade");
+                        int hasUpgrade = stackTag.getByte(IronBackpacksConstants.NBTKeys.UPGRADE);
                         if (hasUpgrade != 0){ //true
                             upgradesArrayList.add(hasUpgrade);
                         }
@@ -117,8 +117,8 @@ public class IronBackpacksHelper {
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
-                if (nbtTagCompound.hasKey("AdditionalPoints")) {
-                    return nbtTagCompound.getIntArray("AdditionalPoints")[0];  //[pointsAdded, upgradesApplied]
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS)) {
+                    return nbtTagCompound.getIntArray(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS)[0];  //[pointsAdded, upgradesApplied]
                 }
             }
         }
@@ -129,8 +129,8 @@ public class IronBackpacksHelper {
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
-                if (nbtTagCompound.hasKey("AdditionalPoints")) {
-                    return nbtTagCompound.getIntArray("AdditionalPoints")[1];  //[pointsAdded, upgradesApplied]
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS)) {
+                    return nbtTagCompound.getIntArray(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS)[1];  //[pointsAdded, upgradesApplied]
                 }
             }
         }
@@ -144,80 +144,14 @@ public class IronBackpacksHelper {
             for (int upgrade: upgrades) {
                 if (!(upgrade == IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_UPGRADE_ID)) {
                     NBTTagCompound tagCompound = new NBTTagCompound();
-                    tagCompound.setByte("Upgrade", (byte) upgrade);
+                    tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgrade);
                     tagList.appendTag(tagCompound);
                 }
             }
-            nbtTagCompound.setTag("Upgrades", tagList);
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADES, tagList);
             return stack;
         }
         return null;
     }
-
-    //return the single int created form combining the two inputs
-    public static int setOneNumberFromTwo(int numberOne, int numberTwo){
-        System.out.println(numberOne + ":"+numberTwo);
-        if (numberOne == 1 && numberTwo == 1) return 11;
-
-        String stringOne;
-        if (numberOne < 10)
-            stringOne = String.format("%02d", numberOne);
-        else
-            stringOne = String.valueOf(numberOne);
-        String stringTwo;
-        if (numberTwo < 10)
-            stringTwo = String.format("%02d", numberTwo);
-        else
-            stringTwo = String.valueOf(numberTwo);
-        return Integer.valueOf(stringOne+stringTwo);
-    }
-
-    //returns two numbers from the input one number
-    public static ArrayList<Integer> getNumbersFromOneNumber(int data){
-
-        ArrayList<Integer> returnList = new ArrayList<Integer>();
-
-        if (data == 11){ //special cases
-            returnList.add(0);
-            returnList.add(1);
-            return returnList;
-        }else if (data == 101){
-            returnList.add(10);
-            returnList.add(1);
-            return returnList;
-        }else if (data == 110){
-            returnList.add(1);
-            returnList.add(10);
-            return returnList;
-        }else{
-            String allNumbers = String.valueOf(data);
-            if (allNumbers.length() == 4){
-                returnList.add(Integer.parseInt(Integer.toString(data / 100)) - 1);
-                returnList.add(Integer.parseInt(Integer.toString(data % 100)));
-                return returnList;
-            }else{ //3 numbers
-                returnList.add(Integer.parseInt(allNumbers.substring(0, 1)) - 1);
-                returnList.add(Integer.parseInt(allNumbers.substring(1, 3))); //TODO: can cause error if only 2 items (ex: 0:2)
-                return returnList;
-            }
-        }
-
-    }
-
-    public static int getAdvFilterTypeFromNBT(int index, ItemStack stack){
-        if (stack != null) {
-            NBTTagCompound nbtTagCompound = stack.getTagCompound();
-            if (nbtTagCompound != null) {
-                if (nbtTagCompound.hasKey("AdvFilterTypes")) {
-//                    System.out.println("SAVED NBT: "+index+", "+nbtTagCompound.getIntArray("AdvFilterTypes")[index]);
-                    return nbtTagCompound.getIntArray("AdvFilterTypes")[index];
-                }
-            }
-        }
-        System.out.println("ERROR retrieving advFilterTypeFromNBT");
-        return TooltipButton.EXACT;
-    }
-
-
 
 }

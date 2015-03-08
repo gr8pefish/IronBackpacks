@@ -113,14 +113,6 @@ public class ContainerAlternateGui extends Container {
     }
 
     @Override
-    public boolean enchantItem(EntityPlayer player, int data)
-    {
-        ArrayList<Integer> numbers = IronBackpacksHelper.getNumbersFromOneNumber(data); //splits the data into 2 values, slot and button value
-        this.inventory.setAdvFilterButtonType(numbers.get(0), numbers.get(1));
-        return true;
-    }
-
-    @Override
     public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) {
         // this will prevent the player from interacting with the item that opened the inventory:
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && player.getHeldItem() != null && getSlot(slot).getStack().isItemEqual(player.getHeldItem())) {
@@ -161,9 +153,7 @@ public class ContainerAlternateGui extends Container {
     }
 
     public void removeSlotsInRow(int row){ //for the button upgrade
-        System.out.println("Clearing row: "+row);
-        System.out.println(filterAdvSlotIdStart);
-        if (row == (filterAdvSlotIdStart/9)+1){ //TODO: not working right (ex: row 1 clears row 2 adv.)
+        if (row == (filterAdvSlotIdStart/9)+1){
             Arrays.fill(inventory.advFilterStacks, null);
             Arrays.fill(inventory.advFilterButtonStates, (byte)TooltipButton.EXACT);
             initFilterSlots();
@@ -172,6 +162,10 @@ public class ContainerAlternateGui extends Container {
                 inventory.setInventorySlotContents(i, null);
             }
         }
+    }
+
+    public int getFilterAdvSlotIdStart(){
+        return filterAdvSlotIdStart;
     }
 
     public void initFilterSlots(){
