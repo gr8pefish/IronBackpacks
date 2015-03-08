@@ -4,6 +4,7 @@ package main.ironbackpacks.util;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
+import main.ironbackpacks.proxies.CommonProxy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,6 +21,12 @@ public class IronBackpacksHelper {
     //credit to sapient
     public static ItemStack getBackpack(EntityPlayer player) {
         ItemStack backpack = null;
+
+        ItemStack proxyPack = CommonProxy.getCurrBackpack(player);
+        if (proxyPack != null){
+//            System.out.println("Found proxy pack 2");
+            return proxyPack;
+        }
 
         if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
             backpack = player.getHeldItem();

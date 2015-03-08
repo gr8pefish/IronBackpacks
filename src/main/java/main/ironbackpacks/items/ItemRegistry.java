@@ -38,9 +38,10 @@ public class ItemRegistry {
     public static Item hopperUpgrade;
     public static Item condenserUpgrade;
     public static Item keepOnDeathUpgrade;
-    public static Item additonalUpgradesUpgrade;
+    public static Item additionalUpgradesUpgrade;
     public static Item quickDepositUpgrade;
     public static Item filterAdvancedUpgrade;
+    public static Item nestingAdvancedUpgrade;
 
     //misc
     public static Item nest;
@@ -72,9 +73,10 @@ public class ItemRegistry {
         upgrades.add(hopperUpgrade);
         upgrades.add(condenserUpgrade);
         upgrades.add(keepOnDeathUpgrade);
-        upgrades.add(additonalUpgradesUpgrade);
+        upgrades.add(additionalUpgradesUpgrade);
         upgrades.add(quickDepositUpgrade);
         upgrades.add(filterAdvancedUpgrade);
+        upgrades.add(nestingAdvancedUpgrade);
         return upgrades;
     }
 
@@ -112,8 +114,8 @@ public class ItemRegistry {
         GameRegistry.registerItem(keepOnDeathUpgrade, "keepOnDeathUpgrade");
         filterModSpecificUpgrade = new ItemFilterModSpecificUpgrade();
         GameRegistry.registerItem(filterModSpecificUpgrade, "filterModSpecificUpgrade");
-        additonalUpgradesUpgrade = new ItemAdditionalUpgradePointsUpgrade();
-        GameRegistry.registerItem(additonalUpgradesUpgrade, "additionalUpgradeSlotsUpgrade");
+        additionalUpgradesUpgrade = new ItemAdditionalUpgradePointsUpgrade();
+        GameRegistry.registerItem(additionalUpgradesUpgrade, "additionalUpgradeSlotsUpgrade");
         filterFuzzyUpgrade = new ItemFilterFuzzyUpgrade();
         GameRegistry.registerItem(filterFuzzyUpgrade, "filterFuzzyUpgrade");
         filterOreDictUpgrade = new ItemFilterOreDictUpgrade();
@@ -122,6 +124,8 @@ public class ItemRegistry {
         GameRegistry.registerItem(quickDepositUpgrade, "quickDepositUpgrade");
         filterAdvancedUpgrade = new ItemFilterAdvancedUpgrade();
         GameRegistry.registerItem(filterAdvancedUpgrade, "filterAdvancedUpgrade");
+        nestingAdvancedUpgrade = new ItemNestingAdvancedUpgrade();
+        GameRegistry.registerItem(nestingAdvancedUpgrade, "nestingAdvancedUpgrade");
 
         //misc
         nest = new ItemNest();

@@ -1,4 +1,4 @@
-package main.ironbackpacks.proxies;
+package main.ironbackpacks.client.gui;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import main.ironbackpacks.client.gui.inventory.GUIBackpack;

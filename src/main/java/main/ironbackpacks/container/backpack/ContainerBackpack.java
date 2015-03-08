@@ -1,11 +1,20 @@
 package main.ironbackpacks.container.backpack;
 
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import cpw.mods.fml.common.network.internal.OpenGuiHandler;
 import invtweaks.api.container.ChestContainer;
+import main.ironbackpacks.IronBackpacks;
+import main.ironbackpacks.client.gui.inventory.GUIBackpack;
+import main.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
+import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.IronBackpacksHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -56,7 +65,9 @@ public class ContainerBackpack extends Container {
             for (int backpackCol = 0; backpackCol < type.getRowLength(); backpackCol++) {
                 if (UpgradeMethods.hasNestingUpgrade(upgrades)){
                     addSlotToContainer(new NestingBackpackSlot(chestInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18, this.type));
-                }else {
+                }else if (UpgradeMethods.hasNestingAdvancedUpgrade(upgrades)) {
+                    addSlotToContainer(new AdvancedNestingBackpackSlot(chestInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18, this.type));
+                }else{
                     addSlotToContainer(new BackpackSlot(chestInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18));
                 }
             }
@@ -141,13 +152,26 @@ public class ContainerBackpack extends Container {
 
         if (!player.worldObj.isRemote) {
             this.inventory.onGuiSaved(player);
+//            CommonProxy.updateCurrBackpack(player, null); //not properly clearing out
         }
+
+//        System.out.println("clearing curr backpack");
+//        CommonProxy.updateCurrBackpack(player, null);
+
     }
 
     @Override
     public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) {
     // this will prevent the player from interacting with the item that opened the inventory:
-        if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getStack() == player.getHeldItem()) {
+        if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack() == player.getHeldItem()) {
+            return null;
+        }else if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack && button == 1){ //right click a backpack
+            ItemStack stack = getSlot(slot).getStack();
+            ItemBaseBackpack backpack = (ItemBaseBackpack) stack.getItem();
+            if (player.worldObj.isRemote) {
+                CommonProxy.updateCurrBackpack(player, stack); //TODO: still doesn't quite load correctly
+                FMLNetworkHandler.openGui(player, IronBackpacks.instance, backpack.getGuiId(), player.worldObj, 0, 0, 0);
+            }
             return null;
         }
         return super.slotClick(slot, button, flag, player);
@@ -164,7 +188,7 @@ public class ContainerBackpack extends Container {
     public EntityPlayer getPlayer() { return player; }
 
     public void backpackToInventory(){
-        for (int i = 0; i <= type.getSize()+1; i++) {
+        for (int i = 0; i <= type.getSize()-1; i++) {
             transferStackInSlot(player, i);
         }
     }
@@ -218,7 +242,7 @@ public class ContainerBackpack extends Container {
                 Slot tempSlot = (Slot) inventorySlots.get(i);
                 if (tempSlot != null && tempSlot.getHasStack()){
                     ItemStack tempStack = tempSlot.getStack();
-                    if (tempStack.stackSize > 0 && tempStack.isItemEqual(stackToFill)){
+                    if (tempStack.stackSize > 0 && tempStack.isItemEqual(stackToFill) && ItemStack.areItemStackTagsEqual(tempStack, stackToFill)){
                         if (tempStack.stackSize > fillAmt){
                             tempSlot.decrStackSize(fillAmt);
                             slotToFill.putStack(new ItemStack(stackToFill.getItem(), stackToFill.getMaxStackSize(), stackToFill.getItemDamage()));

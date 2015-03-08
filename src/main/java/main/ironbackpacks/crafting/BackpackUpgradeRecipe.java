@@ -14,6 +14,8 @@ import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
+import java.util.ArrayList;
+
 public class BackpackUpgradeRecipe extends ShapelessOreRecipe { //TODO: refactor
 
     /** Is the ItemStack that you get when craft the recipe. */
@@ -139,14 +141,30 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe { //TODO: refactor
     }
 
     private boolean canApplyUpgrade(ItemUpgradeBase upgradeToApplyBase, int[] upgrades, int totalUpgradePoints){
-        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID())){ //alt gui upgrade
-            if (UpgradeMethods.getAltGuiUpgradesUsed(upgrades)+1 <= IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED){ //alt gui in general
+        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID())) { //alt gui upgrade
+            if (UpgradeMethods.getAltGuiUpgradesUsed(upgrades) + 1 <= IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED) { //alt gui in general
 //                if (UpgradeMethods.getFilterUpgradesUsed(upgrades)+1 <= IronBackpacksConstants.Upgrades.FILTER_UPGRADES_ALLOWED){ //filter upgrades specifically
 //                    return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints; //return if it can accept that many more upgrade points
 //                }
                 return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints;
             }
             return false;
+        }else if(upgradeToApplyBase.typeID == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID || upgradeToApplyBase.typeID == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID){ //have to choose between nesting upgrade and advanced nesting upgrade
+            if (upgradeToApplyBase.typeID == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID){
+                for (int upgrade : upgrades){
+                    if (upgrade == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID){
+                        return false;
+                    }
+                }
+                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints;
+            }else{
+                for (int upgrade : upgrades){
+                    if (upgrade == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID){
+                        return false;
+                    }
+                }
+                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints;
+            }
         }else{ //other upgrade (additional upgrade points already taken care of)
             return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints;
         }

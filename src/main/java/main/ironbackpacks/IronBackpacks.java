@@ -11,7 +11,7 @@ import main.ironbackpacks.events.ForgeEventHandler;
 import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.proxies.CommonProxy;
-import main.ironbackpacks.proxies.GuiHandler;
+import main.ironbackpacks.client.gui.GuiHandler;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.VersionCheckerSupport;
 import net.minecraft.creativetab.CreativeTabs;

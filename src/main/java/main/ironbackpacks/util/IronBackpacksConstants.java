@@ -30,6 +30,7 @@ public class IronBackpacksConstants {
         public static final int KEEP_ON_DEATH_UPGRADE_ID = 4;
         public static final int ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID = 10;
         public static final int QUICK_DEPOSIT_UPGRADE_ID = 13;
+        public static final int ADVANCED_NESTING_UPGRADE_ID = 15;
         //Alternate Gui
         public static final int RENAMING_UPGRADE_ID = 5;
         public static final int FILTER_BASIC_UPGRADE_ID = 6;
@@ -40,6 +41,7 @@ public class IronBackpacksConstants {
         public static final int FILTER_OREDICT_UPGRADE_ID = 12;
         public static final int FILTER_ADVANCED_UPGRADE_ID =14;
 
+
         //================Upgrade Info===================
         public static final String[] BUTTON_DESCRIPTION = {"Adds buttons to quickly move items","to and from your backpack, as well as","a button to sort your backpack quickly."};
         public static final String[] NESTING_DESCRIPTION = {"Allows you to place any backpack","of a previous tier inside the backpack."};
@@ -49,6 +51,7 @@ public class IronBackpacksConstants {
         private static String formatting2 = ConfigHandler.additionalUpgradesLimit+3 == 1 ? "once" : ConfigHandler.additionalUpgradesLimit+3 + " times";
         public static final String[] ADDITIONAL_UPGRADE_SLOTS_DESCRIPTION = {"Adds another " + formatting1 + " to", "the backpack. Can be applied " + formatting2, "to the highest tier backpack."};
         public static final String[] QUICK_DEPOSIT_DESCRIPTION = {"When you shift right click on an inventory with this upgrade","the backpack will attempt to empty it's contents into the inventory."};
+        public static final String[] ADVANCED_NESTING_DESCRIPTION = {"Allows you to place *any* backpack"," (and hence any item) inside the backpack."};
 
         //Alternate Gui
         public static final String[] RENAMING_DESCRIPTION = {"Allows you to rename the backpack."};
@@ -86,7 +89,8 @@ public class IronBackpacksConstants {
                 StatCollector.translateToLocal("item.ironbackpacks:filterFuzzyUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:filterOreDictUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:quickDepositUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:filterAdvancedUpgrade.name")
+                StatCollector.translateToLocal("item.ironbackpacks:filterAdvancedUpgrade.name"),
+                StatCollector.translateToLocal("item.ironbackpacks:nestingAdvancedUpgrade.name")
         };
 
 
@@ -105,7 +109,8 @@ public class IronBackpacksConstants {
                 ConfigHandler.filterFuzzyUpgradeCost,
                 ConfigHandler.filterOreDictUpgradeCost,
                 ConfigHandler.quickDepositUpgradeCost,
-                ConfigHandler.filterAdvancedUpgradeCost
+                ConfigHandler.filterAdvancedUpgradeCost,
+                ConfigHandler.nestingAdvancedUpgradeCost
         };
 
         //===========================Misc==================================

@@ -11,7 +11,8 @@ import net.minecraftforge.common.util.Constants;
 
 public class CommonProxy {
 
-    private static String key = ModInformation.ID+"PersistedData";
+    private static String deathBackpack = ModInformation.ID+"PersistedData";
+    private static String currBackpack = ModInformation.ID+"CurrBackpack";
 
     public static void saveBackpackOnDeath(EntityPlayer player) {
         NBTTagList tagList = new NBTTagList();
@@ -28,7 +29,7 @@ public class CommonProxy {
         }
 
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-        rootPersistentCompound.setTag(key, tagList);
+        rootPersistentCompound.setTag(deathBackpack, tagList);
         if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
             player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
 
@@ -37,12 +38,38 @@ public class CommonProxy {
 
     public static void loadBackpackOnDeath(EntityPlayer player) {
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(key)){// && rootPersistentCompound.hasKey(key)){
-            NBTTagList tagList = rootPersistentCompound.getTagList(key, Constants.NBT.TAG_COMPOUND);
+        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(deathBackpack)){// && rootPersistentCompound.hasKey(key)){
+            NBTTagList tagList = rootPersistentCompound.getTagList(deathBackpack, Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < tagList.tagCount(); i++) {
                 player.inventory.addItemStackToInventory(ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(i)));
             }
-            rootPersistentCompound.removeTag(key); //clears the data
+            rootPersistentCompound.removeTag(deathBackpack); //clears the data
         }
+    }
+
+    public static void updateCurrBackpack(EntityPlayer player, ItemStack stack){
+        NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        if (stack != null) {
+            NBTTagCompound tagCompound = new NBTTagCompound();
+            stack.writeToNBT(tagCompound);
+
+            rootPersistentCompound.setTag(currBackpack, tagCompound);
+            if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
+                player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
+        }else{
+            rootPersistentCompound.removeTag(currBackpack);
+        }
+
+    }
+
+    public static ItemStack getCurrBackpack(EntityPlayer player){
+        NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(currBackpack)){
+            ItemStack toReturn = ItemStack.loadItemStackFromNBT(rootPersistentCompound.getCompoundTag(currBackpack));
+//            rootPersistentCompound.removeTag(currBackpack);
+//            System.out.println("FOUND proxy pack");
+            return toReturn;
+        }
+        return null;
     }
 }

@@ -170,16 +170,10 @@ public class ContainerAlternateGui extends Container {
     }
 
     public void initFilterSlots(){
-        //clears slots //TODO: remove? because put in null from nbt anyway?
-        for (int i= 0; i < 9; i++){
-            getSlot(filterAdvSlotIdStart+i).putStack(null);
-        }
-
         //put what should be in the slots in them
         for (int i= 0; i < 9; i++){
             getSlot(filterAdvSlotIdStart+i).putStack(inventory.advFilterStacks[getWraparoundIndex(i)]);
         }
-
     }
 
 

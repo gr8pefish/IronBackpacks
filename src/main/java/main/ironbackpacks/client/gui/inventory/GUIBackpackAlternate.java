@@ -432,23 +432,24 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     @Override
     public void handleMouseInput() {
         super.handleMouseInput();
+        if (hasFilterAdvancedUpgrade){
+            int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
+            int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
 
-        int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
-        int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
-
-        for (int i = 0; i < 9; i++){
-            GhostSlot slot = (GhostSlot) container.getSlot(container.getFilterAdvSlotIdStart()+ i);
-            if (isMouseOverSlot(slot, x, y)) {
-                int wheelState = Mouse.getEventDWheel();
-                if (wheelState != 0) {
-                    if ((wheelState/120) == 1){
-                        container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_RIGHT);
-                        NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_RIGHT));
-                        drawButtons();
-                    }else{
-                        container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
-                        NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_LEFT));
-                        drawButtons();
+            for (int i = 0; i < 9; i++) {
+                GhostSlot slot = (GhostSlot) container.getSlot(container.getFilterAdvSlotIdStart() + i);
+                if (isMouseOverSlot(slot, x, y)) {
+                    int wheelState = Mouse.getEventDWheel();
+                    if (wheelState != 0) {
+                        if ((wheelState / 120) == 1) {
+                            container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_RIGHT);
+                            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_RIGHT));
+                            drawButtons();
+                        } else {
+                            container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
+                            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_LEFT));
+                            drawButtons();
+                        }
                     }
                 }
             }

@@ -6,6 +6,7 @@ item.ironbackpacks:diamondBackpack.name=Diamond Backpack
 
 item.ironbackpacks:buttonUpgrade.name=Button Upgrade
 item.ironbackpacks:nestingUpgrade.name=Nesting Upgrade
+item.ironbackpacks:nestingAdvancedUpgrade.name=Advanced Nesting Upgrade
 item.ironbackpacks:damageBarUpgrade.name=Damage Bar Upgrade
 item.ironbackpacks:filterBasicUpgrade.name=Basic Filter Upgrade
 item.ironbackpacks:filterFuzzyUpgrade.name=Fuzzy Filter Upgrade

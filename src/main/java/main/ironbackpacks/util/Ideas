@@ -1,25 +1,31 @@
 To Do:
 
-    Adv. nesting upgrade (allows any backpack)
+    SOON:
+        Add in option where right clicking a backpack item in an inventory opens gui of said backpack
+            Not working :(
 
-    Add in option where right clicking a backpack item in an inventory opens gui of said backpack
+        Test quick deposit upgrade more (just to make sure)
 
-    Update config
+    LATER:
+        Ender Chest upgrade
 
-    Test quick deposit upgrade more (just to make sure)
+        Render on backpack
+            hotkeys
 
 
 
 Changelog:
-    Changed default recipe for filter recipe
-    Added support for version checker - not sure if working
-        Add special section for compatibility in MCF posting
-    Changed how eternity upgrade works internally
-    Added quick deposit upgrade
+
+    Added Quick Deposit upgrade
     Added Advanced Filter Upgrade
+    Added Advanced Nesting Upgrade
+    Added support for version checker
+        Add special section for compatibility in MCF posting
+
+    Changed a lot of default config recipes
+    Changed how eternity upgrade works internally
     Changed how buttons work internally
     Changed how messages work internally
-    TODO: Added Advanced Nesting Upgrade
     ...
 
 MCF Posting:
@@ -32,8 +38,6 @@ Bugs:
     IMPORTANT:
 
     Less important:
-        Diamond backpack buttons not moving items correctly - backpack to inv button
-        Check NBT/meta/damage when trying to combine stacks - ItemStack.areItemStackTagsEqual
 
 Figure out:
     How to render a backpack on your back
@@ -55,22 +59,17 @@ Types:
 Upgrades:
     Button upgrade[DONE] -If ghostSlot doesn't work, add buttons for shift-clicking-like feature for alt gui upgrades
     Nesting upgrade[DONE] - lower tier goes in higher tier
-    Renaming upgrade{ALT GUI}[DONE?] - rename the backpack, included by default -change background color of text box to light brown (see anvil) + redo button to say "rename"
+    Renaming upgrade{ALT GUI}[DONE] - rename the backpack, included by default -change background color of text box to light brown (see anvil) + redo button to say "rename"
     Hopper upgrade{ALT GUI}[DONE] - keeps an item stocked - needs to have at least 1 of target item in player's inventory to resupply
     Condenser upgrade{ALT GUI}[DONE] - compresses items
     Filter upgrade{ALT GUI}[DONE] - automatically picks up specified items - Button to alter fuzzy behavior?
-    Inventory upgrade? - extends inventory (probably only will be used in final tier)
     Quick deposit[DONE] - Clicking on inventory (chest) with backpack empties backpack into inventory
-    Camelpack upgrade - eat from it
-    Umbrella upgrade - slow fall
     KeepOnDeath upgrade[DONE] - really expensive but keep backpack on death
     UpgradeAddon upgrade[DONE] - adds more upgrade points
     Ender Upgrade - links this backpack to your ender chest
-    Ticking upgrade - allows the backpack to tick, repairing TiCon toolss
     Mod Specific Filter upgrade[DONE] - makes it so that the filter upgrade will pick up any item from mod x, where x is the mod that an item in the filter slot is from.
 
 Textures:
-    Change "name" button to "rename" - background as button w/ overlayed localized name?
 
     Redo:
 
@@ -80,8 +79,6 @@ Textures:
 
 Misc features:
     Recipes via config - support meta/damage values
-    Add tiers to upgrades (so you need at least tier x of backpack to apply upgrade y)
-    Add nests to world-gen
 
 Mod Support:
     NEI with recipes[DONE]
@@ -96,5 +93,4 @@ Future Refactoring:
         Includes tooltips
         Buttons (if applicable)
 
-    Changes Networking to use bytes if possible
 

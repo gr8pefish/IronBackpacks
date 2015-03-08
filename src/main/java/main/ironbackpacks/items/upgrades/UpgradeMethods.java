@@ -45,6 +45,17 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
+    public static boolean hasNestingAdvancedUpgrade(int[] upgrades){
+        boolean hasUpgrade = false;
+        for (int upgrade: upgrades){
+            if (upgrade == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID){
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
     public static boolean hasRenamingUpgrade(int[] upgrades){
         boolean hasUpgrade = false;
         if (!ConfigHandler.renamingUpgradeRequired){
