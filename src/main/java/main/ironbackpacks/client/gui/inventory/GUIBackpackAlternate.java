@@ -220,14 +220,14 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
 
         if (hasFilterBasicUpgrade) {
             if (hasButtonUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, xStart, yStartButton, 11, 11, TooltipButton.CLEAR_ROW, true, "", "Clears the basic filter items."));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, xStart, yStartButton, 11, 11, TooltipButton.CLEAR_ROW, true, "", "Clears the basic","filter items."));
                 rowIndex++;
             }
             yStartButton += 36;
         }
         if (hasFilterFuzzyUpgrade) {
             if (hasButtonUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, xStart, yStartButton, 11, 11, TooltipButton.CLEAR_ROW, true, "", "Clears the fuzzy filter items."));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, xStart, yStartButton, 11, 11, TooltipButton.CLEAR_ROW, true, "", "Clears the fuzzy","filter items."));
                 rowIndex++;
             }
             yStartButton += 36;
@@ -281,7 +281,7 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
                 }
             }
             if (hasButtonUpgrade){
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, xStart, yStartButton, 11,11, TooltipButton.CLEAR_ROW, true, "", "Resets the advanced filter."));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, xStart, yStartButton, 11,11, TooltipButton.CLEAR_ROW, true, "", "Resets the advanced","filter (clears items","and button filters)."));
                 rowIndex++;
             }
             yStartButton += 36;
@@ -299,9 +299,9 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             }
         }
 
-        for (int i = 0; i < rowIndex; i++){
-            if (rowIndeces[rowIndex] != null) {
-                tooltipButtons.add(rowIndeces[rowIndex]);
+        for (int i = 0; i <= rowIndex; i++){
+            if (rowIndeces[i] != null) {
+                tooltipButtons.add(rowIndeces[i]);
             }
         }
     }
@@ -414,19 +414,6 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
             NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(3));
             drawButtons();
         }
-//        }else if (buttonList.size() > 1 && button == buttonList.get(1)){
-//            container.removeSlotsInRow(1);
-//            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(1));
-////            drawButtons();
-//        }else if (buttonList.size() > 2 && button == buttonList.get(2)){
-//            container.removeSlotsInRow(2);
-//            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(2));
-////            drawButtons();
-//        }else if (buttonList.size() > 3 && button == buttonList.get(3)) {
-//            container.removeSlotsInRow(3);
-//            NetworkingHandler.network.sendToServer(new ButtonUpgradeMessage(3));
-////            drawButtons();
-//        }
     }
 
     @Override

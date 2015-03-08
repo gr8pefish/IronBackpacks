@@ -5,8 +5,6 @@ To Do:
         scroll mouse wheel in slots to move (addition to the buttons)?
 
         BUGS:
-            broke clear buttons - clears odd rows sometimes, also no tooltip
-
             refactor 2 numbers from one number
                 refactor all of messages
 

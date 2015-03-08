@@ -167,7 +167,8 @@ public class ContainerAlternateGui extends Container {
 
     public void removeSlotsInRow(int row){ //for the button upgrade
         System.out.println("Clearing row: "+row);
-        if (row == filterAdvSlotIdStart/9){ //TODO: not working right (ex: row 1 clears row 2 adv.)
+        System.out.println(filterAdvSlotIdStart);
+        if (row == (filterAdvSlotIdStart/9)+1){ //TODO: not working right (ex: row 1 clears row 2 adv.)
             Arrays.fill(inventory.advFilterStacks, null);
             Arrays.fill(inventory.advFilterButtonStates, (byte)TooltipButton.EXACT);
             initFilterSlots();
