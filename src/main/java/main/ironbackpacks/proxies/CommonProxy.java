@@ -58,6 +58,8 @@ public class CommonProxy {
                 player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
         }else{
             rootPersistentCompound.removeTag(currBackpack);
+            if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
+                player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
         }
 
     }

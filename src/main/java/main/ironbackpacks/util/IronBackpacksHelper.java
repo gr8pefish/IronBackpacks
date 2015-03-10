@@ -24,7 +24,7 @@ public class IronBackpacksHelper {
 
         ItemStack proxyPack = CommonProxy.getCurrBackpack(player);
         if (proxyPack != null){
-//            System.out.println("Found proxy pack 2");
+            System.out.println("Found proxy pack: "+proxyPack);
             return proxyPack;
         }
 
@@ -44,6 +44,7 @@ public class IronBackpacksHelper {
             NBTHelper.setUUID(backpack);
         }
 
+        System.out.println("Found other pack: "+backpack);
         return backpack;
     }
 

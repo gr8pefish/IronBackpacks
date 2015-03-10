@@ -16,6 +16,7 @@ public class NetworkingHandler {
         registerMessage(RenameMessage.Handler.class, RenameMessage.class, Side.SERVER);
         registerMessage(AdvFilterTypesMessage.Handler.class, AdvFilterTypesMessage.class, Side.SERVER);
         registerMessage(SingleByteMessage.Handler.class, SingleByteMessage.class, Side.SERVER);
+        registerMessage(UpdateBackpackMessage.Handler.class, UpdateBackpackMessage.class, Side.SERVER);
     }
 
     private static int nextPacketId = 0;

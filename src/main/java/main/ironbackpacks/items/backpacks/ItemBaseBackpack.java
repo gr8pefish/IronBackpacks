@@ -5,6 +5,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
+import main.ironbackpacks.network.NetworkingHandler;
+import main.ironbackpacks.network.UpdateBackpackMessage;
+import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
@@ -102,9 +105,12 @@ public class ItemBaseBackpack extends ItemBase {
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (world.isRemote){ //client side
+//            NetworkingHandler.network.sendToServer(new UpdateBackpackMessage(itemStack)); //TODO: try with this line?
             return itemStack;
         }else {
             NBTHelper.setUUID(itemStack);
+//            NetworkingHandler.network.sendToServer(new UpdateBackpackMessage(stack));
+            CommonProxy.updateCurrBackpack(player, itemStack);
             if (!player.isSneaking()) {
                 player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ);
                 return itemStack;
