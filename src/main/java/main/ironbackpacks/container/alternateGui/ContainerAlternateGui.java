@@ -181,19 +181,17 @@ public class ContainerAlternateGui extends Container {
 
         saveSlots();
 
-        switch (side){
-            case IronBackpacksConstants.Miscellaneous.MOVE_LEFT:
-                if (inventory.advFilterButtonStartPoint == 0)
-                    inventory.advFilterButtonStartPoint = 17;
-                else
-                    inventory.advFilterButtonStartPoint--;
-                break;
-            case IronBackpacksConstants.Miscellaneous.MOVE_RIGHT:
-                if (inventory.advFilterButtonStartPoint == 17)
-                    inventory.advFilterButtonStartPoint = 0;
-                else
-                    inventory.advFilterButtonStartPoint++;
-                break;
+        if (side.equals(IronBackpacksConstants.Miscellaneous.MOVE_LEFT)) {
+            if (inventory.advFilterButtonStartPoint == 0)
+                inventory.advFilterButtonStartPoint = 17;
+            else
+                inventory.advFilterButtonStartPoint--;
+        }
+        else if (side.equals(IronBackpacksConstants.Miscellaneous.MOVE_RIGHT)) {
+            if (inventory.advFilterButtonStartPoint == 17)
+                inventory.advFilterButtonStartPoint = 0;
+            else
+                inventory.advFilterButtonStartPoint++;
         }
 
         initFilterSlots();

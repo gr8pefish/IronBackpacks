@@ -81,13 +81,13 @@ jar {
 //}
 
 // because the normal output has been made to be obfuscated
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
-}
+//task deobfJar(type: Jar) {
+//    from sourceSets.main.output
+//    classifier = 'deobf'
+//}
 
 //tasks.build.dependsOn sourceJar, javadocJar, deobfJar
-tasks.build.dependsOn deobfJar
+//tasks.build.dependsOn deobfJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
