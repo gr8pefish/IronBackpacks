@@ -22,11 +22,11 @@ public class IronBackpacksHelper {
     public static ItemStack getBackpack(EntityPlayer player) {
         ItemStack backpack = null;
 
-        ItemStack proxyPack = CommonProxy.getCurrBackpack(player);
-        if (proxyPack != null){
-            System.out.println("Found proxy pack: "+proxyPack);
-            return proxyPack;
-        }
+//        ItemStack proxyPack = CommonProxy.getCurrBackpack(player);
+//        if (proxyPack != null){
+////            System.out.println("Found proxy pack: "+proxyPack);
+//            return proxyPack;
+//        }
 
         if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
             backpack = player.getHeldItem();
@@ -44,7 +44,7 @@ public class IronBackpacksHelper {
             NBTHelper.setUUID(backpack);
         }
 
-        System.out.println("Found other pack: "+backpack);
+//        System.out.println("Found other pack: "+backpack);
         return backpack;
     }
 

@@ -60,7 +60,7 @@ public class ContainerBackpack extends Container {
     protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize, IronBackpackType type){
 
         //adds chest's slots\
-        System.out.println("laying out container");
+//        System.out.println("laying out container");
         ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player);
         int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(baseBackpack);
 
@@ -153,10 +153,15 @@ public class ContainerBackpack extends Container {
     public void onContainerClosed(EntityPlayer player) {
         super.onContainerClosed(player);
 
+//        System.out.println("closing container");
+
         if (!player.worldObj.isRemote) {
+//            System.out.println("closing container SERVER");
             this.inventory.onGuiSaved(player);
 //            CommonProxy.updateCurrBackpack(player, null); //not properly clearing out
         }
+//        else System.out.println("closing container CLIENT");
+
 
 //        System.out.println("clearing curr backpack");
 //        CommonProxy.updateCurrBackpack(player, null);
@@ -169,18 +174,18 @@ public class ContainerBackpack extends Container {
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack() == player.getHeldItem() && button == 0) {
             return null;
         }else if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack && button == 1){ //right click a backpack
-            ItemStack stack = getSlot(slot).getStack();
-            ItemBaseBackpack backpack = (ItemBaseBackpack) stack.getItem();
-            if (player.worldObj.isRemote) {
-                //send message to server
+//            ItemStack stack = getSlot(slot).getStack();
+//            ItemBaseBackpack backpack = (ItemBaseBackpack) stack.getItem();
+//            if (player.worldObj.isRemote) {
+//                //send message to server
 //                NetworkingHandler.network.sendToServer(new UpdateBackpackMessage(stack));
-
-//                CommonProxy.updateCurrBackpack(player, stack); //TODO: still doesn't quite load correctly
-//                FMLNetworkHandler.openGui(player, IronBackpacks.instance, backpack.getGuiId(), player.worldObj, 0, 0, 0);
-//                CommonProxy.updateCurrBackpack(player, stack); //Test with this line?
-            }
-            backpack.onItemRightClick(stack, player.worldObj, player);
-            return null;
+//
+////                CommonProxy.updateCurrBackpack(player, stack); //TODO: still doesn't quite load correctly
+////                FMLNetworkHandler.openGui(player, IronBackpacks.instance, backpack.getGuiId(), player.worldObj, 0, 0, 0);
+////                CommonProxy.updateCurrBackpack(player, stack); //Test with this line?
+//            }
+//            backpack.onItemRightClick(stack, player.worldObj, player);
+//            return null;
         }
         return super.slotClick(slot, button, flag, player);
     }

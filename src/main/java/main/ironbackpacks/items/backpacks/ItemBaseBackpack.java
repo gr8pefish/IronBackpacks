@@ -106,6 +106,8 @@ public class ItemBaseBackpack extends ItemBase {
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (world.isRemote){ //client side
 //            NetworkingHandler.network.sendToServer(new UpdateBackpackMessage(itemStack)); //TODO: try with this line?
+            //TODO: check that the client side is getting the right player (EntityPlayer, not EntityPlayerMP) so it retrieves the correct backpack
+            CommonProxy.updateCurrBackpack(player, itemStack);
             return itemStack;
         }else {
             NBTHelper.setUUID(itemStack);

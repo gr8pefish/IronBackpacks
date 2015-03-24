@@ -73,7 +73,7 @@ public class GUIBackpack extends GuiContainer {
         }
 
         protected Container makeContainer(EntityPlayer player, InventoryBackpack backpack) {
-            System.out.println("gui's container");
+//            System.out.println("gui's container");
             return new ContainerBackpack(player, backpack, mainType, xSize, ySize);
         }
 
@@ -99,7 +99,7 @@ public class GUIBackpack extends GuiContainer {
 
     private GUIBackpack(GUI type, EntityPlayer player, InventoryBackpack backpack, int[] upgrades) {
         super(type.makeContainer(player, backpack));
-        System.out.println("making container field in gui");
+//        System.out.println("making container field in gui");
         this.container = (ContainerBackpack) type.makeContainer(player, backpack);
         this.type = type;
         this.player = player;
@@ -152,8 +152,8 @@ public class GUIBackpack extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-//        ItemStack itemStack = IronBackpacksHelper.getBackpack(this.player);
-//        this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
+        ItemStack itemStack = IronBackpacksHelper.getBackpack(this.player);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
         this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
         int k = (this.width - this.xSize) / 2; //X axis on GUI

@@ -134,7 +134,7 @@ public class InventoryBackpack implements IInventory {
     //credit to sapient for a lot of this saving code
     public void onGuiSaved(EntityPlayer entityPlayer){
         if (stack != null){
-            System.out.println("saving "+stack);
+//            System.out.println("saving "+stack);
             save();
         }
     }

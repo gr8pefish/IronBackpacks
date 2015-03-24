@@ -4,13 +4,17 @@ To Do:
         Add in option where right clicking a backpack item in an inventory opens gui of said backpack
             Not working :(
 
-        Test quick deposit upgrade more (just to make sure)
+        When rename button clicked clear text field
 
     LATER:
         Ender Chest upgrade
 
         Render on backpack
             hotkeys
+
+        Power/Fluid/Gas Upgrades
+
+        Craft any backpack surrounded by planks to turn it into a placeable custom chest/tileEntity and then shapeless craft the chest to get the backpack back
 
 
 
@@ -21,6 +25,9 @@ Changelog:
     Added Advanced Nesting Upgrade
     Added support for version checker
         Add special section for compatibility in MCF posting
+
+    FIXED sorting combining items it shouldn't
+    FIXED backpack to inventory button not moving all items
 
     Changed a lot of default config recipes
     Changed how eternity upgrade works internally
