@@ -20,31 +20,18 @@ To Do:
 
 Changelog:
 
-    Added Quick Deposit upgrade
-    Added Advanced Filter Upgrade
-    Added Advanced Nesting Upgrade
-    Added support for version checker
-        Add special section for compatibility in MCF posting
-
-    FIXED sorting combining items it shouldn't
-    FIXED backpack to inventory button not moving all items
-
-    Changed a lot of default config recipes
-    Changed how eternity upgrade works internally
-    Changed how buttons work internally
-    Changed how messages work internally
-    ...
 
 MCF Posting:
-    Upload default recipe screenshots
+
 
 Balance/Play With:
-    Fancier config file
+
 
 Bugs:
     IMPORTANT:
 
     Less important:
+        Fix direct deposit into AE terminals
 
 Figure out:
     How to render a backpack on your back
@@ -58,11 +45,6 @@ Tiers:
     Gold[DONE]
     Diamond[DONE]
 
-Types:
-    Item
-    Barrel
-    Fluid - acts like bucket when right click
-
 Upgrades:
     Button upgrade[DONE] -If ghostSlot doesn't work, add buttons for shift-clicking-like feature for alt gui upgrades
     Nesting upgrade[DONE] - lower tier goes in higher tier
@@ -73,8 +55,8 @@ Upgrades:
     Quick deposit[DONE] - Clicking on inventory (chest) with backpack empties backpack into inventory
     KeepOnDeath upgrade[DONE] - really expensive but keep backpack on death
     UpgradeAddon upgrade[DONE] - adds more upgrade points
-    Ender Upgrade - links this backpack to your ender chest
     Mod Specific Filter upgrade[DONE] - makes it so that the filter upgrade will pick up any item from mod x, where x is the mod that an item in the filter slot is from.
+    Ender Upgrade - links this backpack to your ender chest
 
 Textures:
 

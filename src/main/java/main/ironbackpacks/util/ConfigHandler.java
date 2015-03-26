@@ -113,6 +113,7 @@ public class ConfigHandler {
     public static int tooltipDelay;
     public static int additionalUpgradesLimit;
     public static int additionalUpgradesIncrease;
+    public static boolean useAlternateHDBackpackTextures;
 
     //========================init====================================
 
@@ -258,6 +259,7 @@ public class ConfigHandler {
         additionalUpgradesLimit = config.get("7) Miscellaneous", "3) Additional Upgrades Limit", 0, "The maximum number of times you can apply the 'additional upgrade slots' upgrade. This number represents the starting number (for the basic backpack), each backpack tier increments this number by one. " +
                 "Negative numbers are allowed (ex: -1 will allow none on basic or iron backpacks, once on gold backpacks, and twice on diamond). Default is 0.").getInt();
         additionalUpgradesIncrease = config.get("7) Miscellaneous", "4) Additional Upgrades Increase", 2, "The amount of extra upgrade points the 'additional upgrade slots' upgrade will apply. Default is 2.").getInt();
+        useAlternateHDBackpackTextures = config.get("7) Miscellaneous", "5) Alternate Backpack Textures", false, "Use alternate, HD textures for the backpacks. Default is false.").getBoolean();
 
         config.save(); //Don't forget to save
     }
