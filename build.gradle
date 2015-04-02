@@ -19,7 +19,7 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-version = config.mc_version + "-" + config.mod_version + "-" + config.build_number
+version = config.mc_version + "-" + config.mod_version //+ "-" + config.build_number
 group= config.package_group
 archivesBaseName = config.mod_name
 
