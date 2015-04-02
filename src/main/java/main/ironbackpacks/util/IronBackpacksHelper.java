@@ -1,7 +1,6 @@
 package main.ironbackpacks.util;
 
 
-import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.proxies.CommonProxy;
@@ -18,24 +17,22 @@ public class IronBackpacksHelper {
 
     //Helper methods used throughout the mod
 
-    //credit to sapient
     public static ItemStack getBackpack(EntityPlayer player) {
         ItemStack backpack = null;
 
-//        ItemStack proxyPack = CommonProxy.getCurrBackpack(player);
-//        if (proxyPack != null){
-////            System.out.println("Found proxy pack: "+proxyPack);
-//            return proxyPack;
-//        }
+        ItemStack proxyPack = CommonProxy.getCurrBackpack(player);
+        if (proxyPack != null){
+            backpack = proxyPack;
+        }else { //TODO: add in check here for equipped backpack once applicable
+            if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
+                backpack = player.getHeldItem();
+            } else {
+                for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+                    ItemStack stack = player.inventory.getStackInSlot(i);
 
-        if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
-            backpack = player.getHeldItem();
-        }else {
-            for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-                ItemStack stack = player.inventory.getStackInSlot(i);
-
-                if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
-                    backpack = player.inventory.getStackInSlot(i);
+                    if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
+                        backpack = player.inventory.getStackInSlot(i);
+                    }
                 }
             }
         }
@@ -44,7 +41,27 @@ public class IronBackpacksHelper {
             NBTHelper.setUUID(backpack);
         }
 
-//        System.out.println("Found other pack: "+backpack);
+        return backpack;
+    }
+
+    //credit to sapient
+    public static ItemStack getBackpackFromPlayersInventory(EntityPlayer player){
+        ItemStack backpack = null;
+        if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
+            backpack = player.getHeldItem();
+        } else {
+            for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+                ItemStack stack = player.inventory.getStackInSlot(i);
+
+                if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
+                    backpack = player.inventory.getStackInSlot(i);
+                }
+            }
+        }
+        if (!player.worldObj.isRemote && backpack != null) {
+            NBTHelper.setUUID(backpack);
+        }
+
         return backpack;
     }
 

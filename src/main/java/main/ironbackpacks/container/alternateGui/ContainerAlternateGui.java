@@ -13,7 +13,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 //@ChestContainer
@@ -25,6 +24,7 @@ public class ContainerAlternateGui extends Container {
     public InventoryAlternateGui inventory;
     public int xSize = 0;
     public int ySize = 0;
+    private ItemStack stack;
 
     private int filterAdvSlotIdStart;
     private int[] upgrades;
@@ -34,8 +34,9 @@ public class ContainerAlternateGui extends Container {
         this.inventory = inventoryAlternateGui;
         this.xSize = xSize;
         this.ySize = ySize;
+        this.stack = IronBackpacksHelper.getBackpack(player);
+        this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
 
-        this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(IronBackpacksHelper.getBackpack(player));
 
         layoutContainer(entityPlayer.inventory, inventoryAlternateGui, xSize, ySize);
         if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades))
@@ -45,8 +46,8 @@ public class ContainerAlternateGui extends Container {
     public ContainerAlternateGui(EntityPlayer entityPlayer, InventoryAlternateGui inventoryAlternateGui){
         this.player = entityPlayer;
         this.inventory = inventoryAlternateGui;
-
-        this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(IronBackpacksHelper.getBackpack(player));
+        this.stack = IronBackpacksHelper.getBackpack(player);
+        this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
 
         layoutContainer(entityPlayer.inventory, inventoryAlternateGui, xSize, ySize);
         if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades))
@@ -144,8 +145,9 @@ public class ContainerAlternateGui extends Container {
     public EntityPlayer getPlayer() { return player; }
 
     public void renameBackpack(String toName){
-        ItemStack itemStack = IronBackpacksHelper.getBackpack(this.player);
-        itemStack.setStackDisplayName(toName);
+        ItemStack itemStack = IronBackpacksHelper.getBackpackFromPlayersInventory(this.player);
+        stack.setStackDisplayName(toName); //client
+        itemStack.setStackDisplayName(toName); //server (not really, but this way works...)
     }
 
     @ChestContainer.RowSizeCallback //Inventory tweaks

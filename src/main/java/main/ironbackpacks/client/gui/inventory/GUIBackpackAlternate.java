@@ -1,6 +1,5 @@
 package main.ironbackpacks.client.gui.inventory;
 
-import cpw.mods.fml.client.config.GuiUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.ModInformation;
@@ -18,7 +17,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -358,8 +356,13 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button == renameButton) {
-            container.renameBackpack(textField.getText());
-            NetworkingHandler.network.sendToServer(new RenameMessage(textField.getText()));
+            System.out.println("testing123");
+            String textToChangeTo = textField.getText();
+            if (textToChangeTo.length() > 0) {
+                container.renameBackpack(textField.getText());
+                NetworkingHandler.network.sendToServer(new RenameMessage(textField.getText()));
+                textField.setText("");
+            }
         }else if(button == moveLeft) {
             container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
             NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_LEFT));

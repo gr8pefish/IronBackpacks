@@ -3,13 +3,10 @@ package main.ironbackpacks.proxies;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.util.Constants;
 
 public class CommonProxy {
@@ -51,7 +48,6 @@ public class CommonProxy {
     }
 
     public static void updateCurrBackpack(EntityPlayer player, ItemStack stack){
-//        System.out.println("player side: "+player.worldObj);
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
         if (stack != null) {
             NBTTagCompound tagCompound = new NBTTagCompound();
@@ -69,17 +65,9 @@ public class CommonProxy {
     }
 
     public static ItemStack getCurrBackpack(EntityPlayer player){
-//        MinecraftServer.getServer().getConfigurationManager().readPlayerDataFromFile(player);
-//
-//        player.getUniqueID()
-//        System.out.println("CLIENT PLAYER? : " + player.worldObj.isRemote);
-//        System.out.println(player);
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
         if (rootPersistentCompound != null && rootPersistentCompound.hasKey(currBackpack)){
-            ItemStack toReturn = ItemStack.loadItemStackFromNBT(rootPersistentCompound.getCompoundTag(currBackpack));
-//            rootPersistentCompound.removeTag(currBackpack);
-//            System.out.println("FOUND proxy pack");
-            return toReturn;
+            return ItemStack.loadItemStackFromNBT(rootPersistentCompound.getCompoundTag(currBackpack));
         }
         return null;
     }

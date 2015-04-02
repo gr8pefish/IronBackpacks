@@ -134,7 +134,6 @@ public class InventoryBackpack implements IInventory {
     //credit to sapient for a lot of this saving code
     public void onGuiSaved(EntityPlayer entityPlayer){
         if (stack != null){
-//            System.out.println("saving "+stack);
             save();
         }
     }
@@ -173,20 +172,23 @@ public class InventoryBackpack implements IInventory {
     }
 
     public void readFromNBT(NBTTagCompound nbtTagCompound){
-        stack = findParentItemStack(player);
-        if (stack != null) {
-            nbtTagCompound = stack.getTagCompound();
+        if (!player.worldObj.isRemote) {
+            ItemStack tempStack = findParentItemStack(player);
+            stack = (tempStack == null) ? stack : tempStack;
+            if (stack != null) {
+                nbtTagCompound = stack.getTagCompound();
 
-            if (nbtTagCompound != null){
-                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ITEMS)) {
-                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.ITEMS, Constants.NBT.TAG_COMPOUND);
-                    this.inventory = new ItemStack[this.getSizeInventory()];
+                if (nbtTagCompound != null) {
+                    if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ITEMS)) {
+                        NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.ITEMS, Constants.NBT.TAG_COMPOUND);
+                        this.inventory = new ItemStack[this.getSizeInventory()];
 
-                    for (int i = 0; i < tagList.tagCount(); i++) {
-                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
-                        if (i >= 0 && i <= inventory.length) {
-                            this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                        for (int i = 0; i < tagList.tagCount(); i++) {
+                            NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                            int j = stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
+                            if (i >= 0 && i <= inventory.length) {
+                                this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                            }
                         }
                     }
                 }
@@ -195,19 +197,24 @@ public class InventoryBackpack implements IInventory {
     }
 
     public void writeToNBT(NBTTagCompound nbtTagCompound){
-        nbtTagCompound = findParentItemStack(player).getTagCompound();
+        if (!player.worldObj.isRemote) {
+            ItemStack tempStack = findParentItemStack(player);
+            ItemStack stackToUse = (tempStack == null) ? stack : tempStack;
 
-        // Write the ItemStacks in the inventory to NBT
-        NBTTagList tagList = new NBTTagList();
-        for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i] != null) {
-                NBTTagCompound tagCompound = new NBTTagCompound();
-                tagCompound.setByte(IronBackpacksConstants.NBTKeys.SLOT, (byte) i);
-                inventory[i].writeToNBT(tagCompound);
-                tagList.appendTag(tagCompound);
+            nbtTagCompound = stackToUse.getTagCompound();
+
+            // Write the ItemStacks in the inventory to NBT
+            NBTTagList tagList = new NBTTagList();
+            for (int i = 0; i < inventory.length; i++) {
+                if (inventory[i] != null) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    tagCompound.setByte(IronBackpacksConstants.NBTKeys.SLOT, (byte) i);
+                    inventory[i].writeToNBT(tagCompound);
+                    tagList.appendTag(tagCompound);
+                }
             }
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ITEMS, tagList);
         }
-        nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ITEMS, tagList);
     }
 
 

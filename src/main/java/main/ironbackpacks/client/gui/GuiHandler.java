@@ -25,7 +25,7 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerBackpack(player, new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player), type), type);
         }else if (ID < 0){ //alternate gui
             IronBackpackType type = IronBackpackType.values()[Math.abs(ID + 1)];
-            return new ContainerAlternateGui(player, new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player), type));//, type);
+            return new ContainerAlternateGui(player, new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player), type));
         }
         return null;
 	}
@@ -34,9 +34,9 @@ public class GuiHandler implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID >= 0) { //normal gui
 //            System.out.println("CLIENT PACK");
-            ItemStack backpack = IronBackpacksHelper.getBackpack(player);
+            ItemStack backpack = IronBackpacksHelper.getBackpack(player); //need it from server side
             int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
-            return GUIBackpack.GUI.buildGUI(player, new InventoryBackpack(player, backpack, IronBackpackType.values()[ID]), upgrades);
+            return GUIBackpack.GUI.buildGUI(player, new InventoryBackpack(player, backpack, IronBackpackType.values()[ID]), upgrades, backpack);
         }else if (ID < 0){ //alternate gui
             ItemStack backpack = IronBackpacksHelper.getBackpack(player);
             int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
