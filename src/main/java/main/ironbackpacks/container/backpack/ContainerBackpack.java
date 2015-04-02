@@ -173,9 +173,15 @@ public class ContainerBackpack extends Container {
     // this will prevent the player from interacting with the item that opened the inventory:
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack() == player.getHeldItem() && button == 0) {
             return null;
-        }else if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack && button == 1){ //right click a backpack
-//            ItemStack stack = getSlot(slot).getStack();
+        }else if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack){ //right click a backpack
+
+            ItemStack stack = getSlot(slot).getStack();
 //            ItemBaseBackpack backpack = (ItemBaseBackpack) stack.getItem();
+//            CommonProxy.updateCurrBackpack(player, stack);
+            stack.useItemRightClick(player.worldObj, player);
+//            backpack.onItemRightClick(stack, player.worldObj, player);
+            return null;
+
 //            if (player.worldObj.isRemote) {
 //                //send message to server
 //                NetworkingHandler.network.sendToServer(new UpdateBackpackMessage(stack));
@@ -233,7 +239,7 @@ public class ContainerBackpack extends Container {
         }
     }
 
-    private void mergeStacks(){ //TODO: make not override w/NBT
+    private void mergeStacks(){
         for (int i = 0; i < type.getSize(); i++){
             Slot tempSlot = (Slot) inventorySlots.get(i);
             if (tempSlot!= null && tempSlot.getHasStack()){

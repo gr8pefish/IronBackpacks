@@ -86,6 +86,7 @@ public class GUIBackpack extends GuiContainer {
     private GUI type;
     private ContainerBackpack container;
     private EntityPlayer player;
+    private ItemStack itemStack;
 
     private TooltipButton backpack_to_inventory_BUTTON;
     private TooltipButton inventory_to_backpack_BUTTON;
@@ -107,6 +108,7 @@ public class GUIBackpack extends GuiContainer {
         this.ySize = type.ySize;
         this.allowUserInput = false;
         this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(upgrades);
+        this.itemStack = IronBackpacksHelper.getBackpack(this.player);
         tooltipButtons = new ArrayList<TooltipButton>();
     }
 
@@ -152,7 +154,6 @@ public class GUIBackpack extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        ItemStack itemStack = IronBackpacksHelper.getBackpack(this.player);
         this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
         this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
 

@@ -358,8 +358,13 @@ public class GUIBackpackAlternate extends GuiContainer { //extend GuiScreen?
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button == renameButton) {
-            container.renameBackpack(textField.getText());
-            NetworkingHandler.network.sendToServer(new RenameMessage(textField.getText()));
+            System.out.println("testing123");
+            String textToChangeTo = textField.getText();
+            if (textToChangeTo.length() > 0) {
+                container.renameBackpack(textField.getText());
+                NetworkingHandler.network.sendToServer(new RenameMessage(textField.getText()));
+                textField.setText("");
+            }
         }else if(button == moveLeft) {
             container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
             NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.MOVE_LEFT));

@@ -172,8 +172,27 @@ public class InventoryBackpack implements IInventory {
         return null;
     }
 
+    private ItemStack findParentStackInBackpack(EntityPlayer entityPlayer){
+        if (NBTHelper.hasUUID(stack)){
+            UUID parentUUID = new UUID(stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
+
+            for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++){
+                ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
+
+                if (itemStack != null && itemStack.getItem() instanceof ItemBaseBackpack && NBTHelper.hasUUID(itemStack)){
+                    if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
+                        return itemStack;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public void readFromNBT(NBTTagCompound nbtTagCompound){
-        stack = findParentItemStack(player);
+        ItemStack tempStack = findParentItemStack(player);
+        stack = (tempStack == null) ? stack : tempStack;
+//        stack = findParentItemStack(player);
         if (stack != null) {
             nbtTagCompound = stack.getTagCompound();
 
@@ -195,7 +214,10 @@ public class InventoryBackpack implements IInventory {
     }
 
     public void writeToNBT(NBTTagCompound nbtTagCompound){
-        nbtTagCompound = findParentItemStack(player).getTagCompound();
+        ItemStack tempStack = findParentItemStack(player);
+        ItemStack stackToUse = (tempStack == null) ? stack : tempStack; //called from client somewhere? one null instance
+
+        nbtTagCompound = stackToUse.getTagCompound();
 
         // Write the ItemStacks in the inventory to NBT
         NBTTagList tagList = new NBTTagList();

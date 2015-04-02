@@ -1,10 +1,7 @@
 To Do:
 
     SOON:
-        Add in option where right clicking a backpack item in an inventory opens gui of said backpack
-            Not working :(
 
-        When rename button clicked clear text field
 
     LATER:
         Ender Chest upgrade
@@ -19,7 +16,8 @@ To Do:
 
 
 Changelog:
-
+ADDED: The ability to right click any backpack in another backpack's GUI to open the nested/other backpack's inventory directly.
+FIXED: Rename now clears the text field after it is clicked.
 
 MCF Posting:
 
