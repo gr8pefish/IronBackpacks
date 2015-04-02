@@ -13,7 +13,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 //@ChestContainer
@@ -146,11 +145,9 @@ public class ContainerAlternateGui extends Container {
     public EntityPlayer getPlayer() { return player; }
 
     public void renameBackpack(String toName){
-        System.out.println("testing234 in "+(player.worldObj.isRemote ? "CLIENT" : "SERVER"));
         ItemStack itemStack = IronBackpacksHelper.getBackpackFromPlayersInventory(this.player);
-        System.out.println("setting name to "+toName);
-        stack.setStackDisplayName(toName);
-        itemStack.setStackDisplayName(toName);
+        stack.setStackDisplayName(toName); //client
+        itemStack.setStackDisplayName(toName); //server (not really, but this way works...)
     }
 
     @ChestContainer.RowSizeCallback //Inventory tweaks

@@ -14,8 +14,6 @@ import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.util.ArrayList;
-
 public class BackpackUpgradeRecipe extends ShapelessOreRecipe { //TODO: refactor
 
     /** Is the ItemStack that you get when craft the recipe. */

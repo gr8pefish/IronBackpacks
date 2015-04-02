@@ -1,7 +1,6 @@
 package main.ironbackpacks.util;
 
 
-import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.proxies.CommonProxy;
@@ -18,13 +17,11 @@ public class IronBackpacksHelper {
 
     //Helper methods used throughout the mod
 
-    //credit to sapient
     public static ItemStack getBackpack(EntityPlayer player) {
         ItemStack backpack = null;
 
-        ItemStack proxyPack = CommonProxy.getCurrBackpack(player); //TODO: comment out fixes things //TODO: can't just remove getBackpack() calls, something with container.inventory.stack breaks it (check rename)
+        ItemStack proxyPack = CommonProxy.getCurrBackpack(player);
         if (proxyPack != null){
-//            System.out.println("Found proxy pack: "+proxyPack);
             backpack = proxyPack;
         }else { //TODO: add in check here for equipped backpack once applicable
             if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
@@ -44,10 +41,10 @@ public class IronBackpacksHelper {
             NBTHelper.setUUID(backpack);
         }
 
-//        System.out.println("Found other pack: "+backpack);
         return backpack;
     }
 
+    //credit to sapient
     public static ItemStack getBackpackFromPlayersInventory(EntityPlayer player){
         ItemStack backpack = null;
         if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
@@ -65,7 +62,6 @@ public class IronBackpacksHelper {
             NBTHelper.setUUID(backpack);
         }
 
-//        System.out.println("Found other pack: "+backpack);
         return backpack;
     }
 

@@ -11,7 +11,6 @@ import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.SingleByteMessage;
 import main.ironbackpacks.util.ConfigHandler;
-import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -73,13 +72,12 @@ public class GUIBackpack extends GuiContainer {
         }
 
         protected Container makeContainer(EntityPlayer player, InventoryBackpack backpack) {
-//            System.out.println("gui's container");
             return new ContainerBackpack(player, backpack, mainType, xSize, ySize);
         }
 
         //called from GuiHandler
-        public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack, int[] upgrades) {
-            return new GUIBackpack(values()[backpack.getType().ordinal()], player, backpack, upgrades);
+        public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack, int[] upgrades, ItemStack itemStack) {
+            return new GUIBackpack(values()[backpack.getType().ordinal()], player, backpack, upgrades, itemStack);
         }
     }
 
@@ -98,9 +96,8 @@ public class GUIBackpack extends GuiContainer {
     private long prevSystemTime;
     private int hoverTime;
 
-    private GUIBackpack(GUI type, EntityPlayer player, InventoryBackpack backpack, int[] upgrades) {
+    private GUIBackpack(GUI type, EntityPlayer player, InventoryBackpack backpack, int[] upgrades, ItemStack itemStack) {
         super(type.makeContainer(player, backpack));
-//        System.out.println("making container field in gui");
         this.container = (ContainerBackpack) type.makeContainer(player, backpack);
         this.type = type;
         this.player = player;
@@ -108,7 +105,7 @@ public class GUIBackpack extends GuiContainer {
         this.ySize = type.ySize;
         this.allowUserInput = false;
         this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(upgrades);
-        this.itemStack = IronBackpacksHelper.getBackpack(this.player);
+        this.itemStack = itemStack;
         tooltipButtons = new ArrayList<TooltipButton>();
     }
 

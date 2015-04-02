@@ -4,10 +4,10 @@ To Do:
 
 
     LATER:
-        Ender Chest upgrade
-
         Render on backpack
             hotkeys
+
+        Ender Chest upgrade
 
         Power/Fluid/Gas Upgrades
 
@@ -18,6 +18,7 @@ To Do:
 Changelog:
 ADDED: The ability to right click any backpack in another backpack's GUI to open the nested/other backpack's inventory directly.
 FIXED: Rename now clears the text field after it is clicked.
+CHANGED: Default texture is now the HQ backpack sprites.
 
 MCF Posting:
 

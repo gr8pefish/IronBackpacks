@@ -1,22 +1,13 @@
 package main.ironbackpacks.container.backpack;
 
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import cpw.mods.fml.common.network.internal.OpenGuiHandler;
 import invtweaks.api.container.ChestContainer;
-import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.client.gui.inventory.GUIBackpack;
 import main.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.network.NetworkingHandler;
-import main.ironbackpacks.network.UpdateBackpackMessage;
-import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.IronBackpacksHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -59,8 +50,7 @@ public class ContainerBackpack extends Container {
     //credit to cpw for basic layout of adding backpack's slots
     protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize, IronBackpackType type){
 
-        //adds chest's slots\
-//        System.out.println("laying out container");
+        //adds chest's slots
         ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player);
         int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(baseBackpack);
 
@@ -153,18 +143,8 @@ public class ContainerBackpack extends Container {
     public void onContainerClosed(EntityPlayer player) {
         super.onContainerClosed(player);
 
-//        System.out.println("closing container");
-
-        if (!player.worldObj.isRemote) {
-//            System.out.println("closing container SERVER");
+        if (!player.worldObj.isRemote)
             this.inventory.onGuiSaved(player);
-//            CommonProxy.updateCurrBackpack(player, null); //not properly clearing out
-        }
-//        else System.out.println("closing container CLIENT");
-
-
-//        System.out.println("clearing curr backpack");
-//        CommonProxy.updateCurrBackpack(player, null);
 
     }
 
@@ -174,24 +154,9 @@ public class ContainerBackpack extends Container {
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack() == player.getHeldItem() && button == 0) {
             return null;
         }else if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack){ //right click a backpack
-
             ItemStack stack = getSlot(slot).getStack();
-//            ItemBaseBackpack backpack = (ItemBaseBackpack) stack.getItem();
-//            CommonProxy.updateCurrBackpack(player, stack);
             stack.useItemRightClick(player.worldObj, player);
-//            backpack.onItemRightClick(stack, player.worldObj, player);
             return null;
-
-//            if (player.worldObj.isRemote) {
-//                //send message to server
-//                NetworkingHandler.network.sendToServer(new UpdateBackpackMessage(stack));
-//
-////                CommonProxy.updateCurrBackpack(player, stack); //TODO: still doesn't quite load correctly
-////                FMLNetworkHandler.openGui(player, IronBackpacks.instance, backpack.getGuiId(), player.worldObj, 0, 0, 0);
-////                CommonProxy.updateCurrBackpack(player, stack); //Test with this line?
-//            }
-//            backpack.onItemRightClick(stack, player.worldObj, player);
-//            return null;
         }
         return super.slotClick(slot, button, flag, player);
     }
