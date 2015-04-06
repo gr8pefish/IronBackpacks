@@ -7,8 +7,10 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 
+/**
+ * Message used for the advanced filter upgrade to rotate through its shown slots
+ */
 public class AdvFilterTypesMessage implements IMessage {
-    //Messages sent from the gui that are only used if the backpack has the button upgrade
 
     private byte slot;
     private byte changeTo;

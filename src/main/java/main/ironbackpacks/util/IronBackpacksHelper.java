@@ -12,11 +12,19 @@ import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
 
-
+/**
+ * Houses helper methods used throughout the mod
+ */
 public class IronBackpacksHelper {
 
-    //Helper methods used throughout the mod
 
+    //======================================================= Gets the player's relevant backpack ===============================================
+
+    /**
+     * Gets the backpack to open. Checks for a backpack stored in the proxy first, then checks for an equipped backpack, and finally checks the player's inventory.
+     * @param player - the player with the backpack
+     * @return - null if it can't be found, the itemstack otherwise
+     */
     public static ItemStack getBackpack(EntityPlayer player) {
         ItemStack backpack = null;
 
@@ -24,27 +32,20 @@ public class IronBackpacksHelper {
         if (proxyPack != null){
             backpack = proxyPack;
         }else { //TODO: add in check here for equipped backpack once applicable
-            if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
-                backpack = player.getHeldItem();
-            } else {
-                for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-                    ItemStack stack = player.inventory.getStackInSlot(i);
-
-                    if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
-                        backpack = player.inventory.getStackInSlot(i);
-                    }
-                }
-            }
+            backpack = getBackpackFromPlayersInventory(player);
         }
 
-        if (!player.worldObj.isRemote && backpack != null) {
+        if (!player.worldObj.isRemote && backpack != null)
             NBTHelper.setUUID(backpack);
-        }
 
         return backpack;
     }
 
-    //credit to sapient
+    /**
+     * Gets the backpack form the player's inventory
+     * @param player - the player with the backpack
+     * @return - null if nothing can be found, the itemstack otherwise
+     */
     public static ItemStack getBackpackFromPlayersInventory(EntityPlayer player){
         ItemStack backpack = null;
         if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
@@ -65,36 +66,14 @@ public class IronBackpacksHelper {
         return backpack;
     }
 
-    public static ArrayList<ArrayList<ItemStack>> getFilterCondenserAndHopperBackpacks(EntityPlayer player){
-        ArrayList<ItemStack> filterBackpacks = new ArrayList<ItemStack>();
-        ArrayList<ItemStack> condenserBackpacks = new ArrayList<ItemStack>();
-        ArrayList<ItemStack> hopperBackpacks = new ArrayList<ItemStack>();
-        ArrayList<ArrayList<ItemStack>> returnArray = new ArrayList<ArrayList<ItemStack>>();
-        for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-            ItemStack stack = player.inventory.getStackInSlot(i);
 
-            if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
-                ItemStack backpack = player.inventory.getStackInSlot(i);
-                int[] upgrades = getUpgradesAppliedFromNBT(backpack);
-                if (UpgradeMethods.hasFilterBasicUpgrade(upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(upgrades) ||
-                        UpgradeMethods.hasFilterFuzzyUpgrade(upgrades) || UpgradeMethods.hasFilterOreDictUpgrade(upgrades) ||
-                        UpgradeMethods.hasFilterAdvancedUpgrade(upgrades)) {
-                    filterBackpacks.add(backpack);
-                }
-                if (UpgradeMethods.hasCondenserUpgrade(upgrades)){
-                    condenserBackpacks.add(backpack);
-                }
-                if (UpgradeMethods.hasHopperUpgrade(upgrades)){
-                    hopperBackpacks.add(backpack);
-                }
-            }
-        }
-        returnArray.add(filterBackpacks);
-        returnArray.add(condenserBackpacks);
-        returnArray.add(hopperBackpacks);
-        return returnArray;
-    }
+    //============================================ Methods relating to Upgrades Applied ======================================================
 
+    /**
+     * Get upgrades stored in the backpack's NBT data
+     * @param stack - the backpack to check
+     * @return - an int[] of the upgrades applied (only contains what is applied, no empty values)
+     */
     public static int[] getUpgradesAppliedFromNBT(ItemStack stack) {
         ArrayList<Integer> upgradesArrayList = new ArrayList<Integer>();
         if (stack != null) {
@@ -105,24 +84,26 @@ public class IronBackpacksHelper {
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int hasUpgrade = stackTag.getByte(IronBackpacksConstants.NBTKeys.UPGRADE);
-                        if (hasUpgrade != 0){ //true
+                        if (hasUpgrade != 0){ //if has an upgrade
                             upgradesArrayList.add(hasUpgrade);
                         }
                     }
                 }
             }
         }
-        return toIntArray(upgradesArrayList);
-    }
-
-    private static int[] toIntArray(ArrayList<Integer> list)  {
-        int[] ret = new int[list.size()];
+        //converts ArrayList to int[]
+        int[] ret = new int[upgradesArrayList.size()];
         int i = 0;
-        for (Integer e : list)
+        for (Integer e : upgradesArrayList)
             ret[i++] = e.intValue();
         return ret;
     }
 
+    /**
+     * Gets the point value of upgrades used.
+     * @param upgrades - the upgrades applied
+     * @return - how many upgrade points have been applied
+     */
     public static int getUpgradePointsUsed(int[] upgrades){
         int counter = 0;
         for (int upgrade : upgrades){
@@ -131,6 +112,11 @@ public class IronBackpacksHelper {
         return counter;
     }
 
+    /**
+     * Returns the total possible upgrade points available.
+     * @param stack - the itemstack to check
+     * @return - integer value
+     */
     public static int getTotalUpgradePointsFromNBT(ItemStack stack){
         ItemBaseBackpack backpack = (ItemBaseBackpack) stack.getItem();
         int upgradeCount = backpack.getUpgradeSlots(); //from initialization via config
@@ -138,6 +124,11 @@ public class IronBackpacksHelper {
         return (upgradeCount + extraPoints);
     }
 
+    /**
+     * Gets how many 'additional upgrade' points have been applied to the backpack.
+     * @param stack - the backpack
+     * @return - integer value
+     */
     public static int getAdditionalUpgradesUpgradeCount(ItemStack stack){
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
@@ -150,6 +141,11 @@ public class IronBackpacksHelper {
         return 0;
     }
 
+    /**
+     * Gets how many 'additional upgrade' upgrades have been applied to the backpack.
+     * @param stack - the backpack
+     * @return - integer value
+     */
     public static int getAdditionalUpgradesTimesApplied(ItemStack stack){
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
@@ -162,21 +158,6 @@ public class IronBackpacksHelper {
         return 0;
     }
 
-    public static ItemStack removeKeepOnDeathUpgrade(int[] upgrades, ItemStack stack){
-        if (stack != null) {
-            NBTTagCompound nbtTagCompound = stack.getTagCompound();
-            NBTTagList tagList = new NBTTagList();
-            for (int upgrade: upgrades) {
-                if (!(upgrade == IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_UPGRADE_ID)) {
-                    NBTTagCompound tagCompound = new NBTTagCompound();
-                    tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgrade);
-                    tagList.appendTag(tagCompound);
-                }
-            }
-            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADES, tagList);
-            return stack;
-        }
-        return null;
-    }
+
 
 }

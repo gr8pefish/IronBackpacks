@@ -15,15 +15,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Register all the recipes here.
+ */
 public class ItemRecipeRegistry {
 
-	public static String[] oreNames = OreDictionary.getOreNames();
-	public static List ores = Arrays.asList(oreNames); //cached for slightly better efficiency
-
+	/**
+	 * Main method that registers all the recipes
+	 */
 	public static void registerItemRecipes() {
 
 		registerBasicRecipe(ItemRegistry.basicBackpack, ConfigHandler.basicBackpackRecipe); //register the basic backpack as a recipe
-		registerUpgradeRecipes(); //register the recipes ot make the upgrades
+		registerUpgradeRecipes(); //register the recipes to make the upgrades
 		registerMiscRecipes(); //register the miscellaneous items' recipes
 
 		RecipeSorter.register("BackpackUpgrade", BackpackUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
@@ -32,7 +35,10 @@ public class ItemRecipeRegistry {
 		registerBackpackTierRecipes(); //register the recipes to upgrade a backpack to the next tier
 	}
 
-	public static  void registerMiscRecipes(){
+	//=================================================================================Helper Registers==========================================================
+
+	//Registers the miscellaneous recipes
+	private static void registerMiscRecipes(){
 		registerBasicRecipe(ItemRegistry.nest, ConfigHandler.nestRecipe);
 		registerBasicRecipe(ItemRegistry.upgradeCore, ConfigHandler.upgradeCoreRecipe);
 
@@ -40,8 +46,8 @@ public class ItemRecipeRegistry {
 		registerShapelessRecipe(ItemRegistry.treatedLeather, ConfigHandler.treatedLeatherRecipe);
 	}
 
-
-	public static void registerUpgradeRecipes(){
+	//Registers the recipes to create the upgrades
+	private static void registerUpgradeRecipes(){
 		registerBasicRecipe(ItemRegistry.buttonUpgrade, ConfigHandler.buttonUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.nestingUpgrade, ConfigHandler.nestingUpgradeRecipe);
 		if (ConfigHandler.renamingUpgradeRequired){
@@ -61,7 +67,8 @@ public class ItemRecipeRegistry {
 		registerBasicRecipe(ItemRegistry.nestingAdvancedUpgrade, ConfigHandler.nestingAdvancedUpgradeRecipe);
 	}
 
-	public static void registerBackpackUpgradeRecipes(){
+	//Registers the recipes that allow you to shapelessly craft an upgrade with a backpack to add/remove said upgrade
+	private static void registerBackpackUpgradeRecipes(){
 		ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
 		ArrayList<Item> upgrades = ItemRegistry.getUpgrades();
 
@@ -72,7 +79,8 @@ public class ItemRecipeRegistry {
 		}
 	}
 
-	public static void registerBackpackTierRecipes(){
+	//Registers the recipes that allow you to upgrade a backpack to a new tier (ex: iron -> gold)
+	private static void registerBackpackTierRecipes(){
 		ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
 
 		String[] ironBackpackRecipe = ConfigHandler.ironBackpackRecipe;
@@ -86,20 +94,67 @@ public class ItemRecipeRegistry {
 		}
 	}
 
+
+	//=====================================================================================Register Helper Methods=======================================================
+
+	/**
+	 * Registers a basic shaped recipe.
+	 * @param output - the output item
+	 * @param recipe - the recipe string
+	 */
 	private static void registerBasicRecipe(Item output, String[] recipe){
 		registerBasicOreRecipe(output, recipe); //currently just using ore recipes, but keeping this method for future ease of change
 	}
 
+	/**
+	 * Registers a shapeless recipe.
+	 * @param output - the output item
+	 * @param recipe - the recipe string
+	 */
 	private static void registerShapelessRecipe(Item output, String[] recipe) {
 		Object[] theRecipe = getShapelessOreRecipe(recipe);
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(output), theRecipe));
 	}
 
+	/**
+	 * Registers a shaped ore dictionary recipe.
+	 * @param output - the output item
+	 * @param recipe - the recipe string
+	 */
 	private static void registerBasicOreRecipe(Item output, String[] recipe){
 		Object[] theRecipe = getOreRecipe(recipe);
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(output), theRecipe));
 	}
 
+	//====================================================================================Ore Dictionary Recipe Helper Methods=======================================================
+
+	private static String[] oreNames = OreDictionary.getOreNames();
+	private static List ores = Arrays.asList(oreNames); //cached for slightly better efficiency
+
+	/**
+	 * Gets a shaped ore recipe (from a config input string).
+	 * @param input - the recipe as a string array
+	 * @return - an object array to be used to create the shaped ore recipe
+	 */
+	private static Object[] getOreRecipe(String[] input){
+		Object[] returnArray = initOreArray(input);
+		for (int i = 0; i < (input.length * 2); i++){
+			if (i % 2 == 0) {
+				returnArray[3+i] = (char) ('0' + (i/2));
+			}else if (input[i/2].trim().equals("none")){
+				returnArray[3+i] = "none";
+			}else{ //return the oreDict entry or the item/block
+				returnArray[3+i] = isOreDict(input[i/2].trim()) ? input[i/2].trim() : isItem(input[i/2].trim()) ? getItem(input[i/2].trim()) : getBlock(input[i/2].trim()); //Double ternary!? Say what?
+			}
+		}
+		return returnArray;
+	}
+
+	/**
+	 * Gets the shapeless ore recipe (from a config input string).
+	 * @param input - the recipe as a string array
+	 * @return - an object array to be used to create the shapeless ore recipe
+	 */
 	private static Object[] getShapelessOreRecipe(String[] input){
 		Object[] returnArray = new Object[input.length];
 		for (int i = 0; i < input.length; i++){
@@ -117,24 +172,13 @@ public class ItemRecipeRegistry {
 		return returnArray;
 	}
 
-	protected static boolean isOreDict(String input){
-		return ores.contains(input.trim());
-	}
+	//=============================================================================Helper methods for the above methods=========================================
 
-	private static Object[] getOreRecipe(String[] input){
-		Object[] returnArray = initOreArray(input);
-		for (int i = 0; i < (input.length * 2); i++){
-			if (i % 2 == 0) {
-				returnArray[3+i] = (char) ('0' + (i/2));
-			}else if (input[i/2].trim().equals("none")){
-				returnArray[3+i] = "none";
-			}else{ //return the oreDict entry or the item/block
-				returnArray[3+i] = isOreDict(input[i/2].trim()) ? input[i/2].trim() : isItem(input[i/2].trim()) ? getItem(input[i/2].trim()) : getBlock(input[i/2].trim()); //Double ternary!? Say what?
-			}
-		}
-		return returnArray;
-	}
-
+	/**
+	 * Gets the array in proper form (3x3, that the ShapedOreRecipe will recognize) from a line of inputs.
+	 * @param input - the config string recipe
+	 * @return - object array to be used to create the recipe
+	 */
 	private static Object[] initOreArray(String[] input){
 		Object[] array = new Object[21];
 
@@ -152,6 +196,20 @@ public class ItemRecipeRegistry {
 		return array;
 	}
 
+	/**
+	 * Checks if the item has an oreDictionary entry
+	 * @param input - the item to check
+	 * @return - boolean success
+	 */
+	private static boolean isOreDict(String input){
+		return ores.contains(input.trim());
+	}
+
+	/**
+	 * Checks if the string is an item or a block.
+	 * @param item - the string input
+	 * @return - boolean true if it is an item, false otherwise (block)
+	 */
 	private static boolean isItem(String item){
 		if (item.contains(".")){
 			String[] splitString = item.split("\\.");
@@ -164,18 +222,28 @@ public class ItemRecipeRegistry {
 		return false;
 	}
 
-	private static Block getBlock(String item){
-		if (item.contains(".")) {
-			String[] splitString = item.split("\\.");
-			return (Block) Block.blockRegistry.getObject(splitString[1]);
-		}
-		return null;
-	}
-
+	/**
+	 * Gets the item entry by cutting out the 'items.' from the string
+	 * @param item - the item string
+	 * @return - an Item from the String
+	 */
 	private static Item getItem(String item){
 		if (item.contains(".")) {
 			String[] splitString = item.split("\\.");
 			return (Item) Item.itemRegistry.getObject(splitString[1]);
+		}
+		return null;
+	}
+
+	/**
+	 * Gets the block entry by cutting out the 'blocks.' from the string
+	 * @param item - the block string
+	 * @return - a Block from the String
+	 */
+	private static Block getBlock(String item){ //no isBlock() method because if it isn't an item it must be a block
+		if (item.contains(".")) {
+			String[] splitString = item.split("\\.");
+			return (Block) Block.blockRegistry.getObject(splitString[1]);
 		}
 		return null;
 	}

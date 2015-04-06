@@ -18,24 +18,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * The container of the backpack when it is opened normally.
+ */
 @ChestContainer //Inventory tweaks
 public class ContainerBackpack extends Container {
 
-    private EntityPlayer player;
-    public InventoryBackpack inventory;
-    public IronBackpackType type;
-    public int xSize = 0;
-    public int ySize = 0;
-
-    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type){
-        //overloaded constructor for when size is irrelevant
-
-        this.player = entityPlayer;
-        this.inventory = backpackInventory;
-        this.type = type;
-
-        layoutContainer(entityPlayer.inventory, backpackInventory, xSize, ySize, type);
-    }
+    private EntityPlayer player; //the player
+    private InventoryBackpack inventory; //the inventory
+    private IronBackpackType type; //the type of backpack
+    private int xSize = 0; //the x size
+    private int ySize = 0; //the y size
 
     public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type, int xSize, int ySize){
         this.player = entityPlayer;
@@ -43,12 +36,37 @@ public class ContainerBackpack extends Container {
         this.type = type;
         this.xSize = xSize;
         this.ySize = ySize;
-
         layoutContainer(entityPlayer.inventory, backpackInventory, xSize, ySize, type);
     }
 
-    //credit to cpw for basic layout of adding backpack's slots
-    protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize, IronBackpackType type){
+    //overloaded constructor for when size is irrelevant
+    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type){
+        this.player = entityPlayer;
+        this.inventory = backpackInventory;
+        this.type = type;
+        layoutContainer(entityPlayer.inventory, backpackInventory, xSize, ySize, type);
+    }
+
+    public EntityPlayer getPlayer() {
+        return player;
+    }
+    public InventoryBackpack getInventoryBackpack() {
+        return inventory;
+    }
+    public IronBackpackType getType() {
+        return type;
+    }
+
+    /**
+     * Adds the slots to the continer.
+     * @param playerInventory - the player's inventory
+     * @param backpackInventory - the backpack inventory
+     * @param xSize - the x location
+     * @param ySize - the y location
+     * @param type - the backpack's type
+     */
+    //credit to cpw here for basic layout of adding backpack's slots
+    protected void layoutContainer(IInventory playerInventory, IInventory backpackInventory, int xSize, int ySize, IronBackpackType type){
 
         //adds chest's slots
         ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player);
@@ -57,80 +75,62 @@ public class ContainerBackpack extends Container {
         for (int backpackRow = 0; backpackRow < type.getRowCount(); backpackRow++) {
             for (int backpackCol = 0; backpackCol < type.getRowLength(); backpackCol++) {
                 if (UpgradeMethods.hasNestingUpgrade(upgrades)){
-                    addSlotToContainer(new NestingBackpackSlot(chestInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18, this.type));
+                    addSlotToContainer(new NestingBackpackSlot(backpackInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18, this.type));
                 }else if (UpgradeMethods.hasNestingAdvancedUpgrade(upgrades)) {
-                    addSlotToContainer(new AdvancedNestingBackpackSlot(chestInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18, this.type));
+                    addSlotToContainer(new AdvancedNestingBackpackSlot(backpackInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18, this.type));
                 }else{
-                    addSlotToContainer(new BackpackSlot(chestInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18));
+                    addSlotToContainer(new BackpackSlot(backpackInventory, backpackCol + backpackRow * type.getRowLength(), 20 + backpackCol * 18, 18 + backpackRow * 18));
                 }
             }
         }
 
         //adds player's inventory
         int leftCol = (xSize - 162) / 2 + 1;
-        for (int playerInvRow = 0; playerInvRow < 3; playerInvRow++)
-        {
-            for (int playerInvCol = 0; playerInvCol < 9; playerInvCol++)
-            {
+        for (int playerInvRow = 0; playerInvRow < 3; playerInvRow++){
+            for (int playerInvCol = 0; playerInvCol < 9; playerInvCol++){
                 addSlotToContainer(new Slot(playerInventory, playerInvCol + playerInvRow * 9 + 9, leftCol + playerInvCol * 18, ySize - (4 - playerInvRow) * 18 - 10));
             }
 
         }
 
         //adds player's hotbar
-        for (int hotbarSlot = 0; hotbarSlot < 9; hotbarSlot++)
-        {
+        for (int hotbarSlot = 0; hotbarSlot < 9; hotbarSlot++){
             addSlotToContainer(new Slot(playerInventory, hotbarSlot, leftCol + hotbarSlot * 18, ySize - 24));
         }
     }
 
     @Override //copied from IronChests
-    public ItemStack transferStackInSlot(EntityPlayer p, int i)
-    {
+    public ItemStack transferStackInSlot(EntityPlayer p, int i){
         ItemStack itemstack = null;
         Slot slot = (Slot) inventorySlots.get(i);
-        if (slot != null && slot.getHasStack())
-        {
+        if (slot != null && slot.getHasStack()){
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-            if (i < type.getSize()) //if clicking from backpack to player
-            {
+            if (i < type.getSize()){ //if clicking from backpack to player
                 if (!mergeItemStack(itemstack1, type.getSize(), inventorySlots.size(), true))
-                {
                     return null;
-                }
-            }
-            else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1)){ //slot 1 represents either the NestingBackpackSLot or the BackpackSlot
+            } else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1))
                 return null;
-            }
-
             else if (!mergeItemStack(itemstack1, 0, type.getSize(), false))
-            {
                 return null;
-            }
             if (itemstack1.stackSize == 0)
-            {
                 slot.putStack(null);
-            }
             else
-            {
                 slot.onSlotChanged();
-            }
         }
         return itemstack;
     }
 
-    public ItemStack transferStackInSlot(ItemStack itemToPutInBackpack)
-    {
-        ItemStack itemstack1 = itemToPutInBackpack;
-        if (!mergeItemStack(itemstack1, 0, type.getSize(), false)) //stack, startIndex, endIndex,
-        {
-//            System.out.println("Failing here"); //TODO - something is occasionally wrong/odd here (w/ mergeItemStack - solution is custom implementation)
+    /**
+     * Checks if the item can be put into the backpack
+     * @param itemToPutInBackpack - the itemstack to put in
+     * @return - the itemstack if it can be put in, null otherwise
+     */
+    public ItemStack transferStackInSlot(ItemStack itemToPutInBackpack){
+        if (!mergeItemStack(itemToPutInBackpack, 0, type.getSize(), false)) //stack, startIndex, endIndex, flag
             return null;
-        }
-        else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1)){ //slot 1 is a backpackSlot
+        else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemToPutInBackpack)) //slot 1 is always a backpackSlot
             return null;
-        }
         return itemToPutInBackpack;
     }
 
@@ -143,40 +143,48 @@ public class ContainerBackpack extends Container {
     public void onContainerClosed(EntityPlayer player) {
         super.onContainerClosed(player);
 
-        if (!player.worldObj.isRemote)
+        if (!player.worldObj.isRemote) //server side
             this.inventory.onGuiSaved(player);
-
     }
 
     @Override
     public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) {
-    // this will prevent the player from interacting with the item that opened the inventory:
+        // this will prevent the player from interacting with the item that opened the inventory:
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack() == player.getHeldItem() && button == 0) {
             return null;
-        }else if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack){ //right click a backpack
+        }else if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack){ //right click a backpack to directly open it
             ItemStack stack = getSlot(slot).getStack();
-            stack.useItemRightClick(player.worldObj, player);
+            if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) //can't right click the same backpack you have open, causes it to not update correctly and dupe items
+                stack.useItemRightClick(player.worldObj, player);
             return null;
         }
         return super.slotClick(slot, button, flag, player);
     }
 
-    //=====================HELPER METHODS============================
+    //======================================================================HELPER METHODS=========================================================================
 
+    /**
+     * Saves via updating the inventory.
+     * @param player - the player
+     */
     public void save(EntityPlayer player) {
-        if (!player.worldObj.isRemote) {
+        if (!player.worldObj.isRemote) { //server side
             this.inventory.onGuiSaved(player);
         }
     }
 
-    public EntityPlayer getPlayer() { return player; }
-
+    /**
+     * Moves items from the backpack to the player's inventory
+     */
     public void backpackToInventory(){
         for (int i = 0; i <= type.getSize()-1; i++) {
             transferStackInSlot(player, i);
         }
     }
 
+    /**
+     * Moves items from the player's inventory to the backpack
+     */
     public void inventoryToBackpack(){
         int start = type.getSize();
         int end = start + player.inventory.getSizeInventory() - player.inventory.getHotbarSize() - 4; //Not sure why it is 4 too large...
@@ -185,6 +193,9 @@ public class ContainerBackpack extends Container {
         }
     }
 
+    /**
+     * Moves items from the player's hotbar to the backpack
+     */
     public void hotbarToBackpack(){
         int start = type.getSize() + player.inventory.getSizeInventory() - player.inventory.getHotbarSize() - 4;
         int end = start + this.player.inventory.getHotbarSize();
@@ -193,9 +204,21 @@ public class ContainerBackpack extends Container {
         }
     }
 
+    @ChestContainer.RowSizeCallback //Inventory tweaks compatibility
+    public int getNumColumns(){
+        return type.getRowLength();
+    }
 
-    //===========================Sorting Algorithm=============================
+    @ChestContainer.IsLargeCallback //Inventory tweaks compatibility
+    public boolean getVerticalButtons(){
+        return false;
+    }
 
+    //===================================================================Sorting Algorithm==================================================================
+
+    /**
+     * Sorts the backpack by merging the stacks that can be, swapping out empty spaced to condense the pack, and then reorders via alphabetization of the stacks' display names.
+     */
     public void sort(){
         if (!inventorySlots.isEmpty() && !inventoryItemStacks.isEmpty()){
             mergeStacks(); //merge all the items together into the least possible number of stacks
@@ -314,16 +337,5 @@ public class ContainerBackpack extends Container {
         }
         return total;
     }
-
-    @ChestContainer.RowSizeCallback //Inventory tweaks
-    public int getNumColumns(){
-        return type.getRowLength();
-    }
-
-    @ChestContainer.IsLargeCallback //Inventory tweaks
-    public boolean getVerticalButtons(){
-        return false;
-    }
-
 
 }

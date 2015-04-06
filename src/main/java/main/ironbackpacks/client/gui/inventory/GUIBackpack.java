@@ -3,6 +3,7 @@ package main.ironbackpacks.client.gui.inventory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
@@ -11,6 +12,7 @@ import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.SingleByteMessage;
 import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,10 +24,16 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
+/**
+ * The main gui that holds the backpack's primary inventory
+ */
 @SideOnly(Side.CLIENT)
 public class GUIBackpack extends GuiContainer {
 
-    //credit where it is due: a lot of this is based on cpw's code from IronChests
+    /**
+     * A variable texture of the gui depending on the tier of the backpack being opened. Dependent on config options.
+     * Note: Credit goes to cpw here, a lot of this is based on his IronChests' code.
+     */
     public enum ResourceList {
 
         BASIC(new ResourceLocation(ModInformation.ID,
@@ -37,13 +45,16 @@ public class GUIBackpack extends GuiContainer {
         DIAMOND(new ResourceLocation(ModInformation.ID,
                 "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"));
 
-        public final ResourceLocation location;
+        public final ResourceLocation location; //the texture's file's path
 
         private ResourceList(ResourceLocation loc) {
             this.location = loc;
         }
     }
 
+    /**
+     * The GUI's details, once again based on the tier of backpack being opened.
+     */
     public enum GUI {
 
         BASIC(ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200: 236,
@@ -59,10 +70,10 @@ public class GUIBackpack extends GuiContainer {
                 114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue()),
                 ResourceList.DIAMOND, IronBackpackType.DIAMOND);
 
-        private int xSize;
-        private int ySize;
-        private ResourceList guiResourceList;
-        private IronBackpackType mainType;
+        private int xSize; //width
+        private int ySize; //height
+        private ResourceList guiResourceList; //texture to bind
+        private IronBackpackType mainType; //tier of backpack
 
         private GUI(int xSize, int ySize, ResourceList guiResourceList, IronBackpackType mainType) {
             this.xSize = xSize;
@@ -71,28 +82,42 @@ public class GUIBackpack extends GuiContainer {
             this.mainType = mainType;
         }
 
-        protected Container makeContainer(EntityPlayer player, InventoryBackpack backpack) {
-            return new ContainerBackpack(player, backpack, mainType, xSize, ySize);
-        }
-
-        //called from GuiHandler
+        /**
+         * Creates the GUI. Called from GuiHandler.
+         * @param player - the player opening the backpack
+         * @param backpack - the inventory
+         * @param upgrades - the upgrades on the backpack
+         * @param itemStack - the backpack
+         * @return - a GUI
+         */
         public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack, int[] upgrades, ItemStack itemStack) {
             return new GUIBackpack(values()[backpack.getType().ordinal()], player, backpack, upgrades, itemStack);
         }
+
+        /**
+         * Creates a container instance for the GUI to use.
+         * @param player - the player opening the backpack
+         * @param backpack - the inventory
+         * @return - a containerBackpack
+         */
+        private Container makeContainer(EntityPlayer player, InventoryBackpack backpack) {
+            return new ContainerBackpack(player, backpack, mainType, xSize, ySize);
+        }
     }
 
-    private GUI type;
-    private ContainerBackpack container;
-    private EntityPlayer player;
-    private ItemStack itemStack;
+    private GUI type; //the GUI type (of the enum above)
+    private ContainerBackpack container; //the container
+    private ItemStack itemStack; //the itemstack backpack
 
+    //the buttons in this GUI
     private TooltipButton backpack_to_inventory_BUTTON;
     private TooltipButton inventory_to_backpack_BUTTON;
     private TooltipButton hotbar_to_backpack_BUTTON;
     private TooltipButton condense_backpack_BUTTON;
     private boolean hasAButtonUpgrade;
 
-    private ArrayList<TooltipButton> tooltipButtons;
+    //fields used to show/hide the tooltips
+    private ArrayList<TooltipButton> tooltipButtons; //all the buttons that have a tooltip
     private long prevSystemTime;
     private int hoverTime;
 
@@ -100,7 +125,6 @@ public class GUIBackpack extends GuiContainer {
         super(type.makeContainer(player, backpack));
         this.container = (ContainerBackpack) type.makeContainer(player, backpack);
         this.type = type;
-        this.player = player;
         this.xSize = type.xSize;
         this.ySize = type.ySize;
         this.allowUserInput = false;
@@ -123,14 +147,11 @@ public class GUIBackpack extends GuiContainer {
             int xStart = ((width - xSize) / 2) + xSize - 12;
             int yStart = ((height - ySize) / 2) + ySize;
 
-            buttonList.add(this.backpack_to_inventory_BUTTON =  new TooltipButton(TooltipButton.BACKPACK_TO_INVENTORY, xStart - 20, yStart - 96, 11, 11, TooltipButton.BACKPACK_TO_INVENTORY, true, "",
-                    "Moves items from the", "backpack to your inventory."));
-            buttonList.add(this.hotbar_to_backpack_BUTTON    =  new TooltipButton(TooltipButton.HOTBAR_TO_BACKPACK, xStart - 40, yStart - 96, 11, 11, TooltipButton.HOTBAR_TO_BACKPACK, true, "",
-                    "Moves items from your", "hotbar to the backpack."));
-            buttonList.add(this.inventory_to_backpack_BUTTON =  new TooltipButton(TooltipButton.INVENTORY_TO_BACKPACK, xStart - 60, yStart - 96, 11, 11, TooltipButton.INVENTORY_TO_BACKPACK, true, "",
-                    "Moves items from your", "inventory to the backpack"));
-            buttonList.add(this.condense_backpack_BUTTON     =  new TooltipButton(TooltipButton.SORT_BACKPACK, xStart - 80, yStart - 96, 11, 11, TooltipButton.SORT_BACKPACK, true, "",
-                    "Sorts and condenses the","items in the backpack", "(by localized, alphabetical name)"));
+            buttonList.add(this.backpack_to_inventory_BUTTON =  new TooltipButton(ButtonTypes.BACKPACK_TO_INVENTORY, xStart - 20, yStart - 96));
+            buttonList.add(this.hotbar_to_backpack_BUTTON    =  new TooltipButton(ButtonTypes.HOTBAR_TO_BACKPACK, xStart - 40, yStart - 96));
+            buttonList.add(this.inventory_to_backpack_BUTTON =  new TooltipButton(ButtonTypes.INVENTORY_TO_BACKPACK, xStart - 60, yStart - 96));
+            buttonList.add(this.condense_backpack_BUTTON     =  new TooltipButton(ButtonTypes.SORT_BACKPACK, xStart - 80, yStart - 96));
+
             tooltipButtons.add(backpack_to_inventory_BUTTON);
             tooltipButtons.add(hotbar_to_backpack_BUTTON);
             tooltipButtons.add(inventory_to_backpack_BUTTON);
@@ -139,8 +160,7 @@ public class GUIBackpack extends GuiContainer {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
-    {
+    protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F); //set color to default, just in case
 
         this.mc.getTextureManager().bindTexture(type.guiResourceList.location);
@@ -151,12 +171,14 @@ public class GUIBackpack extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+
         this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
         this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
         int k = (this.width - this.xSize) / 2; //X axis on GUI
         int l = (this.height - this.ySize) / 2; //Y axis on GUI
 
+        //checks to see if the mouse is over a button that has a tooltip, if so it checks the time to see how long the mouse has been hovering and displays the tooltip if said hover time is long enough
         TooltipButton curr = null;
         for (TooltipButton button : tooltipButtons){
             if (button.mouseInButton(mouseX, mouseY)) {
@@ -181,19 +203,19 @@ public class GUIBackpack extends GuiContainer {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) { //called whenever a button is pressed
+    protected void actionPerformed(GuiButton button) { //called whenever a button is pressed, sorts on both sides (client and server)
         if (button == backpack_to_inventory_BUTTON) {
             this.container.backpackToInventory();
-            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.BACKPACK_TO_INVENTORY));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.BACKPACK_TO_INVENTORY));
         } else if (button == inventory_to_backpack_BUTTON) {
             this.container.inventoryToBackpack();
-            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.INVENTORY_TO_BACKPACK));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.INVENTORY_TO_BACKPACK));
         } else if (button == hotbar_to_backpack_BUTTON) {
             this.container.hotbarToBackpack();
-            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.HOTBAR_TO_BACKPACK));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.HOTBAR_TO_BACKPACK));
         } else if (button == condense_backpack_BUTTON) {
             this.container.sort();
-            NetworkingHandler.network.sendToServer(new SingleByteMessage(SingleByteMessage.SORT_BACKPACK));
+            NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.SORT_BACKPACK));
         }
     }
 

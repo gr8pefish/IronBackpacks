@@ -5,9 +5,10 @@ import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
+/**
+ * A backpack slot that allows other backpacks if they are of a previous tier
+ */
 public class NestingBackpackSlot extends BackpackSlot {
-
-    //allows backpacks of previous tiers to be placed in this slot
 
     private IronBackpackType type;
 

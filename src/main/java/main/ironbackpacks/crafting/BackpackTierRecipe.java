@@ -12,9 +12,10 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.ArrayList;
 
+/**
+ * The recipe to upgrade a backpack to it's next tier (ex: iron -> gold)
+ */
 public class BackpackTierRecipe extends ShapedOreRecipe {
-
-    //The Recipe to upgrade a backpack to it's next tier
 
     private final ItemStack recipeOutput;
 
@@ -23,21 +24,13 @@ public class BackpackTierRecipe extends ShapedOreRecipe {
         this.recipeOutput = recipeOutput;
     }
 
-    public static ItemStack getFirstBackpack(InventoryCrafting inventoryCrafting){ // helper method for getting the first backpack in the crafting grid (which will be the output)
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-                if (itemstack != null && (itemstack.getItem() instanceof ItemBaseBackpack))
-                    return itemstack;
-            }
-        }
-        return null;
-    }
-
+    /**
+     * Simply gets the next tier backpack with the NBT data from the backpack in the crafting grid (so it keeps it's inventory/upgrades/etc.)
+     * @param inventoryCrafting - the crafting inventory
+     * @return - the itemstack result
+     */
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
-
-        //simply gets the next tier backpack with the NBT data from the backpack in the crafting grid (so it keeps it's inventory/upgrades/etc.)
 
         ItemStack result;
         ItemStack backpack = getFirstBackpack(inventoryCrafting);
@@ -61,5 +54,21 @@ public class BackpackTierRecipe extends ShapedOreRecipe {
     @Override
     public ItemStack getRecipeOutput() {
         return recipeOutput;
+    }
+
+    /**
+     * Helper method for getting the first backpack in the crafting grid (which will be the one used)
+     * @param inventoryCrafting - the inventory to search
+     * @return - the backpack to be crafted
+     */
+    private static ItemStack getFirstBackpack(InventoryCrafting inventoryCrafting){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
+                if (itemstack != null && (itemstack.getItem() instanceof ItemBaseBackpack))
+                    return itemstack;
+            }
+        }
+        return null;
     }
 }

@@ -10,22 +10,13 @@ import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.Logger;
 
+/**
+ * A message that contains a single byte as the data sent
+ */
 public class SingleByteMessage implements IMessage{
-    //Messages sent from the gui that are only used if the backpack has the button upgrade
 
+    //the data sent
     private byte action;
-
-    public static final byte BACKPACK_TO_INVENTORY = 11; //TODO: move to mod info
-    public static final byte INVENTORY_TO_BACKPACK = 12;
-    public static final byte HOTBAR_TO_BACKPACK = 13;
-    public static final byte SORT_BACKPACK = 14;
-
-    public static final byte MOVE_LEFT = 15;
-    public static final byte MOVE_RIGHT = 16;
-
-    public static final byte CLEAR_ROW_1 = 1;
-    public static final byte CLEAR_ROW_2 = 2;
-    public static final byte CLEAR_ROW_3 = 3;
 
     public SingleByteMessage() {} //default constructor is necessary
 
@@ -47,42 +38,44 @@ public class SingleByteMessage implements IMessage{
 
         @Override
         public IMessage onMessage(SingleByteMessage message, MessageContext ctx) {
+
             ContainerBackpack container;
             ContainerAlternateGui altContainer;
+
             switch (message.action) {
-                case BACKPACK_TO_INVENTORY:
+                case IronBackpacksConstants.Messages.SingleByte.BACKPACK_TO_INVENTORY:
                     container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
                     container.backpackToInventory();
                     break;
-                case INVENTORY_TO_BACKPACK:
+                case IronBackpacksConstants.Messages.SingleByte.INVENTORY_TO_BACKPACK:
                     container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
                     container.inventoryToBackpack();
                     break;
-                case HOTBAR_TO_BACKPACK:
+                case IronBackpacksConstants.Messages.SingleByte.HOTBAR_TO_BACKPACK:
                     container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
                     container.hotbarToBackpack();
                     break;
-                case SORT_BACKPACK:
+                case IronBackpacksConstants.Messages.SingleByte.SORT_BACKPACK:
                     container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
                     container.sort();
                     break;
-                case MOVE_LEFT:
+                case IronBackpacksConstants.Messages.SingleByte.MOVE_LEFT:
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
                     altContainer.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
                     break;
-                case MOVE_RIGHT:
+                case IronBackpacksConstants.Messages.SingleByte.MOVE_RIGHT:
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
                     altContainer.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_RIGHT);
                     break;
-                case CLEAR_ROW_1:
+                case IronBackpacksConstants.Messages.SingleByte.CLEAR_ROW_1:
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
                     altContainer.removeSlotsInRow(1);
                     break;
-                case CLEAR_ROW_2:
+                case IronBackpacksConstants.Messages.SingleByte.CLEAR_ROW_2:
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
                     altContainer.removeSlotsInRow(2);
                     break;
-                case CLEAR_ROW_3:
+                case IronBackpacksConstants.Messages.SingleByte.CLEAR_ROW_3:
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
                     altContainer.removeSlotsInRow(3);
                     break;

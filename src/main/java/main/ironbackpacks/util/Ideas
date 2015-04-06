@@ -5,20 +5,22 @@ To Do:
 
     LATER:
         Render on backpack
-            hotkeys
+            equip with hotkeys
 
-        Ender Chest upgrade
+        Ender/Barrel Backpacks (implement IChestable)
 
-        Power/Fluid/Gas Upgrades
+        Power/Fluid/Gas Upgrades (dynamic sizing on left side)
 
-        Craft any backpack surrounded by planks to turn it into a placeable custom chest/tileEntity and then shapeless craft the chest to get the backpack back
+        Craft any backpack surrounded by planks to turn it into a placeable custom chest/tileEntity and then shapeless craft the chest to get the backpack back (IChestable)
 
 
+    EVENTUAL FEATURES:
+        Gui Config
 
 Changelog:
-ADDED: The ability to right click any backpack in another backpack's GUI to open the nested/other backpack's inventory directly.
-FIXED: Rename now clears the text field after it is clicked.
-CHANGED: Default texture is now the HQ backpack sprites.
+ADDED: Documentation to the code. People actually do that?!?
+CHANGED: Refactored the internal code so that, along with the documentation, it is now an acceptable instance of source code for others to learn from.
+FIXED: Dupe bug with opening the same backpack that is already open via right click and the items not updating.
 
 MCF Posting:
 
@@ -30,6 +32,7 @@ Bugs:
     IMPORTANT:
 
     Less important:
+        Scrolling too fast in the advanced filter dupes items (but they are ghost items so no big deal)
         Fix direct deposit into AE terminals
 
 Figure out:
@@ -44,6 +47,9 @@ Tiers:
     Gold[DONE]
     Diamond[DONE]
 
+    Barrel - 4 tiers
+    Ender
+
 Upgrades:
     Button upgrade[DONE] -If ghostSlot doesn't work, add buttons for shift-clicking-like feature for alt gui upgrades
     Nesting upgrade[DONE] - lower tier goes in higher tier
@@ -55,7 +61,6 @@ Upgrades:
     KeepOnDeath upgrade[DONE] - really expensive but keep backpack on death
     UpgradeAddon upgrade[DONE] - adds more upgrade points
     Mod Specific Filter upgrade[DONE] - makes it so that the filter upgrade will pick up any item from mod x, where x is the mod that an item in the filter slot is from.
-    Ender Upgrade - links this backpack to your ender chest
 
 Textures:
 

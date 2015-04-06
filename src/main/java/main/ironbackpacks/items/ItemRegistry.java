@@ -16,9 +16,10 @@ import net.minecraft.item.Item;
 
 import java.util.ArrayList;
 
+/**
+ * Registers all the items in this mod.
+ */
 public class ItemRegistry {
-
-    //Class to register your items in.
 
 	//backpacks
     public static Item basicBackpack;
@@ -49,6 +50,10 @@ public class ItemRegistry {
     public static Item jeweledFeather;
     public static Item treatedLeather;
 
+    /**
+     * Gets every backpack item.
+     * @return - backpacks as an ArrayList of Items
+     */
     public static ArrayList<Item> getBackpacks(){
         ArrayList<Item> backpacks = new ArrayList<Item>();
         backpacks.add(basicBackpack);
@@ -58,14 +63,16 @@ public class ItemRegistry {
         return backpacks;
     }
 
+    /**
+     * Gets every upgrade item.
+     * @return - upgrades as an ArrayList of Items
+     */
     public static ArrayList<Item> getUpgrades(){
         ArrayList<Item> upgrades = new ArrayList<Item>();
         upgrades.add(buttonUpgrade);
         upgrades.add(nestingUpgrade);
         upgrades.add(damageBarUpgrade);
-        if (ConfigHandler.renamingUpgradeRequired){
-            upgrades.add(renamingUpgrade);
-        }
+        if (ConfigHandler.renamingUpgradeRequired) upgrades.add(renamingUpgrade);
         upgrades.add(filterBasicUpgrade);
         upgrades.add(filterFuzzyUpgrade);
         upgrades.add(filterOreDictUpgrade);
@@ -80,7 +87,10 @@ public class ItemRegistry {
         return upgrades;
     }
 
-    //Register all items here
+
+    /**
+     * Registers all the items with the GameRegistry
+     */
 	public static void registerItems() {
 
         //backpacks

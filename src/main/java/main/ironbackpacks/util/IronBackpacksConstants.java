@@ -7,14 +7,17 @@ import net.minecraft.util.StatCollector;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Many of the constant values used in this mod.
+ */
 public class IronBackpacksConstants {
 
-    //A lot (but not all) of the constants used in this mod
-
+    //General constants
     public static final class General{
 
     }
 
+    //The backpack constants
     public static final class Backpacks{
         public static final int BASIC_ID = 1;
         public static final int IRON_ID = 2;
@@ -22,6 +25,7 @@ public class IronBackpacksConstants {
         public static final int DIAMOND_ID = 4;
     }
 
+    //The upgrade constants
     public static final class Upgrades{
         //=============IDs==================== (not in order so that it doesn't break when updating)
         public static final int BUTTON_UPGRADE_ID = 1;
@@ -42,7 +46,7 @@ public class IronBackpacksConstants {
         public static final int FILTER_ADVANCED_UPGRADE_ID =14;
 
 
-        //================Upgrade Info===================
+        //================Upgrade Info=================== //TODO: localize
         public static final String[] BUTTON_DESCRIPTION = {"Adds buttons to quickly move items","to and from your backpack, as well as","a button to sort your backpack quickly."};
         public static final String[] NESTING_DESCRIPTION = {"Allows you to place any backpack","of a previous tier inside the backpack."};
         public static final String[] DAMAGE_BAR_DESCRIPTION = {"Adds a damage bar to visually represent","how full the backpack is at a glance."};
@@ -63,6 +67,7 @@ public class IronBackpacksConstants {
         public static final String[] CONDENSER_DESCRIPTION = {"Allows you to specify a set of items","to be compressed upon entering your backpack."};
         public static final String[] FILTER_ADVANCED_DESCRIPTION = {"Similar to the basic filter, except the filter","has 18 slots and each slots has configurable options."};
 
+        //All the alternate gui upgrade ids
         public static final ArrayList<Integer> ALT_GUI_UPGRADE_IDS = new ArrayList<Integer>(Arrays.asList(
                 RENAMING_UPGRADE_ID,
                 FILTER_BASIC_UPGRADE_ID,
@@ -74,7 +79,7 @@ public class IronBackpacksConstants {
                 CONDENSER_UPGRADE_ID
                 ));
 
-        //All together now
+        //All the localized names
         public static final String[] LOCALIZED_NAMES = {StatCollector.translateToLocal("emptyUpgradeSlot"),
                 StatCollector.translateToLocal("item.ironbackpacks:buttonUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:nestingUpgrade.name"),
@@ -93,7 +98,7 @@ public class IronBackpacksConstants {
                 StatCollector.translateToLocal("item.ironbackpacks:nestingAdvancedUpgrade.name")
         };
 
-
+        //All the upgrade costs
         public static final int[] UPGRADE_POINTS = {
                 0, //blank upgrade
                 ConfigHandler.buttonUpgradeCost,
@@ -118,14 +123,38 @@ public class IronBackpacksConstants {
 
     }
 
+    //Gui constants
     public static final class Gui{
 
     }
 
+    //Messages
+    public static final class Messages{
+
+        public static final class SingleByte{
+            //the actions stored as (arbitrary) byte values
+            public static final byte CLEAR_ROW_1 = 1;
+            public static final byte CLEAR_ROW_2 = 2;
+            public static final byte CLEAR_ROW_3 = 3;
+
+            public static final byte BACKPACK_TO_INVENTORY = 4;
+            public static final byte INVENTORY_TO_BACKPACK = 5;
+            public static final byte HOTBAR_TO_BACKPACK = 6;
+            public static final byte SORT_BACKPACK = 7;
+
+            public static final byte MOVE_LEFT = 8;
+            public static final byte MOVE_RIGHT = 9;
+        }
+
+
+    }
+
+    //Visual resources
     public static final class Resources {
         public static final ResourceLocation WIDGETS = new ResourceLocation(ModInformation.ID, "textures/guis/widgets.png");
     }
 
+    //The commonly used NBT keys
     public static final class NBTKeys {
         public static final String UPGRADES = "Upgrades";
         public static final String UPGRADE = "Upgrade";
@@ -145,10 +174,14 @@ public class IronBackpacksConstants {
         public static final String REMOVED = "Removed";
     }
 
+    //Miscellaneous
     public static final class Miscellaneous{
+
+        //UUID constant strings
         public static final String MOST_SIG_UUID = "MostSigUUID";
         public static final String LEAST_SIG_UUID = "LeastSigUUID";
 
+        //Button upgrade call
         public static final String MOVE_RIGHT = "right";
         public static final String MOVE_LEFT = "left";
 

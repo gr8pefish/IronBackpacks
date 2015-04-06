@@ -4,7 +4,11 @@ import cpw.mods.fml.common.FMLLog;
 import main.ironbackpacks.ModInformation;
 import org.apache.logging.log4j.Level;
 
+/**
+ * A logger class ot output information to the FML log nicely
+ */
 public class Logger{
+
     public static void log(Level logLevel, Object object){
         FMLLog.log(ModInformation.NAME, logLevel, String.valueOf(object));
     }

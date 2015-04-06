@@ -1,5 +1,6 @@
 package main.ironbackpacks.items.upgrades;
 
+import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class UpgradeMethods {
 
-    //===============================hasUpgradeX Methods=====================================
+    //===============================hasUpgrade Methods=====================================
 
     public static boolean hasButtonUpgrade(int[] upgrades){
         boolean hasUpgrade = false;
@@ -185,7 +186,12 @@ public class UpgradeMethods {
 
     //=============================Other Methods====================================
 
-    //note - includes renaming upgrade
+
+    /**
+     * Gets the number of alternate gui upgrades in the backpack. Note - includes renaming upgrade (if applicable).
+     * @param upgrades - the upgrades to check
+     * @return integer amount
+     */
     public static int getAlternateGuiUpgradesCount(int[] upgrades){
         int numberOfUpgrades = 0;
         if (!ConfigHandler.renamingUpgradeRequired) {
@@ -211,7 +217,12 @@ public class UpgradeMethods {
         return numberOfUpgrades;
     }
 
-    public static int getAlternateGuiUpgradeSlots(int[] upgrades) { //adds only 9 slots for advanced still
+    /**
+     * Gets the number of alternate gui slots from the upgrades. Hardcoded at 9 each (even advanced filter).
+     * @param upgrades - the upgrades to check
+     * @return integer value
+     */
+    public static int getAlternateGuiUpgradeSlots(int[] upgrades) {
         int slots = 0;
         for (int upgrade: upgrades) {
             if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
@@ -225,6 +236,11 @@ public class UpgradeMethods {
         return slots;
     }
 
+    /**
+     * Gets the number of alternate gui upgrades used.
+     * @param upgrades - the upgrades to check
+     * @return integer value
+     */
     public static int getAltGuiUpgradesUsed(int[] upgrades){
         int counter = 0;
         if (!ConfigHandler.renamingUpgradeRequired) {
@@ -248,6 +264,9 @@ public class UpgradeMethods {
         }
         return counter;
     }
+
+    //===================================================================Get Filter Items==========================================================
+    //used in the event handler
 
     public static ArrayList<ItemStack> getBasicFilterItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
@@ -309,6 +328,14 @@ public class UpgradeMethods {
         return returnArray;
     }
 
+    //============================================================Advanced Filter Methods=================================================================
+    //used in the event handler
+
+    /**
+     * Gets the items stored in the advanced filter.
+     * @param stack - the backpack with the filter
+     * @return - array of the non-null items
+     */
     public static ItemStack[] getAdvFilterAllItems(ItemStack stack) {
         ItemStack[] advFilterStacks = new ItemStack[18];
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
@@ -324,6 +351,11 @@ public class UpgradeMethods {
         return advFilterStacks;
     }
 
+    /**
+     * Gets the states of each button in the advanced filter.
+     * @param stack - the backpack
+     * @return - a byte array corresponding to the state of each button
+     */
     public static byte[] getAdvFilterButtonStates(ItemStack stack) {
         byte[] advFilterButtonStates = new byte[18];
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
@@ -331,7 +363,7 @@ public class UpgradeMethods {
             if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)) {
                 byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)).func_150292_c(); //gets byte array
                 for (int i = 0; i < bytes.length; i++) {
-                    if (bytes[i] == 0) bytes[i] = (byte) TooltipButton.EXACT;
+                    if (bytes[i] == 0) bytes[i] = (byte) ButtonTypes.EXACT.getID();
                     advFilterButtonStates[i] = bytes[i];
                 }
             }
@@ -339,11 +371,17 @@ public class UpgradeMethods {
         return advFilterButtonStates;
     }
 
+    /**
+     * Gets the items in the advanced filter that are on the basic matching
+     * @param itemStacks - the items in the advanced filter
+     * @param buttonStates - the filter states of each button
+     * @return - the items that fit this criteria
+     */
     public static ArrayList<ItemStack> getAdvFilterBasicItems(ItemStack[] itemStacks, byte[] buttonStates){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte) TooltipButton.EXACT){
+                if (buttonStates[i] == (byte) ButtonTypes.EXACT.getID()){
                     returnArray.add(itemStacks[i]);
                 }
             }
@@ -351,11 +389,17 @@ public class UpgradeMethods {
         return returnArray;
     }
 
+    /**
+     * Gets the items in the advanced filter that are on the fuzzy matching
+     * @param itemStacks - the items in the advanced filter
+     * @param buttonStates - the filter states of each button
+     * @return - the items that fit this criteria
+     */
     public static ArrayList<ItemStack> getAdvFilterFuzzyItems(ItemStack[] itemStacks, byte[] buttonStates){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte)TooltipButton.FUZZY){
+                if (buttonStates[i] == (byte)ButtonTypes.FUZZY.getID()){
                     returnArray.add(itemStacks[i]);
                 }
             }
@@ -363,11 +407,17 @@ public class UpgradeMethods {
         return returnArray;
     }
 
+    /**
+     * Gets the items in the advanced filter that are on the mod specific matching
+     * @param itemStacks - the items in the advanced filter
+     * @param buttonStates - the filter states of each button
+     * @return - the items that fit this criteria
+     */
     public static ArrayList<ItemStack> getAdvFilterModSpecificItems(ItemStack[] itemStacks, byte[] buttonStates){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte)TooltipButton.MOD_SPECIFIC){
+                if (buttonStates[i] == (byte)ButtonTypes.MOD_SPECIFIC.getID()){
                     returnArray.add(itemStacks[i]);
                 }
             }
@@ -375,11 +425,17 @@ public class UpgradeMethods {
         return returnArray;
     }
 
+    /**
+     * Gets the items in the advanced filter that are on the ore dictionary matching
+     * @param itemStacks - the items in the advanced filter
+     * @param buttonStates - the filter states of each button
+     * @return - the items that fit this criteria
+     */
     public static ArrayList<ItemStack> getAdvFilterOreDictItems(ItemStack[] itemStacks, byte[] buttonStates){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte)TooltipButton.ORE_DICT){
+                if (buttonStates[i] == (byte)ButtonTypes.ORE_DICT.getID()){
                     returnArray.add(itemStacks[i]);
                 }
             }
@@ -387,6 +443,14 @@ public class UpgradeMethods {
         return returnArray;
     }
 
+    //========================================================================= Get other alternate gui items ======================================================
+    //used in the event handler
+
+    /**
+     * Gets the items in the hopper/restocking slots
+     * @param stack - the backpack to check
+     * @return - the items that fit this criteria
+     */
     public static ArrayList<ItemStack> getHopperItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
@@ -402,6 +466,11 @@ public class UpgradeMethods {
         return returnArray;
     }
 
+    /**
+     * Gets the items in the condenser/crafting slots
+     * @param stack - the backpack to check
+     * @return - the items that fit this criteria
+     */
     public static ArrayList<ItemStack> getCondenserItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
@@ -418,8 +487,19 @@ public class UpgradeMethods {
     }
 
 
-    //======================================================================Transfer From Backpack To Inventory========================================================================
+    //======================================================================Transfer From Backpack To IInventory========================================================================
+    //used with the quick deposit upgrade
 
+    /**
+     * Transfers items from the backpack to the tile entity's inventory at the targeted coordinates
+     * @param player - the player performing the action
+     * @param backpack - the itemstack
+     * @param world - the world object
+     * @param x - coordinate
+     * @param y - coordinate
+     * @param z - coordinate
+     * @return - boolean success if transferred
+     */
     public static boolean transferFromBackpackToInventory(EntityPlayer player, ItemStack backpack, World world, int x, int y, int z){
         TileEntity targeted = world.getTileEntity(x, y, z);
         if (targeted != null){
@@ -431,6 +511,11 @@ public class UpgradeMethods {
         return false;
     }
 
+    /**
+     * Gets the IInventory of the targeted tile entity
+     * @param tile - the tile entity to check
+     * @return IInventory if it exists, null otherwise
+     */
     private static IInventory getTargetedInventory(TileEntity tile){
         if (tile == null || !(tile instanceof IInventory)) {
             return null;
@@ -438,7 +523,13 @@ public class UpgradeMethods {
         return (IInventory) tile;
     }
 
-
+    /**
+     * Transfers the items from the backpack to the inventory.
+     * @param player - the player doing the action
+     * @param backpack - the itemstack backpack
+     * @param transferTo - the inventory to transfer to
+     * @return boolean if successful
+     */
     private static boolean transferItemsToContainer(EntityPlayer player, ItemStack backpack, IInventory transferTo){
         boolean returnValue = false;
         IronBackpackType type = IronBackpackType.values()[((ItemBaseBackpack) backpack.getItem()).getGuiId()];
@@ -457,6 +548,12 @@ public class UpgradeMethods {
         return returnValue;
     }
 
+    /**
+     * Finds the first valid slot and puts the item inside it. Tries to merge if possible, otherwise it goes in an empty slot.
+     * @param transferTo - the inventory to put the stack into
+     * @param stackToTransfer - the itemstack to put into the inventory
+     * @return whatever wasn't transferred
+     */
     private static ItemStack putInFirstValidSlot(IInventory transferTo, ItemStack stackToTransfer){
         for (int i = 0; i < transferTo.getSizeInventory(); i++){
             ItemStack tempStack = transferTo.getStackInSlot(i);
@@ -468,7 +565,7 @@ public class UpgradeMethods {
                 }
             }else if (tempStack.stackSize <= 0){//leave it alone
             }else{ //stack present, check if merge possible
-                if (tempStack.isItemEqual(stackToTransfer) && tempStack.stackSize < tempStack.getMaxStackSize()){ //can merge
+                if (tempStack.isItemEqual(stackToTransfer) && tempStack.stackSize < tempStack.getMaxStackSize() && ItemStack.areItemStackTagsEqual(tempStack, stackToTransfer)){ //can merge
                     int amountToResupply = tempStack.getMaxStackSize() - tempStack.stackSize;
                     if (stackToTransfer.stackSize >= amountToResupply) { //stackToTransfer will leave a remainder if merged
                         //merge what you can and set stackToTransfer to the remainder

@@ -13,22 +13,22 @@ import net.minecraftforge.common.util.Constants;
 
 import java.util.UUID;
 
+/**
+ * The inventory used when opening the backpack normally.
+ */
 public class InventoryBackpack implements IInventory {
 
-    public ItemStack stack;
-    public EntityPlayer player;
-    protected ItemStack[] inventory;
-    private IronBackpackType type;
+    private ItemStack stack; //the itemstack instance of the backpack
+    private EntityPlayer player; //the player
+    private ItemStack[] inventory; //the stored items
+    private IronBackpackType type; //the backpack type
 
     //Instantiated from GuiHandler
     public InventoryBackpack(EntityPlayer player, ItemStack itemStack, IronBackpackType type){
-
         this.stack = itemStack;
         this.player = player;
-
         this.type = type;
         this.inventory = new ItemStack[this.getSizeInventory()];
-
         readFromNBT(stack.getTagCompound());
     }
 
@@ -95,7 +95,7 @@ public class InventoryBackpack implements IInventory {
 
     @Override
     public void markDirty() {
-//        saveWithSideCheck(this.player); //onSlotChanged() //unnecessary, as it saves when closing
+        //unnecessary, as it saves when closing
     }
 
     @Override
@@ -105,12 +105,12 @@ public class InventoryBackpack implements IInventory {
 
     @Override
     public void openInventory() {
-    //
+        //unused
     }
 
     @Override
     public void closeInventory() {
-    //
+        //unused
     }
 
     @Override
@@ -119,9 +119,12 @@ public class InventoryBackpack implements IInventory {
     }
 
 
-    //=====================HELPER METHODS============================
+    //=========================================================HELPER METHODS=========================================================================
 
-    //checks if the backpack contains any items
+    /**
+     * Checks if the backpack contains any items
+     * @return - true if it does, false otherwise
+     */
     public boolean isEmpty(){
         for (ItemStack stack : inventory) {
             if (stack != null && stack.stackSize > 0) {
@@ -131,19 +134,29 @@ public class InventoryBackpack implements IInventory {
         return true;
     }
 
-    //credit to sapient for a lot of this saving code
+    /**
+     * Called from the container and saves the backpack.
+     * @param entityPlayer - the player with the backpack
+     */
     public void onGuiSaved(EntityPlayer entityPlayer){
         if (stack != null){
             save();
         }
     }
 
+    /**
+     * Saves the backpack (on the server side only)
+     * @param player - the player with the backpack
+     */
     public void saveWithSideCheck(EntityPlayer player){
         if (!player.worldObj.isRemote) {
             onGuiSaved(player);
         }
     }
 
+    /**
+     * Updates the NBT data of the itemstack to save it
+     */
     public void save(){
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
 
@@ -155,24 +168,37 @@ public class InventoryBackpack implements IInventory {
         stack.setTagCompound(nbtTagCompound);
     }
 
-    public ItemStack findParentItemStack(EntityPlayer entityPlayer){ //to make sure the stack is unique
-        if (NBTHelper.hasUUID(stack)){
-            UUID parentUUID = new UUID(stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
-            for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++){
-                ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
+    /**
+     * Writes the data of the backpack to NBT form.
+     * @param nbtTagCompound - the tag compound
+     */
+    public void writeToNBT(NBTTagCompound nbtTagCompound){
+        if (!player.worldObj.isRemote) { //server side only
+            ItemStack tempStack = findParentItemStack(player);
+            ItemStack stackToUse = (tempStack == null) ? stack : tempStack;
 
-                if (itemStack != null && itemStack.getItem() instanceof ItemBaseBackpack && NBTHelper.hasUUID(itemStack)){
-                    if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
-                        return itemStack;
-                    }
+            nbtTagCompound = stackToUse.getTagCompound();
+
+            // Write the ItemStacks in the inventory to NBT
+            NBTTagList tagList = new NBTTagList();
+            for (int i = 0; i < inventory.length; i++) {
+                if (inventory[i] != null) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    tagCompound.setByte(IronBackpacksConstants.NBTKeys.SLOT, (byte) i);
+                    inventory[i].writeToNBT(tagCompound);
+                    tagList.appendTag(tagCompound);
                 }
             }
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ITEMS, tagList);
         }
-        return null;
     }
 
+    /**
+     * Loads in the data stored in the NBT of this stack and puts the items in their respective slots.
+     * @param nbtTagCompound - the tag compound
+     */
     public void readFromNBT(NBTTagCompound nbtTagCompound){
-        if (!player.worldObj.isRemote) {
+        if (!player.worldObj.isRemote) { //server side only
             ItemStack tempStack = findParentItemStack(player);
             stack = (tempStack == null) ? stack : tempStack;
             if (stack != null) {
@@ -196,25 +222,25 @@ public class InventoryBackpack implements IInventory {
         }
     }
 
-    public void writeToNBT(NBTTagCompound nbtTagCompound){
-        if (!player.worldObj.isRemote) {
-            ItemStack tempStack = findParentItemStack(player);
-            ItemStack stackToUse = (tempStack == null) ? stack : tempStack;
+    /**
+     * Helper method to get the stack, and make sure it is unique.
+     * @param entityPlayer - the player to check
+     * @return - the itemstack if it is found, null otherwise
+     */
+    private ItemStack findParentItemStack(EntityPlayer entityPlayer){
+        if (NBTHelper.hasUUID(stack)){
+            UUID parentUUID = new UUID(stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
+            for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++){
+                ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
-            nbtTagCompound = stackToUse.getTagCompound();
-
-            // Write the ItemStacks in the inventory to NBT
-            NBTTagList tagList = new NBTTagList();
-            for (int i = 0; i < inventory.length; i++) {
-                if (inventory[i] != null) {
-                    NBTTagCompound tagCompound = new NBTTagCompound();
-                    tagCompound.setByte(IronBackpacksConstants.NBTKeys.SLOT, (byte) i);
-                    inventory[i].writeToNBT(tagCompound);
-                    tagList.appendTag(tagCompound);
+                if (itemStack != null && itemStack.getItem() instanceof ItemBaseBackpack && NBTHelper.hasUUID(itemStack)){
+                    if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
+                        return itemStack;
+                    }
                 }
             }
-            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ITEMS, tagList);
         }
+        return null;
     }
 
 

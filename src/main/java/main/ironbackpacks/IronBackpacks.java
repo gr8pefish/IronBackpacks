@@ -13,7 +13,7 @@ import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.ConfigHandler;
-import main.ironbackpacks.util.VersionCheckerSupport;
+import main.ironbackpacks.util.InterModSupport;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -42,22 +42,39 @@ public class IronBackpacks {
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 
-		VersionCheckerSupport.init();
+		//compatibility
+		InterModSupport.preinit();
 
+		//config file
 		File config = event.getSuggestedConfigurationFile();
 		ConfigHandler.init(config);
 
+		//networking
 		NetworkingHandler.initPackets();
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+
+		//items
 		ItemRegistry.registerItems();
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
+
+		//compatibility
+		InterModSupport.init();
+
+		//event handler
 		MinecraftForge.EVENT_BUS.register(new ForgeEventHandler());
+
+		//recipes
 		ItemRecipeRegistry.registerItemRecipes();
 	}
 
 	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent event) {}
+	public void postInit(FMLPostInitializationEvent event) {
+
+		//compatibility
+		InterModSupport.postinit();
+
+	}
 }

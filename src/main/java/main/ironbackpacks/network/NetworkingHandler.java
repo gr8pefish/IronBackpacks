@@ -5,12 +5,14 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import main.ironbackpacks.ModInformation;
 
+/**
+ * Class to register all the messages and the networkWrapper
+ */
 public class NetworkingHandler {
-
-    //Place to register all my messages and networkWrapper
 
     public static SimpleNetworkWrapper network;
 
+    //initializes the wrapper and then the messages
     public static void initPackets() {
         network = NetworkRegistry.INSTANCE.newSimpleChannel(ModInformation.CHANNEL);
         registerMessage(RenameMessage.Handler.class, RenameMessage.class, Side.SERVER);

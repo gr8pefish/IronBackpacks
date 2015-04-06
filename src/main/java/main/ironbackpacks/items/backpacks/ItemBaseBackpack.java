@@ -20,23 +20,22 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.List;
 
+/**
+ * Base class for all the backpack items to extend
+ */
 public class ItemBaseBackpack extends ItemBase {
 
-    private int guiId;
-    private int typeID;
-    private int upgradeSlots;
-    private int upgradeIndex;
+    private int guiId; //the id for the gui used
+    private int typeID; //the id for the type of backpack (IronBackpackTypes)
+    private int upgradeSlots; //number of upgrade slots
+    private boolean openAltGui; //which gui to open
 
-    private boolean openAltGui;
-
-    public ItemBaseBackpack(String unlocName, String textureName, int id, int upgradeSlots, int typeID) {
+    public ItemBaseBackpack(String unlocName, String textureName, int upgradeSlots, int ID) {
         super(unlocName, textureName);
         setMaxStackSize(1);
-        this.guiId = id; //0,1,2,3
-        this.typeID = typeID; //1,2,3,4
         this.upgradeSlots = upgradeSlots;
-        this.upgradeIndex = upgradeSlots-1;
-
+        guiId = ID-1; //0,1,2,3
+        typeID = ID; //1,2,3,4
         openAltGui = true;
     }
 
@@ -48,13 +47,9 @@ public class ItemBaseBackpack extends ItemBase {
         return upgradeSlots;
     }
 
-    public int getUpgradeIndex(){
-        return upgradeIndex;
-    }
 
     @Override
-    public boolean showDurabilityBar(ItemStack stack)
-    {
+    public boolean showDurabilityBar(ItemStack stack) {
         int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
         return UpgradeMethods.hasDamageBarUpgrade(upgrades);
     }
@@ -64,19 +59,22 @@ public class ItemBaseBackpack extends ItemBase {
         return getFullness(stack);
     }
 
-    //gets the fullness of the backpack for the durability bar
+    /**
+     * Gets the fullness of the backpack for the durability bar.
+     * Note: Checks total fullness used, so if all slots hold 1 stackable item (itemX) it will show the fullness of only (type.size * itemX) and not as full.
+     * @param stack - the backpack
+     * @return - double representing the fullness
+     */
     public double getFullness(ItemStack stack){
         ItemStack[] inventory;
         int total = 0;
         int full = 0;
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
-
             if (nbtTagCompound != null){
                 if (nbtTagCompound.hasKey("Items")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
                     inventory = new ItemStack[IronBackpackType.values()[this.guiId].getSize()];
-
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int j = stackTag.getByte("Slot");
@@ -84,7 +82,6 @@ public class ItemBaseBackpack extends ItemBase {
                             inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
                     }
-
                     for (ItemStack tempStack: inventory) {
                         if (tempStack != null) {
                             full += tempStack.stackSize;
@@ -99,7 +96,7 @@ public class ItemBaseBackpack extends ItemBase {
         return 1 - ((double) full / total);
     }
 
-
+    //to open the guis
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (world.isRemote){ //client side
@@ -119,6 +116,7 @@ public class ItemBaseBackpack extends ItemBase {
         }
     }
 
+    //Called before anything else
     @Override
     public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) { //server side
@@ -133,6 +131,7 @@ public class ItemBaseBackpack extends ItemBase {
         return false;
     }
 
+    //Adds a fancy tooltip
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) {

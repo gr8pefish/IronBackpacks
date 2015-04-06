@@ -14,47 +14,31 @@ import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-public class BackpackUpgradeRecipe extends ShapelessOreRecipe { //TODO: refactor
+/**
+ * Deals with the cases when a backpack is shapelessly crafted with an upgrade.
+ */
+public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
 
-    /** Is the ItemStack that you get when craft the recipe. */
-    private final ItemStack recipeOutput;
+    private final ItemStack recipeOutput; //The outputted item after crafting
 
     public BackpackUpgradeRecipe(ItemStack recipeOutput, Object... items){
         super(recipeOutput, items);
         this.recipeOutput = recipeOutput;
     }
 
-    public static ItemStack getFirstBackpack(InventoryCrafting inventoryCrafting)
-    {
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 3; ++j)
-            {
-                ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-
-                if (itemstack != null && (itemstack.getItem() instanceof ItemBaseBackpack))
-                    return itemstack;
-            }
-        }
-
-        return null;
-    }
-
-    public static ItemStack getFirstUpgrade(InventoryCrafting inventoryCrafting){
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 3; ++j)
-            {
-                ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-
-                if (itemstack != null && (itemstack.getItem() instanceof ItemUpgradeBase))
-                    return itemstack;
-            }
-        }
-
-        return null;
-    }
-
+    /**
+     * Crafts the backpack with the upgrade, with some special cases recognized.
+     * First it checks if the backpack has enough upgrade points available to apply said upgrade to the backpack.
+     * If it has enough points available it progresses, otherwise it returns null;
+     *
+     * Then it checks for special cases, listed below:
+     * You can't have more than the config amount of 'additional upgrade' upgrades applied.
+     * You can't have multiple upgrades of the same type. If you try to apply the upgrade twice it will return the backpack with teh upgrade removed instead (which is how you remove upgrades).
+     * You can't have both an advanced nesting upgrade and a nesting upgrade on the same backpack.
+     *
+     * @param inventoryCrafting - the inventory crafting to check
+     * @return - the resulting itemstack
+     */
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
 
@@ -98,11 +82,6 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe { //TODO: refactor
                     upgradeFound = applyAdditional(nbtTagCompound, result);
                 }
                 for (int upgrade : upgrades) { //for each slot in possible upgrades
-//                    if (!upgradeFound && shouldOverride(upgradeToApplyBase, upgrade, totalUpgradePoints, upgrades)) { //if should override the upgrade in this slot, do so
-//                        NBTTagCompound tagCompound = new NBTTagCompound();
-//                        tagCompound.setByte("Upgrade", (byte) upgradeToApplyBase.getTypeID());
-//                        tagList.appendTag(tagCompound);
-//                        upgradeFound = true;
                     if (!upgradeFound && shouldRemove(upgradeToApplyBase, upgrade)){
                         //not adding the old recipe is the same outcome as removing the recipe, so no code needed here
                         upgradeFound = true;
@@ -138,17 +117,60 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe { //TODO: refactor
 
     }
 
+    @Override
+    public ItemStack getRecipeOutput() {
+        return recipeOutput;
+    }
+
+    //=============================================================================Helper Methods====================================================================
+
+    /**
+     * Helper method for getting the first backpack in the crafting grid (which will be the one used)
+     * @param inventoryCrafting - the inventory to search
+     * @return - the backpack to be crafted
+     */
+    private static ItemStack getFirstBackpack(InventoryCrafting inventoryCrafting) {
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
+                if (itemstack != null && (itemstack.getItem() instanceof ItemBaseBackpack))
+                    return itemstack;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Helper method for getting the first upgrade in the crafting grid (which will be the one used)
+     * @param inventoryCrafting - the inventory to search
+     * @return - the upgrade to be used
+     */
+    private static ItemStack getFirstUpgrade(InventoryCrafting inventoryCrafting){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
+                if (itemstack != null && (itemstack.getItem() instanceof ItemUpgradeBase))
+                    return itemstack;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Checks the special conditions to see if the upgrade can be applied. Also checks if the backpack has sufficient available upgrade points to apply the upgrade.
+     * @param upgradeToApplyBase - the upgrade attempted to be added
+     * @param upgrades - the upgrades already on the backpack
+     * @param totalUpgradePoints - the total upgrade points on the backpack
+     * @return - true if it can be applied, false otherwise
+     */
     private boolean canApplyUpgrade(ItemUpgradeBase upgradeToApplyBase, int[] upgrades, int totalUpgradePoints){
         if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID())) { //alt gui upgrade
             if (UpgradeMethods.getAltGuiUpgradesUsed(upgrades) + 1 <= IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED) { //alt gui in general
-//                if (UpgradeMethods.getFilterUpgradesUsed(upgrades)+1 <= IronBackpacksConstants.Upgrades.FILTER_UPGRADES_ALLOWED){ //filter upgrades specifically
-//                    return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints; //return if it can accept that many more upgrade points
-//                }
                 return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints;
             }
             return false;
-        }else if(upgradeToApplyBase.typeID == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID || upgradeToApplyBase.typeID == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID){ //have to choose between nesting upgrade and advanced nesting upgrade
-            if (upgradeToApplyBase.typeID == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID){
+        }else if(upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID || upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID){ //have to choose between nesting upgrade and advanced nesting upgrade
+            if (upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID){
                 for (int upgrade : upgrades){
                     if (upgrade == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID){
                         return false;
@@ -169,7 +191,13 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe { //TODO: refactor
 
     }
 
-    private boolean applyAdditional(NBTTagCompound nbtTagCompound, ItemStack backpack){ //nbt out of scope, will changes apply?
+    /**
+     * Applies the upgrade to the backpack by adding it's NBT data.
+     * @param nbtTagCompound - the tag compound of the resulting itemstack
+     * @param backpack - the backpack in the crafting grid
+     * @return - true if it can be applied, false otherwise
+     */
+    private boolean applyAdditional(NBTTagCompound nbtTagCompound, ItemStack backpack){
         ItemBaseBackpack backpackBase = (ItemBaseBackpack) backpack.getItem();
         if (backpackBase == null) return false;
         if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS)){
@@ -188,16 +216,12 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe { //TODO: refactor
         return false;
     }
 
-//    private boolean shouldOverride(ItemUpgradeBase upgradeToApplyBase, int currUpgrade, int totalUpgradePoints, int[] upgrades){ //only use was with filters
-//        //only overriding with filter upgrades
-//        if (upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID) { //try to override basic filter first, if not apply to blank;
-//            if (currUpgrade == IronBackpacksConstants.Upgrades.FILTER_UPGRADE_ID) {
-//                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() - IronBackpacksConstants.Upgrades.UPGRADE_POINTS[currUpgrade] <= totalUpgradePoints;
-//            }
-//        }
-//        return false;
-//    }
-
+    /**
+     * Checks if the upgrade is a duplicate and should therefore be removed.
+     * @param upgradeToApplyBase - the upgrade in question
+     * @param currUpgrade - the upgrade to check it against
+     * @return - true if it should be removed, false otherwise
+     */
     private boolean shouldRemove(ItemUpgradeBase upgradeToApplyBase, int currUpgrade){
         if (upgradeToApplyBase.getTypeID() == currUpgrade){ //removing if the same upgrade is applied twice
             return true;
@@ -205,8 +229,5 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe { //TODO: refactor
         return false;
     }
 
-    @Override
-    public ItemStack getRecipeOutput() {
-        return recipeOutput;
-    }
+
 }

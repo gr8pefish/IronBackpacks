@@ -4,9 +4,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Used in the alternate gui to create a 'ghost item' that disappears when it is picked up and doesn't decrement the item stack when it is placed in.
+ */
 public class GhostSlot extends BackpackSlot{
 
-    public int index;
+    public int index; //the slot index in the inventory
 
     public GhostSlot(IInventory iInventory, int index, int x, int y) {
         super(iInventory, index, x, y);
@@ -23,6 +26,7 @@ public class GhostSlot extends BackpackSlot{
         return null;
     }
 
+    //Always sets the stack size to 1
     @Override
     public void putStack(ItemStack itemStack){
         if(itemStack != null) {

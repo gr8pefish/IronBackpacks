@@ -7,6 +7,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemIronBackpack extends ItemBaseBackpack {
 
     public ItemIronBackpack() {
-        super("ironBackpack", ConfigHandler.useAlternateHDBackpackTextures ? "backpack_iron_alternate" : "backpack_iron", 1, ConfigHandler.enumIronBackpack.upgradePoints.getValue(), IronBackpacksConstants.Backpacks.IRON_ID);
+        super("ironBackpack", ConfigHandler.useAlternateHDBackpackTextures ? "backpack_iron_alternate" : "backpack_iron", ConfigHandler.enumIronBackpack.upgradePoints.getValue(), IronBackpacksConstants.Backpacks.IRON_ID);
     }
 }

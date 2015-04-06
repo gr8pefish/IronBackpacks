@@ -4,13 +4,15 @@ import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
 
-
+/**
+ * The configuration file is handled by this class
+ */
 public class ConfigHandler {
 
-    //================Enums (for easy reference by name rather than some number) ============================
+    //================ Backpack Enums (for easy reference by name rather than some number) ============================
 
     public static int[] basicBackpack;
-    public enum enumBasicBackpack{ //TODO - there must be a better way to init these enums...
+    public enum enumBasicBackpack{
         upgradePoints(basicBackpack[0]),
         sizeX(basicBackpack[1]),
         sizeY(basicBackpack[2]);
@@ -64,8 +66,8 @@ public class ConfigHandler {
 
     private static final int valuesToLoad = 3; //upgradePoints, sizeX, sizeY
 
-    //==================== All the publicly accessible values====================================
 
+    //==================== All the publicly accessible values====================================
 
     public static String[] basicBackpackRecipe;
     public static String[] ironBackpackRecipe;
@@ -115,7 +117,8 @@ public class ConfigHandler {
     public static int additionalUpgradesIncrease;
     public static boolean useAlternateHDBackpackTextures;
 
-    //========================init====================================
+
+    //========================initialization====================================
 
     public static void init(File file){
 
@@ -126,12 +129,13 @@ public class ConfigHandler {
         goldBackpack = new int[valuesToLoad];
         diamondBackpack = new int[valuesToLoad];
 
-        ///======================================================Recipe defaults================================
+        //======================================================Recipe defaults================================
 
         String[] basicRecipe = {"items.leather", "items.leather", "items.leather", "items.leather", "blocks.chest", "items.leather", "items.leather", "items.leather", "items.leather"};//Items.
         String[] ironRecipe = {"ingotIron", "blockIron", "ingotIron", "ingotIron", "items.ironbackpacks:basicBackpack", "ingotIron", "ingotIron", "ingotIron", "ingotIron"};
         String[] goldRecipe = {"ingotGold", "blockGold", "ingotGold", "ingotGold", "items.ironbackpacks:ironBackpack", "ingotGold", "ingotGold", "blockGold", "ingotGold"};
         String[] diamondRecipe = {"gemDiamond", "blockDiamond", "gemDiamond", "gemDiamond", "items.ironbackpacks:goldBackpack", "gemDiamond", "gemDiamond", "gemDiamond", "gemDiamond"};
+        //done - this comment refers to balance changes, if the recipe defaults need to be tweaked or are good for the time being
 
         String[] buttonRecipe = {"items.ironbackpacks:treatedLeather","blocks.stone_button","items.ironbackpacks:treatedLeather", "blocks.wooden_button", "items.ironbackpacks:upgradeCore", "blocks.wooden_button", "items.ironbackpacks:treatedLeather", "blocks.stone_button", "items.ironbackpacks:treatedLeather"};
         //done
@@ -173,6 +177,7 @@ public class ConfigHandler {
         String[] treatedLeatherDefault = {"items.leather", "items.water_bucket", "dyeLime", "items.flint"};
         //done
 
+
         //===================================================Categories======================================
 
         config.load();
@@ -187,12 +192,6 @@ public class ConfigHandler {
         config.addCustomCategoryComment("0) Backpacks", "Here you can modify the traits of the backpacks.");
         config.addCustomCategoryComment("6) Upgrade Costs", "Here you can modify how expensive the upgrades are to add to a backpack. A cost of 0 makes the upgrade 'free' to apply, while a higher number makes it more expensive.");
         config.addCustomCategoryComment("7) Miscellaneous", "A variety of miscellaneous configurable tweaks and changes to the mod.");
-
-        //======================Upgrade Slots========================
-//        ConfigCategory upgradeSlotsCategory = config.getCategory("Upgrade Slots");
-//        upgradeSlotsCategory.setComment(" The number of upgrade slots for each type of backpack.");
-        //TODO - the categories are sorted alphabetically instead of in this order, so it looks weird - new TreeMap of categories using reflection
-        //TODO - config.setCategoryPropertyOrder [maybe, if I deem it necessary]
 
 
         //============================================Initializing everything, the numbers keep them in the order I want=======================================
@@ -251,7 +250,6 @@ public class ConfigHandler {
         hopperUpgradeCost = config.get("6) Upgrade Costs", "11) Resupply Upgrade Recipe", 2, "The cost for the resupply upgrade. Default 2.").getInt();
         condenserUpgradeCost = config.get("6) Upgrade Costs", "12) Condenser Upgrade Recipe", 3, "The cost for the crafting upgrade. Default 3.").getInt();
         keepOnDeathUpgradeCost = config.get("6) Upgrade Costs", "13) Keep On Death Upgrade Recipe", 5, "The cost for the upgrade that allows you to keep the backpack upon dying. Default 5.").getInt();
-//        additionalUpgradesUpgradeCost = config.get("6) Upgrade Costs", "10) Additional Upgrade Slots Recipe", 0, "The cost for the upgrade which gives the backpack another upgrade slot. Default 1.").getInt();
         quickDepositUpgradeCost = config.get("6) Upgrade Costs", "14) Quick Deposit Upgrade Recipe", 2, "The cost for the quick deposit upgrade. Default 2.").getInt();
 
         renamingUpgradeRequired = config.get("7) Miscellaneous", "1) Renaming Upgrade Required", false, "If the renaming upgrade is required to rename the backpack. Default is false (so you can rename backpacks natively).").getBoolean();

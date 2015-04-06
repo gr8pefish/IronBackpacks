@@ -9,10 +9,13 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.List;
 
+/**
+ * Abstract base class for all my upgrades
+ */
 public abstract class ItemUpgradeBase extends ItemBase{
 
-    public int typeID;
-    public String[] tooltip;
+    private int typeID;
+    private String[] tooltip;
     private int upgradeCost;
 
     public ItemUpgradeBase(String unlocName, String textureName, int typeID, int upgradeCost, String... descriptions) {

@@ -3,6 +3,9 @@ package main.ironbackpacks.items.backpacks;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 
+/**
+ * Enumeration for the values stored in each backpack
+ */
 public enum IronBackpackType {
 
     BASIC(IronBackpacksConstants.Backpacks.BASIC_ID,
@@ -25,7 +28,7 @@ public enum IronBackpackType {
     private int id; //id int value of number in enum
     private int size; //number of slots
     private int rowLength; //number of rows
-    public String name;
+    public String name; //display name
 
     IronBackpackType(int id, int size, int rowLength, String fancyName){
         this.id = id;
