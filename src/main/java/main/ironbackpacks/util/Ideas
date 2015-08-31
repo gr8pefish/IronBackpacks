@@ -1,0 +1,157 @@
+To Do:
+
+    NOW:
+
+        --Try building and testing in DW20-- Not yet, redo proxies and crashes and whatnot
+
+
+    SOON:
+
+        REFACTOR:
+            Allow shift right click equipped?
+                If can figure it out, can shift right click to open nested guis too
+                If not, just make it right click only and save for next update
+
+        BUGS:
+            Equipped backpack gone on death (check with and without eternity upgrade)
+            Depth not working with restocking?
+                restocking when going from 63 -> stack gives an extra stack?
+            Check mod specific filter not working (AE2 specifically)
+
+        ADDITIONS/TWEAKS:
+            make crafting upgrade work when manually putting items in
+            Open right click direct from 'e' inventory?
+            Check lag with crafting upgrade?
+            Crafting upgrade in 2x2
+            Have depth upgrade apply to quick deposit
+
+        Make backpacks not enchantable
+
+        Add items "gem" and "dust" to miner filter -add to tooltip and changelog
+            change so it picks up cobble and smooth stone too and remove from alt gui?
+
+        Test open blocks compat only running on only client side as potential fix?
+            If can't figure it out, just disable feature for next release.
+
+        Check import Keyboard as cause of server crash
+
+        Fix buttons moving curr pack into itself
+
+        Fix backpack on player rendering with hang glider, odd bug
+
+        New removal system of upgrades?
+            Craft backpack with nothing else, slot if crafting grid determines which upgrade to remove
+                i.e. 1st slot means 1st upgrade removed, 2nd slot -> 2nd upgrade removed,..., 9th slot -> 9th upgrade removed
+                    if more than 9 upgrades you have to keep on doing it, but that is an acceptable cost
+            if can't do this, do eraser item
+
+        ADDED: Ability to shift right click nested backpacks to open their alternate gui
+
+        add ender upgrade?
+            allows you to use the filter/restocking to go into an ender pouch in the inventory
+
+        Change sorting to a configurable style (i.e. id, name, etc.) w/ right click sort button to change style in game
+
+        Check out NEI not ordering items properly (i.e. upgrades mixed in in-between backpacks)
+
+        Add in more inter-mod compatibility
+            right click in my backpack to open TE satchels, golden bag of holding, etc.
+            add IBlockProvider for use with botania's rods
+
+        Add ability to shift right click backpacks to open alt-guis
+
+        Make textures of upgrades more 3D looking
+
+        Add documentation book - see TiCon books source
+            * or add ExtraUtils style docs with "u" in NEI * <-- This one, check power converters Github for implementation
+
+        Add achievements
+
+        Edit MCF post with new pictures/graphics/etc - overhaul
+
+    LATER:
+
+        //Craft any backpack surrounded by planks to turn it into a placeable custom chest/tileEntity and then shapeless craft the chest to get the backpack back (IChestable)
+        Place down TileEntityBackpack directly - if the controls can work that way, if not do the chest method
+
+        Power/Fluid/Gas Upgrades (dynamic sizing on left side)
+
+
+    EVENTUAL FEATURES:
+        Gui Config
+
+        custom handling with other mods armors special rendering to render my pack in special spots?
+
+        Barrel Backpacks (implement IChestable)
+
+        Craft a diamond/barrel/ender (IDyeable) backpack with dyes to color it
+
+Changelog:
+ADDED: The ability to equip and open a backpack with keybindings.
+ADDED: Equipped backpacks render on the player with a custom model.
+ADDED: Depth Upgrade
+ADDED: Mining Filter Upgrade
+ADDED: Ability to right click ender storage backpacks inside iron backpacks to open them
+FIXED: Corner case with not being able to move a different backpack in your hotbar while another is open.
+CHANGED: The sorting button now sorts by ID, with iron backpacks always being in the front slots (i.e. top left slots)
+CHANGED: All the textures (backpacks and items) to slightly improved versions.
+CHANGED: Config option regarding the alternate backpack textures so it is clear the HD one is default.
+CHANGED: Default gold and diamond backpack recipes are slightly cheaper.
+CHANGED: Changed the Fuzzy filter's default recipe to something less confusing.
+CHANGED: Altered the default upgrade points on the backpack tiers to be slightly higher.
+
+MCF Posting:
+Add that it has full Thaumcraft aspect support
+Open blocks won't render backpack with glider on
+Mod armors that have larger custom models might overlap with my backpack model, just visually annoying
+
+
+Balance/Play With:
+
+
+Bugs:
+    IMPORTANT:
+
+
+    Less important:
+        Scrolling too fast in the advanced filter dupes items (but they are ghost items so no big deal)
+        Fix direct deposit into AE terminals
+
+Figure out:
+
+
+Tiers:
+    Leather[DONE]
+    Iron[DONE]
+    Gold[DONE]
+    Diamond[DONE]
+
+    Barrel - 4 tiers (or upgrade and drops excess items onto ground), or adds barrel slot like a DSU?
+    Ender
+
+Upgrades:
+
+
+Textures:
+
+    Redo:
+
+
+    Do:
+
+
+Misc features:
+    Recipes via config - support meta/damage values
+
+Mod Support:
+    NEI with recipes[DONE]
+    Inventory Tweaks[DONE]
+    Version Checker[Check if working okay once update]
+
+Future Refactoring:
+
+    Full localization
+        Includes tooltips
+        Buttons (if applicable)
+
+
