@@ -8,16 +8,12 @@ import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
-import main.ironbackpacks.entity.EntityBackpack;
-import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
 import main.ironbackpacks.util.NBTHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import scala.collection.parallel.ParIterableLike;
 
 /**
  * A message that contains a single byte as the data sent
@@ -99,7 +95,7 @@ public class SingleByteMessage implements IMessage{
                     if (backpackStack != null) {
                         NBTHelper.setUUID(backpackStack);
                         IronBackpacks.proxy.updateCurrBackpack(player, backpackStack);
-                        System.out.println(player.isSneaking());
+//                        System.out.println(player.isSneaking());
 //                        System.out.println(Minecraft.getMinecraft().thePlayer.isSneaking());
                         backpackStack.useItemRightClick(player.worldObj, player);
                     }

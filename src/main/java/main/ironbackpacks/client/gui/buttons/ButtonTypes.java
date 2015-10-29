@@ -14,7 +14,7 @@ public enum ButtonTypes {
     BACKPACK_TO_INVENTORY(8, 11,12, 64,0, true, "Moves items from the", "backpack to your inventory."),
     INVENTORY_TO_BACKPACK(9, 11,12, 64,16, true, "Moves items from your", "inventory to the backpack"),
     HOTBAR_TO_BACKPACK(10, 11,12, 64,32, true, "Moves items from your", "hotbar to the backpack."),
-    SORT_BACKPACK(11, 11,12, 64,48, true, "Sorts and condenses the","items in the backpack", "(by ID, with backpacks always going first)"), //TODO: change description of sort style depending
+    SORT_BACKPACK(11, 11,12, 64,48, true, "Sorts and condenses the","items in the backpack", "(by ID, with backpacks first)"), //TODO: change description of sort style depending
     MOVE_LEFT(12, 4,9, 18,57, true, "Shift to the left."),
     MOVE_RIGHT(13, 4,9, 18,37, true, "Shift to the right.");
 

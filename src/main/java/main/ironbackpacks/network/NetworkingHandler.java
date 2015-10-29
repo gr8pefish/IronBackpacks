@@ -18,7 +18,6 @@ public class NetworkingHandler {
         registerMessage(RenameMessage.Handler.class, RenameMessage.class, Side.SERVER);
         registerMessage(AdvFilterTypesMessage.Handler.class, AdvFilterTypesMessage.class, Side.SERVER);
         registerMessage(SingleByteMessage.Handler.class, SingleByteMessage.class, Side.SERVER);
-
         registerMessage(OpenGuiClientElement.Handler.class, OpenGuiClientElement.class, Side.CLIENT);
     }
 

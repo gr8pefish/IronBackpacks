@@ -3,13 +3,10 @@ package main.ironbackpacks.container.alternateGui;
 import invtweaks.api.container.ChestContainer;
 import invtweaks.api.container.InventoryContainer;
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
-import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
-import main.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -168,7 +165,7 @@ public class ContainerAlternateGui extends Container {
      * Renames the backpack to the string parameter
      * @param toName - the new name
      */
-    public void renameBackpack(String toName){ //TODO: fix for nect update
+    public void renameBackpack(String toName){ //TODO: fix for next update
         ItemStack itemStack = IronBackpacksHelper.getBackpackFromPlayersInventory(this.player); //works only for opening w/out nested
 //        ItemStack itemStack1 = CommonProxy.getCurrBackpack(player);
         stack.setStackDisplayName(toName); //client

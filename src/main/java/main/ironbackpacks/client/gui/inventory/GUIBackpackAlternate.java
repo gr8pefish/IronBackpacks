@@ -2,7 +2,6 @@ package main.ironbackpacks.client.gui.inventory;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
@@ -15,9 +14,7 @@ import main.ironbackpacks.network.AdvFilterTypesMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.RenameMessage;
 import main.ironbackpacks.network.SingleByteMessage;
-import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.IronBackpacksConstants;
-import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;

@@ -7,11 +7,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.entity.EntityBackpack;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
-import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 

@@ -21,6 +21,7 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID >=0){ //normal gui
+            System.out.println("server element gui firing");
             IronBackpackType type = IronBackpackType.values()[ID];
             return new ContainerBackpack(player, new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player), type), type);
         }else if (ID < 0){ //alternate gui
@@ -33,12 +34,13 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID >= 0) { //normal gui
-            //Need to get the itemstack saved on the server side player here
+            //(TODO) - Need to get the itemstack saved on the server side player here
             //ex: something like this pseudocode
             // ItemStack backpack = NetworkingHandler.network.getDataFromServer();
             // where the server calls the method IronBackpacksHelper.getBackpack(ctx.getServerHandler.thePlayer) which will return the itemstack stored with the server player
             // and then I need to somehow get that itemstack back here (i.e. client side) to pass it into my GUI
             ItemStack backpack = IronBackpacksHelper.getBackpack(player); //need it from server side, not the client player
+            System.out.println("ClientGuiElement null: "+(backpack==null));
             int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
             return GUIBackpack.GUI.buildGUI(player, new InventoryBackpack(player, backpack, IronBackpackType.values()[ID]), upgrades, backpack);
         }else if (ID < 0){ //alternate gui

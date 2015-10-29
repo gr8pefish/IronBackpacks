@@ -1,7 +1,6 @@
 package main.ironbackpacks.items.upgrades;
 
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
-import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;

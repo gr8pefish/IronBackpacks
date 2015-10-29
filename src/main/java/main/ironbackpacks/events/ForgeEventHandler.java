@@ -1,33 +1,25 @@
 package main.ironbackpacks.events;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.client.gui.GuiHandler;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
-import main.ironbackpacks.entity.EntityBackpack;
-import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.IronBackpacksHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 
 /**
@@ -150,6 +142,7 @@ public class ForgeEventHandler {
                 IronBackpackType type = IronBackpackType.values()[((ItemBaseBackpack) backpack.getItem()).getGuiId()];
                 ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
+                    container.sort(); //TODO: test with this added in
                     ArrayList<ItemStack> hopperItems = UpgradeMethods.getHopperItems(backpack);
                     for (ItemStack hopperItem : hopperItems) {
                         if (hopperItem != null) {
@@ -385,7 +378,8 @@ public class ForgeEventHandler {
     private void transferWithModSpecificFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
-                if (getModName(event.item.getEntityItem()).equals(getModName(filterItem))) {
+                //if modId1 == modId2 same mod so transfer
+                if (GameRegistry.findUniqueIdentifierFor(event.item.getEntityItem().getItem()).modId.equals(GameRegistry.findUniqueIdentifierFor(filterItem.getItem()).modId)){
                     container.transferStackInSlot(event.item.getEntityItem());
                 }
             }
@@ -406,22 +400,6 @@ public class ForgeEventHandler {
                     container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
                 }
             }
-        }
-    }
-
-    /**
-     * Gets the mod name from the item. Groups 'vanilla' items together.
-     * @param itemStack - the item to check
-     * @return - String value of modid
-     */
-    private String getModName(ItemStack itemStack){
-        String entityUnlocName = itemStack.getUnlocalizedName().substring(5); //cut out 'item.'
-        if (entityUnlocName.contains(":")) { //registering name with colon
-            return entityUnlocName.split(":")[0];
-//        }else if (entityUnlocName.contains(".")){ //registering with period //ruins vanilla items w/ damage values
-//            return entityUnlocName.split("\\.")[0];
-        }else{
-            return "vanilla";
         }
     }
 

@@ -11,9 +11,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import openblocks.common.entity.EntityHangGlider;
 import org.lwjgl.opengl.GL11;
-import scala.Int;
 
 
 @SideOnly(Side.CLIENT) //TODO: make sure this is everywhere it should be

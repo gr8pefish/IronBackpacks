@@ -1,19 +1,12 @@
 package main.ironbackpacks.items.backpacks;
 
-import cpw.mods.fml.common.network.FMLOutboundHandler;
-import cpw.mods.fml.common.network.internal.FMLMessage;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import io.netty.channel.embedded.EmbeddedChannel;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.network.NetworkingHandler;
-import main.ironbackpacks.network.OpenGuiClientElement;
-import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
@@ -43,6 +36,7 @@ public class ItemBaseBackpack extends ItemBase {
     public ItemBaseBackpack(String unlocName, String textureName, int upgradeSlots, int ID) {
         super(unlocName, textureName);
         setMaxStackSize(1);
+        setNoRepair();
         this.upgradeSlots = upgradeSlots;
         guiId = ID-1; //0,1,2,3
         typeID = ID; //1,2,3,4
@@ -58,6 +52,10 @@ public class ItemBaseBackpack extends ItemBase {
         return upgradeSlots;
     }
 
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
+    }
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
@@ -111,16 +109,20 @@ public class ItemBaseBackpack extends ItemBase {
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (world.isRemote){ //client side
+            System.out.println("Client side gogogo");
             IronBackpacks.proxy.updateCurrBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: alter?
             return itemStack;
         }else {
             NBTHelper.setUUID(itemStack);
             IronBackpacks.proxy.updateCurrBackpack(player, itemStack);
             if (!player.isSneaking()){
-                System.out.println("not sneaking");
+//                System.out.println("not sneaking");
 //                openServerGui((EntityPlayerMP)player, guiId); //TODO: custom implementation of opening guis
                 player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ);
-                NetworkingHandler.network.sendTo(new OpenGuiClientElement(guiId, itemStack), (EntityPlayerMP)player);
+                if (IronBackpacksHelper.getEquippedBackpack(player) != null){
+                    System.out.println("equipped pack on side x");
+                }
+//                NetworkingHandler.network.sendTo(new OpenGuiClientElement(guiId, itemStack), (EntityPlayerMP)player); //TODO ? commented in before
                 return itemStack;
             }else { //if sneaking
                 System.out.println("sneaking");

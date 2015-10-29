@@ -1,7 +1,6 @@
 package main.ironbackpacks.container.alternateGui;
 
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
-import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.IronBackpackType;

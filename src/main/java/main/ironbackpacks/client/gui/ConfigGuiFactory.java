@@ -2,15 +2,11 @@ package main.ironbackpacks.client.gui;
 
 import cpw.mods.fml.client.IModGuiFactory;
 import cpw.mods.fml.client.config.GuiConfig;
-import cpw.mods.fml.client.config.IConfigElement;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.util.ConfigHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class ConfigGuiFactory implements IModGuiFactory {

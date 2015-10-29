@@ -108,3 +108,6 @@ task("incrementBuildNumber") {
 
 // Uncomment this line if you want to auto-upload to CurseForge when you build. This requires you to setup curse.gradle yourself.
 // fileTree('gradle').include('curse.gradle').collect().sort().each { apply from: it }
+
+//to make the resources work?
+idea { module { inheritOutputDirs = true } }

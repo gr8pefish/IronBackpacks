@@ -1,7 +1,6 @@
 package main.ironbackpacks.util;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.io.File;
 
