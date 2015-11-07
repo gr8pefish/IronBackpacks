@@ -30,26 +30,46 @@ public class CommonProxy {
      */
     public void saveBackpackOnDeath(EntityPlayer player) {
         NBTTagList tagList = new NBTTagList();
+        boolean shouldStorePack = false; //to store the pack in the inventory for a "normal death"
+        boolean stored = false; //the act of storing it
+        ItemStack packToStore = null;
+
+        boolean gameruleKeepInv = player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory");
 
         ItemStack equippedPack = getEquippedBackpack(player);
-        if (equippedPack != null && !UpgradeMethods.hasKeepOnDeathUpgrade(equippedPack))
-            updateEquippedBackpack(player, null); //removes backpack
-        else {
-            ItemStack updatedEquippedPack = removeKeepOnDeathUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(equippedPack), equippedPack); //remove upgrade
-            updateEquippedBackpack(player, updatedEquippedPack);
+        if (equippedPack != null && !gameruleKeepInv) {
+            if (!UpgradeMethods.hasKeepOnDeathUpgrade(equippedPack)) {
+                shouldStorePack = true;
+                packToStore = equippedPack;
+                updateEquippedBackpack(player, null); //removes backpack
+            } else {
+                ItemStack updatedEquippedPack = removeKeepOnDeathUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(equippedPack), equippedPack); //remove upgrade
+                updateEquippedBackpack(player, updatedEquippedPack);
+            }
         }
 
 
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack tempStack = player.inventory.getStackInSlot(i);
-            if (tempStack != null && UpgradeMethods.hasKeepOnDeathUpgrade(tempStack)) {
-                NBTTagCompound tagCompound = new NBTTagCompound();
-                ItemStack stackToAdd = removeKeepOnDeathUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(tempStack), tempStack); //removes upgrade
-                stackToAdd.writeToNBT(tagCompound);
-                tagList.appendTag(tagCompound);
+            if (tempStack != null && !gameruleKeepInv) {
+                if (UpgradeMethods.hasKeepOnDeathUpgrade(tempStack)) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    ItemStack stackToAdd = removeKeepOnDeathUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(tempStack), tempStack); //removes upgrade
+                    stackToAdd.writeToNBT(tagCompound);
+                    tagList.appendTag(tagCompound);
 
-                player.inventory.setInventorySlotContents(i, null); //set to null so it doesn't drop
+                    player.inventory.setInventorySlotContents(i, null); //set to null so it doesn't drop
+                }
+            } else { //empty slot
+                if (shouldStorePack && !stored) {
+                    player.inventory.setInventorySlotContents(i, packToStore);
+                    stored = true;
+                }
             }
+        }
+
+        if (shouldStorePack && !stored){ //no open inventory slots (and has to be gameruleKeepInventory false)
+            player.func_146097_a(packToStore, true, false); //drop it in world
         }
 
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);

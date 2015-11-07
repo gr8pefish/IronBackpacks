@@ -14,11 +14,8 @@ To Do:
     SOON:
 
         LAPTOP LOGISTICS:
-            VCS stuff for laptop, make the local branch be dev and push to dev, then clone master to local.
-                Figure that out later, for now make it work
-                    Can do a separate sweden branch for a temporary measure if needed
+            VCS stuff for laptop - make devSweden irrelevant eventually
             Reformat file structure to a 'run' folder so IdeaProjects/IronBackpacks/src+other area isn't so messy
-
 
         REFACTOR:
             Data storage in player pack?
@@ -31,20 +28,26 @@ To Do:
 
         BUGS:
 
+            Make sure you can't move the backpack, it allows for dupe glitches otherwise
+                -should be okay? check in built version
+
             Opening gui via keybinding breaks if you don't have another backpack in your inv
                 Seems to be okay with nested right clicks, it is just the keybinding/equipped one opening
 
             Shift click opening alt gui of equipped backpack opens wrong one and bad things happen
-                remove ability to shift right click on non-item ones
+                remove ability to shift right click on non-item ones - done
 
             Equipped backpack gone on death (check with and without eternity upgrade)
+                should be okay, check built version
 
             Fix buttons moving curr pack into itself - if needed; locked slot: https://github.com/Vazkii/Botania/commit/0ecc4872ffaa5e0ebd77ac5d94f873c97921a79a
+                should be fixed
 
             Restocking not working with arrows?
                 of course, not picking anything up - something should change?
 
         ADDITIONS/TWEAKS:
+            config recipe for basic backpack
             make crafting upgrade work when manually putting items in
             Open right click direct from 'e' inventory?
             Check lag with crafting upgrade?
@@ -108,6 +111,8 @@ ADDED: Ability to right click ender storage backpacks inside iron backpacks to o
 FIXED: Mod Specific Filter actually works now.
 FIXED: Restocking upgrade should now function properly.
 FIXED: Corner case with not being able to move a different backpack in your hotbar while another is open.
+FIXED: Equipped Backpacks should function properly on death now
+FIXED: Button upgrade's button should no longer move the opened pack
 CHANGED: The sorting button now sorts by ID, with iron backpacks always being in the front slots (i.e. top left slots)
 CHANGED: All the textures (backpacks and items) to slightly improved versions.
 CHANGED: Config option regarding the alternate backpack textures so it is clear the HD one is default.
