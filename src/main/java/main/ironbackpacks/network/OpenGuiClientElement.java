@@ -14,6 +14,7 @@ import main.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.util.IronBackpacksHelper;
+import main.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -49,8 +50,13 @@ public class OpenGuiClientElement implements IMessage {
 //            EntityPlayer player = Minecraft.getMinecraft().thePlayer; //this error: Attempted to load class net/minecraft/client/entity/EntityClientPlayerMP for invalid side SERVER
             System.out.println("opening pack on client via message"); //TODO: debug this, need to get the server side right too
             EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
-
+            if(ctx.side.isClient()){
+                Logger.debug("client");
+            }else{
+                Logger.debug("server?");
+            }
             if (message.ID >= 0) { //normal gui
+                Logger.debug("opening in client element custom");
                 ItemStack backpack = message.stack; //need it from server side, not the client player
                 int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
                 Object guiContainer = GUIBackpack.GUI.buildGUI(player, new InventoryBackpack(player, backpack, IronBackpackType.values()[message.ID]), upgrades, backpack);

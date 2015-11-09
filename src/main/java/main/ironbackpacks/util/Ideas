@@ -28,6 +28,11 @@ To Do:
 
         BUGS:
 
+            Equipped backpack can be the wrong one opened vs client/server
+                ex: opens with the button upgrade if another pack has it even when the equipped one doesn't have it
+                so check that I am updating the current pack correctly when equipping and opening the equipped
+                    seems to be the old gui, so some update isn't occurring that needs to
+
             Make sure you can't move the backpack, it allows for dupe glitches otherwise
                 -should be okay? check in built version
 

@@ -7,10 +7,9 @@ import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.util.ConfigHandler;
-import main.ironbackpacks.util.IronBackpacksConstants;
-import main.ironbackpacks.util.IronBackpacksHelper;
-import main.ironbackpacks.util.NBTHelper;
+import main.ironbackpacks.network.NetworkingHandler;
+import main.ironbackpacks.network.OpenGuiClientElement;
+import main.ironbackpacks.util.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
@@ -109,20 +108,26 @@ public class ItemBaseBackpack extends ItemBase {
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (world.isRemote){ //client side
-            System.out.println("Client side gogogo");
+//            System.out.println("Client side gogogo");
             IronBackpacks.proxy.updateCurrBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: alter?
             return itemStack;
         }else {
             NBTHelper.setUUID(itemStack);
             IronBackpacks.proxy.updateCurrBackpack(player, itemStack);
             if (!player.isSneaking()){
-//                System.out.println("not sneaking");
+
+                //old system of opening, normal way
+                player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"
+
+//                if (IronBackpacksHelper.getEquippedBackpack(player) != null)
+//                    System.out.println("equipped pack on side x"); //debug
+
+                //testing new custom system of opening
+//                System.out.println("server opening");
 //                openServerGui((EntityPlayerMP)player, guiId); //TODO: custom implementation of opening guis
-                player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ);
-                if (IronBackpacksHelper.getEquippedBackpack(player) != null){
-                    System.out.println("equipped pack on side x");
-                }
 //                NetworkingHandler.network.sendTo(new OpenGuiClientElement(guiId, itemStack), (EntityPlayerMP)player); //TODO ? commented in before
+
+
                 return itemStack;
             }else { //if sneaking
                 System.out.println("sneaking");
