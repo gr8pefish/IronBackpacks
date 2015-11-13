@@ -2,7 +2,6 @@ package main.ironbackpacks.util;
 
 
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
-import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.proxies.CommonProxy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -22,18 +21,12 @@ public class IronBackpacksHelper {
 
     /**
      * Gets the backpack to open. Checks for a backpack stored in the proxy first, then checks for an equipped backpack, and finally checks the player's inventory.
+     *
      * @param player - the player with the backpack
      * @return - null if it can't be found, the itemstack otherwise
      */
     public static ItemStack getBackpack(EntityPlayer player) {
-        ItemStack backpack = null;
-
-        ItemStack proxyPack = CommonProxy.getCurrBackpack(player);
-        if (proxyPack != null){
-            backpack = proxyPack;
-        }else { //TODO: add in check here for equipped backpack once applicable
-            backpack = getBackpackFromPlayersInventory(player);
-        }
+        ItemStack backpack = CommonProxy.getCurrBackpack(player) != null ? CommonProxy.getCurrBackpack(player) : getBackpackFromPlayersInventory(player);
 
         if (!player.worldObj.isRemote && backpack != null)
             NBTHelper.setUUID(backpack);
@@ -43,10 +36,11 @@ public class IronBackpacksHelper {
 
     /**
      * Gets the backpack form the player's inventory
+     *
      * @param player - the player with the backpack
      * @return - null if nothing can be found, the itemstack otherwise
      */
-    public static ItemStack getBackpackFromPlayersInventory(EntityPlayer player){
+    public static ItemStack getBackpackFromPlayersInventory(EntityPlayer player) {
         ItemStack backpack = null;
         if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
             backpack = player.getHeldItem();
@@ -71,6 +65,7 @@ public class IronBackpacksHelper {
 
     /**
      * Get upgrades stored in the backpack's NBT data
+     *
      * @param stack - the backpack to check
      * @return - an int[] of the upgrades applied (only contains what is applied, no empty values)
      */
@@ -79,12 +74,12 @@ public class IronBackpacksHelper {
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
-                if(nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.UPGRADES)) {
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.UPGRADES)) {
                     NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.UPGRADES, Constants.NBT.TAG_COMPOUND);
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int hasUpgrade = stackTag.getByte(IronBackpacksConstants.NBTKeys.UPGRADE);
-                        if (hasUpgrade != 0){ //if has an upgrade
+                        if (hasUpgrade != 0) { //if has an upgrade
                             upgradesArrayList.add(hasUpgrade);
                         }
                     }
@@ -101,12 +96,13 @@ public class IronBackpacksHelper {
 
     /**
      * Gets the point value of upgrades used.
+     *
      * @param upgrades - the upgrades applied
      * @return - how many upgrade points have been applied
      */
-    public static int getUpgradePointsUsed(int[] upgrades){
+    public static int getUpgradePointsUsed(int[] upgrades) {
         int counter = 0;
-        for (int upgrade : upgrades){
+        for (int upgrade : upgrades) {
             counter += IronBackpacksConstants.Upgrades.UPGRADE_POINTS[upgrade];
         }
         return counter;
@@ -114,10 +110,11 @@ public class IronBackpacksHelper {
 
     /**
      * Returns the total possible upgrade points available.
+     *
      * @param stack - the itemstack to check
      * @return - integer value
      */
-    public static int getTotalUpgradePointsFromNBT(ItemStack stack){
+    public static int getTotalUpgradePointsFromNBT(ItemStack stack) {
         ItemBaseBackpack backpack = (ItemBaseBackpack) stack.getItem();
         int upgradeCount = backpack.getUpgradeSlots(); //from initialization via config
         int extraPoints = getAdditionalUpgradesUpgradeCount(stack);
@@ -126,10 +123,11 @@ public class IronBackpacksHelper {
 
     /**
      * Gets how many 'additional upgrade' points have been applied to the backpack.
+     *
      * @param stack - the backpack
      * @return - integer value
      */
-    public static int getAdditionalUpgradesUpgradeCount(ItemStack stack){
+    public static int getAdditionalUpgradesUpgradeCount(ItemStack stack) {
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
@@ -143,10 +141,11 @@ public class IronBackpacksHelper {
 
     /**
      * Gets how many 'additional upgrade' upgrades have been applied to the backpack.
+     *
      * @param stack - the backpack
      * @return - integer value
      */
-    public static int getAdditionalUpgradesTimesApplied(ItemStack stack){
+    public static int getAdditionalUpgradesTimesApplied(ItemStack stack) {
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
@@ -157,7 +156,6 @@ public class IronBackpacksHelper {
         }
         return 0;
     }
-
 
 
 }

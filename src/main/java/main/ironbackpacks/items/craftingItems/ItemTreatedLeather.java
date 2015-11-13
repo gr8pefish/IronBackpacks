@@ -1,10 +1,14 @@
 package main.ironbackpacks.items.craftingItems;
 
-import main.ironbackpacks.items.ItemBase;
+import main.ironbackpacks.IronBackpacks;
+import main.ironbackpacks.ModInformation;
+import net.minecraft.item.Item;
 
-public class ItemTreatedLeather extends ItemBase {
+public class ItemTreatedLeather extends Item {
 
-    public ItemTreatedLeather(){
-        super("treatedLeather", "treatedLeather");
+    public ItemTreatedLeather() {
+        super();
+        setUnlocalizedName(ModInformation.ID + ":treatedLeather");
+        setCreativeTab(IronBackpacks.creativeTab);
     }
 }

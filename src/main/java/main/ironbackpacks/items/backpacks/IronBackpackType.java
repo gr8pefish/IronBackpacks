@@ -25,12 +25,12 @@ public enum IronBackpackType {
             ConfigHandler.enumDiamondBackpack.sizeX.getValue(),
             "diamondBackpack");
 
+    public String name; //display name
     private int id; //id int value of number in enum
     private int size; //number of slots
     private int rowLength; //number of rows
-    public String name; //display name
 
-    IronBackpackType(int id, int size, int rowLength, String fancyName){
+    IronBackpackType(int id, int size, int rowLength, String fancyName) {
         this.id = id;
         this.size = size;
         this.rowLength = rowLength;
@@ -45,9 +45,15 @@ public enum IronBackpackType {
         return rowLength;
     }
 
-    public int getSize() { return size; }
+    public int getSize() {
+        return size;
+    }
 
-    public String getName() {return name; }
+    public String getName() {
+        return name;
+    }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 }

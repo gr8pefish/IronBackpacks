@@ -19,13 +19,31 @@ public class BackpackTierRecipe extends ShapedOreRecipe {
 
     private final ItemStack recipeOutput;
 
-    public BackpackTierRecipe(ItemStack recipeOutput, Object... items){
+    public BackpackTierRecipe(ItemStack recipeOutput, Object... items) {
         super(recipeOutput, items);
         this.recipeOutput = recipeOutput;
     }
 
     /**
+     * Helper method for getting the first backpack in the crafting grid (which will be the one used)
+     *
+     * @param inventoryCrafting - the inventory to search
+     * @return - the backpack to be crafted
+     */
+    private static ItemStack getFirstBackpack(InventoryCrafting inventoryCrafting) {
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
+                if (itemstack != null && (itemstack.getItem() instanceof ItemBaseBackpack))
+                    return itemstack;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Simply gets the next tier backpack with the NBT data from the backpack in the crafting grid (so it keeps it's inventory/upgrades/etc.)
+     *
      * @param inventoryCrafting - the crafting inventory
      * @return - the itemstack result
      */
@@ -36,14 +54,14 @@ public class BackpackTierRecipe extends ShapedOreRecipe {
         ItemStack backpack = getFirstBackpack(inventoryCrafting);
         NBTTagCompound nbtTagCompound = backpack.getTagCompound();
 
-        if (nbtTagCompound == null){
+        if (nbtTagCompound == null) {
             nbtTagCompound = new NBTTagCompound();
             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ITEMS, new NBTTagList());
             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADES, new NBTTagList());
             backpack.setTagCompound(nbtTagCompound);
         }
 
-        ItemBaseBackpack backpackItem = (ItemBaseBackpack)backpack.getItem();
+        ItemBaseBackpack backpackItem = (ItemBaseBackpack) backpack.getItem();
         ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
         result = new ItemStack(backpacks.get(backpackItem.getTypeId()));
         result.setTagCompound(backpack.getTagCompound());
@@ -54,21 +72,5 @@ public class BackpackTierRecipe extends ShapedOreRecipe {
     @Override
     public ItemStack getRecipeOutput() {
         return recipeOutput;
-    }
-
-    /**
-     * Helper method for getting the first backpack in the crafting grid (which will be the one used)
-     * @param inventoryCrafting - the inventory to search
-     * @return - the backpack to be crafted
-     */
-    private static ItemStack getFirstBackpack(InventoryCrafting inventoryCrafting){
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-                if (itemstack != null && (itemstack.getItem() instanceof ItemBaseBackpack))
-                    return itemstack;
-            }
-        }
-        return null;
     }
 }

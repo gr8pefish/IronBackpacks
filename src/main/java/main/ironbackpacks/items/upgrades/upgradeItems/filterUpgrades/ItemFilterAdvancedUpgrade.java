@@ -6,7 +6,7 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 
 public class ItemFilterAdvancedUpgrade extends ItemUpgradeBase {
 
-    public ItemFilterAdvancedUpgrade(){
+    public ItemFilterAdvancedUpgrade() {
         super("filterAdvancedUpgrade", "filterAdvancedUpgrade", IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID, ConfigHandler.filterAdvancedUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_ADVANCED_DESCRIPTION);
     }
 }

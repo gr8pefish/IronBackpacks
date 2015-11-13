@@ -11,69 +11,17 @@ public class ConfigHandler {
 
     //================ Backpack Enums (for easy reference by name rather than some number) ============================
 
-    public static int[] basicBackpack;
-    public enum enumBasicBackpack{
-        upgradePoints(basicBackpack[0]),
-        sizeX(basicBackpack[1]),
-        sizeY(basicBackpack[2]);
-        private int value;
-        private enumBasicBackpack(int value){
-            this.value = value;
-        }
-        public int getValue() {
-            return value;
-        }
-    }
-    public static int[] ironBackpack;
-    public enum enumIronBackpack{
-        upgradePoints(ironBackpack[0]),
-        sizeX(ironBackpack[1]),
-        sizeY(ironBackpack[2]);
-        private int value;
-        private enumIronBackpack(int value){
-            this.value = value;
-        }
-        public int getValue() {
-            return value;
-        }
-    }
-    public static int[] goldBackpack;
-    public enum enumGoldBackpack{
-        upgradePoints(goldBackpack[0]),
-        sizeX(goldBackpack[1]),
-        sizeY(goldBackpack[2]);
-        private int value;
-        private enumGoldBackpack(int value){
-            this.value = value;
-        }
-        public int getValue() {
-            return value;
-        }
-    }
-    public static int[] diamondBackpack;
-    public enum enumDiamondBackpack{
-        upgradePoints(diamondBackpack[0]),
-        sizeX(diamondBackpack[1]),
-        sizeY(diamondBackpack[2]);
-        private int value;
-        private enumDiamondBackpack(int value){
-            this.value = value;
-        }
-        public int getValue() {
-            return value;
-        }
-    }
-
     private static final int valuesToLoad = 3; //upgradePoints, sizeX, sizeY
-
-
-    //==================== All the publicly accessible values====================================
-
+    public static int[] basicBackpack;
+    public static int[] ironBackpack;
+    public static int[] goldBackpack;
+    public static int[] diamondBackpack;
     public static String[] basicBackpackRecipe;
     public static String[] ironBackpackRecipe;
     public static String[] goldBackpackRecipe;
     public static String[] diamondBackpackRecipe;
 
+    //==================== All the publicly accessible values====================================
     public static String[] buttonUpgradeRecipe;
     public static String[] nestingUpgradeRecipe;
     public static String[] renamingUpgradeRecipe;
@@ -89,7 +37,6 @@ public class ConfigHandler {
     public static String[] quickDepositUpgradeRecipe;
     public static String[] filterAdvancedUpgradeRecipe;
     public static String[] nestingAdvancedUpgradeRecipe;
-
     public static int buttonUpgradeCost;
     public static int nestingUpgradeCost;
     public static int renamingUpgradeCost;
@@ -101,26 +48,20 @@ public class ConfigHandler {
     public static int hopperUpgradeCost;
     public static int condenserUpgradeCost;
     public static int keepOnDeathUpgradeCost;
-//    public static int additionalUpgradesUpgradeCost; //Always 0, otherwise it overrides a slot and is pointless
     public static int quickDepositUpgradeCost;
     public static int filterAdvancedUpgradeCost;
     public static int nestingAdvancedUpgradeCost;
-
     public static String[] nestRecipe;
     public static String[] upgradeCoreRecipe;
     public static String[] jeweledFeatherRecipe;
     public static String[] treatedLeatherRecipe;
-
     public static boolean renamingUpgradeRequired;
     public static int tooltipDelay;
     public static int additionalUpgradesLimit;
     public static int additionalUpgradesIncrease;
     public static boolean useAlternateHDBackpackTextures;
 
-
-    //========================initialization====================================
-
-    public static void init(File file){
+    public static void init(File file) {
 
         Configuration config = new Configuration(file);
 
@@ -135,55 +76,33 @@ public class ConfigHandler {
         String[] ironRecipe = {"ingotIron", "blockIron", "ingotIron", "ingotIron", "items.ironbackpacks:basicBackpack", "ingotIron", "ingotIron", "ingotIron", "ingotIron"};
         String[] goldRecipe = {"ingotGold", "blockGold", "ingotGold", "ingotGold", "items.ironbackpacks:ironBackpack", "ingotGold", "ingotGold", "blockGold", "ingotGold"};
         String[] diamondRecipe = {"gemDiamond", "blockDiamond", "gemDiamond", "gemDiamond", "items.ironbackpacks:goldBackpack", "gemDiamond", "gemDiamond", "gemDiamond", "gemDiamond"};
-        //done - this comment refers to balance changes, if the recipe defaults need to be tweaked or are good for the time being
-
-        String[] buttonRecipe = {"items.ironbackpacks:treatedLeather","blocks.stone_button","items.ironbackpacks:treatedLeather", "blocks.wooden_button", "items.ironbackpacks:upgradeCore", "blocks.wooden_button", "items.ironbackpacks:treatedLeather", "blocks.stone_button", "items.ironbackpacks:treatedLeather"};
-        //done
-        String[] nestingRecipe = {"items.ironbackpacks:jeweledFeather","items.ironbackpacks:nest","items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
-        //done
-        String[] nestingAdvancedRecipe = {"items.ironbackpacks:jeweledFeather","items.ironbackpacks:nest","items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:nestingUpgrade", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
-        //done
-        String[] renamingRecipe = {"items.writable_book","items.paper","items.writable_book", "items.ironbackpacks:treatedLeather", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:treatedLeather", "items.writable_book", "items.paper", "items.writable_book"};
-        //done
-        String[] damageBarRecipe = {"items.ironbackpacks:treatedLeather","items.bowl","items.ironbackpacks:treatedLeather", "items.string", "items.ironbackpacks:upgradeCore", "items.string", "items.ironbackpacks:treatedLeather", "items.bowl", "items.ironbackpacks:treatedLeather"};
-        //done
-        String[] filterBasicRecipe = {"items.ironbackpacks:treatedLeather","items.writable_book","items.ironbackpacks:treatedLeather", "items.paper", "items.ironbackpacks:upgradeCore", "items.paper", "items.ironbackpacks:treatedLeather", "items.writable_book", "items.ironbackpacks:treatedLeather"};
-        //done
-        String[] hopperRecipe = {"none","blocks.hopper","none", "blocks.hopper", "items.ironbackpacks:upgradeCore", "blocks.hopper", "none", "blocks.hopper", "none"};
-        //done
-        String[] condenserRecipe = {"gemLapis","blockLapis","gemLapis", "blocks.crafting_table", "items.ironbackpacks:upgradeCore", "blocks.crafting_table", "dustRedstone", "blockRedstone", "dustRedstone"};
-        //done
-        String[] keepOnDeathRecipe = {"blockDiamond","record","blockDiamond", "record", "items.ironbackpacks:upgradeCore", "record", "blockDiamond", "record", "blockDiamond"};
-        //done
-        String[] filterModSpecificRecipe = {"none","items.compass","none", "items.compass", "items.ironbackpacks:filterBasicUpgrade", "items.compass", "none", "items.compass", "none"};
-        //done
-        String[] filterFuzzyRecipe = {"blocks.stained_hardened_clay","blocks.wool","blocks.stained_hardened_clay", "blocks.red_flower", "items.ironbackpacks:filterBasicUpgrade", "blocks.red_flower", "blocks.stained_hardened_clay", "blocks.wool", "blocks.stained_hardened_clay"};
-        //done
-        String[] filterOreDictRecipe = {"none","items.clock","none", "items.clock", "items.ironbackpacks:filterBasicUpgrade", "items.clock", "none", "items.clock", "none"};
-        //done
-        String[] filterAdvancedRecipe = {"items.ironbackpacks:buttonUpgrade","items.ironbackpacks:filterBasicUpgrade","items.ender_eye", "items.ironbackpacks:filterFuzzyUpgrade", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:filterOreDictUpgrade", "items.ender_eye", "items.ironbackpacks:filterModSpecificUpgrade", "items.ironbackpacks:buttonUpgrade"};
-        //done
-        String[] additionalUpgradesRecipe = {"blockEmerald","record","blockEmerald", "record", "items.ironbackpacks:upgradeCore", "record", "blockEmerald", "record", "blockEmerald"};
-        //done
-        String[] quickDepositRecipe = {"slimeball","blocks.piston","slimeball", "slimeball", "items.ironbackpacks:upgradeCore", "slimeball", "blocks.piston", "slimeball", "blocks.piston"};
-        //done
-
-        String[] upgradeCoreRecipeDefault = {"items.leather","items.string","items.leather", "items.string", "items.paper", "items.string", "items.leather", "items.string", "items.leather"};
-        //done
-        String[] nestRecipeDefault = {"stickWood","stickWood","stickWood", "stickWood", "items.egg", "stickWood", "stickWood", "stickWood", "stickWood"};
-        //done
+        // this comment refers to balance changes, if the recipe defaults need to be tweaked or are good for the time being
+        String[] buttonRecipe = {"items.ironbackpacks:treatedLeather", "blocks.stone_button", "items.ironbackpacks:treatedLeather", "blocks.wooden_button", "items.ironbackpacks:upgradeCore", "blocks.wooden_button", "items.ironbackpacks:treatedLeather", "blocks.stone_button", "items.ironbackpacks:treatedLeather"};
+        String[] nestingRecipe = {"items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
+        String[] nestingAdvancedRecipe = {"items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:nestingUpgrade", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
+        String[] renamingRecipe = {"items.writable_book", "items.paper", "items.writable_book", "items.ironbackpacks:treatedLeather", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:treatedLeather", "items.writable_book", "items.paper", "items.writable_book"};
+        String[] damageBarRecipe = {"items.ironbackpacks:treatedLeather", "items.bowl", "items.ironbackpacks:treatedLeather", "items.string", "items.ironbackpacks:upgradeCore", "items.string", "items.ironbackpacks:treatedLeather", "items.bowl", "items.ironbackpacks:treatedLeather"};
+        String[] filterBasicRecipe = {"items.ironbackpacks:treatedLeather", "items.writable_book", "items.ironbackpacks:treatedLeather", "items.paper", "items.ironbackpacks:upgradeCore", "items.paper", "items.ironbackpacks:treatedLeather", "items.writable_book", "items.ironbackpacks:treatedLeather"};
+        String[] hopperRecipe = {"none", "blocks.hopper", "none", "blocks.hopper", "items.ironbackpacks:upgradeCore", "blocks.hopper", "none", "blocks.hopper", "none"};
+        String[] condenserRecipe = {"gemLapis", "blockLapis", "gemLapis", "blocks.crafting_table", "items.ironbackpacks:upgradeCore", "blocks.crafting_table", "dustRedstone", "blockRedstone", "dustRedstone"};
+        String[] keepOnDeathRecipe = {"blockDiamond", "record", "blockDiamond", "record", "items.ironbackpacks:upgradeCore", "record", "blockDiamond", "record", "blockDiamond"};
+        String[] filterModSpecificRecipe = {"none", "items.compass", "none", "items.compass", "items.ironbackpacks:filterBasicUpgrade", "items.compass", "none", "items.compass", "none"};
+        String[] filterFuzzyRecipe = {"blocks.stained_hardened_clay", "blocks.wool", "blocks.stained_hardened_clay", "blocks.red_flower", "items.ironbackpacks:filterBasicUpgrade", "blocks.red_flower", "blocks.stained_hardened_clay", "blocks.wool", "blocks.stained_hardened_clay"};
+        String[] filterOreDictRecipe = {"none", "items.clock", "none", "items.clock", "items.ironbackpacks:filterBasicUpgrade", "items.clock", "none", "items.clock", "none"};
+        String[] filterAdvancedRecipe = {"items.ironbackpacks:buttonUpgrade", "items.ironbackpacks:filterBasicUpgrade", "items.ender_eye", "items.ironbackpacks:filterFuzzyUpgrade", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:filterOreDictUpgrade", "items.ender_eye", "items.ironbackpacks:filterModSpecificUpgrade", "items.ironbackpacks:buttonUpgrade"};
+        String[] additionalUpgradesRecipe = {"blockEmerald", "record", "blockEmerald", "record", "items.ironbackpacks:upgradeCore", "record", "blockEmerald", "record", "blockEmerald"};
+        String[] quickDepositRecipe = {"slimeball", "blocks.piston", "slimeball", "slimeball", "items.ironbackpacks:upgradeCore", "slimeball", "blocks.piston", "slimeball", "blocks.piston"};
+        String[] upgradeCoreRecipeDefault = {"items.leather", "items.string", "items.leather", "items.string", "items.paper", "items.string", "items.leather", "items.string", "items.leather"};
+        String[] nestRecipeDefault = {"stickWood", "stickWood", "stickWood", "stickWood", "items.egg", "stickWood", "stickWood", "stickWood", "stickWood"};
         String[] jeweledFeatherDefault = {"items.feather", "nuggetGold", "nuggetGold"};
-        //done
         String[] treatedLeatherDefault = {"items.leather", "items.water_bucket", "dyeLime", "items.flint"};
-        //done
-
-
+        
         //===================================================Categories======================================
 
         config.load();
 
         config.addCustomCategoryComment("5) Recipes", "Each recipe has 9 lines, each corresponding to the next slot in the crafting grid. " +
-                "The recipes are registered with the oreDictionary, so putting in blocks.wool will allow you to use any color of wool while crafting."+
+                "The recipes are registered with the oreDictionary, so putting in blocks.wool will allow you to use any color of wool while crafting." +
                 "Syntax: use 'items.item_name' or 'blocks.block_name' or 'oreDictionaryName' or 'none' for a blank space. " +
                 "\nExample:\n\titems.paper - vanilla item\n\tblocks.gold_block - vanilla block\n\titems.paper - vanilla item\n\t" +
                 "plankWood - oreDictionary\n\tingotSilver - oreDictionary(assuming another mod is loaded that adds this)\n\tplankWood - oreDictionary" +
@@ -260,5 +179,67 @@ public class ConfigHandler {
         useAlternateHDBackpackTextures = config.get("7) Miscellaneous", "5) Alternate Backpack Textures", true, "Use alternate, HD textures for the backpacks. Default is true.").getBoolean();
 
         config.save(); //Don't forget to save
+    }
+    
+    public enum enumBasicBackpack {
+        upgradePoints(basicBackpack[0]),
+        sizeX(basicBackpack[1]),
+        sizeY(basicBackpack[2]);
+        private int value;
+
+        enumBasicBackpack(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+    
+    public enum enumIronBackpack {
+        upgradePoints(ironBackpack[0]),
+        sizeX(ironBackpack[1]),
+        sizeY(ironBackpack[2]);
+        private int value;
+
+        enumIronBackpack(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+    
+    public enum enumGoldBackpack {
+        upgradePoints(goldBackpack[0]),
+        sizeX(goldBackpack[1]),
+        sizeY(goldBackpack[2]);
+        private int value;
+
+        enumGoldBackpack(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+    
+    //========================initialization====================================
+
+    public enum enumDiamondBackpack {
+        upgradePoints(diamondBackpack[0]),
+        sizeX(diamondBackpack[1]),
+        sizeY(diamondBackpack[2]);
+        private int value;
+
+        enumDiamondBackpack(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 }
