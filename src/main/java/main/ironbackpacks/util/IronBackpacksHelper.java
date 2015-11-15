@@ -90,7 +90,7 @@ public class IronBackpacksHelper {
         int[] ret = new int[upgradesArrayList.size()];
         int i = 0;
         for (Integer e : upgradesArrayList)
-            ret[i++] = e.intValue();
+            ret[i++] = e;
         return ret;
     }
 

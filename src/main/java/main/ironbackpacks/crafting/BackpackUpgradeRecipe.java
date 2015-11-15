@@ -123,7 +123,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
                         upgradeFound = true;
                         if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID()))
                             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getTypeID()))); //int value of upgrade removed
-                    } else { //save old contents to new tag
+                    } else { //save old contents to nut tag
                         NBTTagCompound tagCompound = new NBTTagCompound();
                         tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgrade);
                         tagList.appendTag(tagCompound);

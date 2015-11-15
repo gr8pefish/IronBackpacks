@@ -1,9 +1,7 @@
 package main.ironbackpacks.items;
 
-import main.ironbackpacks.items.backpacks.backpackItems.ItemBasicBackpack;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemDiamondBackpack;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemGoldBackpack;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemIronBackpack;
+import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;
 import main.ironbackpacks.items.craftingItems.ItemNest;
 import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
@@ -96,14 +94,23 @@ public class ItemRegistry {
     public static void registerItems() {
 
         //backpacks
-        basicBackpack = new ItemBasicBackpack();
-        GameRegistry.registerItem(basicBackpack, "basicBackpack");
-        ironBackpack = new ItemIronBackpack();
-        GameRegistry.registerItem(ironBackpack, "ironBackpack");
-        goldBackpack = new ItemGoldBackpack();
-        GameRegistry.registerItem(goldBackpack, "goldBackpack");
-        diamondBackpack = new ItemDiamondBackpack();
-        GameRegistry.registerItem(diamondBackpack, "diamondBackpack");
+//        basicBackpack = new ItemBasicBackpack();
+//        GameRegistry.registerItem(basicBackpack, "basicBackpack");
+//        ironBackpack = new ItemIronBackpack();
+//        GameRegistry.registerItem(ironBackpack, "ironBackpack");
+//        goldBackpack = new ItemGoldBackpack();
+//        GameRegistry.registerItem(goldBackpack, "goldBackpack");
+//        diamondBackpack = new ItemDiamondBackpack();
+//        GameRegistry.registerItem(diamondBackpack, "diamondBackpack");
+
+        basicBackpack = new ItemBaseBackpack(IronBackpackType.BASIC);
+        GameRegistry.registerItem(basicBackpack, IronBackpackType.BASIC.getName());
+        ironBackpack = new ItemBaseBackpack(IronBackpackType.IRON);
+        GameRegistry.registerItem(ironBackpack, IronBackpackType.IRON.getName());
+        goldBackpack = new ItemBaseBackpack(IronBackpackType.GOLD);
+        GameRegistry.registerItem(goldBackpack, IronBackpackType.GOLD.getName());
+        diamondBackpack = new ItemBaseBackpack(IronBackpackType.DIAMOND);
+        GameRegistry.registerItem(diamondBackpack, IronBackpackType.DIAMOND.getName());
 
         //upgrades
         buttonUpgrade = new ItemButtonUpgrade();

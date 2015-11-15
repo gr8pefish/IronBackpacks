@@ -85,7 +85,7 @@ public class ItemRecipeRegistry {
         }
     }
 
-    //Registers the recipes that allow you to upgrade a backpack to a new tier (ex: iron -> gold)
+    //Registers the recipes that allow you to upgrade a backpack to a nut tier (ex: iron -> gold)
     private static void registerBackpackTierRecipes() {
         ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
 

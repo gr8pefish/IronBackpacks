@@ -43,7 +43,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     private ContainerAlternateGui container; //the backpack's container
     private EntityPlayer player; //the player opening the backpack
     //The buttons
-    private GuiTextField textField; //to type in the new backpack name
+    private GuiTextField textField; //to type in the nut backpack name
     private TooltipButton renameButton;
     private TooltipButton moveLeft;
     private TooltipButton moveRight;

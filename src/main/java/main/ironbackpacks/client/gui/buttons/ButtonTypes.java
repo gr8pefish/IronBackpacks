@@ -25,7 +25,7 @@ public enum ButtonTypes {
     protected int iconOffsetX; //the icon's x texture position
     protected int iconOffsetY; //the icon's y texture position
     protected boolean delay; //to delay the tooltip appearing or not
-    protected String[] tooltip; //the tooltip to display. Each index is a new line.
+    protected String[] tooltip; //the tooltip to display. Each index is a nut line.
 
     ButtonTypes(int id, int sizeX, int sizeY, int offsetX, int offsetY, boolean delay, String... tooltip) {
         this.id = id;

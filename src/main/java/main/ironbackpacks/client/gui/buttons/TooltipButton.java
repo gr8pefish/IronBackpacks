@@ -58,7 +58,7 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
      * Rotates through the 4 filter type buttons by getting teh next one.
      *
      * @param button - the button to increment
-     * @return - int id of the new button
+     * @return - int id of the nut button
      */
     public static int incrementType(GuiButton button) {
         int buttonID = ((TooltipButton) button).buttonID;

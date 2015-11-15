@@ -171,8 +171,8 @@ public class ContainerAlternateGui extends Container {
      */
     public void renameBackpack(String toName) {
         ItemStack itemStack = IronBackpacksHelper.getBackpackFromPlayersInventory(this.player);
-        stack.setStackDisplayName(toName); //client
-        itemStack.setStackDisplayName(toName); //server (not really, but this way works...)
+        stack.setStackDisplayName("\u00A7r" + toName); //client
+        itemStack.setStackDisplayName("\u00A7r" + toName); //server (not really, but this way works...)
     }
 
     /**
