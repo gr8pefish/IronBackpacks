@@ -2,6 +2,8 @@
 
 This is a fork of the original mod that has been updated to Minecraft 1.8. You can find information about the original mod [here](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2331340-iron-backpacks).
 
+Releases for this fork can be found [here](https://github.com/TehNut/IronBackpacks/releases).
+
 #Issue Reporting
 
 Before posting anything, please check if the issue has already been posted/resolved.
