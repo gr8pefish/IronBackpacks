@@ -65,8 +65,8 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
     /**
      * Crafts the backpack with the upgrade, with some special cases recognized.
      * First it checks if the backpack has enough upgrade points available to apply said upgrade to the backpack.
-     * If it has enough points available it progresses, otherwise it returns null;
-     * <p/>
+     * If it has enough points available it progresses, otherwise it returns {@code null}.
+     *
      * Then it checks for special cases, listed below:
      * You can't have more than the config amount of 'additional upgrade' upgrades applied.
      * You can't have multiple upgrades of the same type. If you try to apply the upgrade twice it will return the backpack with teh upgrade removed instead (which is how you remove upgrades).

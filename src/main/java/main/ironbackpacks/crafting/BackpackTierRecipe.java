@@ -13,7 +13,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import java.util.ArrayList;
 
 /**
- * The recipe to upgrade a backpack to it's next tier (ex: iron -> gold)
+ * The recipe to upgrade a backpack to it's next tier (ex: iron -&lt; gold)
  */
 public class BackpackTierRecipe extends ShapedOreRecipe {
 
