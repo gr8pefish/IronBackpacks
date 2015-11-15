@@ -1,5 +1,6 @@
 package main.ironbackpacks.items;
 
+import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;
@@ -9,6 +10,7 @@ import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
 import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.util.InventoryRenderHelper;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -93,16 +95,6 @@ public class ItemRegistry {
      */
     public static void registerItems() {
 
-        //backpacks
-//        basicBackpack = new ItemBasicBackpack();
-//        GameRegistry.registerItem(basicBackpack, "basicBackpack");
-//        ironBackpack = new ItemIronBackpack();
-//        GameRegistry.registerItem(ironBackpack, "ironBackpack");
-//        goldBackpack = new ItemGoldBackpack();
-//        GameRegistry.registerItem(goldBackpack, "goldBackpack");
-//        diamondBackpack = new ItemDiamondBackpack();
-//        GameRegistry.registerItem(diamondBackpack, "diamondBackpack");
-
         basicBackpack = new ItemBaseBackpack(IronBackpackType.BASIC);
         GameRegistry.registerItem(basicBackpack, IronBackpackType.BASIC.getName());
         ironBackpack = new ItemBaseBackpack(IronBackpackType.IRON);
@@ -155,5 +147,35 @@ public class ItemRegistry {
         GameRegistry.registerItem(jeweledFeather, "jeweledFeather");
         treatedLeather = new ItemTreatedLeather();
         GameRegistry.registerItem(treatedLeather, "treatedLeather");
+    }
+
+    public static void registerRenders() {
+        InventoryRenderHelper helper = IronBackpacks.RENDER;
+        helper.itemRender(basicBackpack, IronBackpackType.BASIC.getName());
+        helper.itemRender(ironBackpack, IronBackpackType.IRON.getName());
+        helper.itemRender(goldBackpack, IronBackpackType.GOLD.getName());
+        helper.itemRender(diamondBackpack, IronBackpackType.DIAMOND.getName());
+
+        helper.itemRender(buttonUpgrade, "buttonUpgrade");
+        helper.itemRender(nestingUpgrade, "nestingUpgrade");
+        if (ConfigHandler.renamingUpgradeRequired)
+            helper.itemRender(renamingUpgrade, "renamingUpgrade");
+        helper.itemRender(damageBarUpgrade, "damageBarUpgrade");
+        helper.itemRender(filterBasicUpgrade, "filterBasicUpgrade");
+        helper.itemRender(hopperUpgrade, "hopperUpgrade");
+        helper.itemRender(condenserUpgrade, "condenserUpgrade");
+        helper.itemRender(keepOnDeathUpgrade, "keepOnDeathUpgrade");
+        helper.itemRender(filterModSpecificUpgrade, "filterModSpecificUpgrade");
+        helper.itemRender(additionalUpgradesUpgrade, "additionalUpgradesUpgrade");
+        helper.itemRender(filterFuzzyUpgrade, "filterFuzzyUpgrade");
+        helper.itemRender(filterOreDictUpgrade, "filterOreDictUpgrade");
+        helper.itemRender(quickDepositUpgrade, "quickDepositUpgrade");
+        helper.itemRender(filterAdvancedUpgrade, "filterAdvancedUpgrade");
+        helper.itemRender(nestingAdvancedUpgrade, "nestingAdvancedUpgrade");
+
+        helper.itemRender(nest, "nest");
+        helper.itemRender(upgradeCore, "upgradeCore");
+        helper.itemRender(jeweledFeather, "jeweledFeather");
+        helper.itemRender(treatedLeather, "treatedLeather");
     }
 }
