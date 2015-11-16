@@ -23,3 +23,22 @@
 
 # Specific files
 Thumbs.db
+BotaniaVars.dat
+eula.txt
+saves/
+mods/
+logs/
+config/
+world/
+crash-reports/
+banned-ips.json
+banned-players.json
+libs/Thaumcraft-1.7.10-4.2.3.5.jar
+ops.json
+options.txt
+server.properties
+servers.dat
+usercache.json
+usernamecache.json
+whitelist.json
+world-20151111-122917.zip
