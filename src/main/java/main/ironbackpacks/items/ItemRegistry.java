@@ -1,10 +1,8 @@
 package main.ironbackpacks.items;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemBasicBackpack;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemDiamondBackpack;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemGoldBackpack;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemIronBackpack;
+import main.ironbackpacks.IronBackpacks;
+import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;
 import main.ironbackpacks.items.craftingItems.ItemNest;
 import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
@@ -12,7 +10,9 @@ import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
 import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.util.InventoryRenderHelper;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class ItemRegistry {
 
-	//backpacks
+    //backpacks
     public static Item basicBackpack;
     public static Item ironBackpack;
     public static Item goldBackpack;
@@ -52,9 +52,10 @@ public class ItemRegistry {
 
     /**
      * Gets every backpack item.
+     *
      * @return - backpacks as an ArrayList of Items
      */
-    public static ArrayList<Item> getBackpacks(){
+    public static ArrayList<Item> getBackpacks() {
         ArrayList<Item> backpacks = new ArrayList<Item>();
         backpacks.add(basicBackpack);
         backpacks.add(ironBackpack);
@@ -65,9 +66,10 @@ public class ItemRegistry {
 
     /**
      * Gets every upgrade item.
+     *
      * @return - upgrades as an ArrayList of Items
      */
-    public static ArrayList<Item> getUpgrades(){
+    public static ArrayList<Item> getUpgrades() {
         ArrayList<Item> upgrades = new ArrayList<Item>();
         upgrades.add(buttonUpgrade);
         upgrades.add(nestingUpgrade);
@@ -91,24 +93,23 @@ public class ItemRegistry {
     /**
      * Registers all the items with the GameRegistry
      */
-	public static void registerItems() {
+    public static void registerItems() {
 
-        //backpacks
-        basicBackpack = new ItemBasicBackpack();
-        GameRegistry.registerItem(basicBackpack, "basicBackpack");
-        ironBackpack = new ItemIronBackpack();
-        GameRegistry.registerItem(ironBackpack, "ironBackpack");
-        goldBackpack = new ItemGoldBackpack();
-        GameRegistry.registerItem(goldBackpack, "goldBackpack");
-        diamondBackpack = new ItemDiamondBackpack();
-        GameRegistry.registerItem(diamondBackpack, "diamondBackpack");
+        basicBackpack = new ItemBaseBackpack(IronBackpackType.BASIC);
+        GameRegistry.registerItem(basicBackpack, IronBackpackType.BASIC.getName());
+        ironBackpack = new ItemBaseBackpack(IronBackpackType.IRON);
+        GameRegistry.registerItem(ironBackpack, IronBackpackType.IRON.getName());
+        goldBackpack = new ItemBaseBackpack(IronBackpackType.GOLD);
+        GameRegistry.registerItem(goldBackpack, IronBackpackType.GOLD.getName());
+        diamondBackpack = new ItemBaseBackpack(IronBackpackType.DIAMOND);
+        GameRegistry.registerItem(diamondBackpack, IronBackpackType.DIAMOND.getName());
 
         //upgrades
         buttonUpgrade = new ItemButtonUpgrade();
         GameRegistry.registerItem(buttonUpgrade, "buttonUpgrade");
         nestingUpgrade = new ItemNestingUpgrade();
         GameRegistry.registerItem(nestingUpgrade, "nestingUpgrade");
-        if (ConfigHandler.renamingUpgradeRequired){
+        if (ConfigHandler.renamingUpgradeRequired) {
             renamingUpgrade = new ItemRenamingUpgrade();
             GameRegistry.registerItem(renamingUpgrade, "renamingUpgrade");
         }
@@ -146,6 +147,35 @@ public class ItemRegistry {
         GameRegistry.registerItem(jeweledFeather, "jeweledFeather");
         treatedLeather = new ItemTreatedLeather();
         GameRegistry.registerItem(treatedLeather, "treatedLeather");
+    }
 
-	}
+    public static void registerRenders() {
+        InventoryRenderHelper helper = IronBackpacks.RENDER;
+        helper.itemRender(basicBackpack, IronBackpackType.BASIC.getName());
+        helper.itemRender(ironBackpack, IronBackpackType.IRON.getName());
+        helper.itemRender(goldBackpack, IronBackpackType.GOLD.getName());
+        helper.itemRender(diamondBackpack, IronBackpackType.DIAMOND.getName());
+
+        helper.itemRender(buttonUpgrade, "buttonUpgrade");
+        helper.itemRender(nestingUpgrade, "nestingUpgrade");
+        if (ConfigHandler.renamingUpgradeRequired)
+            helper.itemRender(renamingUpgrade, "renamingUpgrade");
+        helper.itemRender(damageBarUpgrade, "damageBarUpgrade");
+        helper.itemRender(filterBasicUpgrade, "filterBasicUpgrade");
+        helper.itemRender(hopperUpgrade, "hopperUpgrade");
+        helper.itemRender(condenserUpgrade, "condenserUpgrade");
+        helper.itemRender(keepOnDeathUpgrade, "keepOnDeathUpgrade");
+        helper.itemRender(filterModSpecificUpgrade, "filterModSpecificUpgrade");
+        helper.itemRender(additionalUpgradesUpgrade, "additionalUpgradesUpgrade");
+        helper.itemRender(filterFuzzyUpgrade, "filterFuzzyUpgrade");
+        helper.itemRender(filterOreDictUpgrade, "filterOreDictUpgrade");
+        helper.itemRender(quickDepositUpgrade, "quickDepositUpgrade");
+        helper.itemRender(filterAdvancedUpgrade, "filterAdvancedUpgrade");
+        helper.itemRender(nestingAdvancedUpgrade, "nestingAdvancedUpgrade");
+
+        helper.itemRender(nest, "nest");
+        helper.itemRender(upgradeCore, "upgradeCore");
+        helper.itemRender(jeweledFeather, "jeweledFeather");
+        helper.itemRender(treatedLeather, "treatedLeather");
+    }
 }

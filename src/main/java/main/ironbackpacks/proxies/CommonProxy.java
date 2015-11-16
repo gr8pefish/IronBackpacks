@@ -16,10 +16,13 @@ import net.minecraftforge.common.util.Constants;
 public class CommonProxy {
 
     //==================================================== Handles the backpack persisting through death ==============================================================
-    private static String deathBackpack = ModInformation.ID+"PersistedPack";
+    private static String deathBackpack = ModInformation.ID + "PersistedPack";
+    //============================================================ The current backpack to open ================================================================
+    private static String currBackpack = ModInformation.ID + "CurrentPack";
 
     /**
      * Saves the backpack to the player so that it isn't lost.
+     *
      * @param player - the player who died with the backpack
      */
     public static void saveBackpackOnDeath(EntityPlayer player) {
@@ -45,11 +48,12 @@ public class CommonProxy {
 
     /**
      * Loads the backpack(s) that need to be 'respawned' in.
+     *
      * @param player - the player who lads the packs in
      */
     public static void loadBackpackOnDeath(EntityPlayer player) {
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(deathBackpack)){
+        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(deathBackpack)) {
             NBTTagList tagList = rootPersistentCompound.getTagList(deathBackpack, Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < tagList.tagCount(); i++) {
                 player.inventory.addItemStackToInventory(ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(i)));
@@ -60,15 +64,16 @@ public class CommonProxy {
 
     /**
      * Helper method to remove the upgrade when the player dies so they have to craft it again to keep the functionality through their next death.
+     *
      * @param upgrades - the upgrades of the backpack
-     * @param stack - the backpack to check
+     * @param stack    - the backpack to check
      * @return - the itemstack with the 'keepOnDeath' upgrade removed (if valid/applicable)
      */
-    private static ItemStack removeKeepOnDeathUpgrade(int[] upgrades, ItemStack stack){
+    private static ItemStack removeKeepOnDeathUpgrade(int[] upgrades, ItemStack stack) {
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             NBTTagList tagList = new NBTTagList();
-            for (int upgrade: upgrades) {
+            for (int upgrade : upgrades) {
                 if (!(upgrade == IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_UPGRADE_ID)) {
                     NBTTagCompound tagCompound = new NBTTagCompound();
                     tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgrade);
@@ -81,16 +86,13 @@ public class CommonProxy {
         return null;
     }
 
-
-    //============================================================ The current backpack to open ================================================================
-    private static String currBackpack = ModInformation.ID+"CurrentPack";
-
     /**
      * Updates the data stored as the current backpack to the parameter 'stack' passed in.
+     *
      * @param player - the player to update
-     * @param stack - the backpack to update to
+     * @param stack  - the backpack to update to
      */
-    public static void updateCurrBackpack(EntityPlayer player, ItemStack stack){
+    public static void updateCurrBackpack(EntityPlayer player, ItemStack stack) {
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
         if (stack != null) {
             NBTTagCompound tagCompound = new NBTTagCompound();
@@ -99,7 +101,7 @@ public class CommonProxy {
             rootPersistentCompound.setTag(currBackpack, tagCompound);
             if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
                 player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
-        }else{
+        } else {
             rootPersistentCompound.removeTag(currBackpack);
             if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
                 player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
@@ -109,14 +111,19 @@ public class CommonProxy {
 
     /**
      * Returns the backpack stored with the player as the current backpack
+     *
      * @param player - the player to retrieve the data from
      * @return - null if not found, otherwise the backpack itemstack
      */
-    public static ItemStack getCurrBackpack(EntityPlayer player){
+    public static ItemStack getCurrBackpack(EntityPlayer player) {
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(currBackpack)){
+        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(currBackpack)) {
             return ItemStack.loadItemStackFromNBT(rootPersistentCompound.getCompoundTag(currBackpack));
         }
         return null;
+    }
+
+    public void postInit() {
+
     }
 }

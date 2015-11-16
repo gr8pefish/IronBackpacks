@@ -11,21 +11,23 @@ public class NBTHelper {
 
     /**
      * Checks if the item has a UUID
+     *
      * @param itemStack - the itemstack to check
      * @return - boolean value
      */
-    public static boolean hasUUID(ItemStack itemStack){
+    public static boolean hasUUID(ItemStack itemStack) {
         return hasTag(itemStack, IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) && hasTag(itemStack, IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID);
     }
 
     /**
      * Sets the UUID
+     *
      * @param itemStack - the itemstack to set
      */
-    public static void setUUID(ItemStack itemStack){
+    public static void setUUID(ItemStack itemStack) {
         initNBTCompound(itemStack);
 
-        if (!hasUUID(itemStack)){
+        if (!hasUUID(itemStack)) {
             UUID itemUUID = UUID.randomUUID();
 
             setLong(itemStack, IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID, itemUUID.getMostSignificantBits());
@@ -35,13 +37,14 @@ public class NBTHelper {
 
     /**
      * Gets the UUID
+     *
      * @param itemStack - the itemstack to check
      * @return - UUID of the itemstack
      */
-    public static UUID getUUID(ItemStack itemStack){
+    public static UUID getUUID(ItemStack itemStack) {
         initNBTCompound(itemStack);
 
-        if (hasUUID(itemStack)){
+        if (hasUUID(itemStack)) {
             return new UUID(itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
         }
         return null;
@@ -49,31 +52,34 @@ public class NBTHelper {
 
     /**
      * Sets a value of data type long to the itemstack
+     *
      * @param itemStack - the stack to set to
-     * @param tag - the tag referring to the value
-     * @param value - the long value to set it to
+     * @param tag       - the tag referring to the value
+     * @param value     - the long value to set it to
      */
-    private static void setLong(ItemStack itemStack, String tag, Long value){
+    private static void setLong(ItemStack itemStack, String tag, Long value) {
         initNBTCompound(itemStack);
-        itemStack.stackTagCompound.setLong(tag, value);
+        itemStack.getTagCompound().setLong(tag, value);
     }
 
     /**
      * Checks if the stack has a tag
+     *
      * @param itemStack - the itemstack to check
-     * @param tag - the tag that references the stored value
+     * @param tag       - the tag that references the stored value
      * @return - boolean
      */
-    private static boolean hasTag(ItemStack itemStack, String tag){
-        return itemStack != null && itemStack.hasTagCompound() && itemStack.stackTagCompound.hasKey(tag);
+    private static boolean hasTag(ItemStack itemStack, String tag) {
+        return itemStack != null && itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey(tag);
     }
 
     /**
      * Only sets a new compound if the stack doesn't already have one.
+     *
      * @param itemStack - the stack to set it to
      */
-    private static void initNBTCompound(ItemStack itemStack){
-        if (itemStack.stackTagCompound == null){
+    private static void initNBTCompound(ItemStack itemStack) {
+        if (itemStack.getTagCompound() == null) {
             itemStack.setTagCompound(new NBTTagCompound());
         }
     }

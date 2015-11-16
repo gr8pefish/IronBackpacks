@@ -1,9 +1,9 @@
 package main.ironbackpacks.util;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInterModComms;
 import main.ironbackpacks.ModInformation;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 /**
  * Class for registering all compatibility modules for interacting with other mods
@@ -25,7 +25,7 @@ public class InterModSupport {
 
     }
 
-    public static void initVersionChecker(){
+    public static void initVersionChecker() {
         if (Loader.isModLoaded("VersionChecker")) {
             NBTTagCompound tagCompound = new NBTTagCompound();
             tagCompound.setString("curseProjectName", "227049-iron-backpacks");

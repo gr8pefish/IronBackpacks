@@ -6,7 +6,7 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 
 public class ItemKeepOnDeathUpgrade extends ItemUpgradeBase {
 
-    public ItemKeepOnDeathUpgrade(){
+    public ItemKeepOnDeathUpgrade() {
         super("keepOnDeathUpgrade", "keepOnDeathUpgrade", IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_UPGRADE_ID, ConfigHandler.keepOnDeathUpgradeCost, IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_DESCRIPTION);
     }
 }
