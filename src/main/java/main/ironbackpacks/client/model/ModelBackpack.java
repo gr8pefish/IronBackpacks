@@ -1,9 +1,9 @@
 package main.ironbackpacks.client.model;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelBackpack extends ModelBase {
@@ -13,8 +13,6 @@ public class ModelBackpack extends ModelBase {
     public ModelRenderer front;
     public ModelRenderer right;
     public ModelRenderer left;
-
-    public int getModelHeight() { return 12; }
 
     public ModelBackpack(boolean addStraps) {
 
@@ -45,10 +43,15 @@ public class ModelBackpack extends ModelBase {
 
     }
 
+    public int getModelHeight() {
+        return 12;
+    }
+
     public void renderAll() {
         float scale = 1 / 16.0F;
         render(scale);
     }
+
     protected void render(float scale) {
         render(main, scale);
         render(top, scale);
@@ -56,6 +59,7 @@ public class ModelBackpack extends ModelBase {
         render(right, scale);
         render(left, scale);
     }
+
     protected void render(ModelRenderer renderer, float scale) {
         if (renderer != null)
             renderer.render(scale);

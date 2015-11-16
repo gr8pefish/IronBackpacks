@@ -18,10 +18,10 @@ public class NestingBackpackSlot extends BackpackSlot {
     }
 
     @Override
-    public boolean acceptsStack(ItemStack stack){
-        if (stack.getItem() instanceof ItemBaseBackpack){
+    public boolean acceptsStack(ItemStack stack) {
+        if (stack.getItem() instanceof ItemBaseBackpack) {
             ItemBaseBackpack baseBackpack = (ItemBaseBackpack) stack.getItem();
-            return (type.getId() > baseBackpack.getTypeId()); //if current backpack is a higher tier than the other backpack, you can nest them
+            return (type.getId() > baseBackpack.getType().getId()); //if current backpack is a higher tier than the other backpack, you can nest them
         }
         return true;
     }

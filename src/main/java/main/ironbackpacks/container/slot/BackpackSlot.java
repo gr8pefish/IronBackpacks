@@ -20,7 +20,7 @@ public class BackpackSlot extends Slot {
     }
 
     //Can't accept other backpacks by default
-    public boolean acceptsStack(ItemStack itemStack){
+    public boolean acceptsStack(ItemStack itemStack) {
         return !(itemStack.getItem() instanceof ItemBaseBackpack);
     }
 

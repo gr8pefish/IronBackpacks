@@ -1,36 +1,37 @@
 package main.ironbackpacks.network;
 
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.Logger;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * A message that contains a single byte as the data sent
  */
-public class SingleByteMessage implements IMessage{
+public class SingleByteMessage implements IMessage {
 
     //the data sent
     private byte action;
 
-    public SingleByteMessage() {} //default constructor is necessary
+    public SingleByteMessage() {
+    } //default constructor is necessary
 
     public SingleByteMessage(byte action) {
         this.action = action;
     }
 
     @Override
-    public void fromBytes(ByteBuf buf){
+    public void fromBytes(ByteBuf buf) {
         action = (byte) ByteBufUtils.readVarShort(buf);
     }
 
     @Override
-    public void toBytes(ByteBuf buf){
+    public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeVarShort(buf, action);
     }
 

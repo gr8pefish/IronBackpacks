@@ -1,11 +1,15 @@
 package main.ironbackpacks.items.craftingItems;
 
 
-import main.ironbackpacks.items.ItemBase;
+import main.ironbackpacks.IronBackpacks;
+import main.ironbackpacks.ModInformation;
+import net.minecraft.item.Item;
 
-public class ItemUpgradeCore extends ItemBase{
+public class ItemUpgradeCore extends Item {
 
-    public ItemUpgradeCore(){
-        super("upgradeCore", "upgradeCore");
+    public ItemUpgradeCore() {
+        super();
+        setUnlocalizedName(ModInformation.ID + ":upgradeCore");
+        setCreativeTab(IronBackpacks.creativeTab);
     }
 }
