@@ -12,62 +12,15 @@ public class ConfigHandler {
     //================ Backpack Enums (for easy reference by name rather than some number) ============================
 
     public static int[] basicBackpack;
-    public enum enumBasicBackpack{
-        upgradePoints(basicBackpack[0]),
-        sizeX(basicBackpack[1]),
-        sizeY(basicBackpack[2]);
-        private int value;
-        private enumBasicBackpack(int value){
-            this.value = value;
-        }
-        public int getValue() {
-            return value;
-        }
-    }
     public static int[] ironBackpack;
-    public enum enumIronBackpack{
-        upgradePoints(ironBackpack[0]),
-        sizeX(ironBackpack[1]),
-        sizeY(ironBackpack[2]);
-        private int value;
-        private enumIronBackpack(int value){
-            this.value = value;
-        }
-        public int getValue() {
-            return value;
-        }
-    }
     public static int[] goldBackpack;
-    public enum enumGoldBackpack{
-        upgradePoints(goldBackpack[0]),
-        sizeX(goldBackpack[1]),
-        sizeY(goldBackpack[2]);
-        private int value;
-        private enumGoldBackpack(int value){
-            this.value = value;
-        }
-        public int getValue() {
-            return value;
-        }
-    }
     public static int[] diamondBackpack;
-    public enum enumDiamondBackpack{
-        upgradePoints(diamondBackpack[0]),
-        sizeX(diamondBackpack[1]),
-        sizeY(diamondBackpack[2]);
-        private int value;
-        private enumDiamondBackpack(int value){
-            this.value = value;
-        }
-        public int getValue() {
-            return value;
-        }
-    }
 
     private static final int valuesToLoad = 3; //upgradePoints, sizeX, sizeY
 
-
     //==================== All the publicly accessible values====================================
+
+    public static Configuration config;
 
     public static String[] basicBackpackRecipe;
     public static String[] ironBackpackRecipe;
@@ -103,7 +56,6 @@ public class ConfigHandler {
     public static int hopperUpgradeCost;
     public static int condenserUpgradeCost;
     public static int keepOnDeathUpgradeCost;
-//    public static int additionalUpgradesUpgradeCost; //Always 0, otherwise it overrides a slot and is pointless
     public static int quickDepositUpgradeCost;
     public static int filterAdvancedUpgradeCost;
     public static int filterMiningUpgradeCost;
@@ -124,9 +76,12 @@ public class ConfigHandler {
 
     //========================initialization====================================
 
-    public static void init(File file){
+    public static void init(File file) {
+        config = new Configuration(file);
+        syncConfig();
+    }
 
-        Configuration config = new Configuration(file);
+    public static void syncConfig() {
 
         basicBackpack = new int[valuesToLoad];
         ironBackpack = new int[valuesToLoad];
@@ -273,4 +228,67 @@ public class ConfigHandler {
 
         config.save(); //Don't forget to save
     }
+
+    //========================initialization====================================
+
+    public enum enumBasicBackpack {
+        upgradePoints(basicBackpack[0]),
+        sizeX(basicBackpack[1]),
+        sizeY(basicBackpack[2]);
+        private int value;
+
+        enumBasicBackpack(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public enum enumIronBackpack {
+        upgradePoints(ironBackpack[0]),
+        sizeX(ironBackpack[1]),
+        sizeY(ironBackpack[2]);
+        private int value;
+
+        enumIronBackpack(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public enum enumGoldBackpack {
+        upgradePoints(goldBackpack[0]),
+        sizeX(goldBackpack[1]),
+        sizeY(goldBackpack[2]);
+        private int value;
+
+        enumGoldBackpack(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public enum enumDiamondBackpack {
+        upgradePoints(diamondBackpack[0]),
+        sizeX(diamondBackpack[1]),
+        sizeY(diamondBackpack[2]);
+        private int value;
+
+        enumDiamondBackpack(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
 }

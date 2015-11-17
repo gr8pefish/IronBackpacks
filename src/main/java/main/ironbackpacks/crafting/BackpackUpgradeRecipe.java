@@ -1,6 +1,7 @@
 package main.ironbackpacks.crafting;
 
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.ItemUpgradeBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.ConfigHandler;
@@ -133,7 +134,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-                if (itemstack != null && (itemstack.getItem() instanceof ItemBaseBackpack))
+                if (itemstack != null && (itemstack.getItem() instanceof IBackpack))
                     return itemstack;
             }
         }
@@ -205,7 +206,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
      * @return - true if it can be applied, false otherwise
      */
     private boolean applyAdditional(NBTTagCompound nbtTagCompound, ItemStack backpack){
-        ItemBaseBackpack backpackBase = (ItemBaseBackpack) backpack.getItem();
+        ItemBackpack backpackBase = (ItemBackpack) backpack.getItem();
         if (backpackBase == null) return false;
         if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS)){
             int[] oldValuesArray = nbtTagCompound.getIntArray(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS);

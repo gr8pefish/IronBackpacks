@@ -1,10 +1,8 @@
 package main.ironbackpacks.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemBasicBackpack;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemDiamondBackpack;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemGoldBackpack;
-import main.ironbackpacks.items.backpacks.backpackItems.ItemIronBackpack;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
+import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;
 import main.ironbackpacks.items.craftingItems.ItemNest;
 import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
@@ -98,14 +96,14 @@ public class ItemRegistry {
 	public static void registerItems() {
 
         //backpacks
-        basicBackpack = new ItemBasicBackpack();
-        GameRegistry.registerItem(basicBackpack, "basicBackpack");
-        ironBackpack = new ItemIronBackpack();
-        GameRegistry.registerItem(ironBackpack, "ironBackpack");
-        goldBackpack = new ItemGoldBackpack();
-        GameRegistry.registerItem(goldBackpack, "goldBackpack");
-        diamondBackpack = new ItemDiamondBackpack();
-        GameRegistry.registerItem(diamondBackpack, "diamondBackpack");
+        basicBackpack = new ItemBackpack(BackpackTypes.BASIC);
+        GameRegistry.registerItem(basicBackpack, BackpackTypes.BASIC.getName());
+        ironBackpack = new ItemBackpack(BackpackTypes.IRON);
+        GameRegistry.registerItem(ironBackpack, BackpackTypes.IRON.getName());
+        goldBackpack = new ItemBackpack(BackpackTypes.GOLD);
+        GameRegistry.registerItem(goldBackpack, BackpackTypes.GOLD.getName());
+        diamondBackpack = new ItemBackpack(BackpackTypes.DIAMOND);
+        GameRegistry.registerItem(diamondBackpack, BackpackTypes.DIAMOND.getName());
 
         //upgrades
         buttonUpgrade = new ItemButtonUpgrade();

@@ -9,13 +9,6 @@ import net.minecraft.item.Item;
  */
 public class ItemBase extends Item {
 
-	// For sub-items
-	public ItemBase(){
-		super();
-		setCreativeTab(IronBackpacks.creativeTab);
-	}
-
-	// If you aren't setting multiple textures for your item. IE: Non-Metadata items.
 	public ItemBase(String unlocName, String textureName) {
 		super();
 		setUnlocalizedName(ModInformation.ID + ":" + unlocName);

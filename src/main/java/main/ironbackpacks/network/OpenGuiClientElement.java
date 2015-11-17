@@ -12,7 +12,7 @@ import main.ironbackpacks.client.gui.inventory.GUIBackpack;
 import main.ironbackpacks.client.gui.inventory.GUIBackpackAlternate;
 import main.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,12 +59,12 @@ public class OpenGuiClientElement implements IMessage {
                 Logger.debug("opening in client element custom");
                 ItemStack backpack = message.stack; //need it from server side, not the client player
                 int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
-                Object guiContainer = GUIBackpack.GUI.buildGUI(player, new InventoryBackpack(player, backpack, IronBackpackType.values()[message.ID]), upgrades, backpack);
+                Object guiContainer = GUIBackpack.GUI.buildGUI(player, new InventoryBackpack(player, backpack, BackpackTypes.values()[message.ID]), upgrades, backpack);
                 FMLCommonHandler.instance().showGuiScreen(guiContainer);
             }else if (message.ID < 0){ //alternate gui
                 ItemStack backpack = message.stack;
                 int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
-                Object guiContainer = GUIBackpackAlternate.GUI.buildGUIAlternate(player, new InventoryAlternateGui(player, backpack, IronBackpackType.values()[Math.abs((message.ID + 1))]), upgrades, IronBackpackType.values()[Math.abs((message.ID + 1))], backpack);
+                Object guiContainer = GUIBackpackAlternate.GUI.buildGUIAlternate(player, new InventoryAlternateGui(player, backpack, BackpackTypes.values()[Math.abs((message.ID + 1))]), upgrades, BackpackTypes.values()[Math.abs((message.ID + 1))], backpack);
                 FMLCommonHandler.instance().showGuiScreen(guiContainer);
             }
             return null;

@@ -1,7 +1,8 @@
 package main.ironbackpacks.crafting;
 
 import main.ironbackpacks.items.ItemRegistry;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -43,9 +44,9 @@ public class BackpackTierRecipe extends ShapedOreRecipe {
             backpack.setTagCompound(nbtTagCompound);
         }
 
-        ItemBaseBackpack backpackItem = (ItemBaseBackpack)backpack.getItem();
+        ItemBackpack backpackItem = (ItemBackpack)backpack.getItem();
         ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
-        result = new ItemStack(backpacks.get(backpackItem.getTypeId()));
+        result = new ItemStack(backpacks.get(backpackItem.getId()));
         result.setTagCompound(backpack.getTagCompound());
 
         return result;
@@ -65,7 +66,7 @@ public class BackpackTierRecipe extends ShapedOreRecipe {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-                if (itemstack != null && (itemstack.getItem() instanceof ItemBaseBackpack))
+                if (itemstack != null && (itemstack.getItem() instanceof IBackpack))
                     return itemstack;
             }
         }

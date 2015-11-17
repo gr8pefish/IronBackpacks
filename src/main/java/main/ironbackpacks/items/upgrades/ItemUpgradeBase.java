@@ -45,6 +45,7 @@ public abstract class ItemUpgradeBase extends ItemBase{
     public int getTypeID(){
         return this.typeID;
     }
+
     public int getUpgradePoints() {
         return this.upgradeCost;
     }

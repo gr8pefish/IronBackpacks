@@ -44,7 +44,7 @@ public class IronBackpacksConstants {
         public static final int CONDENSER_UPGRADE_ID = 9;
         public static final int FILTER_FUZZY_UPGRADE_ID = 11;
         public static final int FILTER_OREDICT_UPGRADE_ID = 12;
-        public static final int FILTER_ADVANCED_UPGRADE_ID =14;
+        public static final int FILTER_ADVANCED_UPGRADE_ID = 14;
         public static final int FILTER_MINING_UPGRADE_ID = 17;
 
 

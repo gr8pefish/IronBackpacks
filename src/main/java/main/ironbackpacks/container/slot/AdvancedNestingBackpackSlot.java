@@ -1,6 +1,6 @@
 package main.ironbackpacks.container.slot;
 
-import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
@@ -9,9 +9,9 @@ import net.minecraft.item.ItemStack;
  */
 public class AdvancedNestingBackpackSlot extends NestingBackpackSlot{
 
-    private IronBackpackType type; //The backpack type
+    private BackpackTypes type; //The backpack type
 
-    public AdvancedNestingBackpackSlot(IInventory iInventory, int index, int x, int y, IronBackpackType type) {
+    public AdvancedNestingBackpackSlot(IInventory iInventory, int index, int x, int y, BackpackTypes type) {
         super(iInventory, index, x, y, type);
         this.type = type;
     }

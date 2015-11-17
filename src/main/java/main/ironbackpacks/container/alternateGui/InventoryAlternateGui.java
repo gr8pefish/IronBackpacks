@@ -3,8 +3,9 @@ package main.ironbackpacks.container.alternateGui;
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
+import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
@@ -30,7 +31,7 @@ public class InventoryAlternateGui implements IInventory {
     private ItemStack stack; //the itemstack of the backpack
     private EntityPlayer player; //the player
     private ItemStack[] inventory; //the items in the backpack
-    private IronBackpackType type; //the type of backpack
+    private BackpackTypes type; //the type of backpack
     private int[] upgrades; //the upgrades applied
     private int invSize; //the size of the inventory
 
@@ -39,7 +40,7 @@ public class InventoryAlternateGui implements IInventory {
     protected int advFilterButtonStartPoint; //the start point of the advanced filter
 
 
-    public InventoryAlternateGui(EntityPlayer player, ItemStack itemStack, IronBackpackType type) {
+    public InventoryAlternateGui(EntityPlayer player, ItemStack itemStack, BackpackTypes type) {
         this.stack = itemStack;
         this.player = player;
         this.type = type;
@@ -474,7 +475,7 @@ public class InventoryAlternateGui implements IInventory {
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++) {
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
-                if (itemStack != null && itemStack.getItem() instanceof ItemBaseBackpack && NBTHelper.hasUUID(itemStack)) {
+                if (itemStack != null && itemStack.getItem() instanceof IBackpack && NBTHelper.hasUUID(itemStack)) {
                     if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()) {
                         return itemStack;
                     }

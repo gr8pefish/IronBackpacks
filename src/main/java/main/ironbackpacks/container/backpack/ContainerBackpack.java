@@ -7,8 +7,9 @@ import main.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.integration.InterModSupport;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
+import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,11 +31,11 @@ public class ContainerBackpack extends Container {
 
     private EntityPlayer player; //the player
     private InventoryBackpack inventory; //the inventory
-    private IronBackpackType type; //the type of backpack
+    private BackpackTypes type; //the type of backpack
     private int xSize = 0; //the x size
     private int ySize = 0; //the y size
 
-    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type, int xSize, int ySize){
+    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, BackpackTypes type, int xSize, int ySize){
         this.player = entityPlayer;
         this.inventory = backpackInventory;
         this.type = type;
@@ -44,7 +45,7 @@ public class ContainerBackpack extends Container {
     }
 
     //overloaded constructor for when size is irrelevant
-    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type){
+    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, BackpackTypes type){
         this.player = entityPlayer;
         this.inventory = backpackInventory;
         this.type = type;
@@ -57,7 +58,7 @@ public class ContainerBackpack extends Container {
     public InventoryBackpack getInventoryBackpack() {
         return inventory;
     }
-    public IronBackpackType getType() {
+    public BackpackTypes getType() {
         return type;
     }
 
@@ -70,7 +71,7 @@ public class ContainerBackpack extends Container {
      * @param type - the backpack's type
      */
     //credit to cpw here for basic layout of adding backpack's slots
-    protected void layoutContainer(IInventory playerInventory, IInventory backpackInventory, int xSize, int ySize, IronBackpackType type){
+    protected void layoutContainer(IInventory playerInventory, IInventory backpackInventory, int xSize, int ySize, BackpackTypes type){
 
         //adds chest's slots
         ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player);
@@ -158,7 +159,7 @@ public class ContainerBackpack extends Container {
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && ItemStack.areItemStacksEqual(getSlot(slot).getStack(), currPack) && button == 0) {
             return null;
         }else if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack()){ //right click on non-empty slot
-            if(getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack) { //has to be a backpack
+            if(getSlot(slot).getStack().getItem() instanceof IBackpack) { //has to be a backpack
 //                if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) { //normal click //TODO, breaks b/c no keyboard
                 ItemStack stack = getSlot(slot).getStack();
                 if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) //can't right click the same backpack you have open, causes it to not update correctly and dupe items
@@ -223,7 +224,7 @@ public class ContainerBackpack extends Container {
 
         for (int slot = start; slot < end; slot++){ //for each slot in hotbar
             if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack()) { //non-empty slot
-                if (!(getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack)) { //not a backpack
+                if (!(getSlot(slot).getStack().getItem() instanceof IBackpack)) { //not a backpack
                     transferStackInSlot(player, slot); //transfer it
                 } else {
                     ItemStack stack = getSlot(slot).getStack();
@@ -364,11 +365,11 @@ public class ContainerBackpack extends Container {
         public int compare(ItemStack stack1, ItemStack stack2) {
             int item1ID;
             int item2ID;
-            if (stack1.getItem() instanceof ItemBaseBackpack)
+            if (stack1.getItem() instanceof IBackpack)
                 item1ID = -100;
             else
                 item1ID = Item.getIdFromItem(stack1.getItem());
-            if (stack2.getItem() instanceof ItemBaseBackpack)
+            if (stack2.getItem() instanceof IBackpack)
                 item2ID = -100;
             else
                 item2ID = Item.getIdFromItem(stack2.getItem());

@@ -3,7 +3,8 @@ package main.ironbackpacks.util;
 
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.entity.EntityBackpack;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.network.ClientPackMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,13 +54,13 @@ public class IronBackpacksHelper {
      */
     public static ItemStack getBackpackFromPlayersInventory(EntityPlayer player){
         ItemStack backpack = null;
-        if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
+        if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IBackpack) {
             backpack = player.getHeldItem();
         } else {
             for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
                 ItemStack stack = player.inventory.getStackInSlot(i);
 
-                if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
+                if (stack != null && stack.getItem() != null && stack.getItem() instanceof IBackpack) {
                     backpack = player.inventory.getStackInSlot(i);
                 }
             }
@@ -140,7 +141,7 @@ public class IronBackpacksHelper {
      * @return - integer value
      */
     public static int getTotalUpgradePointsFromNBT(ItemStack stack){
-        ItemBaseBackpack backpack = (ItemBaseBackpack) stack.getItem();
+        ItemBackpack backpack = (ItemBackpack) stack.getItem();
         int upgradeCount = backpack.getUpgradeSlots(); //from initialization via config
         int extraPoints = getAdditionalUpgradesUpgradeCount(stack);
         return (upgradeCount + extraPoints);
@@ -200,14 +201,14 @@ public class IronBackpacksHelper {
 
                 //update equipped backpack to null
                 IronBackpacks.proxy.updateEquippedBackpack(player, null);
-//                NetworkingHandler.network.sendTo(new ClientPackMessage(null), (EntityPlayerMP)player);
+                NetworkingHandler.network.sendTo(new ClientPackMessage(null), (EntityPlayerMP)player);
 
                 //stop the render - kill entity
                 EntityBackpack.backpacksSpawnedMap.get(player).setDead();
             }
 
         }
-        else if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) { //need to equip backpack
+        else if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IBackpack) { //need to equip backpack
 
             ItemStack backpackStack = player.getHeldItem();
             NBTHelper.setUUID(backpackStack);
@@ -226,8 +227,9 @@ public class IronBackpacksHelper {
         }
     }
 
+    //spawns a backpack as an entity so it can render on the player
     public static void spawnEntityBackpack(ItemStack backpack, EntityPlayer player){
-        EntityBackpack entityBackpack = new EntityBackpack(player.worldObj, player, ((ItemBaseBackpack)backpack.getItem()).getGuiId());
+        EntityBackpack entityBackpack = new EntityBackpack(player.worldObj, player, ((ItemBackpack)backpack.getItem()).getGuiId());
         entityBackpack.setPositionAndRotation(player.posX, player.posY, player.posZ-.5, player.rotationPitch, player.rotationYaw);
         player.worldObj.spawnEntityInWorld(entityBackpack);
         EntityBackpack.backpacksSpawnedMap.put(player, entityBackpack);
