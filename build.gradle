@@ -1,39 +1,49 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url = "http://files.minecraftforge.net/maven" }
-        maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "http://files.minecraftforge.net/maven" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
         classpath 'org.ajoberstar:gradle-git:0.10.1'
     }
 }
 
-apply plugin: 'forge'
-
-ext.configFile = file "build.properties"
-configFile.withReader {
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
+plugins {
+    id 'com.matthewprenger.cursegradle' version '1.0.1'
+    id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 
-version = config.mc_version + "-" + config.mod_version //+ "-" + config.build_number
-group= config.package_group
-archivesBaseName = config.mod_name
+apply plugin: 'maven-publish'
 
-import org.ajoberstar.grgit.Grgit
+group = package_group
+archivesBaseName = mod_name
+version = "${mc_version}-${mod_version}"
 
+// Ignore this error. It'll work just fine when building.
+import org.ajoberstar.grgit.*
+
+ext.repo = Grgit.open(project.file('.'))
 def gitHash = 'unknown'
-if (new File(projectDir, '.git').exists()) {
-    def repo = Grgit.open(project.file('.'))
+
+if (new File(projectDir, '.git').exists())
     gitHash = repo.log().find().abbreviatedId
+
+repositories {
+
+}
+
+dependencies {
+
 }
 
 minecraft {
-    version = config.mc_version + "-" + config.forge_version
+    version = "${mc_version}-${forge_version}"
     runDir = "run"
+
+    replace "@VERSION@", project.version
+    replaceIn "ModInformation.java"
 
     if (project.hasProperty('mappings_version'))
         mappings = project.mappings_version
@@ -49,16 +59,15 @@ processResources {
 
         expand 'version': project.version, 'mcversion': project.minecraft.version
     }
+
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
         exclude '**/*.properties'
-		exclude '**/*.db'
     }
 }
 
 jar {
-    dependsOn "incrementBuildNumber"
-	classifier = 'universal'
+    classifier = ''
     manifest.mainAttributes(
             "Built-By": System.getProperty('user.name'),
             "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
@@ -68,46 +77,56 @@ jar {
     )
 }
 
-// add a source jar
-//task sourceJar(type: Jar) {
-//    from sourceSets.main.allSource
-//    classifier = 'sources'
-//}
+// Javadoc jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
+}
 
-// add a javadoc jar
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    from javadoc.destinationDir
-//    classifier = 'javadoc'
-//}
+// Deobfuscated jar
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
 
-// because the normal output has been made to be obfuscated
-//task deobfJar(type: Jar) {
-//    from sourceSets.main.output
-//    classifier = 'deobf'
-//}
-
-//tasks.build.dependsOn sourceJar, javadocJar, deobfJar
-//tasks.build.dependsOn deobfJar
+tasks.build.dependsOn sourceJar, javadocJar, deobfJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
 }
 
-task("incrementBuildNumber") {
-	// increment build number
-	doFirst {
-		// increment
-		config.build_number = (config.build_number.toString().toInteger()) + 1
-
-		// write back to the file
-		configFile.withWriter {
-			config.toProperties().store(it, "")
-		}
-	}
+publishing {
+    tasks.publish.dependsOn 'build'
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact sourceJar
+            artifact javadocJar
+            artifact deobfJar
+        }
+    }
+    repositories {
+        if (project.hasProperty('maven_repo')) {
+            maven { url maven_repo }
+        } else {
+            mavenLocal()
+        }
+    }
 }
 
-// Uncomment this line if you want to auto-upload to CurseForge when you build. This requires you to setup curse.gradle yourself.
-// fileTree('gradle').include('curse.gradle').collect().sort().each { apply from: it }
+curseforge {
+    if (project.hasProperty('curse_key'))
+        apiKey = project.curse_key
 
+    project {
+        id = "${curse_id}"
+        changelog = project.hasProperty('changelog') ? project.changelog : ''
+        releaseType = 'alpha'
+
+        addArtifact deobfJar
+        addArtifact sourceJar
+        addArtifact javadocJar
+    }
+}
 //to make the resources work?
 idea { module { inheritOutputDirs = true } }
