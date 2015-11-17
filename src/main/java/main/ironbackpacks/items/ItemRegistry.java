@@ -153,10 +153,12 @@ public class ItemRegistry {
 
     public static void registerRenders() {
         InventoryRenderHelper helper = new InventoryRenderHelper(ModInformation.ID + ":");
-        helper.itemRender(basicBackpack, IronBackpackType.BASIC.getName());
-        helper.itemRender(ironBackpack, IronBackpackType.IRON.getName());
-        helper.itemRender(goldBackpack, IronBackpackType.GOLD.getName());
-        helper.itemRender(diamondBackpack, IronBackpackType.DIAMOND.getName());
+
+        String alternate = ConfigHandler.useAlternateHDBackpackTextures ? "_alternate" : "";
+        helper.itemRender(basicBackpack, IronBackpackType.BASIC.getName() + alternate);
+        helper.itemRender(ironBackpack, IronBackpackType.IRON.getName() + alternate);
+        helper.itemRender(goldBackpack, IronBackpackType.GOLD.getName() + alternate);
+        helper.itemRender(diamondBackpack, IronBackpackType.DIAMOND.getName() + alternate);
 
         helper.itemRender(buttonUpgrade, "buttonUpgrade");
         helper.itemRender(nestingUpgrade, "nestingUpgrade");
