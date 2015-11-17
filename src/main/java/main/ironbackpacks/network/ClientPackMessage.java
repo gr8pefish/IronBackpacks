@@ -7,6 +7,7 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.IronBackpacks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class ClientPackMessage implements IMessage {
@@ -35,7 +36,8 @@ public class ClientPackMessage implements IMessage {
         @Override
         public IMessage onMessage(ClientPackMessage message, MessageContext ctx) {
             //somehow get the sent pack to the GuiHandler
-//            IronBackpacks.proxy.updateEquippedBackpack(Minecraft.getMinecraft().thePlayer, message.stack); //works on SSP
+            EntityPlayer player1 = IronBackpacks.proxy.getClientPlayer();
+            IronBackpacks.proxy.updateEquippedBackpack(player1, message.stack); //works on SSP
             System.out.println(ctx.side.toString());
             return null;
         }

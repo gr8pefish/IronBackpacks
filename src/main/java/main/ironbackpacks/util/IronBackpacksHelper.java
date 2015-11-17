@@ -215,8 +215,8 @@ public class IronBackpacksHelper {
             //equip backpack from the backpack the player is holding
             IronBackpacks.proxy.updateEquippedBackpack(player, backpackStack);
 
-//            System.out.println("sending updated equipped pack");
-//            NetworkingHandler.network.sendTo(new ClientPackMessage(backpackStack), (EntityPlayerMP)player); //works on SSP
+            System.out.println("sending updated equipped pack");
+            NetworkingHandler.network.sendTo(new ClientPackMessage(backpackStack), (EntityPlayerMP)player); //works on SSP
 
             //delete the held item
             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
