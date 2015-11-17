@@ -82,7 +82,7 @@ public class ConfigHandler {
         String[] ironRecipe = {"ingotIron", "blockIron", "ingotIron", "ingotIron", "items.ironbackpacks:basicBackpack", "ingotIron", "ingotIron", "ingotIron", "ingotIron"};
         String[] goldRecipe = {"ingotGold", "blockGold", "ingotGold", "ingotGold", "items.ironbackpacks:ironBackpack", "ingotGold", "ingotGold", "blockGold", "ingotGold"};
         String[] diamondRecipe = {"gemDiamond", "blockDiamond", "gemDiamond", "gemDiamond", "items.ironbackpacks:goldBackpack", "gemDiamond", "gemDiamond", "gemDiamond", "gemDiamond"};
-        // this comment refers to balance changes, if the recipe defaults need to be tweaked or are good for the time being
+
         String[] buttonRecipe = {"items.ironbackpacks:treatedLeather", "blocks.stone_button", "items.ironbackpacks:treatedLeather", "blocks.wooden_button", "items.ironbackpacks:upgradeCore", "blocks.wooden_button", "items.ironbackpacks:treatedLeather", "blocks.stone_button", "items.ironbackpacks:treatedLeather"};
         String[] nestingRecipe = {"items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
         String[] nestingAdvancedRecipe = {"items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:nestingUpgrade", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
@@ -186,7 +186,9 @@ public class ConfigHandler {
 
         config.save(); //Don't forget to save
     }
-    
+
+    //========================initialization====================================
+
     public enum enumBasicBackpack {
         upgradePoints(basicBackpack[0]),
         sizeX(basicBackpack[1]),
@@ -231,8 +233,6 @@ public class ConfigHandler {
             return value;
         }
     }
-    
-    //========================initialization====================================
 
     public enum enumDiamondBackpack {
         upgradePoints(diamondBackpack[0]),
@@ -248,4 +248,5 @@ public class ConfigHandler {
             return value;
         }
     }
+
 }
