@@ -40,8 +40,6 @@ public class IronBackpacks {
     @Mod.Instance
     public static IronBackpacks instance;
 
-    public static final InventoryRenderHelper RENDER = new InventoryRenderHelper(ModInformation.ID + ":");
-
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 

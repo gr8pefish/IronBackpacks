@@ -1,6 +1,7 @@
 package main.ironbackpacks.items;
 
 import main.ironbackpacks.IronBackpacks;
+import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;
@@ -9,6 +10,7 @@ import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
 import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
+import main.ironbackpacks.proxies.ClientProxy;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.InventoryRenderHelper;
 import net.minecraft.item.Item;
@@ -150,7 +152,7 @@ public class ItemRegistry {
     }
 
     public static void registerRenders() {
-        InventoryRenderHelper helper = IronBackpacks.RENDER;
+        InventoryRenderHelper helper = new InventoryRenderHelper(ModInformation.ID + ":");
         helper.itemRender(basicBackpack, IronBackpackType.BASIC.getName());
         helper.itemRender(ironBackpack, IronBackpackType.IRON.getName());
         helper.itemRender(goldBackpack, IronBackpackType.GOLD.getName());
