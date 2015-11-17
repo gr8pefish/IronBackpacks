@@ -159,9 +159,8 @@ public class ContainerBackpack extends Container {
         // this will prevent the player from interacting with the item that opened the inventory:
 
         int clickedSlot = slot - inventory.getSizeInventory() - 27;
-        if (clickedSlot == backpackSlot || (button == 2 && slot == backpackSlot))
+        if (clickedSlot == backpackSlot || (flag == 2 && button == backpackSlot))
             return null;
-
         return super.slotClick(slot, button, flag, player);
     }
 
