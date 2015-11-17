@@ -28,16 +28,28 @@ import java.util.List;
  */
 public class ItemBaseBackpack extends Item implements IBackpack {
 
-    private IronBackpackType type;
     private boolean openAltGui = true;
 
-    public ItemBaseBackpack(IronBackpackType type) {
+    private final int id;
+    private final int size;
+    private final int rowLength;
+    private final int upgradeSlots;
+    private final String fancyName;
 
+    public ItemBaseBackpack(int id, int size, int rowLength, String fancyName, int upgradeSlots) {
         setCreativeTab(IronBackpacks.creativeTab);
-        setUnlocalizedName(ModInformation.ID + ":" + type.getName());
+        setUnlocalizedName(ModInformation.ID + ":" + fancyName);
         setMaxStackSize(1);
 
-        this.type = type;
+        this.id = id;
+        this.size = size;
+        this.rowLength = rowLength;
+        this.upgradeSlots = upgradeSlots;
+        this.fancyName = fancyName;
+    }
+
+    public ItemBaseBackpack(IronBackpackType type) {
+        this(type.getId(), type.getSize(), type.getRowLength(), type.getName(), type.getUpgradeSlots());
     }
 
     @Override
@@ -119,18 +131,6 @@ public class ItemBaseBackpack extends Item implements IBackpack {
         }
     }
 
-    public IronBackpackType getType() {
-        return type;
-    }
-
-    public int getUpgradeSlots() {
-        return type.getUpgradeSlots();
-    }
-
-    public int getGuiId() {
-        return type.getId() - 1;
-    }
-
     // IBackpack
 
     public double getFullness(ItemStack stack) {
@@ -143,7 +143,7 @@ public class ItemBaseBackpack extends Item implements IBackpack {
             if (nbtTagCompound != null) {
                 if (nbtTagCompound.hasKey("Items")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-                    inventory = new ItemStack[IronBackpackType.values()[type.getId() - 1].getSize()];
+                    inventory = new ItemStack[IronBackpackType.values()[getGuiId()].getSize()];
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int slot = stackTag.getByte("Slot");
@@ -163,5 +163,35 @@ public class ItemBaseBackpack extends Item implements IBackpack {
         }
 
         return 1 - ((double) full / total);
+    }
+
+    @Override
+    public int getUpgradeSlots() {
+        return upgradeSlots;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public int getSize() {
+        return size;
+    }
+
+    @Override
+    public int getRowLength() {
+        return rowLength;
+    }
+
+    @Override
+    public String getFancyName() {
+        return fancyName;
+    }
+
+    @Override
+    public int getGuiId() {
+        return getId() - 1;
     }
 }

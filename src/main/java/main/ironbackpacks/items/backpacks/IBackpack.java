@@ -2,6 +2,12 @@ package main.ironbackpacks.items.backpacks;
 
 import net.minecraft.item.ItemStack;
 
+/**
+ * An interface for all backbacks to implement.
+ *
+ * The plan is to have this contain all the data required for backpack items for easy compatibility
+ * support via an API.
+ */
 public interface IBackpack {
 
     /**
@@ -12,4 +18,16 @@ public interface IBackpack {
      * @return - double representing the fullness
      */
     double getFullness(ItemStack stack);
+
+    int getId();
+
+    int getSize();
+
+    int getRowLength();
+
+    int getUpgradeSlots();
+
+    String getFancyName();
+
+    int getGuiId();
 }
