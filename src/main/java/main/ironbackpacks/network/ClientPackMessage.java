@@ -35,11 +35,11 @@ public class ClientPackMessage implements IMessage {
 
         @Override
         public IMessage onMessage(ClientPackMessage message, MessageContext ctx) {
-            //somehow get the sent pack to the GuiHandler
-            EntityPlayer player1 = IronBackpacks.proxy.getClientPlayer();
-            IronBackpacks.proxy.updateEquippedBackpack(player1, message.stack); //works on SSP
-            System.out.println(ctx.side.toString());
-            return null;
+
+            EntityPlayer player = IronBackpacks.proxy.getClientPlayer(); //get the player via a safe call
+            IronBackpacks.proxy.updateEquippedBackpack(player, message.stack); //update the backpack
+
+            return null; //no return message
         }
     }
 }

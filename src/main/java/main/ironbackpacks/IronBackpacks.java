@@ -24,7 +24,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.io.File;
 
-@Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION, dependencies = ModInformation.DEPEND)//removed gui factory for now, guiFactory = ModInformation.GUIFACTORY)
+@Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION, dependencies = ModInformation.DEPEND, guiFactory = ModInformation.GUIFACTORY)
 public class IronBackpacks {
 
 	//Make a custom creative tab with the iron backpack as the logo

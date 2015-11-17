@@ -91,12 +91,9 @@ public class SingleByteMessage implements IMessage{
                 case IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING:
                     player = ctx.getServerHandler().playerEntity;
                     ItemStack backpackStack = IronBackpacks.proxy.getEquippedBackpack(player);
-//                    IronBackpacks.proxy.updateCurrBackpack(Minecraft.getMinecraft().thePlayer, backpackStack); //TODO: error here because doesn't update currPack right? can't update client on server packet
                     if (backpackStack != null) {
                         NBTHelper.setUUID(backpackStack);
                         IronBackpacks.proxy.updateCurrBackpack(player, backpackStack);
-//                        System.out.println(player.isSneaking());
-//                        System.out.println(Minecraft.getMinecraft().thePlayer.isSneaking());
                         backpackStack.useItemRightClick(player.worldObj, player);
                     }
                     break;

@@ -8,12 +8,12 @@ import main.ironbackpacks.util.IronBackpacksConstants;
  */
 public enum BackpackTypes {
 
-    BASIC(IronBackpacksConstants.Backpacks.BASIC_ID,
-            ConfigHandler.enumBasicBackpack.sizeX.getValue() * ConfigHandler.enumBasicBackpack.sizeY.getValue(),
-            ConfigHandler.enumBasicBackpack.sizeX.getValue(),
-            "basicBackpack",
-            ConfigHandler.enumBasicBackpack.upgradePoints.getValue(),
-            ConfigHandler.useAlternateBackpackTextures ? "backpack_basic_alt" : "backpack_basic"), //id, size, rowLength, name, upgradePoints, texture
+    BASIC(IronBackpacksConstants.Backpacks.BASIC_ID, //id
+            ConfigHandler.enumBasicBackpack.sizeX.getValue() * ConfigHandler.enumBasicBackpack.sizeY.getValue(), //size
+            ConfigHandler.enumBasicBackpack.sizeX.getValue(), //rowLength
+            "basicBackpack", //name
+            ConfigHandler.enumBasicBackpack.upgradePoints.getValue(), //upgradePoints
+            ConfigHandler.useAlternateBackpackTextures ? "backpack_basic_alt" : "backpack_basic"), //texture
     IRON(IronBackpacksConstants.Backpacks.IRON_ID,
             ConfigHandler.enumIronBackpack.sizeX.getValue() * ConfigHandler.enumIronBackpack.sizeY.getValue(),
             ConfigHandler.enumIronBackpack.sizeX.getValue(),

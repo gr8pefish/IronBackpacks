@@ -160,18 +160,13 @@ public class ContainerBackpack extends Container {
             return null;
         }else if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack()){ //right click on non-empty slot
             if(getSlot(slot).getStack().getItem() instanceof IBackpack) { //has to be a backpack
-//                if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) { //normal click //TODO, breaks b/c no keyboard
+
                 ItemStack stack = getSlot(slot).getStack();
+
                 if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) //can't right click the same backpack you have open, causes it to not update correctly and dupe items
                     stack.useItemRightClick(player.worldObj, player);
                 return null;
-//                }else { //shift click TODO
-//                    ItemStack stack = getSlot(slot).getStack();
-//                    if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) { //can't right click the same backpack you have open, causes it to not update correctly and dupe items
-//                        stack.useItemRightClick(player.worldObj, player);
-//                    }
-//                    return null;
-//                }
+
             }else if(InterModSupport.isEnderStorageLoaded && getSlot(slot).getStack().getItem() instanceof ItemEnderPouch) {
                 ItemStack stack = getSlot(slot).getStack();
                 stack.useItemRightClick(player.worldObj, player);
@@ -249,6 +244,8 @@ public class ContainerBackpack extends Container {
     }
 
     //===================================================================Sorting Algorithm==================================================================
+
+    //TODO: comment more
 
     /**
      * Sorts the backpack by merging the stacks that can be, swapping out empty spaced to condense the pack, and then reorders via alphabetization of the stacks' display names.

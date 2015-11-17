@@ -35,7 +35,7 @@ key_ironbackpacks_openbackpack=Open Backpack
 key_ironbackpacks_equipbackpack=Equip Backpack
 
 # Miscellaneous
-equipped.backpack.name=Equipped Backpack
+equipped.backpack.default.name=Equipped Backpack
 player.inventory=Inventory
 emptyUpgradeSlot=Empty Upgrade Slot
 noValidUpgradesFound=No Valid Upgrades Found!

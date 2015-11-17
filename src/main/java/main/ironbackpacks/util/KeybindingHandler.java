@@ -36,36 +36,14 @@ public class KeybindingHandler {
                 NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING));
             else
                 NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING));
-//            if (Minecraft.getMinecraft().gameSettings.keyBindSneak.isPressed()){
+//            if (Minecraft.getMinecraft().gameSettings.keyBindSneak.isPressed()){ //TODO: implement shift right click to open altGui of packs directly
 //                NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_ALT_KEYBINDING));
 //            }
         }else if(equipBackpack.isPressed()) {
 
-//            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-//            ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(player);
-//
-//            if (backpack != null) {
-//
-//                boolean hasEmptySlot = false;
-//                for (int i = 0; i < player.inventory.getSizeInventory() - 4; i++) { //don't care about armor slots
-//                    if (player.inventory.getStackInSlot(i) == null) hasEmptySlot = true;
-//                }
-//
-//                if (hasEmptySlot) {
-//                    //update equipped backpack to null
-//                    IronBackpacks.proxy.updateEquippedBackpack(player, null);
-//                }
-//
-//            } else if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
-//
-//                ItemStack backpackStack = player.getHeldItem();
-//                NBTHelper.setUUID(backpackStack);
-//
-//                //equip backpack from the backpack the player is holding
-//                IronBackpacks.proxy.updateEquippedBackpack(player, backpackStack);
-//            }
+            //TODO: try updating client pack directly here
 
-            //TODO: tell client which backpack is the current one / change it so client doesn't care about current one, just gets it from server
+            //updates the server's saved data of which pack is equipped
             NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.EQUIP_BACKPACK_KEYBINDING));
         }
     }

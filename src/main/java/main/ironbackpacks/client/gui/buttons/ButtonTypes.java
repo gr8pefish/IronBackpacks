@@ -5,18 +5,18 @@ package main.ironbackpacks.client.gui.buttons;
  */
 public enum ButtonTypes {
 
-    RENAME(0, 25,10, 1,1, true, "Renames the backpack"), //id, width, height, iconOffsetX, iconOffsetY, tooltip delay, tooltip
-    EXACT(1, 16,5, 0,13, false, "Exact Matching"),
-    FUZZY(2, 16,5, 0,19, false, "Fuzzy Matching"),
-    ORE_DICT(3, 16,5, 0,25, false, "Ore Dictionary Matching"),
-    MOD_SPECIFIC(4, 16,5, 0,31, false, "Mod Specific Matching"),
-    CLEAR_ROW(5, 11,12, 64,64, true), //5,6,7 because can clear 3 rows
-    BACKPACK_TO_INVENTORY(8, 11,12, 64,0, true, "Moves items from the", "backpack to your inventory."),
-    INVENTORY_TO_BACKPACK(9, 11,12, 64,16, true, "Moves items from your", "inventory to the backpack"),
-    HOTBAR_TO_BACKPACK(10, 11,12, 64,32, true, "Moves items from your", "hotbar to the backpack."),
-    SORT_BACKPACK(11, 11,12, 64,48, true, "Sorts and condenses the","items in the backpack", "(by ID, with backpacks first)"), //TODO: change description of sort style depending
-    MOVE_LEFT(12, 4,9, 18,57, true, "Shift to the left."),
-    MOVE_RIGHT(13, 4,9, 18,37, true, "Shift to the right.");
+    RENAME(0, 25, 10, 1, 1, true, "Renames the backpack"), //id, width, height, iconOffsetX, iconOffsetY, tooltip delay, tooltip
+    EXACT(1, 16, 5, 0, 13, false, "Exact Matching"),
+    FUZZY(2, 16, 5, 0, 19, false, "Fuzzy Matching"),
+    ORE_DICT(3, 16, 5, 0, 25, false, "Ore Dictionary Matching"),
+    MOD_SPECIFIC(4, 16, 5, 0, 31, false, "Mod Specific Matching"),
+    CLEAR_ROW(5, 11, 12, 64, 64, true), //5,6,7 because can clear 3 rows
+    BACKPACK_TO_INVENTORY(8, 11, 12, 64, 0, true, "Moves items from the", "backpack to your inventory."),
+    INVENTORY_TO_BACKPACK(9, 11, 12, 64, 16, true, "Moves items from your", "inventory to the backpack"),
+    HOTBAR_TO_BACKPACK(10, 11, 12, 64, 32, true, "Moves items from your", "hotbar to the backpack."),
+    SORT_BACKPACK(11, 11, 12, 64, 48, true, "Sorts and condenses the","items in the backpack", "(by ID, with backpacks first)"), //TODO: change description of sort style depending
+    MOVE_LEFT(12, 4, 9, 18, 57, true, "Shift to the left."),
+    MOVE_RIGHT(13, 4, 9, 18, 37, true, "Shift to the right.");
 
     protected int id; //the internal id
     protected int sizeX; //the width of the button

@@ -34,7 +34,7 @@ public class InterModSupport {
         if (Loader.isModLoaded("VersionChecker")) {
             NBTTagCompound tagCompound = new NBTTagCompound();
             tagCompound.setString("curseProjectName", "227049-iron-backpacks");
-            tagCompound.setString("curseFilnameParser", "Iron Backpacks-1.7.10-[]-universal.jar");
+            tagCompound.setString("curseFilenameParser", "Iron Backpacks-1.7.10-[]-universal.jar");
             FMLInterModComms.sendRuntimeMessage(ModInformation.ID, "VersionChecker", "addCurseCheck", tagCompound);
         }
     }

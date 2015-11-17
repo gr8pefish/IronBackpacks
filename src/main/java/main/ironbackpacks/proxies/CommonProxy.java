@@ -48,7 +48,6 @@ public class CommonProxy {
             }
         }
 
-
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack tempStack = player.inventory.getStackInSlot(i);
             if (tempStack != null && !gameruleKeepInv) {

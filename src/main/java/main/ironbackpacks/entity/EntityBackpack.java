@@ -15,6 +15,8 @@ import java.util.Map;
 
 public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData {
 
+    //TODO: comment
+
     private EntityPlayer player;
     private int backpackType;
 
@@ -43,7 +45,6 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
     public int getTextureId(){
         return backpackType;
     }
-
 
     private static boolean isBackpackValid(EntityPlayer player, EntityBackpack backpack) {
         if (player == null || player.isDead || backpack == null || backpack.isDead) return false;
@@ -77,11 +78,6 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
         this.prevRotationPitch = player.prevRotationPitch;
         this.rotationPitch = player.rotationPitch;
 
-//        if (!localPlayer) {
-//            this.posY += 1.2;
-//            this.prevPosY += 1.2;
-//            this.lastTickPosY += 1.2;
-//        }
     }
 
     public EntityPlayer getPlayer(){

@@ -2,13 +2,13 @@
 {
   "modid": "ironbackpacks",
   "name": "Iron Backpacks",
-  "description": "Upgradeable backpacks.",
+  "description": "Upgradeable backpacks!",
   "version": "1.1.2",
   "mcversion": "1.7.10",
   "url": "",
   "updateUrl": "",
   "authorList": ["gr8pefish"],
-  "credits": "cpw for IronChests, sapient for iBench, #minecraftforge (especially diesieben07)",
+  "credits": "cpw, sapient, #minecraftforge (especially diesieben07), TehNut",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

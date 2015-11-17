@@ -201,6 +201,8 @@ public class IronBackpacksHelper {
 
                 //update equipped backpack to null
                 IronBackpacks.proxy.updateEquippedBackpack(player, null);
+
+                //update equipped backpack on client side, not ideal but it works
                 NetworkingHandler.network.sendTo(new ClientPackMessage(null), (EntityPlayerMP)player);
 
                 //stop the render - kill entity
@@ -216,7 +218,7 @@ public class IronBackpacksHelper {
             //equip backpack from the backpack the player is holding
             IronBackpacks.proxy.updateEquippedBackpack(player, backpackStack);
 
-            System.out.println("sending updated equipped pack");
+            //update equipped backpack on client side, not ideal but it works
             NetworkingHandler.network.sendTo(new ClientPackMessage(backpackStack), (EntityPlayerMP)player); //works on SSP
 
             //delete the held item
