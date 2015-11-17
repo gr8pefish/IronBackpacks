@@ -1,7 +1,6 @@
 package main.ironbackpacks.util;
 
-
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.proxies.CommonProxy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -42,13 +41,13 @@ public class IronBackpacksHelper {
      */
     public static ItemStack getBackpackFromPlayersInventory(EntityPlayer player) {
         ItemStack backpack = null;
-        if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
+        if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IBackpack) {
             backpack = player.getHeldItem();
         } else {
             for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
                 ItemStack stack = player.inventory.getStackInSlot(i);
 
-                if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
+                if (stack != null && stack.getItem() != null && stack.getItem() instanceof IBackpack) {
                     backpack = player.inventory.getStackInSlot(i);
                 }
             }
@@ -115,7 +114,7 @@ public class IronBackpacksHelper {
      * @return - integer value
      */
     public static int getTotalUpgradePointsFromNBT(ItemStack stack) {
-        ItemBaseBackpack backpack = (ItemBaseBackpack) stack.getItem();
+        IBackpack backpack = (IBackpack) stack.getItem();
         int upgradeCount = backpack.getUpgradeSlots(); //from initialization via config
         int extraPoints = getAdditionalUpgradesUpgradeCount(stack);
         return (upgradeCount + extraPoints);

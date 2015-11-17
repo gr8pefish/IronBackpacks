@@ -1,7 +1,7 @@
 package main.ironbackpacks.container.slot;
 
+import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
@@ -19,8 +19,8 @@ public class NestingBackpackSlot extends BackpackSlot {
 
     @Override
     public boolean acceptsStack(ItemStack stack) {
-        if (stack.getItem() instanceof ItemBaseBackpack) {
-            ItemBaseBackpack baseBackpack = (ItemBaseBackpack) stack.getItem();
+        if (stack.getItem() instanceof IBackpack) {
+            IBackpack baseBackpack = (IBackpack) stack.getItem();
             return (type.getId() > baseBackpack.getId()); //if current backpack is a higher tier than the other backpack, you can nest them
         }
         return true;

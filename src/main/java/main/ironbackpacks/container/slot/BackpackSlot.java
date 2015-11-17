@@ -1,6 +1,6 @@
 package main.ironbackpacks.container.slot;
 
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.items.backpacks.IBackpack;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class BackpackSlot extends Slot {
 
     //Can't accept other backpacks by default
     public boolean acceptsStack(ItemStack itemStack) {
-        return !(itemStack.getItem() instanceof ItemBaseBackpack);
+        return !(itemStack.getItem() instanceof IBackpack);
     }
 
 }

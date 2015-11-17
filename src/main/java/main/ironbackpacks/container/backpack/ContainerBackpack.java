@@ -4,8 +4,8 @@ import invtweaks.api.container.ChestContainer;
 import main.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
+import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -162,7 +162,7 @@ public class ContainerBackpack extends Container {
         if (clickedSlot == backpackSlot || (flag == 2 && button == backpackSlot))
             return null;
 
-        if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack) { //right click a backpack to directly open it
+        if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof IBackpack) { //right click a backpack to directly open it
             ItemStack stack = getSlot(slot).getStack();
             if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) //can't right click the same backpack you have open, causes it to not update correctly and dupe items
                 stack.useItemRightClick(player.worldObj, player);

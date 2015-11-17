@@ -1,7 +1,7 @@
 package main.ironbackpacks.container.backpack;
 
+import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -265,7 +265,7 @@ public class InventoryBackpack implements IInventory {
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++) {
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
-                if (itemStack != null && itemStack.getItem() instanceof ItemBaseBackpack && NBTHelper.hasUUID(itemStack)) {
+                if (itemStack != null && itemStack.getItem() instanceof IBackpack && NBTHelper.hasUUID(itemStack)) {
                     if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()) {
                         return itemStack;
                     }

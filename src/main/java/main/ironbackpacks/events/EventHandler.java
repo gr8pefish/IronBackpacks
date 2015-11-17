@@ -4,8 +4,8 @@ import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
+import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.ConfigHandler;
@@ -99,7 +99,7 @@ public class EventHandler {
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack stack = player.inventory.getStackInSlot(i);
 
-            if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBaseBackpack) {
+            if (stack != null && stack.getItem() != null && stack.getItem() instanceof IBackpack) {
                 ItemStack backpack = player.inventory.getStackInSlot(i);
                 int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
                 if (UpgradeMethods.hasFilterBasicUpgrade(upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(upgrades) ||
@@ -132,7 +132,7 @@ public class EventHandler {
         boolean doFilter = true;
         if (!backpackStacks.isEmpty()) {
             for (ItemStack backpack : backpackStacks) {
-                IronBackpackType type = IronBackpackType.values()[((ItemBaseBackpack) backpack.getItem()).getGuiId()];
+                IronBackpackType type = IronBackpackType.values()[((IBackpack) backpack.getItem()).getGuiId()];
                 ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     ArrayList<ItemStack> hopperItems = UpgradeMethods.getHopperItems(backpack);
@@ -223,7 +223,7 @@ public class EventHandler {
             for (ItemStack backpack : backpackStacks) {
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
 
-                    IronBackpackType type = IronBackpackType.values()[((ItemBaseBackpack) backpack.getItem()).getGuiId()];
+                    IronBackpackType type = IronBackpackType.values()[((IBackpack) backpack.getItem()).getGuiId()];
                     ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
 
                     ContainerWorkbench containerWorkbench = new ContainerWorkbench(event.entityPlayer.inventory, event.item.worldObj, new BlockPos(0, 0, 0));
@@ -273,7 +273,7 @@ public class EventHandler {
     private void checkFilterUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks) {
         if (!backpackStacks.isEmpty()) {
             for (ItemStack backpack : backpackStacks) {
-                IronBackpackType type = IronBackpackType.values()[((ItemBaseBackpack) backpack.getItem()).getGuiId()];
+                IronBackpackType type = IronBackpackType.values()[((IBackpack) backpack.getItem()).getGuiId()];
                 ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
