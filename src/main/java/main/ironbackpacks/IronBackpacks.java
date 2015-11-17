@@ -2,16 +2,16 @@ package main.ironbackpacks;
 
 import main.ironbackpacks.client.gui.GuiHandler;
 import main.ironbackpacks.crafting.ItemRecipeRegistry;
-import main.ironbackpacks.events.ForgeEventHandler;
+import main.ironbackpacks.events.EventHandler;
 import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.InterModSupport;
-import main.ironbackpacks.util.InventoryRenderHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import java.io.File;
 
-@Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION, dependencies = ModInformation.DEPEND)
+@Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION, dependencies = ModInformation.DEPEND, guiFactory = ModInformation.GUIFACTORY)
 public class IronBackpacks {
 
     //Make a custom creative tab with the iron backpack as the logo
@@ -56,7 +56,7 @@ public class IronBackpacks {
 
         //items
         ItemRegistry.registerItems();
-        proxy.postInit();
+        proxy.registerRenders();
     }
 
     @Mod.EventHandler
@@ -66,7 +66,9 @@ public class IronBackpacks {
         InterModSupport.init();
 
         //event handler
-        MinecraftForge.EVENT_BUS.register(new ForgeEventHandler());
+        EventHandler handler = new EventHandler();
+        MinecraftForge.EVENT_BUS.register(handler);
+        FMLCommonHandler.instance().bus().register(handler);
 
         //recipes
         ItemRecipeRegistry.registerItemRecipes();

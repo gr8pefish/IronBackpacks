@@ -22,6 +22,9 @@ public class ConfigHandler {
     public static String[] diamondBackpackRecipe;
 
     //==================== All the publicly accessible values====================================
+
+    public static Configuration config;
+
     public static String[] buttonUpgradeRecipe;
     public static String[] nestingUpgradeRecipe;
     public static String[] renamingUpgradeRecipe;
@@ -62,8 +65,11 @@ public class ConfigHandler {
     public static boolean useAlternateHDBackpackTextures;
 
     public static void init(File file) {
+        config = new Configuration(file);
+        syncConfig();
+    }
 
-        Configuration config = new Configuration(file);
+    public static void syncConfig() {
 
         basicBackpack = new int[valuesToLoad];
         ironBackpack = new int[valuesToLoad];

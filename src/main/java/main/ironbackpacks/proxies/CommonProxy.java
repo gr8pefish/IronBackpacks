@@ -123,7 +123,7 @@ public class CommonProxy {
         return null;
     }
 
-    public void postInit() {
+    public void registerRenders() {
 
     }
 }

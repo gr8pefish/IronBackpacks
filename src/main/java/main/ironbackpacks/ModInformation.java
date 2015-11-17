@@ -12,6 +12,6 @@ public class ModInformation {
 
     public static final String CLIENTPROXY = "main.ironbackpacks.proxies.ClientProxy";
     public static final String COMMONPROXY = "main.ironbackpacks.proxies.CommonProxy";
-    public static final String GUIFACTORY = "main.ironbackpacks.client.gui.ConfigGuiFactory";
+    public static final String GUIFACTORY = "main.ironbackpacks.client.gui.config.ConfigGuiFactory";
 
 }

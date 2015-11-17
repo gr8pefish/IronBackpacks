@@ -1,12 +1,16 @@
 package main.ironbackpacks.events;
 
+import main.ironbackpacks.IronBackpacks;
+import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.proxies.CommonProxy;
+import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksHelper;
+import main.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.InventoryCrafting;
@@ -17,6 +21,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -25,7 +30,7 @@ import java.util.ArrayList;
 /**
  * All the events used that fire on the Forge Event bus
  */
-public class ForgeEventHandler {
+public class EventHandler {
 
     /**
      * Called whenever an item is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and condenser/crafting upgrades too so it doesn't check too much and causes lag..
@@ -66,6 +71,15 @@ public class ForgeEventHandler {
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer) { //server side
             CommonProxy.loadBackpackOnDeath((EntityPlayer) event.entity);
+        }
+    }
+
+    @SubscribeEvent
+    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+        if (event.modID.equals(ModInformation.ID)) {
+            ConfigHandler.syncConfig();
+            IronBackpacks.proxy.registerRenders();
+            Logger.info("Refreshing configuration file.");
         }
     }
 

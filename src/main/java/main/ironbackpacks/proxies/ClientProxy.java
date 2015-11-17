@@ -8,7 +8,7 @@ import main.ironbackpacks.items.ItemRegistry;
 public class ClientProxy extends CommonProxy {
 
     @Override
-    public void postInit() {
+    public void registerRenders() {
         ItemRegistry.registerRenders();
     }
 }
