@@ -26,17 +26,17 @@ import java.util.List;
 /**
  * Base class for all the backpack items to extend
  */
-public class ItemBaseBackpack extends Item implements IBackpack {
+public class ItemBackpack extends Item implements IBackpack {
 
     private boolean openAltGui = true;
 
     private final int id;
     private final int size;
     private final int rowLength;
-    private final int upgradeSlots;
+    private final int upgradePoints;
     private final String fancyName;
 
-    public ItemBaseBackpack(int id, int size, int rowLength, String fancyName, int upgradeSlots) {
+    public ItemBackpack(int id, int size, int rowLength, String fancyName, int upgradePoints) {
         setCreativeTab(IronBackpacks.creativeTab);
         setUnlocalizedName(ModInformation.ID + ":" + fancyName);
         setMaxStackSize(1);
@@ -44,11 +44,11 @@ public class ItemBaseBackpack extends Item implements IBackpack {
         this.id = id;
         this.size = size;
         this.rowLength = rowLength;
-        this.upgradeSlots = upgradeSlots;
+        this.upgradePoints = upgradePoints;
         this.fancyName = fancyName;
     }
 
-    public ItemBaseBackpack(IronBackpackType type) {
+    public ItemBackpack(BackpackTypes type) {
         this(type.getId(), type.getSize(), type.getRowLength(), type.getName(), type.getUpgradePoints());
     }
 
@@ -62,7 +62,7 @@ public class ItemBaseBackpack extends Item implements IBackpack {
         return getFullness(stack);
     }
 
-    @Override
+//    @Override //idea throwing an error
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             if (!player.isSneaking())
@@ -143,7 +143,7 @@ public class ItemBaseBackpack extends Item implements IBackpack {
             if (nbtTagCompound != null) {
                 if (nbtTagCompound.hasKey("Items")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-                    inventory = new ItemStack[IronBackpackType.values()[getGuiId()].getSize()];
+                    inventory = new ItemStack[BackpackTypes.values()[getGuiId()].getSize()];
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int slot = stackTag.getByte("Slot");
@@ -166,8 +166,8 @@ public class ItemBaseBackpack extends Item implements IBackpack {
     }
 
     @Override
-    public int getUpgradeSlots() {
-        return upgradeSlots;
+    public int getUpgradePoints() {
+        return upgradePoints;
     }
 
     @Override

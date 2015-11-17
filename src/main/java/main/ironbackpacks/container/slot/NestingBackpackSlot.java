@@ -1,7 +1,7 @@
 package main.ironbackpacks.container.slot;
 
 import main.ironbackpacks.items.backpacks.IBackpack;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
@@ -10,9 +10,9 @@ import net.minecraft.item.ItemStack;
  */
 public class NestingBackpackSlot extends BackpackSlot {
 
-    private IronBackpackType type;
+    private BackpackTypes type;
 
-    public NestingBackpackSlot(IInventory iInventory, int index, int x, int y, IronBackpackType type) {
+    public NestingBackpackSlot(IInventory iInventory, int index, int x, int y, BackpackTypes type) {
         super(iInventory, index, x, y);
         this.type = type;
     }

@@ -5,7 +5,7 @@ import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.SingleByteMessage;
@@ -169,23 +169,23 @@ public class GUIBackpack extends GuiContainer {
 
         BASIC(ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200 : 236,
                 114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue()),
-                ResourceList.BASIC, IronBackpackType.BASIC),
+                ResourceList.BASIC, BackpackTypes.BASIC),
         IRON(ConfigHandler.enumIronBackpack.sizeX.getValue() == 9 ? 200 : 236,
                 114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue()),
-                ResourceList.IRON, IronBackpackType.IRON),
+                ResourceList.IRON, BackpackTypes.IRON),
         GOLD(ConfigHandler.enumGoldBackpack.sizeX.getValue() == 9 ? 200 : 236,
                 114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue()),
-                ResourceList.GOLD, IronBackpackType.GOLD),
+                ResourceList.GOLD, BackpackTypes.GOLD),
         DIAMOND(ConfigHandler.enumDiamondBackpack.sizeX.getValue() == 9 ? 200 : 236,
                 114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue()),
-                ResourceList.DIAMOND, IronBackpackType.DIAMOND);
+                ResourceList.DIAMOND, BackpackTypes.DIAMOND);
 
         private int xSize; //width
         private int ySize; //height
         private ResourceList guiResourceList; //texture to bind
-        private IronBackpackType mainType; //tier of backpack
+        private BackpackTypes mainType; //tier of backpack
 
-        private GUI(int xSize, int ySize, ResourceList guiResourceList, IronBackpackType mainType) {
+        private GUI(int xSize, int ySize, ResourceList guiResourceList, BackpackTypes mainType) {
             this.xSize = xSize;
             this.ySize = ySize;
             this.guiResourceList = guiResourceList;

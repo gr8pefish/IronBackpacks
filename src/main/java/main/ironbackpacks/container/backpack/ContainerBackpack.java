@@ -5,7 +5,7 @@ import main.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.IBackpack;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,12 +26,12 @@ public class ContainerBackpack extends Container {
 
     private EntityPlayer player; //the player
     private InventoryBackpack inventory; //the inventory
-    private IronBackpackType type; //the type of backpack
+    private BackpackTypes type; //the type of backpack
     private int backpackSlot;
     private int xSize = 0; //the x size
     private int ySize = 0; //the y size
 
-    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type, int xSize, int ySize) {
+    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, BackpackTypes type, int xSize, int ySize) {
         this.player = entityPlayer;
         this.inventory = backpackInventory;
         this.backpackSlot = entityPlayer.inventory.currentItem;
@@ -42,7 +42,7 @@ public class ContainerBackpack extends Container {
     }
 
     //overloaded constructor for when size is irrelevant
-    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type) {
+    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, BackpackTypes type) {
         this.player = entityPlayer;
         this.inventory = backpackInventory;
         this.backpackSlot = entityPlayer.inventory.currentItem;
@@ -58,7 +58,7 @@ public class ContainerBackpack extends Container {
         return inventory;
     }
 
-    public IronBackpackType getType() {
+    public BackpackTypes getType() {
         return type;
     }
 
@@ -72,7 +72,7 @@ public class ContainerBackpack extends Container {
      * @param type              - the backpack's type
      */
     //credit to cpw here for basic layout of adding backpack's slots
-    protected void layoutContainer(IInventory playerInventory, IInventory backpackInventory, int xSize, int ySize, IronBackpackType type) {
+    protected void layoutContainer(IInventory playerInventory, IInventory backpackInventory, int xSize, int ySize, BackpackTypes type) {
 
         //adds chest's slots
         ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player);
