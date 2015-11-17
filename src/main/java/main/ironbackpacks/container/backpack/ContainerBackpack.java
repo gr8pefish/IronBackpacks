@@ -27,12 +27,14 @@ public class ContainerBackpack extends Container {
     private EntityPlayer player; //the player
     private InventoryBackpack inventory; //the inventory
     private IronBackpackType type; //the type of backpack
+    private int backpackSlot;
     private int xSize = 0; //the x size
     private int ySize = 0; //the y size
 
     public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type, int xSize, int ySize) {
         this.player = entityPlayer;
         this.inventory = backpackInventory;
+        this.backpackSlot = entityPlayer.inventory.currentItem;
         this.type = type;
         this.xSize = xSize;
         this.ySize = ySize;
@@ -43,6 +45,7 @@ public class ContainerBackpack extends Container {
     public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, IronBackpackType type) {
         this.player = entityPlayer;
         this.inventory = backpackInventory;
+        this.backpackSlot = entityPlayer.inventory.currentItem;
         this.type = type;
         layoutContainer(entityPlayer.inventory, backpackInventory, xSize, ySize, type);
     }
@@ -154,14 +157,11 @@ public class ContainerBackpack extends Container {
     @Override
     public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) {
         // this will prevent the player from interacting with the item that opened the inventory:
-        if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack() == player.getHeldItem() && button == 0) {
+
+        int clickedSlot = slot - inventory.getSizeInventory() - 27;
+        if (clickedSlot == backpackSlot || (button == 2 && slot == backpackSlot))
             return null;
-        } else if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack) { //right click a backpack to directly open it
-            ItemStack stack = getSlot(slot).getStack();
-            if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) //can't right click the same backpack you have open, causes it to not update correctly and dupe items
-                stack.useItemRightClick(player.worldObj, player);
-            return null;
-        }
+
         return super.slotClick(slot, button, flag, player);
     }
 
