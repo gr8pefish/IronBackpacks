@@ -3,7 +3,7 @@ To Do:
     NOW:
 
         Mess with basics first (storage, basic nesting, etc) <-- Seems okay!
-            Then check equipping errors and nesting upgrade (opening guis, checking item persistence) <- opening equipped = errors
+            Then check equipping errors and nesting upgrade (opening guis, checking item persistence) <- opening equipped = okay?!?
                 Then check nested backpacks in equipped ones (possibly with opening alt. gui as well?[Not yet]) <-- Think it's fine
                 Check depth upgrade <-- seems okay
 
@@ -30,7 +30,7 @@ To Do:
             Equipped backpack can be the wrong one opened vs client/server
                 ex: opens with the button upgrade if another pack has it even when the equipped one doesn't have it
                 so check that I am updating the current pack correctly when equipping and opening the equipped
-                    seems to be the old gui, so some update isn't occurring that needs to
+                    seems to be the old gui, so some update isn't occurring that needs to <- Done so with ClientPackMessage
 
             Make sure you can't move the backpack, it allows for dupe glitches otherwise
                 -should be okay? check in built version
@@ -48,7 +48,7 @@ To Do:
                 should be fixed
 
             Restocking not working with arrows?
-                of course, not picking anything up - something should change?
+                of course, not picking anything up - something should change? design decisions...
 
         ADDITIONS/TWEAKS:
             config recipe for basic backpack
