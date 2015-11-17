@@ -5,7 +5,7 @@ To Do:
         Mess with basics first (storage, basic nesting, etc) <-- Seems okay!
             Then check equipping errors and nesting upgrade (opening guis, checking item persistence) <- opening equipped = errors
                 Then check nested backpacks in equipped ones (possibly with opening alt. gui as well?[Not yet]) <-- Think it's fine
-                Check depth upgrade
+                Check depth upgrade <-- seems okay
 
 
         --Try building and testing in DW20-- Not yet, redo proxies and crashes and whatnot
@@ -14,8 +14,7 @@ To Do:
     SOON:
 
         LAPTOP LOGISTICS:
-            VCS stuff for laptop - make devSweden irrelevant eventually
-            Reformat file structure to a 'run' folder so IdeaProjects/IronBackpacks/src+other area isn't so messy
+            VCS stuff for laptop - make devSweden irrelevant eventually (merge into dev branch?)
 
         REFACTOR:
             Data storage in player pack?

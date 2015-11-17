@@ -18,6 +18,7 @@ public class NetworkingHandler {
         registerMessage(RenameMessage.Handler.class, RenameMessage.class, Side.SERVER);
         registerMessage(AdvFilterTypesMessage.Handler.class, AdvFilterTypesMessage.class, Side.SERVER);
         registerMessage(SingleByteMessage.Handler.class, SingleByteMessage.class, Side.SERVER);
+//        registerMessage(ClientPackMessage.Handler.class, ClientPackMessage.class, Side.CLIENT); //works on SSP
         registerMessage(OpenGuiClientElement.Handler.class, OpenGuiClientElement.class, Side.CLIENT);
     }
 

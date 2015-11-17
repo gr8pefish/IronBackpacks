@@ -4,7 +4,10 @@ package main.ironbackpacks.util;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.network.ClientPackMessage;
+import main.ironbackpacks.network.NetworkingHandler;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -184,11 +187,11 @@ public class IronBackpacksHelper {
         ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(player);
 //        System.out.println("Client: "+player.worldObj.isRemote);
 
-        if (backpack != null) {
+        if (backpack != null) { //need to unequip backpack
 
             boolean hasEmptySlot = false;
             for (int i = 0; i < player.inventory.getSizeInventory() - 4; i++){ //don't care about armor slots
-                if (player.inventory.getStackInSlot(i) == null) hasEmptySlot = true;
+                if (player.inventory.getStackInSlot(i) == null) hasEmptySlot = true; //can only take it off if there is a place to put it
             }
 
             if (hasEmptySlot) {
@@ -204,7 +207,7 @@ public class IronBackpacksHelper {
             }
 
         }
-        else if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) {
+        else if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBaseBackpack) { //need to equip backpack
 
             ItemStack backpackStack = player.getHeldItem();
             NBTHelper.setUUID(backpackStack);
@@ -213,7 +216,7 @@ public class IronBackpacksHelper {
             IronBackpacks.proxy.updateEquippedBackpack(player, backpackStack);
 
 //            System.out.println("sending updated equipped pack");
-//            NetworkingHandler.network.sendTo(new ClientPackMessage(backpackStack), (EntityPlayerMP)player);
+//            NetworkingHandler.network.sendTo(new ClientPackMessage(backpackStack), (EntityPlayerMP)player); //works on SSP
 
             //delete the held item
             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
