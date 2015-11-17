@@ -161,6 +161,14 @@ public class ContainerBackpack extends Container {
         int clickedSlot = slot - inventory.getSizeInventory() - 27;
         if (clickedSlot == backpackSlot || (flag == 2 && button == backpackSlot))
             return null;
+
+        if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && getSlot(slot).getStack().getItem() instanceof ItemBaseBackpack) { //right click a backpack to directly open it
+            ItemStack stack = getSlot(slot).getStack();
+            if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) //can't right click the same backpack you have open, causes it to not update correctly and dupe items
+                stack.useItemRightClick(player.worldObj, player);
+            return null;
+        }
+
         return super.slotClick(slot, button, flag, player);
     }
 
