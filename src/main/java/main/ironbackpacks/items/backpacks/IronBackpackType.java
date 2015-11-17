@@ -33,14 +33,14 @@ public enum IronBackpackType {
     private int id; //id int value of number in enum
     private int size; //number of slots
     private int rowLength; //number of rows
-    private int upgradeSlots;
+    private int upgradePoints;
 
-    IronBackpackType(int id, int size, int rowLength, String fancyName, int upgradeSlots) {
+    IronBackpackType(int id, int size, int rowLength, String fancyName, int upgradePoints) {
         this.id = id;
         this.size = size;
         this.rowLength = rowLength;
         this.name = fancyName;
-        this.upgradeSlots = upgradeSlots;
+        this.upgradePoints = upgradePoints;
     }
 
     public int getRowCount() {
@@ -63,7 +63,11 @@ public enum IronBackpackType {
         return id;
     }
 
+    public int getUpgradePoints() {
+        return upgradePoints;
+    }
+
     public int getUpgradeSlots() {
-        return upgradeSlots;
+        return upgradePoints;
     }
 }

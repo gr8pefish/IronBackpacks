@@ -49,7 +49,7 @@ public class ItemBaseBackpack extends Item implements IBackpack {
     }
 
     public ItemBaseBackpack(IronBackpackType type) {
-        this(type.getId(), type.getSize(), type.getRowLength(), type.getName(), type.getUpgradeSlots());
+        this(type.getId(), type.getSize(), type.getRowLength(), type.getName(), type.getUpgradePoints());
     }
 
     @Override
