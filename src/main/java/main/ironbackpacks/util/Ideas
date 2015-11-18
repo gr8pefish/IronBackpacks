@@ -79,24 +79,6 @@ To Do:
         Craft a diamond/barrel/ender (IDyeable) backpack with dyes to color it
 
 Changelog:
-ADDED: The ability to equip and open a backpack with keybindings.
-ADDED: Equipped backpacks render on the player with a custom model. Won't render if the player has an Open Blocks' hang glider equipped.
-ADDED: Depth Upgrade
-ADDED: Mining Filter Upgrade
-ADDED: Ability to right click ender storage backpacks inside IB's backpacks to open them.
-FIXED: Mod Specific Filter actually works now.
-FIXED: Restocking upgrade should now function properly.
-FIXED: Corner case with not being able to move a different backpack in your hotbar while another is open.
-FIXED: Equipped Backpacks should function properly on death now
-FIXED: Button upgrade's hotbar to inventory button should no longer move the opened pack
-CHANGED: The sorting button now sorts by ID, with iron backpacks always being in the front slots (i.e. top left slots)
-CHANGED: All the textures (backpacks and items) to slightly improved versions.
-CHANGED: Config option regarding the alternate backpack textures so it is clear the HD one is default.
-CHANGED: Default gold and diamond backpack recipes are slightly cheaper.
-CHANGED: Changed the Fuzzy filter's default recipe to something less confusing.
-CHANGED: Altered the default upgrade points on the backpack tiers to be slightly higher.
-CHANGED: Backpacks are no longer enchantable.
-CHANGED: A lot of the code, so it had to be re-commented, but is now.
 
 MCF Posting:
 New pictures/graphics
