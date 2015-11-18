@@ -7,6 +7,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemNestingAdvancedUpgrade extends ItemUpgradeBase {
 
     public ItemNestingAdvancedUpgrade() {
-        super("nestingAdvancedUpgrade", "nestingAdvancedUpgrade", IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID, ConfigHandler.nestingAdvancedUpgradeCost, IronBackpacksConstants.Upgrades.ADVANCED_NESTING_DESCRIPTION);
+        super("nestingAdvancedUpgrade", IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID, ConfigHandler.nestingAdvancedUpgradeCost, IronBackpacksConstants.Upgrades.ADVANCED_NESTING_DESCRIPTION);
     }
 }

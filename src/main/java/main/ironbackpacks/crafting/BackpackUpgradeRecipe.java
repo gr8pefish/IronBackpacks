@@ -101,46 +101,46 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
 
         if (totalUpgradePoints != 0 && upgradeToApplyBase != null) { //if have more than zero upgrade slots
             if (upgrades.length == 0) { //if no upgrades applied, apply upgrade
-                if (upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID) {
+                if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID) {
                     upgradeFound = applyAdditional(nbtTagCompound, result);
                 } else {
-                    if (IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints) {
-                        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID()))
-                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getTypeID()))); //int value of upgrade added
+                    if (IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints) {
+                        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getId()))
+                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getId()))); //int value of upgrade added
                         NBTTagCompound tagCompound = new NBTTagCompound();
-                        tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgradeToApplyBase.getTypeID());
+                        tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgradeToApplyBase.getId());
                         tagList.appendTag(tagCompound);
                         upgradeFound = true;
                     }
                 }
             } else { //upgrades have been applied
-                if (upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID) {
+                if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID) {
                     upgradeFound = applyAdditional(nbtTagCompound, result);
                 }
                 for (int upgrade : upgrades) { //for each slot in possible upgrades
                     if (!upgradeFound && shouldRemove(upgradeToApplyBase, upgrade)) {
                         //not adding the old recipe is the same outcome as removing the recipe, so no code needed here
                         upgradeFound = true;
-                        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID()))
-                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getTypeID()))); //int value of upgrade removed
+                        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getId()))
+                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getId()))); //int value of upgrade removed
                     } else { //save old contents to nut tag
                         NBTTagCompound tagCompound = new NBTTagCompound();
                         tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgrade);
                         tagList.appendTag(tagCompound);
                     }
                 }
-                if (!upgradeFound && !(upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID)) { //if not already applied
+                if (!upgradeFound && !(upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID)) { //if not already applied
                     if (canApplyUpgrade(upgradeToApplyBase, upgrades, totalUpgradePoints)) {
-                        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID()))
-                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getTypeID()))); //int value of upgrade added
+                        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getId()))
+                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getId()))); //int value of upgrade added
                         NBTTagCompound tagCompound = new NBTTagCompound();
-                        tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgradeToApplyBase.getTypeID());
+                        tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgradeToApplyBase.getId());
                         tagList.appendTag(tagCompound);
                         upgradeFound = true;
                     }
                 }
             }
-        } else if (upgradeToApplyBase != null && upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID) {
+        } else if (upgradeToApplyBase != null && upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID) {
             upgradeFound = applyAdditional(nbtTagCompound, result);
         }
 
@@ -167,29 +167,29 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
      * @return - true if it can be applied, false otherwise
      */
     private boolean canApplyUpgrade(ItemUpgradeBase upgradeToApplyBase, int[] upgrades, int totalUpgradePoints) {
-        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getTypeID())) { //alt gui upgrade
+        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getId())) { //alt gui upgrade
             if (UpgradeMethods.getAltGuiUpgradesUsed(upgrades) + 1 <= IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED) { //alt gui in general
-                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints;
+                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints;
             }
             return false;
-        } else if (upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID || upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID) { //have to choose between nesting upgrade and advanced nesting upgrade
-            if (upgradeToApplyBase.getTypeID() == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID) {
+        } else if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID || upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID) { //have to choose between nesting upgrade and advanced nesting upgrade
+            if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID) {
                 for (int upgrade : upgrades) {
                     if (upgrade == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID) {
                         return false;
                     }
                 }
-                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints;
+                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints;
             } else {
                 for (int upgrade : upgrades) {
                     if (upgrade == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID) {
                         return false;
                     }
                 }
-                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints;
+                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints;
             }
         } else { //other upgrade (additional upgrade points already taken care of)
-            return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradePoints() <= totalUpgradePoints;
+            return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints;
         }
 
     }
@@ -228,7 +228,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
      * @return - true if it should be removed, false otherwise
      */
     private boolean shouldRemove(ItemUpgradeBase upgradeToApplyBase, int currUpgrade) {
-        if (upgradeToApplyBase.getTypeID() == currUpgrade) { //removing if the same upgrade is applied twice
+        if (upgradeToApplyBase.getId() == currUpgrade) { //removing if the same upgrade is applied twice
             return true;
         }
         return false;

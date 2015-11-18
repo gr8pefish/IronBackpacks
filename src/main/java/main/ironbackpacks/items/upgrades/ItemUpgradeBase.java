@@ -9,22 +9,25 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Abstract base class for all my upgrades
  */
-public abstract class ItemUpgradeBase extends Item {
+public abstract class ItemUpgradeBase extends Item implements IPackUpgrade {
 
     private int typeID;
     private String[] tooltip;
     private int upgradeCost;
+    private String name;
 
-    public ItemUpgradeBase(String unlocName, String textureName, int typeID, int upgradeCost, String... descriptions) {
+    public ItemUpgradeBase(String unlocName, int typeID, int upgradeCost, String ... descriptions) {
         super();
         setUnlocalizedName(ModInformation.ID + ":" + unlocName);
         setCreativeTab(IronBackpacks.creativeTab);
         setMaxStackSize(16);
+        this.name = unlocName;
         this.typeID = typeID;
         this.tooltip = descriptions;
         this.upgradeCost = upgradeCost;
@@ -32,26 +35,33 @@ public abstract class ItemUpgradeBase extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
+    @SuppressWarnings("unchecked")
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) {
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-            if (this.upgradeCost == 1)
-                list.add("Costs 1 upgrade point");
-            else
-                list.add("Costs " + this.upgradeCost + " upgrade points");
-            for (String line : this.tooltip) {
-                list.add(line);
-            }
+        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+            list.add("Costs " + getUpgradeCost() + " upgrade point" + (getUpgradeCost() == 1 ? "" : "s"));
+            list.addAll(getTooltip());
         } else {
             list.add("Hold shift for more info.");
         }
     }
 
-    public int getTypeID() {
+    @Override
+    public int getId() {
         return this.typeID;
     }
 
-    public int getUpgradePoints() {
+    @Override
+    public int getUpgradeCost() {
         return this.upgradeCost;
     }
 
+    @Override
+    public List<String> getTooltip() {
+        return Arrays.asList(tooltip);
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }
