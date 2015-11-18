@@ -11,19 +11,16 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Register all the recipes here.
  */
 public class ItemRecipeRegistry {
 
-    private static String[] oreNames = OreDictionary.getOreNames();
-
     //=================================================================================Helper Registers==========================================================
-    private static List ores = Arrays.asList(oreNames); //cached for slightly better efficiency
 
     /**
      * Main method that registers all the recipes
@@ -208,8 +205,19 @@ public class ItemRecipeRegistry {
      * @param input - the item to check
      * @return - boolean success
      */
+    @SuppressWarnings("unchecked")
     private static boolean isOreDict(String input) {
-        return ores.contains(input.trim());
+        try {
+            Field nameToId = OreDictionary.class.getDeclaredField("nameToId");
+            nameToId.setAccessible(true);
+            Map<String, Integer> nameToIdMap = (Map<String, Integer>) nameToId.get(null);
+            return nameToIdMap.get(input) != null;
+        } catch (NoSuchFieldException e) {
+            // Catch 'em all!
+        } catch (IllegalAccessException e) {
+            // Catch 'em all!
+        }
+        return false;
     }
 
     /**
