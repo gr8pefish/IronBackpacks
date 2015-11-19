@@ -7,6 +7,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemDamageBarUpgrade extends ItemUpgradeBase {
 
     public ItemDamageBarUpgrade(){
-        super("damageBarUpgrade", "damageBarUpgrade", IronBackpacksConstants.Upgrades.DAMAGE_BAR_UPGRADE_ID, ConfigHandler.damageBarUpgradeCost, IronBackpacksConstants.Upgrades.DAMAGE_BAR_DESCRIPTION);
+        super("damageBarUpgrade", IronBackpacksConstants.Upgrades.DAMAGE_BAR_UPGRADE_ID, ConfigHandler.damageBarUpgradeCost, IronBackpacksConstants.Upgrades.DAMAGE_BAR_DESCRIPTION);
     }
 }

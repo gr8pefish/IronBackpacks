@@ -7,6 +7,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemFilterOreDictUpgrade extends ItemUpgradeBase{
 
     public ItemFilterOreDictUpgrade(){
-        super("filterOreDictUpgrade", "filterOreDictUpgrade", IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID, ConfigHandler.filterOreDictUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_OREDICT_DESCRIPTION);
+        super("filterOreDictUpgrade", IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID, ConfigHandler.filterOreDictUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_OREDICT_DESCRIPTION);
     }
 }

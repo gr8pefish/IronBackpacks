@@ -7,6 +7,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemDepthUpgrade extends ItemUpgradeBase {
 
     public ItemDepthUpgrade(){
-        super("depthUpgrade", "depthUpgrade", IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_ID, ConfigHandler.depthUpgradeCost, IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_DESCRIPTION);
+        super("depthUpgrade", IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_ID, ConfigHandler.depthUpgradeCost, IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_DESCRIPTION);
     }
 }

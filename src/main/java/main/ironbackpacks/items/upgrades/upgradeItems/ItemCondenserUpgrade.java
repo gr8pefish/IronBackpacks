@@ -7,6 +7,6 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 public class ItemCondenserUpgrade extends ItemUpgradeBase {
 
     public ItemCondenserUpgrade(){
-        super("condenserUpgrade", "condenserUpgrade", IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID, ConfigHandler.condenserUpgradeCost, IronBackpacksConstants.Upgrades.CONDENSER_DESCRIPTION);
+        super("condenserUpgrade", IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID, ConfigHandler.condenserUpgradeCost, IronBackpacksConstants.Upgrades.CONDENSER_DESCRIPTION);
     }
 }
