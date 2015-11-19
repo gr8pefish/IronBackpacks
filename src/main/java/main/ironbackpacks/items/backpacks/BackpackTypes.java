@@ -29,7 +29,7 @@ public enum BackpackTypes {
             "diamondBackpack",
             ConfigHandler.enumDiamondBackpack.upgradePoints.getValue());
 
-    public String name; //display name
+    private String name; //display name
     private int id; //id int value of number in enum
     private int size; //number of slots
     private int rowLength; //number of rows

@@ -9,6 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Class for drawing and creating all the buttons.
@@ -31,9 +32,8 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
 
         hoverTime = buttonType.delay ? ConfigHandler.tooltipDelay : 0;
         tooltips = new ArrayList<String>();
-        for (String string : buttonType.tooltip) {
-            tooltips.add(string);
-        }
+
+        Collections.addAll(tooltips, buttonType.tooltip);
 
         iconOffsetX = buttonType.iconOffsetX;
         iconOffsetY = buttonType.iconOffsetY;
@@ -46,9 +46,7 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
 
         hoverTime = buttonType.delay ? ConfigHandler.tooltipDelay : 0;
         tooltips = new ArrayList<String>();
-        for (String string : ((tooltipLines.length == 0) ? buttonType.tooltip : tooltipLines)) {
-            tooltips.add(string);
-        }
+        Collections.addAll(tooltips, ((tooltipLines.length == 0) ? buttonType.tooltip : tooltipLines));
 
         iconOffsetX = buttonType.iconOffsetX;
         iconOffsetY = buttonType.iconOffsetY;

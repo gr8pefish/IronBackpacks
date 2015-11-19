@@ -28,13 +28,12 @@ import java.util.List;
  */
 public class ItemBackpack extends Item implements IBackpack {
 
-    private boolean openAltGui = true;
-
     private final int id;
     private final int size;
     private final int rowLength;
     private final int upgradePoints;
     private final String fancyName;
+    private boolean openAltGui = true;
 
     public ItemBackpack(int id, int size, int rowLength, String fancyName, int upgradePoints) {
         setCreativeTab(IronBackpacks.creativeTab);
@@ -62,7 +61,7 @@ public class ItemBackpack extends Item implements IBackpack {
         return getFullness(stack);
     }
 
-//    @Override //idea throwing an error
+    @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             if (!player.isSneaking())

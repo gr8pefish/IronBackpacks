@@ -64,6 +64,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     private boolean hasHopperUpgrade;
     private boolean hasCondenserUpgrade;
     private boolean hasFilterAdvancedUpgrade;
+
     private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, BackpackTypes backpackType) {
         super(type.makeContainer(player, inv));
         this.player = player;
@@ -127,6 +128,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     /**
      * Draws the required buttons to the GUI.
      */
+    @SuppressWarnings("unchecked")
     private void drawButtons() {
 
         buttonList.clear();
@@ -300,7 +302,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         }
         if (curr != null) {
             if (curr.getHoverTime() == 0)
-                this.drawHoveringText(curr.getTooltip(), (int) mouseX - w, (int) mouseY - h, fontRendererObj);
+                this.drawHoveringText(curr.getTooltip(), mouseX - w, mouseY - h, fontRendererObj);
             else {
                 long systemTime = System.currentTimeMillis();
                 if (prevSystemTime != 0)
@@ -308,7 +310,7 @@ public class GUIBackpackAlternate extends GuiContainer {
                 prevSystemTime = systemTime;
 
                 if (hoverTime > curr.getHoverTime())
-                    this.drawHoveringText(curr.getTooltip(), (int) mouseX - w, (int) mouseY - h, fontRendererObj);
+                    this.drawHoveringText(curr.getTooltip(), mouseX - w, mouseY - h, fontRendererObj);
             }
         } else {
             hoverTime = 0;
@@ -450,7 +452,7 @@ public class GUIBackpackAlternate extends GuiContainer {
 
         public final ResourceLocation location; //file's texture path
 
-        private ResourceList(ResourceLocation loc) {
+        ResourceList(ResourceLocation loc) {
             this.location = loc;
         }
 
@@ -475,7 +477,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         private int ySize; //height
         private ResourceList guiResourceList; //texture
 
-        private GUI(int xSize, int ySize, ResourceList guiResourceList) {
+        GUI(int xSize, int ySize, ResourceList guiResourceList) {
             this.xSize = xSize;
             this.ySize = ySize;
             this.guiResourceList = guiResourceList;

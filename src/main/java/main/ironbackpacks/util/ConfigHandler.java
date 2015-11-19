@@ -105,7 +105,7 @@ public class ConfigHandler {
         String[] nestRecipeDefault = {"stickWood", "stickWood", "stickWood", "stickWood", "items.egg", "stickWood", "stickWood", "stickWood", "stickWood"};
         String[] jeweledFeatherDefault = {"items.feather", "nuggetGold", "nuggetGold"};
         String[] treatedLeatherDefault = {"items.leather", "items.water_bucket", "dyeLime", "items.flint"};
-        
+
         //===================================================Categories======================================
 
         config.load();
@@ -209,7 +209,7 @@ public class ConfigHandler {
             return value;
         }
     }
-    
+
     public enum enumIronBackpack {
         upgradePoints(ironBackpack[0]),
         sizeX(ironBackpack[1]),
@@ -224,7 +224,7 @@ public class ConfigHandler {
             return value;
         }
     }
-    
+
     public enum enumGoldBackpack {
         upgradePoints(goldBackpack[0]),
         sizeX(goldBackpack[1]),

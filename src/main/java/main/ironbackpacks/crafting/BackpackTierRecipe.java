@@ -52,6 +52,7 @@ public class BackpackTierRecipe extends ShapedOreRecipe {
 
         ItemStack result;
         ItemStack backpack = getFirstBackpack(inventoryCrafting);
+        assert backpack != null;
         NBTTagCompound nbtTagCompound = backpack.getTagCompound();
 
         if (nbtTagCompound == null) {

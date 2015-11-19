@@ -4,8 +4,8 @@ import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
-import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
+import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.ConfigHandler;
@@ -144,7 +144,7 @@ public class EventHandler {
                             Slot slotToResupply = null;
 
                             for (int i = type.getSize(); i < type.getSize() + 36; i++) { //check player's inv for item
-                                Slot tempSlot = (Slot) container.getSlot(i);
+                                Slot tempSlot = container.getSlot(i);
                                 if (tempSlot != null && tempSlot.getHasStack()) {
                                     ItemStack tempItem = tempSlot.getStack();
                                     if (tempItem.isItemEqual(hopperItem) && tempItem.stackSize < tempItem.getMaxStackSize()) { //found and less than max stack size
@@ -170,7 +170,7 @@ public class EventHandler {
                                 }
                                 if (!done) { //then resupply from the backpack (if necessary)
                                     for (int i = 0; i < type.getSize(); i++) {
-                                        Slot tempSlot = (Slot) container.getSlot(i);
+                                        Slot tempSlot = container.getSlot(i);
                                         if (tempSlot != null && tempSlot.getHasStack()) {
                                             ItemStack tempItem = tempSlot.getStack();
                                             if (tempItem.isItemEqual(stackToResupply)) {
@@ -233,7 +233,7 @@ public class EventHandler {
                     for (ItemStack condenserItem : condenserItems) {
                         if (condenserItem != null) {
                             for (int index = 0; index < type.getSize(); index++) {
-                                Slot theSlot = (Slot) container.getSlot(index);
+                                Slot theSlot = container.getSlot(index);
                                 if (theSlot != null && theSlot.getHasStack()) {
                                     ItemStack theStack = theSlot.getStack();
                                     if (theStack != null && theStack.stackSize >= 9 && theStack.isItemEqual(condenserItem)) {

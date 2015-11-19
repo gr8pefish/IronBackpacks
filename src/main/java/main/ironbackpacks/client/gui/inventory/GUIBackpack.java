@@ -43,6 +43,7 @@ public class GUIBackpack extends GuiContainer {
     private ArrayList<TooltipButton> tooltipButtons; //all the buttons that have a tooltip
     private long prevSystemTime;
     private int hoverTime;
+
     private GUIBackpack(GUI type, EntityPlayer player, InventoryBackpack backpack, int[] upgrades, ItemStack itemStack) {
         super(type.makeContainer(player, backpack));
         this.container = (ContainerBackpack) type.makeContainer(player, backpack);
@@ -56,6 +57,7 @@ public class GUIBackpack extends GuiContainer {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void initGui() {
 
         super.initGui();
@@ -114,7 +116,7 @@ public class GUIBackpack extends GuiContainer {
             }
             prevSystemTime = systemTime;
             if (hoverTime > curr.getHoverTime()) {
-                this.drawHoveringText(curr.getTooltip(), (int) mouseX - k, (int) mouseY - l, fontRendererObj);
+                this.drawHoveringText(curr.getTooltip(), mouseX - k, mouseY - l, fontRendererObj);
             }
         } else {
             hoverTime = 0;
@@ -157,7 +159,7 @@ public class GUIBackpack extends GuiContainer {
 
         public final ResourceLocation location; //the texture's file's path
 
-        private ResourceList(ResourceLocation loc) {
+        ResourceList(ResourceLocation loc) {
             this.location = loc;
         }
     }
@@ -185,7 +187,7 @@ public class GUIBackpack extends GuiContainer {
         private ResourceList guiResourceList; //texture to bind
         private BackpackTypes mainType; //tier of backpack
 
-        private GUI(int xSize, int ySize, ResourceList guiResourceList, BackpackTypes mainType) {
+        GUI(int xSize, int ySize, ResourceList guiResourceList, BackpackTypes mainType) {
             this.xSize = xSize;
             this.ySize = ySize;
             this.guiResourceList = guiResourceList;

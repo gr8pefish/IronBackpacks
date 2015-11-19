@@ -22,7 +22,7 @@ public abstract class ItemUpgradeBase extends Item implements IPackUpgrade {
     private int upgradeCost;
     private String name;
 
-    public ItemUpgradeBase(String unlocName, int typeID, int upgradeCost, String ... descriptions) {
+    public ItemUpgradeBase(String unlocName, int typeID, int upgradeCost, String... descriptions) {
         super();
         setUnlocalizedName(ModInformation.ID + ":" + unlocName);
         setCreativeTab(IronBackpacks.creativeTab);

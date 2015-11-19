@@ -79,6 +79,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
     public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
 
         ItemStack backpack = getFirstBackpack(inventoryCrafting);
+        assert backpack != null;
         ItemStack result = backpack.copy();
 
         int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result); //ex 1,2
@@ -168,10 +169,9 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
      */
     private boolean canApplyUpgrade(ItemUpgradeBase upgradeToApplyBase, int[] upgrades, int totalUpgradePoints) {
         if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getId())) { //alt gui upgrade
-            if (UpgradeMethods.getAltGuiUpgradesUsed(upgrades) + 1 <= IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED) { //alt gui in general
-                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints;
-            }
-            return false;
+            //alt gui in general
+            return UpgradeMethods.getAltGuiUpgradesUsed(upgrades) + 1 <= IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED
+                    && IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints;
         } else if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID || upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID) { //have to choose between nesting upgrade and advanced nesting upgrade
             if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID) {
                 for (int upgrade : upgrades) {
@@ -228,11 +228,6 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
      * @return - true if it should be removed, false otherwise
      */
     private boolean shouldRemove(ItemUpgradeBase upgradeToApplyBase, int currUpgrade) {
-        if (upgradeToApplyBase.getId() == currUpgrade) { //removing if the same upgrade is applied twice
-            return true;
-        }
-        return false;
+        return upgradeToApplyBase.getId() == currUpgrade;
     }
-
-
 }

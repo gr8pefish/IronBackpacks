@@ -4,11 +4,12 @@ import invtweaks.api.container.ChestContainer;
 import main.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
-import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
+import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -199,7 +200,7 @@ public class ContainerBackpack extends Container {
      */
     public void inventoryToBackpack() {
         int start = type.getSize();
-        int end = start + player.inventory.getSizeInventory() - player.inventory.getHotbarSize() - 4; //Not sure why it is 4 too large...
+        int end = start + player.inventory.getSizeInventory() - InventoryPlayer.getHotbarSize() - 4; //Not sure why it is 4 too large...
         for (int i = start; i < end; i++) {
             transferStackInSlot(player, i);
         }
@@ -209,8 +210,8 @@ public class ContainerBackpack extends Container {
      * Moves items from the player's hotbar to the backpack
      */
     public void hotbarToBackpack() {
-        int start = type.getSize() + player.inventory.getSizeInventory() - player.inventory.getHotbarSize() - 4;
-        int end = start + this.player.inventory.getHotbarSize();
+        int start = type.getSize() + player.inventory.getSizeInventory() - InventoryPlayer.getHotbarSize() - 4;
+        int end = start + InventoryPlayer.getHotbarSize();
         for (int i = start; i < end; i++) {
             transferStackInSlot(player, i);
         }

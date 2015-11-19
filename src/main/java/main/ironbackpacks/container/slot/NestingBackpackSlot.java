@@ -1,7 +1,7 @@
 package main.ironbackpacks.container.slot;
 
-import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
+import main.ironbackpacks.items.backpacks.IBackpack;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
