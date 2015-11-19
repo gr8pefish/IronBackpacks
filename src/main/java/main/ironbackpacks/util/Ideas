@@ -8,27 +8,26 @@ To Do:
         cleanCache for new forge to actually update
         gui/container/inv deep refactor via 1.8
 
-
-        LAPTOP LOGISTICS:
-            VCS stuff for laptop - make devSweden irrelevant eventually (merge into dev branch?)
+        GIT STUFF:
+            merge devSweden 1.2.0 to master
+            delete devSweden and update dev when I go back home
 
         REFACTOR:
             Data storage in player pack?
 
         TESTING:
 
-            check if it works in a modpack with and without open blocks (and try the render specifically)
-                if it doesn't just remove special handling, it really doesn't look that weird
+            check if it works in a modpack with open blocks (and try the render specifically)
 
         BUGS:
 
-            check issue #18 on github, if it is now fixed
-                if you can move a backpack (with number keys)
+
+
+        ADDITIONS/TWEAKS:
 
             Restocking not working with arrows?
                 of course, not picking anything up - something should change? design decisions...
 
-        ADDITIONS/TWEAKS:
             config recipe for basic backpack
             make crafting upgrade work when manually putting items in
             Open right click direct from 'e' inventory?
@@ -45,6 +44,7 @@ To Do:
             Make textures of upgrades more 3D looking
             Add quick deposit upgrade variant that only fills if the stack is present
                 so you have an ores chest and you shift click to dump only the items in the backpack that are in the chest (ores)
+            Make it so you can't move the opened backpack with number key presses, as there might be some dupe bug using that that I missed
 
         EXTRA:
             Shift right click to open nested guis too
@@ -81,12 +81,8 @@ To Do:
 Changelog:
 
 MCF Posting:
-New pictures/graphics
-Add that it has full Thaumcraft aspect support
-Open blocks won't render backpack with glider on
+More pictures
 Mod armors that have larger custom models might overlap with my backpack model, just visually annoying
-Add in donation button
-
 
 Balance/Play With:
 
