@@ -167,10 +167,17 @@ public class ContainerAlternateGui extends Container {
      * @param toName - the new name
      */
     public void renameBackpack(String toName){ //TODO: fix for next update
-        ItemStack itemStack = IronBackpacksHelper.getBackpackFromPlayersInventory(this.player); //works only for opening w/out nested
-//        ItemStack itemStack1 = CommonProxy.getCurrBackpack(player); //need something like this if you can open alt gui in nested packs
+
+        //client side is easy
         stack.setStackDisplayName(ConfigHandler.makeRenamedBackpacksNamesItalic ? toName : "\u00A7r" + toName); //client
-        itemStack.setStackDisplayName(ConfigHandler.makeRenamedBackpacksNamesItalic ? toName : "\u00A7r" + toName); //server (not really, but this way works...)
+
+        ItemStack itemStack = IronBackpacksHelper.getBackpackFromPlayersInventory(this.player); //works only for opening w/out nested, change to currPack?
+        if (itemStack == null)
+            itemStack = IronBackpacksHelper.getEquippedBackpack(player);
+        if (itemStack != null)
+            itemStack.setStackDisplayName(ConfigHandler.makeRenamedBackpacksNamesItalic ? toName : "\u00A7r" + toName); //server (not really, but this way works...)
+//        ItemStack itemStack1 = CommonProxy.getCurrBackpack(player); //need something like this if you can open alt gui in nested packs
+
     }
 
     /**

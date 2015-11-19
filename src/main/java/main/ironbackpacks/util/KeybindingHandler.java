@@ -36,7 +36,7 @@ public class KeybindingHandler {
                 NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING));
             else
                 NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING));
-//            if (Minecraft.getMinecraft().gameSettings.keyBindSneak.isPressed()){ //TODO: implement shift right click to open altGui of packs directly
+//            if (Minecraft.getMinecraft().gameSettings.keyBindSneak.isPressed()){ //TODO: implement shift right click to open altGui of packs directly - doesn't work with alt gui upgrades
 //                NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_ALT_KEYBINDING));
 //            }
         }else if(equipBackpack.isPressed()) {

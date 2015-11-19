@@ -94,7 +94,6 @@ public class ItemBackpack extends Item implements IBackpack {
                 player.openGui(IronBackpacks.instance, getGuiId(), world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"
                 return itemStack;
             }else { //if sneaking
-                System.out.println("sneaking");
                 if (openAltGui)
                     player.openGui(IronBackpacks.instance, (getGuiId() * -1) - 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
                 else
