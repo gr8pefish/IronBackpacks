@@ -1,8 +1,8 @@
 package main.ironbackpacks.items;
 
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
-import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
+import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.backpacks.ItemEnderBackpack;
 import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;
 import main.ironbackpacks.items.craftingItems.ItemNest;
@@ -97,14 +97,14 @@ public class ItemRegistry {
      */
     public static void registerItems() {
 
-        basicBackpack = new ItemBaseBackpack(IronBackpackType.BASIC);
-        GameRegistry.registerItem(basicBackpack, IronBackpackType.BASIC.getName());
-        ironBackpack = new ItemBaseBackpack(IronBackpackType.IRON);
-        GameRegistry.registerItem(ironBackpack, IronBackpackType.IRON.getName());
-        goldBackpack = new ItemBaseBackpack(IronBackpackType.GOLD);
-        GameRegistry.registerItem(goldBackpack, IronBackpackType.GOLD.getName());
-        diamondBackpack = new ItemBaseBackpack(IronBackpackType.DIAMOND);
-        GameRegistry.registerItem(diamondBackpack, IronBackpackType.DIAMOND.getName());
+        basicBackpack = new ItemBackpack(BackpackTypes.BASIC);
+        GameRegistry.registerItem(basicBackpack, BackpackTypes.BASIC.getName());
+        ironBackpack = new ItemBackpack(BackpackTypes.IRON);
+        GameRegistry.registerItem(ironBackpack, BackpackTypes.IRON.getName());
+        goldBackpack = new ItemBackpack(BackpackTypes.GOLD);
+        GameRegistry.registerItem(goldBackpack, BackpackTypes.GOLD.getName());
+        diamondBackpack = new ItemBackpack(BackpackTypes.DIAMOND);
+        GameRegistry.registerItem(diamondBackpack, BackpackTypes.DIAMOND.getName());
         if (ConfigHandler.enableEnderBackpack) {
             enderBackpack = new ItemEnderBackpack();
             GameRegistry.registerItem(enderBackpack, ((ItemEnderBackpack) enderBackpack).getName());
@@ -159,10 +159,10 @@ public class ItemRegistry {
         InventoryRenderHelper helper = new InventoryRenderHelper(ModInformation.ID + ":");
 
         String alternate = ConfigHandler.useAlternateHDBackpackTextures ? "_alternate" : "";
-        helper.itemRender(basicBackpack, IronBackpackType.BASIC.getName() + alternate);
-        helper.itemRender(ironBackpack, IronBackpackType.IRON.getName() + alternate);
-        helper.itemRender(goldBackpack, IronBackpackType.GOLD.getName() + alternate);
-        helper.itemRender(diamondBackpack, IronBackpackType.DIAMOND.getName() + alternate);
+        helper.itemRender(basicBackpack, BackpackTypes.BASIC.getName() + alternate);
+        helper.itemRender(ironBackpack, BackpackTypes.IRON.getName() + alternate);
+        helper.itemRender(goldBackpack, BackpackTypes.GOLD.getName() + alternate);
+        helper.itemRender(diamondBackpack, BackpackTypes.DIAMOND.getName() + alternate);
         helper.itemRender(enderBackpack, ((ItemEnderBackpack) enderBackpack).getName());
 
         helper.itemRender(buttonUpgrade, "buttonUpgrade");

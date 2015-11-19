@@ -49,7 +49,7 @@ public class ItemEnderBackpack extends Item implements IBackpack {
     }
 
     @Override
-    public int getUpgradeSlots() {
+    public int getUpgradePoints() {
         return 0;
     }
 

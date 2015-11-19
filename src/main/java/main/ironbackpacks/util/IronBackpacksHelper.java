@@ -115,7 +115,7 @@ public class IronBackpacksHelper {
      */
     public static int getTotalUpgradePointsFromNBT(ItemStack stack) {
         IBackpack backpack = (IBackpack) stack.getItem();
-        int upgradeCount = backpack.getUpgradeSlots(); //from initialization via config
+        int upgradeCount = backpack.getUpgradePoints(); //from initialization via config
         int extraPoints = getAdditionalUpgradesUpgradeCount(stack);
         return (upgradeCount + extraPoints);
     }
