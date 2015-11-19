@@ -204,17 +204,7 @@ public class ItemRecipeRegistry {
 	 */
 	@SuppressWarnings("unchecked")
 	private static boolean isOreDict(String input){
-		try {
-			Field nameToId = OreDictionary.class.getDeclaredField("nameToId");
-			nameToId.setAccessible(true);
-			Map<String, Integer> nameToIdMap = (Map<String, Integer>) nameToId.get(null);
-			return nameToIdMap.get(input) != null;
-		} catch (NoSuchFieldException e) {
-			// Catch 'em all!
-		} catch (IllegalAccessException e) {
-			// Catch 'em all!
-		}
-		return false;
+		return OreDictionary.doesOreNameExist(input.trim());
 	}
 
 	/**
