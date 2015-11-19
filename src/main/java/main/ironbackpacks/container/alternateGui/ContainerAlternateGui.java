@@ -5,6 +5,7 @@ import invtweaks.api.container.InventoryContainer;
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
+import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -168,8 +169,8 @@ public class ContainerAlternateGui extends Container {
     public void renameBackpack(String toName){ //TODO: fix for next update
         ItemStack itemStack = IronBackpacksHelper.getBackpackFromPlayersInventory(this.player); //works only for opening w/out nested
 //        ItemStack itemStack1 = CommonProxy.getCurrBackpack(player); //need something like this if you can open alt gui in nested packs
-        stack.setStackDisplayName(toName); //client
-        itemStack.setStackDisplayName(toName); //server (not really, but this way works...)
+        stack.setStackDisplayName(ConfigHandler.makeRenamedBackpacksNamesItalic ? toName : "\u00A7r" + toName); //client
+        itemStack.setStackDisplayName(ConfigHandler.makeRenamedBackpacksNamesItalic ? toName : "\u00A7r" + toName); //server (not really, but this way works...)
     }
 
     /**

@@ -72,6 +72,7 @@ public class ConfigHandler {
     public static int additionalUpgradesLimit;
     public static int additionalUpgradesIncrease;
     public static boolean useAlternateBackpackTextures;
+    public static boolean makeRenamedBackpacksNamesItalic;
 
 
     //========================initialization====================================
@@ -225,6 +226,7 @@ public class ConfigHandler {
                 "Negative numbers are allowed (ex: -1 will allow none on basic or iron backpacks, once on gold backpacks, and twice on diamond). Default is 1.").getInt();
         additionalUpgradesIncrease = config.get("7) Miscellaneous", "4) Additional Upgrades Increase", 2, "The amount of extra upgrade points the 'additional upgrade slots' upgrade will apply. Default is 2.").getInt();
         useAlternateBackpackTextures = config.get("7) Miscellaneous", "5) Alternate Backpack Textures", false, "Use alternate, lower definition textures for the backpacks. Default is false.").getBoolean();
+        makeRenamedBackpacksNamesItalic = config.get("7) Miscellaneous", "6) Italic Renames", false, "Make the styling of the letters on a renamed backpack be in italics. Default false.").getBoolean();
 
         config.save(); //Don't forget to save
     }
