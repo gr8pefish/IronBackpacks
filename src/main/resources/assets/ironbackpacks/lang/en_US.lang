@@ -29,8 +29,54 @@ item.ironbackpacks:treatedLeather.name=Treated Leather
 # Creative Tab
 itemGroup.ironbackpacks=Iron Backpacks
 
-# Miscellaneous
-player.inventory=Inventory
-emptyUpgradeSlot=Empty Upgrade Slot
-noValidUpgradesFound=No Valid Upgrades Found!
+# GUI
+gui.ironbackpacks.emptyUpgradeSlot=Empty Upgrade Slot
+gui.ironbackpacks.noValidUpgradesFound=No Valid Upgrades Found!
 
+# Button
+button.ironbackpacks.rename.tooltip=Renames the backpack
+button.ironbackpacks.exact.tooltip=Exact Matching
+button.ironbackpacks.fuzzy.tooltip=Fuzzy Matching
+button.ironbackpacks.oreDict.tooltip=Ore Dictionary Matching
+button.ironbackpacks.modSpecific.tooltip=Mod Specific Matching
+button.ironbackpacks.packToInv.tooltip=Moves items from the backpack to your inventory.
+button.ironbackpacks.invToPack.tooltip=Moves items from your inventory to the backpack
+button.ironbackpacks.barToPack.tooltip=Moves items from your hotbar to the backpack.
+button.ironbackpacks.sort.tooltip=Sorts and condenses the items in the backpack (by localized, alphabetical name)
+button.ironbackpacks.left.tooltip=Shift to the left.
+button.ironbackpacks.right.tooltip=Shift to the right.
+button.ironbackpacks.clear.basicFilter.tooltip=Clears the basic filter items.
+button.ironbackpacks.clear.fuzzyFilter.tooltip=Clears the fuzzy filter items.
+button.ironbackpacks.clear.oreDictFilter.tooltip=Clears the Ore Dictionary filter items.
+button.ironbackpacks.clear.modSpecificFilter.tooltip=Clears the mod specific filter items.
+button.ironbackpacks.clear.advancedFilter.tooltip=Resets the advanced filter (clears items and button filters).
+button.ironbackpacks.clear.hopper.tooltip=Clears the restocking items.
+button.ironbackpacks.clear.condenser.tooltip=Clears the crafting items.
+
+
+# Tooltip
+tooltip.ironbackpacks.shift=Hold shift for more info.
+tooltip.ironbackpacks.backpack.upgrade.used=%d/%d upgrade points used.
+tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d alternate GUI upgrades used.
+tooltip.ironbackpacks.backpack.upgrade.used.tier=%d/%d additional upgrade points added.
+tooltip.ironbackpacks.backpack.upgrade.rename=(The %dth upgrade must include the renaming upgrade)
+
+tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s
+tooltip.ironbackpacks.upgrade.button.desc=Adds buttons to quickly move items to and from your backpack, as well as a button to sort your backpack quickly.
+tooltip.ironbackpacks.upgrade.nesting.desc=Allows you to place any backpack of a previous tier inside the backpack.
+tooltip.ironbackpacks.upgrade.bar.desc=Adds a damage bar to visually represent how full the backpack is at a glance.
+tooltip.ironbackpacks.upgrade.soulbound.desc=Allows you to keep the backpack when you die. The upgrade disappears after death though (you will have to reapply it if you want it again).
+tooltip.ironbackpacks.upgrade.quickDep.desc=When you shift right click on an inventory with this upgrade the backpack will attempt to empty it's contents into the inventory.
+tooltip.ironbackpacks.upgrade.advNesting.desc=Allows you to place &oany&r &7backpack (and hence any item) inside the backpack.
+tooltip.ironbackpacks.upgrade.naming.desc=Allows you to rename the backpack.
+tooltip.ironbackpacks.upgrade.basicFilter.desc=Adds a configurable filter of items that the backpack will automatically collect.
+tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=Similar to the basic filter, except the backpack will pick up any item that is from the same mod as the item(s) in the filter slots.
+tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=Similar to the basic filter, except the backpack will ignore damage values on the items.
+tooltip.ironbackpacks.upgrade.oreDictFilter.desc=Similar to the basic filter, except the backpack will pick up any item that is registered in the ore dictionary as the same as the item(s) in the filter slot.
+tooltip.ironbackpacks.upgrade.hopperFilter.desc=Allows you to specify an item to keep stocked in your inventory/hotbar which is supplied from your backpack.
+tooltip.ironbackpacks.upgrade.condenser.desc=Allows you to specify a set of items to be compressed upon entering your backpack.
+tooltip.ironbackpacks.upgrade.advFilter.desc=Similar to the basic filter, except the filter has 18 slots and each slots has configurable options.
+tooltip.ironbackpacks.upgrade.addUpgrades.desc=Adds another %s to the backpack. Can be applied %s to the highest tier backpack.
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=upgrade point
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d upgrade points
+tooltip.ironbackpacks.upgrade.addUpgrades.mult=%d times

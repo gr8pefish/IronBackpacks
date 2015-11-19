@@ -4,10 +4,7 @@ import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.proxies.CommonProxy;
-import main.ironbackpacks.util.ConfigHandler;
-import main.ironbackpacks.util.IronBackpacksConstants;
-import main.ironbackpacks.util.IronBackpacksHelper;
-import main.ironbackpacks.util.NBTHelper;
+import main.ironbackpacks.util.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -114,19 +111,22 @@ public class ItemBackpack extends Item implements IBackpack {
             if (upgrades.length > 0)
                 list.add("");
 
-            list.add(upgradesUsed + "/" + totalUpgradePoints + " upgrade points used.");
-            list.add(UpgradeMethods.getAltGuiUpgradesUsed(upgrades) + "/" + IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED + " alternate gui upgrades used.");
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used", upgradesUsed, totalUpgradePoints));
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.alt", UpgradeMethods.getAltGuiUpgradesUsed(upgrades), IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
 
             if (ConfigHandler.renamingUpgradeRequired)
-                list.add("(The " + IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED + "th upgrade must include the renaming upgrade)");
+                list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.rename", IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
 
             int tierUpgradeCount = ConfigHandler.additionalUpgradesLimit + getGuiId();
 
-            if (tierUpgradeCount > 0)
-                list.add((IronBackpacksHelper.getAdditionalUpgradesTimesApplied(stack) * ConfigHandler.additionalUpgradesIncrease) + "/" + (tierUpgradeCount * ConfigHandler.additionalUpgradesIncrease) + " additional upgrade points added.");
+            if (tierUpgradeCount > 0) {
+                int used = IronBackpacksHelper.getAdditionalUpgradesTimesApplied(stack) * ConfigHandler.additionalUpgradesIncrease;
+                int have = tierUpgradeCount * ConfigHandler.additionalUpgradesIncrease;
+                list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.tier", used, have));
+            }
         } else {
             if (totalUpgradePoints > 0)
-                list.add("Hold shift for more info.");
+                list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
         }
     }
 

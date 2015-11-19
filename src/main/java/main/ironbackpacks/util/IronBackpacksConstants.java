@@ -48,21 +48,21 @@ public class IronBackpacksConstants {
 
 
         //================Upgrade Info=================== //TODO: localize
-        public static final String[] BUTTON_DESCRIPTION = {"Adds buttons to quickly move items", "to and from your backpack, as well as", "a button to sort your backpack quickly."};
-        public static final String[] NESTING_DESCRIPTION = {"Allows you to place any backpack", "of a previous tier inside the backpack."};
-        public static final String[] DAMAGE_BAR_DESCRIPTION = {"Adds a damage bar to visually represent", "how full the backpack is at a glance."};
-        public static final String[] KEEP_ON_DEATH_DESCRIPTION = {"Allows you to keep the backpack when you die.", "The upgrade disappears after death though", "(you will have to reapply it if you want it again)."};
-        public static final String[] QUICK_DEPOSIT_DESCRIPTION = {"When you shift right click on an inventory with this upgrade", "the backpack will attempt to empty it's contents into the inventory."};
-        public static final String[] ADVANCED_NESTING_DESCRIPTION = {"Allows you to place *any* backpack", " (and hence any item) inside the backpack."};
+        public static final String[] BUTTON_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.button.desc"));
+        public static final String[] NESTING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.nesting.desc"));
+        public static final String[] DAMAGE_BAR_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.bar.desc"));
+        public static final String[] KEEP_ON_DEATH_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.soulbound.desc"));
+        public static final String[] QUICK_DEPOSIT_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.quickDep.desc"));
+        public static final String[] ADVANCED_NESTING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.advNesting.desc"));
         //Alternate Gui
-        public static final String[] RENAMING_DESCRIPTION = {"Allows you to rename the backpack."};
-        public static final String[] FILTER_BASIC_DESCRIPTION = {"Adds a configurable filter of items", "that the backpack will automatically collect."};
-        public static final String[] FILTER_MOD_SPECIFIC_DESCRIPTION = {"Similar to the basic filter, except the backpack will pick up any item", "that is from the same mod as the item(s) in the filter slots."};
-        public static final String[] FILTER_FUZZY_DESCRIPTION = {"Similar to the basic filter, except the backpack", "will ignore damage values on the items."};
-        public static final String[] FILTER_OREDICT_DESCRIPTION = {"Similar to the basic filter, except the backpack will ", "pick up any item that is registered in the ore dictionary", "as the same as the item(s) in the filter slot."};
-        public static final String[] HOPPER_DESCRIPTION = {"Allows you to specify an item to keep stocked", "in your inventory/hotbar", "which is supplied from your backpack."};
-        public static final String[] CONDENSER_DESCRIPTION = {"Allows you to specify a set of items", "to be compressed upon entering your backpack."};
-        public static final String[] FILTER_ADVANCED_DESCRIPTION = {"Similar to the basic filter, except the filter", "has 18 slots and each slots has configurable options."};
+        public static final String[] RENAMING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.naming.desc"));
+        public static final String[] FILTER_BASIC_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.basicFilter.desc"));
+        public static final String[] FILTER_MOD_SPECIFIC_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.modSpecificFilter.desc"));
+        public static final String[] FILTER_FUZZY_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.fuzzyFilter.desc"));
+        public static final String[] FILTER_OREDICT_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.oreDictFilter.desc"));
+        public static final String[] HOPPER_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.hopperFilter.desc"));
+        public static final String[] CONDENSER_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.desc"));
+        public static final String[] FILTER_ADVANCED_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.advFilter.desc"));
         //All the alternate gui upgrade ids
         public static final ArrayList<Integer> ALT_GUI_UPGRADE_IDS = new ArrayList<Integer>(Arrays.asList(
                 RENAMING_UPGRADE_ID,
@@ -75,7 +75,8 @@ public class IronBackpacksConstants {
                 CONDENSER_UPGRADE_ID
         ));
         //All the localized names
-        public static final String[] LOCALIZED_NAMES = {StatCollector.translateToLocal("emptyUpgradeSlot"),
+        public static final String[] LOCALIZED_NAMES = {
+                StatCollector.translateToLocal("gui.ironbackpacks.emptyUpgradeSlot"),
                 StatCollector.translateToLocal("item.ironbackpacks:buttonUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:nestingUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:damageBarUpgrade.name"),
@@ -85,7 +86,7 @@ public class IronBackpacksConstants {
                 StatCollector.translateToLocal("item.ironbackpacks:filterModSpecificUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:hopperUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),
-                StatCollector.translateToLocal("emptyUpgradeSlot") + "...", //additional upgrade slot
+                StatCollector.translateToLocal("gui.ironbackpacks.emptyUpgradeSlot") + "...", //additional upgrade slot
                 StatCollector.translateToLocal("item.ironbackpacks:filterFuzzyUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:filterOreDictUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:quickDepositUpgrade.name"),
@@ -113,9 +114,9 @@ public class IronBackpacksConstants {
         };
         //===========================Misc==================================
         public static final int ALT_GUI_UPGRADES_ALLOWED = ConfigHandler.renamingUpgradeRequired ? 4 : 3;
-        private static String formatting1 = ConfigHandler.additionalUpgradesIncrease == 1 ? "upgrade point" : ConfigHandler.additionalUpgradesIncrease + " upgrade points";
-        private static String formatting2 = ConfigHandler.additionalUpgradesLimit + 3 == 1 ? "once" : ConfigHandler.additionalUpgradesLimit + 3 + " times";
-        public static final String[] ADDITIONAL_UPGRADE_SLOTS_DESCRIPTION = {"Adds another " + formatting1 + " to", "the backpack. Can be applied " + formatting2, "to the highest tier backpack."};
+        private static String formatting1 = ConfigHandler.additionalUpgradesIncrease == 1 ? TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.amount.1") : TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult", ConfigHandler.additionalUpgradesIncrease);
+        private static String formatting2 = ConfigHandler.additionalUpgradesLimit + 3 == 1 ? TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.once") : TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.mult", ConfigHandler.additionalUpgradesLimit + 3);
+        public static final String[] ADDITIONAL_UPGRADE_SLOTS_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.addUpgrades.desc", formatting1, formatting2));
 
     }
 

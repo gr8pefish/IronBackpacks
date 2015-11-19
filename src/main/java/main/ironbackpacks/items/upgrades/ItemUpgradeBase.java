@@ -2,6 +2,7 @@ package main.ironbackpacks.items.upgrades;
 
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.util.TextUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,10 +39,10 @@ public abstract class ItemUpgradeBase extends Item implements IPackUpgrade {
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) {
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-            list.add("Costs " + getUpgradeCost() + " upgrade point" + (getUpgradeCost() == 1 ? "" : "s"));
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.cost", getUpgradeCost(), getUpgradeCost() == 1 ? "" : "s"));
             list.addAll(getTooltip());
         } else {
-            list.add("Hold shift for more info.");
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
         }
     }
 

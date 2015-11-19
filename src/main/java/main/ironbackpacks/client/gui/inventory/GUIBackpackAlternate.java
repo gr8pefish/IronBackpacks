@@ -14,6 +14,7 @@ import main.ironbackpacks.network.RenameMessage;
 import main.ironbackpacks.network.SingleByteMessage;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
+import main.ironbackpacks.util.TextUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -150,23 +151,23 @@ public class GUIBackpackAlternate extends GuiContainer {
         //If have button upgrade add the clear row buttons
         if (hasButtonUpgrade) {
             if (hasFilterBasicUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, "Clears the basic", "filter items."));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.basicFilter.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
 
             if (hasFilterFuzzyUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, "Clears the fuzzy", "filter items."));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.fuzzyFilter.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasFilterOreDictUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, "Clears the ore dictionary", "filter items."));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.oreDictFilter.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasFilterModSpecificUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, "Clears the mod specific", "filter items."));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.modSpecificFilter.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
@@ -214,7 +215,7 @@ public class GUIBackpackAlternate extends GuiContainer {
             }
             //Add the clear button if have the button upgrade
             if (hasButtonUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, "Resets the advanced", "filter (clears items", "and button filters)."));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.advancedFilter.tooltip"))));
                 rowIndex++;
             }
             yStartButton += 36;
@@ -223,12 +224,12 @@ public class GUIBackpackAlternate extends GuiContainer {
         //Add the remaining clear row buttons if necessary
         if (hasButtonUpgrade) {
             if (hasHopperUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, "Clears the", "restocking items."));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.hopper.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasCondenserUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, "Clears the", "crafting items."));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.tooltip"))));
             }
         }
 
@@ -248,11 +249,11 @@ public class GUIBackpackAlternate extends GuiContainer {
         ItemStack itemStack = IronBackpacksHelper.getBackpack(player);
         fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752);
         int counter = hasFilterAdvancedUpgrade ? 5 : 4;
-        fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, ySize - 96 + counter, 4210752);
+        fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 20, ySize - 96 + counter, 4210752);
 
         //draw the titles of all the upgrades in their correct positions
         if (hasNoUpgrades)
-            fontRendererObj.drawString(StatCollector.translateToLocal("noValidUpgradesFound"), 20, 22, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.ironbackpacks.noValidUpgradesFound"), 20, 22, 4210752);
         int yStart = hasRenamingUpgrade ? 44 : 25;
         if (hasFilterBasicUpgrade) {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterBasicUpgrade.name"), 20, yStart, 4210752);
@@ -326,6 +327,7 @@ public class GUIBackpackAlternate extends GuiContainer {
                 container.renameBackpack(textToChangeTo);
                 NetworkingHandler.network.sendToServer(new RenameMessage(textToChangeTo));
                 textField.setText(""); //clears/resets the textField
+                textField.setFocused(true);
             }
         } else if (button == moveLeft) {
             container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
