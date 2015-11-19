@@ -3,7 +3,7 @@ package main.ironbackpacks.items.upgrades;
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.IBackpack;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
@@ -544,7 +544,7 @@ public class UpgradeMethods {
      */
     private static boolean transferItemsToContainer(EntityPlayer player, ItemStack backpack, IInventory transferTo) {
         boolean returnValue = false;
-        IronBackpackType type = IronBackpackType.values()[((IBackpack) backpack.getItem()).getGuiId()];
+        BackpackTypes type = BackpackTypes.values()[((IBackpack) backpack.getItem()).getGuiId()];
         InventoryBackpack inventoryBackpack = new InventoryBackpack(player, backpack, type);
         if (transferTo.getSizeInventory() > 0 && !(inventoryBackpack.isEmpty())) { //if have a valid inventory to transfer to and have items to transfer
             for (int i = 0; i < inventoryBackpack.getSizeInventory(); i++) {

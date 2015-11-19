@@ -192,7 +192,9 @@ public class ConfigHandler {
 
         config.save(); //Don't forget to save
     }
-    
+
+    //========================initialization====================================
+
     public enum enumBasicBackpack {
         upgradePoints(basicBackpack[0]),
         sizeX(basicBackpack[1]),
@@ -237,8 +239,6 @@ public class ConfigHandler {
             return value;
         }
     }
-    
-    //========================initialization====================================
 
     public enum enumDiamondBackpack {
         upgradePoints(diamondBackpack[0]),

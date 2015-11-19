@@ -1,7 +1,7 @@
 package main.ironbackpacks.container.backpack;
 
 import main.ironbackpacks.items.backpacks.IBackpack;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,10 +23,10 @@ public class InventoryBackpack implements IInventory {
     private ItemStack stack; //the itemstack instance of the backpack
     private EntityPlayer player; //the player
     private ItemStack[] inventory; //the stored items
-    private IronBackpackType type; //the backpack type
+    private BackpackTypes type; //the backpack type
 
     //Instantiated from GuiHandler
-    public InventoryBackpack(EntityPlayer player, ItemStack itemStack, IronBackpackType type) {
+    public InventoryBackpack(EntityPlayer player, ItemStack itemStack, BackpackTypes type) {
         this.stack = itemStack;
         this.player = player;
         this.type = type;
@@ -34,7 +34,7 @@ public class InventoryBackpack implements IInventory {
         readFromNBT(stack.getTagCompound());
     }
 
-    public IronBackpackType getType() {
+    public BackpackTypes getType() {
         return type;
     }
 

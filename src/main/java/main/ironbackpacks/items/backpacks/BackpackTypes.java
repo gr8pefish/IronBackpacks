@@ -6,7 +6,7 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 /**
  * Enumeration for the values stored in each backpack
  */
-public enum IronBackpackType {
+public enum BackpackTypes {
 
     BASIC(IronBackpacksConstants.Backpacks.BASIC_ID,
             ConfigHandler.enumBasicBackpack.sizeX.getValue() * ConfigHandler.enumBasicBackpack.sizeY.getValue(),
@@ -33,14 +33,14 @@ public enum IronBackpackType {
     private int id; //id int value of number in enum
     private int size; //number of slots
     private int rowLength; //number of rows
-    private int upgradeSlots;
+    private int upgradePoints;
 
-    IronBackpackType(int id, int size, int rowLength, String fancyName, int upgradeSlots) {
+    BackpackTypes(int id, int size, int rowLength, String fancyName, int upgradePoints) {
         this.id = id;
         this.size = size;
         this.rowLength = rowLength;
         this.name = fancyName;
-        this.upgradeSlots = upgradeSlots;
+        this.upgradePoints = upgradePoints;
     }
 
     public int getRowCount() {
@@ -63,7 +63,8 @@ public enum IronBackpackType {
         return id;
     }
 
-    public int getUpgradeSlots() {
-        return upgradeSlots;
+    public int getUpgradePoints() {
+        return upgradePoints;
     }
+
 }

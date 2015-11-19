@@ -6,7 +6,7 @@ import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import main.ironbackpacks.container.slot.GhostSlot;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.AdvFilterTypesMessage;
 import main.ironbackpacks.network.NetworkingHandler;
@@ -64,7 +64,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     private boolean hasHopperUpgrade;
     private boolean hasCondenserUpgrade;
     private boolean hasFilterAdvancedUpgrade;
-    private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
+    private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, BackpackTypes backpackType) {
         super(type.makeContainer(player, inv));
         this.player = player;
         this.container = (ContainerAlternateGui) type.makeContainer(player, inv);
@@ -491,7 +491,7 @@ public class GUIBackpackAlternate extends GuiContainer {
          * @param backpackType - the backpack's type
          * @return - the GUI built
          */
-        public static GUIBackpackAlternate buildGUIAlternate(EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, IronBackpackType backpackType) {
+        public static GUIBackpackAlternate buildGUIAlternate(EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, BackpackTypes backpackType) {
             GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades) + 3] : values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades)]; //shifts to correct index if renaming
             return new GUIBackpackAlternate(gui, player, inv, upgrades, backpackType);
         }

@@ -4,7 +4,7 @@ import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.IBackpack;
-import main.ironbackpacks.items.backpacks.IronBackpackType;
+import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
@@ -35,11 +35,11 @@ public class InventoryAlternateGui implements IInventory {
     private ItemStack stack; //the itemstack of the backpack
     private EntityPlayer player; //the player
     private ItemStack[] inventory; //the items in the backpack
-    private IronBackpackType type; //the type of backpack
+    private BackpackTypes type; //the type of backpack
     private int[] upgrades; //the upgrades applied
     private int invSize; //the size of the inventory
 
-    public InventoryAlternateGui(EntityPlayer player, ItemStack itemStack, IronBackpackType type) {
+    public InventoryAlternateGui(EntityPlayer player, ItemStack itemStack, BackpackTypes type) {
         this.stack = itemStack;
         this.player = player;
         this.type = type;
