@@ -1,0 +1,17 @@
+------------------------------------------------------
+Version 1.0.5
+------------------------------------------------------
+New
+- Re-add the ability to use the alternate textures. Requires MC restart currently (TehNut)
+- Implement the in-game ConfigGUI (TehNut)
+- Ender Backpack. Allows access to your own player's Ender Chest (TehNut)
+- New changelog system stolen from EnderIO :D (TehNut)
+
+Changes
+- Replace internal references to ItemBaseBackpack with IBackpack (TehNut)
+- Improve OreDictionary lookup performance (TehNut)
+- Create and use IPackUpgrade (TehNut)
+
+Bugs
+- #18 Fix dupe with unintended movement abuse (TehNut)
+- TehNut/IronBackpacks#1 Fix server crash (TehNut)
