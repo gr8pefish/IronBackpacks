@@ -240,7 +240,7 @@ public class ContainerAlternateGui extends Container {
     }
 
     /**
-     * Gets the index to change the start point to if the advanced filter needs to 'wrap around' (slot 17 -> slot 0)
+     * Gets the index to change the start point to if the advanced filter needs to 'wrap around' (slot 17 -&gt; slot 0)
      * @param orderNumber - the spot to check
      * @return the index it should be
      */

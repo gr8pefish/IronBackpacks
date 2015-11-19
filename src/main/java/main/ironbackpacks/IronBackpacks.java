@@ -20,7 +20,6 @@ import main.ironbackpacks.util.ConfigHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.input.Keyboard;
 
 import java.io.File;
 
@@ -34,8 +33,6 @@ public class IronBackpacks {
 			return ItemRegistry.ironBackpack;
 		}
 	};
-
-	public static Keyboard keyboard;
 
 	//The proxies for siding
 	@SidedProxy(clientSide = ModInformation.CLIENTPROXY, serverSide = ModInformation.COMMONPROXY)
