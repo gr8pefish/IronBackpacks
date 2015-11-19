@@ -20,6 +20,7 @@ public class ConfigHandler {
     public static String[] ironBackpackRecipe;
     public static String[] goldBackpackRecipe;
     public static String[] diamondBackpackRecipe;
+    public static String[] enderBackpackRecipe;
 
     //==================== All the publicly accessible values====================================
 
@@ -59,6 +60,7 @@ public class ConfigHandler {
     public static String[] jeweledFeatherRecipe;
     public static String[] treatedLeatherRecipe;
     public static boolean renamingUpgradeRequired;
+    public static boolean enableEnderBackpack;
     public static int tooltipDelay;
     public static int additionalUpgradesLimit;
     public static int additionalUpgradesIncrease;
@@ -82,6 +84,7 @@ public class ConfigHandler {
         String[] ironRecipe = {"ingotIron", "blockIron", "ingotIron", "ingotIron", "items.ironbackpacks:basicBackpack", "ingotIron", "ingotIron", "ingotIron", "ingotIron"};
         String[] goldRecipe = {"ingotGold", "blockGold", "ingotGold", "ingotGold", "items.ironbackpacks:ironBackpack", "ingotGold", "ingotGold", "blockGold", "ingotGold"};
         String[] diamondRecipe = {"gemDiamond", "blockDiamond", "gemDiamond", "gemDiamond", "items.ironbackpacks:goldBackpack", "gemDiamond", "gemDiamond", "gemDiamond", "gemDiamond"};
+        String[] enderRecipe = {"blocks.obsidian", "items.ender_eye", "blocks.obsidian", "blocks.obsidian", "items.ironbackpacks:ironBackpack", "blocks.obsidian", "blocks.obsidian", "blocks.obsidian", "blocks.obsidian"};
         // this comment refers to balance changes, if the recipe defaults need to be tweaked or are good for the time being
         String[] buttonRecipe = {"items.ironbackpacks:treatedLeather", "blocks.stone_button", "items.ironbackpacks:treatedLeather", "blocks.wooden_button", "items.ironbackpacks:upgradeCore", "blocks.wooden_button", "items.ironbackpacks:treatedLeather", "blocks.stone_button", "items.ironbackpacks:treatedLeather"};
         String[] nestingRecipe = {"items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
@@ -140,6 +143,9 @@ public class ConfigHandler {
         diamondBackpack[1] = config.get("4) Diamond Backpack", "2) Number of Slots Per Row", 11, "The size of the backpack. Either 9 or 11. Default 11.").getInt();
         diamondBackpack[2] = config.get("4) Diamond Backpack", "3) Number of Rows", 7, "The size of the backpack. Between 1 and 7. Default 7.").getInt();
         diamondBackpackRecipe = config.get("5) Recipes", "4) Diamond Backpack Recipe", diamondRecipe, "The recipe to upgrade the backpack to a Diamond Backpack. Default is surrounded by gemDiamond.").getStringList();
+
+        enderBackpackRecipe = config.get("5) Recipes", "24) Ender Backpack Recipe", enderRecipe, "The recipe to upgrade the backpack to an Ender Backpack.").getStringList();
+        enableEnderBackpack = config.get("7) Miscellaneous", "6) Enable Ender Backpack", true, "Enables an Ender Backpack to access your Ender Chest while on the go.").getBoolean();
 
         buttonUpgradeRecipe = config.get("5) Recipes", "5) Upgrade Recipe", buttonRecipe, "The recipe for the button upgrade.").getStringList();
         nestingUpgradeRecipe = config.get("5) Recipes", "6) Nesting Upgrade Recipe", nestingRecipe, "The recipe for the nesting upgrade.").getStringList();

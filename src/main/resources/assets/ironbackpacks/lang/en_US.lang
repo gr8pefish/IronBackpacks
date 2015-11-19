@@ -3,6 +3,7 @@ item.ironbackpacks:basicBackpack.name=Basic Backpack
 item.ironbackpacks:ironBackpack.name=Iron Backpack
 item.ironbackpacks:goldBackpack.name=Gold Backpack
 item.ironbackpacks:diamondBackpack.name=Diamond Backpack
+item.ironbackpacks:enderBackpack.name=Ender Backpack
 
 item.ironbackpacks:buttonUpgrade.name=Button Upgrade
 item.ironbackpacks:nestingUpgrade.name=Nesting Upgrade

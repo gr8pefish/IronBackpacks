@@ -3,6 +3,8 @@ package main.ironbackpacks.crafting;
 import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.util.ConfigHandler;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -65,6 +67,8 @@ public class ItemRecipeRegistry {
         registerBasicRecipe(ItemRegistry.quickDepositUpgrade, ConfigHandler.quickDepositUpgradeRecipe);
         registerBasicRecipe(ItemRegistry.filterAdvancedUpgrade, ConfigHandler.filterAdvancedUpgradeRecipe);
         registerBasicRecipe(ItemRegistry.nestingAdvancedUpgrade, ConfigHandler.nestingAdvancedUpgradeRecipe);
+        registerBasicRecipe(ItemRegistry.enderBackpack, ConfigHandler.enderBackpackRecipe);
+//        GameRegistry.addRecipe(new ShapedOreRecipe(ItemRegistry.enderBackpack, "OEO", "OBO", "OOO", 'O', Blocks.obsidian, 'E', Items.ender_eye, 'B', ItemRegistry.ironBackpack));
     }
 
 

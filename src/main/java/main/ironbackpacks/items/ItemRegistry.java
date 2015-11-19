@@ -4,6 +4,7 @@ import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.items.backpacks.IronBackpackType;
 import main.ironbackpacks.items.backpacks.ItemBaseBackpack;
+import main.ironbackpacks.items.backpacks.ItemEnderBackpack;
 import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;
 import main.ironbackpacks.items.craftingItems.ItemNest;
 import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
@@ -28,6 +29,7 @@ public class ItemRegistry {
     public static Item ironBackpack;
     public static Item goldBackpack;
     public static Item diamondBackpack;
+    public static Item enderBackpack;
 
     //upgrades
     public static Item buttonUpgrade;
@@ -105,6 +107,10 @@ public class ItemRegistry {
         GameRegistry.registerItem(goldBackpack, IronBackpackType.GOLD.getName());
         diamondBackpack = new ItemBaseBackpack(IronBackpackType.DIAMOND);
         GameRegistry.registerItem(diamondBackpack, IronBackpackType.DIAMOND.getName());
+        if (ConfigHandler.enableEnderBackpack) {
+            enderBackpack = new ItemEnderBackpack();
+            GameRegistry.registerItem(enderBackpack, ((ItemEnderBackpack) enderBackpack).getName());
+        }
 
         //upgrades
         buttonUpgrade = new ItemButtonUpgrade();
@@ -159,6 +165,7 @@ public class ItemRegistry {
         helper.itemRender(ironBackpack, IronBackpackType.IRON.getName() + alternate);
         helper.itemRender(goldBackpack, IronBackpackType.GOLD.getName() + alternate);
         helper.itemRender(diamondBackpack, IronBackpackType.DIAMOND.getName() + alternate);
+        helper.itemRender(enderBackpack, ((ItemEnderBackpack) enderBackpack).getName());
 
         helper.itemRender(buttonUpgrade, "buttonUpgrade");
         helper.itemRender(nestingUpgrade, "nestingUpgrade");

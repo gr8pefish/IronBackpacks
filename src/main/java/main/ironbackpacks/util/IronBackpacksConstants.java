@@ -23,6 +23,7 @@ public class IronBackpacksConstants {
         public static final int IRON_ID = 2;
         public static final int GOLD_ID = 3;
         public static final int DIAMOND_ID = 4;
+        public static final int ENDER_ID = 5;
     }
 
     //The upgrade constants

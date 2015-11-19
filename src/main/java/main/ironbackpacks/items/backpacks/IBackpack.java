@@ -27,7 +27,7 @@ public interface IBackpack {
 
     int getUpgradeSlots();
 
-    String getFancyName();
+    String getName();
 
     int getGuiId();
 }

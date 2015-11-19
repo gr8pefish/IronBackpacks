@@ -186,7 +186,7 @@ public class ItemBaseBackpack extends Item implements IBackpack {
     }
 
     @Override
-    public String getFancyName() {
+    public String getName() {
         return fancyName;
     }
 
