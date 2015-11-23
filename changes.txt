@@ -2,7 +2,8 @@
 Version 1.0.6
 ------------------------------------------------------
 New
-- Allow usage in 1.8.8 instances
+- Allow usage in 1.8.8 instances (TehNut)
+- Display Backpack UUID in tooltip if Advanced tooltips are enabled (F3+H) (TehNut)
 
 Changes
 - Localize *everything* (TehNut)

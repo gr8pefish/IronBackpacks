@@ -128,6 +128,9 @@ public class ItemBackpack extends Item implements IBackpack {
             if (totalUpgradePoints > 0)
                 list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
         }
+
+        if (advanced && NBTHelper.hasUUID(stack))
+            list.add(TextUtils.localize("tooltip.ironbackpacks.uuid", NBTHelper.getUUID(stack)));
     }
 
     // IBackpack

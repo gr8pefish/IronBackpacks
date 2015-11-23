@@ -56,6 +56,7 @@ button.ironbackpacks.clear.condenser.tooltip=Clears the crafting items.
 
 # Tooltip
 tooltip.ironbackpacks.shift=Hold shift for more info.
+tooltip.ironbackpacks.uuid=UUID: %s
 tooltip.ironbackpacks.backpack.upgrade.used=%d/%d upgrade points used.
 tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d alternate GUI upgrades used.
 tooltip.ironbackpacks.backpack.upgrade.used.tier=%d/%d additional upgrade points added.
