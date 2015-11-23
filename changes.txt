@@ -1,6 +1,8 @@
 ------------------------------------------------------
 Version 1.0.6
 ------------------------------------------------------
+New
+- Allow usage in 1.8.8 instances
 
 Changes
 - Localize *everything* (TehNut)
