@@ -145,6 +145,7 @@ curseforge {
         id = "${curse_id}"
         changelog = getChangelogText()
         releaseType = project.hasProperty('release') ? 'release' : 'beta'
+        addGameVersion '1.8.8'
 
         addArtifact deobfJar
         addArtifact sourceJar
