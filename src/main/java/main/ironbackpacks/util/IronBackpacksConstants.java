@@ -34,6 +34,7 @@ public class IronBackpacksConstants {
         public static final int KEEP_ON_DEATH_UPGRADE_ID = 4;
         public static final int ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID = 10;
         public static final int QUICK_DEPOSIT_UPGRADE_ID = 13;
+        public static final int QUICK_DEPOSIT_PRECISE_UPGRADE_ID = 18;
         public static final int ADVANCED_NESTING_UPGRADE_ID = 15;
         public static final int DEPTH_UPGRADE_ID = 16;
         //Alternate Gui
@@ -57,6 +58,7 @@ public class IronBackpacksConstants {
         private static String formatting2 = ConfigHandler.additionalUpgradesLimit+3 == 1 ? "once" : ConfigHandler.additionalUpgradesLimit+3 + " times";
         public static final String[] ADDITIONAL_UPGRADE_SLOTS_DESCRIPTION = {"Adds another " + formatting1 + " to", "the backpack. Can be applied " + formatting2, "to the highest tier backpack."};
         public static final String[] QUICK_DEPOSIT_DESCRIPTION = {"When you shift right click on an inventory with this upgrade","the backpack will attempt to empty it's contents into the inventory."};
+        public static final String[] QUICK_DEPOSIT_PRECISE_DESCRIPTION = {"Similar to the quick deposit, except the backpack","will only attempt to empty it's contents into the inventory", "if they already exist in that inventory."};
         public static final String[] ADVANCED_NESTING_DESCRIPTION = {"Allows you to place *any* backpack"," (and hence any item) inside the backpack."};
         public static final String[] DEPTH_UPGRADE_DESCRIPTION = {"Allows any nested backpacks to have full","functionality (i.e. filter/restocking/crafting upgrades).","Only works in backpacks nested once (no infinite nesting)."};
 
@@ -102,7 +104,8 @@ public class IronBackpacksConstants {
                 StatCollector.translateToLocal("item.ironbackpacks:filterAdvancedUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:nestingAdvancedUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:depthUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:filterMiningUpgrade.name")
+                StatCollector.translateToLocal("item.ironbackpacks:filterMiningUpgrade.name"),
+                StatCollector.translateToLocal("item.ironbackpacks:quickDepositPreciseUpgrade.name")
         };
 
         //All the upgrade costs
@@ -124,7 +127,8 @@ public class IronBackpacksConstants {
                 ConfigHandler.filterAdvancedUpgradeCost,
                 ConfigHandler.nestingAdvancedUpgradeCost,
                 ConfigHandler.depthUpgradeCost,
-                ConfigHandler.filterMiningUpgradeCost
+                ConfigHandler.filterMiningUpgradeCost,
+                ConfigHandler.quickDepositPreciseUpgradeCost
         };
 
         //===========================Misc==================================

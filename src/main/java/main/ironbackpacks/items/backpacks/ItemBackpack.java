@@ -74,7 +74,10 @@ public class ItemBackpack extends Item implements IBackpack {
                 return false;
             }
             if (UpgradeMethods.hasQuickDepositUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack))) {
-                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, x, y, z);
+                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, x, y, z, false);
+                return !openAltGui;
+            }else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack))) {
+                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, x, y, z, true);
                 return !openAltGui;
             }
         }

@@ -39,6 +39,7 @@ public class ItemRegistry {
     public static Item keepOnDeathUpgrade;
     public static Item additionalUpgradesUpgrade;
     public static Item quickDepositUpgrade;
+    public static Item quickDepositPreciseUpgrade;
     public static Item filterAdvancedUpgrade;
     public static Item nestingAdvancedUpgrade;
     public static Item depthUpgrade;
@@ -82,6 +83,7 @@ public class ItemRegistry {
         upgrades.add(keepOnDeathUpgrade);
         upgrades.add(additionalUpgradesUpgrade);
         upgrades.add(quickDepositUpgrade);
+        upgrades.add(quickDepositPreciseUpgrade);
         upgrades.add(filterAdvancedUpgrade);
         upgrades.add(nestingAdvancedUpgrade);
         upgrades.add(depthUpgrade);
@@ -134,6 +136,8 @@ public class ItemRegistry {
         GameRegistry.registerItem(filterOreDictUpgrade, "filterOreDictUpgrade");
         quickDepositUpgrade = new ItemQuickDepositUpgrade();
         GameRegistry.registerItem(quickDepositUpgrade, "quickDepositUpgrade");
+        quickDepositPreciseUpgrade = new ItemQuickDepositPreciseUpgrade();
+        GameRegistry.registerItem(quickDepositPreciseUpgrade, "quickDepositPreciseUpgrade");
         filterAdvancedUpgrade = new ItemFilterAdvancedUpgrade();
         GameRegistry.registerItem(filterAdvancedUpgrade, "filterAdvancedUpgrade");
         nestingAdvancedUpgrade = new ItemNestingAdvancedUpgrade();

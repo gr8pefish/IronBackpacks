@@ -40,6 +40,7 @@ public class ConfigHandler {
     public static String[] keepOnDeathUpgradeRecipe;
     public static String[] additionalUpgradesUpgradeRecipe;
     public static String[] quickDepositUpgradeRecipe;
+    public static String[] quickDepositPreciseUpgradeRecipe;
     public static String[] filterAdvancedUpgradeRecipe;
     public static String[] filterMiningUpgradeRecipe;
     public static String[] nestingAdvancedUpgradeRecipe;
@@ -57,6 +58,7 @@ public class ConfigHandler {
     public static int condenserUpgradeCost;
     public static int keepOnDeathUpgradeCost;
     public static int quickDepositUpgradeCost;
+    public static int quickDepositPreciseUpgradeCost;
     public static int filterAdvancedUpgradeCost;
     public static int filterMiningUpgradeCost;
     public static int nestingAdvancedUpgradeCost;
@@ -129,6 +131,8 @@ public class ConfigHandler {
         //done
         String[] quickDepositRecipe = {"slimeball","blocks.piston","slimeball", "slimeball", "items.ironbackpacks:upgradeCore", "slimeball", "blocks.piston", "slimeball", "blocks.piston"};
         //done
+        String[] quickDepositPreciseRecipe = {"slimeball","blocks.sticky_piston","slimeball", "slimeball", "items.ironbackpacks:upgradeCore", "slimeball", "blocks.sticky_piston", "slimeball", "blocks.sticky_piston"};
+        //TODO: tweak?
         String[] depthRecipe = {"items.ironbackpacks:jeweledFeather","items.ironbackpacks:nest","items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nestingUpgrade", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:nestingUpgrade", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
         //TODO: tweak?
 
@@ -196,12 +200,13 @@ public class ConfigHandler {
         keepOnDeathUpgradeRecipe = config.get("5) Recipes", "18) Keep On Death Upgrade Recipe", keepOnDeathRecipe, "The recipe for the upgrade that allows you to keep the backpack upon dying.").getStringList();
         additionalUpgradesUpgradeRecipe = config.get("5) Recipes", "19) Additional Upgrade Slots Recipe", additionalUpgradesRecipe, "The recipe for the upgrade which gives the backpack a configurable amount of additional upgrade points.").getStringList();
         quickDepositUpgradeRecipe = config.get("5) Recipes", "20) Quick Deposit Upgrade Recipe", quickDepositRecipe, "The recipe for the upgrade which gives the backpack the ability to empty it's contents into an inventory.").getStringList();
-        depthUpgradeRecipe = config.get("5) Recipes", "21) Depth Upgrade Recipe", depthRecipe, "The recipe for the upgrade which gives a backpack the ability to check fort nested backpacks before applying effects.").getStringList();
+        quickDepositPreciseUpgradeRecipe = config.get("5) Recipes", "21) Quick Deposit Precise Upgrade Recipe", quickDepositPreciseRecipe, "The recipe for the upgrade which gives the backpack the ability to empty it's contents into an inventory if the items already exist in the inventory.").getStringList();
+        depthUpgradeRecipe = config.get("5) Recipes", "22) Depth Upgrade Recipe", depthRecipe, "The recipe for the upgrade which gives a backpack the ability to check fort nested backpacks before applying effects.").getStringList();
 
-        nestRecipe = config.get("5) Recipes", "22) Nest Recipe", nestRecipeDefault, "The recipe for the crafting item - nest.").getStringList();
-        upgradeCoreRecipe = config.get("5) Recipes", "23) Upgrade Core Recipe", upgradeCoreRecipeDefault, "The recipe for the crafting item - upgrade core.").getStringList();
-        jeweledFeatherRecipe = config.get("5) Recipes", "24) Jeweled Feather Recipe", jeweledFeatherDefault, "The recipe for the crafting item - jeweled feather. Shapeless Recipe, must be less than 9 items.").getStringList();
-        treatedLeatherRecipe = config.get("5) Recipes", "25) Treated Leather Recipe", treatedLeatherDefault, "The recipe for the crafting item - treated leather. Shapeless Recipe, must be less than 9 items. Default includes lime dye.").getStringList();
+        nestRecipe = config.get("5) Recipes", "23) Nest Recipe", nestRecipeDefault, "The recipe for the crafting item - nest.").getStringList();
+        upgradeCoreRecipe = config.get("5) Recipes", "24) Upgrade Core Recipe", upgradeCoreRecipeDefault, "The recipe for the crafting item - upgrade core.").getStringList();
+        jeweledFeatherRecipe = config.get("5) Recipes", "25) Jeweled Feather Recipe", jeweledFeatherDefault, "The recipe for the crafting item - jeweled feather. Shapeless Recipe, must be less than 9 items.").getStringList();
+        treatedLeatherRecipe = config.get("5) Recipes", "26) Treated Leather Recipe", treatedLeatherDefault, "The recipe for the crafting item - treated leather. Shapeless Recipe, must be less than 9 items. Default includes lime dye.").getStringList();
 
         buttonUpgradeCost = config.get("6) Upgrade Costs", "1) Button Upgrade Recipe", 2, "The cost for the button upgrade. Default 2.").getInt();
         nestingUpgradeCost = config.get("6) Upgrade Costs", "2) Nesting Upgrade Recipe", 3, "The cost for the nesting upgrade. Default 3.").getInt();
@@ -218,7 +223,8 @@ public class ConfigHandler {
         condenserUpgradeCost = config.get("6) Upgrade Costs", "13) Condenser Upgrade Recipe", 3, "The cost for the crafting upgrade. Default 3.").getInt();
         keepOnDeathUpgradeCost = config.get("6) Upgrade Costs", "14) Keep On Death Upgrade Recipe", 5, "The cost for the upgrade that allows you to keep the backpack upon dying. Default 5.").getInt();
         quickDepositUpgradeCost = config.get("6) Upgrade Costs", "15) Quick Deposit Upgrade Recipe", 2, "The cost for the quick deposit upgrade. Default 2.").getInt();
-        depthUpgradeCost = config.get("6) Upgrade Costs", "16) Depth Upgrade Recipe", 2, "The cost for the depth deposit upgrade. Default 2.").getInt();
+        quickDepositPreciseUpgradeCost = config.get("6) Upgrade Costs", "16) Precise Quick Deposit Upgrade Recipe", 2, "The cost for the precise quick deposit upgrade. Default 2.").getInt();
+        depthUpgradeCost = config.get("6) Upgrade Costs", "17) Depth Upgrade Recipe", 2, "The cost for the depth deposit upgrade. Default 2.").getInt();
 
         renamingUpgradeRequired = config.get("7) Miscellaneous", "1) Renaming Upgrade Required", false, "If the renaming upgrade is required to rename the backpack. Default is false (so you can rename backpacks natively).").getBoolean();
         tooltipDelay = config.get("7) Miscellaneous", "2) Tooltip Delay", 1500, "The delay (in milliseconds) until a tooltip will appear over the buttons. Default is 1500 (so 1.5 seconds).").getInt();

@@ -5,7 +5,7 @@ To Do:
 
     SOON:
 
-        cleanCache for new forge to actually update
+        TODO: cleanCache for new forge to actually update
         gui/container/inv deep refactor via 1.8
 
         GIT STUFF:
@@ -42,11 +42,12 @@ To Do:
                 right click in my backpack to open TE satchels, golden bag of holding, etc.
                 add IBlockProvider for use with botania's rods
             Make textures of upgrades more 3D looking
-            Add quick deposit upgrade variant that only fills if the stack is present
-                so you have an ores chest and you shift click to dump only the items in the backpack that are in the chest (ores)
             Make it so you can't move the opened backpack with number key presses, as there might be some dupe bug using that that I missed
 
         EXTRA:
+
+            keybinding to make quickdeposit work with equipped pack
+            quick deposit into AE terminals - have to check efficient of deposit code for that to work probably
             Shift right click to open nested guis too
             Change sorting to a configurable style (i.e. id, name, etc.) w/ right click sort button to change style in game
             add in config option (and subsequent functionality) where the itemBackpack can't be opened directly, it has to be equipped to be open (i.e. only one open at a time)
@@ -78,11 +79,21 @@ To Do:
 
         Craft a diamond/barrel/ender (IDyeable) backpack with dyes to color it
 
+----------------------------------
 Changelog:
 
+ADDED: Precise Quick Deposit Upgrade
+FIXED: Bug with quick deposit adding a ghost item
+
+----------------------------------
+
 MCF Posting:
+info for precise quick deposit
+changelog for 1.2.1
+
 More pictures
 Mod armors that have larger custom models might overlap with my backpack model, just visually annoying
+
 
 Balance/Play With:
 

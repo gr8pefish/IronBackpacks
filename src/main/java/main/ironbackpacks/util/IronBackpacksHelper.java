@@ -9,6 +9,7 @@ import main.ironbackpacks.network.ClientPackMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -186,7 +187,6 @@ public class IronBackpacksHelper {
     public static void equipBackpackFromKeybinding(EntityPlayer player) {
 
         ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(player);
-//        System.out.println("Client: "+player.worldObj.isRemote);
 
         if (backpack != null) { //need to unequip backpack
 
@@ -235,6 +235,34 @@ public class IronBackpacksHelper {
         entityBackpack.setPositionAndRotation(player.posX, player.posY, player.posZ-.5, player.rotationPitch, player.rotationYaw);
         player.worldObj.spawnEntityInWorld(entityBackpack);
         EntityBackpack.backpacksSpawnedMap.put(player, entityBackpack);
+    }
+
+
+    //===========================================================================Miscellaneous===========================================
+
+    public static boolean areItemStacksTheSame(ItemStack itemStack1, ItemStack itemStack2){
+        return (ItemStack.areItemStacksEqual(itemStack1, itemStack2) && ItemStack.areItemStackTagsEqual(itemStack1, itemStack2));
+    }
+
+    /**
+     * Note - Doesn't check the stack size or isStackable of either, that must be done elsewhere
+     * This just checks if the items are equal enough to be stacked
+     * @param itemStack1
+     * @param itemStack2
+     * @return - boolean true if they are equal enough, false if they are not
+     */
+    public static boolean areItemsEqualForStacking(ItemStack itemStack1, ItemStack itemStack2){
+        return (itemStack1.getItem().equals(itemStack2.getItem())) && (ItemStack.areItemStackTagsEqual(itemStack1, itemStack2));
+    }
+
+    /**
+     * Note - only checks the first itemStack for stackability, the other is assumed to be a filler amount and isn;t checked
+     * @param itemStack1
+     * @param itemStack2
+     * @return
+     */
+    public static boolean areItemsEqualAndStackable(ItemStack itemStack1, ItemStack itemStack2){
+        return (itemStack1.isStackable() && itemStack1.stackSize < itemStack1.getMaxStackSize() && areItemsEqualForStacking(itemStack1, itemStack2));
     }
 
 }

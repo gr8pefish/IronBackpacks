@@ -7,6 +7,7 @@ import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
+import main.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -163,6 +164,17 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (int upgrade: upgrades) {
             if (upgrade == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_UPGRADE_ID) {
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
+    public static boolean hasQuickDepositPreciseUpgrade(int[] upgrades) {
+        boolean hasUpgrade = false;
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_UPGRADE_ID) {
                 hasUpgrade = true;
                 break;
             }
@@ -527,7 +539,7 @@ public class UpgradeMethods {
 
 
     //======================================================================Transfer From Backpack To IInventory========================================================================
-    //used with the quick deposit upgrade
+    //used with the quick deposit (precise) upgrade
 
     /**
      * Transfers items from the backpack to the tile entity's inventory at the targeted coordinates
@@ -537,14 +549,15 @@ public class UpgradeMethods {
      * @param x - coordinate
      * @param y - coordinate
      * @param z - coordinate
+     * @param usePrecise - to check if the item has to be in the inventory already or if it can be put in any empty slot
      * @return - boolean success if transferred
      */
-    public static boolean transferFromBackpackToInventory(EntityPlayer player, ItemStack backpack, World world, int x, int y, int z){
+    public static boolean transferFromBackpackToInventory(EntityPlayer player, ItemStack backpack, World world, int x, int y, int z, boolean usePrecise){
         TileEntity targeted = world.getTileEntity(x, y, z);
         if (targeted != null){
             IInventory inv = getTargetedInventory(targeted);
             if (inv != null) {
-                return transferItemsToContainer(player, backpack, inv);
+                return transferItemsToContainer(player, backpack, inv, usePrecise);
             }
         }
         return false;
@@ -567,9 +580,10 @@ public class UpgradeMethods {
      * @param player - the player doing the action
      * @param backpack - the itemstack backpack
      * @param transferTo - the inventory to transfer to
+     * @param usePrecise - to check if the item has to be in the inventory already or if it can be put in any empty slot
      * @return boolean if successful
      */
-    private static boolean transferItemsToContainer(EntityPlayer player, ItemStack backpack, IInventory transferTo){
+    private static boolean transferItemsToContainer(EntityPlayer player, ItemStack backpack, IInventory transferTo, boolean usePrecise){
         boolean returnValue = false;
         BackpackTypes type = BackpackTypes.values()[((ItemBackpack) backpack.getItem()).getGuiId()];
         InventoryBackpack inventoryBackpack = new InventoryBackpack(player, backpack, type);
@@ -577,7 +591,7 @@ public class UpgradeMethods {
             for (int i = 0; i < inventoryBackpack.getSizeInventory(); i++){
                 ItemStack stackToMove = inventoryBackpack.getStackInSlot(i);
                 if (stackToMove != null && stackToMove.stackSize > 0){
-                    ItemStack remainder = putInFirstValidSlot(transferTo, stackToMove);
+                    ItemStack remainder = putInFirstValidSlot(transferTo, stackToMove, usePrecise);
                     inventoryBackpack.setInventorySlotContents(i, remainder);
                     inventoryBackpack.onGuiSaved(player);
                     returnValue = true;
@@ -591,28 +605,42 @@ public class UpgradeMethods {
      * Finds the first valid slot and puts the item inside it. Tries to merge if possible, otherwise it goes in an empty slot.
      * @param transferTo - the inventory to put the stack into
      * @param stackToTransfer - the itemstack to put into the inventory
+     * @param usePrecise - to check if the item has to be in the inventory already or if it can be put in any empty slot
      * @return whatever wasn't transferred
      */
-    private static ItemStack putInFirstValidSlot(IInventory transferTo, ItemStack stackToTransfer){
+    private static ItemStack putInFirstValidSlot(IInventory transferTo, ItemStack stackToTransfer, boolean usePrecise){
         for (int i = 0; i < transferTo.getSizeInventory(); i++){
             ItemStack tempStack = transferTo.getStackInSlot(i);
             if (tempStack == null){
-                if (transferTo.isItemValidForSlot(i, stackToTransfer)){
-                    transferTo.setInventorySlotContents(i, stackToTransfer);
-                    transferTo.markDirty();
-                    return null;
+                if (usePrecise){ //precise, have to check if the item is in the inventory already
+                    if (isStackInInventoryAlready(transferTo, stackToTransfer)){
+                        if (transferTo.isItemValidForSlot(i, stackToTransfer)) {
+                            transferTo.setInventorySlotContents(i, stackToTransfer);
+                            transferTo.markDirty();
+                            return null;
+                        }
+                    }
+                } else { //just check if the slot can accept the item
+                    if (transferTo.isItemValidForSlot(i, stackToTransfer)) {
+                        transferTo.setInventorySlotContents(i, stackToTransfer);
+                        transferTo.markDirty();
+                        return null;
+                    }
                 }
             }else if (tempStack.stackSize <= 0){//leave it alone
             }else{ //stack present, check if merge possible
                 if (tempStack.isItemEqual(stackToTransfer) && tempStack.stackSize < tempStack.getMaxStackSize() && ItemStack.areItemStackTagsEqual(tempStack, stackToTransfer)){ //can merge
                     int amountToResupply = tempStack.getMaxStackSize() - tempStack.stackSize;
                     if (stackToTransfer.stackSize >= amountToResupply) { //stackToTransfer will leave a remainder if merged
+                        //TODO: when 1 item in 1st slot creates ghost item in 2nd slot, some 0 item remainder something check is missing, debug it
                         //merge what you can and set stackToTransfer to the remainder
                         transferTo.setInventorySlotContents(i, new ItemStack(tempStack.getItem(), tempStack.getMaxStackSize(), tempStack.getItemDamage()));
                         transferTo.markDirty();
                         int oldStackSize = stackToTransfer.stackSize;
                         stackToTransfer.stackSize = oldStackSize - amountToResupply;
                         //don't return, try to use up the stack completely by continuing to iterate
+                        if (stackToTransfer.stackSize == 0) return null;
+                        //unless the stack size is 0, then you need to get rid of it
                     }else{
                         //use up the stackToTransfer and increment the stackSize of tempStack
                         transferTo.setInventorySlotContents(i, new ItemStack(tempStack.getItem(), tempStack.stackSize + stackToTransfer.stackSize, tempStack.getItemDamage()));
@@ -626,5 +654,22 @@ public class UpgradeMethods {
         return stackToTransfer;
     }
 
+    /**
+     * Checks if the item is already in the inventory somewhere. Not particularly efficient.
+     * @param transferTo - the inventory to check
+     * @param stackToTransfer - the stack to check if the inventory has
+     * @return boolean of if it has the item
+     */
+    private static boolean isStackInInventoryAlready(IInventory transferTo, ItemStack stackToTransfer){
+        for (int i = 0; i < transferTo.getSizeInventory(); i++) {
+            ItemStack tempStack = transferTo.getStackInSlot(i);
+            if (tempStack != null && tempStack.stackSize > 0
+                    && stackToTransfer.isItemEqual(tempStack)
+                    && ItemStack.areItemStackTagsEqual(tempStack, stackToTransfer)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

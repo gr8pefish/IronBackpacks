@@ -186,6 +186,22 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
                 }
                 return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints;
             }
+        }else if(upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_UPGRADE_ID || upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_UPGRADE_ID) { //have to choose between quick deposit normal and precise
+            if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_UPGRADE_ID) {
+                for (int upgrade : upgrades) {
+                    if (upgrade == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_UPGRADE_ID) {
+                        return false;
+                    }
+                }
+                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints;
+            } else {
+                for (int upgrade : upgrades) {
+                    if (upgrade == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_UPGRADE_ID) {
+                        return false;
+                    }
+                }
+                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints;
+            }
         }else if(upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_ID){ //If trying to apply the depth upgrade you need a nesting upgrade applied already
             for (int upgrade : upgrades){
                 if (upgrade == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID){

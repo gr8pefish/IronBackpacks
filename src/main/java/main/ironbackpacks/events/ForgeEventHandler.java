@@ -23,6 +23,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class ForgeEventHandler {
 
     /**
      * Called whenever an item is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and condenser/crafting upgrades too so it doesn't check too much and causes lag..
-     * @param event - the event
+     * @param event - the event fired
      */
     @SubscribeEvent
     public void onItemPickupEvent(EntityItemPickupEvent event) {
@@ -42,14 +43,33 @@ public class ForgeEventHandler {
             return; //ends the event
         else{
             ArrayList<ArrayList<ItemStack>> backpacks = getFilterCondenserAndHopperBackpacks(event.entityPlayer);
-            boolean doFilter = checkHopperUpgrade(event, backpacks.get(2)); //doFilter is false if the itemEntity is in the hopperUpgrade's slots and the itemEntity's stackSize < refillSize
+            boolean doFilter = checkHopperUpgradeItemPickup(event, backpacks.get(2)); //doFilter is false if the itemEntity is in the hopperUpgrade's slots and the itemEntity's stackSize < refillSize
             if (doFilter) {
                 checkFilterUpgrade(event, backpacks.get(0));
             }
             checkCondenserUpgrade(event, backpacks.get(1));
         }
-
     }
+
+    /**
+     * Called whenever the player uses an item. Used for the restocking(hopper) upgrade.
+     * @param event - the event fired
+     */
+    @SubscribeEvent
+    public void onPlayerItemUseEvent(PlayerUseItemEvent.Finish event){
+        ItemStack resuppliedStack = null;
+        event.entityPlayer.getFoodStats().setFoodLevel(10);
+        if (!event.isCanceled()){
+            Logger.info("Item use"+event.item.toString()+" --- "+event.result.toString());
+            ArrayList<ArrayList<ItemStack>> backpacks = getFilterCondenserAndHopperBackpacks(event.entityPlayer);
+            resuppliedStack = checkHopperUpgradeItemUse(event, backpacks.get(2)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
+            if (resuppliedStack != null) {
+                Logger.info("Resupplied stack final: " + resuppliedStack.toString());
+                event.result = resuppliedStack;
+            }
+        }
+    }
+
 
     /**
      * When a player dies, check if player has any backpacks with keepOnDeathUpgrade so then they are saved for when they spawn
@@ -146,20 +166,23 @@ public class ForgeEventHandler {
         }
     }
 
+
+    //TODO: cleanup the following two methods
+
     /**
      * Checks the hopper/restocking upgrade to try and refill items.
      * @param event - EntityItemPickupEvent
      * @param backpackStacks - the backpacks with this upgrade
      * @return - boolean successful
      */
-    private boolean checkHopperUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){
+    private boolean checkHopperUpgradeItemPickup(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){
         boolean doFilter = true;
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
                 BackpackTypes type = BackpackTypes.values()[((ItemBackpack) backpack.getItem()).getGuiId()];
                 ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
-                    container.sort(); //TODO: test with this added in
+                    container.sort(); //TODO: test with this removed
                     ArrayList<ItemStack> hopperItems = UpgradeMethods.getHopperItems(backpack);
                     for (ItemStack hopperItem : hopperItems) {
                         if (hopperItem != null) {
@@ -172,7 +195,7 @@ public class ForgeEventHandler {
                                 Slot tempSlot = (Slot) container.getSlot(i);
                                 if (tempSlot!= null && tempSlot.getHasStack()){
                                     ItemStack tempItem = tempSlot.getStack();
-                                    if (tempItem.isItemEqual(hopperItem) && tempItem.stackSize < tempItem.getMaxStackSize()){ //found and less than max stack size
+                                    if (IronBackpacksHelper.areItemsEqualAndStackable(tempItem, hopperItem)){ //found and less than max stack size
                                         foundSlot = true;
                                         slotToResupply = tempSlot;
                                         stackToResupply = tempItem;
@@ -183,7 +206,7 @@ public class ForgeEventHandler {
 
                             if (foundSlot){ //try to resupply with the itemEntity first
                                 boolean done = false;
-                                if (event.item.getEntityItem().isItemEqual(stackToResupply)){
+                                if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), stackToResupply)){
                                     int amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize;
                                     if (event.item.getEntityItem().stackSize >= amountToResupply) {
                                         event.item.setEntityItemStack(new ItemStack(event.item.getEntityItem().getItem(), event.item.getEntityItem().stackSize - amountToResupply, event.item.getEntityItem().getItemDamage()));
@@ -198,9 +221,9 @@ public class ForgeEventHandler {
                                         Slot tempSlot = (Slot) container.getSlot(i);
                                         if (tempSlot != null && tempSlot.getHasStack()) {
                                             ItemStack tempItem = tempSlot.getStack();
-                                            if (tempItem.isItemEqual(stackToResupply)) {
+                                            if (IronBackpacksHelper.areItemsEqualForStacking(tempItem, stackToResupply)) {
                                                 int amountToResupply;
-                                                if (event.item.getEntityItem().isItemEqual(stackToResupply)) {
+                                                if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), stackToResupply)) {
                                                     amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize - event.item.getEntityItem().stackSize;
                                                     if (tempItem.stackSize >= amountToResupply) {
                                                         tempSlot.decrStackSize(amountToResupply);
@@ -211,6 +234,7 @@ public class ForgeEventHandler {
                                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + tempItem.stackSize, stackToResupply.getItemDamage()));
                                                     }
                                                 }else{
+                                                    Logger.info("Reducing here");
                                                     amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize;
                                                     if (tempItem.stackSize >= amountToResupply) {
                                                         tempSlot.decrStackSize(amountToResupply);
@@ -237,6 +261,84 @@ public class ForgeEventHandler {
     }
 
     /**
+     * Checks the hopper/restocking upgrade to try and refill items. Decrements from the backpack's stacks and updates the appropriate slot/stack in the player's inventory.
+     * for each backpack
+     *  if backpack has itemUsed in filter
+     *      if backpack has itemUsed in inv
+     *          resupply itemUsed
+     *              get rid of backpackStack
+     *              return new size of itemUsed stack
+     * @param event - PlayerUseItemEvent.Finish
+     * @param backpackStacks - the backpacks with this upgrade
+     */
+    private ItemStack checkHopperUpgradeItemUse(PlayerUseItemEvent.Finish event, ArrayList<ItemStack> backpackStacks){
+        if (!backpackStacks.isEmpty()){
+            for (ItemStack backpack : backpackStacks) {
+                BackpackTypes type = BackpackTypes.values()[((ItemBackpack) backpack.getItem()).getGuiId()];
+                ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
+                if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
+                    container.sort(); //TODO: test with this removed
+                    ArrayList<ItemStack> hopperItems = UpgradeMethods.getHopperItems(backpack);
+                    for (ItemStack hopperItem : hopperItems) {
+                        if (hopperItem != null) {
+
+                            boolean foundSlot = false;
+                            ItemStack stackToResupply = null;
+                            Slot slotToResupply = null;
+
+                            for (int i = type.getSize(); i < type.getSize() + 36; i++){ //check player's inv for item (backpack size + 36 for player inv)
+                                Slot tempSlot = (Slot) container.getSlot(i);
+                                if (tempSlot!= null && tempSlot.getHasStack()){
+                                    ItemStack tempItem = tempSlot.getStack();
+                                    if (IronBackpacksHelper.areItemsEqualForStacking(event.item, hopperItem) //has to be same item as what was used in the event
+                                            && IronBackpacksHelper.areItemsEqualAndStackable(tempItem, hopperItem)){ //found and less than max stack size
+                                        foundSlot = true;
+                                        slotToResupply = tempSlot;
+                                        stackToResupply = tempItem;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (foundSlot){ // resupply from the backpack
+
+                                for (int i = 0; i < type.getSize(); i++) {
+                                    Slot backpackSlot = (Slot) container.getSlot(i);
+                                    if (backpackSlot != null && backpackSlot.getHasStack()) {
+                                        ItemStack backpackItemStack = backpackSlot.getStack();
+
+                                        if (IronBackpacksHelper.areItemsEqualForStacking(stackToResupply, backpackItemStack)) {
+                                            int amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize;
+
+                                            if (backpackItemStack.stackSize >= amountToResupply) {
+                                                backpackSlot.decrStackSize(amountToResupply);
+                                                container.sort();
+                                                container.onContainerClosed(event.entityPlayer);
+                                                return (new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage()));
+
+                                            } else {
+                                                backpackSlot.decrStackSize(backpackItemStack.stackSize);
+                                                container.sort();
+                                                container.onContainerClosed(event.entityPlayer);
+                                                return (new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + backpackItemStack.stackSize, stackToResupply.getItemDamage()));
+                                                //don't have to iterate
+                                                //b/c once sorted you have as big of a stack as you will ever have so it can only refill that much
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                container.sort();
+                container.onContainerClosed(event.entityPlayer);
+            }
+        }
+        return null;
+    }
+
+    /**
      * Checks the backpacks with the condenser/crafting upgrade to craft the specified items
      * @param event - EntityItemPickupEvent
      * @param backpackStacks - the backpacks with the condenser upgrade
@@ -260,7 +362,7 @@ public class ForgeEventHandler {
                                 Slot theSlot = (Slot) container.getSlot(index);
                                 if (theSlot!=null && theSlot.getHasStack()) {
                                     ItemStack theStack = theSlot.getStack();
-                                    if (theStack != null && theStack.stackSize >= 9 && theStack.isItemEqual(condenserItem)) {
+                                    if (theStack != null && theStack.stackSize >= 9 && IronBackpacksHelper.areItemStacksTheSame(theStack, condenserItem)) {
                                         ItemStack myStack = new ItemStack(theStack.getItem(), 1, theStack.getItemDamage()); //stackSize of 1
                                         for (int i = 0; i < 9; i++) {
                                             inventoryCrafting.setInventorySlotContents(i, myStack); //3x3 crafting grid full of the item
@@ -341,7 +443,7 @@ public class ForgeEventHandler {
     private void transferWithBasicFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
-                if (event.item.getEntityItem().isItemEqual(filterItem)) {
+                if (IronBackpacksHelper.areItemStacksTheSame(event.item.getEntityItem(), filterItem)) {
                     container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
                 }
             }

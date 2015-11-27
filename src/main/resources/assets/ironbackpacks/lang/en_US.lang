@@ -19,6 +19,7 @@ item.ironbackpacks:renamingUpgrade.name=Renaming Upgrade
 item.ironbackpacks:keepOnDeathUpgrade.name=Eternity Upgrade
 item.ironbackpacks:additionalUpgradePointsUpgrade.name=Additional Upgrade Points Upgrade
 item.ironbackpacks:quickDepositUpgrade.name=Quick Deposit Upgrade
+item.ironbackpacks:quickDepositPreciseUpgrade.name=Precise Quick Deposit Upgrade
 item.ironbackpacks:filterMiningUpgrade.name=Mining Filter Upgrade
 item.ironbackpacks:depthUpgrade.name=Depth Upgrade
 
