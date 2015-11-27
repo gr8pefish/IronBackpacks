@@ -27,6 +27,7 @@ To Do:
 
             Restocking not working with arrows?
                 of course, not picking anything up - something should change? design decisions...
+                Need to implement a custom tick handler and/or ask in IRC if the onBlockPlacedEvent exists
 
             config recipe for basic backpack
             make crafting upgrade work when manually putting items in
@@ -82,14 +83,11 @@ To Do:
 ----------------------------------
 Changelog:
 
-ADDED: Precise Quick Deposit Upgrade
-FIXED: Bug with quick deposit adding a ghost item
 
 ----------------------------------
 
 MCF Posting:
-info for precise quick deposit
-changelog for 1.2.1
+
 
 More pictures
 Mod armors that have larger custom models might overlap with my backpack model, just visually annoying
