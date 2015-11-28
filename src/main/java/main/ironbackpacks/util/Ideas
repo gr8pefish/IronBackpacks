@@ -34,6 +34,7 @@ To Do:
             Open right click direct from 'e' inventory?
             Crafting upgrade in 2x2
             Have depth upgrade apply to quick deposit
+            change it so an entityItem looks to fill a stack in the player's inv before going in filter?
             Add items "gem" and "dust" to miner filter -add to tooltip and changelog
                 change so it picks up cobble and smooth stone too and remove from alt gui?
             Add ender upgrade?

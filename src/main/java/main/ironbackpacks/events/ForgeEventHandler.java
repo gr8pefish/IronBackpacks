@@ -359,7 +359,7 @@ public class ForgeEventHandler {
                                 Slot theSlot = (Slot) container.getSlot(index);
                                 if (theSlot!=null && theSlot.getHasStack()) {
                                     ItemStack theStack = theSlot.getStack();
-                                    if (theStack != null && theStack.stackSize >= 9 && IronBackpacksHelper.areItemStacksTheSame(theStack, condenserItem)) {
+                                    if (theStack != null && theStack.stackSize >= 9 && IronBackpacksHelper.areItemsEqualForStacking(theStack, condenserItem)) {
                                         ItemStack myStack = new ItemStack(theStack.getItem(), 1, theStack.getItemDamage()); //stackSize of 1
                                         for (int i = 0; i < 9; i++) {
                                             inventoryCrafting.setInventorySlotContents(i, myStack); //3x3 crafting grid full of the item
@@ -440,7 +440,7 @@ public class ForgeEventHandler {
     private void transferWithBasicFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
-                if (IronBackpacksHelper.areItemStacksTheSame(event.item.getEntityItem(), filterItem)) {
+                if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), filterItem)) {
                     container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
                 }
             }
