@@ -58,13 +58,10 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onPlayerItemUseEvent(PlayerUseItemEvent.Finish event){
         ItemStack resuppliedStack = null;
-        event.entityPlayer.getFoodStats().setFoodLevel(10);
         if (!event.isCanceled()){
-            Logger.info("Item use"+event.item.toString()+" --- "+event.result.toString());
             ArrayList<ArrayList<ItemStack>> backpacks = getFilterCondenserAndHopperBackpacks(event.entityPlayer);
             resuppliedStack = checkHopperUpgradeItemUse(event, backpacks.get(2)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
             if (resuppliedStack != null) {
-                Logger.info("Resupplied stack final: " + resuppliedStack.toString());
                 event.result = resuppliedStack;
             }
         }
