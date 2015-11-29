@@ -1,0 +1,8 @@
+------------------------------------------------------
+Version 1.2.5
+------------------------------------------------------
+New
+- New changelog system from 1.8 releases is now for 1.7.10 as well (TehNut)
+
+Bugs
+- #27 Fix Upgrade tooltips behaving oddly (TehNut)
