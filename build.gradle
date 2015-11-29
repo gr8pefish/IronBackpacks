@@ -10,30 +10,35 @@ buildscript {
     }
 }
 
-apply plugin: 'forge'
-apply plugin: 'maven-publish'
-
-ext.configFile = file "build.properties"
-configFile.withReader {
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
+plugins {
+    id 'com.matthewprenger.cursegradle' version '1.0.4'
 }
 
-version = config.mc_version + "-" + config.mod_version
-group= config.package_group
-archivesBaseName = config.mod_name
+apply plugin: 'forge'
 
-import org.ajoberstar.grgit.Grgit
+group = package_group
+archivesBaseName = mod_name
+version = "r${mc_version}-${mod_version}"
 
+// Ignore this error. It'll work just fine when building.
+import org.ajoberstar.grgit.*
+
+ext.repo = Grgit.open(project.file('.'))
 def gitHash = 'unknown'
-if (new File(projectDir, '.git').exists()) {
-    def repo = Grgit.open(project.file('.'))
+
+if (new File(projectDir, '.git').exists())
     gitHash = repo.log().find().abbreviatedId
+
+repositories {
+
+}
+
+dependencies {
+
 }
 
 minecraft {
-    version = config.mc_version + "-" + config.forge_version
+    version = "${mc_version}-${forge_version}"
     runDir = "run"
 
     replace "@VERSION@", project.version
@@ -61,6 +66,7 @@ processResources {
 }
 
 jar {
+    dependsOn "incrementBuildNumber"
     classifier = ''
     manifest.mainAttributes(
             "Built-By": System.getProperty('user.name'),
@@ -95,39 +101,57 @@ tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
 }
 
-publishing {
-    tasks.publish.dependsOn 'build'
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-            artifact sourceJar
-            artifact javadocJar
-            artifact deobfJar
+String getChangelogText() {
+    def changelogFile = new File('changes.txt')
+    String str = ''
+    String separator = '---'
+    int lineCount = 0
+    boolean done = false
+    changelogFile.eachLine {
+        if (done || it == null) {
+            return
         }
+        if (lineCount < 3) {
+            lineCount++
+            if (it.startsWith(separator)) {return}
+        }
+        if (!it.startsWith(separator)) {
+            str += "$it" + (lineCount < 3 ? ':\n\n' : '\n')
+            return
+        }
+        done = true // once we go past the first version block, parse no more
     }
-    repositories {
-        if (project.hasProperty('maven_repo')) {
-            maven { url maven_repo }
-        } else {
-            mavenLocal()
-        }
+    return str
+}
+
+curseforge {
+    if (project.hasProperty('curse_key'))
+        apiKey = project.curse_key
+
+    project {
+        id = "${curse_id}"
+        changelog = getChangelogText()
+        releaseType = project.hasProperty('beta') ? 'beta' : 'release'
+
+        addArtifact deobfJar
+        addArtifact sourceJar
+        addArtifact javadocJar
     }
 }
 
-//curseforge {
-//    if (project.hasProperty('curse_key'))
-//        apiKey = project.curse_key
-//
-//    project {
-//        id = "${curse_id}"
-//        changelog = project.hasProperty('changelog') ? project.changelog : ''
-//        releaseType = 'alpha'
-//
-//        addArtifact deobfJar
-//        addArtifact sourceJar
-//        addArtifact javadocJar
-//    }
-//}
+task("incrementBuildNumber") {
+    // increment build number
+    doFirst {
+        // increment
+//        config.build_number = (config.build_number.toString().toInteger()) + 1
+        mod_version = ${mod_version}.toString().toInteger() + 1
+
+        // write back to the file
+        configFile.withWriter {
+            config.toProperties().store(it, "")
+        }
+    }
+}
 
 //to make the resources work in idea
 idea { module { inheritOutputDirs = true } }

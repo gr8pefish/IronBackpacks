@@ -1,0 +1,22 @@
+------------------------------------------------------
+Version 1.2.6
+------------------------------------------------------
+New
+- New changelog system from 1.8 releases is now for 1.7.10 as well (TehNut)
+
+Changes
+- Description of of mining filter to show that it picks up gems and dusts as well
+
+Bugs
+- #27 Fix Upgrade tooltips behaving oddly (TehNut)
+------------------------------------------------------
+Version 1.2.5
+------------------------------------------------------
+New
+- New changelog system from 1.8 releases is now for 1.7.10 as well (TehNut)
+
+Changes
+- Upgradle to 2.9 (TehNut)
+
+Bugs
+- #27 Fix Upgrade tooltips behaving oddly (TehNut)
