@@ -66,7 +66,10 @@ processResources {
 }
 
 jar {
-    dependsOn "incrementBuildNumber"
+    dependsOn {
+        "incrementModVersionNumber"
+        "makeNewChangelog"
+    }
     classifier = ''
     manifest.mainAttributes(
             "Built-By": System.getProperty('user.name'),
@@ -95,7 +98,8 @@ task deobfJar(type: Jar) {
     classifier = 'deobf'
 }
 
-tasks.build.dependsOn sourceJar, javadocJar, deobfJar
+//Not now not with clean and auto-upload to curse, it just deletes it so there is no point
+//tasks.build.dependsOn sourceJar, javadocJar, deobfJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
@@ -124,34 +128,44 @@ String getChangelogText() {
     return str
 }
 
-curseforge {
-    if (project.hasProperty('curse_key'))
-        apiKey = project.curse_key
-
-    project {
-        id = "${curse_id}"
-        changelog = getChangelogText()
-        releaseType = project.hasProperty('beta') ? 'beta' : 'release'
-
-        addArtifact deobfJar
-        addArtifact sourceJar
-        addArtifact javadocJar
-    }
+curse {
+    apiKey = curse_key
+    projectId = curse_id
+    changelog = getChangelogText()
+    releaseType = release_as_beta ? 'beta' : "release"
 }
 
-task("incrementBuildNumber") {
-    // increment build number
-    doFirst {
-        // increment
-//        config.build_number = (config.build_number.toString().toInteger()) + 1
-        mod_version = ${mod_version}.toString().toInteger() + 1
-
-        // write back to the file
-        configFile.withWriter {
-            config.toProperties().store(it, "")
-        }
-    }
+task incrementModVersionNumber {
+    ant.replace(file: "gradle.properties", token: mod_version, value: (mod_version.toString().toInteger()) + 1)
 }
+
+task makeNewChangelog {
+    def changelogFile = new File('changes.txt')
+    String newText = '------------------------------------------------------\n' +
+            'Version '+mc_version+' - '+mod_version+"\n" +
+            '------------------------------------------------------\n' +
+            'New\n' +
+            '- None\n' +
+            '\n' +
+            'Changes\n' +
+            '- None\n' +
+            '\n' +
+            'Bugs\n' +
+            '- None\n'
+    String oldText = changelogFile.getText()
+    changelogFile.setText(newText + oldText);
+}
+
+//task cleanBuildAndUploadToCurse (dependsOn ['clean', 'build', 'curse']) {
+////    dependsOn {
+////        tasks.clean
+////        tasks.build
+////        "curse"
+////    }
+//    println "Cleaning, Building, and Uploading to CurseForge"
+//}
+
+defaultTasks 'clean', 'build', 'curse'
 
 //to make the resources work in idea
 idea { module { inheritOutputDirs = true } }
