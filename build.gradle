@@ -29,13 +29,11 @@ def gitHash = 'unknown'
 if (new File(projectDir, '.git').exists())
     gitHash = repo.log().find().abbreviatedId
 
-repositories {
+ext.priv = parseConfig(file('private.properties'))
 
-}
+repositories {}
 
-dependencies {
-
-}
+dependencies {}
 
 minecraft {
     version = "${mc_version}-${forge_version}"
@@ -129,7 +127,7 @@ String getChangelogText() {
 }
 
 curse {
-    apiKey = curse_key
+    apiKey = priv.curse_key
     projectId = curse_id
     changelog = getChangelogText()
     releaseType = release_as_beta ? 'beta' : "release"
@@ -156,15 +154,7 @@ task makeNewChangelog {
     changelogFile.setText(newText + oldText);
 }
 
-//task cleanBuildAndUploadToCurse (dependsOn ['clean', 'build', 'curse']) {
-////    dependsOn {
-////        tasks.clean
-////        tasks.build
-////        "curse"
-////    }
-//    println "Cleaning, Building, and Uploading to CurseForge"
-//}
-
+//what is usually done now
 defaultTasks 'clean', 'build', 'curse'
 
 //to make the resources work in idea
