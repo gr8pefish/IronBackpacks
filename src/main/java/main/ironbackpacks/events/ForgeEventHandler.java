@@ -231,7 +231,6 @@ public class ForgeEventHandler {
                                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + tempItem.stackSize, stackToResupply.getItemDamage()));
                                                     }
                                                 }else{
-                                                    Logger.info("Reducing here");
                                                     amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize;
                                                     if (tempItem.stackSize >= amountToResupply) {
                                                         tempSlot.decrStackSize(amountToResupply);
@@ -512,6 +511,7 @@ public class ForgeEventHandler {
         transferWithBasicFilter(filterItems, event, container);
         if (itemEntityOre != null) {
             for (String oreName : itemEntityOre) {
+                //TODO: fancier checking method, this is a 'contains' so it will get extra items ex: 'mining c*ore*'
                 if (oreName != null && (oreName.contains("ore") || oreName.contains("gem") || oreName.contains("dust"))) {
                     container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
                 }

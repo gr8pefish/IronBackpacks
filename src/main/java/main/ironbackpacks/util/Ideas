@@ -28,15 +28,11 @@ To Do:
             Restocking not working with arrows?
                 of course, not picking anything up - something should change? design decisions...
                 Need to implement a custom tick handler and/or ask in IRC if the onBlockPlacedEvent exists
-
             config recipe for basic backpack
             make crafting upgrade work when manually putting items in
             Open right click direct from 'e' inventory?
             Crafting upgrade in 2x2
             Have depth upgrade apply to quick deposit
-            change it so an entityItem looks to fill a stack in the player's inv before going in filter?
-            Add items "gem" and "dust" to miner filter -add to tooltip and changelog
-                change so it picks up cobble and smooth stone too and remove from alt gui?
             Add ender upgrade?
                 allows you to use the filter/restocking to go into an ender pouch in the inventory
             Allow shift right click equipped?
@@ -48,6 +44,8 @@ To Do:
 
         EXTRA:
 
+            mining filter - change so it picks up cobble and smooth stone too and remove from alt gui?
+            change it so an entityItem looks to fill a stack in the player's inv before going in filter?
             keybinding to make quickdeposit work with equipped pack
             quick deposit into AE terminals - have to check efficient of deposit code for that to work probably
             Shift right click to open nested guis too
@@ -83,12 +81,12 @@ To Do:
 
 ----------------------------------
 Changelog:
-
+CHANGED: Description of of mining filter to show that it picks up gems and dusts as well.
 
 ----------------------------------
 
 MCF Posting:
-
+Update description of mining filter to show that it picks up gems and dusts as well.
 
 More pictures
 Mod armors that have larger custom models might overlap with my backpack model, just visually annoying

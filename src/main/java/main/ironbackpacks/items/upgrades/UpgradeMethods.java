@@ -632,7 +632,6 @@ public class UpgradeMethods {
                 if (tempStack.isItemEqual(stackToTransfer) && tempStack.stackSize < tempStack.getMaxStackSize() && ItemStack.areItemStackTagsEqual(tempStack, stackToTransfer)){ //can merge
                     int amountToResupply = tempStack.getMaxStackSize() - tempStack.stackSize;
                     if (stackToTransfer.stackSize >= amountToResupply) { //stackToTransfer will leave a remainder if merged
-                        //TODO: when 1 item in 1st slot creates ghost item in 2nd slot, some 0 item remainder something check is missing, debug it
                         //merge what you can and set stackToTransfer to the remainder
                         transferTo.setInventorySlotContents(i, new ItemStack(tempStack.getItem(), tempStack.getMaxStackSize(), tempStack.getItemDamage()));
                         transferTo.markDirty();

@@ -71,7 +71,7 @@ public class IronBackpacksConstants {
         public static final String[] HOPPER_DESCRIPTION = {"Allows you to specify an item to keep stocked","in your inventory/hotbar","which is supplied from your backpack."};
         public static final String[] CONDENSER_DESCRIPTION = {"Allows you to specify a set of items","to be compressed upon entering your backpack."};
         public static final String[] FILTER_ADVANCED_DESCRIPTION = {"Similar to the basic filter, except the filter","has 18 slots and each slots has configurable options."};
-        public static final String[] FILTER_MINING_DESCRIPTION = {"Automatically picks up any ores","and has a basic filter (intended for gems)"};
+        public static final String[] FILTER_MINING_DESCRIPTION = {"Automatically picks up any ores, gems, or dusts","and has a basic filter for other items (ex: cobble)"};
 
         //All the alternate gui upgrade ids
         public static final ArrayList<Integer> ALT_GUI_UPGRADE_IDS = new ArrayList<Integer>(Arrays.asList(
