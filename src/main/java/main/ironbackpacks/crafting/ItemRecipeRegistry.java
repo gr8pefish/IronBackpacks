@@ -62,6 +62,8 @@ public class ItemRecipeRegistry {
 		registerBasicRecipe(ItemRegistry.filterModSpecificUpgrade, ConfigHandler.filterModSpecificUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.hopperUpgrade, ConfigHandler.hopperUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.condenserUpgrade, ConfigHandler.condenserUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.condenserSmallUpgrade, ConfigHandler.condenserSmallUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.condenserTinyUpgrade, ConfigHandler.condenserTinyUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.keepOnDeathUpgrade, ConfigHandler.keepOnDeathUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.additionalUpgradesUpgrade, ConfigHandler.additionalUpgradesUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.quickDepositUpgrade, ConfigHandler.quickDepositUpgradeRecipe);

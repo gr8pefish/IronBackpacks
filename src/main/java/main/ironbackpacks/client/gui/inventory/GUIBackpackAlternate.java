@@ -137,6 +137,8 @@ public class GUIBackpackAlternate extends GuiContainer {
     private boolean hasFilterModSpecificUpgrade;
     private boolean hasHopperUpgrade;
     private boolean hasCondenserUpgrade;
+    private boolean hasCondenserSmallUpgrade;
+    private boolean hasCondenserTinyUpgrade;
     private boolean hasFilterAdvancedUpgrade;
     private boolean hasFilterMiningUpgrade;
 
@@ -158,6 +160,8 @@ public class GUIBackpackAlternate extends GuiContainer {
         this.hasFilterModSpecificUpgrade = UpgradeMethods.hasFilterModSpecificUpgrade(upgrades);
         this.hasHopperUpgrade = UpgradeMethods.hasHopperUpgrade(upgrades);
         this.hasCondenserUpgrade = UpgradeMethods.hasCondenserUpgrade(upgrades);
+        this.hasCondenserSmallUpgrade = UpgradeMethods.hasCondenserSmallUpgrade(upgrades);
+        this.hasCondenserTinyUpgrade = UpgradeMethods.hasCondenserTinyUpgrade(upgrades);
         this.hasFilterAdvancedUpgrade = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades);
         this.hasFilterMiningUpgrade = UpgradeMethods.hasFilterMiningUpgrade(upgrades);
 
@@ -310,6 +314,16 @@ public class GUIBackpackAlternate extends GuiContainer {
             }
             if (hasCondenserUpgrade){
                 buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, "Clears the","crafting items."));
+                rowIndex++;
+                yStartButton += 36;
+            }
+            if (hasCondenserSmallUpgrade){
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, "Clears the","crafting items."));
+                rowIndex++;
+                yStartButton += 36;
+            }
+            if (hasCondenserTinyUpgrade){
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, "Clears the","crafting items."));
             }
         }
 
@@ -364,6 +378,12 @@ public class GUIBackpackAlternate extends GuiContainer {
         }
         if (hasCondenserUpgrade) {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),20, yStart, 4210752);
+        }
+        if (hasCondenserSmallUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserSmallUpgrade.name"),20, yStart, 4210752);
+        }
+        if (hasCondenserTinyUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserTinyUpgrade.name"),20, yStart, 4210752);
         }
     }
 

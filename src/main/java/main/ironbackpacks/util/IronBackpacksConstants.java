@@ -43,6 +43,8 @@ public class IronBackpacksConstants {
         public static final int FILTER_MOD_SPECIFIC_UPGRADE_ID = 7;
         public static final int HOPPER_UPGRADE_ID = 8;
         public static final int CONDENSER_UPGRADE_ID = 9;
+        public static final int CONDENSER_SMALL_UPGRADE_ID = 19;
+        public static final int CONDENSER_TINY_UPGRADE_ID = 20;
         public static final int FILTER_FUZZY_UPGRADE_ID = 11;
         public static final int FILTER_OREDICT_UPGRADE_ID = 12;
         public static final int FILTER_ADVANCED_UPGRADE_ID = 14;
@@ -69,7 +71,9 @@ public class IronBackpacksConstants {
         public static final String[] FILTER_FUZZY_DESCRIPTION = {"Similar to the basic filter, except the backpack","will ignore damage values on the items."};
         public static final String[] FILTER_OREDICT_DESCRIPTION = {"Similar to the basic filter, except the backpack will ","pick up any item that is registered in the ore dictionary","as the same as the item(s) in the filter slot."};
         public static final String[] HOPPER_DESCRIPTION = {"Allows you to specify an item to keep stocked","in your inventory/hotbar","which is supplied from your backpack."};
-        public static final String[] CONDENSER_DESCRIPTION = {"Allows you to specify a set of items","to be compressed upon entering your backpack."};
+        public static final String[] CONDENSER_DESCRIPTION = {"Allows you to specify a set of items","to be crafted in a 3x3 grid upon entering your backpack","(ex: redstone -> redstone block)."};
+        public static final String[] CONDENSER_SMALL_DESCRIPTION = {"Allows you to specify a set of items","to be crafted in a 2x2 grid upon entering your backpack","(ex: sand -> sandstone)."};
+        public static final String[] CONDENSER_TINY_DESCRIPTION = {"Allows you to specify a set of items","to be crafted upon entering your backpack","(ex: wood -> planks)."};
         public static final String[] FILTER_ADVANCED_DESCRIPTION = {"Similar to the basic filter, except the filter","has 18 slots and each slots has configurable options."};
         public static final String[] FILTER_MINING_DESCRIPTION = {"Automatically picks up any ores, gems, or dusts","and has a basic filter for other items (ex: cobble)"};
 
@@ -83,7 +87,9 @@ public class IronBackpacksConstants {
                 FILTER_MINING_UPGRADE_ID,
                 FILTER_ADVANCED_UPGRADE_ID,
                 HOPPER_UPGRADE_ID,
-                CONDENSER_UPGRADE_ID
+                CONDENSER_UPGRADE_ID,
+                CONDENSER_SMALL_UPGRADE_ID,
+                CONDENSER_TINY_UPGRADE_ID
                 ));
 
         //All the localized names
@@ -105,7 +111,9 @@ public class IronBackpacksConstants {
                 StatCollector.translateToLocal("item.ironbackpacks:nestingAdvancedUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:depthUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:filterMiningUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:quickDepositPreciseUpgrade.name")
+                StatCollector.translateToLocal("item.ironbackpacks:quickDepositPreciseUpgrade.name"),
+                StatCollector.translateToLocal("item.ironbackpacks:condenserSmallUpgrade.name"),
+                StatCollector.translateToLocal("item.ironbackpacks:condenserTinyUpgrade.name")
         };
 
         //All the upgrade costs
@@ -128,7 +136,9 @@ public class IronBackpacksConstants {
                 ConfigHandler.nestingAdvancedUpgradeCost,
                 ConfigHandler.depthUpgradeCost,
                 ConfigHandler.filterMiningUpgradeCost,
-                ConfigHandler.quickDepositPreciseUpgradeCost
+                ConfigHandler.quickDepositPreciseUpgradeCost,
+                ConfigHandler.condenserSmallUpgradeCost,
+                ConfigHandler.condenserTinyUpgradeCost
         };
 
         //===========================Misc==================================
@@ -197,6 +207,8 @@ public class IronBackpacksConstants {
         public static final String SLOT = "Slot";
         public static final String HOPPER = "Hopper";
         public static final String CONDENSER = "Condenser";
+        public static final String CONDENSER_SMALL = "CondenserSmall";
+        public static final String CONDENSER_TINY = "CondenserTiny";
         public static final String ITEMS = "Items";
         public static final String ADDED = "Added";
         public static final String REMOVED = "Removed";

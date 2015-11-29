@@ -152,6 +152,10 @@ public class InventoryAlternateGui implements IInventory {
             }
         }else if (UpgradeMethods.hasHopperUpgrade(this.upgrades)){
             return itemStack.isStackable();
+        }else if (UpgradeMethods.hasCondenserTinyUpgrade(this.upgrades)){
+            return itemStack.isStackable();
+        }else if (UpgradeMethods.hasCondenserSmallUpgrade(this.upgrades)){
+            return itemStack.isStackable();
         }else if (UpgradeMethods.hasCondenserUpgrade(this.upgrades)){
             return itemStack.isStackable();
         }else{
@@ -316,6 +320,30 @@ public class InventoryAlternateGui implements IInventory {
             } //no need to increment, as this is the last upgrade that appears.
             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CONDENSER, tagList);
         }
+        if (UpgradeMethods.hasCondenserSmallUpgrade(this.upgrades)) {
+            NBTTagList tagList = new NBTTagList();
+            for (int i = startIndex; i < startIndex + 9; i++) {
+                if (inventory[i] != null) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    tagCompound.setByte(IronBackpacksConstants.NBTKeys.SLOT, (byte) i);
+                    inventory[i].writeToNBT(tagCompound);
+                    tagList.appendTag(tagCompound);
+                }
+            } //no need to increment, as this is the last upgrade that appears.
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL, tagList);
+        }
+        if (UpgradeMethods.hasCondenserTinyUpgrade(this.upgrades)) {
+            NBTTagList tagList = new NBTTagList();
+            for (int i = startIndex; i < startIndex + 9; i++) {
+                if (inventory[i] != null) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    tagCompound.setByte(IronBackpacksConstants.NBTKeys.SLOT, (byte) i);
+                    inventory[i].writeToNBT(tagCompound);
+                    tagList.appendTag(tagCompound);
+                }
+            } //no need to increment, as this is the last upgrade that appears.
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CONDENSER_TINY, tagList);
+        }
     }
 
     /**
@@ -458,7 +486,32 @@ public class InventoryAlternateGui implements IInventory {
                         }
                     }
                 }
+                if (!UpgradeMethods.hasCondenserSmallUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL);
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL)) {
+                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL, Constants.NBT.TAG_COMPOUND);
 
+                    for (int i = 0; i < tagList.tagCount(); i++) {
+                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                        int j = (upgradeRemoved < 6) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
+                        if (upgradeAdded < 6) j+=9;
+                        if (i >= 0 && i <= 9) {
+                            this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                        }
+                    }
+                }
+                if (!UpgradeMethods.hasCondenserTinyUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.CONDENSER_TINY);
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER_TINY)) {
+                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER_TINY, Constants.NBT.TAG_COMPOUND);
+
+                    for (int i = 0; i < tagList.tagCount(); i++) {
+                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                        int j = (upgradeRemoved < 6) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
+                        if (upgradeAdded < 6) j+=9;
+                        if (i >= 0 && i <= 9) {
+                            this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                        }
+                    }
+                }
             }
         }
     }

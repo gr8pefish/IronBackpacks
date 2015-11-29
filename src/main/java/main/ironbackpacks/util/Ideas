@@ -28,10 +28,10 @@ To Do:
             Restocking not working with arrows?
                 of course, not picking anything up - something should change? design decisions...
                 Need to implement a custom tick handler and/or ask in IRC if the onBlockPlacedEvent exists
+
             config recipe for basic backpack
             make crafting upgrade work when manually putting items in
             Open right click direct from 'e' inventory?
-            Crafting upgrade in 2x2
             Have depth upgrade apply to quick deposit
             Add ender upgrade?
                 allows you to use the filter/restocking to go into an ender pouch in the inventory
@@ -79,14 +79,9 @@ To Do:
 
         Craft a diamond/barrel/ender (IDyeable) backpack with dyes to color it
 
-----------------------------------
-Changelog:
-CHANGED:
-
-----------------------------------
 
 MCF Posting:
-Update description of mining filter to show that it picks up gems and dusts as well.
+Crafting (Small and Tiny) upgrades
 
 More pictures
 Mod armors that have larger custom models might overlap with my backpack model, just visually annoying

@@ -161,6 +161,28 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
+    public static boolean hasCondenserSmallUpgrade(int[] upgrades) {
+        boolean hasUpgrade = false;
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID) {
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
+    public static boolean hasCondenserTinyUpgrade(int[] upgrades) {
+        boolean hasUpgrade = false;
+        for (int upgrade: upgrades) {
+            if (upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID) {
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
     public static boolean hasQuickDepositUpgrade(int[] upgrades) {
         boolean hasUpgrade = false;
         for (int upgrade: upgrades) {
@@ -234,7 +256,8 @@ public class UpgradeMethods {
                 if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID) {
+                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
             }
@@ -243,8 +266,9 @@ public class UpgradeMethods {
                 if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID) {
+                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID) {
                     numberOfUpgrades++;
                 }
             }
@@ -262,8 +286,9 @@ public class UpgradeMethods {
         for (int upgrade: upgrades) {
             if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
                     || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                    || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID
-                    || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID) {
+                    || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID
+                    || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID
+                    || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID) {
                 slots += 9; //hardcoded
             }else if (upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID){
                 slots += 9;
@@ -283,7 +308,8 @@ public class UpgradeMethods {
             for (int upgrade : upgrades) {
                 if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID) {
                     counter++;
                 }
@@ -293,8 +319,9 @@ public class UpgradeMethods {
                 if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID
                         || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID) {
+                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID
+                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID) {
                     counter++;
                 }
             }
@@ -529,6 +556,46 @@ public class UpgradeMethods {
         if (nbtTagCompound != null){
             if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER)) {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER, Constants.NBT.TAG_COMPOUND);
+                for (int i = 0; i < tagList.tagCount(); i++) {
+                    NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    /**
+     * Gets the items in the small crafting slots
+     * @param stack - the backpack to check
+     * @return - the items that fit this criteria
+     */
+    public static ArrayList<ItemStack> getCondenserSmallItems(ItemStack stack){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        if (nbtTagCompound != null){
+            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL)) {
+                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL, Constants.NBT.TAG_COMPOUND);
+                for (int i = 0; i < tagList.tagCount(); i++) {
+                    NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    /**
+     * Gets the items in the tiny crafting slots
+     * @param stack - the backpack to check
+     * @return - the items that fit this criteria
+     */
+    public static ArrayList<ItemStack> getCondenserTinyItems(ItemStack stack){
+        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        if (nbtTagCompound != null){
+            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER_TINY)) {
+                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER_TINY, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                     returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));

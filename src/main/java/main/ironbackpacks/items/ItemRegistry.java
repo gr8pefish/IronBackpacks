@@ -36,6 +36,8 @@ public class ItemRegistry {
     public static Item filterModSpecificUpgrade;
     public static Item hopperUpgrade;
     public static Item condenserUpgrade;
+    public static Item condenserSmallUpgrade;
+    public static Item condenserTinyUpgrade;
     public static Item keepOnDeathUpgrade;
     public static Item additionalUpgradesUpgrade;
     public static Item quickDepositUpgrade;
@@ -80,6 +82,8 @@ public class ItemRegistry {
         upgrades.add(filterModSpecificUpgrade);
         upgrades.add(hopperUpgrade);
         upgrades.add(condenserUpgrade);
+        upgrades.add(condenserSmallUpgrade);
+        upgrades.add(condenserTinyUpgrade);
         upgrades.add(keepOnDeathUpgrade);
         upgrades.add(additionalUpgradesUpgrade);
         upgrades.add(quickDepositUpgrade);
@@ -124,6 +128,10 @@ public class ItemRegistry {
         GameRegistry.registerItem(hopperUpgrade, "hopperUpgrade");
         condenserUpgrade = new ItemCondenserUpgrade();
         GameRegistry.registerItem(condenserUpgrade, "condenserUpgrade");
+        condenserSmallUpgrade = new ItemCondenserSmallUpgrade();
+        GameRegistry.registerItem(condenserSmallUpgrade, "condenserSmallUpgrade");
+        condenserTinyUpgrade = new ItemCondenserTinyUpgrade();
+        GameRegistry.registerItem(condenserTinyUpgrade, "condenserTinyUpgrade");
         keepOnDeathUpgrade = new ItemKeepOnDeathUpgrade();
         GameRegistry.registerItem(keepOnDeathUpgrade, "keepOnDeathUpgrade");
         filterModSpecificUpgrade = new ItemFilterModSpecificUpgrade();

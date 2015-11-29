@@ -43,11 +43,13 @@ public class ForgeEventHandler {
             return; //ends the event
         else{
             ArrayList<ArrayList<ItemStack>> backpacks = getFilterCondenserAndHopperBackpacks(event.entityPlayer);
-            boolean doFilter = checkHopperUpgradeItemPickup(event, backpacks.get(2)); //doFilter is false if the itemEntity is in the hopperUpgrade's slots and the itemEntity's stackSize < refillSize
+            boolean doFilter = checkHopperUpgradeItemPickup(event, backpacks.get(4)); //doFilter is false if the itemEntity is in the hopperUpgrade's slots and the itemEntity's stackSize < refillSize
             if (doFilter) {
                 checkFilterUpgrade(event, backpacks.get(0));
             }
-            checkCondenserUpgrade(event, backpacks.get(1));
+            checkCondenserUpgrade(event, backpacks.get(1), 1); //1x1 condenser
+            checkCondenserUpgrade(event, backpacks.get(2), 2); //2x2 condenser
+            checkCondenserUpgrade(event, backpacks.get(3), 3); //3x3 condenser
         }
     }
 
@@ -111,30 +113,34 @@ public class ForgeEventHandler {
      */
     private ArrayList<ArrayList<ItemStack>> getFilterCondenserAndHopperBackpacks(EntityPlayer player){
         ArrayList<ItemStack> filterBackpacks = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> condenserTinyBackpacks = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> condenserSmallBackpacks = new ArrayList<ItemStack>();
         ArrayList<ItemStack> condenserBackpacks = new ArrayList<ItemStack>();
         ArrayList<ItemStack> hopperBackpacks = new ArrayList<ItemStack>();
         ArrayList<ArrayList<ItemStack>> returnArray = new ArrayList<ArrayList<ItemStack>>();
 
         //get the equipped pack
-        getEventBackpacks(IronBackpacks.proxy.getEquippedBackpack(player), filterBackpacks, condenserBackpacks, hopperBackpacks, player);
+        getEventBackpacks(IronBackpacks.proxy.getEquippedBackpack(player), filterBackpacks, condenserTinyBackpacks, condenserSmallBackpacks, condenserBackpacks, hopperBackpacks, player);
 
         //get the packs in the inventory
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack stack = player.inventory.getStackInSlot(i);
-            getEventBackpacks(stack, filterBackpacks, condenserBackpacks, hopperBackpacks, player);
+            getEventBackpacks(stack, filterBackpacks, condenserTinyBackpacks, condenserSmallBackpacks, condenserBackpacks, hopperBackpacks, player);
         }
 
         returnArray.add(filterBackpacks);
+        returnArray.add(condenserTinyBackpacks);
+        returnArray.add(condenserSmallBackpacks);
         returnArray.add(condenserBackpacks);
         returnArray.add(hopperBackpacks);
         return returnArray;
     }
 
-    private void getEventBackpacks(ItemStack backpack, ArrayList<ItemStack> filterBackpacks, ArrayList<ItemStack> condenserBackpacks, ArrayList<ItemStack> hopperBackpacks, EntityPlayer player){
+    private void getEventBackpacks(ItemStack backpack, ArrayList<ItemStack> filterBackpacks, ArrayList<ItemStack> condenserTinyBackpacks, ArrayList<ItemStack> condenserSmallBackpacks, ArrayList<ItemStack> condenserBackpacks, ArrayList<ItemStack> hopperBackpacks, EntityPlayer player){
         if (backpack != null && backpack.getItem() != null && backpack.getItem() instanceof IBackpack) {
 
             int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
-            addToLists(backpack, filterBackpacks, condenserBackpacks, hopperBackpacks, upgrades);
+            addToLists(backpack, filterBackpacks, condenserTinyBackpacks, condenserSmallBackpacks, condenserBackpacks, hopperBackpacks, upgrades);
 
             if (UpgradeMethods.hasDepthUpgrade(upgrades)) {
                 ItemBackpack itemBackpack = (ItemBackpack)backpack.getItem();
@@ -142,18 +148,24 @@ public class ForgeEventHandler {
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
                     if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
-                        addToLists(nestedBackpack, filterBackpacks, condenserBackpacks, hopperBackpacks, IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack));
+                        addToLists(nestedBackpack, filterBackpacks, condenserTinyBackpacks, condenserSmallBackpacks, condenserBackpacks, hopperBackpacks, IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack));
                     }
                 }
             }
         }
     }
 
-    private void addToLists(ItemStack stack, ArrayList<ItemStack> filterBackpacks, ArrayList<ItemStack> condenserBackpacks, ArrayList<ItemStack> hopperBackpacks, int[] upgrades){
+    private void addToLists(ItemStack stack, ArrayList<ItemStack> filterBackpacks, ArrayList<ItemStack> condenserTinyBackpacks, ArrayList<ItemStack> condenserSmallBackpacks, ArrayList<ItemStack> condenserBackpacks, ArrayList<ItemStack> hopperBackpacks, int[] upgrades){
         if (UpgradeMethods.hasFilterBasicUpgrade(upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(upgrades) ||
                 UpgradeMethods.hasFilterFuzzyUpgrade(upgrades) || UpgradeMethods.hasFilterOreDictUpgrade(upgrades) ||
                 UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) || UpgradeMethods.hasFilterMiningUpgrade(upgrades)) {
             filterBackpacks.add(stack);
+        }
+        if (UpgradeMethods.hasCondenserTinyUpgrade(upgrades)) {
+            condenserTinyBackpacks.add(stack);
+        }
+        if (UpgradeMethods.hasCondenserSmallUpgrade(upgrades)) {
+            condenserSmallBackpacks.add(stack);
         }
         if (UpgradeMethods.hasCondenserUpgrade(upgrades)) {
             condenserBackpacks.add(stack);
@@ -338,8 +350,9 @@ public class ForgeEventHandler {
      * Checks the backpacks with the condenser/crafting upgrade to craft the specified items
      * @param event - EntityItemPickupEvent
      * @param backpackStacks - the backpacks with the condenser upgrade
+     * @param craftingGridDiameterToFill - The size of the crafting grid to try filling with (1x1 or 2x2 or 3x3)
      */
-    private void checkCondenserUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){
+    private void checkCondenserUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks, int craftingGridDiameterToFill){
         if (!backpackStacks.isEmpty()){
             CraftingManager craftingManager = CraftingManager.getInstance();
             for (ItemStack backpack : backpackStacks) {
@@ -360,15 +373,22 @@ public class ForgeEventHandler {
                                     ItemStack theStack = theSlot.getStack();
                                     if (theStack != null && theStack.stackSize >= 9 && IronBackpacksHelper.areItemsEqualForStacking(theStack, condenserItem)) {
                                         ItemStack myStack = new ItemStack(theStack.getItem(), 1, theStack.getItemDamage()); //stackSize of 1
-                                        for (int i = 0; i < 9; i++) {
-                                            inventoryCrafting.setInventorySlotContents(i, myStack); //3x3 crafting grid full of the item
+                                        if (craftingGridDiameterToFill == 2){//special handling needed to make it a square
+                                            inventoryCrafting.setInventorySlotContents(0, myStack);
+                                            inventoryCrafting.setInventorySlotContents(1, myStack);
+                                            inventoryCrafting.setInventorySlotContents(3, myStack);
+                                            inventoryCrafting.setInventorySlotContents(4, myStack);
+                                        }else {
+                                            for (int i = 0; i < craftingGridDiameterToFill; i++) {
+                                                inventoryCrafting.setInventorySlotContents(i, myStack); //crafting grid with a 1x1 (single item) or 3x3 square of the item
+                                            }
                                         }
                                         ItemStack recipeOutput = craftingManager.findMatchingRecipe(inventoryCrafting, event.item.worldObj);
-                                        if (recipeOutput != null) {
-                                            int numberOfIterations = (int) Math.floor(theStack.stackSize / 9);
-                                            ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), numberOfIterations, recipeOutput.getItemDamage());
+                                        if (recipeOutput != null) { //TODO: test math is correct here
+                                            int numberOfIterations = (int) Math.floor(theStack.stackSize / (craftingGridDiameterToFill*craftingGridDiameterToFill));
+                                            ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), (recipeOutput.stackSize * numberOfIterations), recipeOutput.getItemDamage());
                                             if (container.transferStackInSlot(myRecipeOutput) != null) {
-                                                theSlot.decrStackSize(theStack.stackSize - (theStack.stackSize % 9));
+                                                theSlot.decrStackSize(theStack.stackSize - (theStack.stackSize % (craftingGridDiameterToFill * craftingGridDiameterToFill)));
                                             }
                                             container.save(event.entityPlayer);
                                         }

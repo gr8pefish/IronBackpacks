@@ -2,7 +2,8 @@
 Version 1.7.10 - 26
 ------------------------------------------------------
 Additions
-- None
+- Small Crafting Upgrade: Crafts in a 2x2 grid (ex: sand -> sandstone)
+- Small Crafting Upgrade: Crafts in a 1x1 grid (so a single item, ex: wood -> planks)
 
 Changes
 - Description of of mining filter to show that it picks up gems and dusts as well.
