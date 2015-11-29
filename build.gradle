@@ -65,10 +65,6 @@ processResources {
 }
 
 jar {
-    dependsOn {
-        "incrementModVersionNumber"
-        "makeNewChangelog"
-    }
     classifier = ''
     manifest.mainAttributes(
             "Built-By": System.getProperty('user.name'),
@@ -142,32 +138,33 @@ curse {
     releaseType = release_as_beta ? "beta" : "release"
 }
 
-task incrementModVersionNumber {
+task incrementVersionNumber {
     ant.replace(file: "gradle.properties", token: mod_version, value: (mod_version.toString().toInteger()) + 1)
 }
 
+//Adds a new changelog segment for the next version. Nifty!
 task makeNewChangelog {
     def changelogFile = new File('changes.txt')
     String newText = '------------------------------------------------------\n' +
             'Version '+mc_version+' - '+mod_version+"\n" +
             '------------------------------------------------------\n' +
-            'New\n' +
+            'Additions\n' +
             '- None\n' +
             '\n' +
             'Changes\n' +
             '- None\n' +
             '\n' +
-            'Bugs\n' +
+            'Bug Fixes\n' +
             '- None\n'
     String oldText = changelogFile.getText()
     changelogFile.setText(newText + oldText);
 }
 
 //order correctly so the new changelog has the updated version number
-makeNewChangelog.mustRunAfter incrementModVersionNumber
+makeNewChangelog.mustRunAfter incrementVersionNumber
 
 //what is usually done now
-defaultTasks 'clean', 'build', 'curse'
+defaultTasks 'clean', 'incrementVersionNumber', 'build', 'curse', 'makeNewChangelog'
 
 //to make the resources work in idea
 idea { module { inheritOutputDirs = true } }

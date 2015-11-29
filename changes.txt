@@ -1,14 +1,14 @@
 ------------------------------------------------------
 Version 1.7.10 - 26
 ------------------------------------------------------
-New
+Additions
 - None
 
 Changes
 - Description of of mining filter to show that it picks up gems and dusts as well.
 - Changed versioning to r(MC_Version)-(Mod_Version) (ex: r1.7.10-26) because I am doing a lot of builds
-- gradle.build is fancier now (by default it will clean, build, update version number, make a new changelog, and upload to curse)
+- gradle.build is fancier now (by default it will clean, update version number, build, upload to curse, and make a new changelog segment for the next version)
 
-Bugs
-- None
+Bug Fixes
+- Precautionary fix for sided inventories and inserting items via the quick deposit upgrade (may fix the unduplicated StorageDrawers bug)
 ------------------------------------------------------

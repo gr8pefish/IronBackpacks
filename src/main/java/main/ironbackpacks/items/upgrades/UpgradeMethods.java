@@ -10,6 +10,7 @@ import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByteArray;
 import net.minecraft.nbt.NBTTagCompound;
@@ -614,17 +615,39 @@ public class UpgradeMethods {
             if (tempStack == null){
                 if (usePrecise){ //precise, have to check if the item is in the inventory already
                     if (isStackInInventoryAlready(transferTo, stackToTransfer)){
+                        if (transferTo instanceof ISidedInventory){
+                            ISidedInventory sidedInventory = (ISidedInventory)transferTo;
+                            for (int j = 0; j < 6; j++) { //try all sides
+                                if (sidedInventory.canInsertItem(i, stackToTransfer, j)) {
+                                    transferTo.setInventorySlotContents(i, stackToTransfer);
+                                    transferTo.markDirty();
+                                    return null;
+                                }
+                            }
+                        }else {
+                            if (transferTo.isItemValidForSlot(i, stackToTransfer)) {
+                                transferTo.setInventorySlotContents(i, stackToTransfer);
+                                transferTo.markDirty();
+                                return null;
+                            }
+                        }
+                    }
+                } else { //just check if the slot can accept the item
+                    if (transferTo instanceof ISidedInventory){
+                        ISidedInventory sidedInventory = (ISidedInventory)transferTo;
+                        for (int j = 0; j < 6; j++) { //try all sides
+                            if (sidedInventory.canInsertItem(i, stackToTransfer, j)) {
+                                transferTo.setInventorySlotContents(i, stackToTransfer);
+                                transferTo.markDirty();
+                                return null;
+                            }
+                        }
+                    }else {
                         if (transferTo.isItemValidForSlot(i, stackToTransfer)) {
                             transferTo.setInventorySlotContents(i, stackToTransfer);
                             transferTo.markDirty();
                             return null;
                         }
-                    }
-                } else { //just check if the slot can accept the item
-                    if (transferTo.isItemValidForSlot(i, stackToTransfer)) {
-                        transferTo.setInventorySlotContents(i, stackToTransfer);
-                        transferTo.markDirty();
-                        return null;
                     }
                 }
             }else if (tempStack.stackSize <= 0){//leave it alone
