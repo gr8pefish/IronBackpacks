@@ -135,7 +135,7 @@ curse {
     apiKey = priv.curse_key
     projectId = curse_id
     changelog = getChangelogText()
-    releaseType = release_as_beta ? "beta" : "release"
+    releaseType = release_as_beta.toBoolean() ? "beta" : "release"
 }
 
 task incrementVersionNumber {

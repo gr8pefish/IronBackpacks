@@ -317,7 +317,8 @@ public class InventoryAlternateGui implements IInventory {
                     inventory[i].writeToNBT(tagCompound);
                     tagList.appendTag(tagCompound);
                 }
-            } //no need to increment, as this is the last upgrade that appears.
+            }
+            startIndex += 9;
             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CONDENSER, tagList);
         }
         if (UpgradeMethods.hasCondenserSmallUpgrade(this.upgrades)) {
@@ -329,7 +330,8 @@ public class InventoryAlternateGui implements IInventory {
                     inventory[i].writeToNBT(tagCompound);
                     tagList.appendTag(tagCompound);
                 }
-            } //no need to increment, as this is the last upgrade that appears.
+            }
+            startIndex += 9;
             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL, tagList);
         }
         if (UpgradeMethods.hasCondenserTinyUpgrade(this.upgrades)) {
@@ -341,7 +343,7 @@ public class InventoryAlternateGui implements IInventory {
                     inventory[i].writeToNBT(tagCompound);
                     tagList.appendTag(tagCompound);
                 }
-            } //no need to increment, as this is the last upgrade that appears.
+            } //no need to increment, as this is the last upgrade that appears. CAREFUL with this if adding more upgrades.
             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CONDENSER_TINY, tagList);
         }
     }
@@ -430,8 +432,8 @@ public class InventoryAlternateGui implements IInventory {
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = (upgradeRemoved < 3) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
-                        if (upgradeAdded < 3) j+=9;
+                        int j = (upgradeRemoved < 4) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
+                        if (upgradeAdded < 4) j+=9;
                         if (i >= 0 && i <= 9) {
                             this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
@@ -466,8 +468,8 @@ public class InventoryAlternateGui implements IInventory {
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = (upgradeRemoved < 5) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
-                        if (upgradeAdded < 5) j+=9;
+                        int j = (upgradeRemoved < 6) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
+                        if (upgradeAdded < 6) j+=9;
                         if (i >= 0 && i <= 9) {
                             this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
@@ -479,8 +481,8 @@ public class InventoryAlternateGui implements IInventory {
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = (upgradeRemoved < 6) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
-                        if (upgradeAdded < 6) j+=9;
+                        int j = (upgradeRemoved < 7) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
+                        if (upgradeAdded < 7) j+=9;
                         if (i >= 0 && i <= 9) {
                             this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
@@ -492,8 +494,8 @@ public class InventoryAlternateGui implements IInventory {
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = (upgradeRemoved < 6) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
-                        if (upgradeAdded < 6) j+=9;
+                        int j = (upgradeRemoved < 8) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
+                        if (upgradeAdded < 8) j+=9;
                         if (i >= 0 && i <= 9) {
                             this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
@@ -505,8 +507,8 @@ public class InventoryAlternateGui implements IInventory {
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int j = (upgradeRemoved < 6) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
-                        if (upgradeAdded < 6) j+=9;
+                        int j = (upgradeRemoved < 9) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
+                        if (upgradeAdded < 9) j+=9;
                         if (i >= 0 && i <= 9) {
                             this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                         }

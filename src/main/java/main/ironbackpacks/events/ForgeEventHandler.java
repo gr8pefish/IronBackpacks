@@ -364,14 +364,29 @@ public class ForgeEventHandler {
                     ContainerWorkbench containerWorkbench = new ContainerWorkbench(event.entityPlayer.inventory, event.item.worldObj, 0, 0, 0);
                     InventoryCrafting inventoryCrafting = new InventoryCrafting(containerWorkbench, 3, 3); //fake workbench/inventory for checking matching recipe
 
-                    ArrayList<ItemStack> condenserItems = UpgradeMethods.getCondenserItems(backpack);
+                    ArrayList<ItemStack> condenserItems;
+                    switch (craftingGridDiameterToFill){
+                        case 1:
+                            condenserItems = UpgradeMethods.getCondenserTinyItems(backpack);
+                            break;
+                        case 2:
+                            condenserItems = UpgradeMethods.getCondenserSmallItems(backpack);
+                            break;
+                        case 3:
+                            condenserItems = UpgradeMethods.getCondenserItems(backpack);
+                            break;
+                        default:
+                            condenserItems = UpgradeMethods.getCondenserItems(backpack);
+                            Logger.error("IronBackpacks CraftingUpgrade Error, will probably give the wrong output");
+                    }
+
                     for (ItemStack condenserItem : condenserItems) {
                         if (condenserItem != null) {
                             for (int index = 0; index < type.getSize(); index++) {
                                 Slot theSlot = (Slot) container.getSlot(index);
                                 if (theSlot!=null && theSlot.getHasStack()) {
                                     ItemStack theStack = theSlot.getStack();
-                                    if (theStack != null && theStack.stackSize >= 9 && IronBackpacksHelper.areItemsEqualForStacking(theStack, condenserItem)) {
+                                    if (theStack != null && theStack.stackSize >= (craftingGridDiameterToFill*craftingGridDiameterToFill) && IronBackpacksHelper.areItemsEqualForStacking(theStack, condenserItem)) {
                                         ItemStack myStack = new ItemStack(theStack.getItem(), 1, theStack.getItemDamage()); //stackSize of 1
                                         if (craftingGridDiameterToFill == 2){//special handling needed to make it a square
                                             inventoryCrafting.setInventorySlotContents(0, myStack);
@@ -385,12 +400,48 @@ public class ForgeEventHandler {
                                         }
                                         ItemStack recipeOutput = craftingManager.findMatchingRecipe(inventoryCrafting, event.item.worldObj);
                                         if (recipeOutput != null) { //TODO: test math is correct here
-                                            int numberOfIterations = (int) Math.floor(theStack.stackSize / (craftingGridDiameterToFill*craftingGridDiameterToFill));
-                                            ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), (recipeOutput.stackSize * numberOfIterations), recipeOutput.getItemDamage());
-                                            if (container.transferStackInSlot(myRecipeOutput) != null) {
-                                                theSlot.decrStackSize(theStack.stackSize - (theStack.stackSize % (craftingGridDiameterToFill * craftingGridDiameterToFill)));
+
+                                            int numberOfIterations = (int) Math.floor(theStack.stackSize / (craftingGridDiameterToFill * craftingGridDiameterToFill));
+                                            int numberOfItems = recipeOutput.stackSize * numberOfIterations;
+
+                                            if (numberOfItems > 64){ //multiple stacks, need to make sure there is room
+
+                                                //More efficient code [that doesn't work]
+//                                                int tempNumberOfItems = numberOfItems;
+//                                                int totalStacks = ((int)Math.ceil(numberOfItems / 64d));
+//                                                for (int numOfStacks = 0; numOfStacks < totalStacks; numOfStacks++) {
+//                                                    Logger.info("temp number of items: "+tempNumberOfItems);
+//                                                    ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), tempNumberOfItems, recipeOutput.getItemDamage());
+//                                                    if (container.transferStackInSlot(myRecipeOutput) != null) { //check if there is room to put them
+//                                                        int decrementAmount = tempNumberOfItems >= 64 ? 64 : tempNumberOfItems;
+//                                                        theSlot.decrStackSize(theStack.stackSize - ((int) Math.ceil(decrementAmount / recipeOutput.stackSize)));
+//                                                    }
+//                                                    tempNumberOfItems -= 64;
+//                                                }
+
+                                                //TODO: iterates an excessive amount, make it more efficient by using the basis of the code above
+                                                for (int i = 0; i < numberOfIterations; i++){ //for every possible crafting operation
+                                                    ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), recipeOutput.stackSize, recipeOutput.getItemDamage()); //get the output
+                                                    ItemStack stack = container.transferStackInSlot(myRecipeOutput); //try to put that output into the backpack
+                                                    if (stack == null){ //can't put it anywhere
+                                                        break;
+                                                    }else if (stack.stackSize != 0){ //remainder present, stack couldn't be fully transferred, undo the last operation
+                                                        Slot slot = container.getSlot(container.getType().getSize()-1); //last slot in pack
+                                                        slot.putStack(new ItemStack(recipeOutput.getItem(), recipeOutput.getMaxStackSize()-(recipeOutput.stackSize - stack.stackSize), recipeOutput.getItemDamage()));
+                                                        break;
+                                                    } else { //normal condition, stack was fully transferred
+                                                        theSlot.decrStackSize(1);
+                                                    }
+                                                }
+                                                container.save(event.entityPlayer);
+                                            }else {
+                                                ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), numberOfItems, recipeOutput.getItemDamage());
+                                                if (container.transferStackInSlot(myRecipeOutput) != null) {
+                                                    theSlot.decrStackSize(theStack.stackSize - (theStack.stackSize % (craftingGridDiameterToFill * craftingGridDiameterToFill)));
+                                                }
+                                                container.save(event.entityPlayer);
                                             }
-                                            container.save(event.entityPlayer);
+
                                         }
                                     }
                                 }

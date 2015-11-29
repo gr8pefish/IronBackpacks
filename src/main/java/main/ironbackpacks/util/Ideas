@@ -5,7 +5,6 @@ To Do:
 
     SOON:
 
-        TODO: cleanCache for new forge to actually update
         gui/container/inv deep refactor via 1.8
 
         GIT STUFF:
@@ -44,6 +43,7 @@ To Do:
 
         EXTRA:
 
+            fancy crafting upgrade - choose 1 or 2 or 3 diameter w/ button underneath (like adv. filter)
             mining filter - change so it picks up cobble and smooth stone too and remove from alt gui?
             change it so an entityItem looks to fill a stack in the player's inv before going in filter?
             keybinding to make quickdeposit work with equipped pack
@@ -81,7 +81,7 @@ To Do:
 
 
 MCF Posting:
-Crafting (Small and Tiny) upgrades
+Write that crafting upgrades need a filter upgrade to work (but may change in the future)
 
 More pictures
 Mod armors that have larger custom models might overlap with my backpack model, just visually annoying

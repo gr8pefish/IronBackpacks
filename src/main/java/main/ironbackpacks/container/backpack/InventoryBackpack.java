@@ -113,9 +113,10 @@ public class InventoryBackpack implements IInventory {
         //unused
     }
 
+
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
-        return true; //handled by BackpackSlot
+        return true; //handled by BackpackSlot //TODO: fix this
     }
 
 
@@ -242,6 +243,5 @@ public class InventoryBackpack implements IInventory {
         }
         return null;
     }
-
 
 }

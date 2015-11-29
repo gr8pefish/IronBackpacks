@@ -378,9 +378,11 @@ public class GUIBackpackAlternate extends GuiContainer {
         }
         if (hasCondenserUpgrade) {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),20, yStart, 4210752);
+            yStart += 36;
         }
         if (hasCondenserSmallUpgrade) {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserSmallUpgrade.name"),20, yStart, 4210752);
+            yStart += 36;
         }
         if (hasCondenserTinyUpgrade) {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserTinyUpgrade.name"),20, yStart, 4210752);
