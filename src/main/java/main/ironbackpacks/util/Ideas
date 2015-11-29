@@ -13,13 +13,12 @@ To Do:
 
         REFACTOR:
             Data storage in player pack?
+            Full localization (tooltips + buttons + other)
 
         TESTING:
 
-            check if it works in a modpack with open blocks (and try the render specifically)
 
         BUGS:
-
 
 
         ADDITIONS/TWEAKS:
@@ -37,9 +36,19 @@ To Do:
             Allow shift right click equipped?
             Add in more inter-mod compatibility
                 right click in my backpack to open TE satchels, golden bag of holding, etc.
+                    look into if this is possible
                 add IBlockProvider for use with botania's rods
             Make textures of upgrades more 3D looking
             Make it so you can't move the opened backpack with number key presses, as there might be some dupe bug using that that I missed
+
+            New removal system of upgrades?
+                Craft backpack with nothing else, slot if crafting grid determines which upgrade to remove
+                    i.e. 1st slot means 1st upgrade removed, 2nd slot -> 2nd upgrade removed,..., 9th slot -> 9th upgrade removed
+                        if more than 9 upgrades you have to keep on doing it, but that is an acceptable cost
+                if can't do this, do eraser item
+
+            Add documentation book - see TiCon books source
+                * or add ExtraUtils style docs with "u" in NEI * <-- This one, check power converters Github for implementation
 
         EXTRA:
 
@@ -52,20 +61,15 @@ To Do:
             Change sorting to a configurable style (i.e. id, name, etc.) w/ right click sort button to change style in game
             add in config option (and subsequent functionality) where the itemBackpack can't be opened directly, it has to be equipped to be open (i.e. only one open at a time)
                 hard mode: weight is a factor? Harder nesting recipe for limited space? Some other way to increase space/nesting via gameplay/in-game research/other?
-            New removal system of upgrades?
-                Craft backpack with nothing else, slot if crafting grid determines which upgrade to remove
-                    i.e. 1st slot means 1st upgrade removed, 2nd slot -> 2nd upgrade removed,..., 9th slot -> 9th upgrade removed
-                        if more than 9 upgrades you have to keep on doing it, but that is an acceptable cost
-                if can't do this, do eraser item
-            Add documentation book - see TiCon books source
-                * or add ExtraUtils style docs with "u" in NEI * <-- This one, check power converters Github for implementation
             Add achievements
+            Recipes via config - support meta/damage values
 
 
     LATER:
 
         //Craft any backpack surrounded by planks to turn it into a placeable custom chest/tileEntity and then shapeless craft the chest to get the backpack back (IChestable)
         Place down TileEntityBackpack directly - if the controls can work that way, if not do the chest method
+            (IChestable)
 
         Power/Fluid/Gas Upgrades (dynamic sizing on left side)
 
@@ -76,63 +80,19 @@ To Do:
         custom handling with other mods armors special rendering to render my pack in special spots?
 
         Barrel Backpacks (implement IChestable)
+            4 tiers (or upgrade and drops excess items onto ground), or adds barrel slot like a DSU?
 
         Craft a diamond/barrel/ender (IDyeable) backpack with dyes to color it
 
 
 MCF Posting:
-Write that crafting upgrades need a filter upgrade to work (but may change in the future)
 
-More pictures
-Mod armors that have larger custom models might overlap with my backpack model, just visually annoying
+    More pictures
 
 
-Balance/Play With:
-
-
-Bugs:
+Know Bugs:
     IMPORTANT:
-
 
     Less important:
         Scrolling too fast in the advanced filter dupes items (but they are ghost items so no big deal)
-        Fix direct deposit into AE terminals
-
-Figure out:
-
-
-Tiers:
-    Leather[DONE]
-    Iron[DONE]
-    Gold[DONE]
-    Diamond[DONE]
-
-    Barrel - 4 tiers (or upgrade and drops excess items onto ground), or adds barrel slot like a DSU?
-    Ender
-
-Upgrades:
-
-
-Textures:
-
-    Redo:
-
-
-    Do:
-
-
-Misc features:
-    Recipes via config - support meta/damage values
-
-Mod Support:
-    NEI with recipes[DONE]
-    Inventory Tweaks[DONE]
-    Version Checker[Check if working okay once update]
-
-Future Refactoring:
-
-    Full localization
-        Includes tooltips
-        Buttons (if applicable)
-
-
+        Mod armors that have larger custom models might overlap with my backpack model, just visually annoying
