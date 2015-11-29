@@ -6,15 +6,14 @@ import main.ironbackpacks.items.ItemBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
-import main.ironbackpacks.items.upgrades.IPackUpgrade;
-import scala.actors.threadpool.Arrays;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * Abstract base class for all my upgrades
+ * Abstract base class for all upgrades
  */
-public abstract class ItemUpgradeBase extends ItemBase implements IPackUpgrade{
+public abstract class ItemUpgradeBase extends ItemBase implements IPackUpgrade {
 
     private int typeID;
     private String[] tooltip;
@@ -32,7 +31,8 @@ public abstract class ItemUpgradeBase extends ItemBase implements IPackUpgrade{
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) {
+    @SuppressWarnings("unchecked")
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean advanced) {
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
             list.add("Costs " + getUpgradeCost() + " upgrade point" + (getUpgradeCost() == 1 ? "" : "s"));
             list.addAll(getTooltip());
