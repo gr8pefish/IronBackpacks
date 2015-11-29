@@ -5,8 +5,9 @@ New
 - None
 
 Changes
+- Description of of mining filter to show that it picks up gems and dusts as well.
 - Changed versioning to r(MC_Version)-(Mod_Version) (ex: r1.7.10-26) because I am doing a lot of builds
-- gradle.build is fancier now (will clean, build, update version number, make a new changelog, and upload to curse)
+- gradle.build is fancier now (by default it will clean, build, update version number, make a new changelog, and upload to curse)
 
 Bugs
 - None

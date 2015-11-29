@@ -15,6 +15,7 @@ plugins {
 }
 
 apply plugin: 'forge'
+apply plugin: 'curseforge'
 
 group = package_group
 archivesBaseName = mod_name
@@ -29,7 +30,7 @@ def gitHash = 'unknown'
 if (new File(projectDir, '.git').exists())
     gitHash = repo.log().find().abbreviatedId
 
-ext.priv = parseConfig(file('private.properties'))
+ext.priv = parseConfig(file('private'))
 
 repositories {}
 
@@ -126,11 +127,19 @@ String getChangelogText() {
     return str
 }
 
+def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
+    }
+}
+
 curse {
     apiKey = priv.curse_key
     projectId = curse_id
     changelog = getChangelogText()
-    releaseType = release_as_beta ? 'beta' : "release"
+    releaseType = release_as_beta ? "beta" : "release"
 }
 
 task incrementModVersionNumber {
@@ -153,6 +162,9 @@ task makeNewChangelog {
     String oldText = changelogFile.getText()
     changelogFile.setText(newText + oldText);
 }
+
+//order correctly so the new changelog has the updated version number
+makeNewChangelog.mustRunAfter incrementModVersionNumber
 
 //what is usually done now
 defaultTasks 'clean', 'build', 'curse'
