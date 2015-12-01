@@ -3,14 +3,7 @@ To Do:
     NOW:
 
         Gradle:
-            Curse uploading doesn't work
-                said I didn't have permission
-                    chose the right file
-                    tried to upload to https://minecraft.curseforge.com/api/projects/231049/upload-file
-                        which looks right
-                        test that it got the api key alright
-            Skipped :incrementVersionNumber UP-TO-DATE
-                so new changelog was 1 version behind (not that big of a deal)
+            changelog number was 1 behind? Check that it wasn't a fluke next time
 
     SOON:
 
@@ -22,7 +15,6 @@ To Do:
 
         REFACTOR:
             Data storage in player pack?
-            Full localization (tooltips + buttons + other)
 
         TESTING:
 

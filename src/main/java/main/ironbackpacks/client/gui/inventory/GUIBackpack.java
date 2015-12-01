@@ -182,9 +182,9 @@ public class GUIBackpack extends GuiContainer {
         if (itemStack != null)
             this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
         else
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("equipped.backpack.default.name"), 20, 6, 4210752); //default name, should ideally never be used
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("misc.ironbackpacks.default.equpped.backpack.name"), 20, 6, 4210752); //default name, should ideally never be used
 
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("player.inventory"), 20, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
         int k = (this.width - this.xSize) / 2; //X axis on GUI
         int l = (this.height - this.ySize) / 2; //Y axis on GUI

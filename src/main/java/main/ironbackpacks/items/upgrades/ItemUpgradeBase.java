@@ -3,6 +3,7 @@ package main.ironbackpacks.items.upgrades;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.items.ItemBase;
+import main.ironbackpacks.util.TextUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
@@ -34,10 +35,10 @@ public abstract class ItemUpgradeBase extends ItemBase implements IPackUpgrade {
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean advanced) {
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-            list.add("Costs " + getUpgradeCost() + " upgrade point" + (getUpgradeCost() == 1 ? "" : "s"));
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.cost", getUpgradeCost(), getUpgradeCost() == 1 ? "" : "s"));
             list.addAll(getTooltip());
         } else {
-            list.add("Hold shift for more info.");
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
         }
     }
 
