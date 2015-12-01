@@ -6,7 +6,7 @@ To Do:
             Curse uploading doesn't work
                 said I didn't have permission
                     chose the right file
-                    tried to upload to hhtps://minecraft.curseforge.com/api/projects/231049/upload-file
+                    tried to upload to https://minecraft.curseforge.com/api/projects/231049/upload-file
                         which looks right
                         test that it got the api key alright
             Skipped :incrementVersionNumber UP-TO-DATE

@@ -394,7 +394,7 @@ public class ForgeEventHandler {
                                             inventoryCrafting.setInventorySlotContents(3, myStack);
                                             inventoryCrafting.setInventorySlotContents(4, myStack);
                                         }else {
-                                            for (int i = 0; i < craftingGridDiameterToFill; i++) {
+                                            for (int i = 0; i < (craftingGridDiameterToFill*craftingGridDiameterToFill); i++) {
                                                 inventoryCrafting.setInventorySlotContents(i, myStack); //crafting grid with a 1x1 (single item) or 3x3 square of the item
                                             }
                                         }

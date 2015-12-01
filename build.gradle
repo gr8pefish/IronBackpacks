@@ -131,11 +131,13 @@ def parseConfig(File config) {
     }
 }
 
-curse {
+curseforge {
     apiKey = priv.curse_key
-    projectId = curse_id
-    changelog = getChangelogText()
-    releaseType = release_as_beta.toBoolean() ? "beta" : "release"
+    project {
+        id = "${curse_id}"
+        changelog = getChangelogText()
+        releaseType = release_as_beta.toBoolean() ? "beta" : "release"
+    }
 }
 
 task incrementVersionNumber {
@@ -160,11 +162,14 @@ task makeNewChangelog {
     changelogFile.setText(newText + oldText);
 }
 
-//order correctly so the new changelog has the updated version number
-makeNewChangelog.mustRunAfter incrementVersionNumber
+//enforce correct order
+tasks.build.mustRunAfter clean
+tasks.incrementVersionNumber.mustRunAfter build
+tasks.makeNewChangelog.mustRunAfter incrementVersionNumber
 
-//what is usually done now
-defaultTasks 'clean', 'incrementVersionNumber', 'build', 'curse', 'makeNewChangelog'
+//curseforge uses these tasks
+tasks.curseforge.dependsOn clean, build, incrementVersionNumber, makeNewChangelog
+//TODO: changelog had old (cached) version number? Was 1 behind.
 
 //to make the resources work in idea
 idea { module { inheritOutputDirs = true } }
