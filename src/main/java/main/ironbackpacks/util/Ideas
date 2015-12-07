@@ -54,6 +54,7 @@ To Do:
 
             Open right click direct from 'e' inventory?
             Have depth upgrade apply to quick deposit
+                and to the IBlockProvider
             Add ender upgrade?
                 allows you to use the filter/restocking to go into an ender pouch in the inventory
             Allow shift right click equipped?

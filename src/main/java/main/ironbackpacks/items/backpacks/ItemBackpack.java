@@ -1,11 +1,9 @@
 package main.ironbackpacks.items.backpacks;
 
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.*;
@@ -149,7 +147,7 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
             list.add(TextUtils.localize("tooltip.ironbackpacks.uuid", NBTHelper.getUUID(stack)));
     }
 
-    // IBackpack
+    //=======================================================IBackpack====================================================
 
     public double getFullness(ItemStack stack) {
         ItemStack[] inventory;
@@ -213,10 +211,8 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
         return getId() - 1;
     }
 
-    private InventoryBackpack makeInv(ItemStack stack, EntityPlayer player){
-        BackpackTypes type = BackpackTypes.values()[this.getGuiId()]; //TODO: test that getGuiId is the correct one
-        return new InventoryBackpack(player, stack, type);
-    }
+
+    //==============================================IBlockProvider from Botania's API============================================
 
     /**
      * Uses Botania's API to make the backpack able to provide blocks to items that need it.
@@ -225,36 +221,51 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
      * @param stack - the stack to request items from (i.e. my backpack)
      * @param block - the block requested
      * @param meta - metadata of the block
-     * @param doIt - if a test or real thing
+     * @param doIt - if a test or real thing (currently opposite of what it should be...)
      * @return - true if successful, false otherwise
      */
 //    @Optional.Method(modid="botania")
     @Override
     public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doIt) {
-//        Logger.info("doit "+doIt);
+
         //simulate inventory to see if it has items
         InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
         int amount = invBackpack.hasStackInInv(block, meta);
-//        Logger.info("calling provideBlock, amount: "+amount);
+
         if (amount > 0){
-//            Logger.info("greater than 0");
-            if (!doIt){ //TODO: VAZKIIIIIIIIII
-//                Logger.info("doIt, calling remove 1");
-                boolean returnVal = invBackpack.removeOneItem(block, meta); //returns true if it was removed
-//                Logger.info("returnval: "+returnVal);
-                return returnVal;
+            if (!doIt){ //TODO: VAZKIIIIIIIIII why is it opposite :(
+                return invBackpack.removeOneItem(block, meta); //returns true if it was removed
             }
         }
-//        Logger.info("returning false");
+
         return false;
     }
 
+    /**
+     * Uses Botania's API to get the available items
+     * @param player - the player using the item
+     * @param requestor - the item requestign the IBlockProvider
+     * @param stack - the stack to request items from (my backpack)
+     * @param block - the block to compare against
+     * @param meta - the metadata of the block
+     * @return integer of the amount of items the backpack has
+     */
 //    @Optional.Method(modid="botania")
     @Override
     public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
         InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
         int amount = invBackpack.hasStackInInv(block, meta);
-//        Logger.info("calling getBlockCount, amount: "+amount);
         return amount;
+    }
+
+    /**
+     * Simulates a backpack inventory
+     * @param stack - the backpack itemstack
+     * @param player - the player to simulate opening it
+     * @return - the InventoryBackpack
+     */
+    private InventoryBackpack makeInv(ItemStack stack, EntityPlayer player){
+        BackpackTypes type = BackpackTypes.values()[this.getGuiId()]; //TODO: test that getGuiId is the correct one
+        return new InventoryBackpack(player, stack, type);
     }
 }
