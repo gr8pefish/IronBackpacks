@@ -231,17 +231,21 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
 //    @Optional.Method(modid="botania")
     @Override
     public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doIt) {
-        Logger.info("doit "+doIt);
+//        Logger.info("doit "+doIt);
+        //simulate inventory to see if it has items
         InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
         int amount = invBackpack.hasStackInInv(block, meta);
-        Logger.info("calling provideBlock, amount: "+amount);
+//        Logger.info("calling provideBlock, amount: "+amount);
         if (amount > 0){
-            Logger.info("greater than 0");
-            if (doIt){
-                Logger.info("doIt, calling remove 1"); //TODO: not calling b/c itemstack is 0 on client side? no...
-                return invBackpack.removeOneItem(block, meta);
+//            Logger.info("greater than 0");
+            if (!doIt){ //TODO: VAZKIIIIIIIIII
+//                Logger.info("doIt, calling remove 1");
+                boolean returnVal = invBackpack.removeOneItem(block, meta); //returns true if it was removed
+//                Logger.info("returnval: "+returnVal);
+                return returnVal;
             }
         }
+//        Logger.info("returning false");
         return false;
     }
 
@@ -250,7 +254,7 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
     public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
         InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
         int amount = invBackpack.hasStackInInv(block, meta);
-        Logger.info("calling getBlockCount, amount: "+amount);
+//        Logger.info("calling getBlockCount, amount: "+amount);
         return amount;
     }
 }

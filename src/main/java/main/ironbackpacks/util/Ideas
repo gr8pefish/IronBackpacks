@@ -11,8 +11,11 @@ To Do:
 
         GIT STUFF:
             master -> delete
-                rename devSweden to master
+                rename local devSweden to master
+                    push local branch so master == head on origin
                 make a new dev branch
+                    delete old one
+                        push to github
 
         REFACTOR:
             Data storage in player pack?
@@ -72,6 +75,9 @@ To Do:
 
             Config updating/replacing values
                 See botania, vazkii is going to implement something similar
+
+            Add Baubles integration as belt slot to equip
+                config option to toggle between?
 
         EXTRA:
 
