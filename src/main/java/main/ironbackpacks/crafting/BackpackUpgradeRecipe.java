@@ -66,7 +66,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
 
         if (totalUpgradePoints != 0 && upgradeToApplyBase != null) { //if have more than zero upgrade slots
             if (upgrades.length == 0){ //if no upgrades applied, apply upgrade
-                if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID){
+                if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_POINTS_UPGRADE_ID){
                     upgradeFound = applyAdditional(nbtTagCompound, result);
                 }else {
                     if (IronBackpacksHelper.getUpgradePointsUsed(upgrades) + upgradeToApplyBase.getUpgradeCost() <= totalUpgradePoints) {
@@ -79,7 +79,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
                     }
                 }
             }else { //upgrades have been applied
-                if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID) {
+                if (upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_POINTS_UPGRADE_ID) {
                     upgradeFound = applyAdditional(nbtTagCompound, result);
                 }
                 for (int upgrade : upgrades) { //for each slot in possible upgrades
@@ -94,7 +94,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
                         tagList.appendTag(tagCompound);
                     }
                 }
-                if (!upgradeFound && !(upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID)){ //if not already applied
+                if (!upgradeFound && !(upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_POINTS_UPGRADE_ID)){ //if not already applied
                     if (canApplyUpgrade(upgradeToApplyBase, upgrades, totalUpgradePoints)){
                         if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeToApplyBase.getId()))
                             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeToApplyBase.getId()))); //int value of upgrade added
@@ -105,7 +105,7 @@ public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
                     }
                 }
             }
-        }else if (upgradeToApplyBase != null && upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_SLOTS_UPGRADE_ID){
+        }else if (upgradeToApplyBase != null && upgradeToApplyBase.getId() == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_POINTS_UPGRADE_ID){
             upgradeFound = applyAdditional(nbtTagCompound, result);
         }
 

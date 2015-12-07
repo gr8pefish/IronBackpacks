@@ -1,11 +1,15 @@
 package main.ironbackpacks.items.backpacks;
 
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.container.backpack.ContainerBackpack;
+import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.*;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,13 +18,15 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import org.lwjgl.input.Keyboard;
+import vazkii.botania.api.item.IBlockProvider;
 
 import java.util.List;
 
 /**
  * Base class for all the backpack items to extend
  */
-public class ItemBackpack extends Item implements IBackpack {
+//@Optional.Interface(iface="vazkii.botania.api.item.IBlockProvider", modid="botania")
+public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
 
     private boolean openAltGui = true; //to track which gui to open
 
@@ -207,4 +213,44 @@ public class ItemBackpack extends Item implements IBackpack {
         return getId() - 1;
     }
 
+    private InventoryBackpack makeInv(ItemStack stack, EntityPlayer player){
+        BackpackTypes type = BackpackTypes.values()[this.getGuiId()]; //TODO: test that getGuiId is the correct one
+        return new InventoryBackpack(player, stack, type);
+    }
+
+    /**
+     * Uses Botania's API to make the backpack able to provide blocks to items that need it.
+     * @param player - the player
+     * @param requestor - itemStack requesting items
+     * @param stack - the stack to request items from (i.e. my backpack)
+     * @param block - the block requested
+     * @param meta - metadata of the block
+     * @param doIt - if a test or real thing
+     * @return - true if successful, false otherwise
+     */
+//    @Optional.Method(modid="botania")
+    @Override
+    public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doIt) {
+        Logger.info("doit "+doIt);
+        InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
+        int amount = invBackpack.hasStackInInv(block, meta);
+        Logger.info("calling provideBlock, amount: "+amount);
+        if (amount > 0){
+            Logger.info("greater than 0");
+            if (doIt){
+                Logger.info("doIt, calling remove 1"); //TODO: not calling b/c itemstack is 0 on client side? no...
+                return invBackpack.removeOneItem(block, meta);
+            }
+        }
+        return false;
+    }
+
+//    @Optional.Method(modid="botania")
+    @Override
+    public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
+        InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
+        int amount = invBackpack.hasStackInInv(block, meta);
+        Logger.info("calling getBlockCount, amount: "+amount);
+        return amount;
+    }
 }

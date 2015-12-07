@@ -10,8 +10,9 @@ To Do:
         gui/container/inv deep refactor via 1.8
 
         GIT STUFF:
-            merge devSweden 1.2.0 to master
-            delete devSweden and update dev when I go back home
+            master -> delete
+                rename devSweden to master
+                make a new dev branch
 
         REFACTOR:
             Data storage in player pack?
@@ -24,12 +25,17 @@ To Do:
 
         ADDITIONS/TWEAKS:
 
-            Restocking not working with arrows?
-                of course, not picking anything up - something should change? design decisions...
-                Need to implement a custom tick handler and/or ask in IRC if the onBlockPlacedEvent exists
+            work with onItemPickup only calling save() when it needs to
 
-            config recipe for basic backpack
-            make crafting upgrade work when manually putting items in
+            add IBlockProvider for use with botania's rods
+                implement API correctly
+                    annotations not working at all, it ignores the call
+                doesn't call it b/c doIt is false for some reason even when it should be true
+
+            Tick Handler
+                Restocking upgrade onItemPlaced - ask in IRC if the onBlockPlacedEvent exists
+                Crafting upgrade onItemPutInBackpack (so for manually putting items in)
+
             Open right click direct from 'e' inventory?
             Have depth upgrade apply to quick deposit
             Add ender upgrade?
@@ -38,7 +44,7 @@ To Do:
             Add in more inter-mod compatibility
                 right click in my backpack to open TE satchels, golden bag of holding, etc.
                     look into if this is possible
-                add IBlockProvider for use with botania's rods
+
             Make textures of upgrades more 3D looking
             Make it so you can't move the opened backpack with number key presses, as there might be some dupe bug using that that I missed
 
@@ -50,6 +56,9 @@ To Do:
 
             Add documentation book - see TiCon books source
                 * or add ExtraUtils style docs with "u" in NEI * <-- This one, check power converters Github for implementation
+
+            Config updating/replacing values
+                See botania, vazkii is going to implement something similar
 
         EXTRA:
 

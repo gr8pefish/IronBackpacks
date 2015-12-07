@@ -98,6 +98,8 @@ public class ConfigHandler {
 
         //======================================================Recipe defaults================================
 
+        //TODO: config code which updates basics if none are changed -see botania
+
         String[] basicRecipe = {"items.leather", "items.leather", "items.leather", "items.leather", "blocks.chest", "items.leather", "items.leather", "items.leather", "items.leather"};//Items.
         String[] ironRecipe = {"ingotIron", "blockIron", "ingotIron", "ingotIron", "items.ironbackpacks:basicBackpack", "ingotIron", "ingotIron", "ingotIron", "ingotIron"};
         String[] goldRecipe = {"ingotGold", "blockGold", "ingotGold", "ingotGold", "items.ironbackpacks:ironBackpack", "ingotGold", "ingotGold", "ingotGold", "ingotGold"};

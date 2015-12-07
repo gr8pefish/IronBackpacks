@@ -47,9 +47,9 @@ public class ForgeEventHandler {
             if (doFilter) {
                 checkFilterUpgrade(event, backpacks.get(0));
             }
-            checkCondenserUpgrade(event, backpacks.get(1), 1); //1x1 condenser
-            checkCondenserUpgrade(event, backpacks.get(2), 2); //2x2 condenser
-            checkCondenserUpgrade(event, backpacks.get(3), 3); //3x3 condenser
+            for (int i = 1; i < 4; i++) {
+                checkCondenserUpgrade(event, backpacks.get(i), i);//1x1, 2x2, and 3x3 condensers/crafters
+            }
         }
     }
 
@@ -186,6 +186,7 @@ public class ForgeEventHandler {
      */
     private boolean checkHopperUpgradeItemPickup(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){
         boolean doFilter = true;
+        boolean shouldSave = false;
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
                 BackpackTypes type = BackpackTypes.values()[((ItemBackpack) backpack.getItem()).getGuiId()];
@@ -226,6 +227,7 @@ public class ForgeEventHandler {
                                     }
                                 }
                                 if (!done) { //then resupply from the backpack (if necessary)
+                                    shouldSave = true;
                                     for (int i = 0; i < type.getSize(); i++) {
                                         Slot tempSlot = (Slot) container.getSlot(i);
                                         if (tempSlot != null && tempSlot.getHasStack()) {
@@ -261,8 +263,11 @@ public class ForgeEventHandler {
                         }
                     }
                 }
-                container.sort();
-                container.onContainerClosed(event.entityPlayer);
+                if (shouldSave) {
+                    container.sort(); //TODO: test and add to other events (add boolean so that it doesn't save when nothing changes)
+                    container.onContainerClosed(event.entityPlayer);
+                    shouldSave = false;
+                }
             }
         }
         return doFilter;
@@ -375,7 +380,7 @@ public class ForgeEventHandler {
                         case 3:
                             condenserItems = UpgradeMethods.getCondenserItems(backpack);
                             break;
-                        default:
+                        default: //should be unreachable
                             condenserItems = UpgradeMethods.getCondenserItems(backpack);
                             Logger.error("IronBackpacks CraftingUpgrade Error, will probably give the wrong output");
                     }

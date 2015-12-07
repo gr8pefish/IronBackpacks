@@ -3,8 +3,11 @@ package main.ironbackpacks.container.backpack;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.util.IronBackpacksConstants;
+import main.ironbackpacks.util.Logger;
 import main.ironbackpacks.util.NBTHelper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -113,10 +116,37 @@ public class InventoryBackpack implements IInventory {
         //unused
     }
 
-
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
         return true; //handled by BackpackSlot //TODO: fix this
+    }
+
+    public int hasStackInInv(Block blockToCheck, int meta){
+        int total = 0;
+        for (int i = 0; i < inventory.length; i++){
+            if (inventory[i] != null && inventory[i].stackSize > 0){
+                Block backpackItemAsBlock = Block.getBlockFromItem(inventory[i].getItem());
+                if (backpackItemAsBlock.equals(blockToCheck) && inventory[i].getItemDamage() == meta){
+                    total += inventory[i].stackSize;
+                }
+            }
+        }
+        return total;
+    }
+
+    public boolean removeOneItem(Block blockToCheck, int meta){
+        for (int i = 0; i < inventory.length; i++){
+            if (inventory[i] != null && inventory[i].stackSize > 0){
+                Block backpackItemAsBlock = Block.getBlockFromItem(inventory[i].getItem());
+                if (backpackItemAsBlock.equals(blockToCheck) && inventory[i].getItemDamage() == meta){
+                    inventory[i].stackSize--;
+                    if (inventory[i].stackSize == 0) inventory[i] = null;
+                    save();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
@@ -159,6 +189,7 @@ public class InventoryBackpack implements IInventory {
      * Updates the NBT data of the itemstack to save it
      */
     public void save(){
+        Logger.info("saving inventory");
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
 
         if (nbtTagCompound == null) {
