@@ -366,6 +366,12 @@ public class ForgeEventHandler {
                     BackpackTypes type = BackpackTypes.values()[((ItemBackpack) backpack.getItem()).getGuiId()];
                     ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
 
+                    container.sort(); //sort to make sure all items are in their smallest slot numbers possible
+                    if (container.getInventoryBackpack().getStackInSlot( //if the last slot has an item
+                            container.getInventoryBackpack().getSizeInventory()) != null){ //assume the backpack is full and stop trying to craft
+                        break; //TODO: test
+                    }
+
                     ContainerWorkbench containerWorkbench = new ContainerWorkbench(event.entityPlayer.inventory, event.item.worldObj, 0, 0, 0);
                     InventoryCrafting inventoryCrafting = new InventoryCrafting(containerWorkbench, 3, 3); //fake workbench/inventory for checking matching recipe
 
