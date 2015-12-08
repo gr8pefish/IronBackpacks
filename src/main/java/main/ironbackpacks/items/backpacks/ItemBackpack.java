@@ -1,5 +1,6 @@
 package main.ironbackpacks.items.backpacks;
 
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * Base class for all the backpack items to extend
  */
-//@Optional.Interface(iface="vazkii.botania.api.item.IBlockProvider", modid="botania")
+@Optional.Interface(iface="vazkii.botania.api.item.IBlockProvider", modid="Botania")
 public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
 
     private boolean openAltGui = true; //to track which gui to open
@@ -224,7 +225,7 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
      * @param doIt - if a test or real thing (currently opposite of what it should be...)
      * @return - true if successful, false otherwise
      */
-//    @Optional.Method(modid="botania")
+    @Optional.Method(modid="Botania")
     @Override
     public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doIt) {
 
@@ -251,7 +252,7 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
      * @param meta - the metadata of the block
      * @return integer of the amount of items the backpack has
      */
-//    @Optional.Method(modid="botania")
+    @Optional.Method(modid="Botania")
     @Override
     public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
         InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
@@ -266,7 +267,7 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
      * @return - the InventoryBackpack
      */
     private InventoryBackpack makeInv(ItemStack stack, EntityPlayer player){
-        BackpackTypes type = BackpackTypes.values()[this.getGuiId()]; //TODO: test that getGuiId is the correct one
+        BackpackTypes type = BackpackTypes.values()[this.getGuiId()];
         return new InventoryBackpack(player, stack, type);
     }
 }
