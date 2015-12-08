@@ -23,20 +23,19 @@ To Do:
         TESTING:
 
             real environment with and without Botania to make sure the @Optional is working
+            test onItemPickup and save() working the correct amount (not too much[lag], not too little[needs to save still])
+
+            dimension changed saving right backpack and no forge error
+                log-in and span event with the currEquippedPack okay as well
+
+            test fix for crafting upgrade
 
         BUGS:
 
             crafting upgrade check if backpack is full (#31)
-                test if my quick fix worked
-
                 should do a different long-term solution because you can maybe make less slots even if the backpack is full with crafting
                 so a simple check for 'do all the slots have items' isn't sufficient. I should check if it has anything but a tiny crafting
                 upgrade since the other two can condense item slots (assuming there is space for them to put the new items).
-
-            check changing dimensions and the current backpacks not the same,
-            have to unequip and reequip to not cause client crash (#30)
-                check that changing dimensions might kill the player or something weird Mojang did? - google
-                test it out to make sure it is that currPack is null (probably the case but double check)
 
         ADDITIONS/TWEAKS:
 
