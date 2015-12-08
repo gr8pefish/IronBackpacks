@@ -233,12 +233,13 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
         int amount = invBackpack.hasStackInInv(block, meta);
 
         if (amount > 0){
-            if (!doIt){ //TODO: VAZKIIIIIIIIII why is it opposite :(
-                return invBackpack.removeOneItem(block, meta); //returns true if it was removed
+            if (doIt) { //if doIt actually remove items
+                invBackpack.removeOneItem(block, meta); //returns true if it was removed
             }
+            return true; //have to return true even in !doIt
         }
 
-        return false;
+        return false; //if amount < 0 return false because you can't provide anything
     }
 
     /**
