@@ -5,6 +5,7 @@ import main.ironbackpacks.util.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -248,7 +249,7 @@ public class ItemRecipeRegistry {
     private static Item getItem(String item) {
         if (item.contains(".")) {
             String[] splitString = item.split("\\.");
-            return (Item) Item.itemRegistry.getObject(splitString[1]);
+            return (Item) Item.itemRegistry.getObject(new ResourceLocation(splitString[1]));
         }
         return null;
     }
@@ -262,10 +263,8 @@ public class ItemRecipeRegistry {
     private static Block getBlock(String item) { //no isBlock() method because if it isn't an item it must be a block
         if (item.contains(".")) {
             String[] splitString = item.split("\\.");
-            return (Block) Block.blockRegistry.getObject(splitString[1]);
+            return (Block) Block.blockRegistry.getObject(new ResourceLocation(splitString[1]));
         }
         return null;
     }
-
-
 }
