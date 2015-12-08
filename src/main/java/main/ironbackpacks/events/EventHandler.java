@@ -4,6 +4,7 @@ import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
+import main.ironbackpacks.entity.PlayerBackpackProperties;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
@@ -18,6 +19,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.BlockPos;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -31,6 +33,12 @@ import java.util.ArrayList;
  * All the events used that fire on the Forge Event bus
  */
 public class EventHandler {
+
+    @SubscribeEvent
+    public void onEntityConstruction(EntityEvent.EntityConstructing event) {
+        if (event.entity instanceof EntityPlayer && PlayerBackpackProperties.get((EntityPlayer) event.entity) == null)
+            PlayerBackpackProperties.create((EntityPlayer) event.entity);
+    }
 
     /**
      * Called whenever an item is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and condenser/crafting upgrades too so it doesn't check too much and causes lag..

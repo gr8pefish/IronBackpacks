@@ -1,10 +1,18 @@
 package main.ironbackpacks.network;
 
 import io.netty.buffer.ByteBuf;
+import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
+import main.ironbackpacks.entity.PlayerBackpackProperties;
+import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.Logger;
+import main.ironbackpacks.util.NBTHelper;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -42,6 +50,7 @@ public class SingleByteMessage implements IMessage {
 
             ContainerBackpack container;
             ContainerAlternateGui altContainer;
+            EntityPlayer player;
 
             switch (message.action) {
                 case IronBackpacksConstants.Messages.SingleByte.BACKPACK_TO_INVENTORY:
@@ -79,6 +88,30 @@ public class SingleByteMessage implements IMessage {
                 case IronBackpacksConstants.Messages.SingleByte.CLEAR_ROW_3:
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
                     altContainer.removeSlotsInRow(3);
+                    break;
+                case IronBackpacksConstants.Messages.SingleByte.EQUIP_BACKPACK:
+                    player = ctx.getServerHandler().playerEntity;
+
+                    if (PlayerBackpackProperties.getEquippedBackpack(player) == null) {
+                        if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IBackpack) {
+                            PlayerBackpackProperties.setEquippedBackpack(player, player.getHeldItem());
+                            player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                        }
+                    } else {
+                        player.worldObj.spawnEntityInWorld(new EntityItem(player.worldObj, player.posX, player.posY, player.posZ, PlayerBackpackProperties.getEquippedBackpack(player)));
+                        PlayerBackpackProperties.reset(player);
+                    }
+                    break;
+                case IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK:
+                    player = ctx.getServerHandler().playerEntity;
+
+                    ItemStack backpack = PlayerBackpackProperties.get(player).getEquippedBackpack();
+
+                    if (backpack != null) {
+                        NBTHelper.setUUID(backpack);
+                        CommonProxy.updateCurrBackpack(player, backpack);
+                        backpack.useItemRightClick(player.worldObj, player);
+                    }
                     break;
                 default:
                     Logger.error("Error in sending message for Iron Backpacks in SingleByteMessage");

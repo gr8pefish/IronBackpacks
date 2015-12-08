@@ -141,6 +141,9 @@ public class IronBackpacksConstants {
 
             public static final byte MOVE_LEFT = 8;
             public static final byte MOVE_RIGHT = 9;
+
+            public static final byte OPEN_BACKPACK = 10;
+            public static final byte EQUIP_BACKPACK = 11;
         }
 
 

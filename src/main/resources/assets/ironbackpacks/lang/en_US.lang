@@ -32,6 +32,7 @@ itemGroup.ironbackpacks=Iron Backpacks
 # GUI
 gui.ironbackpacks.emptyUpgradeSlot=Empty Upgrade Slot
 gui.ironbackpacks.noValidUpgradesFound=No Valid Upgrades Found!
+gui.ironbackpacks.equippedPack=Equipped Backpack
 
 # Button
 button.ironbackpacks.rename.tooltip=Renames the backpack

@@ -31,7 +31,7 @@ public class InventoryBackpack implements IInventory {
         this.player = player;
         this.type = type;
         this.inventory = new ItemStack[this.getSizeInventory()];
-        readFromNBT(stack.getTagCompound());
+        readFromNBT();
     }
 
     public BackpackTypes getType() {
@@ -226,14 +226,13 @@ public class InventoryBackpack implements IInventory {
     /**
      * Loads in the data stored in the NBT of this stack and puts the items in their respective slots.
      *
-     * @param nbtTagCompound - the tag compound
      */
-    public void readFromNBT(NBTTagCompound nbtTagCompound) {
+    public void readFromNBT() {
         if (!player.worldObj.isRemote) { //server side only
             ItemStack tempStack = findParentItemStack(player);
             stack = (tempStack == null) ? stack : tempStack;
             if (stack != null) {
-                nbtTagCompound = stack.getTagCompound();
+                NBTTagCompound nbtTagCompound = stack.getTagCompound();
 
                 if (nbtTagCompound != null) {
                     if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ITEMS)) {

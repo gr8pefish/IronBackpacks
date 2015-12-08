@@ -35,7 +35,7 @@ public class ContainerBackpack extends Container {
     public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, BackpackTypes type, int xSize, int ySize) {
         this.player = entityPlayer;
         this.inventory = backpackInventory;
-        this.backpackSlot = entityPlayer.inventory.currentItem;
+        this.backpackSlot = backpackInventory.getStackInSlot(entityPlayer.inventory.currentItem) != null ? entityPlayer.inventory.currentItem : backpackInventory.getSizeInventory() + 1;
         this.type = type;
         this.xSize = xSize;
         this.ySize = ySize;

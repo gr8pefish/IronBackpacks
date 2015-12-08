@@ -57,6 +57,7 @@ public class IronBackpacks {
         //items
         ItemRegistry.registerItems();
         proxy.registerRenders();
+        proxy.registerKeybinds();
     }
 
     @Mod.EventHandler

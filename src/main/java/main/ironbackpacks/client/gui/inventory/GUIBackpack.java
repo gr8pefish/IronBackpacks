@@ -11,6 +11,7 @@ import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.SingleByteMessage;
 import main.ironbackpacks.util.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
+import main.ironbackpacks.util.TextUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -95,7 +96,8 @@ public class GUIBackpack extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 
-        this.fontRendererObj.drawString(itemStack.getDisplayName(), 20, 6, 4210752); //respects renamed backpacks this way
+        String display = itemStack != null ? itemStack.getDisplayName() : TextUtils.localizeEffect("gui.ironbackpacks.equippedPack");
+        this.fontRendererObj.drawString(display, 20, 6, 4210752); //respects renamed backpacks this way
         this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
         int k = (this.width - this.xSize) / 2; //X axis on GUI
