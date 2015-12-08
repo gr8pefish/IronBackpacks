@@ -192,7 +192,7 @@ public class ForgeEventHandler {
                 BackpackTypes type = BackpackTypes.values()[((ItemBackpack) backpack.getItem()).getGuiId()];
                 ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
-                    container.sort(); //TODO: test with this removed
+                    container.sort(); //TODO: test with this removed, also does it force it to save?
                     ArrayList<ItemStack> hopperItems = UpgradeMethods.getHopperItems(backpack);
                     for (ItemStack hopperItem : hopperItems) {
                         if (hopperItem != null) {
@@ -285,6 +285,7 @@ public class ForgeEventHandler {
      * @param backpackStacks - the backpacks with this upgrade
      */
     private ItemStack checkHopperUpgradeItemUse(PlayerUseItemEvent.Finish event, ArrayList<ItemStack> backpackStacks){
+        boolean shouldSave = false;
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
                 BackpackTypes type = BackpackTypes.values()[((ItemBackpack) backpack.getItem()).getGuiId()];
@@ -314,7 +315,7 @@ public class ForgeEventHandler {
                             }
 
                             if (foundSlot){ // resupply from the backpack
-
+                                shouldSave = true;
                                 for (int i = 0; i < type.getSize(); i++) {
                                     Slot backpackSlot = (Slot) container.getSlot(i);
                                     if (backpackSlot != null && backpackSlot.getHasStack()) {
@@ -344,8 +345,10 @@ public class ForgeEventHandler {
                         }
                     }
                 }
-                container.sort();
-                container.onContainerClosed(event.entityPlayer);
+                if (shouldSave) { //TODO: test
+                    container.sort();
+                    container.onContainerClosed(event.entityPlayer);
+                }
             }
         }
         return null;
@@ -358,6 +361,7 @@ public class ForgeEventHandler {
      * @param craftingGridDiameterToFill - The size of the crafting grid to try filling with (1x1 or 2x2 or 3x3)
      */
     private void checkCondenserUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks, int craftingGridDiameterToFill){
+        boolean shouldSave = false;
         if (!backpackStacks.isEmpty()){
             CraftingManager craftingManager = CraftingManager.getInstance();
             for (ItemStack backpack : backpackStacks) {
@@ -412,6 +416,8 @@ public class ForgeEventHandler {
                                         ItemStack recipeOutput = craftingManager.findMatchingRecipe(inventoryCrafting, event.item.worldObj);
                                         if (recipeOutput != null) { //TODO: test math is correct here
 
+                                            shouldSave = true;
+
                                             int numberOfIterations = (int) Math.floor(theStack.stackSize / (craftingGridDiameterToFill * craftingGridDiameterToFill));
                                             int numberOfItems = recipeOutput.stackSize * numberOfIterations;
 
@@ -459,8 +465,10 @@ public class ForgeEventHandler {
                             }
                         }
                     }
-                    container.sort(); //sort items
-                    container.onContainerClosed(event.entityPlayer);
+                    if (shouldSave) { //TODO: test
+                        container.sort(); //sort items
+                        container.onContainerClosed(event.entityPlayer);
+                    }
                 }
             }
         }
@@ -506,8 +514,9 @@ public class ForgeEventHandler {
                         transferWithOreDictFilter(UpgradeMethods.getAdvFilterOreDictItems(advFilterItems, advFilterButtonStates), getOreDict(event.item.getEntityItem()), event, container);
                     }
 
+                    container.onContainerClosed(event.entityPlayer);
+
                 }
-                container.onContainerClosed(event.entityPlayer);
             }
         }
     }

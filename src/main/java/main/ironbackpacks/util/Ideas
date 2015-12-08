@@ -22,6 +22,7 @@ To Do:
 
         TESTING:
 
+            real environment with and without Botania to make sure the @Optional is working
 
         BUGS:
 
@@ -41,12 +42,6 @@ To Do:
 
             work with onItemPickup only calling save() when it needs to
                 see if this affects crafting upgrade lag (#31)
-
-
-            add IBlockProvider for use with botania's rods
-                implement API correctly
-                    annotations not working at all, it ignores the call
-                doesn't call it b/c doIt is false for some reason even when it should be true
 
             Tick Handler
                 Restocking upgrade onItemPlaced - ask in IRC if the onBlockPlacedEvent exists
