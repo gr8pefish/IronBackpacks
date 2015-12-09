@@ -40,7 +40,6 @@ public class FMLEventHandler {
         ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(event.player);
         if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
 
-            //TODO: test including these is good
             NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
             IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
 
@@ -57,7 +56,6 @@ public class FMLEventHandler {
         ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(event.player);
         if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
 
-            //TODO: test including these is good
             NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
             IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
 

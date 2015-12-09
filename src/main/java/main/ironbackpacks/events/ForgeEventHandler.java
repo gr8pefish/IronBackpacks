@@ -1,6 +1,7 @@
 package main.ironbackpacks.events;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import main.ironbackpacks.IronBackpacks;
@@ -45,7 +46,7 @@ public class ForgeEventHandler {
             ArrayList<ArrayList<ItemStack>> backpacks = getFilterCondenserAndHopperBackpacks(event.entityPlayer);
             boolean doFilter = checkHopperUpgradeItemPickup(event, backpacks.get(4)); //doFilter is false if the itemEntity is in the hopperUpgrade's slots and the itemEntity's stackSize < refillSize
             if (doFilter) {
-                checkFilterUpgrade(event, backpacks.get(0));
+                checkFilterUpgrade(event, backpacks.get(0)); //beware creative testing takes the itemstack still
             }
             for (int i = 1; i < 4; i++) {
                 checkCondenserUpgrade(event, backpacks.get(i), i);//1x1, 2x2, and 3x3 condensers/crafters
@@ -531,7 +532,7 @@ public class ForgeEventHandler {
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
                 if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), filterItem)) {
-                    container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                    container.transferStackInSlot(event.item.getEntityItem());
                 }
             }
         }

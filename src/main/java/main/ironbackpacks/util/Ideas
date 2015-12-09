@@ -23,12 +23,11 @@ To Do:
         TESTING:
 
             real environment with and without Botania to make sure the @Optional is working
+
             test onItemPickup and save() working the correct amount (not too much[lag], not too little[needs to save still])
-
-            dimension changed saving right backpack and no forge error
-                log-in and span event with the currEquippedPack okay as well
-
             test fix for crafting upgrade
+
+            test all the bugs from these changes in server
 
         BUGS:
 
@@ -39,9 +38,25 @@ To Do:
 
         ADDITIONS/TWEAKS:
 
+            go back to major-minor-buildNumber versioning
+                append -b or -beta to beta filenames
+
             work with onItemPickup only calling save() when it needs to
                 not quite, doing it still when it has filter and crafting and not picking anything up (into pack)
                 see if this affects crafting upgrade lag (#31)
+
+            Real API/Interfaces
+                IUpgradeableBackpack
+                IUpgrade, IAltGuiUpgrade, IConflictingUpgrade, (IEventUpgrade?)
+
+            New removal system of upgrades?
+                Craft backpack with nothing else, slot if crafting grid determines which upgrade to remove
+                    i.e. 1st slot means 1st upgrade removed, 2nd slot -> 2nd upgrade removed,..., 9th slot -> 9th upgrade removed
+                        if more than 9 upgrades you have to keep on doing it, but that is an acceptable cost
+                if can't do this, do eraser item
+
+            Config updating/replacing values
+                            See botania, vazkii is going to implement something similar
 
             Tick Handler
                 Restocking upgrade onItemPlaced - ask in IRC if the onBlockPlacedEvent exists
@@ -60,17 +75,8 @@ To Do:
             Make textures of upgrades more 3D looking
             Make it so you can't move the opened backpack with number key presses, as there might be some dupe bug using that that I missed
 
-            New removal system of upgrades?
-                Craft backpack with nothing else, slot if crafting grid determines which upgrade to remove
-                    i.e. 1st slot means 1st upgrade removed, 2nd slot -> 2nd upgrade removed,..., 9th slot -> 9th upgrade removed
-                        if more than 9 upgrades you have to keep on doing it, but that is an acceptable cost
-                if can't do this, do eraser item
-
             Add documentation book - see TiCon books source
                 * or add ExtraUtils style docs with "u" in NEI * <-- This one, check power converters Github for implementation
-
-            Config updating/replacing values
-                See botania, vazkii is going to implement something similar
 
             Add Baubles integration as belt slot to equip
                 config option to toggle between?
@@ -108,6 +114,10 @@ To Do:
             4 tiers (or upgrade and drops excess items onto ground), or adds barrel slot like a DSU?
 
         Craft a diamond/barrel/ender (IDyeable) backpack with dyes to color it
+
+    THE PLAN:
+
+
 
 
 MCF Posting:

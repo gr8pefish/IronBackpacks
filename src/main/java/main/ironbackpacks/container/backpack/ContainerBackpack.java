@@ -127,9 +127,9 @@ public class ContainerBackpack extends Container {
     }
 
     /**
-     * Checks if the item can be put into the backpack
+     * Checks if the item can be put into the backpack, for use with the filter upgrade
      * @param itemToPutInBackpack - the itemstack to put in
-     * @return - the itemstack if it can be put in, null otherwise
+     * @return - the remaining itemstack (null if it has been put it, the remaining otherwise)
      */
     public ItemStack transferStackInSlot(ItemStack itemToPutInBackpack){ //TODO: have to check not the currPack, so you can't put curr pack in itself
         if (!mergeItemStack(itemToPutInBackpack, 0, type.getSize(), false)) //stack, startIndex, endIndex, flag
