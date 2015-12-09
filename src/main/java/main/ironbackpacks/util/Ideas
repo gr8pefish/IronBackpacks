@@ -40,6 +40,7 @@ To Do:
         ADDITIONS/TWEAKS:
 
             work with onItemPickup only calling save() when it needs to
+                not quite, doing it still when it has filter and crafting and not picking anything up (into pack)
                 see if this affects crafting upgrade lag (#31)
 
             Tick Handler
