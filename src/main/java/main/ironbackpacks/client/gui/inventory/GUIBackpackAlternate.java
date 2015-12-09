@@ -15,6 +15,7 @@ import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.RenameMessage;
 import main.ironbackpacks.network.SingleByteMessage;
 import main.ironbackpacks.util.IronBackpacksConstants;
+import main.ironbackpacks.util.Logger;
 import main.ironbackpacks.util.TextUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -122,7 +123,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     private TooltipButton moveRight;
     private ArrayList<TooltipButton> advFilters = new ArrayList<TooltipButton>(); //the advanced filter buttons
     private ArrayList<TooltipButton> tooltipButtons = new ArrayList<TooltipButton>(); //buttons with a tooltip
-    private TooltipButton[] rowIndeces = new TooltipButton[3]; //for use on the dynamic clear buttons
+    private TooltipButton[] rowIndeces = new TooltipButton[4]; //for use on the dynamic clear buttons
 
     //the tooltip data
     private long prevSystemTime;

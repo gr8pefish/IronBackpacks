@@ -11,7 +11,6 @@ import main.ironbackpacks.network.ClientPackMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
-import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -74,13 +73,16 @@ public class FMLEventHandler {
     public void onPlayerDimChange(PlayerEvent.PlayerChangedDimensionEvent event){ //TODO: test more
         ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(event.player);
         if (backpack != null) {
-            if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) //if has old dimension backpack
+            if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) {//if has old dimension backpack
+                Logger.debug("Killing old entity");
                 EntityBackpack.backpacksSpawnedMap.get(event.player).setDead(); //kill old backpack
+            }
 
             NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
             IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
-
+            Logger.debug("Spawning new");
             IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
+            Logger.debug("Spawned new");
         }
     }
 

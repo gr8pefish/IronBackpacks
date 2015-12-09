@@ -74,7 +74,7 @@ public class NBTHelper {
      */
     private static void initNBTCompound(ItemStack itemStack){
         if (itemStack.stackTagCompound == null){
-            System.out.println("resetting");
+            Logger.info("Resetting NBT tag");
             itemStack.setTagCompound(new NBTTagCompound());
         }
     }
