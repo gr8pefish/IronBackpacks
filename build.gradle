@@ -137,6 +137,7 @@ curseforge {
         id = "${curse_id}"
         changelog = getChangelogText()
         releaseType = release_as_beta.toBoolean() ? "beta" : "release"
+        version = release_as_beta.toBoolean() ? version : version + "-b"
     }
 }
 
