@@ -19,7 +19,7 @@ apply plugin: 'curseforge'
 
 group = package_group
 archivesBaseName = mod_name
-version = "${mc_version}-${mod_version}"
+version = "${mc_version}-${major_version}.${minor_version}.${build_number}"
 
 // Ignore this error. It'll work just fine when building.
 import org.ajoberstar.grgit.*
@@ -141,14 +141,14 @@ curseforge {
 }
 
 task incrementVersionNumber {
-    ant.replace(file: "gradle.properties", token: mod_version, value: (mod_version.toString().toInteger()) + 1)
+    ant.replace(file: "gradle.properties", token: build_number, value: (build_number.toString().toInteger()) + 1)
 }
 
 //Adds a new changelog segment for the next version. Nifty!
 task makeNewChangelog {
     def changelogFile = new File('changes.txt')
     String newText = '------------------------------------------------------\n' +
-            'Version '+mc_version+' - '+mod_version+"\n" +
+            'Version '+project.version+"\n" +
             '------------------------------------------------------\n' +
             'Additions\n' +
             '- None\n' +
