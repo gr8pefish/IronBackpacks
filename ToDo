@@ -74,6 +74,7 @@ To Do:
                 config option to toggle between?
 
         EXTRA:
+            add -b to beta versions in build.gradle
 
             fancy crafting upgrade - choose 1 or 2 or 3 diameter w/ button underneath (like adv. filter)
             mining filter - change so it picks up cobble and smooth stone too and remove from alt gui?
@@ -107,19 +108,8 @@ To Do:
 
         Craft a diamond/barrel/ender (IDyeable) backpack with dyes to color it
 
-    THE PLAN:
-
-
-
 
 MCF Posting:
-    Add that it is an IBlockProvider
     More pictures
 
 
-Know Bugs:
-    IMPORTANT:
-
-    Less important:
-        Scrolling too fast in the advanced filter dupes items (but they are ghost items so no big deal)
-        Mod armors that have larger custom models might overlap with my backpack model, just visually annoying

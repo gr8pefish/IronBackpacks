@@ -137,7 +137,6 @@ curseforge {
         id = "${curse_id}"
         changelog = getChangelogText()
         releaseType = release_as_beta.toBoolean() ? "beta" : "release"
-        version = release_as_beta.toBoolean() ? version : version + "-b"
     }
 }
 
@@ -170,7 +169,6 @@ tasks.makeNewChangelog.mustRunAfter incrementVersionNumber
 
 //curseforge uses these tasks
 tasks.curseforge.dependsOn clean, build, incrementVersionNumber, makeNewChangelog
-//TODO: changelog had old (cached) version number? Was 1 behind.
 
 //to make the resources work in idea
 idea { module { inheritOutputDirs = true } }

@@ -18,6 +18,10 @@ Hey there. Looks like you want to contribute with an issue. Great! Here's what y
   * Duplicate issues or issues that have been solved already (use the search feature!) will be closed without asking.
   * Do not tag your issues' names. "Something Broke" is preferred to "[Bug] Something Broke"  because there's a proper label system in place.
 
+* These are the known bugs and they will be ignored:
+ * Scrolling too fast in the advanced filter dupes items (but they are ghost items so it is no big deal).
+ * Mod armors that have larger custom models might overlap with my backpack model, but it is just visually annoying.
+
 * The more you follow these rules the easier it is for me to actually help you and fix these bugs. Thank you!
 
 [Report the Issue Here](https://github.com/gr8pefish/IronBackpacks/issues)!
