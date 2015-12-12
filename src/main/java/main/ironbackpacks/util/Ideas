@@ -22,6 +22,8 @@ To Do:
 
         TESTING:
 
+            wait for laptop to not be such a bitch
+
             real environment with and without Botania to make sure the @Optional is working
 
             test onItemPickup and save() working the correct amount (not too much[lag], not too little[needs to save still])

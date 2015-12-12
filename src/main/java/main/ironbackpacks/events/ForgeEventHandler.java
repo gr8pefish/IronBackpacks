@@ -190,10 +190,11 @@ public class ForgeEventHandler {
         boolean shouldSave = false;
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
+                shouldSave = false;
                 BackpackTypes type = BackpackTypes.values()[((ItemBackpack) backpack.getItem()).getGuiId()];
                 ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
-                    container.sort(); //TODO: test with this removed, also does it force it to save?
+                    container.sort(); //TODO: test with this removed
                     ArrayList<ItemStack> hopperItems = UpgradeMethods.getHopperItems(backpack);
                     for (ItemStack hopperItem : hopperItems) {
                         if (hopperItem != null) {
@@ -223,12 +224,12 @@ public class ForgeEventHandler {
                                         event.item.setEntityItemStack(new ItemStack(event.item.getEntityItem().getItem(), event.item.getEntityItem().stackSize - amountToResupply, event.item.getEntityItem().getItemDamage()));
                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage()));
                                         done = true;
+                                        shouldSave = true;
                                     }else {
                                         doFilter = false;
                                     }
                                 }
                                 if (!done) { //then resupply from the backpack (if necessary)
-                                    shouldSave = true;
                                     for (int i = 0; i < type.getSize(); i++) {
                                         Slot tempSlot = (Slot) container.getSlot(i);
                                         if (tempSlot != null && tempSlot.getHasStack()) {
@@ -256,6 +257,7 @@ public class ForgeEventHandler {
                                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + tempItem.stackSize, stackToResupply.getItemDamage()));
                                                     }
                                                 }
+                                                shouldSave = true;
                                             }
                                         }
                                     }
@@ -286,7 +288,6 @@ public class ForgeEventHandler {
      * @param backpackStacks - the backpacks with this upgrade
      */
     private ItemStack checkHopperUpgradeItemUse(PlayerUseItemEvent.Finish event, ArrayList<ItemStack> backpackStacks){
-        boolean shouldSave = false;
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
                 BackpackTypes type = BackpackTypes.values()[((ItemBackpack) backpack.getItem()).getGuiId()];
@@ -316,7 +317,6 @@ public class ForgeEventHandler {
                             }
 
                             if (foundSlot){ // resupply from the backpack
-                                shouldSave = true;
                                 for (int i = 0; i < type.getSize(); i++) {
                                     Slot backpackSlot = (Slot) container.getSlot(i);
                                     if (backpackSlot != null && backpackSlot.getHasStack()) {
@@ -345,11 +345,7 @@ public class ForgeEventHandler {
                             }
                         }
                     }
-                }
-                if (shouldSave) { //TODO: test
-                    container.sort();
-                    container.onContainerClosed(event.entityPlayer);
-                }
+                } //no save b/c returns and saves if it does anything
             }
         }
         return null;
@@ -366,6 +362,7 @@ public class ForgeEventHandler {
         if (!backpackStacks.isEmpty()){
             CraftingManager craftingManager = CraftingManager.getInstance();
             for (ItemStack backpack : backpackStacks) {
+                shouldSave = false;
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
 
                     BackpackTypes type = BackpackTypes.values()[((ItemBackpack) backpack.getItem()).getGuiId()];
@@ -451,7 +448,6 @@ public class ForgeEventHandler {
                                                         theSlot.decrStackSize(1);
                                                     }
                                                 }
-                                                container.save(event.entityPlayer);
                                             }else {
                                                 ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), numberOfItems, recipeOutput.getItemDamage());
                                                 if (container.transferStackInSlot(myRecipeOutput) != null) {
@@ -515,8 +511,6 @@ public class ForgeEventHandler {
                         transferWithOreDictFilter(UpgradeMethods.getAdvFilterOreDictItems(advFilterItems, advFilterButtonStates), getOreDict(event.item.getEntityItem()), event, container);
                     }
 
-                    container.onContainerClosed(event.entityPlayer);
-
                 }
             }
         }
@@ -529,13 +523,16 @@ public class ForgeEventHandler {
      * @param container - the backpack to transfer items into
      */
     private void transferWithBasicFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
+        boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
                 if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), filterItem)) {
                     container.transferStackInSlot(event.item.getEntityItem());
+                    shouldSave = true;
                 }
             }
         }
+        if (shouldSave) container.onContainerClosed(event.entityPlayer);
     }
 
     /**
@@ -545,13 +542,16 @@ public class ForgeEventHandler {
      * @param container - the backpack to transfer items into
      */
     private void transferWithFuzzyFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
+        boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
                 if (event.item.getEntityItem().getItem() == filterItem.getItem()) {
                     container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                    shouldSave = true;
                 }
             }
         }
+        if (shouldSave) container.onContainerClosed(event.entityPlayer);
     }
 
     /**
@@ -562,6 +562,7 @@ public class ForgeEventHandler {
      * @param container - the backpack to move items into
      */
     private void transferWithOreDictFilter(ArrayList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
+        boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
                 ArrayList<String> filterItemOre = getOreDict(filterItem);
@@ -569,11 +570,13 @@ public class ForgeEventHandler {
                     for (String oreName : itemEntityOre) {
                         if (oreName != null && filterItemOre.contains(oreName)) {
                             container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                            shouldSave = true;
                         }
                     }
                 }
             }
         }
+        if (shouldSave) container.onContainerClosed(event.entityPlayer);
     }
 
     /**
@@ -583,14 +586,17 @@ public class ForgeEventHandler {
      * @param container - the backpack to move the items into
      */
     private void transferWithModSpecificFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
+        boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
                 //if modId1 == modId2 same mod so transfer
                 if (GameRegistry.findUniqueIdentifierFor(event.item.getEntityItem().getItem()).modId.equals(GameRegistry.findUniqueIdentifierFor(filterItem.getItem()).modId)){
                     container.transferStackInSlot(event.item.getEntityItem());
+                    shouldSave = true;
                 }
             }
         }
+        if (shouldSave) container.onContainerClosed(event.entityPlayer);
     }
 
     /**
@@ -600,15 +606,18 @@ public class ForgeEventHandler {
      * @param container - the backpack to move the items into
      */
     private void transferWithMiningFilter(ArrayList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
+        boolean shouldSave = false;
         transferWithBasicFilter(filterItems, event, container);
         if (itemEntityOre != null) {
             for (String oreName : itemEntityOre) {
                 //TODO: fancier checking method, this is a 'contains' so it will get extra items ex: 'mining c*ore*'
                 if (oreName != null && (oreName.contains("ore") || oreName.contains("gem") || oreName.contains("dust"))) {
                     container.transferStackInSlot(event.item.getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                    shouldSave = true;
                 }
             }
         }
+        if (shouldSave) container.onContainerClosed(event.entityPlayer);
     }
 
     /**
