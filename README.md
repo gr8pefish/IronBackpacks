@@ -1,4 +1,4 @@
-![](http://i.imgur.com/FNtJhyA.png)
+![](https://github.com/gr8pefish/IronBackpacks/blob/devSweden/src/main/resources/assets/ironbackpacks/textures/items/backpack_iron.png)
 
 Iron Backpacks is a [Minecraft](https://minecraft.net/) mod that adds upgrade-able backpacks to the game.
 
