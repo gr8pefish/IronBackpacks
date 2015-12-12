@@ -149,7 +149,7 @@ task incrementVersionNumber {
 task makeNewChangelog {
     def changelogFile = new File('changelog')
     String newText = '------------------------------------------------------\n' +
-            'Version '+project.version+"\n" +
+            'Version '+mc_version+" - "+major_version+"-"+minor_version+"-"+(build_number.toString().toInteger() + 1)+"\n" +
             '------------------------------------------------------\n' +
             'Additions\n' +
             '- None\n' +

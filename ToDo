@@ -2,9 +2,6 @@ To Do:
 
     NOW:
 
-        Gradle:
-            changelog number was 1 behind? Check that it wasn't a fluke next time
-
     SOON:
 
         gui/container/inv deep refactor via 1.8
