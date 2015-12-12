@@ -101,7 +101,7 @@ tasks.withType(JavaCompile) { task ->
 }
 
 String getChangelogText() {
-    def changelogFile = new File('changes.txt')
+    def changelogFile = new File('changelog')
     String str = ''
     String separator = '---'
     int lineCount = 0
@@ -147,7 +147,7 @@ task incrementVersionNumber {
 
 //Adds a new changelog segment for the next version. Nifty!
 task makeNewChangelog {
-    def changelogFile = new File('changes.txt')
+    def changelogFile = new File('changelog')
     String newText = '------------------------------------------------------\n' +
             'Version '+project.version+"\n" +
             '------------------------------------------------------\n' +

@@ -40,13 +40,6 @@ To Do:
 
         ADDITIONS/TWEAKS:
 
-            go back to major-minor-buildNumber versioning
-                append -b or -beta to beta filenames
-
-            work with onItemPickup only calling save() when it needs to
-                not quite, doing it still when it has filter and crafting and not picking anything up (into pack)
-                see if this affects crafting upgrade lag (#31)
-
             Real API/Interfaces
                 IUpgradeableBackpack
                 IUpgrade, IAltGuiUpgrade, IConflictingUpgrade, (IEventUpgrade?)
@@ -58,7 +51,7 @@ To Do:
                 if can't do this, do eraser item
 
             Config updating/replacing values
-                            See botania, vazkii is going to implement something similar
+                See botania, vazkii is going to implement something similar
 
             Tick Handler
                 Restocking upgrade onItemPlaced - ask in IRC if the onBlockPlacedEvent exists

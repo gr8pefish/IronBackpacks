@@ -1,14 +1,20 @@
 ------------------------------------------------------
-Version 1.7.10 - 28
+Version 1.7.10 - 1.2.8
 ------------------------------------------------------
 Additions
-- None
+- The backpack is now an IBlockProvider (from Botania's API) meaning it can supply items to The Rod of the Shifting Mantle
+    Note that this only works if the backpack is in the inventory, it doesn't work if it is equipped.
+    This is not on my end, but I have contacted Vazkii and a fix should hopefully occur though.
 
 Changes
-- None
+- Localized a lot more of the code.
+- The backpacks only save their inventory when the inventory actually updates.
+- Reverted back to the old versioning system of Major-Minor-BuildNumber
 
 Bug Fixes
-- None
+- Closes #30 (Equipped backpack works correctly with dimension changes)
+- Closes #31 (Crafting upgrade shouldn't cause as much lag)
+- Closes #34 (Sneak right clicking with a certain set of upgrades doesn't crash it)
 ------------------------------------------------------
 Version 1.7.10 - 27
 ------------------------------------------------------
