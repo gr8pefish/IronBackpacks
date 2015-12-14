@@ -189,7 +189,7 @@ public class InventoryBackpack implements IInventory {
      * Updates the NBT data of the itemstack to save it
      */
     public void save(){
-        Logger.info("saving inventory");
+
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
 
         if (nbtTagCompound == null) {

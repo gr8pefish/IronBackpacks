@@ -21,9 +21,6 @@ To Do:
 
             real environment with and without Botania to make sure the @Optional is working
 
-            test onItemPickup and save() working the correct amount (not too much[lag], not too little[needs to save still])
-            test fix for crafting upgrade
-
         BUGS:
 
             crafting upgrade check if backpack is full (#31)

@@ -89,7 +89,6 @@ public class ConfigHandler {
     //========================initialization====================================
 
     private static File theFile;
-    private static boolean shouldStop = false;
 
     public static void init(File file) {
         config = new Configuration(file);

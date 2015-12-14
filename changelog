@@ -5,7 +5,8 @@ Additions
 - None
 
 Changes
-- None
+- The config file now updates changes to the default values between versions by regenerating the file.
+    - You have the option to turn this off with, surprise surprise, a new config value.
 
 Bug Fixes
 - None
