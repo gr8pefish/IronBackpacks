@@ -55,7 +55,7 @@ processResources {
         include '**/*.info'
         include '**/*.properties'
 
-        expand 'version': project.version, 'mcversion': project.minecraft.version
+        expand '1.7.10': project.version, 'mcversion': project.minecraft.version
     }
 
     from(sourceSets.main.resources.srcDirs) {
@@ -68,7 +68,7 @@ jar {
     classifier = ''
     manifest.mainAttributes(
             "Built-By": System.getProperty('user.name'),
-            "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
+            "Created-By": "${System.getProperty('java.vm.1.7.10')} + (${System.getProperty('java.vm.vendor')})",
             "Implementation-Title": project.name,
             "Implementation-Version": project.version,
             "Git-Hash": gitHash
@@ -118,7 +118,7 @@ String getChangelogText() {
             str += "$it" + (lineCount < 3 ? ':\n\n' : '\n')
             return
         }
-        done = true // once we go past the first version block, parse no more
+        done = true // once we go past the first 1.7.10 block, parse no more
     }
     return str
 }
@@ -142,9 +142,10 @@ curseforge {
 
 task incrementVersionNumber {
     ant.replace(file: "gradle.properties", token: build_number, value: (build_number.toString().toInteger()) + 1)
+    file("version/${mc_version}.txt").write(major_version+"."+minor_version+"."+(build_number.toString().toInteger() + 1));
 }
 
-//Adds a new changelog segment for the next version. Nifty!
+//Adds a new changelog segment for the next 1.7.10. Nifty!
 task makeNewChangelog {
     def changelogFile = new File('changelog')
     String newText = '------------------------------------------------------\n' +

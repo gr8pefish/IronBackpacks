@@ -5,7 +5,7 @@ import invtweaks.api.container.InventoryContainer;
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;

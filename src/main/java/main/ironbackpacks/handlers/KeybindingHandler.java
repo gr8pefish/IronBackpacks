@@ -1,4 +1,4 @@
-package main.ironbackpacks.util;
+package main.ironbackpacks.handlers;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.SingleByteMessage;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;

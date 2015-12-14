@@ -2,7 +2,7 @@ package main.ironbackpacks.crafting;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import main.ironbackpacks.items.ItemRegistry;
-import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.handlers.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,11 +11,7 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Register all the recipes here.

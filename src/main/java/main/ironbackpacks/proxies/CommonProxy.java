@@ -17,6 +17,14 @@ public class CommonProxy {
 
     public void init(){}
 
+    public String getModVersion(){
+        return null;
+    }
+
+    public String getRemoteUpdatedVersion(){
+        return null;
+    }
+
     public EntityPlayer getClientPlayer(){
         throw new RuntimeException("You idiot, you can't get the client player on the server side.");
     }

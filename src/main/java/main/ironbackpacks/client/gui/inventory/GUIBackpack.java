@@ -12,7 +12,7 @@ import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.SingleByteMessage;
-import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;

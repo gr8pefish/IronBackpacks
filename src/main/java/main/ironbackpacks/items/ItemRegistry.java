@@ -9,7 +9,7 @@ import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
 import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
-import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.handlers.ConfigHandler;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;

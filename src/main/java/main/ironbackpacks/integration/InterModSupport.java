@@ -10,8 +10,8 @@ import net.minecraft.nbt.NBTTagCompound;
  */
 public class InterModSupport {
 
-    public static boolean isEnderStorageLoaded;
-    public static boolean isOpenBlocksLoaded;
+    public static boolean isEnderStorageLoaded = false;
+    public static boolean isOpenBlocksLoaded = false;
     public static OpenBlocksNoSupport gliderClass;
 
     //Initializes each mod in the pre-init phase
@@ -34,7 +34,7 @@ public class InterModSupport {
         if (Loader.isModLoaded("VersionChecker")) {
             NBTTagCompound tagCompound = new NBTTagCompound();
             tagCompound.setString("curseProjectName", "227049-iron-backpacks");
-            tagCompound.setString("curseFilenameParser", "Iron Backpacks-1.7.10-[]-universal.jar");
+            tagCompound.setString("curseFilenameParser", "IronBackpacks-1.7.10-[].jar");
             FMLInterModComms.sendRuntimeMessage(ModInformation.ID, "VersionChecker", "addCurseCheck", tagCompound);
         }
     }

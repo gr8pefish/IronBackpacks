@@ -4,7 +4,7 @@ import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.ItemUpgradeBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.inventory.InventoryCrafting;

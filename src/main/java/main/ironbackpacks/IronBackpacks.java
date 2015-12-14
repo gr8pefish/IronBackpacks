@@ -16,7 +16,7 @@ import main.ironbackpacks.integration.InterModSupport;
 import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.proxies.CommonProxy;
-import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.handlers.ConfigHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;

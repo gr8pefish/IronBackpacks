@@ -1,7 +1,6 @@
 package main.ironbackpacks.events;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import main.ironbackpacks.IronBackpacks;
@@ -12,7 +11,7 @@ import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.util.ConfigHandler;
+import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
@@ -100,7 +99,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.modID.equals(ModInformation.ID)) {
-            ConfigHandler.syncConfig();
+            ConfigHandler.syncConfig(false);
             Logger.info("Refreshing configuration file.");
         }
     }

@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
+import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.*;
 import net.minecraft.block.Block;

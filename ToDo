@@ -19,14 +19,10 @@ To Do:
 
         TESTING:
 
-            wait for laptop to not be such a bitch
-
             real environment with and without Botania to make sure the @Optional is working
 
             test onItemPickup and save() working the correct amount (not too much[lag], not too little[needs to save still])
             test fix for crafting upgrade
-
-            test all the bugs from these changes in server
 
         BUGS:
 
@@ -46,9 +42,6 @@ To Do:
                     i.e. 1st slot means 1st upgrade removed, 2nd slot -> 2nd upgrade removed,..., 9th slot -> 9th upgrade removed
                         if more than 9 upgrades you have to keep on doing it, but that is an acceptable cost
                 if can't do this, do eraser item
-
-            Config updating/replacing values
-                See botania, vazkii is going to implement something similar
 
             Tick Handler
                 Restocking upgrade onItemPlaced - ask in IRC if the onBlockPlacedEvent exists
@@ -75,6 +68,10 @@ To Do:
 
         EXTRA:
             add -b to beta versions in build.gradle
+
+            Fancier config updating/replacing values
+                See botania, vazkii is going to implement something similar
+                    check current version somehow and compare to origin/versions.txt, if less then do something
 
             fancy crafting upgrade - choose 1 or 2 or 3 diameter w/ button underneath (like adv. filter)
             mining filter - change so it picks up cobble and smooth stone too and remove from alt gui?
