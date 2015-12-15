@@ -1,4 +1,15 @@
 ------------------------------------------------------
+Version 1.7.10 - 1.2.10
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- The depth upgrade now respects the quick deposit upgrade in nested backpacks
+
+Bug Fixes
+- None
+------------------------------------------------------
 Version 1.7.10 - 1.2.9
 ------------------------------------------------------
 Additions

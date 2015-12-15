@@ -30,6 +30,8 @@ To Do:
 
         ADDITIONS/TWEAKS:
 
+            When I have time to play, tweaks for default config values
+
             Real API/Interfaces
                 IUpgradeableBackpack
                 IUpgrade, IAltGuiUpgrade, IConflictingUpgrade, (IEventUpgrade?)
@@ -45,8 +47,11 @@ To Do:
                 Crafting upgrade onItemPutInBackpack (so for manually putting items in)
 
             Open right click direct from 'e' inventory?
+
+            Have quick deposit upgrade work with equipped backpack
+
             Have depth upgrade apply to quick deposit
-                and to the IBlockProvider
+                and to the IBlockProvider --> wait for Vazkii API update
             Add ender upgrade?
                 allows you to use the filter/restocking to go into an ender pouch in the inventory
             Allow shift right click equipped?

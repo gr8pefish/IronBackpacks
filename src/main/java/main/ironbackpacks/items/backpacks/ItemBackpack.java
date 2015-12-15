@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
@@ -70,17 +71,42 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
     }
 
     //Called before anything else
+    //returning true will stop the alt. gui from opening
+    //returning false will let it continue as normal (i.e. it can open)
     @Override
     public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) { //server side
             if (!player.isSneaking()) { //only do it when player is sneaking
                 return false;
             }
-            if (UpgradeMethods.hasQuickDepositUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack))) {
+            int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
+            boolean hasDepthUpgrade = UpgradeMethods.hasDepthUpgrade(upgrades);
+            if (UpgradeMethods.hasQuickDepositUpgrade(upgrades)) {
                 openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, x, y, z, false);
-                return !openAltGui;
-            }else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack))) {
+                if (!hasDepthUpgrade)
+                    return !openAltGui;
+            }else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(upgrades)) {
                 openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, x, y, z, true);
+                if (!hasDepthUpgrade)
+                    return !openAltGui;
+            }
+            boolean openAltGuiDepth;
+            if (hasDepthUpgrade) {
+                ItemBackpack itemBackpack = (ItemBackpack)itemstack.getItem();
+                ContainerBackpack container = new ContainerBackpack(player, new InventoryBackpack(player, itemstack, BackpackTypes.values()[itemBackpack.getId()]), BackpackTypes.values()[itemBackpack.getId()]);
+                for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
+                    ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
+                    if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
+                        int[] nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
+                        if (UpgradeMethods.hasQuickDepositUpgrade(nestedUpgrades)) {
+                            openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, x, y, z, false);
+                            if (!openAltGuiDepth) openAltGui = false;
+                        }else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(nestedUpgrades)) {
+                            openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, x, y, z, true);
+                            if (!openAltGuiDepth) openAltGui = false;
+                        }
+                    }
+                }
                 return !openAltGui;
             }
         }
