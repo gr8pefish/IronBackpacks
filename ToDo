@@ -4,8 +4,6 @@ To Do:
 
     SOON:
 
-        gui/container/inv deep refactor via 1.8
-
         GIT STUFF:
             master -> delete
                 rename local devSweden to master
@@ -15,18 +13,16 @@ To Do:
                         push to github
 
         REFACTOR:
+
+            gui/container/inv deep refactor via 1.8
+
             Data storage in player pack?
 
         TESTING:
 
-            real environment with and without Botania to make sure the @Optional is working
 
         BUGS:
 
-            crafting upgrade check if backpack is full (#31)
-                should do a different long-term solution because you can maybe make less slots even if the backpack is full with crafting
-                so a simple check for 'do all the slots have items' isn't sufficient. I should check if it has anything but a tiny crafting
-                upgrade since the other two can condense item slots (assuming there is space for them to put the new items).
 
         ADDITIONS/TWEAKS:
 
@@ -36,12 +32,6 @@ To Do:
                 IUpgradeableBackpack
                 IUpgrade, IAltGuiUpgrade, IConflictingUpgrade, (IEventUpgrade?)
 
-            New removal system of upgrades?
-                Craft backpack with nothing else, slot if crafting grid determines which upgrade to remove
-                    i.e. 1st slot means 1st upgrade removed, 2nd slot -> 2nd upgrade removed,..., 9th slot -> 9th upgrade removed
-                        if more than 9 upgrades you have to keep on doing it, but that is an acceptable cost
-                if can't do this, do eraser item
-
             Tick Handler
                 Restocking upgrade onItemPlaced - ask in IRC if the onBlockPlacedEvent exists
                 Crafting upgrade onItemPutInBackpack (so for manually putting items in)
@@ -49,17 +39,21 @@ To Do:
             Open right click direct from 'e' inventory?
 
             Have quick deposit upgrade work with equipped backpack
+                use a keybinding?
 
-            Have depth upgrade apply to quick deposit
-                and to the IBlockProvider --> wait for Vazkii API update
+            Have depth upgrade apply to the IBlockProvider --> wait for Vazkii API update
+
             Add ender upgrade?
                 allows you to use the filter/restocking to go into an ender pouch in the inventory
+
             Allow shift right click equipped?
+
             Add in more inter-mod compatibility
                 right click in my backpack to open TE satchels, golden bag of holding, etc.
                     look into if this is possible
 
             Make textures of upgrades more 3D looking
+
             Make it so you can't move the opened backpack with number key presses, as there might be some dupe bug using that that I missed
 
             Add documentation book - see TiCon books source
@@ -67,6 +61,11 @@ To Do:
 
             Add Baubles integration as belt slot to equip
                 config option to toggle between?
+
+            crafting upgrade check if backpack is full (#31)
+                should do a different long-term solution because you can maybe make less slots even if the backpack is full with crafting
+                so a simple check for 'do all the slots have items' isn't sufficient. I should check if it has anything but a tiny crafting
+                upgrade since the other two can condense item slots (assuming there is space for them to put the new items).
 
         EXTRA:
             add -b to beta versions in build.gradle
@@ -76,15 +75,23 @@ To Do:
                     check current version somehow and compare to origin/versions.txt, if less then do something
 
             fancy crafting upgrade - choose 1 or 2 or 3 diameter w/ button underneath (like adv. filter)
+
             mining filter - change so it picks up cobble and smooth stone too and remove from alt gui?
+
             change it so an entityItem looks to fill a stack in the player's inv before going in filter?
-            keybinding to make quickdeposit work with equipped pack
+
             quick deposit into AE terminals - have to check efficient of deposit code for that to work probably
+
             Shift right click to open nested guis too
+
             Change sorting to a configurable style (i.e. id, name, etc.) w/ right click sort button to change style in game
+
             add in config option (and subsequent functionality) where the itemBackpack can't be opened directly, it has to be equipped to be open (i.e. only one open at a time)
                 hard mode: weight is a factor? Harder nesting recipe for limited space? Some other way to increase space/nesting via gameplay/in-game research/other?
+                no shapeless crafting for removal of upgrades, have to use the crafted one specifically
+
             Add achievements
+
             Recipes via config - support meta/damage values
 
 
@@ -109,6 +116,9 @@ To Do:
 
 
 MCF Posting:
+
+    Add all information about the mod to a github wiki as it is a more reliable source
+
     More pictures
 
 

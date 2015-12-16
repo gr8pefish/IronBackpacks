@@ -1,4 +1,29 @@
 ------------------------------------------------------
+Version 1.7.10 - 1.2.12
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- None
+
+Bug Fixes
+- None
+------------------------------------------------------
+Version 1.7.10 - 1.2.11
+------------------------------------------------------
+Additions
+- The ability to remove an upgrade by shapelessly crafting the backpack in a crafting grid
+    - The upgrade removed is dependent on the slot it is placed into
+    - So to remove the 2nd upgrade on the backpack, put it in the second slot in the crafting grid etc.
+    - Note that this doesn't remove the old system, you can still craft an upgrade with a backpack that already has it to specifically remove said upgrade
+
+Changes
+- None
+
+Bug Fixes
+- Crash when crafting a specific combination of alt. gui upgrades
+------------------------------------------------------
 Version 1.7.10 - 1.2.10
 ------------------------------------------------------
 Additions

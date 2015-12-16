@@ -18,11 +18,11 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 /**
  * Deals with the cases when a backpack is shapelessly crafted with an upgrade.
  */
-public class BackpackUpgradeRecipe extends ShapelessOreRecipe {
+public class BackpackCraftWithUpgradeRecipe extends ShapelessOreRecipe {
 
     private final ItemStack recipeOutput; //The outputted item after crafting
 
-    public BackpackUpgradeRecipe(ItemStack recipeOutput, Object... items){
+    public BackpackCraftWithUpgradeRecipe(ItemStack recipeOutput, Object... items){
         super(recipeOutput, items);
         this.recipeOutput = recipeOutput;
     }

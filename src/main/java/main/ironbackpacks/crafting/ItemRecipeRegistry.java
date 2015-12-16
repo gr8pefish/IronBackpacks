@@ -27,9 +27,10 @@ public class ItemRecipeRegistry {
 		registerUpgradeRecipes(); //register the recipes to make the upgrades
 		registerMiscRecipes(); //register the miscellaneous items' recipes
 
-		RecipeSorter.register("BackpackUpgrade", BackpackUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
-		RecipeSorter.register("BackpackTier", BackpackTierRecipe.class, RecipeSorter.Category.SHAPED, ""); //register my special recipe
-		registerBackpackUpgradeRecipes(); //register the recipes to add upgrades to backpacks
+		RecipeSorter.register("RemoveUpgrade", BackpackRemoveUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
+		RecipeSorter.register("BackpackUpgrade", BackpackCraftWithUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
+		RecipeSorter.register("BackpackTier", BackpackIncreaseTierRecipe.class, RecipeSorter.Category.SHAPED, ""); //register my special recipe
+		registerBackpackUpgradeAndRemovalRecipes(); //register the recipes to add upgrades to backpacks and to remove upgrades
 		registerBackpackTierRecipes(); //register the recipes to upgrade a backpack to the next tier
 	}
 
@@ -71,13 +72,14 @@ public class ItemRecipeRegistry {
 	}
 
 	//Registers the recipes that allow you to shapelessly craft an upgrade with a backpack to add/remove said upgrade
-	private static void registerBackpackUpgradeRecipes(){
+	private static void registerBackpackUpgradeAndRemovalRecipes(){
 		ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
 		ArrayList<Item> upgrades = ItemRegistry.getUpgrades();
 
 		for (Item backpack : backpacks){
+			GameRegistry.addRecipe(new BackpackRemoveUpgradeRecipe(new ItemStack(backpack), new ItemStack(backpack)));
 			for (Item upgrade : upgrades){
-				GameRegistry.addRecipe(new BackpackUpgradeRecipe(new ItemStack(backpack), new ItemStack(upgrade), new ItemStack(backpack)));
+				GameRegistry.addRecipe(new BackpackCraftWithUpgradeRecipe(new ItemStack(backpack), new ItemStack(upgrade), new ItemStack(backpack)));
 			}
 		}
 	}
@@ -93,7 +95,7 @@ public class ItemRecipeRegistry {
 
 		for (int i = 1; i < backpacks.size(); i++){ //start at 1 b/c first backpack can't be upgraded
 			Object[] theRecipe = getOreRecipe(recipes[i-1]);
-			GameRegistry.addRecipe(new BackpackTierRecipe(new ItemStack(backpacks.get(i)), theRecipe));
+			GameRegistry.addRecipe(new BackpackIncreaseTierRecipe(new ItemStack(backpacks.get(i)), theRecipe));
 		}
 	}
 

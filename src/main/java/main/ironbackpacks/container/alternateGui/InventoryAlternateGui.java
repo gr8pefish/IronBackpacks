@@ -363,7 +363,7 @@ public class InventoryAlternateGui implements IInventory {
                 //sets the 'upgradeRemoved/Added' value to reflect how many upgrades have been added or removed so the loaded items can be shifted to go in their correct indices.
                 int upgradeRemoved = 100; //arbitrary high value
                 if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.REMOVED)){
-                    upgradeRemoved = nbtTagCompound.getInteger(IronBackpacksConstants.NBTKeys.REMOVED) - 1; //-1 b/c renaming upgrade (no slots)
+                    upgradeRemoved = nbtTagCompound.getInteger(IronBackpacksConstants.NBTKeys.REMOVED) - 1; //-1 b/c renaming upgrade (no slots) [index of list of ALT_GUI_UPGRADE_IDS]
                     if (upgradeRemoved < 0) upgradeRemoved = 100; //naming upgrade shouldn't affect slots
                     nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.REMOVED);
                 }

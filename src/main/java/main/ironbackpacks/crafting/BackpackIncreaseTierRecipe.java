@@ -16,11 +16,11 @@ import java.util.ArrayList;
 /**
  * The recipe to upgrade a backpack to it's next tier (ex: iron -&gt; gold)
  */
-public class BackpackTierRecipe extends ShapedOreRecipe {
+public class BackpackIncreaseTierRecipe extends ShapedOreRecipe {
 
     private final ItemStack recipeOutput;
 
-    public BackpackTierRecipe(ItemStack recipeOutput, Object... items){
+    public BackpackIncreaseTierRecipe(ItemStack recipeOutput, Object... items){
         super(recipeOutput, items);
         this.recipeOutput = recipeOutput;
     }
