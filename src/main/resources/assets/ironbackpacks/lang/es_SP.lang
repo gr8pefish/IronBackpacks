@@ -1,0 +1,108 @@
+# Artículos
+item.ironbackpacks:basicBackpack.name=Mochila Básica
+item.ironbackpacks:ironBackpack.name=Hierro Mochila
+item.ironbackpacks:goldBackpack.name=Mochila Oro
+item.ironbackpacks:diamondBackpack.name=Diamond Mochila
+
+item.ironbackpacks:buttonUpgrade.name=Botón de actualización
+item.ironbackpacks:nestingUpgrade.name=Actualización de la jerarquización
+item.ironbackpacks:Actualización nestingAdvancedUpgrade.name=Advanced anidamiento
+item.ironbackpacks:damageBarUpgrade.name=Daños Bar Upgrade
+item.ironbackpacks:filterBasicUpgrade.name=Actualización Filtro básico
+item.ironbackpacks:filterFuzzyUpgrade.name=Filtro Fuzzy Upgrade
+item.ironbackpacks:filterOreDictUpgrade.name=Ore Diccionario Filtro de actualización
+item.ironbackpacks:filterModSpecificUpgrade.name=Mod actualización filtro específico
+item.ironbackpacks:filterAdvancedUpgrade.name=Advanced Upgrade Filtro
+item.ironbackpacks:hopperUpgrade.name=Actualización de repoblación
+item.ironbackpacks:condenserUpgrade.name=Actualización Crafting
+item.ironbackpacks:Actualización condenserSmallUpgrade.name=Pequeño Crafting
+item.ironbackpacks:condenserTinyUpgrade.name=Actualización Crafting Tiny
+item.ironbackpacks:renamingUpgrade.name=Actualización Cambio de nombre
+item.ironbackpacks:Actualización keepOnDeathUpgrade.name=Eternidad
+item.ironbackpacks:additionalUpgradePointsUpgrade.name=Puntos adicionales Actualizar Actualizar
+item.ironbackpacks:quickDepositUpgrade.name=fuerte Quick Upgrade
+item.ironbackpacks:quickDepositPreciseUpgrade.name=Precise fuerte Actualización Rápida
+item.ironbackpacks:filterMiningUpgrade.name=Minería Filtro de actualización
+item.ironbackpacks:depthUpgrade.name=Profundidad de actualización
+
+item.ironbackpacks:nest.name=Nido
+item.ironbackpacks:upgradeCore.name=Actualiza Core
+item.ironbackpacks:jeweledFeather.name=Pluma de Oro
+item.ironbackpacks:treatedLeather.name=cuero tratado
+
+
+# Creativo Tab
+itemGroup.ironbackpacks=Hierro Mochilas
+
+
+# Combinaciones de teclas
+key_ironbackpacks_openbackpack=Abrir Mochila
+key_ironbackpacks_equipbackpack=Equipo Mochila
+
+
+# GUI
+gui.ironbackpacks.emptyUpgradeSlot=Slot actualización vacío
+gui.ironbackpacks.noValidUpgradesFound=No hay ascensos válidos encontrado!
+
+
+# Botón
+button.ironbackpacks.rename.tooltip=Cambia el nombre de la mochila
+button.ironbackpacks.exact.tooltip=Coincidencia exacta
+button.ironbackpacks.fuzzy.tooltip=Matching Fuzzy
+button.ironbackpacks.oreDict.tooltip=Diccionario Ore Matching
+button.ironbackpacks.modSpecific.tooltip=Mod Matching específico
+button.ironbackpacks.packToInv.tooltip=Mueve los artículos en la mochila a su inventario.
+button.ironbackpacks.invToPack.tooltip=Mueve objetos de tu inventario a la mochila
+button.ironbackpacks.barToPack.tooltip=Mueve los artículos en su barra de acceso rápido a la mochila.
+button.ironbackpacks.sort.tooltip=Ordena y condensa los artículos en la mochila (por localizado, nombre alfabético)
+button.ironbackpacks.left.tooltip=giro a la izquierda.
+button.ironbackpacks.right.tooltip=giro a la derecha.
+button.ironbackpacks.clear.basicFilter.tooltip=Borra los elementos básicos de filtro.
+button.ironbackpacks.clear.fuzzyFilter.tooltip=Borra los elementos de filtro difusos.
+button.ironbackpacks.clear.oreDictFilter.tooltip=Borra los elementos de filtro Diccionario Ore.
+button.ironbackpacks.clear.modSpecificFilter.tooltip=Borra los mod elementos de filtro específicos.
+button.ironbackpacks.clear.miningFilter.tooltip=Borra los elementos de filtro minería.
+button.ironbackpacks.clear.advancedFilter.tooltip=Restablece el filtro avanzado (borra elementos y filtros de botón).
+button.ironbackpacks.clear.hopper.tooltip=Borra los elementos de repoblación.
+button.ironbackpacks.clear.condenser.tooltip=Borra los artículos de artesanía.
+button.ironbackpacks.clear.condenser.small.tooltip=Borra los artículos de artesanía.
+button.ironbackpacks.clear.condenser.tiny.tooltip=Borra los artículos de artesanía.
+
+
+# Tooltip
+tooltip.ironbackpacks.shift=cambio Hold para obtener más información.
+tooltip.ironbackpacks.uuid=UUID:% s
+tooltip.ironbackpacks.backpack.upgrade.used=% d /% d actualizar puntos utilizados.
+tooltip.ironbackpacks.backpack.upgrade.used.alt=% d /% d mejoras GUI alternativos utilizados.
+tooltip.ironbackpacks.backpack.upgrade.used.tier=% d /% d puntos de actualización adicionales añadidos.
+tooltip.ironbackpacks.backpack.upgrade.rename=(La actualización DTH% debe incluir la actualización de cambio de nombre)
+
+tooltip.ironbackpacks.upgrade.cost=Costos% d punto de actualización% s
+tooltip.ironbackpacks.upgrade.button.desc=Agrega botones para mover rápidamente los elementos desde y hacia su mochila, así como un botón para ordenar su mochila rápidamente.
+tooltip.ironbackpacks.upgrade.nesting.desc=Le permite colocar cualquier mochila de un nivel anterior dentro de la mochila.
+tooltip.ironbackpacks.upgrade.bar.desc=Añade una barra de daños para representar visualmente lo lleno la mochila es de un vistazo.
+tooltip.ironbackpacks.upgrade.soulbound.desc=Le permite mantener la mochila cuando se muere. La actualización desaparece después de la muerte, aunque (que tendrá que volver a aplicar la pena si quieres otra vez).
+tooltip.ironbackpacks.upgrade.quickDeposit.desc=Al cambiar click derecho en un inventario con esta actualización de la mochila intentará vaciar su contenido en el inventario.
+tooltip.ironbackpacks.upgrade.quickDepositPrecise.desc=Al igual que en el depósito rápido, excepto la mochila sólo intentará vaciar su contenido en el inventario si ya existen en ese inventario.
+tooltip.ironbackpacks.upgrade.advNesting.desc=Permite insertar y oany & r y 7backpack (y por lo tanto cualquier tema) dentro de la mochila.
+tooltip.ironbackpacks.upgrade.depth.desc=Permite cualquier mochilas anidados tengan funcionalidad completa (es decir, filtros / repoblación / mejoras que hacen a mano). Sólo funciona en las mochilas anidados vez (sin anidación infinita).
+tooltip.ironbackpacks.upgrade.naming.desc=Le permite cambiar el nombre de la mochila.
+
+tooltip.ironbackpacks.upgrade.basicFilter.desc=Añade un filtro configurable de elementos que la mochila recogerá automáticamente.
+tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=Al igual que el filtro básico, excepto la mochila recogerá cualquier elemento que es de la misma mod como el artículo (s) en las ranuras de filtro.
+tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=Al igual que el filtro básico, excepto la mochila ignorará valores de daño en los artículos.
+tooltip.ironbackpacks.upgrade.oreDictFilter.desc=Al igual que el filtro básico, excepto la mochila va a recoger cualquier artículo que se ha registrado en el diccionario de mineral como el mismo que el elemento (s) en la ranura del filtro.
+tooltip.ironbackpacks.upgrade.hopperFilter.desc=Permite especificar un elemento para mantener surtida en su inventario / barra de acceso rápido que se suministra desde su mochila.
+tooltip.ironbackpacks.upgrade.condenser.desc=Le permite especificar un conjunto de temas que se hecha a mano en una cuadrícula de 3x3 al entrar en la mochila (ex:redstone -> bloque de piedra roja).
+tooltip.ironbackpacks.upgrade.advFilter.desc=Similar al filtro básico, excepto el filtro tiene 18 ranuras y cada ranuras tiene opciones configurables.
+tooltip.ironbackpacks.upgrade.mining.desc=capta automáticamente cualquier minerales, gemas, o polvos y tiene un filtro básico para otros artículos (ex:adoquín).
+tooltip.ironbackpacks.upgrade.condenser.small.desc=Le permite especificar un conjunto de temas que se hecha a mano en una cuadrícula de 2x2 al entrar en la mochila (por ejemplo:arena -> arenisca).
+tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Le permite especificar un conjunto de elementos a ser elaborado por sí mismo al entrar en la mochila (por ejemplo:madera -> tablones).
+tooltip.ironbackpacks.upgrade.addUpgrades.desc=Añade otro% s a la mochila. Puede aplicarse% s al más alto nivel de la mochila.
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=punto de actualización
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=% d actualizar puntos
+tooltip.ironbackpacks.upgrade.addUpgrades.mult=% d veces
+
+
+# Diverso
+misc.ironbackpacks.default.equpped.backpack.name=Mochila equipada

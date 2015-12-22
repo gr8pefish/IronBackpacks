@@ -1,0 +1,108 @@
+# Objekt
+item.ironbackpacks:basicBackpack.name=Enkel Ryggsäck
+item.ironbackpacks:ironBackpack.name=Järn Ryggsäck
+item.ironbackpacks:goldBackpack.name=Guld Ryggsäck
+item.ironbackpacks:diamondBackpack.name=Diamant Ryggsäck
+
+item.ironbackpacks:buttonUpgrade.name=Knapp Uppgradering
+item.ironbackpacks:nestingUpgrade.name=Nesting Upgrade
+item.ironbackpacks:nestingAdvancedUpgrade.name=Advanced Nesting Upgrade
+item.ironbackpacks:damageBarUpgrade.name=Skador Bar Uppgradering
+item.ironbackpacks:filterBasicUpgrade.name=Basic Filter Upgrade
+item.ironbackpacks:filterFuzzyUpgrade.name=Fuzzy Filter Uppgradering
+item.ironbackpacks:filterOreDictUpgrade.name=Ore ordbok Filter Uppgradering
+item.ironbackpacks:filterModSpecificUpgrade.name=Mod Specifika Filter Upgrade
+item.ironbackpacks:filterAdvancedUpgrade.name=Avancerat filter Upgrade
+item.ironbackpacks:hopperUpgrade.name=Utsättning Uppgradering
+item.ironbackpacks:condenserUpgrade.name=Crafting Uppgradering
+item.ironbackpacks:condenserSmallUpgrade.name=Liten Crafting uppgradering
+item.ironbackpacks:condenserTinyUpgrade.name=Tiny Crafting Upgrade
+item.ironbackpacks:renamingUpgrade.name=Döpa Upgrade
+item.ironbackpacks:keepOnDeathUpgrade.name=Eternity Upgrade
+item.ironbackpacks:additionalUpgradePointsUpgrade.name=Ytterligare uppgradering poäng Uppgradering
+item.ironbackpacks:quickDepositUpgrade.name=Quick Deposit Uppgradering
+item.ironbackpacks:quickDepositPreciseUpgrade.name=Precise Snabb Insättning Uppgradering
+item.ironbackpacks:filterMiningUpgrade.name=Gruvfilter Uppgradering
+item.ironbackpacks:depthUpgrade.name=Djup Uppgradering
+
+item.ironbackpacks:nest.name=Nest
+item.ironbackpacks:upgradeCore.name=Uppgradering Kärna
+item.ironbackpacks:jeweledFeather.name=guld- Fjäder
+item.ironbackpacks:treatedLeather.name=Behandlad Läder
+
+
+# Creative Tab
+itemGroup.ironbackpacks=Järn Ryggsäckar
+
+
+# KeyBindings
+key_ironbackpacks_openbackpack=Open Ryggsäck
+key_ironbackpacks_equipbackpack=utrustning Ryggsäck
+
+
+# GUI
+gui.ironbackpacks.emptyUpgradeSlot=Tom Plats
+gui.ironbackpacks.noValidUpgradesFound=Ingen giltig uppgraderingar hittades!
+
+
+# Knapp
+button.ironbackpacks.rename.tooltip=Byter namn ryggsäcken
+button.ironbackpacks.exact.tooltip=exakt matchning
+button.ironbackpacks.fuzzy.tooltip=Fuzzy Matching
+button.ironbackpacks.oreDict.tooltip=Ore ordbok Matchning
+button.ironbackpacks.modSpecific.tooltip=Mod Specifik Matchning
+button.ironbackpacks.packToInv.tooltip=Flyttar objekt från ryggsäcken till din inventering.
+button.ironbackpacks.invToPack.tooltip=Flyttar objekt från inventering till ryggsäcken
+button.ironbackpacks.barToPack.tooltip=Flyttar objekt från din HotBar till ryggsäcken.
+button.ironbackpacks.sort.tooltip=Sorterar och kondenserar objekten i ryggsäcken (genom lokaliserad, alfabetisk namn)
+button.ironbackpacks.left.tooltip=Shift till vänster.
+button.ironbackpacks.right.tooltip=Shift till höger.
+button.ironbackpacks.clear.basicFilter.tooltip=Rensar de grundläggande filterobjekten.
+button.ironbackpacks.clear.fuzzyFilter.tooltip=Raderar luddiga filterobjekten.
+button.ironbackpacks.clear.oreDictFilter.tooltip=Rensar Ore ordbok filterobjekten.
+button.ironbackpacks.clear.modSpecificFilter.tooltip=Rensar mod specifika filterobjekten.
+button.ironbackpacks.clear.miningFilter.tooltip=Rensar gruvfilterobjekten.
+button.ironbackpacks.clear.advancedFilter.tooltip=Återställer avancerade filter (rensar poster och knappfilter).
+button.ironbackpacks.clear.hopper.tooltip=Rensar utsättning objekt.
+button.ironbackpacks.clear.condenser.tooltip=Rensar crafting objekt.
+button.ironbackpacks.clear.condenser.small.tooltip=Rensar crafting objekt.
+button.ironbackpacks.clear.condenser.tiny.tooltip=Rensar crafting objekt.
+
+
+# Tooltip
+tooltip.ironbackpacks.shift=Håll skifte för mer info.
+tooltip.ironbackpacks.uuid=UUID:% s
+tooltip.ironbackpacks.backpack.upgrade.used=% d /% d uppgradering poäng används.
+tooltip.ironbackpacks.backpack.upgrade.used.alt=% d /% d alternativa uppgraderingar GUI används.
+tooltip.ironbackpacks.backpack.upgrade.used.tier=% d /% d ytterligare uppgraderings punkter läggas.
+tooltip.ironbackpacks.backpack.upgrade.rename=(I% dth uppgradering måste innehålla döpa uppgradering)
+
+tooltip.ironbackpacks.upgrade.cost=Kostnader% d uppgradering punkt% s
+tooltip.ironbackpacks.upgrade.button.desc=Lägger knapparna för att snabbt flytta objekt till och från din ryggsäck, samt en knapp för att sortera din ryggsäck snabbt.
+tooltip.ironbackpacks.upgrade.nesting.desc=Gör att du kan placera någon ryggsäck av en tidigare nivå i ryggsäcken.
+tooltip.ironbackpacks.upgrade.bar.desc=Lägger till en skada bar för att visuellt representera hur full ryggsäcken är en överblick.
+tooltip.ironbackpacks.upgrade.soulbound.desc=Gör att du kan hålla ryggsäcken när du dör. Uppgraderingen försvinner efter döden men (du kommer att behöva ansöka på nytt om du vill ha det igen).
+tooltip.ironbackpacks.upgrade.quickDeposit.desc=När du flytta högerklicka på en inventering med denna uppgradering ryggsäcken kommer att försöka tömma dess innehåll i inventeringen.
+tooltip.ironbackpacks.upgrade.quickDepositPrecise.desc=I likhet med den snabba insättning, förutom ryggsäcken kommer bara att försöka tömma dess innehåll i inventeringen om de redan finns i denna förteckning.
+tooltip.ironbackpacks.upgrade.advNesting.desc=Gör att du kan placera och oany & r & 7backpack (och därmed något objekt) i ryggsäcken.
+tooltip.ironbackpacks.upgrade.depth.desc=Tillåter alla kapslade ryggsäckar för att ha full funktionalitet (dvs filter / utsättning / tillverka uppgraderingar). Fungerar endast i ryggsäckar kapslade gång (ingen oändlig kapsling).
+tooltip.ironbackpacks.upgrade.naming.desc=Gör att du kan byta namn på ryggsäcken.
+
+tooltip.ironbackpacks.upgrade.basicFilter.desc=Lägger till en konfigurerbar filter artiklar som ryggsäcken automatiskt samla.
+tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=I likhet med grundfilter, förutom ryggsäcken kommer att plocka upp något som är från samma mod som produkt (er) i filterplatserna.
+tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=I likhet med grundfilter, förutom ryggsäcken kommer att ignorera skadevärden på objekten.
+tooltip.ironbackpacks.upgrade.oreDictFilter.desc=I likhet med grundfilter, förutom ryggsäcken kommer att plocka upp någon post som är registrerad i malmen ordlistan som samma som produkt (er) i filterfacket.
+tooltip.ironbackpacks.upgrade.hopperFilter.desc=Gör att du kan ange ett objekt för att hålla lager i ditt lager / HotBar som tillförs från din ryggsäck.
+tooltip.ironbackpacks.upgrade.condenser.desc=Här kan du ange en uppsättning av olika rätter vara utformad i ett 3x3 rutnät på att ange din ryggsäck (ex: Redstone -> Redstone block).
+tooltip.ironbackpacks.upgrade.advFilter.desc=I likhet med grundfilter, förutom filtret har 18 platser och varje slitsar har konfigurerbara alternativ.
+tooltip.ironbackpacks.upgrade.mining.desc=plockar automatiskt upp alla malmer, ädelstenar eller damm och har en grundläggande filter för övriga poster (fd: kullersten).
+tooltip.ironbackpacks.upgrade.condenser.small.desc=Här kan du ange en uppsättning av olika rätter vara utformad i ett 2x2 rutnät på att ange din ryggsäck (ex: sand -> sandsten).
+tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Här kan du ange en uppsättning objekt som ska skapad av sig själv på att ange din ryggsäck (ex: trä -> plankor).
+tooltip.ironbackpacks.upgrade.addUpgrades.desc=Lägger annan% s till ryggsäcken. Kan appliceras% s till den högsta nivån ryggsäcken.
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=uppgradering punkt
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=% d uppgradera poäng
+tooltip.ironbackpacks.upgrade.addUpgrades.mult=% d gånger
+
+
+# Diverse
+misc.ironbackpacks.default.equpped.backpack.name=Utrustad Ryggsäck
