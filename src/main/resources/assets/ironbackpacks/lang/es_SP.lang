@@ -5,30 +5,30 @@ item.ironbackpacks:goldBackpack.name=Mochila Oro
 item.ironbackpacks:diamondBackpack.name=Mochila Diamante
 
 item.ironbackpacks:buttonUpgrade.name=Mejoramiento de Botón
-item.ironbackpacks:nestingUpgrade.name=Mejoramiento de la jerarquización
-item.ironbackpacks:nestingAdvancedUpgrade.name=Advanced anidamiento
-item.ironbackpacks:damageBarUpgrade.name=Daños Bar Upgrade
-item.ironbackpacks:filterBasicUpgrade.name=Mejoramiento Filtro básico
-item.ironbackpacks:filterFuzzyUpgrade.name=Filtro Fuzzy Upgrade
-item.ironbackpacks:filterOreDictUpgrade.name=Ore Diccionario Filtro de actualización
-item.ironbackpacks:filterModSpecificUpgrade.name=Mod actualización filtro específico
-item.ironbackpacks:filterAdvancedUpgrade.name=Advanced Upgrade Filtro
-item.ironbackpacks:hopperUpgrade.name=Mejoramiento de repoblación
-item.ironbackpacks:condenserUpgrade.name=Mejoramiento Crafting
-item.ironbackpacks:condenserSmallUpgrade.name=Pequeño Crafting
-item.ironbackpacks:condenserTinyUpgrade.name=Mejoramiento Crafting Tiny
-item.ironbackpacks:renamingUpgrade.name=Mejoramiento Cambio de nombre
-item.ironbackpacks:keepOnDeathUpgrade.name=Eternidad
-item.ironbackpacks:additionalUpgradePointsUpgrade.name=Puntos adicionales Actualizar Actualizar
-item.ironbackpacks:quickDepositUpgrade.name=fuerte Quick Upgrade
-item.ironbackpacks:quickDepositPreciseUpgrade.name=Precise fuerte Mejoramiento Rápida
-item.ironbackpacks:filterMiningUpgrade.name=Minería Filtro de actualización
-item.ironbackpacks:depthUpgrade.name=Profundidad de actualización
+item.ironbackpacks:nestingUpgrade.name=Mejoramiento de la Jerarquización
+item.ironbackpacks:nestingAdvancedUpgrade.name=Mejoramiento de la Jerarquización Avanzado
+item.ironbackpacks:damageBarUpgrade.name=Mejoramiento de Barra de Daños
+item.ironbackpacks:filterBasicUpgrade.name=Mejoramiento de Filtro Básico
+item.ironbackpacks:filterFuzzyUpgrade.name=Mejoramiento de Filtro Borroso
+item.ironbackpacks:filterOreDictUpgrade.name=Mejoramiento de Filtro de Mineral Diccionario
+item.ironbackpacks:filterModSpecificUpgrade.name=Mejoramiento de Mod Filtro Específico
+item.ironbackpacks:filterAdvancedUpgrade.name=Mejoramiento de Filtro Avanzado
+item.ironbackpacks:hopperUpgrade.name=Mejoramiento de Repoblación
+item.ironbackpacks:condenserUpgrade.name=Mejoramiento de Fabricación
+item.ironbackpacks:condenserSmallUpgrade.name=Mejoramiento de Fabricación Pequeña
+item.ironbackpacks:condenserTinyUpgrade.name=Mejoramiento de Fabricación Minúsculo
+item.ironbackpacks:renamingUpgrade.name=Mejoramiento Cambio de Nombre
+item.ironbackpacks:keepOnDeathUpgrade.name=Mejoramiento de Eternidad
+item.ironbackpacks:additionalUpgradePointsUpgrade.name=Mejoramiento de Puntos Adicionales
+item.ironbackpacks:quickDepositUpgrade.name=Mejoramiento de Depósito Rápida
+item.ironbackpacks:quickDepositPreciseUpgrade.name=Mejoramiento de Depósito Rápida Precisa
+item.ironbackpacks:filterMiningUpgrade.name=Mejoramiento de Filtro Minería
+item.ironbackpacks:depthUpgrade.name=Mejoramiento de Interactividad
 
 item.ironbackpacks:nest.name=Nido
-item.ironbackpacks:upgradeCore.name=Actualiza Core
+item.ironbackpacks:upgradeCore.name=Núcleo de Mejoramiento
 item.ironbackpacks:jeweledFeather.name=Pluma de Oro
-item.ironbackpacks:treatedLeather.name=cuero tratado
+item.ironbackpacks:treatedLeather.name=Cuero Tratado
 
 
 # Creativo Tab

@@ -36,8 +36,8 @@ itemGroup.ironbackpacks=Järn Ryggsäckar
 
 
 # KeyBindings
-key_ironbackpacks_openbackpack=Open Ryggsäck
-key_ironbackpacks_equipbackpack=Utrustning Ryggsäck
+key_ironbackpacks_openbackpack=Öppna Ryggsäck
+key_ironbackpacks_equipbackpack=Utrusta Ryggsäck
 
 
 # GUI
