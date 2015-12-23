@@ -1,27 +1,27 @@
 # Artículos
 item.ironbackpacks:basicBackpack.name=Mochila Básica
-item.ironbackpacks:ironBackpack.name=Hierro Mochila
+item.ironbackpacks:ironBackpack.name=Mochila Hierro
 item.ironbackpacks:goldBackpack.name=Mochila Oro
-item.ironbackpacks:diamondBackpack.name=Diamond Mochila
+item.ironbackpacks:diamondBackpack.name=Mochila Diamante
 
-item.ironbackpacks:buttonUpgrade.name=Botón de actualización
-item.ironbackpacks:nestingUpgrade.name=Actualización de la jerarquización
-item.ironbackpacks:Actualización nestingAdvancedUpgrade.name=Advanced anidamiento
+item.ironbackpacks:buttonUpgrade.name=Mejoramiento de Botón
+item.ironbackpacks:nestingUpgrade.name=Mejoramiento de la jerarquización
+item.ironbackpacks:nestingAdvancedUpgrade.name=Advanced anidamiento
 item.ironbackpacks:damageBarUpgrade.name=Daños Bar Upgrade
-item.ironbackpacks:filterBasicUpgrade.name=Actualización Filtro básico
+item.ironbackpacks:filterBasicUpgrade.name=Mejoramiento Filtro básico
 item.ironbackpacks:filterFuzzyUpgrade.name=Filtro Fuzzy Upgrade
 item.ironbackpacks:filterOreDictUpgrade.name=Ore Diccionario Filtro de actualización
 item.ironbackpacks:filterModSpecificUpgrade.name=Mod actualización filtro específico
 item.ironbackpacks:filterAdvancedUpgrade.name=Advanced Upgrade Filtro
-item.ironbackpacks:hopperUpgrade.name=Actualización de repoblación
-item.ironbackpacks:condenserUpgrade.name=Actualización Crafting
-item.ironbackpacks:Actualización condenserSmallUpgrade.name=Pequeño Crafting
-item.ironbackpacks:condenserTinyUpgrade.name=Actualización Crafting Tiny
-item.ironbackpacks:renamingUpgrade.name=Actualización Cambio de nombre
-item.ironbackpacks:Actualización keepOnDeathUpgrade.name=Eternidad
+item.ironbackpacks:hopperUpgrade.name=Mejoramiento de repoblación
+item.ironbackpacks:condenserUpgrade.name=Mejoramiento Crafting
+item.ironbackpacks:condenserSmallUpgrade.name=Pequeño Crafting
+item.ironbackpacks:condenserTinyUpgrade.name=Mejoramiento Crafting Tiny
+item.ironbackpacks:renamingUpgrade.name=Mejoramiento Cambio de nombre
+item.ironbackpacks:keepOnDeathUpgrade.name=Eternidad
 item.ironbackpacks:additionalUpgradePointsUpgrade.name=Puntos adicionales Actualizar Actualizar
 item.ironbackpacks:quickDepositUpgrade.name=fuerte Quick Upgrade
-item.ironbackpacks:quickDepositPreciseUpgrade.name=Precise fuerte Actualización Rápida
+item.ironbackpacks:quickDepositPreciseUpgrade.name=Precise fuerte Mejoramiento Rápida
 item.ironbackpacks:filterMiningUpgrade.name=Minería Filtro de actualización
 item.ironbackpacks:depthUpgrade.name=Profundidad de actualización
 
