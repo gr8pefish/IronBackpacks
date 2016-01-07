@@ -219,12 +219,12 @@ public class ForgeEventHandler {
                                 boolean done = false;
                                 if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), stackToResupply)){
                                     int amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize;
-                                    if (event.item.getEntityItem().stackSize >= amountToResupply) {
+                                    if (event.item.getEntityItem().stackSize >= amountToResupply) { //if larger size of stack on the ground than needed to resupply
                                         event.item.setEntityItemStack(new ItemStack(event.item.getEntityItem().getItem(), event.item.getEntityItem().stackSize - amountToResupply, event.item.getEntityItem().getItemDamage()));
                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage()));
                                         done = true;
                                         shouldSave = true;
-                                    }else {
+                                    }else { //just resupply what you can, it will automatically go into the player's slot needed
                                         doFilter = false;
                                     }
                                 }
@@ -240,6 +240,8 @@ public class ForgeEventHandler {
                                                     if (tempItem.stackSize >= amountToResupply) {
                                                         tempSlot.decrStackSize(amountToResupply);
                                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize() - event.item.getEntityItem().stackSize, stackToResupply.getItemDamage()));
+                                                        container.sort();
+                                                        container.onContainerClosed(event.entityPlayer);
                                                         break;
                                                     } else {
                                                         tempSlot.decrStackSize(tempItem.stackSize);
@@ -250,6 +252,8 @@ public class ForgeEventHandler {
                                                     if (tempItem.stackSize >= amountToResupply) {
                                                         tempSlot.decrStackSize(amountToResupply);
                                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage()));
+                                                        container.sort();
+                                                        container.onContainerClosed(event.entityPlayer);
                                                         break;
                                                     } else {
                                                         tempSlot.decrStackSize(tempItem.stackSize);
