@@ -2,10 +2,12 @@
 Version 1.7.10 - 1.2.13
 ------------------------------------------------------
 Additions
-- None
+- German localization (Thanks wlhlm!)
+- Spanish localization (WIP)
+- Swedish localization (WIP)
 
 Changes
-- None
+- Added compatibility so GraveStone's graves (and maybe others) work
 
 Bug Fixes
 - None

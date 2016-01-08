@@ -1,6 +1,7 @@
 package main.ironbackpacks.events;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import main.ironbackpacks.IronBackpacks;
@@ -74,7 +75,7 @@ public class ForgeEventHandler {
      * When a player dies, check if player has any backpacks with keepOnDeathUpgrade so then they are saved for when they spawn
      * @param event - the event
      */
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onDeath(LivingDeathEvent event){
         if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer){ //server side
             IronBackpacks.proxy.saveBackpackOnDeath((EntityPlayer) event.entity);
