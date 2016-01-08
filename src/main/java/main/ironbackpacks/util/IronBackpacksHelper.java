@@ -252,7 +252,7 @@ public class IronBackpacksHelper {
      * @return - boolean true if they are equal enough, false if they are not
      */
     public static boolean areItemsEqualForStacking(ItemStack itemStack1, ItemStack itemStack2){
-        return (itemStack1.getItem().equals(itemStack2.getItem())) && (ItemStack.areItemStackTagsEqual(itemStack1, itemStack2));
+        return (itemStack1.getItem().equals(itemStack2.getItem())) && (ItemStack.areItemStackTagsEqual(itemStack1, itemStack2) && (itemStack1.getItemDamage() == itemStack2.getItemDamage()));
     }
 
     /**

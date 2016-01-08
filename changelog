@@ -1,5 +1,5 @@
 ------------------------------------------------------
-Version 1.7.10 - 1.2.14
+Version 1.7.10 - 1.2.15
 ------------------------------------------------------
 Additions
 - None
@@ -9,6 +9,18 @@ Changes
 
 Bug Fixes
 - None
+------------------------------------------------------
+Version 1.7.10 - 1.2.14
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- None
+
+Bug Fixes
+- Alternate Filter's buttons showed up on the basic filter (Closes #42)
+- Basic filter ignoring damage values (when it should keep them into account) (Closes #42)
 ------------------------------------------------------
 Version 1.7.10 - 1.2.13
 ------------------------------------------------------

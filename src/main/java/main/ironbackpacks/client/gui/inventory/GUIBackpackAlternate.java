@@ -257,6 +257,12 @@ public class GUIBackpackAlternate extends GuiContainer {
                 rowIndex++;
                 yStartButton += 36;
             }
+        } else { //no button upgrade, move the staring position of the button to be at the advanced filter
+            if (hasFilterBasicUpgrade) yStartButton += 36;
+            if (hasFilterFuzzyUpgrade) yStartButton += 36;
+            if (hasFilterOreDictUpgrade) yStartButton += 36;
+            if (hasFilterModSpecificUpgrade) yStartButton += 36;
+            if (hasFilterMiningUpgrade) yStartButton += 36;
         }
 
         //If you have the advanced filter add the relevant buttons

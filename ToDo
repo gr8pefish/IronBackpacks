@@ -44,18 +44,14 @@ To Do:
 
             Under normal circumstances, this would only affect the basic backpack, however, if an iron, gold, or diamond backpack is cheated in then it too will experience the bug and start destroying items until it is opened from the hotbar or upgraded if possible.
 
-            #23
-            I had 115 torches in the backpack to start out. You notice in the top image, I have a full stack of torches in my inventory.
-            I place down 6 torches and then break them to pick them up.
-            They go back into my inventory and get duplicated.
-            As you can see I still have the original 115 (64+51) torches in the backpack plus a couple (2) additional duplicated stacks.
-            I am using the basic backpack with the restock upgrade.
 
         ADDITIONS/TWEAKS:
 
             Check the sv + es translation files
 
             When I have time to play, tweaks for default config values
+
+            Void filter
 
             Real API/Interfaces
                 IUpgradeableBackpack
@@ -87,9 +83,11 @@ To Do:
 
             Add documentation book - see TiCon books source
                 * or add ExtraUtils style docs with "u" in NEI * <-- This one, check power converters Github for implementation
+                Botania has this now?
 
             Add Baubles integration as belt slot to equip
                 config option to toggle between?
+                Traveler's gear compat too
 
             crafting upgrade check if backpack is full (#31)
                 should do a different long-term solution because you can maybe make less slots even if the backpack is full with crafting
@@ -98,6 +96,7 @@ To Do:
 
         EXTRA:
             add -b to beta versions in build.gradle
+            add api into versioning (https://mcforge.readthedocs.org/en/latest/conventions/versioning/)
 
             Fancier config updating/replacing values
                 See botania, vazkii is going to implement something similar
