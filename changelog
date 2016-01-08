@@ -1,4 +1,15 @@
 ------------------------------------------------------
+Version 1.7.10 - 1.2.14
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- None
+
+Bug Fixes
+- None
+------------------------------------------------------
 Version 1.7.10 - 1.2.13
 ------------------------------------------------------
 Additions
@@ -7,7 +18,7 @@ Additions
 - Swedish localization (WIP)
 
 Changes
-- Added compatibility so GraveStone's graves (and maybe others) work
+- Added compatibility so GraveStone's graves (and maybe others) work (Closes #40)
 
 Bug Fixes
 - None
