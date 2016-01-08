@@ -47,11 +47,13 @@ To Do:
 
         ADDITIONS/TWEAKS:
 
+            Void filter
+
+            Add config option to disable rendering
+
             Check the sv + es translation files
 
             When I have time to play, tweaks for default config values
-
-            Void filter
 
             Real API/Interfaces
                 IUpgradeableBackpack
