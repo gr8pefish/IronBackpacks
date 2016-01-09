@@ -9,4 +9,5 @@ public class ItemFilterAdvancedUpgrade extends ItemUpgradeBase {
     public ItemFilterAdvancedUpgrade(){
         super("filterAdvancedUpgrade", IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID, ConfigHandler.filterAdvancedUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_ADVANCED_DESCRIPTION);
     }
+
 }

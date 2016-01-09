@@ -9,4 +9,5 @@ public class ItemFilterModSpecificUpgrade extends ItemUpgradeBase{
     public ItemFilterModSpecificUpgrade(){
         super("filterModSpecificUpgrade", IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID, ConfigHandler.filterModSpecificUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_DESCRIPTION);
     }
+
 }

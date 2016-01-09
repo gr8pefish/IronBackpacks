@@ -2,10 +2,10 @@
 Version 1.7.10 - 1.2.15
 ------------------------------------------------------
 Additions
-- None
+- Void Filter (deletes items placed into it)
 
 Changes
-- None
+- Ordering of filters in the alternate GUI.
 
 Bug Fixes
 - None

@@ -46,6 +46,7 @@ public class ItemRegistry {
     public static Item nestingAdvancedUpgrade;
     public static Item depthUpgrade;
     public static Item filterMiningUpgrade;
+    public static Item filterVoidUpgrade;
 
     //misc
     public static Item nest;
@@ -92,6 +93,7 @@ public class ItemRegistry {
         upgrades.add(nestingAdvancedUpgrade);
         upgrades.add(depthUpgrade);
         upgrades.add(filterMiningUpgrade);
+        upgrades.add(filterVoidUpgrade);
         return upgrades;
     }
 
@@ -154,6 +156,8 @@ public class ItemRegistry {
         GameRegistry.registerItem(depthUpgrade, "depthUpgrade");
         filterMiningUpgrade = new ItemFilterMiningUpgrade();
         GameRegistry.registerItem(filterMiningUpgrade, "filterMiningUpgrade");
+        filterVoidUpgrade = new ItemFilterVoidUpgrade();
+        GameRegistry.registerItem(filterVoidUpgrade, "filterVoidUpgrade");
 
         //misc
         nest = new ItemNest();

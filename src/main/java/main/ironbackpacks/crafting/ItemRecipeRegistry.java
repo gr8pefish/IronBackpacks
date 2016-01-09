@@ -69,6 +69,7 @@ public class ItemRecipeRegistry {
 		registerBasicRecipe(ItemRegistry.depthUpgrade, ConfigHandler.depthUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.filterMiningUpgrade, ConfigHandler.filterMiningUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.quickDepositPreciseUpgrade, ConfigHandler.quickDepositPreciseUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.filterVoidUpgrade, ConfigHandler.filterVoidUpgradeRecipe);
 	}
 
 	//Registers the recipes that allow you to shapelessly craft an upgrade with a backpack to add/remove said upgrade

@@ -5,12 +5,6 @@ To Do:
     SOON:
 
         GIT STUFF:
-            master -> delete
-                rename local devSweden to master
-                    push local branch so master == head on origin
-                make a new dev branch
-                    delete old one
-                        push to github
 
         REFACTOR:
 
@@ -23,33 +17,14 @@ To Do:
 
         BUGS:
 
-            #36
-            I'm using the latest version of the mod (updated it myself in the modpack I'm playing) and similar to the closed issue #10 I have problem that an backpack that I have equipped seems to delete items.
-
-            I tried to reproduce it and it seems to "save" all items you put in before closing the game. (so the "quit" saves the items)
-            Every items you put into the backpack after starting the game again are in danger to be deleted.
-
-            I did quiet some testing about the "when" it disappears, since I first couldn't reproduce this "action" that needs to happen so all but the safe items disappear. What I found out:
-
-            It happens when you "place" a chest.
-            the items you put into the backpack once the chest is placed are safe for as long as you do not place another chest.
-            as mentioned aboth: all items you carry in the backpack when logging out seems to be safe from this bug, but while playing any chest you place seems to delete any items you put in after logging back in.
-
-            Similar to the issue #10 the bug is fixed by taking the backpack off, opening it from the hotbar and reequipping it. So opening it once from the hotbar seems to make it bug-proof at least until you close the game and start it again with it still equipped.
-
-            #10
-            If a backpack is equiped after creation, without first being opened atleast once from the hotbar, any items put into it will disappear when the GUI closes.
-
-            If the backpack is opened atleast once from the hotbar before equiping it, it seems to function properly, or if the backpack is upgraded to the next tier it seems to function properly.
-
-            Under normal circumstances, this would only affect the basic backpack, however, if an iron, gold, or diamond backpack is cheated in then it too will experience the bug and start destroying items until it is opened from the hotbar or upgraded if possible.
-
 
         ADDITIONS/TWEAKS:
 
-            Void filter
+            Void filter //localize
 
             Add config option to disable rendering
+
+            texture update (message CyanideX)
 
             Check the sv + es translation files
 

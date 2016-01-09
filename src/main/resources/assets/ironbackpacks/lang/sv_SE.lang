@@ -16,7 +16,7 @@ item.ironbackpacks:filterAdvancedUpgrade.name=Avancerad Filtrera Upgrade
 item.ironbackpacks:hopperUpgrade.name=Utsättning Upgrade
 item.ironbackpacks:condenserUpgrade.name=Tillverka Upgrade
 item.ironbackpacks:condenserSmallUpgrade.name=Liten Tillverka uppgradering
-item.ironbackpacks:condenserTinyUpgrade.name=Mycket Liten Tillverka Crafting Upgrade
+item.ironbackpacks:condenserTinyUpgrade.name=Mycket Liten Tillverka Upgrade
 item.ironbackpacks:renamingUpgrade.name=Döpa Upgrade
 item.ironbackpacks:keepOnDeathUpgrade.name=Evighet Upgrade
 item.ironbackpacks:additionalUpgradePointsUpgrade.name=Ytterligare Uppgradering Poäng Upgrade
@@ -24,6 +24,7 @@ item.ironbackpacks:quickDepositUpgrade.name=Snabb Insättning Upgrade
 item.ironbackpacks:quickDepositPreciseUpgrade.name=Exakt Snabb Insättning Upgrade
 item.ironbackpacks:filterMiningUpgrade.name=Gruvfilter Upgrade
 item.ironbackpacks:depthUpgrade.name=Djup Upgrade
+item.ironbackpacks:filterVoidUpgrade.name=Ogiltig Filtrera Upgrade
 
 item.ironbackpacks:nest.name=Näste
 item.ironbackpacks:upgradeCore.name=Upgrade Kärna
@@ -64,9 +65,10 @@ button.ironbackpacks.clear.modSpecificFilter.tooltip=Rensar mod specifika filter
 button.ironbackpacks.clear.miningFilter.tooltip=Rensar gruvfilterobjekten.
 button.ironbackpacks.clear.advancedFilter.tooltip=Återställer avancerade filter (rensar poster och knappfilter).
 button.ironbackpacks.clear.hopper.tooltip=Rensar utsättning objekt.
-button.ironbackpacks.clear.condenser.tooltip=Rensar crafting objekt.
-button.ironbackpacks.clear.condenser.small.tooltip=Rensar crafting objekt.
-button.ironbackpacks.clear.condenser.tiny.tooltip=Rensar crafting objekt.
+button.ironbackpacks.clear.condenser.tooltip=Rensar tillverka objekt.
+button.ironbackpacks.clear.condenser.small.tooltip=Rensar tillverka objekt.
+button.ironbackpacks.clear.condenser.tiny.tooltip=Rensar tillverka objekt.
+button.ironbackpacks.clear.voidFilter.tooltip=Raderar ogiltig filterobjekten.
 
 
 # Tooltip
@@ -102,6 +104,7 @@ tooltip.ironbackpacks.upgrade.addUpgrades.desc=Lägger annan% s till ryggsäcken
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=uppgradering punkt
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=% d uppgradera poäng
 tooltip.ironbackpacks.upgrade.addUpgrades.mult=% d gånger
+tooltip.ironbackpacks.upgrade.voidFilter.desc=Automatiskt bort alla objekt som du plocka upp som anges i filtret.
 
 
 # Diverse

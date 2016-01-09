@@ -9,4 +9,5 @@ public class ItemFilterFuzzyUpgrade extends ItemUpgradeBase{
     public ItemFilterFuzzyUpgrade(){
         super("filterFuzzyUpgrade", IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID, ConfigHandler.filterFuzzyUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_FUZZY_DESCRIPTION);
     }
+
 }

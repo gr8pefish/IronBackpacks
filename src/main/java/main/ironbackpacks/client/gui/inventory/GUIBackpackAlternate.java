@@ -143,6 +143,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     private boolean hasCondenserTinyUpgrade;
     private boolean hasFilterAdvancedUpgrade;
     private boolean hasFilterMiningUpgrade;
+    private boolean hasFilterVoidUpgrade;
 
     private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, BackpackTypes backpackType, ItemStack backpack) {
         super(type.makeContainer(player, inv));
@@ -166,6 +167,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         this.hasCondenserTinyUpgrade = UpgradeMethods.hasCondenserTinyUpgrade(upgrades);
         this.hasFilterAdvancedUpgrade = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades);
         this.hasFilterMiningUpgrade = UpgradeMethods.hasFilterMiningUpgrade(upgrades);
+        this.hasFilterVoidUpgrade = UpgradeMethods.hasFilterVoidUpgrade(upgrades);
 
         this.itemStack = backpack;
     }
@@ -252,17 +254,11 @@ public class GUIBackpackAlternate extends GuiContainer {
                 rowIndex++;
                 yStartButton += 36;
             }
-            if (hasFilterMiningUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.miningFilter.tooltip"))));
-                rowIndex++;
-                yStartButton += 36;
-            }
         } else { //no button upgrade, move the staring position of the button to be at the advanced filter
             if (hasFilterBasicUpgrade) yStartButton += 36;
             if (hasFilterFuzzyUpgrade) yStartButton += 36;
             if (hasFilterOreDictUpgrade) yStartButton += 36;
             if (hasFilterModSpecificUpgrade) yStartButton += 36;
-            if (hasFilterMiningUpgrade) yStartButton += 36;
         }
 
         //If you have the advanced filter add the relevant buttons
@@ -315,6 +311,16 @@ public class GUIBackpackAlternate extends GuiContainer {
 
         //Add the remaining clear row buttons if necessary
         if (hasButtonUpgrade){
+            if (hasFilterMiningUpgrade) {
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.miningFilter.tooltip"))));
+                rowIndex++;
+                yStartButton += 36;
+            }
+            if (hasFilterVoidUpgrade) {
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.voidFilter.tooltip"))));
+                rowIndex++;
+                yStartButton += 36;
+            }
             if (hasHopperUpgrade){
                 buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, ButtonTypes.CLEAR_ROW, xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.hopper.tooltip"))));
                 rowIndex++;
@@ -372,12 +378,16 @@ public class GUIBackpackAlternate extends GuiContainer {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterModSpecificUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
         }
+        if (hasFilterAdvancedUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterAdvancedUpgrade.name"),20, yStart, 4210752);
+            yStart += 36;
+        }
         if (hasFilterMiningUpgrade) {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterMiningUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
         }
-        if (hasFilterAdvancedUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterAdvancedUpgrade.name"),20, yStart, 4210752);
+        if (hasFilterVoidUpgrade) {
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterVoidUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasHopperUpgrade) {

@@ -1,6 +1,7 @@
 package main.ironbackpacks.events;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -502,9 +503,6 @@ public class ForgeEventHandler {
                     if (UpgradeMethods.hasFilterOreDictUpgrade(upgrades))
                         transferWithOreDictFilter(UpgradeMethods.getOreDictFilterItems(backpack), getOreDict(event.item.getEntityItem()), event, container);
 
-                    if (UpgradeMethods.hasFilterMiningUpgrade(upgrades))
-                        transferWithMiningFilter(UpgradeMethods.getMiningFilterItems(backpack), getOreDict(event.item.getEntityItem()), event, container);
-
                     if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades)) {
                         ItemStack[] advFilterItems = UpgradeMethods.getAdvFilterAllItems(backpack);
                         byte[] advFilterButtonStates = UpgradeMethods.getAdvFilterButtonStates(backpack);
@@ -514,6 +512,12 @@ public class ForgeEventHandler {
                         transferWithFuzzyFilter(UpgradeMethods.getAdvFilterFuzzyItems(advFilterItems, advFilterButtonStates), event, container);
                         transferWithOreDictFilter(UpgradeMethods.getAdvFilterOreDictItems(advFilterItems, advFilterButtonStates), getOreDict(event.item.getEntityItem()), event, container);
                     }
+
+                    if (UpgradeMethods.hasFilterMiningUpgrade(upgrades))
+                        transferWithMiningFilter(UpgradeMethods.getMiningFilterItems(backpack), getOreDict(event.item.getEntityItem()), event, container);
+
+                    if (UpgradeMethods.hasFilterVoidUpgrade(upgrades))
+                        deleteWithVoidFilter(UpgradeMethods.getVoidFilterItems(backpack), event);
 
                 }
             }
@@ -586,7 +590,7 @@ public class ForgeEventHandler {
     /**
      * Transfers items with respect to the category of the same mod
      * @param filterItems - the items to check
-     * @param event -EntityItemPickupEvent
+     * @param event - EntityItemPickupEvent
      * @param container - the backpack to move the items into
      */
     private void transferWithModSpecificFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
@@ -606,7 +610,7 @@ public class ForgeEventHandler {
     /**
      * Transfers items with ore in the name
      * @param filterItems - the items to check
-     * @param event -EntityItemPickupEvent
+     * @param event - EntityItemPickupEvent
      * @param container - the backpack to move the items into
      */
     private void transferWithMiningFilter(ArrayList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
@@ -622,6 +626,23 @@ public class ForgeEventHandler {
             }
         }
         if (shouldSave) container.onContainerClosed(event.entityPlayer);
+    }
+
+    /**
+     * Deletes items in the void filter by destroying the entityItem picked up intead of moving it into the backpack or elsewhere
+     * @param filterItems - the items to delete
+     * @param event - EntityItemPickupEvent
+     */
+    private void deleteWithVoidFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event){
+        for (ItemStack stack : filterItems) {
+            if (stack != null) {
+                if (IronBackpacksHelper.areItemsEqualForStacking(stack, event.item.getEntityItem())){ //if same item
+                    event.item.setDead(); //delete it
+                    event.item.onUpdate(); //update to make sure it's gone
+                    event.setCanceled(true); //make sure it can't be picked up by other mods/vanilla
+                }
+            }
+        }
     }
 
     /**

@@ -50,6 +50,7 @@ public class IronBackpacksConstants {
         public static final int FILTER_OREDICT_UPGRADE_ID = 12;
         public static final int FILTER_ADVANCED_UPGRADE_ID = 14;
         public static final int FILTER_MINING_UPGRADE_ID = 17;
+        public static final int FILTER_VOID_UPGRADE_ID = 21;
 
 
         //================Upgrade Info===================
@@ -68,7 +69,8 @@ public class IronBackpacksConstants {
         public static final String[] FILTER_MOD_SPECIFIC_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.modSpecificFilter.desc"));
         public static final String[] FILTER_FUZZY_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.fuzzyFilter.desc"));
         public static final String[] FILTER_OREDICT_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.oreDictFilter.desc"));
-        public static final String[] FILTER_MINING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.mining.desc"));
+        public static final String[] FILTER_MINING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.miningFilter.desc"));
+        public static final String[] FILTER_VOID_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.voidFilter.desc"));
         public static final String[] FILTER_ADVANCED_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.advFilter.desc"));
         public static final String[] HOPPER_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.hopperFilter.desc"));
         public static final String[] CONDENSER_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.desc"));
@@ -82,8 +84,9 @@ public class IronBackpacksConstants {
                 FILTER_FUZZY_UPGRADE_ID,
                 FILTER_OREDICT_UPGRADE_ID,
                 FILTER_MOD_SPECIFIC_UPGRADE_ID,
-                FILTER_MINING_UPGRADE_ID,
                 FILTER_ADVANCED_UPGRADE_ID,
+                FILTER_MINING_UPGRADE_ID, //TODO: moved this
+                FILTER_VOID_UPGRADE_ID,
                 HOPPER_UPGRADE_ID,
                 CONDENSER_UPGRADE_ID,
                 CONDENSER_SMALL_UPGRADE_ID,
@@ -111,7 +114,8 @@ public class IronBackpacksConstants {
                 StatCollector.translateToLocal("item.ironbackpacks:filterMiningUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:quickDepositPreciseUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:condenserSmallUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:condenserTinyUpgrade.name")
+                StatCollector.translateToLocal("item.ironbackpacks:condenserTinyUpgrade.name"),
+                StatCollector.translateToLocal("item.ironbackpacks:filterVoidUpgrade.name")
         };
 
         //All the upgrade costs
@@ -136,7 +140,8 @@ public class IronBackpacksConstants {
                 ConfigHandler.filterMiningUpgradeCost,
                 ConfigHandler.quickDepositPreciseUpgradeCost,
                 ConfigHandler.condenserSmallUpgradeCost,
-                ConfigHandler.condenserTinyUpgradeCost
+                ConfigHandler.condenserTinyUpgradeCost,
+                ConfigHandler.filterVoidUpgradeCost
         };
 
         //===========================Misc==================================
@@ -197,6 +202,7 @@ public class IronBackpacksConstants {
         public static final String FILTER_ORE_DICT = "FilterOreDict";
         public static final String FILTER_MOD_SPECIFIC = "FilterModSpecific";
         public static final String FILTER_MINING = "FilterMining";
+        public static final String FILTER_VOID = "FilterVoid";
         public static final String FILTER_ADV_ALL_SLOTS = "FilterAdvAllSlots";
         public static final String FILTER_ADV_BUTTONS = "FilterAdvButtons";
         public static final String FILTER_ADV_START = "FilterAdvStart";
@@ -222,7 +228,7 @@ public class IronBackpacksConstants {
         public static final String MOVE_LEFT = "left";
 
         //To get the most updated 1.7.10 of the mod
-        public static final String URL_UPDATED_VERSION = "https://raw.githubusercontent.com/gr8pefish/IronBackpacks/devSweden/version/1.7.10"; //HARDCODED to 1.7.10
+        public static final String URL_UPDATED_VERSION = "https://raw.githubusercontent.com/gr8pefish/IronBackpacks/master-1.7.10/version/1.7.10"; //HARDCODED to 1.7.10
     }
 
 }

@@ -24,6 +24,7 @@ item.ironbackpacks:quickDepositUpgrade.name=Schnellablager-Upgrade
 item.ironbackpacks:quickDepositPreciseUpgrade.name=Präzises Schnellablager-Upgrade
 item.ironbackpacks:filterMiningUpgrade.name=Abbaufilter-Upgrade
 item.ironbackpacks:depthUpgrade.name=Tiefen-Upgrade
+item.ironbackpacks:filterVoidUpgrade.name=Leere Filter-Upgrade
 
 item.ironbackpacks:nest.name=Schachteln
 item.ironbackpacks:upgradeCore.name=Upgrade-Kern
@@ -67,6 +68,7 @@ button.ironbackpacks.clear.hopper.tooltip=Löscht die auffüllenden Items.
 button.ironbackpacks.clear.condenser.tooltip=Löscht die fertigenden Items.
 button.ironbackpacks.clear.condenser.small.tooltip=Löscht die fertigenden Items.
 button.ironbackpacks.clear.condenser.tiny.tooltip=Löscht die fertigenden Items.
+button.ironbackpacks.clear.voidFilter.tooltip=Löscht die leere-gefilterten Items.
 
 
 # Tooltip
@@ -102,6 +104,7 @@ tooltip.ironbackpacks.upgrade.addUpgrades.desc=Fügt %s dem Rucksack hinzu. Kann
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=Upgrade-Punkt
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d Upgrade-Punkte
 tooltip.ironbackpacks.upgrade.addUpgrades.mult=%d mal
+tooltip.ironbackpacks.upgrade.voidFilter.desc=Alle mögliche Einzelteile holen Sie, die im Filter festgelegt werden automatisch gelöscht.
 
 
 # Miscellaneous

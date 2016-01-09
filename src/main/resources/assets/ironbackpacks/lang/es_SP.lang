@@ -24,6 +24,7 @@ item.ironbackpacks:quickDepositUpgrade.name=Mejoramiento de Depósito Rápida
 item.ironbackpacks:quickDepositPreciseUpgrade.name=Mejoramiento de Depósito Rápida Precisa
 item.ironbackpacks:filterMiningUpgrade.name=Mejoramiento de Filtro Minería
 item.ironbackpacks:depthUpgrade.name=Mejoramiento de Interactividad
+item.ironbackpacks:filterVoidUpgrade.name=Mejoramiento de Filtro Vacío
 
 item.ironbackpacks:nest.name=Nido
 item.ironbackpacks:upgradeCore.name=Núcleo de Mejoramiento
@@ -67,6 +68,7 @@ button.ironbackpacks.clear.hopper.tooltip=Borra los elementos de repoblación.
 button.ironbackpacks.clear.condenser.tooltip=Borra los artículos de artesanía.
 button.ironbackpacks.clear.condenser.small.tooltip=Borra los artículos de artesanía.
 button.ironbackpacks.clear.condenser.tiny.tooltip=Borra los artículos de artesanía.
+button.ironbackpacks.clear.voidFilter.tooltip=Borra los elementos vacíos de filtro.
 
 
 # Tooltip
@@ -102,6 +104,7 @@ tooltip.ironbackpacks.upgrade.addUpgrades.desc=Añade otro% s a la mochila. Pued
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=punto de actualización
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=% d actualizar puntos
 tooltip.ironbackpacks.upgrade.addUpgrades.mult=% d veces
+tooltip.ironbackpacks.upgrade.voidFilter.desc=Elimina automáticamente los artículos que usted escoge hasta que se especifican en el filtro.
 
 
 # Diverso
