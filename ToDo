@@ -20,11 +20,9 @@ To Do:
 
         ADDITIONS/TWEAKS:
 
-            Void filter //localize
-
             Add config option to disable rendering
 
-            texture update (message CyanideX)
+            texture update (message CyanideX/interview person)
 
             Check the sv + es translation files
 
@@ -45,8 +43,10 @@ To Do:
 
             Have depth upgrade apply to the IBlockProvider --> wait for Vazkii API update
 
-            Add ender upgrade?
-                allows you to use the filter/restocking to go into an ender pouch in the inventory
+            Add ender upgrade(s)?
+                depthEnder - allows you to use the filter/restocking to go into an ender pouch in the inventory
+                vanillaEnder - vanilla ender chest linked backpack (with backpack able to take upgrades)
+                remoteEnder - or specified filter linking to a specific chest
 
             Allow shift right click equipped?
 

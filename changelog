@@ -3,12 +3,13 @@ Version 1.7.10 - 1.2.15
 ------------------------------------------------------
 Additions
 - Void Filter (deletes items placed into it)
+- Config value to add the option to disable rendering of backpacks
 
 Changes
-- Ordering of filters in the alternate GUI.
+- Ordering of filters in the alternate GUI
 
 Bug Fixes
-- None
+- Mining filter displacing the advanced filter when added
 ------------------------------------------------------
 Version 1.7.10 - 1.2.14
 ------------------------------------------------------

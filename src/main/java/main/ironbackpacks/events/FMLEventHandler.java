@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.entity.EntityBackpack;
+import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.network.ClientPackMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.util.IronBackpacksHelper;
@@ -43,7 +44,8 @@ public class FMLEventHandler {
             NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
             IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
 
-            IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
+            if (!ConfigHandler.disableRendering)
+                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
         }
     }
 
@@ -59,7 +61,8 @@ public class FMLEventHandler {
             NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
             IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
 
-            IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
+            if (!ConfigHandler.disableRendering)
+                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
         }
     }
 
@@ -72,12 +75,15 @@ public class FMLEventHandler {
         ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(event.player);
         if (backpack != null) {
             if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) {//if has old dimension backpack
-                EntityBackpack.backpacksSpawnedMap.get(event.player).setDead(); //kill old backpack
+                if (EntityBackpack.backpacksSpawnedMap.get(event.player) != null) //possible if config option disabled rendering
+                    EntityBackpack.backpacksSpawnedMap.get(event.player).setDead(); //kill old backpack
             }
 
             NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
             IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
-            IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
+
+            if (!ConfigHandler.disableRendering)
+                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
         }
     }
 
