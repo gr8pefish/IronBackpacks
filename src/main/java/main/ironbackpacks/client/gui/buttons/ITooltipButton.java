@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public interface ITooltipButton {
 
     //Is the mouse over the button?
-    boolean mouseInButton(int mouseX, int mouseY);
+    public boolean mouseInButton(int mouseX, int mouseY);
 
     //Get the tooltip
-    ArrayList<String> getTooltip();
+    public ArrayList<String> getTooltip();
 
     //Get the length of time the mouse has been hovering over the button
-    int getHoverTime();
+    public int getHoverTime();
 }

@@ -25,9 +25,9 @@ public interface IBackpack {
 
     int getRowLength();
 
-    int getUpgradePoints();
+    int getUpgradeSlots();
 
-    String getName();
+    String getFancyName();
 
     int getGuiId();
 }

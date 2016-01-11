@@ -1,15 +1,14 @@
 package main.ironbackpacks.client.gui.buttons;
 
-import main.ironbackpacks.util.ConfigHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Class for drawing and creating all the buttons.
@@ -26,46 +25,35 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
     private int hoverTime; //the hover time (for displaying tooltips)
 
     //Constructor which uses the ButtonTypes enum
-    public TooltipButton(ButtonTypes buttonType, int xPos, int yPos) {
+    public TooltipButton(ButtonTypes buttonType, int xPos, int yPos){
         super(buttonType.id, xPos, yPos, buttonType.sizeX, buttonType.sizeY, ""); //empty string displays no text on the button
         this.buttonID = buttonType.id;
 
         hoverTime = buttonType.delay ? ConfigHandler.tooltipDelay : 0;
         tooltips = new ArrayList<String>();
-
-        Collections.addAll(tooltips, buttonType.tooltip);
+        for (String string: buttonType.tooltip){
+            tooltips.add(string);
+        }
 
         iconOffsetX = buttonType.iconOffsetX;
         iconOffsetY = buttonType.iconOffsetY;
     }
 
     //Overloaded constructor for more flexibility when initializing (used for the clear lines buttons in the alternate gui)
-    public TooltipButton(int id, ButtonTypes buttonType, int xPos, int yPos, String... tooltipLines) {
+    public TooltipButton(int id, ButtonTypes buttonType, int xPos, int yPos, String... tooltipLines){
         super(id, xPos, yPos, buttonType.sizeX, buttonType.sizeY, "");
         this.buttonID = id;
 
         hoverTime = buttonType.delay ? ConfigHandler.tooltipDelay : 0;
         tooltips = new ArrayList<String>();
-        Collections.addAll(tooltips, ((tooltipLines.length == 0) ? buttonType.tooltip : tooltipLines));
+        for (String string: ((tooltipLines.length == 0) ? buttonType.tooltip : tooltipLines)){
+            tooltips.add(string);
+        }
 
         iconOffsetX = buttonType.iconOffsetX;
         iconOffsetY = buttonType.iconOffsetY;
     }
 
-    /**
-     * Rotates through the 4 filter type buttons by getting teh next one.
-     *
-     * @param button - the button to increment
-     * @return - int id of the nut button
-     */
-    public static int incrementType(GuiButton button) {
-        int buttonID = ((TooltipButton) button).buttonID;
-        if (buttonID < ButtonTypes.MOD_SPECIFIC.id) { //increment
-            return ++buttonID;
-        } else {
-            return ButtonTypes.EXACT.id; //wraparound
-        }
-    }
 
     @Override
     public void drawButton(Minecraft minecraft, int mPosX, int mPosY) {
@@ -92,7 +80,21 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
     }
 
     @Override
-    public int getHoverTime() {
+    public int getHoverTime(){
         return hoverTime;
+    }
+
+    /**
+     * Rotates through the 4 filter type buttons by getting teh next one.
+     * @param button - the button to increment
+     * @return - int id of the new button
+     */
+    public static int incrementType(GuiButton button){
+        int buttonID = ((TooltipButton)button).buttonID;
+        if (buttonID < ButtonTypes.MOD_SPECIFIC.id){ //increment
+            return ++buttonID;
+        }else{
+            return ButtonTypes.EXACT.id; //wraparound
+        }
     }
 }

@@ -1,19 +1,16 @@
 package main.ironbackpacks.items;
 
-import main.ironbackpacks.ModInformation;
+import cpw.mods.fml.common.registry.GameRegistry;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
-import main.ironbackpacks.items.backpacks.ItemEnderBackpack;
 import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;
 import main.ironbackpacks.items.craftingItems.ItemNest;
 import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
 import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
-import main.ironbackpacks.util.ConfigHandler;
-import main.ironbackpacks.util.InventoryRenderHelper;
+import main.ironbackpacks.handlers.ConfigHandler;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 
@@ -22,12 +19,11 @@ import java.util.ArrayList;
  */
 public class ItemRegistry {
 
-    //backpacks
+	//backpacks
     public static Item basicBackpack;
     public static Item ironBackpack;
     public static Item goldBackpack;
     public static Item diamondBackpack;
-    public static Item enderBackpack;
 
     //upgrades
     public static Item buttonUpgrade;
@@ -40,11 +36,17 @@ public class ItemRegistry {
     public static Item filterModSpecificUpgrade;
     public static Item hopperUpgrade;
     public static Item condenserUpgrade;
+    public static Item condenserSmallUpgrade;
+    public static Item condenserTinyUpgrade;
     public static Item keepOnDeathUpgrade;
     public static Item additionalUpgradesUpgrade;
     public static Item quickDepositUpgrade;
+    public static Item quickDepositPreciseUpgrade;
     public static Item filterAdvancedUpgrade;
     public static Item nestingAdvancedUpgrade;
+    public static Item depthUpgrade;
+    public static Item filterMiningUpgrade;
+    public static Item filterVoidUpgrade;
 
     //misc
     public static Item nest;
@@ -54,10 +56,9 @@ public class ItemRegistry {
 
     /**
      * Gets every backpack item.
-     *
      * @return - backpacks as an ArrayList of Items
      */
-    public static ArrayList<Item> getBackpacks() {
+    public static ArrayList<Item> getBackpacks(){
         ArrayList<Item> backpacks = new ArrayList<Item>();
         backpacks.add(basicBackpack);
         backpacks.add(ironBackpack);
@@ -68,10 +69,9 @@ public class ItemRegistry {
 
     /**
      * Gets every upgrade item.
-     *
      * @return - upgrades as an ArrayList of Items
      */
-    public static ArrayList<Item> getUpgrades() {
+    public static ArrayList<Item> getUpgrades(){
         ArrayList<Item> upgrades = new ArrayList<Item>();
         upgrades.add(buttonUpgrade);
         upgrades.add(nestingUpgrade);
@@ -83,11 +83,17 @@ public class ItemRegistry {
         upgrades.add(filterModSpecificUpgrade);
         upgrades.add(hopperUpgrade);
         upgrades.add(condenserUpgrade);
+        upgrades.add(condenserSmallUpgrade);
+        upgrades.add(condenserTinyUpgrade);
         upgrades.add(keepOnDeathUpgrade);
         upgrades.add(additionalUpgradesUpgrade);
         upgrades.add(quickDepositUpgrade);
+        upgrades.add(quickDepositPreciseUpgrade);
         upgrades.add(filterAdvancedUpgrade);
         upgrades.add(nestingAdvancedUpgrade);
+        upgrades.add(depthUpgrade);
+        upgrades.add(filterMiningUpgrade);
+        upgrades.add(filterVoidUpgrade);
         return upgrades;
     }
 
@@ -95,8 +101,9 @@ public class ItemRegistry {
     /**
      * Registers all the items with the GameRegistry
      */
-    public static void registerItems() {
+	public static void registerItems() {
 
+        //backpacks
         basicBackpack = new ItemBackpack(BackpackTypes.BASIC);
         GameRegistry.registerItem(basicBackpack, BackpackTypes.BASIC.getName());
         ironBackpack = new ItemBackpack(BackpackTypes.IRON);
@@ -105,17 +112,13 @@ public class ItemRegistry {
         GameRegistry.registerItem(goldBackpack, BackpackTypes.GOLD.getName());
         diamondBackpack = new ItemBackpack(BackpackTypes.DIAMOND);
         GameRegistry.registerItem(diamondBackpack, BackpackTypes.DIAMOND.getName());
-        if (ConfigHandler.enableEnderBackpack) {
-            enderBackpack = new ItemEnderBackpack();
-            GameRegistry.registerItem(enderBackpack, ((ItemEnderBackpack) enderBackpack).getName());
-        }
 
         //upgrades
         buttonUpgrade = new ItemButtonUpgrade();
         GameRegistry.registerItem(buttonUpgrade, "buttonUpgrade");
         nestingUpgrade = new ItemNestingUpgrade();
         GameRegistry.registerItem(nestingUpgrade, "nestingUpgrade");
-        if (ConfigHandler.renamingUpgradeRequired) {
+        if (ConfigHandler.renamingUpgradeRequired){
             renamingUpgrade = new ItemRenamingUpgrade();
             GameRegistry.registerItem(renamingUpgrade, "renamingUpgrade");
         }
@@ -127,6 +130,10 @@ public class ItemRegistry {
         GameRegistry.registerItem(hopperUpgrade, "hopperUpgrade");
         condenserUpgrade = new ItemCondenserUpgrade();
         GameRegistry.registerItem(condenserUpgrade, "condenserUpgrade");
+        condenserSmallUpgrade = new ItemCondenserSmallUpgrade();
+        GameRegistry.registerItem(condenserSmallUpgrade, "condenserSmallUpgrade");
+        condenserTinyUpgrade = new ItemCondenserTinyUpgrade();
+        GameRegistry.registerItem(condenserTinyUpgrade, "condenserTinyUpgrade");
         keepOnDeathUpgrade = new ItemKeepOnDeathUpgrade();
         GameRegistry.registerItem(keepOnDeathUpgrade, "keepOnDeathUpgrade");
         filterModSpecificUpgrade = new ItemFilterModSpecificUpgrade();
@@ -139,10 +146,18 @@ public class ItemRegistry {
         GameRegistry.registerItem(filterOreDictUpgrade, "filterOreDictUpgrade");
         quickDepositUpgrade = new ItemQuickDepositUpgrade();
         GameRegistry.registerItem(quickDepositUpgrade, "quickDepositUpgrade");
+        quickDepositPreciseUpgrade = new ItemQuickDepositPreciseUpgrade();
+        GameRegistry.registerItem(quickDepositPreciseUpgrade, "quickDepositPreciseUpgrade");
         filterAdvancedUpgrade = new ItemFilterAdvancedUpgrade();
         GameRegistry.registerItem(filterAdvancedUpgrade, "filterAdvancedUpgrade");
         nestingAdvancedUpgrade = new ItemNestingAdvancedUpgrade();
         GameRegistry.registerItem(nestingAdvancedUpgrade, "nestingAdvancedUpgrade");
+        depthUpgrade = new ItemDepthUpgrade();
+        GameRegistry.registerItem(depthUpgrade, "depthUpgrade");
+        filterMiningUpgrade = new ItemFilterMiningUpgrade();
+        GameRegistry.registerItem(filterMiningUpgrade, "filterMiningUpgrade");
+        filterVoidUpgrade = new ItemFilterVoidUpgrade();
+        GameRegistry.registerItem(filterVoidUpgrade, "filterVoidUpgrade");
 
         //misc
         nest = new ItemNest();
@@ -153,38 +168,6 @@ public class ItemRegistry {
         GameRegistry.registerItem(jeweledFeather, "jeweledFeather");
         treatedLeather = new ItemTreatedLeather();
         GameRegistry.registerItem(treatedLeather, "treatedLeather");
-    }
 
-    public static void registerRenders() {
-        InventoryRenderHelper helper = new InventoryRenderHelper(ModInformation.ID + ":");
-
-        String alternate = ConfigHandler.useAlternateHDBackpackTextures ? "_alternate" : "";
-        helper.itemRender(basicBackpack, BackpackTypes.BASIC.getName() + alternate);
-        helper.itemRender(ironBackpack, BackpackTypes.IRON.getName() + alternate);
-        helper.itemRender(goldBackpack, BackpackTypes.GOLD.getName() + alternate);
-        helper.itemRender(diamondBackpack, BackpackTypes.DIAMOND.getName() + alternate);
-        helper.itemRender(enderBackpack, ((ItemEnderBackpack) enderBackpack).getName());
-
-        helper.itemRender(buttonUpgrade, "buttonUpgrade");
-        helper.itemRender(nestingUpgrade, "nestingUpgrade");
-        if (ConfigHandler.renamingUpgradeRequired)
-            helper.itemRender(renamingUpgrade, "renamingUpgrade");
-        helper.itemRender(damageBarUpgrade, "damageBarUpgrade");
-        helper.itemRender(filterBasicUpgrade, "filterBasicUpgrade");
-        helper.itemRender(hopperUpgrade, "hopperUpgrade");
-        helper.itemRender(condenserUpgrade, "condenserUpgrade");
-        helper.itemRender(keepOnDeathUpgrade, "keepOnDeathUpgrade");
-        helper.itemRender(filterModSpecificUpgrade, "filterModSpecificUpgrade");
-        helper.itemRender(additionalUpgradesUpgrade, "additionalUpgradesUpgrade");
-        helper.itemRender(filterFuzzyUpgrade, "filterFuzzyUpgrade");
-        helper.itemRender(filterOreDictUpgrade, "filterOreDictUpgrade");
-        helper.itemRender(quickDepositUpgrade, "quickDepositUpgrade");
-        helper.itemRender(filterAdvancedUpgrade, "filterAdvancedUpgrade");
-        helper.itemRender(nestingAdvancedUpgrade, "nestingAdvancedUpgrade");
-
-        helper.itemRender(nest, "nest");
-        helper.itemRender(upgradeCore, "upgradeCore");
-        helper.itemRender(jeweledFeather, "jeweledFeather");
-        helper.itemRender(treatedLeather, "treatedLeather");
-    }
+	}
 }

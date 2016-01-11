@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 /**
  * A slot that extends BackpackSlot that can accept any item
  */
-public class AdvancedNestingBackpackSlot extends NestingBackpackSlot {
+public class AdvancedNestingBackpackSlot extends NestingBackpackSlot{
 
     private BackpackTypes type; //The backpack type
 
@@ -17,7 +17,7 @@ public class AdvancedNestingBackpackSlot extends NestingBackpackSlot {
     }
 
     @Override
-    public boolean acceptsStack(ItemStack stack) {
+    public boolean acceptsStack(ItemStack stack){
         return true;
     }
 }

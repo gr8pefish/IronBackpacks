@@ -1,45 +1,41 @@
 package main.ironbackpacks.network;
 
+import cpw.mods.fml.common.network.ByteBufUtils;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
-import main.ironbackpacks.entity.PlayerBackpackProperties;
-import main.ironbackpacks.items.backpacks.IBackpack;
-import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.util.IronBackpacksConstants;
+import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
 import main.ironbackpacks.util.NBTHelper;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * A message that contains a single byte as the data sent
  */
-public class SingleByteMessage implements IMessage {
+public class SingleByteMessage implements IMessage{
 
     //the data sent
     private byte action;
 
-    public SingleByteMessage() {
-    } //default constructor is necessary
+    public SingleByteMessage() {} //default constructor is necessary
 
     public SingleByteMessage(byte action) {
         this.action = action;
     }
 
     @Override
-    public void fromBytes(ByteBuf buf) {
+    public void fromBytes(ByteBuf buf){
         action = (byte) ByteBufUtils.readVarShort(buf);
     }
 
     @Override
-    public void toBytes(ByteBuf buf) {
+    public void toBytes(ByteBuf buf){
         ByteBufUtils.writeVarShort(buf, action);
     }
 
@@ -89,28 +85,25 @@ public class SingleByteMessage implements IMessage {
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
                     altContainer.removeSlotsInRow(3);
                     break;
-                case IronBackpacksConstants.Messages.SingleByte.EQUIP_BACKPACK:
+                case IronBackpacksConstants.Messages.SingleByte.EQUIP_BACKPACK_KEYBINDING:
+                    IronBackpacksHelper.equipBackpackFromKeybinding(ctx.getServerHandler().playerEntity);
+                    break;
+                case IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING:
                     player = ctx.getServerHandler().playerEntity;
-
-                    if (PlayerBackpackProperties.getEquippedBackpack(player) == null) {
-                        if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IBackpack) {
-                            PlayerBackpackProperties.setEquippedBackpack(player, player.getHeldItem());
-                            player.inventory.decrStackSize(player.inventory.currentItem, 1);
-                        }
-                    } else {
-                        player.worldObj.spawnEntityInWorld(new EntityItem(player.worldObj, player.posX, player.posY, player.posZ, PlayerBackpackProperties.getEquippedBackpack(player)));
-                        PlayerBackpackProperties.reset(player);
+                    ItemStack backpackStack = IronBackpacks.proxy.getEquippedBackpack(player);
+                    if (backpackStack != null) {
+                        NBTHelper.setUUID(backpackStack);
+                        IronBackpacks.proxy.updateCurrBackpack(player, backpackStack);
+                        backpackStack.useItemRightClick(player.worldObj, player);
                     }
                     break;
-                case IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK:
+                case IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_ALT_KEYBINDING: //TODO: implement correctly, doesn't work as-is
                     player = ctx.getServerHandler().playerEntity;
-
-                    ItemStack backpack = PlayerBackpackProperties.get(player).getEquippedBackpack();
-
-                    if (backpack != null) {
-                        NBTHelper.setUUID(backpack);
-                        CommonProxy.updateCurrBackpack(player, backpack);
-                        backpack.useItemRightClick(player.worldObj, player);
+                    ItemStack backpackStackAlt = IronBackpacks.proxy.getEquippedBackpack(player);
+                    if (backpackStackAlt != null) {
+                        NBTHelper.setUUID(backpackStackAlt);
+                        IronBackpacks.proxy.updateCurrBackpack(player, backpackStackAlt);
+                        backpackStackAlt.useItemRightClick(player.worldObj, player);
                     }
                     break;
                 default:

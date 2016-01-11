@@ -1,14 +1,10 @@
 package main.ironbackpacks.items.craftingItems;
 
-import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.ModInformation;
-import net.minecraft.item.Item;
+import main.ironbackpacks.items.ItemBase;
 
-public class ItemNest extends Item {
-
-    public ItemNest() {
-        super();
-        setUnlocalizedName(ModInformation.ID + ":nest");
-        setCreativeTab(IronBackpacks.creativeTab);
+public class ItemNest extends ItemBase{
+    
+    public ItemNest(){
+        super("nest","nest");
     }
 }

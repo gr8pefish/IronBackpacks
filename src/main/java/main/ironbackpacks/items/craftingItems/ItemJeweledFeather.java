@@ -1,14 +1,10 @@
 package main.ironbackpacks.items.craftingItems;
 
-import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.ModInformation;
-import net.minecraft.item.Item;
+import main.ironbackpacks.items.ItemBase;
 
-public class ItemJeweledFeather extends Item {
+public class ItemJeweledFeather extends ItemBase {
 
-    public ItemJeweledFeather() {
-        super();
-        setUnlocalizedName(ModInformation.ID + ":jeweledFeather");
-        setCreativeTab(IronBackpacks.creativeTab);
+    public ItemJeweledFeather(){
+        super("jeweledFeather", "jeweledFeather");
     }
 }

@@ -1,9 +1,9 @@
 package main.ironbackpacks.network;
 
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.relauncher.Side;
 import main.ironbackpacks.ModInformation;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Class to register all the messages and the networkWrapper
@@ -11,7 +11,6 @@ import net.minecraftforge.fml.relauncher.Side;
 public class NetworkingHandler {
 
     public static SimpleNetworkWrapper network;
-    private static int nextPacketId = 0;
 
     //initializes the wrapper and then the messages
     public static void initPackets() {
@@ -19,7 +18,11 @@ public class NetworkingHandler {
         registerMessage(RenameMessage.Handler.class, RenameMessage.class, Side.SERVER);
         registerMessage(AdvFilterTypesMessage.Handler.class, AdvFilterTypesMessage.class, Side.SERVER);
         registerMessage(SingleByteMessage.Handler.class, SingleByteMessage.class, Side.SERVER);
+        registerMessage(ClientPackMessage.Handler.class, ClientPackMessage.class, Side.CLIENT);
+        registerMessage(ClientPackMessage.Handler.class, ClientPackMessage.class, Side.SERVER); //TODO: figure out why I need this on server too for dedicated servers to work
     }
+
+    private static int nextPacketId = 0;
 
     @SuppressWarnings({"unchecked"})
     private static void registerMessage(Class packet, Class message, Side side) {

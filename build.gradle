@@ -11,8 +11,8 @@ buildscript {
 }
 
 plugins {
-    id 'com.matthewprenger.cursegradle' version '1.0.4'
     id "net.minecraftforge.gradle.forge" version "2.0.2"
+    id 'com.matthewprenger.cursegradle' version '1.0.5'
 }
 
 apply plugin: 'maven-publish'
@@ -31,16 +31,18 @@ if (new File(projectDir, '.git').exists())
     gitHash = repo.log().find().abbreviatedId
 
 repositories {
-
+    maven { url "http://dvs1.progwml6.com/files/maven" }
 }
 
 dependencies {
-
+    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
 }
 
 minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "run"
+
+    useDepAts = true
 
     replace "@VERSION@", project.version
     replaceIn "ModInformation.java"
@@ -63,6 +65,14 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
         exclude '**/*.properties'
+    }
+}
+
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
     }
 }
 
@@ -137,18 +147,23 @@ String getChangelogText() {
     return str
 }
 
+def curseRelations = {
+    optionalLibrary 'just-enough-items-jei'
+}
+
 curseforge {
-    if (project.hasProperty('curse_key'))
-        apiKey = project.curse_key
+    if (project.hasProperty('curse_key_iron_backpacks'))
+        apiKey = project.curse_key_iron_backpacks
 
     project {
         id = "${curse_id}"
         changelog = getChangelogText()
         releaseType = project.hasProperty('release') ? 'release' : 'beta'
-        addGameVersion '1.8.8'
 
         addArtifact deobfJar
         addArtifact sourceJar
         addArtifact javadocJar
+
+        relations curseRelations
     }
 }

@@ -20,16 +20,15 @@ public enum ButtonTypes {
     MOVE_LEFT(12, 4, 9, 18, 57, true, "button.ironbackpacks.left.tooltip"),
     MOVE_RIGHT(13, 4, 9, 18, 37, true, "button.ironbackpacks.right.tooltip");
 
-    public static ButtonTypes[] buttonTypesArray = {EXACT, FUZZY, ORE_DICT, MOD_SPECIFIC}; //for use in the alternate gui
     protected int id; //the internal id
     protected int sizeX; //the width of the button
     protected int sizeY; //the height of the button
     protected int iconOffsetX; //the icon's x texture position
     protected int iconOffsetY; //the icon's y texture position
     protected boolean delay; //to delay the tooltip appearing or not
-    protected String[] tooltip; //the tooltip to display. Each index is a nut line.
+    protected String[] tooltip; //the tooltip to display. Each index is a new line.
 
-    ButtonTypes(int id, int sizeX, int sizeY, int offsetX, int offsetY, boolean delay, String tooltip) {
+    ButtonTypes(int id, int sizeX, int sizeY, int offsetX, int offsetY, boolean delay, String tooltip){
         this.id = id;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -39,7 +38,9 @@ public enum ButtonTypes {
         this.tooltip = TextUtils.cutLongString(TextUtils.localizeEffect(tooltip));
     }
 
-    public int getID() {
+    public static ButtonTypes[] buttonTypesArray = {EXACT, FUZZY, ORE_DICT, MOD_SPECIFIC}; //for use in the alternate gui
+
+    public int getID(){
         return id;
     }
 
