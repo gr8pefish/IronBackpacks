@@ -5,7 +5,7 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
         classpath 'org.ajoberstar:gradle-git:0.10.1'
     }
 }
@@ -19,7 +19,7 @@ apply plugin: 'maven-publish'
 
 group = package_group
 archivesBaseName = mod_name
-version = "${mc_version}-${mod_version}"
+version = "${mc_version}-${major_version}.${minor_version}.${build_number}"
 
 // Ignore this error. It'll work just fine when building.
 import org.ajoberstar.grgit.*
@@ -99,7 +99,8 @@ task deobfJar(type: Jar) {
     classifier = 'deobf'
 }
 
-tasks.build.dependsOn sourceJar, javadocJar, deobfJar
+//Not now not with clean and auto-upload to curse, it just deletes it so there is no point
+//tasks.build.dependsOn sourceJar, javadocJar, deobfJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
@@ -125,7 +126,7 @@ publishing {
 }
 
 String getChangelogText() {
-    def changelogFile = new File('changes.txt')
+    def changelogFile = new File('changelog.txt')
     String str = ''
     String separator = '---'
     int lineCount = 0
@@ -147,6 +148,14 @@ String getChangelogText() {
     return str
 }
 
+def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
+    }
+}
+
 def curseRelations = {
     optionalLibrary 'just-enough-items-jei'
 }
@@ -158,12 +167,42 @@ curseforge {
     project {
         id = "${curse_id}"
         changelog = getChangelogText()
-        releaseType = project.hasProperty('release') ? 'release' : 'beta'
-
-        addArtifact deobfJar
-        addArtifact sourceJar
-        addArtifact javadocJar
+        releaseType = release_as_beta.toBoolean() ? "beta" : "release"
 
         relations curseRelations
     }
 }
+
+task incrementVersionNumber {
+//    ant.replace(file: "gradle.properties", token: build_number, value: (build_number.toString().toInteger()) + 1) //need to make sure it only increments build number
+    file("version/${mc_version}.txt").write(major_version+"."+minor_version+"."+(build_number.toString().toInteger() + 1));
+}
+
+//Adds a new changelog segment for the next 1.7.10. Nifty!
+task makeNewChangelog {
+    def changelogFile = new File('changelog.txt')
+    String newText = '------------------------------------------------------\n' +
+            'Version '+mc_version+" - "+major_version+"."+minor_version+"."+(build_number.toString().toInteger() + 1)+"\n" +
+            '------------------------------------------------------\n' +
+            'Additions\n' +
+            '- None\n' +
+            '\n' +
+            'Changes\n' +
+            '- None\n' +
+            '\n' +
+            'Bug Fixes\n' +
+            '- None\n'
+    String oldText = changelogFile.getText()
+    changelogFile.setText(newText + oldText);
+}
+
+//enforce correct order
+tasks.build.mustRunAfter clean
+tasks.incrementVersionNumber.mustRunAfter build
+tasks.makeNewChangelog.mustRunAfter incrementVersionNumber
+
+//curseforge uses these tasks
+tasks.curseforge.dependsOn clean, build, incrementVersionNumber, makeNewChangelog
+
+//to make the resources work in idea
+idea { module { inheritOutputDirs = true } }
