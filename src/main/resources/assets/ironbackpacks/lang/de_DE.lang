@@ -1,0 +1,111 @@
+# Items
+item.ironbackpacks:basicBackpack.name=Einfacher Rucksack
+item.ironbackpacks:ironBackpack.name=Eisenrucksack
+item.ironbackpacks:goldBackpack.name=Goldrucksack
+item.ironbackpacks:diamondBackpack.name=Diamantrucksack
+
+item.ironbackpacks:buttonUpgrade.name=Knopf-Upgrade
+item.ironbackpacks:nestingUpgrade.name=Schachtelungs-Upgrade
+item.ironbackpacks:nestingAdvancedUpgrade.name=Erweitertes Schachtelungs-Upgrade
+item.ironbackpacks:damageBarUpgrade.name=Füllstandsanzeigen-Upgrade
+item.ironbackpacks:filterBasicUpgrade.name=Einfaches Filter-Upgrade
+item.ironbackpacks:filterFuzzyUpgrade.name=Ungenaues Filter-Upgrade
+item.ironbackpacks:filterOreDictUpgrade.name=OreDictionary-Filter-Upgrade
+item.ironbackpacks:filterModSpecificUpgrade.name=Modspezifisches Filter-Upgrade
+item.ironbackpacks:filterAdvancedUpgrade.name=Erweitertes Filter-Upgrade
+item.ironbackpacks:hopperUpgrade.name=Auffüllungs-Upgrade
+item.ironbackpacks:condenserUpgrade.name=Fertigungs-Upgrade
+item.ironbackpacks:condenserSmallUpgrade.name=Kleines Fertigungs-Upgrade
+item.ironbackpacks:condenserTinyUpgrade.name=Winziges Fertigungs-Upgrade
+item.ironbackpacks:renamingUpgrade.name=Umbenennungs-Upgrade
+item.ironbackpacks:keepOnDeathUpgrade.name=Ewigkeits-Upgrade
+item.ironbackpacks:additionalUpgradePointsUpgrade.name=Zusätzliche Upgradepunkte-Upgrade
+item.ironbackpacks:quickDepositUpgrade.name=Schnellablager-Upgrade
+item.ironbackpacks:quickDepositPreciseUpgrade.name=Präzises Schnellablager-Upgrade
+item.ironbackpacks:filterMiningUpgrade.name=Abbaufilter-Upgrade
+item.ironbackpacks:depthUpgrade.name=Tiefen-Upgrade
+item.ironbackpacks:filterVoidUpgrade.name=Leere Filter-Upgrade
+
+item.ironbackpacks:nest.name=Schachteln
+item.ironbackpacks:upgradeCore.name=Upgrade-Kern
+item.ironbackpacks:jeweledFeather.name=Goldene Feder
+item.ironbackpacks:treatedLeather.name=Behandeltes Leder
+
+
+# Creative Tab
+itemGroup.ironbackpacks=Iron Backpacks
+
+
+# Keybindings
+key_ironbackpacks_openbackpack=Öffne Rucksack
+key_ironbackpacks_equipbackpack=Rüste Rucksack aus
+
+
+# GUI
+gui.ironbackpacks.emptyUpgradeSlot=Leerer Upgrade-Slot
+gui.ironbackpacks.noValidUpgradesFound=Kein valides Upgrade gefunden!
+
+
+# Button
+button.ironbackpacks.rename.tooltip=Benennt den Rucksack um
+button.ironbackpacks.exact.tooltip=Exakter Abgleich
+button.ironbackpacks.fuzzy.tooltip=Ungenauer Abgleich
+button.ironbackpacks.oreDict.tooltip=OreDictionary-Abgleich
+button.ironbackpacks.modSpecific.tooltip=Modspezifischer Upgrade
+button.ironbackpacks.packToInv.tooltip=Befördere Items vom Rucksack in dein Inventar
+button.ironbackpacks.invToPack.tooltip=Befördere Items vom deinem Inventar in den Rucksack
+button.ironbackpacks.barToPack.tooltip=Befördere Items von deiner Hotbar in den Rucksack.
+button.ironbackpacks.sort.tooltip=Sortiert Item im Rucksack nach Namen
+button.ironbackpacks.left.tooltip=Schalte nach links.
+button.ironbackpacks.right.tooltip=Schalte nach rechts.
+button.ironbackpacks.clear.basicFilter.tooltip=Löscht einfach gefilterte Items.
+button.ironbackpacks.clear.fuzzyFilter.tooltip=Löscht ungenau gefilterte Items.
+button.ironbackpacks.clear.oreDictFilter.tooltip=Löscht die OreDictionary-gefilterten Items.
+button.ironbackpacks.clear.modSpecificFilter.tooltip=Löscht die modspezifisch-gefilterten Items.
+button.ironbackpacks.clear.miningFilter.tooltip=Löscht die Abbaufilter-Items
+button.ironbackpacks.clear.advancedFilter.tooltip=Setzt den Erweiterten Filter zurück (löscht Item- und Knopffilter).
+button.ironbackpacks.clear.hopper.tooltip=Löscht die auffüllenden Items.
+button.ironbackpacks.clear.condenser.tooltip=Löscht die fertigenden Items.
+button.ironbackpacks.clear.condenser.small.tooltip=Löscht die fertigenden Items.
+button.ironbackpacks.clear.condenser.tiny.tooltip=Löscht die fertigenden Items.
+button.ironbackpacks.clear.voidFilter.tooltip=Löscht die leere-gefilterten Items.
+
+
+# Tooltip
+tooltip.ironbackpacks.shift=Halte Shift für mehr Info
+tooltip.ironbackpacks.uuid=UUID: %s
+tooltip.ironbackpacks.backpack.upgrade.used=%d/%d Upgrade-Punkte benutzt.
+tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d alternative GUI-Upgrade benutzt.
+tooltip.ironbackpacks.backpack.upgrade.used.tier=%d/%d zusätzliche Upgrade-Punkte benutzt.
+tooltip.ironbackpacks.backpack.upgrade.rename=(Das %d. Upgrade muss ein Umbenennungs-Upgrade enthalten)
+
+tooltip.ironbackpacks.upgrade.cost=Kostet %d Upgrade-Points%s
+tooltip.ironbackpacks.upgrade.button.desc=Fügt einen Schalter hinzu, mit dem Items schnell in und aus dem Rucksack geladen werden können, ebenso wie einen Schalter, der den Rucksack sortiert.
+tooltip.ironbackpacks.upgrade.nesting.desc=Erlaubt dir jegliche Rucksäcke einer niederen Stufe in deinen Rucksack zu stecken.
+tooltip.ironbackpacks.upgrade.bar.desc=Fügt eine Schadensleiste hinzu, die zeigt wie voll der Rucksack ist.
+tooltip.ironbackpacks.upgrade.soulbound.desc=Erlaubt dir den Rucksack nach dem Sterben zu behalten. Das Upgrade verschwindet danach, d.h. du musst es für das nächste Mal neu ausrüsten.
+tooltip.ironbackpacks.upgrade.quickDeposit.desc=Wenn du mit einem Rucksack mit diesem Upgrade auf ein Inventar rechts-klickst, versucht dieser seinen Inhalt in das Inventar zu entleeren.
+tooltip.ironbackpacks.upgrade.quickDepositPrecise.desc=Ähnlich zu Schnellablegen, allerdings versucht der Rucksack nur Items in das Inventar zu legen, wenn diese bereits vorhanden sind.
+tooltip.ironbackpacks.upgrade.advNesting.desc=Erlaubt dir jeden &obeliebigen&r &7Rucksack innerhalb des Rucksacks zu verstauen.
+tooltip.ironbackpacks.upgrade.depth.desc=Erlaubt jedem verschachtelten Rucksack volle Funktionalität (Filter-, Fertigungs-, Auffüllungs-Upgrades, usw.). Funktioniert nur mit einmal geschachtelten Rucksäcken (keine weitere Rekursion erlaubt).
+tooltip.ironbackpacks.upgrade.naming.desc=Erlaubt den Rucksack umzubenennen.
+
+tooltip.ironbackpacks.upgrade.basicFilter.desc=Fügt einen konfigurierbaren Filter hinzu, der festlegt, welche Items der Rucksack aufsammelt.
+tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=Ähnlich dem Einfachen Filter, allerdings sammelt der Rucksack auch andere Items auf, die der selben Mod gehören, wie das Item im Filterslot.
+tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=Ähnlich dem Einfachen Filter, allerdings ignoriert der Ungenauer Filter die Schadenswerte.
+tooltip.ironbackpacks.upgrade.oreDictFilter.desc=Ähnlich dem Einfachen Filter, allerdings konsultiert dieser Filter das OreDictionary, um ähnliche Items aufzusammeln.
+tooltip.ironbackpacks.upgrade.hopperFilter.desc=Legt ein Item im Inventar/Hotbar fest, das ständig aus dem Rucksack nachgefüllt wird.
+tooltip.ironbackpacks.upgrade.condenser.desc=Erlaubt einen Satz an Items festzulegen, die beim Eintritt in das Rucksackinventar in einem 3x3-Gitter kombiniert werden (z.B. Redstone -> Redstoneblock).
+tooltip.ironbackpacks.upgrade.advFilter.desc=Ähnlich dem Einfachen Filter, allerdings mit 18 individuell einstellbaren Slots.
+tooltip.ironbackpacks.upgrade.mining.desc=Sammelt Erze, Staub und Edelsteine automatisch auf und hat einen Einfachen Filter für andere Items (z.B. Bruchstein).
+tooltip.ironbackpacks.upgrade.condenser.small.desc=Erlaubt einen Satz an Items festzulegen, die beim Eintritt in das Rucksackinventar in einem 2x2-Gitter kombiniert werden (z.B. Sand -> Sandstein).
+tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Erlaubt einen Satz an Items festzulegen, die beim Eintritt in das Rucksackinventar aus sich selbst gefertigt werden (z.B. Holz -> Holzbretter).
+tooltip.ironbackpacks.upgrade.addUpgrades.desc=Fügt %s dem Rucksack hinzu. Kann %s auf den höchststufigen Rucksack angewendet werden.
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=Upgrade-Punkt
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d Upgrade-Punkte
+tooltip.ironbackpacks.upgrade.addUpgrades.mult=%d mal
+tooltip.ironbackpacks.upgrade.voidFilter.desc=Alle mögliche Einzelteile holen Sie, die im Filter festgelegt werden automatisch gelöscht.
+
+
+# Miscellaneous
+misc.ironbackpacks.default.equpped.backpack.name=Ausgerüsteter Rucksack

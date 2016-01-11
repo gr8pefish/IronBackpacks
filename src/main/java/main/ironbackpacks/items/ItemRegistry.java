@@ -1,6 +1,6 @@
 package main.ironbackpacks.items;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;
@@ -9,8 +9,8 @@ import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
 import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
-import main.ironbackpacks.handlers.ConfigHandler;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 

@@ -1,16 +1,15 @@
 package main.ironbackpacks;
 
-
 import main.ironbackpacks.client.gui.GuiHandler;
 import main.ironbackpacks.crafting.ItemRecipeRegistry;
 import main.ironbackpacks.entity.Entities;
 import main.ironbackpacks.events.FMLEventHandler;
 import main.ironbackpacks.events.ForgeEventHandler;
+import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.integration.InterModSupport;
 import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.proxies.CommonProxy;
-import main.ironbackpacks.handlers.ConfigHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;

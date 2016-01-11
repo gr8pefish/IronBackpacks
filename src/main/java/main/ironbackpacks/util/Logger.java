@@ -1,7 +1,7 @@
 package main.ironbackpacks.util;
 
-import cpw.mods.fml.common.FMLLog;
 import main.ironbackpacks.ModInformation;
+import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
 /**

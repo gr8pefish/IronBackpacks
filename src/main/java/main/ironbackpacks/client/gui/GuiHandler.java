@@ -1,6 +1,5 @@
 package main.ironbackpacks.client.gui;
 
-import cpw.mods.fml.common.network.IGuiHandler;
 import main.ironbackpacks.client.gui.inventory.GUIBackpack;
 import main.ironbackpacks.client.gui.inventory.GUIBackpackAlternate;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
@@ -12,6 +11,7 @@ import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 
 /**
  * The GuiHandler handles the opening of GUIs. Called from onItemRightClick() in ItemBaseBackpack.

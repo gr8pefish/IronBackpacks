@@ -3,15 +3,14 @@ package main.ironbackpacks.container.backpack;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.util.IronBackpacksConstants;
-import main.ironbackpacks.util.Logger;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.UUID;
@@ -69,6 +68,11 @@ public class InventoryBackpack implements IInventory {
     }
 
     @Override
+    public ItemStack removeStackFromSlot(int index) {
+        return null; //TODO: new override
+    }
+
+//    @Override //TODO: new override
     public ItemStack getStackInSlotOnClosing(int index) {
         return null;
     }
@@ -81,15 +85,15 @@ public class InventoryBackpack implements IInventory {
         }
     }
 
-    @Override
+//    @Override //TODO: new override
     public String getInventoryName() {
         return type.getName();
     }
 
-    @Override
-    public boolean hasCustomInventoryName() {
-        return false;
-    }
+//    @Override
+//    public boolean hasCustomInventoryName() {
+//        return false;
+//    }
 
     @Override
     public int getInventoryStackLimit() {
@@ -107,18 +111,48 @@ public class InventoryBackpack implements IInventory {
     }
 
     @Override
-    public void openInventory() {
-        //unused
+    public void openInventory(EntityPlayer player) {
+
     }
 
     @Override
-    public void closeInventory() {
-        //unused
+    public void closeInventory(EntityPlayer player) {
+
     }
+
+//    @Override
+//    public void openInventory() {
+//        //unused
+//    }
+//
+//    @Override
+//    public void closeInventory() {
+//        //unused
+//    }
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
         return true; //handled by BackpackSlot //TODO: fix this
+    }
+
+    @Override
+    public int getField(int id) {
+        return 0;
+    }
+
+    @Override
+    public void setField(int id, int value) {
+
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public void clear() {
+
     }
 
     public int hasStackInInv(Block blockToCheck, int meta){
@@ -275,4 +309,18 @@ public class InventoryBackpack implements IInventory {
         return null;
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return false;
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return null;
+    }
 }

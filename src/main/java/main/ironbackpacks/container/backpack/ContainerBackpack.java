@@ -1,17 +1,13 @@
 package main.ironbackpacks.container.backpack;
 
-import codechicken.enderstorage.storage.item.ItemEnderPouch;
-import invtweaks.api.container.ChestContainer;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
-import main.ironbackpacks.integration.InterModSupport;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -26,7 +22,7 @@ import java.util.Comparator;
 /**
  * The container of the backpack when it is opened normally.
  */
-@ChestContainer //Inventory tweaks
+//@ChestContainer //Inventory tweaks
 public class ContainerBackpack extends Container {
 
     private EntityPlayer player; //the player
@@ -167,10 +163,11 @@ public class ContainerBackpack extends Container {
                     stack.useItemRightClick(player.worldObj, player);
                 return null;
 
-            }else if(InterModSupport.isEnderStorageLoaded && getSlot(slot).getStack().getItem() instanceof ItemEnderPouch) {
-                ItemStack stack = getSlot(slot).getStack();
-                stack.useItemRightClick(player.worldObj, player);
-                return null;
+                //no EnderStorage yet in 1.8
+//            }else if(InterModSupport.isEnderStorageLoaded && getSlot(slot).getStack().getItem() instanceof ItemEnderPouch) {
+//                ItemStack stack = getSlot(slot).getStack();
+//                stack.useItemRightClick(player.worldObj, player);
+//                return null;
             }
         }
         return super.slotClick(slot, button, flag, player);
@@ -233,15 +230,16 @@ public class ContainerBackpack extends Container {
         }
     }
 
-    @ChestContainer.RowSizeCallback //Inventory tweaks compatibility
-    public int getNumColumns(){
-        return type.getRowLength();
-    }
-
-    @ChestContainer.IsLargeCallback //Inventory tweaks compatibility
-    public boolean getVerticalButtons(){
-        return false;
-    }
+    //Inventory tweaks not updated to 1.8 yet
+//    @ChestContainer.RowSizeCallback //Inventory tweaks compatibility
+//    public int getNumColumns(){
+//        return type.getRowLength();
+//    }
+//
+//    @ChestContainer.IsLargeCallback //Inventory tweaks compatibility
+//    public boolean getVerticalButtons(){
+//        return false;
+//    }
 
     //===================================================================Sorting Algorithm==================================================================
 

@@ -55,7 +55,7 @@ public class NBTHelper {
      */
     private static void setLong(ItemStack itemStack, String tag, Long value){
         initNBTCompound(itemStack);
-        itemStack.stackTagCompound.setLong(tag, value);
+        itemStack.getTagCompound().setLong(tag, value);
     }
 
     /**
@@ -65,7 +65,7 @@ public class NBTHelper {
      * @return - boolean
      */
     private static boolean hasTag(ItemStack itemStack, String tag){
-        return itemStack != null && itemStack.hasTagCompound() && itemStack.stackTagCompound.hasKey(tag);
+        return itemStack != null && itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey(tag);
     }
 
     /**
@@ -73,7 +73,7 @@ public class NBTHelper {
      * @param itemStack - the stack to set it to
      */
     private static void initNBTCompound(ItemStack itemStack){
-        if (itemStack.stackTagCompound == null){
+        if (itemStack.getTagCompound() == null){
             Logger.info("Resetting NBT tag");
             itemStack.setTagCompound(new NBTTagCompound());
         }

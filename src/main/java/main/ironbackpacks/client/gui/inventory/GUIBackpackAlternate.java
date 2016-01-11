@@ -1,7 +1,5 @@
 package main.ironbackpacks.client.gui.inventory;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
@@ -15,7 +13,6 @@ import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.RenameMessage;
 import main.ironbackpacks.network.SingleByteMessage;
 import main.ironbackpacks.util.IronBackpacksConstants;
-import main.ironbackpacks.util.Logger;
 import main.ironbackpacks.util.TextUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -26,10 +23,13 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -480,8 +480,8 @@ public class GUIBackpackAlternate extends GuiContainer {
         }
     }
 
-    @Override
-    protected void keyTyped(char char1, int int1) {
+    @Override //TODO: exceptions are bad mmkay
+    protected void keyTyped(char char1, int int1) throws IOException {
         if (hasRenamingUpgrade) {
             if (textField.textboxKeyTyped(char1, int1)){
                 //I seem to need to call this to process the key
@@ -494,7 +494,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     }
 
     @Override
-    protected void mouseClicked(int int1, int int2, int int3) {
+    protected void mouseClicked(int int1, int int2, int int3) throws IOException {
         super.mouseClicked(int1, int2, int3);
         if (hasRenamingUpgrade) {
             textField.mouseClicked(int1, int2, int3);
@@ -515,7 +515,7 @@ public class GUIBackpackAlternate extends GuiContainer {
      * Allows you to use the scroll wheel to move through the advanced filter slots.
      */
     @Override
-    public void handleMouseInput() {
+    public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         if (hasFilterAdvancedUpgrade){
             int x = Mouse.getEventX() * this.width / this.mc.displayWidth;

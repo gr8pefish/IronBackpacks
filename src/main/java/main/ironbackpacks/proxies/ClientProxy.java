@@ -1,6 +1,5 @@
 package main.ironbackpacks.proxies;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.client.renderer.RenderBackpack;
 import main.ironbackpacks.entity.EntityBackpack;
@@ -9,6 +8,7 @@ import main.ironbackpacks.handlers.KeybindingHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 /**
  * The client proxy
@@ -39,6 +39,7 @@ public class ClientProxy extends CommonProxy {
         keybindingHandler.init();
     }
 
+    //TODO: rendering model
     public void initRenderers(){
         RenderingRegistry.registerEntityRenderingHandler(EntityBackpack.class, new RenderBackpack());
     }
