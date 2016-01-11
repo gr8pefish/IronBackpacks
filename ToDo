@@ -1,0 +1,137 @@
+To Do:
+
+    1.8 Stuff:
+        Keep on working on it, idk what to say
+        get basics working, then API/cut ids/refactor, etc.
+
+    NOW:
+	Change to fuzzy filter on void
+
+	limit ids so it can go in unabridged
+
+	blocks are all in the itemRegistry
+	So new ItemStack(Items.itemRegistry.getObject(new ResourceLocation(BloodMagic:BlockRitualStone))) would work
+		
+    SOON:
+
+        GIT STUFF:
+
+        REFACTOR:
+
+            gui/container/inv deep refactor via 1.8
+
+            Data storage in player pack?
+
+        TESTING:
+
+
+        BUGS:
+
+
+        ADDITIONS/TWEAKS:
+
+            texture update (message CyanideX/interview person)
+
+            Check the sv + es translation files
+
+            When I have time to play, tweaks for default config values
+
+            Real API/Interfaces
+                IUpgradeableBackpack
+                IUpgrade, IAltGuiUpgrade, IConflictingUpgrade, (IEventUpgrade?)
+
+            Tick Handler
+                Restocking upgrade onItemPlaced - ask in IRC if the onBlockPlacedEvent exists
+                Crafting upgrade onItemPutInBackpack (so for manually putting items in)
+
+            Open right click direct from 'e' inventory?
+
+            Have quick deposit upgrade work with equipped backpack
+                use a keybinding?
+
+            Have depth upgrade apply to the IBlockProvider --> wait for Vazkii API update
+
+            Add ender upgrade(s)?
+                depthEnder - allows you to use the filter/restocking to go into an ender pouch in the inventory
+                vanillaEnder - vanilla ender chest linked backpack (with backpack able to take upgrades)
+                remoteEnder - or specified filter linking to a specific chest
+
+            Allow shift right click equipped?
+
+            Add in more inter-mod compatibility
+                right click in my backpack to open TE satchels, golden bag of holding, etc.
+                    look into if this is possible
+
+            Make textures of upgrades more 3D looking
+
+            Make it so you can't move the opened backpack with number key presses, as there might be some dupe bug using that that I missed
+
+            Add documentation book - see TiCon books source
+                * or add ExtraUtils style docs with "u" in NEI * <-- This one, check power converters Github for implementation
+                Botania has this now?
+
+            Add Baubles integration as belt slot to equip
+                config option to toggle between?
+                Traveler's gear compat too
+
+            crafting upgrade check if backpack is full (#31)
+                should do a different long-term solution because you can maybe make less slots even if the backpack is full with crafting
+                so a simple check for 'do all the slots have items' isn't sufficient. I should check if it has anything but a tiny crafting
+                upgrade since the other two can condense item slots (assuming there is space for them to put the new items).
+
+        EXTRA:
+            add -b to beta versions in build.gradle
+            add api into versioning (https://mcforge.readthedocs.org/en/latest/conventions/versioning/)
+
+            Fancier config updating/replacing values
+                See botania, vazkii is going to implement something similar
+                    check current version somehow and compare to origin/versions.txt, if less then do something
+
+            fancy crafting upgrade - choose 1 or 2 or 3 diameter w/ button underneath (like adv. filter)
+
+            mining filter - change so it picks up cobble and smooth stone too and remove from alt gui?
+
+            change it so an entityItem looks to fill a stack in the player's inv before going in filter?
+
+            quick deposit into AE terminals - have to check efficient of deposit code for that to work probably
+
+            Shift right click to open nested guis too
+
+            Change sorting to a configurable style (i.e. id, name, etc.) w/ right click sort button to change style in game
+
+            add in config option (and subsequent functionality) where the itemBackpack can't be opened directly, it has to be equipped to be open (i.e. only one open at a time)
+                hard mode: weight is a factor? Harder nesting recipe for limited space? Some other way to increase space/nesting via gameplay/in-game research/other?
+                no shapeless crafting for removal of upgrades, have to use the crafted one specifically
+
+            Add achievements
+
+            Recipes via config - support meta/damage values
+
+
+    LATER:
+
+        //Craft any backpack surrounded by planks to turn it into a placeable custom chest/tileEntity and then shapeless craft the chest to get the backpack back (IChestable)
+        Place down TileEntityBackpack directly - if the controls can work that way, if not do the chest method
+            (IChestable)
+
+        Power/Fluid/Gas Upgrades (dynamic sizing on left side)
+
+
+    EVENTUAL FEATURES:
+        Gui Config
+
+        custom handling with other mods armors special rendering to render my pack in special spots?
+
+        Barrel Backpacks (implement IChestable)
+            4 tiers (or upgrade and drops excess items onto ground), or adds barrel slot like a DSU?
+
+        Craft a diamond/barrel/ender (IDyeable) backpack with dyes to color it
+
+
+MCF Posting:
+
+    Add all information about the mod to a github wiki as it is a more reliable source
+
+    More pictures
+
+

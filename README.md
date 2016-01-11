@@ -1,29 +1,11 @@
-#A Mod That Adds Upgradable Backpacks!
+![](https://github.com/gr8pefish/IronBackpacks/blob/master-1.7.10/src/main/resources/assets/ironbackpacks/textures/items/backpack_basic.png) ![](https://github.com/gr8pefish/IronBackpacksblob/master-1.7.10/src/main/resources/assets/ironbackpacks/textures/items/backpack_iron.png) ![](https://github.com/gr8pefish/IronBackpacks/blob/master-1.7.10/src/main/resources/assets/ironbackpacks/textures/items/backpack_gold.png) ![](https://github.com/gr8pefish/IronBackpacks/blob/master-1.7.10/src/main/resources/assets/ironbackpacks/textures/items/backpack_diamond.png)
 
-This is a fork of the original mod that has been updated to Minecraft 1.8. You can find information about the original mod [here](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2331340-iron-backpacks).
+Iron Backpacks is a [Minecraft](https://minecraft.net/) mod that adds upgrade-able backpacks to the game.
 
-Releases for this fork can be found [here](https://github.com/TehNut/IronBackpacks/releases).
+For all the juicy information see the MCF post [here](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2331340-iron-backpacks).
 
-#Issue Reporting
 
-Before posting anything, please check if the issue has already been posted/resolved.
 
-If it has not, please include the following:
-
-* Minecraft version
-* Iron Backpacks version
-* Forge version/build
-* Versions of any mods potentially related to the issue
-* Any relevant screenshots are greatly appreciated.
-* Steps to reproduce
-* For crashes:
-    * ForgeModLoader-client-0.log (the FML log) from the root folder of the client
-
-The more detailed you are the easier it is for me. Thank you!
-
-#Other
-
-Pull requests are welcome, but if you want to add features please just discuss it with me beforehand. Thanks, and enjoy!
 
 
 
