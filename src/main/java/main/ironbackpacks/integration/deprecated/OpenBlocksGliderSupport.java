@@ -7,5 +7,6 @@ public class OpenBlocksGliderSupport extends OpenBlocksNoSupport {
     @Override
     public boolean isGliding(EntityPlayer player){
 //        return !EntityHangGlider.isGliderDeployed(player);
+        return false;
     }
 }

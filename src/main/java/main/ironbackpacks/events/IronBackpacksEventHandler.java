@@ -4,19 +4,24 @@ import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
+import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
+import main.ironbackpacks.network.ClientPackMessage;
+import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -24,6 +29,7 @@ import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -32,7 +38,7 @@ import java.util.ArrayList;
 /**
  * All the events used that fire on the Forge Event bus
  */
-public class ForgeEventHandler {
+public class IronBackpacksEventHandler {
 
     /**
      * Called whenever an item is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and condenser/crafting upgrades too so it doesn't check too much and causes lag..
@@ -378,7 +384,7 @@ public class ForgeEventHandler {
                         break; //TODO: test
                     }
 
-                    ContainerWorkbench containerWorkbench = new ContainerWorkbench(event.entityPlayer.inventory, event.item.worldObj, 0, 0, 0);
+                    ContainerWorkbench containerWorkbench = new ContainerWorkbench(event.entityPlayer.inventory, event.item.worldObj, new BlockPos(0, 0, 0)); //TODO: test 1.8
                     InventoryCrafting inventoryCrafting = new InventoryCrafting(containerWorkbench, 3, 3); //fake workbench/inventory for checking matching recipe
 
                     ArrayList<ItemStack> condenserItems;
@@ -664,5 +670,61 @@ public class ForgeEventHandler {
         return retList.isEmpty() ? null : retList;
     }
 
+    //=============================================================================================Other Events===========================================================================
+
+    /**
+     * Used to make sure the player's equipped backpack is shown correctly
+     * @param event - the player logged in event
+     */
+    @SubscribeEvent
+    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event){
+        ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(event.player);
+        if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
+
+            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+            IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
+
+            if (!ConfigHandler.disableRendering)
+                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
+        }
+    }
+
+    /**
+     * Used to make sure the player respawns with an equipped backpack if they should
+     * @param event - the player respawn event
+     */
+    @SubscribeEvent
+    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event){
+        ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(event.player);
+        if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
+
+            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+            IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
+
+            if (!ConfigHandler.disableRendering)
+                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
+        }
+    }
+
+    /**
+     * Used to make sure the equipped backpack transfers over correctly between dimensions
+     * @param event - the change dimension event
+     */
+    @SubscribeEvent
+    public void onPlayerDimChange(PlayerEvent.PlayerChangedDimensionEvent event){ //TODO: test more
+        ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(event.player);
+        if (backpack != null) {
+            if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) {//if has old dimension backpack
+                if (EntityBackpack.backpacksSpawnedMap.get(event.player) != null) //possible if config option disabled rendering
+                    EntityBackpack.backpacksSpawnedMap.get(event.player).setDead(); //kill old backpack
+            }
+
+            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+            IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
+
+            if (!ConfigHandler.disableRendering)
+                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
+        }
+    }
 
 }

@@ -48,7 +48,7 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
 
     private static boolean isBackpackValid(EntityPlayer player, EntityBackpack backpack) {
         if (player == null || player.isDead || backpack == null || backpack.isDead) return false;
-        if (player.worldObj.provider.dimensionId != backpack.worldObj.provider.dimensionId) return false;
+        if (player.worldObj.provider.getDimensionId() != backpack.worldObj.provider.getDimensionId()) return false;
         return true;
     }
 

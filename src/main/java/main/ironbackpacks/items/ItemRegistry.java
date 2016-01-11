@@ -1,5 +1,6 @@
 package main.ironbackpacks.items;
 
+import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
@@ -9,6 +10,7 @@ import main.ironbackpacks.items.craftingItems.ItemTreatedLeather;
 import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
+import main.ironbackpacks.util.InventoryRenderHelper;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -39,7 +41,7 @@ public class ItemRegistry {
     public static Item condenserSmallUpgrade;
     public static Item condenserTinyUpgrade;
     public static Item keepOnDeathUpgrade;
-    public static Item additionalUpgradesUpgrade;
+    public static Item additionalUpgradePointsUpgrade;
     public static Item quickDepositUpgrade;
     public static Item quickDepositPreciseUpgrade;
     public static Item filterAdvancedUpgrade;
@@ -86,7 +88,7 @@ public class ItemRegistry {
         upgrades.add(condenserSmallUpgrade);
         upgrades.add(condenserTinyUpgrade);
         upgrades.add(keepOnDeathUpgrade);
-        upgrades.add(additionalUpgradesUpgrade);
+        upgrades.add(additionalUpgradePointsUpgrade);
         upgrades.add(quickDepositUpgrade);
         upgrades.add(quickDepositPreciseUpgrade);
         upgrades.add(filterAdvancedUpgrade);
@@ -138,8 +140,8 @@ public class ItemRegistry {
         GameRegistry.registerItem(keepOnDeathUpgrade, "keepOnDeathUpgrade");
         filterModSpecificUpgrade = new ItemFilterModSpecificUpgrade();
         GameRegistry.registerItem(filterModSpecificUpgrade, "filterModSpecificUpgrade");
-        additionalUpgradesUpgrade = new ItemAdditionalUpgradePointsUpgrade();
-        GameRegistry.registerItem(additionalUpgradesUpgrade, "additionalUpgradeSlotsUpgrade");
+        additionalUpgradePointsUpgrade = new ItemAdditionalUpgradePointsUpgrade();
+        GameRegistry.registerItem(additionalUpgradePointsUpgrade, "additionalUpgradePointsUpgrade");
         filterFuzzyUpgrade = new ItemFilterFuzzyUpgrade();
         GameRegistry.registerItem(filterFuzzyUpgrade, "filterFuzzyUpgrade");
         filterOreDictUpgrade = new ItemFilterOreDictUpgrade();
@@ -170,4 +172,41 @@ public class ItemRegistry {
         GameRegistry.registerItem(treatedLeather, "treatedLeather");
 
 	}
+
+    public static void registerItemRenders() {
+        InventoryRenderHelper helper = new InventoryRenderHelper(ModInformation.ID + ":");
+
+        String alternate = ConfigHandler.useAlternateBackpackTextures ? "_alternate" : "";
+        helper.itemRender(basicBackpack, BackpackTypes.BASIC.getName() + alternate);
+        helper.itemRender(ironBackpack, BackpackTypes.IRON.getName() + alternate);
+        helper.itemRender(goldBackpack, BackpackTypes.GOLD.getName() + alternate);
+        helper.itemRender(diamondBackpack, BackpackTypes.DIAMOND.getName() + alternate);
+
+        helper.itemRender(buttonUpgrade, "buttonUpgrade");
+        helper.itemRender(nestingUpgrade, "nestingUpgrade");
+        if (ConfigHandler.renamingUpgradeRequired)
+            helper.itemRender(renamingUpgrade, "renamingUpgrade");
+        helper.itemRender(damageBarUpgrade, "damageBarUpgrade");
+        helper.itemRender(filterBasicUpgrade, "filterBasicUpgrade");
+        helper.itemRender(hopperUpgrade, "hopperUpgrade");
+        helper.itemRender(condenserUpgrade, "condenserUpgrade");
+        helper.itemRender(condenserSmallUpgrade, "condenserSmallUpgrade");
+        helper.itemRender(condenserTinyUpgrade, "condenserTinyUpgrade");
+        helper.itemRender(keepOnDeathUpgrade, "keepOnDeathUpgrade");
+        helper.itemRender(filterModSpecificUpgrade, "filterModSpecificUpgrade");
+        helper.itemRender(additionalUpgradePointsUpgrade, "additionalUpgradePointsUpgrade");
+        helper.itemRender(filterFuzzyUpgrade, "filterFuzzyUpgrade");
+        helper.itemRender(filterOreDictUpgrade, "filterOreDictUpgrade");
+        helper.itemRender(filterMiningUpgrade, "filterMiningUpgrade");
+        helper.itemRender(filterVoidUpgrade, "filterVoidUpgrade");
+        helper.itemRender(quickDepositUpgrade, "quickDepositUpgrade");
+        helper.itemRender(quickDepositPreciseUpgrade, "quickDepositPreciseUpgrade");
+        helper.itemRender(filterAdvancedUpgrade, "filterAdvancedUpgrade");
+        helper.itemRender(nestingAdvancedUpgrade, "nestingAdvancedUpgrade");
+
+        helper.itemRender(nest, "nest");
+        helper.itemRender(upgradeCore, "upgradeCore");
+        helper.itemRender(jeweledFeather, "jeweledFeather");
+        helper.itemRender(treatedLeather, "treatedLeather");
+    }
 }

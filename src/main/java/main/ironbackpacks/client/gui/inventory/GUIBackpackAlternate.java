@@ -182,7 +182,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         if (this.hasRenamingUpgrade){ //add text field to rename
             this.allowUserInput = true;
 
-            this.textField = new GuiTextField(this.fontRendererObj, xStart + 20, yStart + 21, 103, 12);  //fontRenderer,x,y,width,height
+            this.textField = new GuiTextField(0, this.fontRendererObj, xStart + 20, yStart + 21, 103, 12);  //fontRenderer,x,y,width,height
 
             this.textField.setTextColor(-1); //TODO - play around with colors? - set background color
             this.textField.setDisabledTextColour(-1);

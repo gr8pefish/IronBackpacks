@@ -1,14 +1,14 @@
 package main.ironbackpacks.proxies;
 
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.client.renderer.RenderBackpack;
-import main.ironbackpacks.entity.EntityBackpack;
+import main.ironbackpacks.events.IronBackpacksClientEventHandler;
 import main.ironbackpacks.handlers.ConfigAdaptor;
 import main.ironbackpacks.handlers.KeybindingHandler;
+import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 /**
  * The client proxy
@@ -21,7 +21,7 @@ public class ClientProxy extends CommonProxy {
         return Minecraft.getMinecraft().thePlayer;
     }
 
-    public void init(){
+    public void preInit(){
         initKeybindings();
         initRenderers();
     }
@@ -37,11 +37,13 @@ public class ClientProxy extends CommonProxy {
     public void initKeybindings() {
         keybindingHandler = new KeybindingHandler();
         keybindingHandler.init();
+        FMLCommonHandler.instance().bus().register(new IronBackpacksClientEventHandler());
     }
 
-    //TODO: rendering model
+
     public void initRenderers(){
-        RenderingRegistry.registerEntityRenderingHandler(EntityBackpack.class, new RenderBackpack());
+//        RenderingRegistry.registerEntityRenderingHandler(EntityBackpack.class, new RenderBackpack()); //TODO: rendering model
+        ItemRegistry.registerItemRenders();
     }
 
 }

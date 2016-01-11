@@ -6,6 +6,7 @@ import main.ironbackpacks.integration.InterModSupport;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -19,7 +20,8 @@ public class RenderBackpack extends Render{
 
     private ModelBackpack modelBackpack;
 
-    public RenderBackpack() {
+    public RenderBackpack(RenderManager manager) { //TODO: have to call with manager now
+        super(manager);
         modelBackpack = new ModelBackpack();
     }
 

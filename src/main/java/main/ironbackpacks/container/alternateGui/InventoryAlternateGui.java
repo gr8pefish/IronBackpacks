@@ -484,16 +484,11 @@ public class InventoryAlternateGui implements IInventory {
                         NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_ADV_ALL_SLOTS, Constants.NBT.TAG_COMPOUND);
                         for (int i = 0; i < tagList.tagCount(); i++) {
                             NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-//                            int j = (upgradeRemoved < 4) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
-//                            if (upgradeAdded < 4) j+=9;
-//                            if (i >= 0 && i <= 18) {
-//                                advFilterStacks[j] = ItemStack.loadItemStackFromNBT(stackTag);
-//                            }
                             advFilterStacks[stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT)] = ItemStack.loadItemStackFromNBT(stackTag);
                         }
                     }
                     if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)) {
-                        byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)).func_150292_c(); //gets byte array
+                        byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)).getByteArray(); //gets byte array
                         for (int i = 0; i < bytes.length; i++) {
                             if (bytes[i] == 0) bytes[i] = (byte)ButtonTypes.EXACT.getID();
                             advFilterButtonStates[i] = bytes[i];

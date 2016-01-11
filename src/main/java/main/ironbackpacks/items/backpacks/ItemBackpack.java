@@ -1,8 +1,5 @@
 package main.ironbackpacks.items.backpacks;
 
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
@@ -13,24 +10,26 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.NBTHelper;
 import main.ironbackpacks.util.TextUtils;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
-import vazkii.botania.api.item.IBlockProvider;
 
 import java.util.List;
 
 /**
  * Base class for all the backpack items to extend
  */
-@Optional.Interface(iface="vazkii.botania.api.item.IBlockProvider", modid="Botania")
-public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
+//@Optional.Interface(iface="vazkii.botania.api.item.IBlockProvider", modid="Botania") //No Botania in 1.8 (yet)
+public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider {
 
     private boolean openAltGui = true; //to track which gui to open
 
@@ -40,9 +39,8 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
     private final int upgradePoints; //number of upgradePoints
     private final String fancyName; //display name
 
-    public ItemBackpack(int id, int size, int rowLength, String texture, String fancyName, int upgradePoints) {
+    public ItemBackpack(int id, int size, int rowLength, String texture, String fancyName, int upgradePoints) { //TODO: remove texture
         setCreativeTab(IronBackpacks.creativeTab);
-        setTextureName(ModInformation.ID + ":" + texture);
         setUnlocalizedName(ModInformation.ID + ":" + fancyName);
         setMaxStackSize(1);
         setNoRepair();
@@ -77,7 +75,7 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
     //returning true will stop the alt. gui from opening
     //returning false will let it continue as normal (i.e. it can open)
     @Override
-    public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) { //server side
             if (!player.isSneaking()) { //only do it when player is sneaking
                 return false;
@@ -85,11 +83,11 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
             int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
             boolean hasDepthUpgrade = UpgradeMethods.hasDepthUpgrade(upgrades);
             if (UpgradeMethods.hasQuickDepositUpgrade(upgrades)) {
-                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, x, y, z, false);
+                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, false);
                 if (!hasDepthUpgrade)
                     return !openAltGui;
             }else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(upgrades)) {
-                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, x, y, z, true);
+                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, true);
                 if (!hasDepthUpgrade)
                     return !openAltGui;
             }
@@ -102,10 +100,10 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
                     if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
                         int[] nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
                         if (UpgradeMethods.hasQuickDepositUpgrade(nestedUpgrades)) {
-                            openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, x, y, z, false);
+                            openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, false);
                             if (!openAltGuiDepth) openAltGui = false;
                         }else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(nestedUpgrades)) {
-                            openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, x, y, z, true);
+                            openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, true);
                             if (!openAltGuiDepth) openAltGui = false;
                         }
                     }
@@ -162,11 +160,11 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
             if (ConfigHandler.renamingUpgradeRequired)
                 list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.rename", IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
 
-            int tierUpgradeCount = ConfigHandler.additionalUpgradesLimit + getGuiId();
+            int tierUpgradeCount = ConfigHandler.additionalUpgradePointsLimit + getGuiId();
 
             if (tierUpgradeCount > 0) {
-                int used = IronBackpacksHelper.getAdditionalUpgradesTimesApplied(stack) * ConfigHandler.additionalUpgradesIncrease;
-                int have = tierUpgradeCount * ConfigHandler.additionalUpgradesIncrease;
+                int used = IronBackpacksHelper.getAdditionalUpgradesTimesApplied(stack) * ConfigHandler.additionalUpgradePointsIncrease;
+                int have = tierUpgradeCount * ConfigHandler.additionalUpgradePointsIncrease;
                 list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.tier", used, have));
             }
         } else {
@@ -255,23 +253,23 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
      * @param doIt - if a test or real thing (currently opposite of what it should be...)
      * @return - true if successful, false otherwise
      */
-    @Optional.Method(modid="Botania")
-    @Override
-    public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doIt) {
-
-        //simulate inventory to see if it has items
-        InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
-        int amount = invBackpack.hasStackInInv(block, meta);
-
-        if (amount > 0){
-            if (doIt) { //if doIt actually remove items
-                invBackpack.removeOneItem(block, meta); //returns true if it was removed
-            }
-            return true; //have to return true even in !doIt
-        }
-
-        return false; //if amount < 0 return false because you can't provide anything
-    }
+//    @Optional.Method(modid="Botania")
+//    @Override
+//    public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doIt) {
+//
+//        //simulate inventory to see if it has items
+//        InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
+//        int amount = invBackpack.hasStackInInv(block, meta);
+//
+//        if (amount > 0){
+//            if (doIt) { //if doIt actually remove items
+//                invBackpack.removeOneItem(block, meta); //returns true if it was removed
+//            }
+//            return true; //have to return true even in !doIt
+//        }
+//
+//        return false; //if amount < 0 return false because you can't provide anything
+//    }
 
     /**
      * Uses Botania's API to get the available items
@@ -282,13 +280,13 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
      * @param meta - the metadata of the block
      * @return integer of the amount of items the backpack has
      */
-    @Optional.Method(modid="Botania")
-    @Override
-    public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
-        InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
-        int amount = invBackpack.hasStackInInv(block, meta);
-        return amount;
-    }
+//    @Optional.Method(modid="Botania")
+//    @Override
+//    public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
+//        InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
+//        int amount = invBackpack.hasStackInInv(block, meta);
+//        return amount;
+//    }
 
     /**
      * Simulates a backpack inventory

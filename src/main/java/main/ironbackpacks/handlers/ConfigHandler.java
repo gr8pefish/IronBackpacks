@@ -42,7 +42,7 @@ public class ConfigHandler {
     public static String[] condenserSmallUpgradeRecipe;
     public static String[] condenserTinyUpgradeRecipe;
     public static String[] keepOnDeathUpgradeRecipe;
-    public static String[] additionalUpgradesUpgradeRecipe;
+    public static String[] additionalUpgradePointsUpgradeRecipe;
     public static String[] quickDepositUpgradeRecipe;
     public static String[] quickDepositPreciseUpgradeRecipe;
     public static String[] filterAdvancedUpgradeRecipe;
@@ -80,8 +80,8 @@ public class ConfigHandler {
     public static boolean disableRendering;
     public static boolean renamingUpgradeRequired;
     public static int tooltipDelay;
-    public static int additionalUpgradesLimit;
-    public static int additionalUpgradesIncrease;
+    public static int additionalUpgradePointsLimit;
+    public static int additionalUpgradePointsIncrease;
     public static boolean useAlternateBackpackTextures;
     public static boolean makeRenamedBackpacksNamesItalic;
 
@@ -147,7 +147,7 @@ public class ConfigHandler {
         //TODO: tweak?
         String[] filterVoidRecipe = {"items.string","cobblestone","items.string", "stone", "items.ironbackpacks:filterBasicUpgrade", "stone", "items.string", "cobblestone", "items.string"};
         //TODO: tweak?
-        String[] additionalUpgradesRecipe = {"blockEmerald","record","blockEmerald", "record", "items.ironbackpacks:upgradeCore", "record", "blockEmerald", "record", "blockEmerald"};
+        String[] additionalUpgradePointsRecipe = {"blockEmerald","record","blockEmerald", "record", "items.ironbackpacks:upgradeCore", "record", "blockEmerald", "record", "blockEmerald"};
         //done
         String[] quickDepositRecipe = {"slimeball","blocks.piston","slimeball", "slimeball", "items.ironbackpacks:upgradeCore", "slimeball", "blocks.piston", "slimeball", "blocks.piston"};
         //done
@@ -236,7 +236,7 @@ public class ConfigHandler {
         condenserSmallUpgradeRecipe = config.get("5) Recipes", "24) Small Crafting Upgrade Recipe", condenserSmallRecipe, "The recipe for the small crafting upgrade.").getStringList();
         condenserTinyUpgradeRecipe = config.get("5) Recipes", "25) Tiny Crafting Upgrade Recipe", condenserTinyRecipe, "The recipe for the tiny crafting upgrade.").getStringList();
         keepOnDeathUpgradeRecipe = config.get("5) Recipes", "26) Keep On Death Upgrade Recipe", keepOnDeathRecipe, "The recipe for the upgrade that allows you to keep the backpack upon dying.").getStringList();
-        additionalUpgradesUpgradeRecipe = config.get("5) Recipes", "27) Additional Upgrade Slots Recipe", additionalUpgradesRecipe, "The recipe for the upgrade which gives the backpack a configurable amount of additional upgrade points.").getStringList();
+        additionalUpgradePointsUpgradeRecipe = config.get("5) Recipes", "27) Additional Upgrade Slots Recipe", additionalUpgradePointsRecipe, "The recipe for the upgrade which gives the backpack a configurable amount of additional upgrade points.").getStringList();
         quickDepositUpgradeRecipe = config.get("5) Recipes", "28) Quick Deposit Upgrade Recipe", quickDepositRecipe, "The recipe for the upgrade which gives the backpack the ability to empty it's contents into an inventory.").getStringList();
         quickDepositPreciseUpgradeRecipe = config.get("5) Recipes", "29) Quick Deposit Precise Upgrade Recipe", quickDepositPreciseRecipe, "The recipe for the upgrade which gives the backpack the ability to empty it's contents into an inventory if the items already exist in the inventory.").getStringList();
         depthUpgradeRecipe = config.get("5) Recipes", "30) Depth Upgrade Recipe", depthRecipe, "The recipe for the upgrade which gives a backpack the ability to check fort nested backpacks before applying effects.").getStringList();
@@ -270,9 +270,9 @@ public class ConfigHandler {
         disableRendering = config.get("7) Miscellaneous", "0) Disable Rendering", false, "To disable the model rendering on the player when they have an equipped backpack. Default false.").getBoolean();
         renamingUpgradeRequired = config.get("7) Miscellaneous", "1) Renaming Upgrade Required", false, "If the renaming upgrade is required to rename the backpack. Default is false (so you can rename backpacks natively).").getBoolean();
         tooltipDelay = config.get("7) Miscellaneous", "2) Tooltip Delay", 1500, "The delay (in milliseconds) until a tooltip will appear over the buttons. Default is 1500 (so 1.5 seconds).").getInt();
-        additionalUpgradesLimit = config.get("7) Miscellaneous", "3) Additional Upgrades Limit", 1, "The maximum number of times you can apply the 'additional upgrade slots' upgrade. This number represents the starting number (for the basic backpack), each backpack tier increments this number by one. " +
+        additionalUpgradePointsLimit = config.get("7) Miscellaneous", "3) Additional Upgrades Limit", 1, "The maximum number of times you can apply the 'additional upgrade slots' upgrade. This number represents the starting number (for the basic backpack), each backpack tier increments this number by one. " +
                 "Negative numbers are allowed (ex: -1 will allow none on basic or iron backpacks, once on gold backpacks, and twice on diamond). Default is 1.").getInt();
-        additionalUpgradesIncrease = config.get("7) Miscellaneous", "4) Additional Upgrades Increase", 2, "The amount of extra upgrade points the 'additional upgrade slots' upgrade will apply. Default is 2.").getInt();
+        additionalUpgradePointsIncrease = config.get("7) Miscellaneous", "4) Additional Upgrades Increase", 2, "The amount of extra upgrade points the 'additional upgrade slots' upgrade will apply. Default is 2.").getInt();
         useAlternateBackpackTextures = config.get("7) Miscellaneous", "5) Alternate Backpack Textures", false, "Use alternate, lower definition textures for the backpacks. Default is false.").getBoolean();
         makeRenamedBackpacksNamesItalic = config.get("7) Miscellaneous", "6) Italic Renames", false, "Make the styling of the letters on a renamed backpack be in italics. Default false.").getBoolean();
 

@@ -146,8 +146,8 @@ public class IronBackpacksConstants {
 
         //===========================Misc==================================
         public static final int ALT_GUI_UPGRADES_ALLOWED = ConfigHandler.renamingUpgradeRequired ? 4 : 3;
-        private static String formatting1 = ConfigHandler.additionalUpgradesIncrease == 1 ? TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.amount.1") : TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult", ConfigHandler.additionalUpgradesIncrease);
-        private static String formatting2 = ConfigHandler.additionalUpgradesLimit + 3 == 1 ? TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.once") : TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.mult", ConfigHandler.additionalUpgradesLimit + 3);
+        private static String formatting1 = ConfigHandler.additionalUpgradePointsIncrease == 1 ? TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.amount.1") : TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult", ConfigHandler.additionalUpgradePointsIncrease);
+        private static String formatting2 = ConfigHandler.additionalUpgradePointsLimit + 3 == 1 ? TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.once") : TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.mult", ConfigHandler.additionalUpgradePointsLimit + 3);
         public static final String[] ADDITIONAL_UPGRADE_POINTS_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.addUpgrades.desc", formatting1, formatting2));
 
     }

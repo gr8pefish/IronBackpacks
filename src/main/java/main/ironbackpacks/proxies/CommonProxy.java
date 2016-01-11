@@ -15,7 +15,9 @@ import net.minecraftforge.common.util.Constants;
  */
 public class CommonProxy {
 
-    public void init(){}
+    public void preInit(){
+        //nothing to see here
+    }
 
     public String getModVersion(){
         return null;
@@ -42,7 +44,7 @@ public class CommonProxy {
         boolean stored = false; //the act of storing it
         ItemStack packToStore = null;
 
-        boolean gameruleKeepInv = player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory");
+        boolean gameruleKeepInv = player.worldObj.getGameRules().hasRule("keepInventory");
 
         ItemStack equippedPack = getEquippedBackpack(player);
         if (equippedPack != null && !gameruleKeepInv) {
@@ -76,7 +78,7 @@ public class CommonProxy {
         }
 
         if (shouldStorePack && !stored){ //no open inventory slots (and has to be gameruleKeepInventory false)
-            player.func_146097_a(packToStore, true, false); //drop it in world
+            player.dropItem(packToStore, true, false); //drop it in world
         }
 
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);

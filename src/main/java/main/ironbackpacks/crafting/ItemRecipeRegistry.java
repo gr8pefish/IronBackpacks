@@ -5,13 +5,16 @@ import main.ironbackpacks.items.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Register all the recipes here.
@@ -62,7 +65,7 @@ public class ItemRecipeRegistry {
 		registerBasicRecipe(ItemRegistry.condenserSmallUpgrade, ConfigHandler.condenserSmallUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.condenserTinyUpgrade, ConfigHandler.condenserTinyUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.keepOnDeathUpgrade, ConfigHandler.keepOnDeathUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.additionalUpgradesUpgrade, ConfigHandler.additionalUpgradesUpgradeRecipe);
+		registerBasicRecipe(ItemRegistry.additionalUpgradePointsUpgrade, ConfigHandler.additionalUpgradePointsUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.quickDepositUpgrade, ConfigHandler.quickDepositUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.filterAdvancedUpgrade, ConfigHandler.filterAdvancedUpgradeRecipe);
 		registerBasicRecipe(ItemRegistry.nestingAdvancedUpgrade, ConfigHandler.nestingAdvancedUpgradeRecipe);
@@ -206,7 +209,17 @@ public class ItemRecipeRegistry {
 	 */
 	@SuppressWarnings("unchecked")
 	private static boolean isOreDict(String input){
-		return OreDictionary.doesOreNameExist(input.trim());
+		try {
+			Field nameToId = OreDictionary.class.getDeclaredField("nameToId");
+			nameToId.setAccessible(true);
+			Map<String, Integer> nameToIdMap = (Map<String, Integer>) nameToId.get(null);
+			return nameToIdMap.get(input) != null;
+		} catch (NoSuchFieldException e) {
+			// Catch 'em all!
+		} catch (IllegalAccessException e) {
+			// Catch 'em all!
+		}
+		return false;
 	}
 
 	/**
@@ -234,7 +247,7 @@ public class ItemRecipeRegistry {
 	private static Item getItem(String item){
 		if (item.contains(".")) {
 			String[] splitString = item.split("\\.");
-			return (Item) Item.itemRegistry.getObject(splitString[1]);
+			return (Item) Item.itemRegistry.getObject(new ResourceLocation(splitString[1]));
 		}
 		return null;
 	}
@@ -247,7 +260,7 @@ public class ItemRecipeRegistry {
 	private static Block getBlock(String item){ //no isBlock() method because if it isn't an item it must be a block
 		if (item.contains(".")) {
 			String[] splitString = item.split("\\.");
-			return (Block) Block.blockRegistry.getObject(splitString[1]);
+			return (Block) Block.blockRegistry.getObject(new ResourceLocation(splitString[1]));
 		}
 		return null;
 	}

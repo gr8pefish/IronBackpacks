@@ -226,14 +226,14 @@ public class BackpackCraftWithUpgradeRecipe extends ShapelessOreRecipe {
         if (backpackBase == null) return false;
         if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS)){
             int[] oldValuesArray = nbtTagCompound.getIntArray(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS);
-            if (oldValuesArray[1] < ConfigHandler.additionalUpgradesLimit + backpackBase.getGuiId()){
-                nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS, new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradesIncrease + oldValuesArray[0], ++oldValuesArray[1]})); //[pointsAdded, upgradesApplied]
+            if (oldValuesArray[1] < ConfigHandler.additionalUpgradePointsLimit + backpackBase.getGuiId()){
+                nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS, new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradePointsIncrease + oldValuesArray[0], ++oldValuesArray[1]})); //[pointsAdded, upgradesApplied]
                 return true;
             }
 
         }else{
-            if (ConfigHandler.additionalUpgradesLimit + backpackBase.getGuiId() > 0) {
-                nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS, new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradesIncrease, 1})); //[pointsAdded, upgradesApplied]
+            if (ConfigHandler.additionalUpgradePointsLimit + backpackBase.getGuiId() > 0) {
+                nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS, new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradePointsIncrease, 1})); //[pointsAdded, upgradesApplied]
                 return true;
             }
         }

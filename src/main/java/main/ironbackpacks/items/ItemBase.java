@@ -9,10 +9,9 @@ import net.minecraft.item.Item;
  */
 public class ItemBase extends Item {
 
-	public ItemBase(String unlocName, String textureName) {
+	public ItemBase(String unlocName, String textureName) { //TODO: remove texture name
 		super();
 		setUnlocalizedName(ModInformation.ID + ":" + unlocName);
-		setTextureName(ModInformation.ID + ":" + textureName);
 		setCreativeTab(IronBackpacks.creativeTab);
 	}
 

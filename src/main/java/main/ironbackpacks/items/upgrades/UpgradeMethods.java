@@ -15,6 +15,8 @@ import net.minecraft.nbt.NBTTagByteArray;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
@@ -467,7 +469,7 @@ public class UpgradeMethods {
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
         if (nbtTagCompound != null){
             if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)) {
-                byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)).func_150292_c(); //gets byte array
+                byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)).getByteArray(); //gets byte array
                 for (int i = 0; i < bytes.length; i++) {
                     if (bytes[i] == 0) bytes[i] = (byte) ButtonTypes.EXACT.getID();
                     advFilterButtonStates[i] = bytes[i];
@@ -641,14 +643,12 @@ public class UpgradeMethods {
      * @param player - the player performing the action
      * @param backpack - the itemstack
      * @param world - the world object
-     * @param x - coordinate
-     * @param y - coordinate
-     * @param z - coordinate
+     * @param pos - the position of the block
      * @param usePrecise - to check if the item has to be in the inventory already or if it can be put in any empty slot
      * @return - boolean success if transferred
      */
-    public static boolean transferFromBackpackToInventory(EntityPlayer player, ItemStack backpack, World world, int x, int y, int z, boolean usePrecise){
-        TileEntity targeted = world.getTileEntity(x, y, z);
+    public static boolean transferFromBackpackToInventory(EntityPlayer player, ItemStack backpack, World world, BlockPos pos, boolean usePrecise){
+        TileEntity targeted = world.getTileEntity(pos);
         if (targeted != null){
             IInventory inv = getTargetedInventory(targeted);
             if (inv != null) {
@@ -711,8 +711,9 @@ public class UpgradeMethods {
                     if (isStackInInventoryAlready(transferTo, stackToTransfer)){
                         if (transferTo instanceof ISidedInventory){
                             ISidedInventory sidedInventory = (ISidedInventory)transferTo;
-                            for (int j = 0; j < 6; j++) { //try all sides
-                                if (sidedInventory.canInsertItem(i, stackToTransfer, j)) {
+                            EnumFacing[] enumFacings = EnumFacing.values();
+                            for (int j = 0; j < enumFacings.length; j++) { //try all sides
+                                if (sidedInventory.canInsertItem(i, stackToTransfer, enumFacings[j])) {
                                     transferTo.setInventorySlotContents(i, stackToTransfer);
                                     transferTo.markDirty();
                                     return null;
@@ -729,8 +730,9 @@ public class UpgradeMethods {
                 } else { //just check if the slot can accept the item
                     if (transferTo instanceof ISidedInventory){
                         ISidedInventory sidedInventory = (ISidedInventory)transferTo;
-                        for (int j = 0; j < 6; j++) { //try all sides
-                            if (sidedInventory.canInsertItem(i, stackToTransfer, j)) {
+                        EnumFacing[] enumFacings = EnumFacing.values();
+                        for (int j = 0; j < enumFacings.length; j++) { //try all sides
+                            if (sidedInventory.canInsertItem(i, stackToTransfer, enumFacings[j])) {
                                 transferTo.setInventorySlotContents(i, stackToTransfer);
                                 transferTo.markDirty();
                                 return null;
