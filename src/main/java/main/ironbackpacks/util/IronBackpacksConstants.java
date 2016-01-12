@@ -85,7 +85,7 @@ public class IronBackpacksConstants {
                 FILTER_OREDICT_UPGRADE_ID,
                 FILTER_MOD_SPECIFIC_UPGRADE_ID,
                 FILTER_ADVANCED_UPGRADE_ID,
-                FILTER_MINING_UPGRADE_ID, //TODO: moved this
+                FILTER_MINING_UPGRADE_ID,
                 FILTER_VOID_UPGRADE_ID,
                 HOPPER_UPGRADE_ID,
                 CONDENSER_UPGRADE_ID,

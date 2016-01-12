@@ -1,8 +1,6 @@
 package main.ironbackpacks.integration;
 
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.integration.deprecated.OpenBlocksGliderSupport;
-import main.ironbackpacks.integration.deprecated.OpenBlocksNoSupport;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -14,7 +12,6 @@ public class InterModSupport {
 
     public static boolean isEnderStorageLoaded = false;
     public static boolean isOpenBlocksLoaded = false;
-    public static OpenBlocksNoSupport gliderClass;
 
     //Initializes each mod in the pre-init phase
     public static void preinit() {
@@ -23,8 +20,8 @@ public class InterModSupport {
 
     //Initializes each mod in the init phase
     public static void init() {
-        initEnderStorage();
-        initOpenBlocks();
+//        initEnderStorage(); //not updated
+//        initOpenBlocks(); //not updated
     }
 
     //Initializes each mod in the post-init phase
@@ -41,19 +38,5 @@ public class InterModSupport {
         }
     }
 
-    public static void initEnderStorage(){
-        if (Loader.isModLoaded("EnderStorage")) {
-            isEnderStorageLoaded = true;
-        }
-    }
-
-    public static void initOpenBlocks(){
-        if (Loader.isModLoaded("OpenBlocks")) {
-            isOpenBlocksLoaded = true;
-            gliderClass = new OpenBlocksGliderSupport();
-        }else{
-            gliderClass = new OpenBlocksNoSupport();
-        }
-    }
 
 }

@@ -5,7 +5,8 @@ Additions (in relation to 1.7.10 - 1.2.15)
 - None
 
 Changes (in relation to 1.7.10 - 1.2.15)
-- None
+- Default keybinding to open backpack is 'c' and to equip is now 'v'
+- Tons of various minor fixes/changes/optimizations
 
 Bug Fixes (in relation to 1.7.10 - 1.2.15)
 - None

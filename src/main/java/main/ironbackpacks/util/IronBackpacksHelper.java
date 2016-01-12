@@ -36,7 +36,7 @@ public class IronBackpacksHelper {
         if (proxyPack != null) {
             backpack = proxyPack;
         }else if(IronBackpacks.proxy.getEquippedBackpack(player)!= null){
-            backpack = IronBackpacks.proxy.getEquippedBackpack(player); //TODO: testing
+            backpack = IronBackpacks.proxy.getEquippedBackpack(player);
         }else {
             backpack = getBackpackFromPlayersInventory(player);
         }
@@ -77,14 +77,11 @@ public class IronBackpacksHelper {
      * @param player - the player to check
      * @return - null if nothing is found, the itemstack otherwise
      */
-    public static ItemStack getEquippedBackpack(EntityPlayer player) { //TODO - remove?
+    public static ItemStack getEquippedBackpack(EntityPlayer player) {
         ItemStack backpack = null;
 
         ItemStack equippedPack = IronBackpacks.proxy.getEquippedBackpack(player);
         if (equippedPack != null) backpack = equippedPack;
-
-//        if (!player.worldObj.isRemote && backpack != null)
-//            NBTHelper.setUUID(backpack);
 
         return backpack;
     }

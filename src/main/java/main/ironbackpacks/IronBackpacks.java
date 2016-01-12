@@ -63,7 +63,6 @@ public class IronBackpacks {
 		//Keybindings and Rendering
 		proxy.preInit();
 
-		System.out.println("end of preinit");
 	}
 
 	@Mod.EventHandler
@@ -77,15 +76,12 @@ public class IronBackpacks {
 		MinecraftForge.EVENT_BUS.register(handler);
 		FMLCommonHandler.instance().bus().register(handler);
 
-		System.out.println("middle of init");
-
 		//recipes
 		ItemRecipeRegistry.registerItemRecipes();
 
 		//entity rendering
 		proxy.init();
 
-		System.out.println("end of init");
 	}
 
 	@Mod.EventHandler
@@ -93,8 +89,6 @@ public class IronBackpacks {
 
 		//compatibility
 //		InterModSupport.postinit();
-
-		System.out.println("end of post init");
 
 	}
 }
