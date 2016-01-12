@@ -19,7 +19,7 @@ public class NetworkingHandler {
         registerMessage(AdvFilterTypesMessage.Handler.class, AdvFilterTypesMessage.class, Side.SERVER);
         registerMessage(SingleByteMessage.Handler.class, SingleByteMessage.class, Side.SERVER);
         registerMessage(ClientPackMessage.Handler.class, ClientPackMessage.class, Side.CLIENT);
-        registerMessage(ClientPackMessage.Handler.class, ClientPackMessage.class, Side.SERVER); //TODO: figure out why I need this on server too for dedicated servers to work
+        registerMessage(ClientPackMessage.Handler.class, ClientPackMessage.class, Side.SERVER); //has to be registered on servers so the servers know it exists so they can send it to the client?
     }
 
     private static int nextPacketId = 0;

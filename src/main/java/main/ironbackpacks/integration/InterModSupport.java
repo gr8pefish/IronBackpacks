@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInterModComms;
  */
 public class InterModSupport {
 
+    //as of writing this, it's basically non-existent
     public static boolean isEnderStorageLoaded = false;
     public static boolean isOpenBlocksLoaded = false;
 

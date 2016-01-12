@@ -1,7 +1,7 @@
 package main.ironbackpacks.container.alternateGui;
 
-//import invtweaks.api.container.ChestContainer;
-//import invtweaks.api.container.InventoryContainer;
+import invtweaks.api.container.ChestContainer;
+import invtweaks.api.container.InventoryContainer;
 
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.container.slot.GhostSlot;
@@ -20,7 +20,7 @@ import java.util.Arrays;
 /**
  * The container used when the backpack is opened to the alternate gui.
  */
-//@InventoryContainer
+@InventoryContainer
 public class ContainerAlternateGui extends Container {
 
     private EntityPlayer player; //the player
@@ -198,11 +198,10 @@ public class ContainerAlternateGui extends Container {
         }
     }
 
-    //No InventoryTweaks for 1.8 yet
-//    @ChestContainer.RowSizeCallback //Inventory tweaks compatibility
-//    public int getNumColumns(){
-//        return (int) Math.floor(this.inventory.getSizeInventory() / 9);
-//    }
+    @ChestContainer.RowSizeCallback //Inventory tweaks compatibility
+    public int getNumColumns(){
+        return (int) Math.floor(this.inventory.getSizeInventory() / 9);
+    }
 
     //========================================================Advanced Filter Methods===============================================================
 

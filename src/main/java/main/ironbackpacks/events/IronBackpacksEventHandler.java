@@ -277,9 +277,8 @@ public class IronBackpacksEventHandler {
                     }
                 }
                 if (shouldSave) {
-                    container.sort(); //TODO: test and add to other events (add boolean so that it doesn't save when nothing changes)
+                    container.sort();
                     container.onContainerClosed(event.entityPlayer);
-                    shouldSave = false;
                 }
             }
         }
@@ -472,7 +471,7 @@ public class IronBackpacksEventHandler {
                             }
                         }
                     }
-                    if (shouldSave) { //TODO: test
+                    if (shouldSave) {
                         container.sort(); //sort items
                         container.onContainerClosed(event.entityPlayer);
                     }

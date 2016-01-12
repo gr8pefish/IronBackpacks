@@ -1,5 +1,6 @@
 package main.ironbackpacks.container.backpack;
 
+import invtweaks.api.container.ChestContainer;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import main.ironbackpacks.container.slot.BackpackSlot;
@@ -22,7 +23,7 @@ import java.util.Comparator;
 /**
  * The container of the backpack when it is opened normally.
  */
-//@ChestContainer //Inventory tweaks
+@ChestContainer //Inventory tweaks
 public class ContainerBackpack extends Container {
 
     private EntityPlayer player; //the player
@@ -127,7 +128,7 @@ public class ContainerBackpack extends Container {
      * @param itemToPutInBackpack - the itemstack to put in
      * @return - the remaining itemstack (null if it has been put it, the remaining otherwise)
      */
-    public ItemStack transferStackInSlot(ItemStack itemToPutInBackpack){ //TODO: have to check not the currPack, so you can't put curr pack in itself
+    public ItemStack transferStackInSlot(ItemStack itemToPutInBackpack){
         if (!mergeItemStack(itemToPutInBackpack, 0, type.getSize(), false)) //stack, startIndex, endIndex, flag
             return null;
         else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemToPutInBackpack)) //slot 1 is always a backpackSlot
@@ -149,7 +150,7 @@ public class ContainerBackpack extends Container {
     }
 
     @Override
-    public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) { //TODO: inter-mod backpack (IInv) support with right click
+    public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) {
         // this will prevent the player from interacting with the item that opened the inventory:
         ItemStack currPack = IronBackpacks.proxy.getCurrBackpack(player);
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && ItemStack.areItemStacksEqual(getSlot(slot).getStack(), currPack) && button == 0) {
@@ -168,6 +169,10 @@ public class ContainerBackpack extends Container {
 //                ItemStack stack = getSlot(slot).getStack();
 //                stack.useItemRightClick(player.worldObj, player);
 //                return null;
+            }else if(getSlot(slot).getStack().getItem() instanceof IInventory) { //TODO: Dangerous inter-mod IInventory code, test this
+                ItemStack stack = getSlot(slot).getStack();
+                stack.useItemRightClick(player.worldObj, player);
+                return null;
             }
         }
         return super.slotClick(slot, button, flag, player);
@@ -230,20 +235,19 @@ public class ContainerBackpack extends Container {
         }
     }
 
-    //Inventory tweaks not updated to 1.8 yet
-//    @ChestContainer.RowSizeCallback //Inventory tweaks compatibility
-//    public int getNumColumns(){
-//        return type.getRowLength();
-//    }
-//
-//    @ChestContainer.IsLargeCallback //Inventory tweaks compatibility
-//    public boolean getVerticalButtons(){
-//        return false;
-//    }
+    @ChestContainer.RowSizeCallback //Inventory tweaks compatibility
+    public int getNumColumns(){
+        return type.getRowLength();
+    }
+
+    @ChestContainer.IsLargeCallback //Inventory tweaks compatibility
+    public boolean getVerticalButtons(){
+        return false;
+    }
 
     //===================================================================Sorting Algorithm==================================================================
 
-    //TODO: comment more
+    //TODO: comment/document these more
 
     /**
      * Sorts the backpack by merging the stacks that can be, swapping out empty spaced to condense the pack, and then reorders via alphabetization of the stacks' display names.
