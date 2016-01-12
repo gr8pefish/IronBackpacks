@@ -2,8 +2,9 @@ package main.ironbackpacks;
 
 import main.ironbackpacks.client.gui.GuiHandler;
 import main.ironbackpacks.crafting.ItemRecipeRegistry;
-import main.ironbackpacks.entity.Entities;
-import main.ironbackpacks.events.IronBackpacksEventHandler;
+import main.ironbackpacks.entity.IronBackpacksEntityRegistry;
+import main.ironbackpacks.events.FMLEventHandler;
+import main.ironbackpacks.events.ForgeEventHandler;
 import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.network.NetworkingHandler;
@@ -58,7 +59,7 @@ public class IronBackpacks {
 		ItemRegistry.registerItems();
 
 		//entity registering
-		Entities.init();
+		IronBackpacksEntityRegistry.init();
 
 		//Keybindings and Rendering
 		proxy.preInit();
@@ -72,9 +73,10 @@ public class IronBackpacks {
 //		InterModSupport.init();
 
 		//event handlers
-		IronBackpacksEventHandler handler = new IronBackpacksEventHandler();
-		MinecraftForge.EVENT_BUS.register(handler);
-		FMLCommonHandler.instance().bus().register(handler);
+		ForgeEventHandler forgeEventHandler = new ForgeEventHandler();
+		MinecraftForge.EVENT_BUS.register(forgeEventHandler);
+//		FMLEventHandler fmlEventHandler = new FMLEventHandler();
+		FMLCommonHandler.instance().bus().register(forgeEventHandler);
 
 		//recipes
 		ItemRecipeRegistry.registerItemRecipes();

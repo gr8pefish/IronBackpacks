@@ -38,7 +38,7 @@ import java.util.ArrayList;
 /**
  * All the events used that fire on the Forge Event bus
  */
-public class IronBackpacksEventHandler {
+public class ForgeEventHandler {
 
     /**
      * Called whenever an item is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and condenser/crafting upgrades too so it doesn't check too much and causes lag..
@@ -669,7 +669,7 @@ public class IronBackpacksEventHandler {
         return retList.isEmpty() ? null : retList;
     }
 
-    //=============================================================================================Other Events===========================================================================
+    //============================================================================Old FML Events========================================================================================
 
     /**
      * Used to make sure the player's equipped backpack is shown correctly
@@ -681,7 +681,7 @@ public class IronBackpacksEventHandler {
         if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
 
             NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
-            IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
+            IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack //TODO: causes unknown Null Pointer Exception on Forge EventBus
 
             if (!ConfigHandler.disableRendering)
                 IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);

@@ -36,7 +36,12 @@ public class ClientPackMessage implements IMessage {
         public IMessage onMessage(ClientPackMessage message, MessageContext ctx) {
 
             EntityPlayer player = IronBackpacks.proxy.getClientPlayer(); //get the player via a safe call
-            IronBackpacks.proxy.updateEquippedBackpack(player, message.stack); //update the backpack
+//            System.out.println("player: "+player.getName());
+            if (player != null) {
+                IronBackpacks.proxy.updateEquippedBackpack(player, message.stack); //update the backpack
+            }else{
+                System.out.println("NULL PLAYER");
+            }
 
             return null; //no return message
         }

@@ -17,6 +17,7 @@ import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagByteArray;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.util.Constants;
 
@@ -92,16 +93,6 @@ public class InventoryAlternateGui implements IInventory {
     }
 
     @Override
-    public ItemStack removeStackFromSlot(int index) {
-        return null; //TODO: new override
-    }
-
-//    @Override //TODO: new override
-    public ItemStack getStackInSlotOnClosing(int index) {
-        return null;
-    }
-
-    @Override
     public void setInventorySlotContents(int slotIndex, ItemStack itemStack) {
         if (slotIndex >= 0 && slotIndex < this.inventory.length) {
             this.inventory[slotIndex] = itemStack;
@@ -111,14 +102,29 @@ public class InventoryAlternateGui implements IInventory {
         }
     }
 
-//    @Override //TODO: new override
-    public String getInventoryName() {
+    @Override
+    public String getName() {
         return type.getName();
     }
 
-//    @Override //TODO: new override
-    public boolean hasCustomInventoryName() {
+    @Override
+    public boolean hasCustomName() {
         return false;
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return new ChatComponentText(getName());
+    }
+
+    @Override
+    public ItemStack removeStackFromSlot(int index) {
+        ItemStack stack = null;
+        if (inventory[index] != null){
+            stack = inventory[index];
+            inventory[index] = null;
+        }
+        return stack;
     }
 
     @Override
@@ -138,27 +144,20 @@ public class InventoryAlternateGui implements IInventory {
 
     @Override
     public void openInventory(EntityPlayer player) {
-
+        //unused
     }
 
     @Override
     public void closeInventory(EntityPlayer player) {
-
+        //unused
     }
 
-//    @Override
-//    public void openInventory() {
-//        //unused
-//    }
-//
-//    @Override
-//    public void closeInventory() {
-//        //unused
-//    }
-
     @Override
-    public boolean isItemValidForSlot(int index, ItemStack itemStack) { //TODO: add more ifs here?
-        if (UpgradeMethods.hasFilterBasicUpgrade(this.upgrades)){
+    public boolean isItemValidForSlot(int index, ItemStack itemStack) {
+        if (UpgradeMethods.hasFilterBasicUpgrade(this.upgrades) || UpgradeMethods.hasFilterFuzzyUpgrade(this.upgrades)
+                || UpgradeMethods.hasFilterModSpecificUpgrade(this.upgrades) || UpgradeMethods.hasFilterOreDictUpgrade(this.upgrades)
+                || UpgradeMethods.hasFilterAdvancedUpgrade(this.upgrades) || UpgradeMethods.hasFilterMiningUpgrade(this.upgrades)
+                || UpgradeMethods.hasFilterVoidUpgrade(this.upgrades)){
             if (UpgradeMethods.hasNestingUpgrade(this.upgrades)) {
                 NestingBackpackSlot myslot = new NestingBackpackSlot(this, index, 0, 0, this.type);
                 return myslot.acceptsStack(itemStack);
@@ -175,7 +174,7 @@ public class InventoryAlternateGui implements IInventory {
         }else if (UpgradeMethods.hasCondenserUpgrade(this.upgrades)){
             return itemStack.isStackable();
         }else{
-            Logger.error("Impossible error in isItemValidForSLot in InventoryAlternateGui"); //need to have an alternate gui upgrade to have slots exist
+            Logger.error("Impossible error in isItemValidForSlot in InventoryAlternateGui"); //need to have an alternate gui upgrade to have slots exist
             return false;
         }
     }
@@ -187,7 +186,7 @@ public class InventoryAlternateGui implements IInventory {
 
     @Override
     public void setField(int id, int value) {
-
+        //unused
     }
 
     @Override
@@ -197,7 +196,9 @@ public class InventoryAlternateGui implements IInventory {
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < inventory.length; i++){
+            inventory[i] = null;
+        }
     }
 
     //==================================================================HELPER METHODS===================================================================
@@ -601,19 +602,5 @@ public class InventoryAlternateGui implements IInventory {
         return null;
     }
 
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public boolean hasCustomName() {
-        return false;
-    }
-
-    @Override
-    public IChatComponent getDisplayName() {
-        return null;
-    }
 }
 

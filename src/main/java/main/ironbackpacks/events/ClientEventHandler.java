@@ -15,7 +15,10 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class IronBackpacksClientEventHandler {
+/**
+ * Events that occur solely on the client side
+ */
+public class ClientEventHandler {
 
     /**
      * Handle the rendering of things (int his case entities)

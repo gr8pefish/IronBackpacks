@@ -10,6 +10,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.util.Constants;
 
@@ -68,16 +69,6 @@ public class InventoryBackpack implements IInventory {
     }
 
     @Override
-    public ItemStack removeStackFromSlot(int index) {
-        return null; //TODO: new override
-    }
-
-//    @Override //TODO: new override
-    public ItemStack getStackInSlotOnClosing(int index) {
-        return null;
-    }
-
-    @Override
     public void setInventorySlotContents(int slotIndex, ItemStack itemStack) {
         inventory[slotIndex] = itemStack;
         if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
@@ -85,15 +76,30 @@ public class InventoryBackpack implements IInventory {
         }
     }
 
-//    @Override //TODO: new override
-    public String getInventoryName() {
+    @Override
+    public String getName() {
         return type.getName();
     }
 
-//    @Override
-//    public boolean hasCustomInventoryName() {
-//        return false;
-//    }
+    @Override
+    public boolean hasCustomName() {
+        return false;
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return new ChatComponentText(getName());
+    }
+
+    @Override
+    public ItemStack removeStackFromSlot(int index) {
+        ItemStack stack = null;
+        if (inventory[index] != null){
+            stack = inventory[index];
+            inventory[index] = null;
+        }
+        return stack;
+    }
 
     @Override
     public int getInventoryStackLimit() {
@@ -112,27 +118,17 @@ public class InventoryBackpack implements IInventory {
 
     @Override
     public void openInventory(EntityPlayer player) {
-
+        //unused
     }
 
     @Override
     public void closeInventory(EntityPlayer player) {
-
+        //unused
     }
-
-//    @Override
-//    public void openInventory() {
-//        //unused
-//    }
-//
-//    @Override
-//    public void closeInventory() {
-//        //unused
-//    }
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
-        return true; //handled by BackpackSlot //TODO: fix this
+        return true; //handled by BackpackSlot //TODO: fix this?
     }
 
     @Override
@@ -142,7 +138,7 @@ public class InventoryBackpack implements IInventory {
 
     @Override
     public void setField(int id, int value) {
-
+        //nothing
     }
 
     @Override
@@ -152,9 +148,12 @@ public class InventoryBackpack implements IInventory {
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < inventory.length; i++){
+            inventory[i] = null;
+        }
     }
 
+    //Helper methods for Botania's API and IBlockProvider
     public int hasStackInInv(Block blockToCheck, int meta){
         int total = 0;
         for (int i = 0; i < inventory.length; i++){
@@ -306,21 +305,6 @@ public class InventoryBackpack implements IInventory {
                 }
             }
         }
-        return null;
-    }
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public boolean hasCustomName() {
-        return false;
-    }
-
-    @Override
-    public IChatComponent getDisplayName() {
         return null;
     }
 }

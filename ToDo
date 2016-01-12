@@ -3,7 +3,21 @@ To Do:
     1.8 Stuff:
         get basics working,
             test
+        check out playerBackpackProperties in entity package on tehnut's code
         then API/cut ids/refactor, etc.
+
+        use IExtendedEntityProperties
+            check TehNut's branch
+
+            //simple
+            https://github.com/gigaherz/ElementsOfPower/blob/master/src/main/java/gigaherz/elementsofpower/entitydata/DiscoveryEntityData.java
+            //complex
+            https://github.com/gigaherz/ElementsOfPower/blob/master/src/main/java/gigaherz/elementsofpower/entitydata/SpellcastEntityData.java
+            https://github.com/gigaherz/ElementsOfPower/blob/master/src/main/java/gigaherz/elementsofpower/network/SpellcastSync.java
+
+            all you have to do is call YourEntityData.init() from your initialization code (pre-init works)
+            and then whenever you have to access the entity data
+            you just do YourEntityData.get(entity)
 
     NOW:
     Change default keybinding for 'r'? (JEI's hotkey)

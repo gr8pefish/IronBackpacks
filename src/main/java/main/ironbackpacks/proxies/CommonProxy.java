@@ -178,6 +178,19 @@ public class CommonProxy {
      * @param stack - the backpack
      */
     public void updateEquippedBackpack(EntityPlayer player, ItemStack stack){
+        if (player.worldObj.isRemote) { //if client
+            System.out.println("client side");
+        }else{
+            System.out.println("server side");
+        }
+        if (player.getEntityData() != null){
+            System.out.println("non-null entity data");
+            System.out.println("Update curr has key: "+player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG));
+        }else{
+            System.out.println("null entity data");
+        }
+
+
         NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
         if (stack != null) {
             NBTTagCompound tagCompound = new NBTTagCompound();

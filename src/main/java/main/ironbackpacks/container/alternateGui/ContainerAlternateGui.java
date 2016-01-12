@@ -167,7 +167,7 @@ public class ContainerAlternateGui extends Container {
      * Renames the backpack to the string parameter
      * @param toName - the new name
      */
-    public void renameBackpack(String toName){ //TODO: fix for next update
+    public void renameBackpack(String toName){
 
         //client side is easy
         stack.setStackDisplayName(ConfigHandler.makeRenamedBackpacksNamesItalic ? toName : "\u00A7r" + toName); //client
