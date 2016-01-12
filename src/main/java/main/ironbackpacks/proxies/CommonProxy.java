@@ -19,6 +19,10 @@ public class CommonProxy {
         //nothing to see here
     }
 
+    public void init(){
+        //nothing here either
+    }
+
     public String getModVersion(){
         return null;
     }

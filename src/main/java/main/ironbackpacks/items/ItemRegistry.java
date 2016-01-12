@@ -203,6 +203,7 @@ public class ItemRegistry {
         helper.itemRender(quickDepositPreciseUpgrade, "quickDepositPreciseUpgrade");
         helper.itemRender(filterAdvancedUpgrade, "filterAdvancedUpgrade");
         helper.itemRender(nestingAdvancedUpgrade, "nestingAdvancedUpgrade");
+        helper.itemRender(depthUpgrade, "depthUpgrade");
 
         helper.itemRender(nest, "nest");
         helper.itemRender(upgradeCore, "upgradeCore");

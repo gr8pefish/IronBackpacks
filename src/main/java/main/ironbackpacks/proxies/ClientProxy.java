@@ -1,6 +1,8 @@
 package main.ironbackpacks.proxies;
 
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.client.renderer.RenderBackpack;
+import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.events.IronBackpacksClientEventHandler;
 import main.ironbackpacks.handlers.ConfigAdaptor;
 import main.ironbackpacks.handlers.KeybindingHandler;
@@ -8,6 +10,7 @@ import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 /**
@@ -23,7 +26,11 @@ public class ClientProxy extends CommonProxy {
 
     public void preInit(){
         initKeybindings();
-        initRenderers();
+        initItemRenderers();
+    }
+
+    public void init(){
+        RenderingRegistry.registerEntityRenderingHandler(EntityBackpack.class, new RenderBackpack(Minecraft.getMinecraft().getRenderManager())); //TODO: rendering model
     }
 
     public String getModVersion(){
@@ -40,9 +47,7 @@ public class ClientProxy extends CommonProxy {
         FMLCommonHandler.instance().bus().register(new IronBackpacksClientEventHandler());
     }
 
-
-    public void initRenderers(){
-//        RenderingRegistry.registerEntityRenderingHandler(EntityBackpack.class, new RenderBackpack()); //TODO: rendering model
+    public void initItemRenderers(){
         ItemRegistry.registerItemRenders();
     }
 

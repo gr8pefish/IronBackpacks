@@ -37,9 +37,10 @@ public class RenderBackpack extends Render{
         final boolean isLocalPlayer = owner == minecraft.thePlayer;
         final boolean isFpp = minecraft.gameSettings.thirdPersonView == 0;
 
-        if (InterModSupport.gliderClass.isGliding(owner)) {
-                return; //TODO: don't render with glider
-        }else if (owner.isInvisible()){
+//        if (InterModSupport.gliderClass.isGliding(owner)) {
+//                return;
+//        }else
+        if (owner.isInvisible()){
             return; //don't render when invisible
         }
 
@@ -51,7 +52,7 @@ public class RenderBackpack extends Render{
         GL11.glRotatef(180.0F - rotation, 0.0F, 1.0F, 0.0F); //rotates it to the back of the player
         GL11.glRotatef(180, 1, 0, 0); //flips it right side up
         GL11.glScalef(0.8f, 0.7f, 0.8f); //scale slightly smaller
-        GL11.glTranslated(0, .7, -.25); //move it into the correct location
+        GL11.glTranslated(0, -1.6, -.25); //move it into the correct location
 
         if (isLocalPlayer && isFpp)
             GL11.glTranslated(0, 0, -.8); //move it totally out of view //TODO: disable totally?
@@ -61,7 +62,7 @@ public class RenderBackpack extends Render{
 
         if (owner.isSneaking()){
             GL11.glRotatef(-25F, 1, 0, 0); //rotate it forward to still be on the player's back
-            GL11.glTranslated(0, 0, -.2); //move it back a little
+            GL11.glTranslated(0, .2, -.1); //move it back and down a little
         }
 
         bindEntityTexture(pack);
