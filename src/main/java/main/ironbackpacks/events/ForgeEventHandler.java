@@ -2,10 +2,10 @@ package main.ironbackpacks.events;
 
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.entity.EntityBackpack;
-import main.ironbackpacks.handlers.ConfigHandler;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
@@ -14,6 +14,7 @@ import main.ironbackpacks.network.ClientPackMessage;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
+import main.ironbackpacks.util.PlayerBackpackProperties;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ContainerWorkbench;
@@ -22,6 +23,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.BlockPos;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -76,7 +78,6 @@ public class ForgeEventHandler {
         }
     }
 
-
     /**
      * When a player dies, check if player has any backpacks with keepOnDeathUpgrade so then they are saved for when they spawn
      * @param event - the event
@@ -96,6 +97,67 @@ public class ForgeEventHandler {
     public void onEntityJoinWorld(EntityJoinWorldEvent event){
         if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer){ //server side
             IronBackpacks.proxy.loadBackpackOnDeath((EntityPlayer) event.entity);
+        }
+    }
+
+    @SubscribeEvent
+    public void onEntityConstruction(EntityEvent.EntityConstructing event) {
+        if (event.entity instanceof EntityPlayer && PlayerBackpackProperties.get((EntityPlayer) event.entity) == null)
+            PlayerBackpackProperties.create((EntityPlayer) event.entity);
+    }
+
+    /**
+     * Used to make sure the player's equipped backpack is shown correctly
+     * @param event - the player logged in event
+     */
+    @SubscribeEvent
+    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event){
+        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
+        if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
+
+            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
+
+            if (!ConfigHandler.disableRendering)
+                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
+        }
+    }
+
+    /**
+     * Used to make sure the player respawns with an equipped backpack if they should
+     * @param event - the player respawn event
+     */
+    @SubscribeEvent
+    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event){
+        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
+        if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
+
+            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
+
+            if (!ConfigHandler.disableRendering)
+                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
+        }
+    }
+
+    /**
+     * Used to make sure the equipped backpack transfers over correctly between dimensions
+     * @param event - the change dimension event
+     */
+    @SubscribeEvent
+    public void onPlayerDimChange(PlayerEvent.PlayerChangedDimensionEvent event){ //TODO: test more
+        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
+        if (backpack != null) {
+            if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) {//if has old dimension backpack
+                if (EntityBackpack.backpacksSpawnedMap.get(event.player) != null) //possible if config option disabled rendering
+                    EntityBackpack.backpacksSpawnedMap.get(event.player).setDead(); //kill old backpack
+            }
+
+            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
+
+            if (!ConfigHandler.disableRendering)
+                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
         }
     }
 
@@ -127,7 +189,8 @@ public class ForgeEventHandler {
         ArrayList<ArrayList<ItemStack>> returnArray = new ArrayList<ArrayList<ItemStack>>();
 
         //get the equipped pack
-        getEventBackpacks(IronBackpacks.proxy.getEquippedBackpack(player), filterBackpacks, condenserTinyBackpacks, condenserSmallBackpacks, condenserBackpacks, hopperBackpacks, player);
+        getEventBackpacks(PlayerBackpackProperties.getEquippedBackpack(player), filterBackpacks, condenserTinyBackpacks, condenserSmallBackpacks, condenserBackpacks, hopperBackpacks, player);
+
 
         //get the packs in the inventory
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
@@ -668,62 +731,4 @@ public class ForgeEventHandler {
         }
         return retList.isEmpty() ? null : retList;
     }
-
-    //============================================================================Old FML Events========================================================================================
-
-    /**
-     * Used to make sure the player's equipped backpack is shown correctly
-     * @param event - the player logged in event
-     */
-    @SubscribeEvent
-    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event){
-        ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(event.player);
-        if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
-
-            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
-            IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack //TODO: causes unknown Null Pointer Exception on Forge EventBus
-
-            if (!ConfigHandler.disableRendering)
-                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
-        }
-    }
-
-    /**
-     * Used to make sure the player respawns with an equipped backpack if they should
-     * @param event - the player respawn event
-     */
-    @SubscribeEvent
-    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event){
-        ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(event.player);
-        if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
-
-            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
-            IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
-
-            if (!ConfigHandler.disableRendering)
-                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
-        }
-    }
-
-    /**
-     * Used to make sure the equipped backpack transfers over correctly between dimensions
-     * @param event - the change dimension event
-     */
-    @SubscribeEvent
-    public void onPlayerDimChange(PlayerEvent.PlayerChangedDimensionEvent event){ //TODO: test more
-        ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(event.player);
-        if (backpack != null) {
-            if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) {//if has old dimension backpack
-                if (EntityBackpack.backpacksSpawnedMap.get(event.player) != null) //possible if config option disabled rendering
-                    EntityBackpack.backpacksSpawnedMap.get(event.player).setDead(); //kill old backpack
-            }
-
-            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
-            IronBackpacks.proxy.updateEquippedBackpack(event.player, backpack); //update server on correct pack
-
-            if (!ConfigHandler.disableRendering)
-                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
-        }
-    }
-
 }

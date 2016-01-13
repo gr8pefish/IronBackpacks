@@ -4,12 +4,9 @@ import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
-import main.ironbackpacks.handlers.ConfigHandler;
+import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.util.IronBackpacksConstants;
-import main.ironbackpacks.util.IronBackpacksHelper;
-import main.ironbackpacks.util.NBTHelper;
-import main.ironbackpacks.util.TextUtils;
+import main.ironbackpacks.util.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -118,11 +115,11 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (world.isRemote){ //client side
-            IronBackpacks.proxy.updateCurrBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name
+            PlayerBackpackProperties.setCurrentBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: client side
             return itemStack;
         } else {
             NBTHelper.setUUID(itemStack);
-            IronBackpacks.proxy.updateCurrBackpack(player, itemStack);
+            PlayerBackpackProperties.setCurrentBackpack(player, itemStack);
             if (!player.isSneaking()){
                 player.openGui(IronBackpacks.instance, getGuiId(), world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"
                 return itemStack;

@@ -1,6 +1,6 @@
 package main.ironbackpacks.client.gui.buttons;
 
-import main.ironbackpacks.handlers.ConfigHandler;
+import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

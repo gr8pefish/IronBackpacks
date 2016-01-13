@@ -6,6 +6,8 @@ To Do:
         check out playerBackpackProperties in entity package on tehnut's code
         then API/cut ids/refactor, etc.
 
+        bm blacklist for config to disable items (requested config option)
+
         use IExtendedEntityProperties
             check TehNut's branch
 
@@ -20,7 +22,6 @@ To Do:
             you just do YourEntityData.get(entity)
 
     NOW:
-    Change default keybinding for 'r'? (JEI's hotkey)
 
 	Change to fuzzy filter on void
 

@@ -1,7 +1,7 @@
 package main.ironbackpacks.util;
 
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.handlers.ConfigHandler;
+import main.ironbackpacks.config.ConfigHandler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 

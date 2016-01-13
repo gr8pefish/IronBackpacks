@@ -9,6 +9,7 @@ import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
+import main.ironbackpacks.util.PlayerBackpackProperties;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -152,7 +153,7 @@ public class ContainerBackpack extends Container {
     @Override
     public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) {
         // this will prevent the player from interacting with the item that opened the inventory:
-        ItemStack currPack = IronBackpacks.proxy.getCurrBackpack(player);
+        ItemStack currPack = PlayerBackpackProperties.getCurrentBackpack(player);
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && ItemStack.areItemStacksEqual(getSlot(slot).getStack(), currPack) && button == 0) {
             return null;
         }else if (button == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack()){ //right click on non-empty slot

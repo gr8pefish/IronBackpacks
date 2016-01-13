@@ -4,10 +4,7 @@ import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
-import main.ironbackpacks.util.IronBackpacksConstants;
-import main.ironbackpacks.util.IronBackpacksHelper;
-import main.ironbackpacks.util.Logger;
-import main.ironbackpacks.util.NBTHelper;
+import main.ironbackpacks.util.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -90,19 +87,19 @@ public class SingleByteMessage implements IMessage {
                     break;
                 case IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING:
                     player = ctx.getServerHandler().playerEntity;
-                    ItemStack backpackStack = IronBackpacks.proxy.getEquippedBackpack(player);
+                    ItemStack backpackStack = PlayerBackpackProperties.getEquippedBackpack(player);
                     if (backpackStack != null) {
                         NBTHelper.setUUID(backpackStack);
-                        IronBackpacks.proxy.updateCurrBackpack(player, backpackStack);
+                        PlayerBackpackProperties.setCurrentBackpack(player, backpackStack);
                         backpackStack.useItemRightClick(player.worldObj, player);
                     }
                     break;
                 case IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_ALT_KEYBINDING: //TODO: implement correctly, doesn't work as-is
                     player = ctx.getServerHandler().playerEntity;
-                    ItemStack backpackStackAlt = IronBackpacks.proxy.getEquippedBackpack(player);
+                    ItemStack backpackStackAlt = PlayerBackpackProperties.getEquippedBackpack(player);
                     if (backpackStackAlt != null) {
                         NBTHelper.setUUID(backpackStackAlt);
-                        IronBackpacks.proxy.updateCurrBackpack(player, backpackStackAlt);
+                        PlayerBackpackProperties.setCurrentBackpack(player, backpackStackAlt);
                         backpackStackAlt.useItemRightClick(player.worldObj, player);
                     }
                     break;

@@ -1,7 +1,7 @@
 package main.ironbackpacks.items;
 
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.handlers.ConfigHandler;
+import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.craftingItems.ItemJeweledFeather;

@@ -1,6 +1,6 @@
 package main.ironbackpacks.items.backpacks;
 
-import main.ironbackpacks.handlers.ConfigHandler;
+import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.util.IronBackpacksConstants;
 
 /**

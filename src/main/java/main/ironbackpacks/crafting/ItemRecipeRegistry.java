@@ -1,6 +1,6 @@
 package main.ironbackpacks.crafting;
 
-import main.ironbackpacks.handlers.ConfigHandler;
+import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.items.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

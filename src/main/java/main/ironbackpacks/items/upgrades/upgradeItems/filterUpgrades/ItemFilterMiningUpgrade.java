@@ -1,6 +1,6 @@
 package main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades;
 
-import main.ironbackpacks.handlers.ConfigHandler;
+import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.items.upgrades.ItemUpgradeBase;
 import main.ironbackpacks.util.IronBackpacksConstants;
 

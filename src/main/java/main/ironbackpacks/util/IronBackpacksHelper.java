@@ -32,11 +32,11 @@ public class IronBackpacksHelper {
     public static ItemStack getBackpack(EntityPlayer player) {
         ItemStack backpack = null;
 
-        ItemStack proxyPack = IronBackpacks.proxy.getCurrBackpack(player);
+        ItemStack proxyPack = PlayerBackpackProperties.getCurrentBackpack(player);
         if (proxyPack != null) {
             backpack = proxyPack;
-        }else if(IronBackpacks.proxy.getEquippedBackpack(player)!= null){
-            backpack = IronBackpacks.proxy.getEquippedBackpack(player);
+        }else if(PlayerBackpackProperties.getEquippedBackpack(player)!= null){
+            backpack = PlayerBackpackProperties.getEquippedBackpack(player);
         }else {
             backpack = getBackpackFromPlayersInventory(player);
         }
@@ -77,14 +77,14 @@ public class IronBackpacksHelper {
      * @param player - the player to check
      * @return - null if nothing is found, the itemstack otherwise
      */
-    public static ItemStack getEquippedBackpack(EntityPlayer player) {
-        ItemStack backpack = null;
-
-        ItemStack equippedPack = IronBackpacks.proxy.getEquippedBackpack(player);
-        if (equippedPack != null) backpack = equippedPack;
-
-        return backpack;
-    }
+//    public static ItemStack getEquippedBackpack(EntityPlayer player) {
+//        ItemStack backpack = null;
+//
+//        ItemStack equippedPack = PlayerBackpackProperties.getEquippedBackpack(player);
+//        if (equippedPack != null) backpack = equippedPack;
+//
+//        return backpack;
+//    }
 
 
     //============================================ Methods relating to Upgrades Applied ======================================================
@@ -182,7 +182,7 @@ public class IronBackpacksHelper {
 
     public static void equipBackpackFromKeybinding(EntityPlayer player) {
 
-        ItemStack backpack = IronBackpacks.proxy.getEquippedBackpack(player);
+        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(player);
 
         if (backpack != null) { //need to unequip backpack
 
@@ -196,7 +196,7 @@ public class IronBackpacksHelper {
                 player.inventory.addItemStackToInventory(backpack);
 
                 //update equipped backpack to null
-                IronBackpacks.proxy.updateEquippedBackpack(player, null);
+                PlayerBackpackProperties.setEquippedBackpack(player, null);
 
                 //update equipped backpack on client side, not ideal but it works
                 NetworkingHandler.network.sendTo(new ClientPackMessage(null), (EntityPlayerMP)player);
@@ -212,7 +212,7 @@ public class IronBackpacksHelper {
             NBTHelper.setUUID(backpackStack);
 
             //equip backpack from the backpack the player is holding
-            IronBackpacks.proxy.updateEquippedBackpack(player, backpackStack);
+            PlayerBackpackProperties.setEquippedBackpack(player, backpackStack);
 
             //update equipped backpack on client side, not ideal but it works
             NetworkingHandler.network.sendTo(new ClientPackMessage(backpackStack), (EntityPlayerMP)player); //works on SSP
