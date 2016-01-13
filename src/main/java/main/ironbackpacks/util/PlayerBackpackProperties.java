@@ -23,12 +23,14 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
 
         //make new compound for the equipped pack
         NBTTagCompound equipped = new NBTTagCompound();
-        equippedBackpack.writeToNBT(equipped);
+        if (equippedBackpack != null)
+            equippedBackpack.writeToNBT(equipped);
         tagList.appendTag(equipped);
 
         //make another for the saved one
         NBTTagCompound current = new NBTTagCompound();
-        currentBackpack.writeToNBT(current);
+        if (currentBackpack != null)
+            currentBackpack.writeToNBT(current);
         tagList.appendTag(current);
 
         //save all to the tag
