@@ -4,6 +4,7 @@ import main.ironbackpacks.ModInformation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
@@ -23,14 +24,20 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
 
         //make new compound for the equipped pack
         NBTTagCompound equipped = new NBTTagCompound();
-        if (equippedBackpack != null)
+        if (equippedBackpack != null) {
             equippedBackpack.writeToNBT(equipped);
+        }else{
+            equipped.setBoolean("noEquipped", false);
+        }
         tagList.appendTag(equipped);
 
         //make another for the saved one
         NBTTagCompound current = new NBTTagCompound();
-        if (currentBackpack != null)
-            currentBackpack.writeToNBT(current);
+        if (currentBackpack != null) {
+            currentBackpack.writeToNBT(equipped);
+        }else{
+            current.setBoolean("noCurrent", false);
+        }
         tagList.appendTag(current);
 
         //save all to the tag
@@ -42,19 +49,26 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
         NBTTagList tagList = tag.getTagList(PROP_ID, Constants.NBT.TAG_COMPOUND);
 
         //get the equipped backpack without crashing
-        try {
-            equippedBackpack = ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(0));
-        } catch (NullPointerException e) {
+        if (!tagList.getCompoundTagAt(0).hasKey("noEquipped")){ //if the key doesn't exist
+            try {
+                equippedBackpack = ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(0));
+            } catch (NullPointerException e) { //might as well keep this catch statement
+                equippedBackpack = null;
+            }
+        } else {
             equippedBackpack = null;
         }
 
         //get the current backpack without crashing
-        try {
-            currentBackpack = ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(1));
-        } catch (NullPointerException e) {
+        if (!tagList.getCompoundTagAt(1).hasKey("noCurrent")) {
+            try {
+                currentBackpack = ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(1));
+            } catch (NullPointerException e) {
+                currentBackpack = null;
+            }
+        } else {
             currentBackpack = null;
         }
-
     }
 
     @Override
