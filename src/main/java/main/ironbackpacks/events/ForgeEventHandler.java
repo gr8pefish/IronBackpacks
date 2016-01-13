@@ -100,6 +100,10 @@ public class ForgeEventHandler {
         }
     }
 
+    /**
+     * When a player is "constructed" this is called, we need to give them our extended properties
+     * @param event - the construction event
+     */
     @SubscribeEvent
     public void onEntityConstruction(EntityEvent.EntityConstructing event) {
         if (event.entity instanceof EntityPlayer && PlayerBackpackProperties.get((EntityPlayer) event.entity) == null)
