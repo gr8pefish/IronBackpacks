@@ -3,16 +3,13 @@ package main.ironbackpacks.proxies;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.client.KeyHandler;
 import main.ironbackpacks.client.renderer.RenderBackpack;
+import main.ironbackpacks.config.ConfigAdaptor;
 import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.events.ClientEventHandler;
-import main.ironbackpacks.config.ConfigAdaptor;
 import main.ironbackpacks.items.ItemRegistry;
-import main.ironbackpacks.network.ClientPackMessage;
 import main.ironbackpacks.util.IronBackpacksConstants;
-import main.ironbackpacks.util.PlayerBackpackProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -58,14 +55,6 @@ public class ClientProxy extends CommonProxy {
 
     private void initItemRenderers(){
         ItemRegistry.registerItemRenders();
-    }
-
-    public void updatePackOnClient(ClientPackMessage message) {
-//        World world = Minecraft.getMinecraft().theWorld;
-//        EntityPlayer player = (EntityPlayer) world.getEntityByID(Minecraft.getMinecraft().thePlayer.getEntityId());
-//
-//        if (data != null)
-//            data.sync(message.changeMode, message.spellcast);
     }
 
 }

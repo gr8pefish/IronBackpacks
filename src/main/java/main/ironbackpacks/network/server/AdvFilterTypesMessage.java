@@ -1,4 +1,4 @@
-package main.ironbackpacks.network;
+package main.ironbackpacks.network.server;
 
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;

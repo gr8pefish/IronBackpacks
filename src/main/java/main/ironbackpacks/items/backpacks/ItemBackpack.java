@@ -2,9 +2,9 @@ package main.ironbackpacks.items.backpacks;
 
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
-import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.*;
 import net.minecraft.entity.player.EntityPlayer;

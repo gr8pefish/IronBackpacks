@@ -2,7 +2,6 @@ package main.ironbackpacks.client.renderer;
 
 import main.ironbackpacks.client.model.ModelBackpack;
 import main.ironbackpacks.entity.EntityBackpack;
-import main.ironbackpacks.integration.InterModSupport;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;

@@ -1,10 +1,10 @@
 package main.ironbackpacks;
 
 import main.ironbackpacks.client.gui.GuiHandler;
+import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.crafting.ItemRecipeRegistry;
 import main.ironbackpacks.entity.IronBackpacksEntityRegistry;
 import main.ironbackpacks.events.ForgeEventHandler;
-import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.proxies.CommonProxy;

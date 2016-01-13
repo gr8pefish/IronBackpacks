@@ -1,7 +1,6 @@
 package main.ironbackpacks.container.backpack;
 
 import invtweaks.api.container.ChestContainer;
-import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;

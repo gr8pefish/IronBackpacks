@@ -1,6 +1,11 @@
 package main.ironbackpacks.network;
 
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.network.client.ClientCurrentPackMessage;
+import main.ironbackpacks.network.client.ClientEquippedPackMessage;
+import main.ironbackpacks.network.server.AdvFilterTypesMessage;
+import main.ironbackpacks.network.server.RenameMessage;
+import main.ironbackpacks.network.server.SingleByteMessage;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -18,8 +23,9 @@ public class NetworkingHandler {
         registerMessage(RenameMessage.Handler.class, RenameMessage.class, Side.SERVER);
         registerMessage(AdvFilterTypesMessage.Handler.class, AdvFilterTypesMessage.class, Side.SERVER);
         registerMessage(SingleByteMessage.Handler.class, SingleByteMessage.class, Side.SERVER);
-        registerMessage(ClientPackMessage.Handler.class, ClientPackMessage.class, Side.CLIENT);
-        registerMessage(ClientPackMessage.Handler.class, ClientPackMessage.class, Side.SERVER); //has to be registered on servers so the servers know it exists so they can send it to the client?
+        registerMessage(ClientCurrentPackMessage.Handler.class, ClientCurrentPackMessage.class, Side.CLIENT);
+        registerMessage(ClientEquippedPackMessage.Handler.class, ClientEquippedPackMessage.class, Side.CLIENT);
+//        registerMessage(ClientPackMessage.Handler.class, ClientPackMessage.class, Side.SERVER); //has to be registered on servers so the servers know it exists so they can send it to the client?
     }
 
     private static int nextPacketId = 0;

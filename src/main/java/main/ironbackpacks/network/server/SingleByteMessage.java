@@ -1,11 +1,13 @@
-package main.ironbackpacks.network;
+package main.ironbackpacks.network.server;
 
 import io.netty.buffer.ByteBuf;
-import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
+import main.ironbackpacks.network.NetworkingHandler;
+import main.ironbackpacks.network.client.ClientCurrentPackMessage;
 import main.ironbackpacks.util.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -91,6 +93,11 @@ public class SingleByteMessage implements IMessage {
                     if (backpackStack != null) {
                         NBTHelper.setUUID(backpackStack);
                         PlayerBackpackProperties.setCurrentBackpack(player, backpackStack);
+
+                        System.out.println("currPack "+backpackStack.getDisplayName());
+                        //TODO: send packet to client here with name of currPack
+                        NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);
+
                         backpackStack.useItemRightClick(player.worldObj, player);
                     }
                     break;

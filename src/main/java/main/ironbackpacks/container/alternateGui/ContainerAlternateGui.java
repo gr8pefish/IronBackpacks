@@ -2,10 +2,9 @@ package main.ironbackpacks.container.alternateGui;
 
 import invtweaks.api.container.ChestContainer;
 import invtweaks.api.container.InventoryContainer;
-
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
-import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.config.ConfigHandler;
+import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;

@@ -2,7 +2,6 @@ package main.ironbackpacks.entity;
 
 import com.google.common.collect.MapMaker;
 import io.netty.buffer.ByteBuf;
-import main.ironbackpacks.util.Logger;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

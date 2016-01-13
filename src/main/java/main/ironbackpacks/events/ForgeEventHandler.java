@@ -10,8 +10,8 @@ import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.network.ClientPackMessage;
 import main.ironbackpacks.network.NetworkingHandler;
+import main.ironbackpacks.network.client.ClientEquippedPackMessage;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
 import main.ironbackpacks.util.PlayerBackpackProperties;
@@ -115,7 +115,7 @@ public class ForgeEventHandler {
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
         if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
 
-            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
             PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
 
             if (!ConfigHandler.disableRendering)
@@ -128,11 +128,11 @@ public class ForgeEventHandler {
      * @param event - the player respawn event
      */
     @SubscribeEvent
-    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event){
+    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event){ //TODO: test in 1.8!
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
         if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
 
-            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
             PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
 
             if (!ConfigHandler.disableRendering)
@@ -145,7 +145,7 @@ public class ForgeEventHandler {
      * @param event - the change dimension event
      */
     @SubscribeEvent
-    public void onPlayerDimChange(PlayerEvent.PlayerChangedDimensionEvent event){ //TODO: test more
+    public void onPlayerDimChange(PlayerEvent.PlayerChangedDimensionEvent event){ //TODO: test in 1.8!
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
         if (backpack != null) {
             if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) {//if has old dimension backpack
@@ -153,7 +153,7 @@ public class ForgeEventHandler {
                     EntityBackpack.backpacksSpawnedMap.get(event.player).setDead(); //kill old backpack
             }
 
-            NetworkingHandler.network.sendTo(new ClientPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
             PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
 
             if (!ConfigHandler.disableRendering)

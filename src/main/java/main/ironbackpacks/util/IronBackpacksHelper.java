@@ -1,12 +1,11 @@
 package main.ironbackpacks.util;
 
 
-import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
-import main.ironbackpacks.network.ClientPackMessage;
 import main.ironbackpacks.network.NetworkingHandler;
+import main.ironbackpacks.network.client.ClientEquippedPackMessage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -199,7 +198,7 @@ public class IronBackpacksHelper {
                 PlayerBackpackProperties.setEquippedBackpack(player, null);
 
                 //update equipped backpack on client side, not ideal but it works
-                NetworkingHandler.network.sendTo(new ClientPackMessage(null), (EntityPlayerMP)player);
+                NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP)player);
 
                 //stop the render - kill entity
                 EntityBackpack.backpacksSpawnedMap.get(player).setDead();
@@ -215,7 +214,7 @@ public class IronBackpacksHelper {
             PlayerBackpackProperties.setEquippedBackpack(player, backpackStack);
 
             //update equipped backpack on client side, not ideal but it works
-            NetworkingHandler.network.sendTo(new ClientPackMessage(backpackStack), (EntityPlayerMP)player); //works on SSP
+            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpackStack), (EntityPlayerMP)player); //works on SSP
 
             //delete the held item
             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);

@@ -1,4 +1,4 @@
-package main.ironbackpacks.network;
+package main.ironbackpacks.network.client;
 
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.IronBackpacks;
@@ -10,14 +10,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class ClientPackMessage implements IMessage {
+public class ClientEquippedPackMessage implements IMessage {
 
     //the data sent
     private ItemStack stack;
 
-    public ClientPackMessage() {} //default constructor is necessary
+    public ClientEquippedPackMessage() {} //default constructor is necessary
 
-    public ClientPackMessage(ItemStack stack) {
+    public ClientEquippedPackMessage(ItemStack stack) {
         this.stack = stack;
     }
 
@@ -31,18 +31,14 @@ public class ClientPackMessage implements IMessage {
         ByteBufUtils.writeItemStack(buf, stack);
     }
 
-    public static class Handler implements IMessageHandler<ClientPackMessage, IMessage> {
+    public static class Handler implements IMessageHandler<ClientEquippedPackMessage, IMessage> {
 
         @Override
-        public IMessage onMessage(ClientPackMessage message, MessageContext ctx) {
+        public IMessage onMessage(ClientEquippedPackMessage message, MessageContext ctx) {
 
             EntityPlayer player = IronBackpacks.proxy.getClientPlayer(); //get the player via a safe call
-//            System.out.println("player: "+player.getName());
-            if (player != null) {
+            if (player != null)
                 PlayerBackpackProperties.setEquippedBackpack(player, message.stack); //update the backpack //TODO: client
-            }else{
-                System.out.println("NULL PLAYER");
-            }
 
             return null; //no return message
         }

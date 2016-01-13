@@ -1,8 +1,8 @@
 package main.ironbackpacks.items.upgrades;
 
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
-import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.config.ConfigHandler;
+import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.util.IronBackpacksConstants;

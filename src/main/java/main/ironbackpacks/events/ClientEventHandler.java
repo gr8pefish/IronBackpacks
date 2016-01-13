@@ -1,13 +1,11 @@
 package main.ironbackpacks.events;
 
-import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.client.KeyHandler;
 import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.network.NetworkingHandler;
-import main.ironbackpacks.network.SingleByteMessage;
+import main.ironbackpacks.network.server.SingleByteMessage;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;

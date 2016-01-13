@@ -1,16 +1,15 @@
 package main.ironbackpacks.client.gui.inventory;
 
-import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.client.gui.buttons.ButtonTypes;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
+import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
-import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;
-import main.ironbackpacks.network.SingleByteMessage;
+import main.ironbackpacks.network.server.SingleByteMessage;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.PlayerBackpackProperties;
 import net.minecraft.client.gui.GuiButton;
@@ -178,7 +177,7 @@ public class GUIBackpack extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        itemStack = PlayerBackpackProperties.getCurrentBackpack(player); //TODO: will probably break
+        itemStack = PlayerBackpackProperties.getCurrentBackpack(player); //TODO: will probably break, have to fix this
 
         if (itemStack != null)
             this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
