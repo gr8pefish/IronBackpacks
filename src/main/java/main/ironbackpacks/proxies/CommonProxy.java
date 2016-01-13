@@ -37,6 +37,9 @@ public class CommonProxy {
     }
 
     //==================================================== Handles the backpack persisting through death ==============================================================
+
+    //TODO: move to an IEEP?
+
     private static String deathBackpack = ModInformation.ID+"PersistedPack";
 
     /**
@@ -130,93 +133,4 @@ public class CommonProxy {
         }
         return null;
     }
-
-
-    //============================================================ The current backpack to open ================================================================
-    private static String currBackpack = ModInformation.ID+"CurrentPack";
-
-    /**
-     * Updates the data stored as the current backpack to the parameter 'stack' passed in.
-     * @param player - the player to update
-     * @param stack - the backpack to update to
-     */
-//    public void updateCurrBackpack(EntityPlayer player, ItemStack stack){
-//        NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-//        if (stack != null) {
-//            NBTTagCompound tagCompound = new NBTTagCompound();
-//            stack.writeToNBT(tagCompound);
-//
-//            rootPersistentCompound.setTag(currBackpack, tagCompound);
-//            if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
-//                player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
-//        }else{
-//            rootPersistentCompound.removeTag(currBackpack);
-//            if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
-//                player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
-//        }
-//    }
-
-    /**
-     * Returns the backpack stored with the player as the current backpack
-     * @param player - the player to retrieve the data from
-     * @return - null if not found, otherwise the backpack itemstack
-     */
-//    public ItemStack getCurrBackpack(EntityPlayer player){
-//        NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-//        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(currBackpack)){
-//            return ItemStack.loadItemStackFromNBT(rootPersistentCompound.getCompoundTag(currBackpack));
-//        }
-//        return null;
-//    }
-
-
-    //==============================================================The equipped backpack=========================================================================
-    private static String equippedBackpack = ModInformation.ID+"EquippedPack";
-
-    /**
-     * Updates the data stored as the equipped backpack.
-     * @param player - the player with the backpack
-     * @param stack - the backpack
-     */
-//    public void updateEquippedBackpack(EntityPlayer player, ItemStack stack){
-//        if (player.worldObj.isRemote) { //if client
-//            System.out.println("client side");
-//        }else{
-//            System.out.println("server side");
-//        }
-//        if (player.getEntityData() != null){
-//            System.out.println("non-null entity data");
-//            System.out.println("Update curr has key: "+player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG));
-//        }else{
-//            System.out.println("null entity data");
-//        }
-//
-//
-//        NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-//        if (stack != null) {
-//            NBTTagCompound tagCompound = new NBTTagCompound();
-//            stack.writeToNBT(tagCompound);
-//
-//            rootPersistentCompound.setTag(equippedBackpack, tagCompound);
-//            if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
-//                player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
-//        }else{
-//            rootPersistentCompound.removeTag(equippedBackpack);
-//            if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
-//                player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
-//        }
-//    }
-
-    /**
-     * Gets the backpack stored with the player as the equipped backpack.
-     * @param player - the player to check
-     * @return - null if not found, the itemstack otherwise
-     */
-//    public ItemStack getEquippedBackpack(EntityPlayer player) {
-//        NBTTagCompound rootPersistentCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-//        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(equippedBackpack)){
-//            return ItemStack.loadItemStackFromNBT(rootPersistentCompound.getCompoundTag(equippedBackpack));
-//        }
-//        return null;
-//    }
 }

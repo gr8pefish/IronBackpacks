@@ -45,39 +45,9 @@ public class ClientEventHandler {
     }
 
     /**
-     * Handle the keybindings from my mod. These can be found at the KeyHandler class (client package).
-     * @param event - the key pressed
+     * To handle keybindings
+     * @param event - the key input event
      */
-//    @SubscribeEvent
-    //Deprecated
-//    public void handleKeyInputEvent(InputEvent.KeyInputEvent event) {
-//
-//        //open the equipped pack
-//        if (KeyHandler.OPEN_PACK.isPressed()) {
-//
-//            //update the equipped backpack
-//            ItemStack backpackStack = IronBackpacks.proxy.getEquippedBackpack(Minecraft.getMinecraft().thePlayer);
-//            IronBackpacks.proxy.updateCurrBackpack(Minecraft.getMinecraft().thePlayer, backpackStack);
-//
-//            //if sneaking only relevant once I get altGui keybindings working, hence why the if block has teh same code in each right now
-//            if (!(Minecraft.getMinecraft().thePlayer.isSneaking()))
-//                NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING));
-//            else
-//                NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING));
-//
-//            //TODO: implement shift right click to open altGui of packs directly - doesn't work with alt gui upgrades
-//            //means you can alter this if(sneaking) block
-////            if (Minecraft.getMinecraft().gameSettings.keyBindSneak.isPressed()){
-////                NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_ALT_KEYBINDING));
-////            }
-//
-//        // try to equip a pack
-//        }else if(KeyHandler.EQUIP_PACK.isPressed()) {
-//            //updates the server's saved data of which pack is equipped
-//            NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.EQUIP_BACKPACK_KEYBINDING));
-//        }
-//    }
-
     @SubscribeEvent
     public void onKey(InputEvent.KeyInputEvent event) {
         if (KeyHandler.OPEN_PACK.isPressed()) {
