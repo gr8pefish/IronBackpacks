@@ -4,7 +4,7 @@ import main.ironbackpacks.api.client.gui.button.ButtonNames;
 import main.ironbackpacks.api.client.gui.button.IBGuiButton;
 import main.ironbackpacks.api.client.gui.button.ITooltipButton;
 import main.ironbackpacks.config.ConfigHandler;
-import main.ironbackpacks.registry.IBGuiButtonRegistry;
+import main.ironbackpacks.registry.GuiButtonRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -95,10 +95,10 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
      */
     public static int incrementType(GuiButton button){
         int buttonID = ((TooltipButton)button).buttonID;
-        if (buttonID < IBGuiButtonRegistry.getButton(ButtonNames.MOD_SPECIFIC).getId()){ //increment
+        if (buttonID < GuiButtonRegistry.getButton(ButtonNames.MOD_SPECIFIC).getId()){ //increment
             return ++buttonID;
         }else{
-            return IBGuiButtonRegistry.getButton(ButtonNames.EXACT).getId(); //wraparound
+            return GuiButtonRegistry.getButton(ButtonNames.EXACT).getId(); //wraparound
         }
     }
 }

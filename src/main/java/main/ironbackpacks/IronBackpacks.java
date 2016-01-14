@@ -2,13 +2,13 @@ package main.ironbackpacks;
 
 import main.ironbackpacks.client.gui.GuiHandler;
 import main.ironbackpacks.config.ConfigHandler;
-import main.ironbackpacks.crafting.ItemRecipeRegistry;
-import main.ironbackpacks.entity.IronBackpacksEntityRegistry;
+import main.ironbackpacks.registry.ItemRecipeRegistry;
+import main.ironbackpacks.registry.BackpackEntityRegistry;
 import main.ironbackpacks.events.ForgeEventHandler;
-import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.proxies.CommonProxy;
-import main.ironbackpacks.registry.IronBackpacksRegistry;
+import main.ironbackpacks.registry.GuiButtonRegistry;
+import main.ironbackpacks.registry.ItemRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -55,17 +55,17 @@ public class IronBackpacks {
 		NetworkingHandler.initPackets();
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 
-		//items
-		ItemRegistry.registerItems();
+        //items
+        ItemRegistry.registerItems();
 
-		//entity registering
-		IronBackpacksEntityRegistry.init();
+        //entity registering
+        BackpackEntityRegistry.init();
 
-		//Keybindings and Rendering
+        //Register buttons
+        GuiButtonRegistry.registerButtons(); //need it on server side for inventory stuff (i.e. containerAltGui)
+
+		//Keybindings, Client Event Handler, and Rendering
 		proxy.preInit();
-
-		//Registry via API
-//		IronBackpacksRegistry.preInit();
 
 	}
 
@@ -91,8 +91,11 @@ public class IronBackpacks {
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 
-		//compatibility
+        //compatibility
 //		InterModSupport.postinit();
+
+        //holder
+        proxy.postInit();
 
 	}
 }

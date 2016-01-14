@@ -1,7 +1,9 @@
-package main.ironbackpacks.crafting;
+package main.ironbackpacks.registry;
 
 import main.ironbackpacks.config.ConfigHandler;
-import main.ironbackpacks.items.ItemRegistry;
+import main.ironbackpacks.crafting.BackpackCraftWithUpgradeRecipe;
+import main.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
+import main.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -214,9 +216,7 @@ public class ItemRecipeRegistry {
 			nameToId.setAccessible(true);
 			Map<String, Integer> nameToIdMap = (Map<String, Integer>) nameToId.get(null);
 			return nameToIdMap.get(input) != null;
-		} catch (NoSuchFieldException e) {
-			// Catch 'em all!
-		} catch (IllegalAccessException e) {
+		} catch (NoSuchFieldException | IllegalAccessException e) {
 			// Catch 'em all!
 		}
 		return false;

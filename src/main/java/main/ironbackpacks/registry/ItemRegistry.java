@@ -1,4 +1,4 @@
-package main.ironbackpacks.items;
+package main.ironbackpacks.registry;
 
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.config.ConfigHandler;
@@ -11,6 +11,7 @@ import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
 import main.ironbackpacks.util.InventoryRenderHelper;
+import main.ironbackpacks.util.Logger;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  */
 public class ItemRegistry {
 
-	//backpacks
+    //backpacks
     public static Item basicBackpack;
     public static Item ironBackpack;
     public static Item goldBackpack;
@@ -103,7 +104,7 @@ public class ItemRegistry {
     /**
      * Registers all the items with the GameRegistry
      */
-	public static void registerItems() {
+    public static void registerItems() {
 
         //backpacks
         basicBackpack = new ItemBackpack(BackpackTypes.BASIC);
@@ -171,7 +172,7 @@ public class ItemRegistry {
         treatedLeather = new ItemTreatedLeather();
         GameRegistry.registerItem(treatedLeather, "treatedLeather");
 
-	}
+    }
 
     public static void registerItemRenders() {
         InventoryRenderHelper helper = new InventoryRenderHelper(ModInformation.ID + ":");

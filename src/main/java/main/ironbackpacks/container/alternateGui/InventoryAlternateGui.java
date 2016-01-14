@@ -6,7 +6,7 @@ import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.registry.IBGuiButtonRegistry;
+import main.ironbackpacks.registry.GuiButtonRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
@@ -51,7 +51,7 @@ public class InventoryAlternateGui implements IInventory {
         this.inventory = new ItemStack[this.getSizeInventory()];
 
         advFilterButtonStates = new byte[18];
-        Arrays.fill(advFilterButtonStates, (byte) IBGuiButtonRegistry.getButton(ButtonNames.EXACT).getId()); //default value of all buttons
+        Arrays.fill(advFilterButtonStates, (byte) GuiButtonRegistry.getButton(ButtonNames.EXACT).getId()); //default value of all buttons
         advFilterButtonStartPoint = 0; //default start point
         advFilterStacks = new ItemStack[18];
 
@@ -492,7 +492,7 @@ public class InventoryAlternateGui implements IInventory {
                     if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)) {
                         byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)).getByteArray(); //gets byte array
                         for (int i = 0; i < bytes.length; i++) {
-                            if (bytes[i] == 0) bytes[i] = (byte) IBGuiButtonRegistry.getButton(ButtonNames.EXACT).getId();
+                            if (bytes[i] == 0) bytes[i] = (byte) GuiButtonRegistry.getButton(ButtonNames.EXACT).getId();
                             advFilterButtonStates[i] = bytes[i];
                         }
                     }

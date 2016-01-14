@@ -1,8 +1,8 @@
 package main.ironbackpacks.crafting;
 
-import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
+import main.ironbackpacks.registry.ItemRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;

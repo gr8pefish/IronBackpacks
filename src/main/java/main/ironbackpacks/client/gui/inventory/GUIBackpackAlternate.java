@@ -12,7 +12,7 @@ import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.server.AdvFilterTypesMessage;
 import main.ironbackpacks.network.server.RenameMessage;
 import main.ironbackpacks.network.server.SingleByteMessage;
-import main.ironbackpacks.registry.IBGuiButtonRegistry;
+import main.ironbackpacks.registry.GuiButtonRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.TextUtils;
 import net.minecraft.client.gui.GuiButton;
@@ -177,9 +177,6 @@ public class GUIBackpackAlternate extends GuiContainer {
     public void initGui(){
         super.initGui();
 
-        //TODO: resting, remove?
-//        IBGuiButtonRegistry.initButtons();
-
         int xStart = ((width - xSize) / 2);
         int yStart = ((height - ySize) / 2);
 
@@ -229,7 +226,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         if (hasRenamingUpgrade){
             int xStart = ((width - xSize) / 2);
             int yStart = ((height - ySize) / 2);
-            buttonList.add(renameButton = new TooltipButton(IBGuiButtonRegistry.getButton(ButtonNames.RENAME), xStart + xSize - 57, yStart + 22));
+            buttonList.add(renameButton = new TooltipButton(GuiButtonRegistry.getButton(ButtonNames.RENAME), xStart + xSize - 57, yStart + 22));
             tooltipButtons.add(renameButton);
         }
 
@@ -239,22 +236,22 @@ public class GUIBackpackAlternate extends GuiContainer {
         //If have button upgrade add the clear row buttons
         if (hasButtonUpgrade) {
             if (hasFilterBasicUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.basicFilter.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.basicFilter.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasFilterFuzzyUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.fuzzyFilter.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.fuzzyFilter.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasFilterOreDictUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.oreDictFilter.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.oreDictFilter.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasFilterModSpecificUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.modSpecificFilter.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.modSpecificFilter.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
@@ -269,8 +266,8 @@ public class GUIBackpackAlternate extends GuiContainer {
         if (hasFilterAdvancedUpgrade){
 
             //Add the left and right buttons
-            buttonList.add(moveLeft = new TooltipButton(IBGuiButtonRegistry.getButton(ButtonNames.MOVE_LEFT), guiLeft + 15, yStartButton + 17));
-            buttonList.add(moveRight = new TooltipButton(IBGuiButtonRegistry.getButton(ButtonNames.MOVE_RIGHT), xStart + 12, yStartButton + 17));
+            buttonList.add(moveLeft = new TooltipButton(GuiButtonRegistry.getButton(ButtonNames.MOVE_LEFT), guiLeft + 15, yStartButton + 17));
+            buttonList.add(moveRight = new TooltipButton(GuiButtonRegistry.getButton(ButtonNames.MOVE_RIGHT), xStart + 12, yStartButton + 17));
             tooltipButtons.add(moveLeft);
             tooltipButtons.add(moveRight);
 
@@ -284,14 +281,14 @@ public class GUIBackpackAlternate extends GuiContainer {
                 int overlap = 9 - (18 - container.getInventoryAlternateGui().getAdvFilterButtonStartPoint());
 
                 for (int i = container.getInventoryAlternateGui().getAdvFilterButtonStartPoint(); i < 18; i++) {
-                    buttonList.add(temp = new TooltipButton(IBGuiButtonRegistry.getAdvFilterButtons()[container.getInventoryAlternateGui().getAdvFilterButtonStates()[i]-1], guiLeft + xPositionStart, yStartButton + 31));
+                    buttonList.add(temp = new TooltipButton(GuiButtonRegistry.getAdvFilterButtons()[container.getInventoryAlternateGui().getAdvFilterButtonStates()[i]-1], guiLeft + xPositionStart, yStartButton + 31));
                     advFilters.add(temp);
                     tooltipButtons.add(temp);
                     xPositionStart += 18;
                 }
 
                 for (int i = 0; i < overlap; i++) {
-                    buttonList.add(temp = new TooltipButton(IBGuiButtonRegistry.getAdvFilterButtons()[container.getInventoryAlternateGui().getAdvFilterButtonStates()[i]-1], guiLeft + xPositionStart, yStartButton + 31));
+                    buttonList.add(temp = new TooltipButton(GuiButtonRegistry.getAdvFilterButtons()[container.getInventoryAlternateGui().getAdvFilterButtonStates()[i]-1], guiLeft + xPositionStart, yStartButton + 31));
                     advFilters.add(temp);
                     tooltipButtons.add(temp);
                     xPositionStart += 18;
@@ -299,7 +296,7 @@ public class GUIBackpackAlternate extends GuiContainer {
                 }
             }else {
                 for (int i = container.getInventoryAlternateGui().getAdvFilterButtonStartPoint(); i < container.getInventoryAlternateGui().getAdvFilterButtonStartPoint() + 9; i++) {
-                    buttonList.add(temp = new TooltipButton(IBGuiButtonRegistry.getAdvFilterButtons()[container.getInventoryAlternateGui().getAdvFilterButtonStates()[i]-1], guiLeft + xPositionStart, yStartButton + 31));
+                    buttonList.add(temp = new TooltipButton(GuiButtonRegistry.getAdvFilterButtons()[container.getInventoryAlternateGui().getAdvFilterButtonStates()[i]-1], guiLeft + xPositionStart, yStartButton + 31));
                     advFilters.add(temp);
                     tooltipButtons.add(temp);
                     xPositionStart += 18;
@@ -307,7 +304,7 @@ public class GUIBackpackAlternate extends GuiContainer {
             }
             //Add the clear button if have the button upgrade
             if (hasButtonUpgrade){
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.advancedFilter.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.advancedFilter.tooltip"))));
                 rowIndex++;
             }
             yStartButton += 36;
@@ -316,32 +313,32 @@ public class GUIBackpackAlternate extends GuiContainer {
         //Add the remaining clear row buttons if necessary
         if (hasButtonUpgrade){
             if (hasFilterMiningUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.miningFilter.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.miningFilter.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasFilterVoidUpgrade) {
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.voidFilter.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.voidFilter.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasHopperUpgrade){
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.hopper.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.hopper.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasCondenserUpgrade){
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasCondenserSmallUpgrade){
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.small.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.small.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
             if (hasCondenserTinyUpgrade){
-                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, IBGuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.tiny.tooltip"))));
+                buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.tiny.tooltip"))));
             }
         }
 

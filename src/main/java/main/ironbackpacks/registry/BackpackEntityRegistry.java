@@ -1,9 +1,10 @@
-package main.ironbackpacks.entity;
+package main.ironbackpacks.registry;
 
 import main.ironbackpacks.IronBackpacks;
+import main.ironbackpacks.entity.EntityBackpack;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
-public class IronBackpacksEntityRegistry {
+public class BackpackEntityRegistry {
 
     public static void init(){
         EntityRegistry.registerModEntity(EntityBackpack.class, "EntityBackpack", 0, IronBackpacks.instance, 80, 3, true);

@@ -1,6 +1,6 @@
 package main.ironbackpacks.proxies;
 
-import main.ironbackpacks.registry.IronBackpacksRegistry;
+import main.ironbackpacks.registry.ProxyRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 
 /**
@@ -9,13 +9,18 @@ import net.minecraft.entity.player.EntityPlayer;
 public class CommonProxy {
 
     public void preInit(){
-        //nothing to see here
-        IronBackpacksRegistry.preInitServer();
+        ProxyRegistry.preInitServer();
     }
 
     public void init(){
-        //nothing here either
+        ProxyRegistry.initServer();
     }
+
+    public void postInit(){
+        ProxyRegistry.postInitServer();
+    }
+
+    //Helper methods
 
     public String getModVersion(){
         return null;

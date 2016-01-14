@@ -5,7 +5,7 @@ import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
-import main.ironbackpacks.registry.IBGuiButtonRegistry;
+import main.ironbackpacks.registry.GuiButtonRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -472,7 +472,7 @@ public class UpgradeMethods {
             if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)) {
                 byte[] bytes = ((NBTTagByteArray) nbtTagCompound.getTag(IronBackpacksConstants.NBTKeys.FILTER_ADV_BUTTONS)).getByteArray(); //gets byte array
                 for (int i = 0; i < bytes.length; i++) {
-                    if (bytes[i] == 0) bytes[i] = (byte) IBGuiButtonRegistry.getButton(ButtonNames.EXACT).getId();
+                    if (bytes[i] == 0) bytes[i] = (byte) GuiButtonRegistry.getButton(ButtonNames.EXACT).getId();
                     advFilterButtonStates[i] = bytes[i];
                 }
             }
@@ -490,7 +490,7 @@ public class UpgradeMethods {
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte) IBGuiButtonRegistry.getButton(ButtonNames.EXACT).getId()){
+                if (buttonStates[i] == (byte) GuiButtonRegistry.getButton(ButtonNames.EXACT).getId()){
                     returnArray.add(itemStacks[i]);
                 }
             }
@@ -508,7 +508,7 @@ public class UpgradeMethods {
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte)IBGuiButtonRegistry.getButton(ButtonNames.FUZZY).getId()){
+                if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.FUZZY).getId()){
                     returnArray.add(itemStacks[i]);
                 }
             }
@@ -526,7 +526,7 @@ public class UpgradeMethods {
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte)IBGuiButtonRegistry.getButton(ButtonNames.MOD_SPECIFIC).getId()){
+                if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.MOD_SPECIFIC).getId()){
                     returnArray.add(itemStacks[i]);
                 }
             }
@@ -544,7 +544,7 @@ public class UpgradeMethods {
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
-                if (buttonStates[i] == (byte)IBGuiButtonRegistry.getButton(ButtonNames.ORE_DICT).getId()){
+                if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.ORE_DICT).getId()){
                     returnArray.add(itemStacks[i]);
                 }
             }

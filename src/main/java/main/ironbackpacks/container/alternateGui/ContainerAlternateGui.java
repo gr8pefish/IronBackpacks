@@ -7,7 +7,7 @@ import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
-import main.ironbackpacks.registry.IBGuiButtonRegistry;
+import main.ironbackpacks.registry.GuiButtonRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -189,7 +189,7 @@ public class ContainerAlternateGui extends Container {
     public void removeSlotsInRow(int row){
         if (row == (filterAdvSlotIdStart/9)+1){
             Arrays.fill(inventory.advFilterStacks, null);
-            Arrays.fill(inventory.advFilterButtonStates, (byte) IBGuiButtonRegistry.getButton(ButtonNames.EXACT).getId());
+            Arrays.fill(inventory.advFilterButtonStates, (byte) GuiButtonRegistry.getButton(ButtonNames.EXACT).getId());
             inventory.advFilterButtonStartPoint = 0;
             initFilterSlots();
         }else {
