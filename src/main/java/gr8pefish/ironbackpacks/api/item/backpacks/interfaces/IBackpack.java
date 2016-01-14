@@ -21,12 +21,6 @@ public interface IBackpack {
     String getName();
 
     /**
-     * Get the internal texture of the item to display (i.e. "backpack_iron")
-     * @return - the texture name
-     */
-    String getTexture();
-
-    /**
      * The total size/slots of the backpack's normal storage (could be calculated from rowLength and numberOfRows)
      * @return - integer of the size
      */

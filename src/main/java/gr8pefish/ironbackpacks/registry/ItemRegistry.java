@@ -176,11 +176,10 @@ public class ItemRegistry {
     public static void registerItemRenders() {
         InventoryRenderHelper helper = new InventoryRenderHelper(Constants.MODID + ":");
 
-        String alternate = ConfigHandler.useAlternateBackpackTextures ? "Alt" : "";
-        helper.itemRender(basicBackpack, BackpackTypes.BASIC.getName() + alternate);
-        helper.itemRender(ironBackpack, BackpackTypes.IRON.getName() + alternate);
-        helper.itemRender(goldBackpack, BackpackTypes.GOLD.getName() + alternate);
-        helper.itemRender(diamondBackpack, BackpackTypes.DIAMOND.getName() + alternate);
+        helper.itemRender(basicBackpack, BackpackTypes.BASIC.getName());
+        helper.itemRender(ironBackpack, BackpackTypes.IRON.getName());
+        helper.itemRender(goldBackpack, BackpackTypes.GOLD.getName());
+        helper.itemRender(diamondBackpack, BackpackTypes.DIAMOND.getName());
 
         helper.itemRender(buttonUpgrade, "buttonUpgrade");
         helper.itemRender(nestingUpgrade, "nestingUpgrade");

@@ -1,5 +1,5 @@
 {
-  "parent":"ironbackpacks:item/base_item",
+  "parent":"ironbackpacks:item/baseModelJson",
   "textures": {
     "layer0":"ironbackpacks:items/buttonUpgrade"
   }

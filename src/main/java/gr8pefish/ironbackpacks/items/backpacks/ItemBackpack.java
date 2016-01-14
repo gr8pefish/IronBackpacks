@@ -40,7 +40,7 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
     private final int upgradePoints; //number of upgradePoints
     private final String fancyName; //display name
 
-    public ItemBackpack(int id, int size, int rowLength, String texture, String fancyName, int upgradePoints) { //TODO: remove texture
+    public ItemBackpack(int id, int size, int rowLength, String fancyName, int upgradePoints) { //TODO: remove texture
         setCreativeTab(IronBackpacks.creativeTab);
         setUnlocalizedName(Constants.MODID + ":" + fancyName);
         setMaxStackSize(1);
@@ -54,7 +54,7 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
     }
 
     public ItemBackpack(BackpackTypes type) {
-        this(type.getId(), type.getSize(), type.getRowLength(), type.getTexture(), type.getName(), type.getUpgradePoints());
+        this(type.getId(), type.getSize(), type.getRowLength(), type.getName(), type.getUpgradePoints());
     }
 
     @Override
