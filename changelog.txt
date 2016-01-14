@@ -11,6 +11,7 @@ Changes (in relation to 1.7.10 - 1.2.15)
 - The backpack no longer renders on the client if the player is in first person perspective
 - Start of a full fledged API
 - Tons of various minor fixes/changes/optimizations
+- Removed the option to have an alternate backpack texture
 - (Internal) Changed how backpacks are stored internally, both for death and in general (uses two IEEPs), should be more stable.
 
 Bug Fixes (in relation to 1.7.10 - 1.2.15)

@@ -14,20 +14,20 @@ public interface IPackUpgrade {
     String getName();
 
     /**
-     *
-     * @return
+     * The internal id of the upgrade
+     * @return - the id of the item
      */
     int getId();
 
     /**
-     *
-     * @return
+     * The cost (in upgrade points) to apply this upgrade
+     * @return - the integer number of points
      */
     int getUpgradeCost();
 
     /**
-     *
-     * @return
+     * The tooltip, each element is a new line
+     * @return - the tooltip
      */
     List<String> getTooltip();
 }
