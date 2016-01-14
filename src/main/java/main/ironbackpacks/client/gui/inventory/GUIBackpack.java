@@ -11,7 +11,7 @@ import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.server.SingleByteMessage;
 import main.ironbackpacks.util.IronBackpacksConstants;
-import main.ironbackpacks.util.PlayerBackpackProperties;
+import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;

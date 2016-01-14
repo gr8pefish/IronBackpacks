@@ -2,7 +2,10 @@ To Do:
 
     1.8 Stuff:
 
-        fix onDeath broken code (backpack still there)
+        fix onDeath broken code
+            doesn't save eternity ones in inventory (saves okay? but loses them when you respawn)
+            visually loads eternity equipped but that's it
+                I have the entity okay, but not the equipped pack?
 
         then API/cut ids/refactor, etc.
 

@@ -8,7 +8,7 @@ import main.ironbackpacks.container.slot.GhostSlot;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
-import main.ironbackpacks.util.PlayerBackpackProperties;
+import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;

@@ -2,7 +2,7 @@ package main.ironbackpacks.network.client;
 
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.util.PlayerBackpackProperties;
+import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;

@@ -1,11 +1,12 @@
 package main.ironbackpacks.events;
 
-import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
 import main.ironbackpacks.entity.EntityBackpack;
+import main.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
+import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
@@ -14,7 +15,6 @@ import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.client.ClientEquippedPackMessage;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.util.Logger;
-import main.ironbackpacks.util.PlayerBackpackProperties;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ContainerWorkbench;
@@ -29,9 +29,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -82,10 +80,10 @@ public class ForgeEventHandler {
      * When a player dies, check if player has any backpacks with keepOnDeathUpgrade so then they are saved for when they spawn
      * @param event - the event
      */
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SubscribeEvent//(priority = EventPriority.HIGHEST)
     public void onDeath(LivingDeathEvent event){
         if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer){ //server side
-            IronBackpacks.proxy.saveBackpackOnDeath((EntityPlayer) event.entity);
+            IronBackpacksHelper.saveBackpackOnDeath((EntityPlayer) event.entity);
         }
     }
 
@@ -96,7 +94,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event){
         if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer){ //server side
-            IronBackpacks.proxy.loadBackpackOnDeath((EntityPlayer) event.entity);
+            IronBackpacksHelper.loadBackpackOnDeath((EntityPlayer) event.entity);
         }
     }
 
@@ -106,8 +104,12 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onEntityConstruction(EntityEvent.EntityConstructing event) {
-        if (event.entity instanceof EntityPlayer && PlayerBackpackProperties.get((EntityPlayer) event.entity) == null)
-            PlayerBackpackProperties.create((EntityPlayer) event.entity);
+        if (event.entity instanceof EntityPlayer) {
+            if(PlayerBackpackProperties.get((EntityPlayer) event.entity) == null)
+                PlayerBackpackProperties.create((EntityPlayer) event.entity);
+            if (PlayerBackpackDeathProperties.get((EntityPlayer) event.entity) == null)
+                PlayerBackpackDeathProperties.create((EntityPlayer) event.entity);
+        }
     }
 
     /**
@@ -115,7 +117,7 @@ public class ForgeEventHandler {
      * @param event - the player logged in event
      */
     @SubscribeEvent
-    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event){
+    public void onPlayerLogIn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event){
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
         if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
 
@@ -128,11 +130,25 @@ public class ForgeEventHandler {
     }
 
     /**
+     * When a player dies and respawns we need to clone their old data over.
+     * @param event - the clone event
+     */
+    @SubscribeEvent
+    public void onPlayerCloning(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
+        PlayerBackpackDeathProperties epNew = PlayerBackpackDeathProperties.get(event.entityPlayer);
+        PlayerBackpackDeathProperties epOld = PlayerBackpackDeathProperties.get(event.original);
+
+        //update new dat with old
+        epNew.setEternityBackpacks(epOld.getEternityBackpacks());
+        epNew.setEquippedBackpack(epOld.getEquippedBackpack());
+    }
+
+    /**
      * Used to make sure the player respawns with an equipped backpack if they should
      * @param event - the player respawn event
      */
     @SubscribeEvent
-    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event){ //TODO: test in 1.8!
+    public void onPlayerRespawn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent event){
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
         if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
 
@@ -149,12 +165,13 @@ public class ForgeEventHandler {
      * @param event - the change dimension event
      */
     @SubscribeEvent
-    public void onPlayerDimChange(PlayerEvent.PlayerChangedDimensionEvent event){ //TODO: test in 1.8!
+    public void onPlayerDimChange(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent event){
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
         if (backpack != null) {
             if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) {//if has old dimension backpack
-                if (EntityBackpack.backpacksSpawnedMap.get(event.player) != null) //possible if config option disabled rendering
-                    EntityBackpack.backpacksSpawnedMap.get(event.player).setDead(); //kill old backpack
+//                if (EntityBackpack.backpacksSpawnedMap.get(event.player) != null) //possible if config option disabled rendering
+//                    EntityBackpack.backpacksSpawnedMap.get(event.player).setDead(); //kill old backpack
+                IronBackpacksHelper.killEntityBackpack(event.player); //kill old backpack
             }
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack

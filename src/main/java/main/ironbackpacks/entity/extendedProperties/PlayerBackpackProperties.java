@@ -1,4 +1,4 @@
-package main.ironbackpacks.util;
+package main.ironbackpacks.entity.extendedProperties;
 
 import main.ironbackpacks.ModInformation;
 import net.minecraft.entity.Entity;
@@ -12,7 +12,7 @@ import net.minecraftforge.common.util.Constants;
 
 public class PlayerBackpackProperties implements IExtendedEntityProperties {
 
-    public static final String PROP_ID = ModInformation.ID;
+    public static final String PROP_PACK_ID = ModInformation.ID;
     private ItemStack equippedBackpack;
     private ItemStack currentBackpack;
 
@@ -40,12 +40,12 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
         tagList.appendTag(current);
 
         //save all to the tag
-        tag.setTag(PROP_ID, tagList);
+        tag.setTag(PROP_PACK_ID, tagList);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound tag) {
-        NBTTagList tagList = tag.getTagList(PROP_ID, Constants.NBT.TAG_COMPOUND);
+        NBTTagList tagList = tag.getTagList(PROP_PACK_ID, Constants.NBT.TAG_COMPOUND);
 
         //get the equipped backpack without crashing
         if (!tagList.getCompoundTagAt(0).hasKey("noEquipped")){ //if the key doesn't exist
@@ -98,11 +98,11 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
     //Other helper methods
 
     public static void create(EntityLivingBase livingBase) {
-        livingBase.registerExtendedProperties(PROP_ID, new PlayerBackpackProperties());
+        livingBase.registerExtendedProperties(PROP_PACK_ID, new PlayerBackpackProperties());
     }
 
     public static PlayerBackpackProperties get(EntityLivingBase livingBase) {
-        return (PlayerBackpackProperties) livingBase.getExtendedProperties(PROP_ID);
+        return (PlayerBackpackProperties) livingBase.getExtendedProperties(PROP_PACK_ID);
     }
 
     //Static methods
@@ -125,5 +125,6 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
 
     public static void reset(EntityLivingBase livingBase) {
         get(livingBase).setEquippedBackpack(null);
+        get(livingBase).setCurrentBackpack(null);
     }
 }

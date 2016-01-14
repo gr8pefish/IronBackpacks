@@ -3,6 +3,7 @@ package main.ironbackpacks.network.server;
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
+import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.client.ClientCurrentPackMessage;
 import main.ironbackpacks.util.*;
@@ -93,11 +94,7 @@ public class SingleByteMessage implements IMessage {
                     if (backpackStack != null) {
                         NBTHelper.setUUID(backpackStack);
                         PlayerBackpackProperties.setCurrentBackpack(player, backpackStack);
-
-                        System.out.println("currPack "+backpackStack.getDisplayName());
-                        //TODO: send packet to client here with name of currPack
                         NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);
-
                         backpackStack.useItemRightClick(player.worldObj, player);
                     }
                     break;
@@ -107,6 +104,7 @@ public class SingleByteMessage implements IMessage {
                     if (backpackStackAlt != null) {
                         NBTHelper.setUUID(backpackStackAlt);
                         PlayerBackpackProperties.setCurrentBackpack(player, backpackStackAlt);
+                        NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStackAlt), (EntityPlayerMP)player);
                         backpackStackAlt.useItemRightClick(player.worldObj, player);
                     }
                     break;

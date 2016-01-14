@@ -2,7 +2,7 @@ package main.ironbackpacks.network.client;
 
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.util.PlayerBackpackProperties;
+import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -38,7 +38,7 @@ public class ClientCurrentPackMessage implements IMessage {
 
             EntityPlayer player = IronBackpacks.proxy.getClientPlayer(); //get the player via a safe call
             if (player != null)
-                PlayerBackpackProperties.setCurrentBackpack(player, message.stack); //update the backpack //TODO: client
+                PlayerBackpackProperties.setCurrentBackpack(player, message.stack); //update the backpack //TODO: client and this is just bad code
 
             return null; //no return message
         }
