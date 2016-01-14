@@ -168,14 +168,8 @@ public class ForgeEventHandler {
     public void onPlayerDimChange(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent event){
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
         if (backpack != null) {
-            if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) {//if has old dimension backpack
-//                if (EntityBackpack.backpacksSpawnedMap.get(event.player) != null) //possible if config option disabled rendering
-//                    EntityBackpack.backpacksSpawnedMap.get(event.player).setDead(); //kill old backpack
+            if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) //if has old dimension backpack
                 IronBackpacksHelper.killEntityBackpack(event.player); //kill old backpack
-            }
-
-            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
-            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
 
             if (!ConfigHandler.disableRendering)
                 IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack

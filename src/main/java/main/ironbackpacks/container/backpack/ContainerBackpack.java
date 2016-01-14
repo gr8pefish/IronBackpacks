@@ -225,7 +225,6 @@ public class ContainerBackpack extends Container {
                     transferStackInSlot(player, slot); //transfer it
                 } else {
                     ItemStack stack = getSlot(slot).getStack();
-                    System.out.println(equippedPack.getDisplayName());
                     if (!ItemStack.areItemStackTagsEqual(stack, equippedPack)) { //can't move the same backpack you have open
                         transferStackInSlot(player, slot);
                     }

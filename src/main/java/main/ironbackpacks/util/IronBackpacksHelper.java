@@ -198,7 +198,7 @@ public class IronBackpacksHelper {
                 NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP)player);
 
                 //stop the render - kill entity
-                EntityBackpack.backpacksSpawnedMap.get(player).setDead();
+                killEntityBackpack(player);
             }
 
         }
@@ -231,8 +231,10 @@ public class IronBackpacksHelper {
 
     //kills the backpack on the player
     public static void killEntityBackpack(EntityPlayer player){
-//        if (EntityBackpack.backpacksSpawnedMap.containsKey(player) && EntityBackpack.backpacksSpawnedMap.get(player) != null)
-        EntityBackpack.backpacksSpawnedMap.get(player).setDead();
+        if (EntityBackpack.backpacksSpawnedMap.containsKey(player) && EntityBackpack.backpacksSpawnedMap.get(player) != null)
+            EntityBackpack.backpacksSpawnedMap.get(player).setDead();
+        else
+            Logger.warn("Couldn't kill entity backpack");
     }
 
 
