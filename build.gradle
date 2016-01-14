@@ -19,7 +19,7 @@ apply plugin: 'maven-publish'
 
 group = package_group
 archivesBaseName = mod_name
-version = "${mc_version}-${major_version}.${minor_version}.${build_number}"
+version = "${mc_version}-${major_version}.${api_version}.${minor_version}.${build_number}"
 
 // Ignore this error. It'll work just fine when building.
 import org.ajoberstar.grgit.*
