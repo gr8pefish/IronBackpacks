@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class PlayerBackpackDeathProperties implements IExtendedEntityProperties {
 
-    public static final String PROP_DEATH_ID = Constants.ID + "_death";
+    public static final String PROP_DEATH_ID = Constants.MODID + "_death";
     private ArrayList<ItemStack> eternityPacks;
     private ItemStack equippedBackpack;
 

@@ -11,7 +11,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 
 public class PlayerBackpackProperties implements IExtendedEntityProperties {
 
-    public static final String PROP_PACK_ID = Constants.ID;
+    public static final String PROP_PACK_ID = Constants.MODID;
     private ItemStack equippedBackpack;
     private ItemStack currentBackpack;
 

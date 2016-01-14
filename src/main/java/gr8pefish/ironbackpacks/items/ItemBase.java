@@ -11,7 +11,7 @@ public class ItemBase extends Item {
 
 	public ItemBase(String unlocName, String textureName) { //TODO: remove texture name
 		super();
-		setUnlocalizedName(Constants.ID + ":" + unlocName);
+		setUnlocalizedName(Constants.MODID + ":" + unlocName);
 		setCreativeTab(IronBackpacks.creativeTab);
 	}
 

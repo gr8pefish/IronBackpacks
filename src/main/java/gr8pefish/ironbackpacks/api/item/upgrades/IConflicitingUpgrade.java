@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Implement this if the upgrade cannot be crafted with another one.
  */
-public interface IConflicitingUpgrade {
+public interface IConflicitingUpgrade extends IPackUpgrade{
 
     ArrayList<IPackUpgrade> getConflictingUpgrades();
 }

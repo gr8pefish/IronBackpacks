@@ -8,11 +8,15 @@ To Do:
             check BM api
             check inv tweaks api
 
+        refactor names of backpack textures so they can be same as the item name
+
         Fix tooltips so they render on top of everything
 
         add crafttweaker support
 
         fix config nonsense
+
+        config option for entity rendering in fpp on client or not
 
         then API/cut ids/refactor, etc.
 

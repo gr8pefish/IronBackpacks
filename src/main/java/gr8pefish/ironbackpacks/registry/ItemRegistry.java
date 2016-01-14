@@ -174,9 +174,9 @@ public class ItemRegistry {
     }
 
     public static void registerItemRenders() {
-        InventoryRenderHelper helper = new InventoryRenderHelper(Constants.ID + ":");
+        InventoryRenderHelper helper = new InventoryRenderHelper(Constants.MODID + ":");
 
-        String alternate = ConfigHandler.useAlternateBackpackTextures ? "_alternate" : "";
+        String alternate = ConfigHandler.useAlternateBackpackTextures ? "Alt" : "";
         helper.itemRender(basicBackpack, BackpackTypes.BASIC.getName() + alternate);
         helper.itemRender(ironBackpack, BackpackTypes.IRON.getName() + alternate);
         helper.itemRender(goldBackpack, BackpackTypes.GOLD.getName() + alternate);

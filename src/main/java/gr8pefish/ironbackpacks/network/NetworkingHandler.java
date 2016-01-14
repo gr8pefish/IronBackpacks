@@ -6,6 +6,7 @@ import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.network.server.AdvFilterTypesMessage;
 import gr8pefish.ironbackpacks.network.server.RenameMessage;
+import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -19,7 +20,7 @@ public class NetworkingHandler {
 
     //initializes the wrapper and then the messages
     public static void initPackets() {
-        network = NetworkRegistry.INSTANCE.newSimpleChannel(Constants.CHANNEL);
+        network = NetworkRegistry.INSTANCE.newSimpleChannel(IronBackpacksConstants.Messages.CHANNEL);
         registerMessage(RenameMessage.Handler.class, RenameMessage.class, Side.SERVER);
         registerMessage(AdvFilterTypesMessage.Handler.class, AdvFilterTypesMessage.class, Side.SERVER);
         registerMessage(SingleByteMessage.Handler.class, SingleByteMessage.class, Side.SERVER);

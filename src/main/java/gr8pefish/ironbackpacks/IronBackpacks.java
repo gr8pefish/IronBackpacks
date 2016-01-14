@@ -24,11 +24,11 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import java.io.File;
 
-@Mod(modid = Constants.ID, name = Constants.NAME, version = Constants.VERSION, dependencies = Constants.DEPEND)//, guiFactory = Constants.GUIFACTORY)
+@Mod(modid = Constants.MODID, name = Constants.NAME, version = Constants.VERSION, dependencies = Constants.DEPEND)//, guiFactory = Constants.GUIFACTORY)
 public class IronBackpacks {
 
 	//Make a custom creative tab with the iron backpack as the logo
-	public static final CreativeTabs creativeTab = new CreativeTabs(Constants.ID) {
+	public static final CreativeTabs creativeTab = new CreativeTabs(Constants.MODID) {
 		@Override
 		public Item getTabIconItem() {
 			return ItemRegistry.ironBackpack;

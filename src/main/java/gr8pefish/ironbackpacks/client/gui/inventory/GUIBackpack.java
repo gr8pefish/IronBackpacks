@@ -38,13 +38,13 @@ public class GUIBackpack extends GuiContainer {
      */
     public enum ResourceList {
 
-        BASIC(new ResourceLocation(Constants.ID,
+        BASIC(new ResourceLocation(Constants.MODID,
                 "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png")),
-        IRON(new ResourceLocation(Constants.ID,
+        IRON(new ResourceLocation(Constants.MODID,
                 "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpack.sizeX.getValue())+".png")),
-        GOLD(new ResourceLocation(Constants.ID,
+        GOLD(new ResourceLocation(Constants.MODID,
                 "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeX.getValue())+".png")),
-        DIAMOND(new ResourceLocation(Constants.ID,
+        DIAMOND(new ResourceLocation(Constants.MODID,
                 "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"));
 
         public final ResourceLocation location; //the texture's file's path

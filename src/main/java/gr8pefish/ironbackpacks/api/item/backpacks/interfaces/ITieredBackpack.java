@@ -2,7 +2,7 @@ package gr8pefish.ironbackpacks.api.item.backpacks.interfaces;
 
 /**
  * Implement this if a backpack needs to exist in the tiered system (i.e. there is a backpack inherently better or worse than it).
- * For example, the default system of basic -> iron -> gold -> diamond
+ * For example, the default system of basic -> iron -> gold -> diamond.
  */
 public interface ITieredBackpack extends IBackpack {
 

@@ -22,7 +22,7 @@ public interface IBackpack {
 
     /**
      * Get the internal texture of the item to display (i.e. "backpack_iron")
-     * @return
+     * @return - the texture name
      */
     String getTexture();
 

@@ -1,6 +1,6 @@
 {
   "parent":"ironbackpacks:item/base_item",
   "textures": {
-    "layer0":"ironbackpacks:items/backpack_iron_alternate"
+    "layer0":"ironbackpacks:items/basicBackpackAlt"
   }
 }

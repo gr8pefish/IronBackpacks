@@ -42,7 +42,7 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
 
     public ItemBackpack(int id, int size, int rowLength, String texture, String fancyName, int upgradePoints) { //TODO: remove texture
         setCreativeTab(IronBackpacks.creativeTab);
-        setUnlocalizedName(Constants.ID + ":" + fancyName);
+        setUnlocalizedName(Constants.MODID + ":" + fancyName);
         setMaxStackSize(1);
         setNoRepair();
 

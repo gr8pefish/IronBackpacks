@@ -188,7 +188,7 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.modID.equals(Constants.ID)) {
+        if (event.modID.equals(Constants.MODID)) {
             ConfigHandler.syncConfig(false);
             Logger.info("Refreshing configuration file.");
         }
