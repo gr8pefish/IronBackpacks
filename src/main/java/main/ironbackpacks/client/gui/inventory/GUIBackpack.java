@@ -1,17 +1,18 @@
 package main.ironbackpacks.client.gui.inventory;
 
 import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.client.gui.buttons.ButtonTypes;
+import main.ironbackpacks.api.client.gui.button.ButtonNames;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
+import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.server.SingleByteMessage;
+import main.ironbackpacks.registry.IBGuiButtonRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
-import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -153,10 +154,10 @@ public class GUIBackpack extends GuiContainer {
             int xStart = ((width - xSize) / 2) + xSize - 12;
             int yStart = ((height - ySize) / 2) + ySize;
 
-            buttonList.add(this.backpack_to_inventory_BUTTON =  new TooltipButton(ButtonTypes.BACKPACK_TO_INVENTORY, xStart - 20, yStart - 96));
-            buttonList.add(this.hotbar_to_backpack_BUTTON    =  new TooltipButton(ButtonTypes.HOTBAR_TO_BACKPACK, xStart - 40, yStart - 96));
-            buttonList.add(this.inventory_to_backpack_BUTTON =  new TooltipButton(ButtonTypes.INVENTORY_TO_BACKPACK, xStart - 60, yStart - 96));
-            buttonList.add(this.condense_backpack_BUTTON     =  new TooltipButton(ButtonTypes.SORT_BACKPACK, xStart - 80, yStart - 96));
+            buttonList.add(this.backpack_to_inventory_BUTTON =  new TooltipButton(IBGuiButtonRegistry.getButton(ButtonNames.BACKPACK_TO_INVENTORY), xStart - 20, yStart - 96));
+            buttonList.add(this.hotbar_to_backpack_BUTTON    =  new TooltipButton(IBGuiButtonRegistry.getButton(ButtonNames.HOTBAR_TO_BACKPACK), xStart - 40, yStart - 96));
+            buttonList.add(this.inventory_to_backpack_BUTTON =  new TooltipButton(IBGuiButtonRegistry.getButton(ButtonNames.INVENTORY_TO_BACKPACK), xStart - 60, yStart - 96));
+            buttonList.add(this.condense_backpack_BUTTON     =  new TooltipButton(IBGuiButtonRegistry.getButton(ButtonNames.SORT_BACKPACK), xStart - 80, yStart - 96));
 
             tooltipButtons.add(backpack_to_inventory_BUTTON);
             tooltipButtons.add(hotbar_to_backpack_BUTTON);

@@ -65,7 +65,7 @@ public class IronBackpacks {
 		proxy.preInit();
 
 		//Registry via API
-		IronBackpacksRegistry.preInit();
+//		IronBackpacksRegistry.preInit();
 
 	}
 

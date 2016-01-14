@@ -1,7 +1,9 @@
 package main.ironbackpacks.registry;
 
+import com.google.common.collect.MapMaker;
 import main.ironbackpacks.api.client.gui.button.ButtonNames;
 import main.ironbackpacks.api.client.gui.button.IBGuiButton;
+import main.ironbackpacks.util.Logger;
 import main.ironbackpacks.util.TextUtils;
 
 import java.util.ArrayList;
@@ -9,10 +11,11 @@ import java.util.Map;
 
 public class IBGuiButtonRegistry {
 
-    private static Map<ButtonNames, IBGuiButton> buttons;
+    private static Map<ButtonNames, IBGuiButton> buttons = new MapMaker().weakKeys().weakValues().makeMap();
     private static IBGuiButton[] advFilterButtons;
 
     public static void initButtons(){
+        Logger.info("HAPPENIGN");
                                     //id, width, height, iconOffsetX, iconOffsetY, tooltip delay, tooltip
         registerButton(ButtonNames.RENAME, new IBGuiButton(0, 25, 10, 1, 1, true, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.rename.tooltip"))));
         registerButton(ButtonNames.EXACT, new IBGuiButton(1, 16, 5, 0, 13, false, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.exact.tooltip"))));

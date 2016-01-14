@@ -24,6 +24,8 @@ public class ClientProxy extends CommonProxy {
         initItemRenderers();
         initEntityRenderers(); //for 1.9
         initClientEventHandler();
+
+        IronBackpacksRegistry.preInitClient();
     }
 
     private void initEntityRenderers(){
