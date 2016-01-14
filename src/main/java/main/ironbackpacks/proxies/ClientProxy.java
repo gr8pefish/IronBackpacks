@@ -7,6 +7,7 @@ import main.ironbackpacks.config.ConfigAdaptor;
 import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.events.ClientEventHandler;
 import main.ironbackpacks.items.ItemRegistry;
+import main.ironbackpacks.registry.IronBackpacksRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

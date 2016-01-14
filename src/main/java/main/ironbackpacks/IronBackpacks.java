@@ -8,6 +8,7 @@ import main.ironbackpacks.events.ForgeEventHandler;
 import main.ironbackpacks.items.ItemRegistry;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.proxies.CommonProxy;
+import main.ironbackpacks.registry.IronBackpacksRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -62,6 +63,9 @@ public class IronBackpacks {
 
 		//Keybindings and Rendering
 		proxy.preInit();
+
+		//Registry via API
+		IronBackpacksRegistry.preInit();
 
 	}
 
