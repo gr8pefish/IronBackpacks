@@ -1,5 +1,6 @@
 package main.ironbackpacks;
 
+import main.ironbackpacks.api.Constants;
 import main.ironbackpacks.client.gui.GuiHandler;
 import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.registry.ItemRecipeRegistry;
@@ -9,6 +10,7 @@ import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.proxies.CommonProxy;
 import main.ironbackpacks.registry.GuiButtonRegistry;
 import main.ironbackpacks.registry.ItemRegistry;
+import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,11 +24,11 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import java.io.File;
 
-@Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION, dependencies = ModInformation.DEPEND)//, guiFactory = ModInformation.GUIFACTORY)
+@Mod(modid = Constants.ID, name = Constants.NAME, version = Constants.VERSION, dependencies = Constants.DEPEND)//, guiFactory = Constants.GUIFACTORY)
 public class IronBackpacks {
 
 	//Make a custom creative tab with the iron backpack as the logo
-	public static final CreativeTabs creativeTab = new CreativeTabs(ModInformation.ID) {
+	public static final CreativeTabs creativeTab = new CreativeTabs(Constants.ID) {
 		@Override
 		public Item getTabIconItem() {
 			return ItemRegistry.ironBackpack;
@@ -34,7 +36,7 @@ public class IronBackpacks {
 	};
 
 	//The proxies for siding
-	@SidedProxy(clientSide = ModInformation.CLIENTPROXY, serverSide = ModInformation.COMMONPROXY)
+	@SidedProxy(clientSide = IronBackpacksConstants.General.CLIENTPROXY, serverSide = IronBackpacksConstants.General.COMMONPROXY)
 	public static CommonProxy proxy;
 
 	//The instance of this mod

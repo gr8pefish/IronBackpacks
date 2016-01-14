@@ -5,7 +5,7 @@ import main.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
-import main.ironbackpacks.api.item.backpacks.IBackpack;
+import main.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;

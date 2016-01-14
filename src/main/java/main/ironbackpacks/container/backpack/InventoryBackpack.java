@@ -1,7 +1,7 @@
 package main.ironbackpacks.container.backpack;
 
 import main.ironbackpacks.items.backpacks.BackpackTypes;
-import main.ironbackpacks.api.item.backpacks.IBackpack;
+import main.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.NBTHelper;
 import net.minecraft.block.Block;

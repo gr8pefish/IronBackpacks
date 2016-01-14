@@ -1,6 +1,6 @@
 package main.ironbackpacks.client.gui.inventory;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import main.ironbackpacks.api.client.gui.button.ButtonNames;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.config.ConfigHandler;
@@ -38,13 +38,13 @@ public class GUIBackpack extends GuiContainer {
      */
     public enum ResourceList {
 
-        BASIC(new ResourceLocation(ModInformation.ID,
+        BASIC(new ResourceLocation(Constants.ID,
                 "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png")),
-        IRON(new ResourceLocation(ModInformation.ID,
+        IRON(new ResourceLocation(Constants.ID,
                 "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpack.sizeX.getValue())+".png")),
-        GOLD(new ResourceLocation(ModInformation.ID,
+        GOLD(new ResourceLocation(Constants.ID,
                 "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeX.getValue())+".png")),
-        DIAMOND(new ResourceLocation(ModInformation.ID,
+        DIAMOND(new ResourceLocation(Constants.ID,
                 "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"));
 
         public final ResourceLocation location; //the texture's file's path

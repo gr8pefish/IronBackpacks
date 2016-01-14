@@ -1,6 +1,6 @@
 package main.ironbackpacks.util;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import main.ironbackpacks.config.ConfigHandler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -13,9 +13,13 @@ import java.util.Arrays;
  */
 public class IronBackpacksConstants {
 
+    //TODO: move to api.constants?
+
     //General constants
     public static final class General{
-
+        public static final String CLIENTPROXY = "main.ironbackpacks.proxies.ClientProxy";
+        public static final String COMMONPROXY = "main.ironbackpacks.proxies.CommonProxy";
+        public static final String GUIFACTORY = "main.ironbackpacks.client.gui.config.ConfigGuiFactory";
     }
 
     //The backpack constants
@@ -183,12 +187,12 @@ public class IronBackpacksConstants {
 
     //Visual resources
     public static final class Resources {
-        public static final ResourceLocation WIDGETS = new ResourceLocation(ModInformation.ID, "textures/guis/widgets.png");
+        public static final ResourceLocation WIDGETS = new ResourceLocation(Constants.ID, "textures/guis/widgets.png");
 
-        public static final ResourceLocation MODEL_BASIC = new ResourceLocation(ModInformation.ID, "textures/models/ModelBackpackBasic.png");
-        public static final ResourceLocation MODEL_IRON = new ResourceLocation(ModInformation.ID, "textures/models/ModelBackpackIron.png");
-        public static final ResourceLocation MODEL_GOLD = new ResourceLocation(ModInformation.ID, "textures/models/ModelBackpackGold.png");
-        public static final ResourceLocation MODEL_DIAMOND = new ResourceLocation(ModInformation.ID, "textures/models/ModelBackpackDiamond.png");
+        public static final ResourceLocation MODEL_BASIC = new ResourceLocation(Constants.ID, "textures/models/ModelBackpackBasic.png");
+        public static final ResourceLocation MODEL_IRON = new ResourceLocation(Constants.ID, "textures/models/ModelBackpackIron.png");
+        public static final ResourceLocation MODEL_GOLD = new ResourceLocation(Constants.ID, "textures/models/ModelBackpackGold.png");
+        public static final ResourceLocation MODEL_DIAMOND = new ResourceLocation(Constants.ID, "textures/models/ModelBackpackDiamond.png");
         public static final ResourceLocation[] MODEL_TEXTURES = {MODEL_BASIC, MODEL_IRON, MODEL_GOLD, MODEL_DIAMOND};
     }
 

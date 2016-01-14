@@ -1,6 +1,6 @@
 package main.ironbackpacks.util;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Level;
 public class Logger{
 
     public static void log(Level logLevel, Object object){
-        FMLLog.log(ModInformation.NAME, logLevel, String.valueOf(object));
+        FMLLog.log(Constants.NAME, logLevel, String.valueOf(object));
     }
 
     public static void all(Object object){

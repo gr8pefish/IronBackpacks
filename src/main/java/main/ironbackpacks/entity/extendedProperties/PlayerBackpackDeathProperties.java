@@ -1,6 +1,6 @@
 package main.ironbackpacks.entity.extendedProperties;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -8,13 +8,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
 
 public class PlayerBackpackDeathProperties implements IExtendedEntityProperties {
 
-    public static final String PROP_DEATH_ID = ModInformation.ID + "_death";
+    public static final String PROP_DEATH_ID = Constants.ID + "_death";
     private ArrayList<ItemStack> eternityPacks;
     private ItemStack equippedBackpack;
 
@@ -46,7 +45,7 @@ public class PlayerBackpackDeathProperties implements IExtendedEntityProperties 
 
     @Override
     public void loadNBTData(NBTTagCompound tag) {
-        NBTTagList tagList = tag.getTagList(PROP_DEATH_ID, Constants.NBT.TAG_COMPOUND);
+        NBTTagList tagList = tag.getTagList(PROP_DEATH_ID, net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
 
         //get the equipped pack without crashing
         if (!tagList.getCompoundTagAt(0).hasKey("noEquipped")) { //if the key doesn't exist

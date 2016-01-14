@@ -45,7 +45,7 @@ minecraft {
     useDepAts = true
 
     replace "@VERSION@", project.version
-    replaceIn "ModInformation.java"
+    replaceIn "Constants.java"
 
     if (project.hasProperty('mappings_version'))
         mappings = project.mappings_version

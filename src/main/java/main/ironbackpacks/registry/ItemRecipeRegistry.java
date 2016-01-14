@@ -1,7 +1,7 @@
 package main.ironbackpacks.registry;
 
 import main.ironbackpacks.config.ConfigHandler;
-import main.ironbackpacks.crafting.BackpackCraftWithUpgradeRecipe;
+import main.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import main.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
 import main.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
 import net.minecraft.block.Block;
@@ -33,7 +33,7 @@ public class ItemRecipeRegistry {
 		registerMiscRecipes(); //register the miscellaneous items' recipes
 
 		RecipeSorter.register("RemoveUpgrade", BackpackRemoveUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
-		RecipeSorter.register("BackpackUpgrade", BackpackCraftWithUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
+		RecipeSorter.register("BackpackUpgrade", BackpackAddUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
 		RecipeSorter.register("BackpackTier", BackpackIncreaseTierRecipe.class, RecipeSorter.Category.SHAPED, ""); //register my special recipe
 		registerBackpackUpgradeAndRemovalRecipes(); //register the recipes to add upgrades to backpacks and to remove upgrades
 		registerBackpackTierRecipes(); //register the recipes to upgrade a backpack to the next tier
@@ -85,7 +85,7 @@ public class ItemRecipeRegistry {
 		for (Item backpack : backpacks){
 			GameRegistry.addRecipe(new BackpackRemoveUpgradeRecipe(new ItemStack(backpack), new ItemStack(backpack)));
 			for (Item upgrade : upgrades){
-				GameRegistry.addRecipe(new BackpackCraftWithUpgradeRecipe(new ItemStack(backpack), new ItemStack(upgrade), new ItemStack(backpack)));
+				GameRegistry.addRecipe(new BackpackAddUpgradeRecipe(new ItemStack(backpack), new ItemStack(upgrade), new ItemStack(backpack)));
 			}
 		}
 	}

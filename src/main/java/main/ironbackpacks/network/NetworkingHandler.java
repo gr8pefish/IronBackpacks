@@ -1,6 +1,6 @@
 package main.ironbackpacks.network;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import main.ironbackpacks.network.client.ClientCurrentPackMessage;
 import main.ironbackpacks.network.client.ClientEquippedPackMessage;
 import main.ironbackpacks.network.server.AdvFilterTypesMessage;
@@ -19,7 +19,7 @@ public class NetworkingHandler {
 
     //initializes the wrapper and then the messages
     public static void initPackets() {
-        network = NetworkRegistry.INSTANCE.newSimpleChannel(ModInformation.CHANNEL);
+        network = NetworkRegistry.INSTANCE.newSimpleChannel(Constants.CHANNEL);
         registerMessage(RenameMessage.Handler.class, RenameMessage.class, Side.SERVER);
         registerMessage(AdvFilterTypesMessage.Handler.class, AdvFilterTypesMessage.class, Side.SERVER);
         registerMessage(SingleByteMessage.Handler.class, SingleByteMessage.class, Side.SERVER);

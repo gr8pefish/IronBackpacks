@@ -1,6 +1,6 @@
 package main.ironbackpacks.entity.extendedProperties;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -8,11 +8,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
-import net.minecraftforge.common.util.Constants;
 
 public class PlayerBackpackProperties implements IExtendedEntityProperties {
 
-    public static final String PROP_PACK_ID = ModInformation.ID;
+    public static final String PROP_PACK_ID = Constants.ID;
     private ItemStack equippedBackpack;
     private ItemStack currentBackpack;
 
@@ -45,7 +44,7 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
 
     @Override
     public void loadNBTData(NBTTagCompound tag) {
-        NBTTagList tagList = tag.getTagList(PROP_PACK_ID, Constants.NBT.TAG_COMPOUND);
+        NBTTagList tagList = tag.getTagList(PROP_PACK_ID, net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
 
         //get the equipped backpack without crashing
         if (!tagList.getCompoundTagAt(0).hasKey("noEquipped")){ //if the key doesn't exist

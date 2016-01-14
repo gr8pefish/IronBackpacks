@@ -1,6 +1,6 @@
 package main.ironbackpacks.events;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
@@ -8,7 +8,7 @@ import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
-import main.ironbackpacks.api.item.backpacks.IBackpack;
+import main.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;
@@ -188,7 +188,7 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.modID.equals(ModInformation.ID)) {
+        if (event.modID.equals(Constants.ID)) {
             ConfigHandler.syncConfig(false);
             Logger.info("Refreshing configuration file.");
         }

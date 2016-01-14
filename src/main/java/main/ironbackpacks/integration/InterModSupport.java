@@ -1,6 +1,6 @@
 package main.ironbackpacks.integration;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -35,7 +35,7 @@ public class InterModSupport {
             NBTTagCompound tagCompound = new NBTTagCompound();
             tagCompound.setString("curseProjectName", "227049-iron-backpacks");
             tagCompound.setString("curseFilenameParser", "IronBackpacks-1.8.9-[].jar");
-            FMLInterModComms.sendRuntimeMessage(ModInformation.ID, "VersionChecker", "addCurseCheck", tagCompound);
+            FMLInterModComms.sendRuntimeMessage(Constants.ID, "VersionChecker", "addCurseCheck", tagCompound);
         }
     }
 

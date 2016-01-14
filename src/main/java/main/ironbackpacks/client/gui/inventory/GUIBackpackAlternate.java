@@ -1,6 +1,6 @@
 package main.ironbackpacks.client.gui.inventory;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import main.ironbackpacks.api.client.gui.button.ButtonNames;
 import main.ironbackpacks.client.gui.buttons.TooltipButton;
 import main.ironbackpacks.container.alternateGui.ContainerAlternateGui;
@@ -45,14 +45,14 @@ public class GUIBackpackAlternate extends GuiContainer {
      * Note: the two lists in this enum are due to the fact that the renaming upgrade is a config option and can shift the location of the gui.
      */
     public enum ResourceList {
-        ZERO(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/ZERO_alternateGui.png")),
-        ONE(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/ONE_alternateGui.png")),
-        TWO(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/TWO_alternateGui.png")),
-        THREE(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/THREE_alternateGui.png")),
+        ZERO(new ResourceLocation(Constants.ID, "textures/guis/alternateGui/ZERO_alternateGui.png")),
+        ONE(new ResourceLocation(Constants.ID, "textures/guis/alternateGui/ONE_alternateGui.png")),
+        TWO(new ResourceLocation(Constants.ID, "textures/guis/alternateGui/TWO_alternateGui.png")),
+        THREE(new ResourceLocation(Constants.ID, "textures/guis/alternateGui/THREE_alternateGui.png")),
 
-        RENAMING_ONE(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/RENAMING_ONE_alternateGui.png")),
-        RENAMING_TWO(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/RENAMING_TWO_alternateGui.png")),
-        RENAMING_THREE(new ResourceLocation(ModInformation.ID, "textures/guis/alternateGui/RENAMING_THREE_alternateGui.png"));
+        RENAMING_ONE(new ResourceLocation(Constants.ID, "textures/guis/alternateGui/RENAMING_ONE_alternateGui.png")),
+        RENAMING_TWO(new ResourceLocation(Constants.ID, "textures/guis/alternateGui/RENAMING_TWO_alternateGui.png")),
+        RENAMING_THREE(new ResourceLocation(Constants.ID, "textures/guis/alternateGui/RENAMING_THREE_alternateGui.png"));
 
         public final ResourceLocation location; //file's texture path
 

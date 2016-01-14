@@ -1,6 +1,6 @@
 package main.ironbackpacks.registry;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
@@ -11,7 +11,6 @@ import main.ironbackpacks.items.craftingItems.ItemUpgradeCore;
 import main.ironbackpacks.items.upgrades.upgradeItems.*;
 import main.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
 import main.ironbackpacks.util.InventoryRenderHelper;
-import main.ironbackpacks.util.Logger;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -175,7 +174,7 @@ public class ItemRegistry {
     }
 
     public static void registerItemRenders() {
-        InventoryRenderHelper helper = new InventoryRenderHelper(ModInformation.ID + ":");
+        InventoryRenderHelper helper = new InventoryRenderHelper(Constants.ID + ":");
 
         String alternate = ConfigHandler.useAlternateBackpackTextures ? "_alternate" : "";
         helper.itemRender(basicBackpack, BackpackTypes.BASIC.getName() + alternate);

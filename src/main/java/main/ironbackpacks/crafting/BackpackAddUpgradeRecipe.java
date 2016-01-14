@@ -1,7 +1,7 @@
 package main.ironbackpacks.crafting;
 
 import main.ironbackpacks.config.ConfigHandler;
-import main.ironbackpacks.api.item.backpacks.IBackpack;
+import main.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.ItemUpgradeBase;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
@@ -18,11 +18,11 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 /**
  * Deals with the cases when a backpack is shapelessly crafted with an upgrade.
  */
-public class BackpackCraftWithUpgradeRecipe extends ShapelessOreRecipe {
+public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
 
     private final ItemStack recipeOutput; //The outputted item after crafting
 
-    public BackpackCraftWithUpgradeRecipe(ItemStack recipeOutput, Object... items){
+    public BackpackAddUpgradeRecipe(ItemStack recipeOutput, Object... items){
         super(recipeOutput, items);
         this.recipeOutput = recipeOutput;
     }

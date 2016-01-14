@@ -1,7 +1,7 @@
 package main.ironbackpacks.items;
 
 import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import net.minecraft.item.Item;
 
 /**
@@ -11,7 +11,7 @@ public class ItemBase extends Item {
 
 	public ItemBase(String unlocName, String textureName) { //TODO: remove texture name
 		super();
-		setUnlocalizedName(ModInformation.ID + ":" + unlocName);
+		setUnlocalizedName(Constants.ID + ":" + unlocName);
 		setCreativeTab(IronBackpacks.creativeTab);
 	}
 

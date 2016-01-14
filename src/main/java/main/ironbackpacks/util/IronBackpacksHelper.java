@@ -5,7 +5,7 @@ import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
-import main.ironbackpacks.api.item.backpacks.IBackpack;
+import main.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;
@@ -128,7 +128,7 @@ public class IronBackpacksHelper {
      */
     public static int getTotalUpgradePointsFromNBT(ItemStack stack){
         ItemBackpack backpack = (ItemBackpack) stack.getItem();
-        int upgradeCount = backpack.getUpgradeSlots(); //from initialization via config
+        int upgradeCount = backpack.getUpgradePoints(); //from initialization via config
         int extraPoints = getAdditionalUpgradesUpgradeCount(stack);
         return (upgradeCount + extraPoints);
     }

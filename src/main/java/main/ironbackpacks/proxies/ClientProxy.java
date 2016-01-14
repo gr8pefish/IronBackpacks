@@ -1,6 +1,6 @@
 package main.ironbackpacks.proxies;
 
-import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.Constants;
 import main.ironbackpacks.client.KeyHandler;
 import main.ironbackpacks.config.ConfigAdaptor;
 import main.ironbackpacks.entity.EntityBackpack;
@@ -47,7 +47,7 @@ public class ClientProxy extends CommonProxy {
     //random helper methods
 
     public String getModVersion(){
-        return ModInformation.VERSION;
+        return Constants.VERSION;
     }
 
     public String getRemoteUpdatedVersion(){

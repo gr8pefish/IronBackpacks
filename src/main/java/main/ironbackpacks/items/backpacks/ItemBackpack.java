@@ -1,8 +1,8 @@
 package main.ironbackpacks.items.backpacks;
 
 import main.ironbackpacks.IronBackpacks;
-import main.ironbackpacks.ModInformation;
-import main.ironbackpacks.api.item.backpacks.IBackpack;
+import main.ironbackpacks.api.Constants;
+import main.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;
@@ -17,7 +17,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
@@ -40,7 +39,7 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
 
     public ItemBackpack(int id, int size, int rowLength, String texture, String fancyName, int upgradePoints) { //TODO: remove texture
         setCreativeTab(IronBackpacks.creativeTab);
-        setUnlocalizedName(ModInformation.ID + ":" + fancyName);
+        setUnlocalizedName(Constants.ID + ":" + fancyName);
         setMaxStackSize(1);
         setNoRepair();
 
@@ -186,7 +185,7 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
                 if (nbtTagCompound.hasKey("Items")) {
-                    NBTTagList tagList = nbtTagCompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+                    NBTTagList tagList = nbtTagCompound.getTagList("Items", net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
                     inventory = new ItemStack[BackpackTypes.values()[getGuiId()].getSize()];
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
@@ -234,7 +233,7 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
         return fancyName;
     }
 
-    @Override
+//    @Override
     public int getGuiId() {
         return getId() - 1;
     }
