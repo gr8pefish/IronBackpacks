@@ -40,7 +40,6 @@ public class ClientEquippedPackMessage implements IMessage {
 
             EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
             if (player != null) {
-                System.out.println("Client player: "+player.toString());
                 PlayerBackpackProperties.setEquippedBackpack(player, message.stack); //update the backpack //TODO: client
             }
 

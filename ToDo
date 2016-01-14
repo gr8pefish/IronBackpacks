@@ -2,10 +2,7 @@ To Do:
 
     1.8 Stuff:
 
-        fix dimensions breaking all the things
-            likely due to overlap code with other events
-
-        Edit IB so you can't see backpack in 1st person so much
+        check register packets also had to server side - ex: error on server startup if no getClientPlayer() - that's a bug
 
         then API/cut ids/refactor, etc.
 

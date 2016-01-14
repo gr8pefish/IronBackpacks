@@ -171,14 +171,12 @@ public class ForgeEventHandler {
             if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) //if has old dimension backpack
                 IronBackpacksHelper.killEntityBackpack(event.player); //kill old backpack
 
-            System.out.println("Server player "+event.player.toString());
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
-            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack);
+            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //TODO: test with these removed
 
             if (!ConfigHandler.disableRendering)
                 IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
         } else {
-            //TODO: this breaks? No, never called...
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP) event.player); //update client on correct pack
             PlayerBackpackProperties.setEquippedBackpack(event.player, null);
         }

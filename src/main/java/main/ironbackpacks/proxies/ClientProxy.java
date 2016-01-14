@@ -53,7 +53,7 @@ public class ClientProxy extends CommonProxy {
         ItemRegistry.registerItemRenders();
     }
 
-    public EntityPlayer getClientPlayer(){
+    public EntityPlayer getClientPlayer(){ //TODO: remove eventually
         return Minecraft.getMinecraft().thePlayer;
     }
 
