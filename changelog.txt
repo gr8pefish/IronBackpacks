@@ -6,8 +6,10 @@ Additions (in relation to 1.7.10 - 1.2.15)
 
 Changes (in relation to 1.7.10 - 1.2.15)
 - Default keybinding to open backpack is 'c' and to equip is now 'v'
-- Changed how backpacks are stored internally, both for death and in general (uses two IEEPs)
+- The backpack no longer renders on the client if the player is in first person perspective
 - Tons of various minor fixes/changes/optimizations
+- Start of an API
+- (Internal) Changed how backpacks are stored internally, both for death and in general (uses two IEEPs)
 
 Bug Fixes (in relation to 1.7.10 - 1.2.15)
 - None

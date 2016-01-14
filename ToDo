@@ -4,9 +4,16 @@ To Do:
 
         check register packets also had to server side - ex: error on server startup if no getClientPlayer() - that's a bug
 
+        add registry items to API
+            check BM api
+            check inv tweaks api
+
+
         then API/cut ids/refactor, etc.
 
         bm blacklist for config to disable items (requested config option)
+
+        add commands to remove stored packs' IEEP data
 
 
     NOW:
