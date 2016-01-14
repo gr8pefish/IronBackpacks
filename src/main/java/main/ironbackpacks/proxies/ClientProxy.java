@@ -18,10 +18,6 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
  */
 public class ClientProxy extends CommonProxy {
 
-    public EntityPlayer getClientPlayer(){
-        return Minecraft.getMinecraft().thePlayer;
-    }
-
     public void preInit(){
         initKeybindings();
         initItemRenderers();
@@ -55,6 +51,10 @@ public class ClientProxy extends CommonProxy {
 
     private void initItemRenderers(){
         ItemRegistry.registerItemRenders();
+    }
+
+    public EntityPlayer getClientPlayer(){
+        return Minecraft.getMinecraft().thePlayer;
     }
 
 }

@@ -42,6 +42,9 @@ public class RenderBackpack extends Render{
         if (owner.isInvisible()){
             return; //don't render when invisible
         }
+        if (isLocalPlayer && isFpp) {
+            return; //don't render if in first person view on client
+        }
 
         final float rotation = interpolateRotation(pack.prevRotationYaw, pack.rotationYaw, f1);
 
@@ -52,9 +55,6 @@ public class RenderBackpack extends Render{
         GL11.glRotatef(180, 1, 0, 0); //flips it right side up
         GL11.glScalef(0.8f, 0.7f, 0.8f); //scale slightly smaller
         GL11.glTranslated(0, -1.6, -.25); //move it into the correct location
-
-        if (isLocalPlayer && isFpp)
-            GL11.glTranslated(0, 0, -.8); //move it totally out of view //TODO: disable totally?
 
         if (owner.inventory.armorInventory[2] != null) //if has chest armor slot
             GL11.glTranslated(0, 0, -.1); //move it backwards a little

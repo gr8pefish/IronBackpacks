@@ -3,8 +3,11 @@ package main.ironbackpacks.network.client;
 import io.netty.buffer.ByteBuf;
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.MinecraftDummyContainer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -36,7 +39,7 @@ public class ClientCurrentPackMessage implements IMessage {
         @Override
         public IMessage onMessage(ClientCurrentPackMessage message, MessageContext ctx) {
 
-            EntityPlayer player = IronBackpacks.proxy.getClientPlayer(); //get the player via a safe call
+            EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
             if (player != null)
                 PlayerBackpackProperties.setCurrentBackpack(player, message.stack); //update the backpack //TODO: client and this is just bad code
 

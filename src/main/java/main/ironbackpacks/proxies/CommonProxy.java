@@ -33,7 +33,7 @@ public class CommonProxy {
     }
 
     public EntityPlayer getClientPlayer(){
-        throw new RuntimeException("You idiot, you can't get the client player on the server side.");
+        throw new RuntimeException("Can't get client player from server side");
     }
 
 }
