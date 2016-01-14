@@ -1,14 +1,14 @@
-package main.ironbackpacks.items.backpacks;
+package main.ironbackpacks.api.item.backpacks;
 
+import main.ironbackpacks.api.item.upgrades.IPackUpgrade;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
+
 /**
- * An interface for all backbacks to implement.
- *
- * The plan is to have this contain all the data required for backpack items for easy compatibility
- * support via an API.
+ * This interface should be used for all backpacks that can accept upgrades.
  */
-public interface IBackpack {
+public interface IUpgradableBackpack {
 
     /**
      * Gets the fullness of the backpack for the durability bar.
@@ -26,6 +26,8 @@ public interface IBackpack {
     int getRowLength();
 
     int getUpgradeSlots();
+
+//    ArrayList<IPackUpgrade> getUpgrades();
 
     String getFancyName();
 

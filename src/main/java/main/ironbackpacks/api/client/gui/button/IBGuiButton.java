@@ -1,5 +1,8 @@
 package main.ironbackpacks.api.client.gui.button;
 
+/**
+ * This class should be extended for every button. Naturally ties in to ITooltipButton.
+ */
 public class IBGuiButton {
 
     int id; //the internal id
@@ -19,8 +22,6 @@ public class IBGuiButton {
         this.delay = delay;
         this.tooltip = tooltip;
     }
-
-//    public static ButtonTypes[] buttonTypesArray = {EXACT, FUZZY, ORE_DICT, MOD_SPECIFIC}; //for use in the alternate gui
 
     public int getId() {
         return id;

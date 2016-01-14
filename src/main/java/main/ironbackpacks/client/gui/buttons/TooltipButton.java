@@ -28,7 +28,7 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
     private ArrayList<String> tooltips; //the tooltip
     private int hoverTime; //the hover time (for displaying tooltips)
 
-    //Constructor which uses the ButtonTypes enum
+    //Constructor which uses an IBGuiButton
     public TooltipButton(IBGuiButton guiButton, int xPos, int yPos){
         super(guiButton.getId(), xPos, yPos, guiButton.getSizeX(), guiButton.getSizeY(), ""); //empty string displays no text on the button
         this.buttonID = guiButton.getId();
@@ -88,8 +88,9 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
         return hoverTime;
     }
 
+
     /**
-     * Rotates through the 4 filter type buttons by getting the next one.
+     * Rotates through the 4 filter type buttons by getting the next one. TODO: hardcoded
      * @param button - the button to increment
      * @return - int id of the new button
      */

@@ -1,5 +1,6 @@
 package main.ironbackpacks.items.upgrades;
 
+import main.ironbackpacks.api.item.upgrades.IPackUpgrade;
 import main.ironbackpacks.items.ItemBase;
 import main.ironbackpacks.util.TextUtils;
 import net.minecraft.entity.player.EntityPlayer;

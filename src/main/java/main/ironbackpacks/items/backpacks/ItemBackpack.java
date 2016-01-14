@@ -2,6 +2,7 @@ package main.ironbackpacks.items.backpacks;
 
 import main.ironbackpacks.IronBackpacks;
 import main.ironbackpacks.ModInformation;
+import main.ironbackpacks.api.item.backpacks.IBackpack;
 import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.container.backpack.ContainerBackpack;
 import main.ironbackpacks.container.backpack.InventoryBackpack;

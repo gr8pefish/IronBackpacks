@@ -2,9 +2,9 @@ package main.ironbackpacks.proxies;
 
 import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.client.KeyHandler;
-import main.ironbackpacks.client.renderer.RenderBackpack;
 import main.ironbackpacks.config.ConfigAdaptor;
 import main.ironbackpacks.entity.EntityBackpack;
+import main.ironbackpacks.client.renderer.EntityBackpackRenderFactory;
 import main.ironbackpacks.events.ClientEventHandler;
 import main.ironbackpacks.registry.ProxyRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;
@@ -22,15 +22,14 @@ public class ClientProxy extends CommonProxy {
         KeyHandler.init();
         initClientEventHandlers();
 
-        ProxyRegistry.preInitClient();
+        //register render backpack entity
+        RenderingRegistry.registerEntityRenderingHandler(EntityBackpack.class, new EntityBackpackRenderFactory());
 
-//        RenderingRegistry.registerEntityRenderingHandler(EntityBackpack.class, //some IRenderFactory) //code for 1.9+
+        ProxyRegistry.preInitClient();
     }
 
     public void init(){
         ProxyRegistry.initClient();
-
-        RenderingRegistry.registerEntityRenderingHandler(EntityBackpack.class, new RenderBackpack(Minecraft.getMinecraft().getRenderManager())); //deprecated past 1.8
     }
 
     public void postInit(){

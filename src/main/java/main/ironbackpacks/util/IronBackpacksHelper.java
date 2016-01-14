@@ -1,17 +1,15 @@
 package main.ironbackpacks.util;
 
 
-import main.ironbackpacks.ModInformation;
 import main.ironbackpacks.config.ConfigHandler;
 import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
-import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.api.item.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;
 import main.ironbackpacks.network.client.ClientEquippedPackMessage;
-import main.ironbackpacks.network.server.SingleByteMessage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;

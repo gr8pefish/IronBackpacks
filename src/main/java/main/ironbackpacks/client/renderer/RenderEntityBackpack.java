@@ -6,29 +6,25 @@ import main.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-
-@SideOnly(Side.CLIENT) //TODO: make sure this is everywhere it should be
-public class RenderBackpack extends Render{
+@SideOnly(Side.CLIENT)
+public class RenderEntityBackpack extends Render<EntityBackpack> {
 
     private ModelBackpack modelBackpack;
 
-    public RenderBackpack(RenderManager manager) { //TODO: have to call with manager now
-        super(manager);
+    public RenderEntityBackpack(RenderManager renderManager){
+        super(renderManager);
         modelBackpack = new ModelBackpack();
     }
 
-
     @Override
-    public void doRender(Entity entity, double x, double y, double z, float f, float f1) {
+    public void doRender(EntityBackpack pack, double x, double y, double z, float f, float f1) {
 
-        final EntityBackpack pack = (EntityBackpack)entity;
         final EntityPlayer owner = pack.getPlayer();
         if (owner == null) return;
 
@@ -36,14 +32,10 @@ public class RenderBackpack extends Render{
         final boolean isLocalPlayer = owner == minecraft.thePlayer;
         final boolean isFpp = minecraft.gameSettings.thirdPersonView == 0;
 
-//        if (InterModSupport.gliderClass.isGliding(owner)) {
-//                return;
-//        }else
-        if (owner.isInvisible()){
-            return; //don't render when invisible
-        }
         if (isLocalPlayer && isFpp) {
             return; //don't render if in first person view on client
+        }else if (owner.isInvisible()){
+            return; //don't render when invisible
         }
 
         final float rotation = interpolateRotation(pack.prevRotationYaw, pack.rotationYaw, f1);
@@ -68,6 +60,8 @@ public class RenderBackpack extends Render{
         modelBackpack.render(pack, 0, 0, 0, 0, 0, 1.0f / 8.0f);
 
         GL11.glPopMatrix();
+
+        super.doRender(pack, x, y, z, f, f1);
     }
 
     private static float interpolateRotation(float prevRotation, float nextRotation, float modifier) {
@@ -84,7 +78,7 @@ public class RenderBackpack extends Render{
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(Entity entity) {
-        return IronBackpacksConstants.Resources.MODEL_TEXTURES[((EntityBackpack)entity).getTextureId()];
+    protected ResourceLocation getEntityTexture(EntityBackpack entity) {
+        return IronBackpacksConstants.Resources.MODEL_TEXTURES[(entity).getTextureId()];
     }
 }

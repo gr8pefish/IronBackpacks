@@ -4,7 +4,7 @@ import main.ironbackpacks.api.client.gui.button.ButtonNames;
 import main.ironbackpacks.container.slot.BackpackSlot;
 import main.ironbackpacks.container.slot.NestingBackpackSlot;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
-import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.api.item.backpacks.IBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.registry.GuiButtonRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;

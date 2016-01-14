@@ -1,6 +1,6 @@
 package main.ironbackpacks.crafting;
 
-import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.api.item.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.registry.ItemRegistry;
 import main.ironbackpacks.util.IronBackpacksConstants;

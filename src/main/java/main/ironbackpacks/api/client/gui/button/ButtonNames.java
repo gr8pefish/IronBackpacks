@@ -1,5 +1,8 @@
 package main.ironbackpacks.api.client.gui.button;
 
+/**
+ * An enumeration of all the buttons in the mod. TODO: Make a way to (add?) to this
+ */
 public enum ButtonNames {
     RENAME,
     EXACT,

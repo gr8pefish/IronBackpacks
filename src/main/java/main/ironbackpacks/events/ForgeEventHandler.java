@@ -8,7 +8,7 @@ import main.ironbackpacks.entity.EntityBackpack;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
 import main.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import main.ironbackpacks.items.backpacks.BackpackTypes;
-import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.api.item.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.items.upgrades.UpgradeMethods;
 import main.ironbackpacks.network.NetworkingHandler;

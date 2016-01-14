@@ -1,6 +1,6 @@
 package main.ironbackpacks.crafting;
 
-import main.ironbackpacks.items.backpacks.IBackpack;
+import main.ironbackpacks.api.item.backpacks.IBackpack;
 import main.ironbackpacks.util.IronBackpacksConstants;
 import main.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.inventory.InventoryCrafting;

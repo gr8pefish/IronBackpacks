@@ -1,4 +1,4 @@
-package main.ironbackpacks.items.upgrades;
+package main.ironbackpacks.api.item.upgrades;
 
 import java.util.List;
 
