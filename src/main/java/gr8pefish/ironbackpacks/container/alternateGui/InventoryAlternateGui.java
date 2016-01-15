@@ -63,6 +63,10 @@ public class InventoryAlternateGui implements IInventory {
         return advFilterButtonStates;
     }
 
+    public ItemStack getBackpackStack(){
+        return backpackStack;
+    }
+
     @Override
     public int getSizeInventory() {
         return invSize;

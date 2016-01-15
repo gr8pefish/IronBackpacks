@@ -1,25 +1,21 @@
 package gr8pefish.ironbackpacks.client.gui.inventory;
 
-import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
-import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
-import gr8pefish.ironbackpacks.items.backpacks.BackpackEnum;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,62 +29,6 @@ import java.util.ArrayList;
 @SideOnly(Side.CLIENT)
 public class GUIBackpack extends GuiContainer {
 
-    /**
-     * A variable texture of the gui depending on the tier of the backpack being opened. Dependent on config options.
-     * Note: Credit goes to cpw here, a lot of this is based on his IronChests' code.
-     */
-//    public enum ResourceList {
-//
-//        BASIC(new ResourceLocation(Constants.MODID,
-//                "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png")),
-//        IRON(new ResourceLocation(Constants.MODID,
-//                "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpack.sizeX.getValue())+".png")),
-//        GOLD(new ResourceLocation(Constants.MODID,
-//                "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeX.getValue())+".png")),
-//        DIAMOND(new ResourceLocation(Constants.MODID,
-//                "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"));
-//
-//        public final ResourceLocation location; //the texture's file's path
-//
-//        private ResourceList(ResourceLocation loc) {
-//            this.location = loc;
-//        }
-//    }
-
-    /**
-     * The GUI's details, once again based on the tier of backpack being opened.
-     */
-//    public enum GUI {
-//
-//        BASIC(ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200: 236,
-//                114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue()),
-//                ResourceList.BASIC, BackpackEnum.BASIC),
-//        IRON(ConfigHandler.enumIronBackpack.sizeX.getValue() == 9 ? 200: 236,
-//                114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue()),
-//                ResourceList.IRON, BackpackEnum.IRON),
-//        GOLD(ConfigHandler.enumGoldBackpack.sizeX.getValue() == 9 ? 200: 236,
-//                114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue()),
-//                ResourceList.GOLD, BackpackEnum.GOLD),
-//        DIAMOND(ConfigHandler.enumDiamondBackpack.sizeX.getValue() == 9 ? 200: 236,
-//                114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue()),
-//                ResourceList.DIAMOND, BackpackEnum.DIAMOND);
-//
-//        private int xSize; //width
-//        private int ySize; //height
-//        private ResourceList guiResourceList; //texture to bind
-//        private BackpackEnum mainType; //tier of backpack
-//
-//        private GUI(int xSize, int ySize, ResourceList guiResourceList, BackpackEnum mainType) {
-//            this.xSize = xSize;
-//            this.ySize = ySize;
-//            this.guiResourceList = guiResourceList;
-//            this.mainType = mainType;
-//        }
-
-
-//    }
-
-//    private GUI type; //the GUI type (of the enum above)
     private ContainerBackpack container; //the container
     private ItemStack itemStack; //the itemstack backpack
     private ItemBackpack itemBackpack; //the backpack as an item
@@ -107,32 +47,27 @@ public class GUIBackpack extends GuiContainer {
 
     private EntityPlayer player; //TODO remove
 
-    private GUIBackpack(EntityPlayer player, InventoryBackpack backpack, int[] upgrades, ItemStack itemStack) {
-        super(new ContainerBackpack(player, backpack, itemStack, ((ItemBackpack)itemStack.getItem()).getGuiXSize(itemStack), ((ItemBackpack)itemStack.getItem()).getGuiYSize(itemStack)));
+    private GUIBackpack(EntityPlayer player, InventoryBackpack inventoryBackpack) {
+        super(new ContainerBackpack(player, inventoryBackpack, ((ItemBackpack)inventoryBackpack.getBackpackStack().getItem()).getGuiXSize(inventoryBackpack.getBackpackStack()), ((ItemBackpack)inventoryBackpack.getBackpackStack().getItem()).getGuiYSize(inventoryBackpack.getBackpackStack()))); //holy grossness batman
 
+        this.itemStack = inventoryBackpack.getBackpackStack();
         this.itemBackpack = (ItemBackpack)itemStack.getItem();
         this.xSize = itemBackpack.getGuiXSize(itemStack);
         this.ySize = itemBackpack.getGuiYSize(itemStack);
-        this.container = new ContainerBackpack(player, backpack, itemStack, xSize, ySize) ;
+        this.container = new ContainerBackpack(player, inventoryBackpack, xSize, ySize) ;
         this.allowUserInput = false;
-        this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(upgrades);
-        this.itemStack = itemStack;
-        tooltipButtons = new ArrayList<TooltipButton>();
-
-        this.player = player; //TODO remove
-//        NetworkingHandler.network.sendTo(new PackNameMessage(), (EntityPlayerMP)player);
+        this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack));
+        tooltipButtons = new ArrayList<>();
     }
 
     /**
      * Creates the GUI. Called from GuiHandler.
      * @param player - the player opening the backpack
      * @param backpack - the inventory
-     * @param upgrades - the upgrades on the backpack
-     * @param itemStack - the backpack
      * @return - a GUI
      */
-    public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack, int[] upgrades, ItemStack itemStack) {
-        return new GUIBackpack(player, backpack, upgrades, itemStack); //TODO: fix this grossness
+    public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack) {
+        return new GUIBackpack(player, backpack); //TODO: fix this grossness
     }
 
 

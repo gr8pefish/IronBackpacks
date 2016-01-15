@@ -33,6 +33,10 @@ public class InventoryBackpack implements IInventory {
         readFromNBT(backpackStack.getTagCompound());
     }
 
+    public ItemStack getBackpackStack(){
+        return backpackStack;
+    }
+
     @Override
     public int getSizeInventory() {
         return ((ItemBackpack)backpackStack.getItem()).getSize(backpackStack);

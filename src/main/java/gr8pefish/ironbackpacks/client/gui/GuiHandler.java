@@ -20,7 +20,7 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID >=0){ //normal gui
-            return new ContainerBackpack(player, new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player)), IronBackpacksHelper.getBackpack(player)); //TODO: check okay once refactoring
+            return new ContainerBackpack(player, new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player))); //TODO: check okay once refactoring
         }else if (ID < 0){ //alternate gui
             return new ContainerAlternateGui(player, new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player)));
         }
@@ -36,7 +36,7 @@ public class GuiHandler implements IGuiHandler {
         }else if (ID < 0){ //alternate gui
             ItemStack backpack = IronBackpacksHelper.getBackpack(player);
             int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
-            return GUIBackpackAlternate.GUI.buildGUIAlternate(player, new InventoryAlternateGui(player, backpack), upgrades, backpack);
+            return GUIBackpackAlternate.GUI.buildGUIAlternate(player, new InventoryAlternateGui(player, backpack), upgrades, backpack); //TODO: refactor?
         }
 		return null;
 	}

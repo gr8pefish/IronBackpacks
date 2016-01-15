@@ -34,10 +34,10 @@ public class ContainerBackpack extends Container {
     private int ySize = 0; //the y size
     private int totalSize = 0; //the total size
 
-    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, ItemStack backpackStack, int xSize, int ySize){
+    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, int xSize, int ySize){
         this.player = entityPlayer;
         this.inventory = backpackInventory;
-        this.backpackStack = backpackStack;
+        this.backpackStack = backpackInventory.getBackpackStack();
         this.backpackItem = (ItemBackpack) backpackStack.getItem(); //TODO: hardcoded as ItemBackpack
         this.xSize = xSize;
         this.ySize = ySize;
@@ -46,10 +46,10 @@ public class ContainerBackpack extends Container {
     }
 
     //overloaded constructor for when size is irrelevant
-    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory, ItemStack backpackStack){
+    public ContainerBackpack(EntityPlayer entityPlayer, InventoryBackpack backpackInventory){
         this.player = entityPlayer;
         this.inventory = backpackInventory;
-        this.backpackStack = backpackStack;
+        this.backpackStack = backpackInventory.getBackpackStack();
         this.backpackItem = (ItemBackpack) backpackStack.getItem(); //TODO: hardcoded as ItemBackpack
         this.totalSize = backpackItem.getSize(backpackStack);
         layoutContainer(entityPlayer.inventory, backpackInventory, xSize, ySize);
