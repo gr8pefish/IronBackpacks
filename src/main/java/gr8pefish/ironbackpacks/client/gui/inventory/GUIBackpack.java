@@ -1,13 +1,14 @@
 package gr8pefish.ironbackpacks.client.gui.inventory;
 
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
-import gr8pefish.ironbackpacks.items.backpacks.BackpackTypes;
+import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
+import gr8pefish.ironbackpacks.items.backpacks.BackpackEnum;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
@@ -61,23 +62,23 @@ public class GUIBackpack extends GuiContainer {
 
         BASIC(ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200: 236,
                 114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue()),
-                ResourceList.BASIC, BackpackTypes.BASIC),
+                ResourceList.BASIC, BackpackEnum.BASIC),
         IRON(ConfigHandler.enumIronBackpack.sizeX.getValue() == 9 ? 200: 236,
                 114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue()),
-                ResourceList.IRON, BackpackTypes.IRON),
+                ResourceList.IRON, BackpackEnum.IRON),
         GOLD(ConfigHandler.enumGoldBackpack.sizeX.getValue() == 9 ? 200: 236,
                 114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue()),
-                ResourceList.GOLD, BackpackTypes.GOLD),
+                ResourceList.GOLD, BackpackEnum.GOLD),
         DIAMOND(ConfigHandler.enumDiamondBackpack.sizeX.getValue() == 9 ? 200: 236,
                 114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue()),
-                ResourceList.DIAMOND, BackpackTypes.DIAMOND);
+                ResourceList.DIAMOND, BackpackEnum.DIAMOND);
 
         private int xSize; //width
         private int ySize; //height
         private ResourceList guiResourceList; //texture to bind
-        private BackpackTypes mainType; //tier of backpack
+        private BackpackEnum mainType; //tier of backpack
 
-        private GUI(int xSize, int ySize, ResourceList guiResourceList, BackpackTypes mainType) {
+        private GUI(int xSize, int ySize, ResourceList guiResourceList, BackpackEnum mainType) {
             this.xSize = xSize;
             this.ySize = ySize;
             this.guiResourceList = guiResourceList;
@@ -93,7 +94,7 @@ public class GUIBackpack extends GuiContainer {
          * @return - a GUI
          */
         public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack, int[] upgrades, ItemStack itemStack) {
-            return new GUIBackpack(values()[backpack.getType().ordinal()], player, backpack, upgrades, itemStack);
+            return new GUIBackpack(values()[((ItemBackpack)itemStack.getItem()).getGuiId(itemStack)], player, backpack, upgrades, itemStack); //TODO: fix this grossness
         }
 
         /**
@@ -102,8 +103,8 @@ public class GUIBackpack extends GuiContainer {
          * @param backpack - the inventory
          * @return - a containerBackpack
          */
-        private Container makeContainer(EntityPlayer player, InventoryBackpack backpack) {
-            return new ContainerBackpack(player, backpack, mainType, xSize, ySize);
+        private Container makeContainer(EntityPlayer player, InventoryBackpack backpack, ItemStack stack) {
+            return new ContainerBackpack(player, backpack, stack, xSize, ySize);
         }
     }
 
@@ -126,8 +127,8 @@ public class GUIBackpack extends GuiContainer {
     private EntityPlayer player; //TODO remove
 
     private GUIBackpack(GUI type, EntityPlayer player, InventoryBackpack backpack, int[] upgrades, ItemStack itemStack) {
-        super(type.makeContainer(player, backpack));
-        this.container = (ContainerBackpack) type.makeContainer(player, backpack);
+        super(type.makeContainer(player, backpack, itemStack));
+        this.container = (ContainerBackpack) type.makeContainer(player, backpack, itemStack);
         this.type = type;
         this.xSize = type.xSize;
         this.ySize = type.ySize;

@@ -1,9 +1,9 @@
 package gr8pefish.ironbackpacks.container.backpack;
 
-import gr8pefish.ironbackpacks.util.NBTHelper;
-import gr8pefish.ironbackpacks.items.backpacks.BackpackTypes;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.NBTHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -21,27 +21,21 @@ import java.util.UUID;
  */
 public class InventoryBackpack implements IInventory {
 
-    private ItemStack stack; //the itemstack instance of the backpack
+    private ItemStack backpackStack; //the itemstack instance of the backpack
     private EntityPlayer player; //the player
     private ItemStack[] inventory; //the stored items
-    private BackpackTypes type; //the backpack type
 
     //Instantiated from GuiHandler
-    public InventoryBackpack(EntityPlayer player, ItemStack itemStack, BackpackTypes type){
-        this.stack = itemStack;
+    public InventoryBackpack(EntityPlayer player, ItemStack backpackStack){
+        this.backpackStack = backpackStack;
         this.player = player;
-        this.type = type;
         this.inventory = new ItemStack[this.getSizeInventory()];
-        readFromNBT(stack.getTagCompound());
-    }
-
-    public BackpackTypes getType(){
-        return type;
+        readFromNBT(backpackStack.getTagCompound());
     }
 
     @Override
     public int getSizeInventory() {
-        return type.getSize();
+        return ((ItemBackpack)backpackStack.getItem()).getSize(backpackStack);
     }
 
     @Override
@@ -78,7 +72,7 @@ public class InventoryBackpack implements IInventory {
 
     @Override
     public String getName() {
-        return type.getName();
+        return ((ItemBackpack)backpackStack.getItem()).getName(backpackStack);
     }
 
     @Override
@@ -203,7 +197,7 @@ public class InventoryBackpack implements IInventory {
      * @param entityPlayer - the player with the backpack
      */
     public void onGuiSaved(EntityPlayer entityPlayer){
-        if (stack != null){
+        if (backpackStack != null){
             save();
         }
     }
@@ -223,14 +217,14 @@ public class InventoryBackpack implements IInventory {
      */
     public void save(){
 
-        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        NBTTagCompound nbtTagCompound = backpackStack.getTagCompound();
 
         if (nbtTagCompound == null) {
             nbtTagCompound = new NBTTagCompound();
         }
 
         writeToNBT(nbtTagCompound);
-        stack.setTagCompound(nbtTagCompound);
+        backpackStack.setTagCompound(nbtTagCompound);
     }
 
     /**
@@ -240,7 +234,7 @@ public class InventoryBackpack implements IInventory {
     public void writeToNBT(NBTTagCompound nbtTagCompound){
         if (!player.worldObj.isRemote) { //server side only
             ItemStack tempStack = findParentItemStack(player);
-            ItemStack stackToUse = (tempStack == null) ? stack : tempStack;
+            ItemStack stackToUse = (tempStack == null) ? backpackStack : tempStack;
 
             nbtTagCompound = stackToUse.getTagCompound();
 
@@ -265,9 +259,9 @@ public class InventoryBackpack implements IInventory {
     public void readFromNBT(NBTTagCompound nbtTagCompound){
         if (!player.worldObj.isRemote) { //server side only
             ItemStack tempStack = findParentItemStack(player);
-            stack = (tempStack == null) ? stack : tempStack;
-            if (stack != null) {
-                nbtTagCompound = stack.getTagCompound();
+            backpackStack = (tempStack == null) ? backpackStack : tempStack;
+            if (backpackStack != null) {
+                nbtTagCompound = backpackStack.getTagCompound();
 
                 if (nbtTagCompound != null) {
                     if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ITEMS)) {
@@ -293,8 +287,8 @@ public class InventoryBackpack implements IInventory {
      * @return - the itemstack if it is found, null otherwise
      */
     private ItemStack findParentItemStack(EntityPlayer entityPlayer){
-        if (NBTHelper.hasUUID(stack)){
-            UUID parentUUID = new UUID(stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
+        if (NBTHelper.hasUUID(backpackStack)){
+            UUID parentUUID = new UUID(backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++){
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 

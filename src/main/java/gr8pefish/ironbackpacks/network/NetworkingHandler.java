@@ -1,11 +1,10 @@
 package gr8pefish.ironbackpacks.network;
 
-import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.network.client.ClientCurrentPackMessage;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
-import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.network.server.AdvFilterTypesMessage;
 import gr8pefish.ironbackpacks.network.server.RenameMessage;
+import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;

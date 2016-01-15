@@ -1,20 +1,19 @@
 package gr8pefish.ironbackpacks.client.gui.inventory;
 
-import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
-import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
-import gr8pefish.ironbackpacks.util.TextUtils;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
+import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
 import gr8pefish.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import gr8pefish.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import gr8pefish.ironbackpacks.container.slot.GhostSlot;
-import gr8pefish.ironbackpacks.items.backpacks.BackpackTypes;
+import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.AdvFilterTypesMessage;
 import gr8pefish.ironbackpacks.network.server.RenameMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -93,12 +92,11 @@ public class GUIBackpackAlternate extends GuiContainer {
          * @param player - the player opening the backpack
          * @param inv - the backpack's inventory
          * @param upgrades - the backpack's upgrade
-         * @param backpackType - the backpack's type
          * @return - the GUI built
          */
-        public static GUIBackpackAlternate buildGUIAlternate(EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, BackpackTypes backpackType, ItemStack backpack) {
+        public static GUIBackpackAlternate buildGUIAlternate(EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, ItemStack backpack) {
             GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades) + 3] : values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades)]; //shifts to correct index if renaming
-            return new GUIBackpackAlternate(gui, player, inv, upgrades, backpackType, backpack);
+            return new GUIBackpackAlternate(gui, player, inv, upgrades, backpack);
         }
 
         /**
@@ -146,7 +144,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     private boolean hasFilterMiningUpgrade;
     private boolean hasFilterVoidUpgrade;
 
-    private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, BackpackTypes backpackType, ItemStack backpack) {
+    private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, ItemStack backpack) {
         super(type.makeContainer(player, inv));
         this.player = player;
         this.container = (ContainerAlternateGui) type.makeContainer(player, inv);

@@ -1,8 +1,8 @@
 package gr8pefish.ironbackpacks.network.client;
 
+import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import io.netty.buffer.ByteBuf;
-import gr8pefish.ironbackpacks.IronBackpacks;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;

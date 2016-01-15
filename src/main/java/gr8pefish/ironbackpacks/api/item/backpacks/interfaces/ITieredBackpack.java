@@ -2,6 +2,8 @@ package gr8pefish.ironbackpacks.api.item.backpacks.interfaces;
 
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
+
 /**
  * Implement this if a backpack needs to exist in the tiered system (i.e. there is a backpack inherently better or worse than it).
  * For example, the default system of basic -> iron -> gold -> diamond.
@@ -15,21 +17,21 @@ public interface ITieredBackpack extends IBackpack {
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - the IBackpack that is higher (or null)
      */
-    IBackpack getBackpackAbove(ItemStack backpack);
+    ArrayList<ItemStack> getBackpacksAbove(ItemStack backpack);
 
     /**
      * Return if there exists a higher tier backpack
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - true if there is, false otherwise
      */
-    boolean hasBackpackAbove(ItemStack backpack);
+    boolean hasBackpacksAbove(ItemStack backpack);
 
     /**
      * Sets the backpack that is a higher tier
      * @param baseBackpack - the backpack as an item stack (needed for sub items) to set this value for
-     * @param aboveBackpack - the backpack as an item stack (needed for sub items) to set as higher
+     * @param aboveBackpacks - the backpacks as an array to set as higher
      */
-    void setBackpackAbove(ItemStack baseBackpack, ItemStack aboveBackpack);
+    void setBackpacksAbove(ItemStack baseBackpack, ArrayList<ItemStack> aboveBackpacks);
 
     //==============================================Methods related to lower tier backpacks=======================================================
 
@@ -38,21 +40,21 @@ public interface ITieredBackpack extends IBackpack {
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - the IBackpack that is lower (or null)
      */
-    IBackpack getBackpackBelow(ItemStack backpack);
+    ArrayList<ItemStack> getBackpacksBelow(ItemStack backpack);
 
     /**
      * Return if there exists a lower tier backpack
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - true if there is, false otherwise
      */
-    boolean hasBackpackBelow(ItemStack backpack);
+    boolean hasBackpacksBelow(ItemStack backpack);
 
     /**
      * Sets the backpack that is a lower tier
      * @param baseBackpack - the backpack as an item stack (needed for sub items) to set this value for
-     * @param belowBackpack - the backpack as an item stack (needed for sub items) to set as lower
+     * @param belowBackpacks - the backpacks as an array to set as lower
      */
-    void setBackpackBelow(ItemStack baseBackpack, ItemStack belowBackpack);
+    void setBackpacksBelow(ItemStack baseBackpack, ArrayList<ItemStack> belowBackpacks);
 
 
 

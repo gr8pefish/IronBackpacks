@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.api.item.backpacks.abstractClasses;
 
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.crafting.IIncreaseBackpackTierRecipe;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
 import net.minecraft.item.Item;
 
 /**

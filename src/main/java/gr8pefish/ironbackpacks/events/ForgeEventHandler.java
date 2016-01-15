@@ -1,20 +1,19 @@
 package gr8pefish.ironbackpacks.events;
 
+import gr8pefish.ironbackpacks.api.Constants;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
-import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
-import gr8pefish.ironbackpacks.util.Logger;
-import gr8pefish.ironbackpacks.api.Constants;
-import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
-import gr8pefish.ironbackpacks.items.backpacks.BackpackTypes;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.items.backpacks.ItemBackpackSubItems;
+import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
+import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ContainerWorkbench;
@@ -234,8 +233,8 @@ public class ForgeEventHandler {
             addToLists(backpack, filterBackpacks, condenserTinyBackpacks, condenserSmallBackpacks, condenserBackpacks, hopperBackpacks, upgrades);
 
             if (UpgradeMethods.hasDepthUpgrade(upgrades)) {
-                ItemBackpackSubItems itemBackpack = (ItemBackpackSubItems)backpack.getItem();
-                ContainerBackpack container = new ContainerBackpack(player, new InventoryBackpack(player, backpack, BackpackTypes.values()[itemBackpack.getId()]), BackpackTypes.values()[itemBackpack.getId()]);
+                ItemBackpack itemBackpack = (ItemBackpack)backpack.getItem();
+                ContainerBackpack container = new ContainerBackpack(player, new InventoryBackpack(player, backpack), backpack);
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
                     if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
@@ -281,8 +280,9 @@ public class ForgeEventHandler {
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
                 shouldSave = false;
-                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
-                ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
+//                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
+                ItemBackpack itemBackpack = ((ItemBackpack)backpack.getItem()); //TODO: hardcoded
+                ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack), backpack); //TODO: remove additional itemstack parameter
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     container.sort(); //TODO: test with this removed
                     ArrayList<ItemStack> hopperItems = UpgradeMethods.getHopperItems(backpack);
@@ -293,7 +293,7 @@ public class ForgeEventHandler {
                             ItemStack stackToResupply = null;
                             Slot slotToResupply = null;
 
-                            for (int i = type.getSize(); i < type.getSize() + 36; i++){ //check player's inv for item
+                            for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for item
                                 Slot tempSlot = (Slot) container.getSlot(i);
                                 if (tempSlot!= null && tempSlot.getHasStack()){
                                     ItemStack tempItem = tempSlot.getStack();
@@ -320,7 +320,7 @@ public class ForgeEventHandler {
                                     }
                                 }
                                 if (!done) { //then resupply from the backpack (if necessary)
-                                    for (int i = 0; i < type.getSize(); i++) {
+                                    for (int i = 0; i < itemBackpack.getSize(backpack); i++) {
                                         Slot tempSlot = (Slot) container.getSlot(i);
                                         if (tempSlot != null && tempSlot.getHasStack()) {
                                             ItemStack tempItem = tempSlot.getStack();
@@ -383,8 +383,9 @@ public class ForgeEventHandler {
     private ItemStack checkHopperUpgradeItemUse(PlayerUseItemEvent.Finish event, ArrayList<ItemStack> backpackStacks){
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
-                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
-                ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
+//                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
+                ItemBackpack itemBackpack = (ItemBackpack)backpack.getItem(); //TODO: hardcoded
+                ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack), backpack);
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     container.sort(); //TODO: test with this removed
                     ArrayList<ItemStack> hopperItems = UpgradeMethods.getHopperItems(backpack);
@@ -395,7 +396,7 @@ public class ForgeEventHandler {
                             ItemStack stackToResupply = null;
                             Slot slotToResupply = null;
 
-                            for (int i = type.getSize(); i < type.getSize() + 36; i++){ //check player's inv for item (backpack size + 36 for player inv)
+                            for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for item (backpack size + 36 for player inv)
                                 Slot tempSlot = (Slot) container.getSlot(i);
                                 if (tempSlot!= null && tempSlot.getHasStack()){
                                     ItemStack tempItem = tempSlot.getStack();
@@ -410,7 +411,7 @@ public class ForgeEventHandler {
                             }
 
                             if (foundSlot){ // resupply from the backpack
-                                for (int i = 0; i < type.getSize(); i++) {
+                                for (int i = 0; i < itemBackpack.getSize(backpack); i++) {
                                     Slot backpackSlot = (Slot) container.getSlot(i);
                                     if (backpackSlot != null && backpackSlot.getHasStack()) {
                                         ItemStack backpackItemStack = backpackSlot.getStack();
@@ -458,8 +459,9 @@ public class ForgeEventHandler {
                 shouldSave = false;
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
 
-                    BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
-                    ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
+//                    BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
+                    ItemBackpack itemBackpack = (ItemBackpack)backpack.getItem();
+                    ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack), backpack);
 
                     container.sort(); //sort to make sure all items are in their smallest slot numbers possible
                     if (container.getInventoryBackpack().getStackInSlot( //if the last slot has an item
@@ -488,7 +490,7 @@ public class ForgeEventHandler {
 
                     for (ItemStack condenserItem : condenserItems) {
                         if (condenserItem != null) {
-                            for (int index = 0; index < type.getSize(); index++) {
+                            for (int index = 0; index < itemBackpack.getSize(backpack); index++) {
                                 Slot theSlot = (Slot) container.getSlot(index);
                                 if (theSlot!=null && theSlot.getHasStack()) {
                                     ItemStack theStack = theSlot.getStack();
@@ -534,7 +536,7 @@ public class ForgeEventHandler {
                                                     if (stack == null){ //can't put it anywhere
                                                         break;
                                                     }else if (stack.stackSize != 0){ //remainder present, stack couldn't be fully transferred, undo the last operation
-                                                        Slot slot = container.getSlot(container.getType().getSize()-1); //last slot in pack
+                                                        Slot slot = container.getSlot(itemBackpack.getSize(backpack)-1); //last slot in pack
                                                         slot.putStack(new ItemStack(recipeOutput.getItem(), recipeOutput.getMaxStackSize()-(recipeOutput.stackSize - stack.stackSize), recipeOutput.getItemDamage()));
                                                         break;
                                                     } else { //normal condition, stack was fully transferred
@@ -574,8 +576,8 @@ public class ForgeEventHandler {
     private void checkFilterUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
-                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
-                ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack, type), type);
+//                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
+                ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack), backpack);
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
 

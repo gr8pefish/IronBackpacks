@@ -1,15 +1,15 @@
 package gr8pefish.ironbackpacks.container.alternateGui;
 
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
-import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
-import invtweaks.api.container.ChestContainer;
-import invtweaks.api.container.InventoryContainer;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.slot.GhostSlot;
+import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
+import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import invtweaks.api.container.ChestContainer;
+import invtweaks.api.container.InventoryContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;

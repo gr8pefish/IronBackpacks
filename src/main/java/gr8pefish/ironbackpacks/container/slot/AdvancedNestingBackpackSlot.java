@@ -1,6 +1,5 @@
 package gr8pefish.ironbackpacks.container.slot;
 
-import gr8pefish.ironbackpacks.items.backpacks.BackpackTypes;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
@@ -9,11 +8,11 @@ import net.minecraft.item.ItemStack;
  */
 public class AdvancedNestingBackpackSlot extends NestingBackpackSlot{
 
-    private BackpackTypes type; //The backpack type
+    private ItemStack backpackStack; //The backpack type
 
-    public AdvancedNestingBackpackSlot(IInventory iInventory, int index, int x, int y, BackpackTypes type) {
-        super(iInventory, index, x, y, type);
-        this.type = type;
+    public AdvancedNestingBackpackSlot(IInventory iInventory, int index, int x, int y, ItemStack backpackStack) {
+        super(iInventory, index, x, y, backpackStack);
+        this.backpackStack = backpackStack;
     }
 
     @Override

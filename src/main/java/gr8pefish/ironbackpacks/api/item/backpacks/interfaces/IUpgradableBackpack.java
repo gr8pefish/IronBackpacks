@@ -25,4 +25,13 @@ public interface IUpgradableBackpack extends IBackpack {
      */
     ArrayList<Integer> getUpgrades(ItemStack backpack);
 
+    /**
+     * Gets the fullness of the backpack for the durability bar upgrade.
+     * Note: Checks total fullness used, so if all slots hold 1 stackable item (itemX) it will show the fullness of only (type.size * itemX) and not as full.
+     *
+     * @param backpack - the backpack as an item stack (needed for sub items)
+     * @return - double representing the fullness
+     */
+    double getFullness(ItemStack backpack);
+
 }

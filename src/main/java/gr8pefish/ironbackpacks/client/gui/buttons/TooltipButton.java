@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.client.gui.buttons;
 
-import gr8pefish.ironbackpacks.api.client.gui.button.IBGuiButton;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
+import gr8pefish.ironbackpacks.api.client.gui.button.IBGuiButton;
 import gr8pefish.ironbackpacks.api.client.gui.button.ITooltipButton;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;

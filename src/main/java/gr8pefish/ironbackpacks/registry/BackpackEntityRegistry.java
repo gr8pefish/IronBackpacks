@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.registry;
 
-import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.IronBackpacks;
+import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class BackpackEntityRegistry {

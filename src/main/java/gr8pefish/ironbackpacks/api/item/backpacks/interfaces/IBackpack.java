@@ -9,13 +9,6 @@ import net.minecraft.item.ItemStack;
 public interface IBackpack {
 
     /**
-     * The internal ID of the backpack
-     * @param backpack - the backpack as an item stack (needed for sub items)
-     * @return - the ID as in integer
-     */
-    int getId(ItemStack backpack);
-
-    /**
      * The internal name of the backpack (i.e. "ironBackpack")
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - the name
@@ -35,14 +28,5 @@ public interface IBackpack {
      * @return - integer of the row length
      */
     int getRowLength(ItemStack backpack);
-
-    /**
-     * Gets the fullness of the backpack for the durability bar.
-     * Note: Checks total fullness used, so if all slots hold 1 stackable item (itemX) it will show the fullness of only (type.size * itemX) and not as full.
-     *
-     * @param backpack - the backpack as an item stack (needed for sub items)
-     * @return - double representing the fullness
-     */
-    double getFullness(ItemStack backpack);
 
 }

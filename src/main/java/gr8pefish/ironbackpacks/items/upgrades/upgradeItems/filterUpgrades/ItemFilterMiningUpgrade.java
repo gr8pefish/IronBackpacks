@@ -1,8 +1,8 @@
 package gr8pefish.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades;
 
 import gr8pefish.ironbackpacks.config.ConfigHandler;
-import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.items.upgrades.ItemUpgradeBase;
+import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 
 public class ItemFilterMiningUpgrade extends ItemUpgradeBase {
 

@@ -36,30 +36,30 @@ public abstract class ItemUpgradeBase extends ItemBase implements IPackUpgrade {
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean advanced) {
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.cost", getUpgradeCost(), getUpgradeCost() == 1 ? "" : "s"));
-            list.addAll(getTooltip());
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.cost", getUpgradeCost(itemStack), getUpgradeCost(itemStack) == 1 ? "" : "s"));
+            list.addAll(getTooltip(itemStack));
         } else {
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
         }
     }
 
     @Override
-    public String getName(){
+    public String getName(ItemStack stack){
         return this.name;
     }
 
     @Override
-    public int getId(){
+    public int getId(ItemStack stack){
         return this.typeID;
     }
 
     @Override
-    public int getUpgradeCost() {
+    public int getUpgradeCost(ItemStack stack) {
         return this.upgradeCost;
     }
 
     @Override
-    public List<String> getTooltip(){
+    public List<String> getTooltip(ItemStack stack){
         return Arrays.asList(tooltip);
     }
 

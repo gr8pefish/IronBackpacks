@@ -1,16 +1,16 @@
 package gr8pefish.ironbackpacks.container.alternateGui;
 
-import gr8pefish.ironbackpacks.container.slot.NestingBackpackSlot;
-import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
-import gr8pefish.ironbackpacks.util.Logger;
-import gr8pefish.ironbackpacks.util.NBTHelper;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
-import gr8pefish.ironbackpacks.container.slot.BackpackSlot;
-import gr8pefish.ironbackpacks.items.backpacks.BackpackTypes;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.container.slot.BackpackSlot;
+import gr8pefish.ironbackpacks.container.slot.NestingBackpackSlot;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
+import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.Logger;
+import gr8pefish.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -30,10 +30,9 @@ import java.util.UUID;
  */
 public class InventoryAlternateGui implements IInventory {
 
-    private ItemStack stack; //the itemstack of the backpack
+    private ItemStack backpackStack; //the itemstack of the backpack
     private EntityPlayer player; //the player
     private ItemStack[] inventory; //the items in the backpack
-    private BackpackTypes type; //the type of backpack
     private int[] upgrades; //the upgrades applied
     private int invSize; //the size of the inventory
 
@@ -42,11 +41,10 @@ public class InventoryAlternateGui implements IInventory {
     protected int advFilterButtonStartPoint; //the start point of the advanced filter
 
 
-    public InventoryAlternateGui(EntityPlayer player, ItemStack itemStack, BackpackTypes type) {
-        this.stack = itemStack;
+    public InventoryAlternateGui(EntityPlayer player, ItemStack backpackStack) {
+        this.backpackStack = backpackStack;
         this.player = player;
-        this.type = type;
-        this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack);
+        this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpackStack);
         this.invSize = UpgradeMethods.getAlternateGuiUpgradeSlots(this.upgrades); //dynamic, size is based on number of alt. gui. upgrades
         this.inventory = new ItemStack[this.getSizeInventory()];
 
@@ -55,7 +53,7 @@ public class InventoryAlternateGui implements IInventory {
         advFilterButtonStartPoint = 0; //default start point
         advFilterStacks = new ItemStack[18];
 
-        readFromNBT(stack.getTagCompound()); //to initialize data
+        readFromNBT(backpackStack.getTagCompound()); //to initialize data
     }
 
     public int getAdvFilterButtonStartPoint(){
@@ -105,7 +103,7 @@ public class InventoryAlternateGui implements IInventory {
 
     @Override
     public String getName() {
-        return type.getName();
+        return ((ItemBackpack)backpackStack.getItem()).getName(backpackStack);
     }
 
     @Override
@@ -160,7 +158,7 @@ public class InventoryAlternateGui implements IInventory {
                 || UpgradeMethods.hasFilterAdvancedUpgrade(this.upgrades) || UpgradeMethods.hasFilterMiningUpgrade(this.upgrades)
                 || UpgradeMethods.hasFilterVoidUpgrade(this.upgrades)){
             if (UpgradeMethods.hasNestingUpgrade(this.upgrades)) {
-                NestingBackpackSlot myslot = new NestingBackpackSlot(this, index, 0, 0, this.type);
+                NestingBackpackSlot myslot = new NestingBackpackSlot(this, index, 0, 0, this.backpackStack);
                 return myslot.acceptsStack(itemStack);
             }else{
                 BackpackSlot mySlot = new BackpackSlot(this, index, 0,0);
@@ -220,7 +218,7 @@ public class InventoryAlternateGui implements IInventory {
      * @param entityPlayer - the player
      */
     public void onGuiSaved(EntityPlayer entityPlayer) {
-        if (stack != null) {
+        if (backpackStack != null) {
             save();
         }
     }
@@ -229,14 +227,14 @@ public class InventoryAlternateGui implements IInventory {
      * Updates the NBT data of the backpack to save it.
      */
     public void save() {
-        NBTTagCompound nbtTagCompound = stack.getTagCompound();
+        NBTTagCompound nbtTagCompound = backpackStack.getTagCompound();
 
         if (nbtTagCompound == null) {
             nbtTagCompound = new NBTTagCompound();
         }
 
         writeToNBT(nbtTagCompound);
-        stack.setTagCompound(nbtTagCompound);
+        backpackStack.setTagCompound(nbtTagCompound);
     }
 
     /**
@@ -404,9 +402,9 @@ public class InventoryAlternateGui implements IInventory {
      * @param nbtTagCompound - the tag compound
      */
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
-        stack = findParentItemStack(player);
-        if (stack != null) {
-            nbtTagCompound = stack.getTagCompound();
+        backpackStack = findParentItemStack(player);
+        if (backpackStack != null) {
+            nbtTagCompound = backpackStack.getTagCompound();
 
             if (nbtTagCompound != null) {
                 this.inventory = new ItemStack[this.getSizeInventory()];
@@ -588,8 +586,8 @@ public class InventoryAlternateGui implements IInventory {
      * @return - the itemstack if it is found, null otherwise
      */
     private ItemStack findParentItemStack(EntityPlayer entityPlayer) {
-        if (NBTHelper.hasUUID(stack)) {
-            UUID parentUUID = new UUID(stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), stack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
+        if (NBTHelper.hasUUID(backpackStack)) {
+            UUID parentUUID = new UUID(backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++) {
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 

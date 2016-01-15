@@ -1,10 +1,8 @@
 package gr8pefish.ironbackpacks.items.upgrades;
 
-import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
-import gr8pefish.ironbackpacks.items.backpacks.BackpackTypes;
-import gr8pefish.ironbackpacks.items.backpacks.ItemBackpackSubItems;
+import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
@@ -681,8 +679,7 @@ public class UpgradeMethods {
      */
     private static boolean transferItemsToContainer(EntityPlayer player, ItemStack backpack, IInventory transferTo, boolean usePrecise){
         boolean returnValue = false;
-        BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
-        InventoryBackpack inventoryBackpack = new InventoryBackpack(player, backpack, type);
+        InventoryBackpack inventoryBackpack = new InventoryBackpack(player, backpack);
         if (transferTo.getSizeInventory() > 0 && !(inventoryBackpack.isEmpty())){ //if have a valid inventory to transfer to and have items to transfer
             for (int i = 0; i < inventoryBackpack.getSizeInventory(); i++){
                 ItemStack stackToMove = inventoryBackpack.getStackInSlot(i);

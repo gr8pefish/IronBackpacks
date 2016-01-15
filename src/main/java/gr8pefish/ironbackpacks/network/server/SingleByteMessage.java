@@ -1,15 +1,15 @@
 package gr8pefish.ironbackpacks.network.server;
 
+import gr8pefish.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
+import gr8pefish.ironbackpacks.network.NetworkingHandler;
+import gr8pefish.ironbackpacks.network.client.ClientCurrentPackMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
 import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.NBTHelper;
 import io.netty.buffer.ByteBuf;
-import gr8pefish.ironbackpacks.container.alternateGui.ContainerAlternateGui;
-import gr8pefish.ironbackpacks.network.NetworkingHandler;
-import gr8pefish.ironbackpacks.network.client.ClientCurrentPackMessage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;

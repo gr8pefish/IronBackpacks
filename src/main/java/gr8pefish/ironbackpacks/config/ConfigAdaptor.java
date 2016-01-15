@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.config;
 
-import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.IronBackpacks;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;

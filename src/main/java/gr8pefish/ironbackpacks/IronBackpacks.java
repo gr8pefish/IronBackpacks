@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks;
 
 import gr8pefish.ironbackpacks.api.Constants;
+import gr8pefish.ironbackpacks.client.gui.GuiHandler;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.events.ForgeEventHandler;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
@@ -10,7 +11,6 @@ import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRecipeRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.client.gui.GuiHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;

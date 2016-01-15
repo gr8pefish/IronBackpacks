@@ -1,16 +1,16 @@
 package gr8pefish.ironbackpacks.registry;
 
-import gr8pefish.ironbackpacks.items.backpacks.ItemBackpackSubItems;
-import gr8pefish.ironbackpacks.items.craftingItems.ItemJeweledFeather;
-import gr8pefish.ironbackpacks.items.upgrades.upgradeItems.*;
-import gr8pefish.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
-import gr8pefish.ironbackpacks.items.backpacks.BackpackTypes;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
+import gr8pefish.ironbackpacks.items.craftingItems.ItemJeweledFeather;
 import gr8pefish.ironbackpacks.items.craftingItems.ItemNest;
 import gr8pefish.ironbackpacks.items.craftingItems.ItemTreatedLeather;
 import gr8pefish.ironbackpacks.items.craftingItems.ItemUpgradeCore;
+import gr8pefish.ironbackpacks.items.upgrades.upgradeItems.*;
+import gr8pefish.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
 import gr8pefish.ironbackpacks.util.InventoryRenderHelper;
+import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -67,7 +67,7 @@ public class ItemRegistry {
         backpacks.add(goldBackpack);
         backpacks.add(diamondBackpack);
         return backpacks;
-    }
+    } //TODO: change this
 
     /**
      * Gets every upgrade item.
@@ -105,15 +105,19 @@ public class ItemRegistry {
      */
     public static void registerItems() {
 
+        System.out.println("HERE");
+
         //backpacks
-        basicBackpack = new ItemBackpackSubItems(BackpackTypes.BASIC);
-        GameRegistry.registerItem(basicBackpack, BackpackTypes.BASIC.getName());
-        ironBackpack = new ItemBackpackSubItems(BackpackTypes.IRON);
-        GameRegistry.registerItem(ironBackpack, BackpackTypes.IRON.getName());
-        goldBackpack = new ItemBackpackSubItems(BackpackTypes.GOLD);
-        GameRegistry.registerItem(goldBackpack, BackpackTypes.GOLD.getName());
-        diamondBackpack = new ItemBackpackSubItems(BackpackTypes.DIAMOND);
-        GameRegistry.registerItem(diamondBackpack, BackpackTypes.DIAMOND.getName());
+        basicBackpack = new ItemBackpack(IronBackpacksConstants.Backpacks.BASIC_BACKPACK_ENUM_NAME);
+        GameRegistry.registerItem(basicBackpack, IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME);
+        ironBackpack = new ItemBackpack(IronBackpacksConstants.Backpacks.IRON_BACKPACK_ENUM_NAME);
+        GameRegistry.registerItem(ironBackpack, IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME);
+        goldBackpack = new ItemBackpack(IronBackpacksConstants.Backpacks.GOLD_BACKPACK_ENUM_NAME);
+        GameRegistry.registerItem(goldBackpack, IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME);
+        diamondBackpack = new ItemBackpack(IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_ENUM_NAME);
+        GameRegistry.registerItem(diamondBackpack, IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME);
+
+        System.out.println("THERE");
 
         //upgrades
         buttonUpgrade = new ItemButtonUpgrade();
@@ -176,10 +180,10 @@ public class ItemRegistry {
     public static void registerItemRenders() {
         InventoryRenderHelper helper = new InventoryRenderHelper(Constants.MODID + ":");
 
-        helper.itemRender(basicBackpack, BackpackTypes.BASIC.getName());
-        helper.itemRender(ironBackpack, BackpackTypes.IRON.getName());
-        helper.itemRender(goldBackpack, BackpackTypes.GOLD.getName());
-        helper.itemRender(diamondBackpack, BackpackTypes.DIAMOND.getName());
+        helper.itemRender(basicBackpack, IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME);
+        helper.itemRender(ironBackpack, IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME);
+        helper.itemRender(goldBackpack, IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME);
+        helper.itemRender(diamondBackpack, IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME);
 
         helper.itemRender(buttonUpgrade, "buttonUpgrade");
         helper.itemRender(nestingUpgrade, "nestingUpgrade");

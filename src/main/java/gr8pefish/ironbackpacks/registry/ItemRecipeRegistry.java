@@ -1,9 +1,9 @@
 package gr8pefish.ironbackpacks.registry;
 
-import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
-import gr8pefish.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
+import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
+import gr8pefish.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

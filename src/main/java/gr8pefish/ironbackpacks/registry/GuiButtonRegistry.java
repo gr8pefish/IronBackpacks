@@ -1,8 +1,8 @@
 package gr8pefish.ironbackpacks.registry;
 
+import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.api.client.gui.button.IBGuiButton;
 import gr8pefish.ironbackpacks.util.TextUtils;
-import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 
 import java.util.HashMap;
 import java.util.Map;
