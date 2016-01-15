@@ -20,36 +20,35 @@ public class ItemBackpackSubItems extends AbstractUpgradableTieredBackpack {
 
     private boolean openAltGui = true; //to track which gui to open
 
-    private final int id; //internal id //TODO: can get rid of this, I think, if I use other methods elsewhere
     private final String name; //display name
-    private final int size; //size of the backpack
-    private final int rowCount; //number of rows
     private final int rowLength; //length of each row
+    private final int rowCount; //number of rows
+    private final int size; //size of the backpack
     private final int upgradePoints; //number of upgradePoints
 
-    public ItemBackpackSubItems(int id, String name, int rowCount, int rowLength, int upgradePoints){
+    /**
+     * The Item that stores all the backpacks in one item ID by using a reference to an enum and NBT data to differentiate.
+     * @param enumName - the name to access the enumeration of backpacks which stores all the other data (ex: GOLD)
+     */
+    public ItemBackpackSubItems(String enumName){
         setCreativeTab(IronBackpacks.creativeTab);
         setMaxStackSize(1);
         setNoRepair();
 
-        setUnlocalizedName(Constants.MODID + ":" + name);
+        BackpackEnum backpackEnum = BackpackEnum.valueOf(enumName); //the backpack itself in the enum (accessed by the name)
 
-        this.id = id;
-        this.name = name;
+        setUnlocalizedName(Constants.MODID + ":" + backpackEnum.getName());
+
+        this.name = backpackEnum.getName();
+        this.rowLength = backpackEnum.getRowLength();
+        this.rowCount = backpackEnum.getRowCount();
         this.size = rowCount * rowLength;
-        this.rowCount = rowCount;
-        this.rowLength = rowLength;
-        this.upgradePoints = upgradePoints;
+        this.upgradePoints = backpackEnum.getUpgradePoints();
     }
 
-    public NBTTagCompound toNbt(int id, String name, int size, int rowCount, int rowLength, int upgradePoints) {
+    public NBTTagCompound toNbt(String enumName) {
         NBTTagCompound tagCompound = new NBTTagCompound();
-        tagCompound.setInteger("id", id);
-        tagCompound.setString("name", name);
-        tagCompound.setInteger("size", size);
-        tagCompound.setInteger("rowCount", rowCount);
-        tagCompound.setInteger("rowLength", rowLength);
-        tagCompound.setInteger("upgradePoints", upgradePoints);
+        tagCompound.setString(IronBackpacksConstants.NBTKeys.ENUM_NAME, enumName);
         return tagCompound;
     }
 
@@ -57,21 +56,13 @@ public class ItemBackpackSubItems extends AbstractUpgradableTieredBackpack {
         if (tagCompound == null)
             tagCompound = new NBTTagCompound();
 
-        if (!tagCompound.hasKey(IronBackpacksConstants.NBTKeys.BACKPACK_FIELDS)){ //The NBT tag compound to store this field data at
-            tagCompound.setTag(IronBackpacksConstants.NBTKeys.BACKPACK_FIELDS, new NBTTagCompound());
-            Logger.error("IronBackpacks: Item has no BACKPACK_FIELDS tag, and fromNBT is being called");
-            return null;
+        if (tagCompound.hasKey(IronBackpacksConstants.NBTKeys.ENUM_NAME)){ //The NBT tag compound to store this field data at
+            String enumName = tagCompound.getString(IronBackpacksConstants.NBTKeys.ENUM_NAME);
+            return new ItemBackpackSubItems(enumName);
         } else {
-            NBTTagCompound fieldCompound = tagCompound.getCompoundTag(IronBackpacksConstants.NBTKeys.BACKPACK_FIELDS);
-
-            int id = fieldCompound.getInteger("id");
-            String name = fieldCompound.getString("name");
-            int size = fieldCompound.getInteger("size");
-            int rowCount = fieldCompound.getInteger("rowCount");
-            int rowLength = fieldCompound.getInteger("rowLength");
-            int upgradePoints = fieldCompound.getInteger("upgradePoints");
-
-            return new ItemBackpackSubItems(id, name, size, rowCount, rowLength, upgradePoints);
+            tagCompound.setTag(IronBackpacksConstants.NBTKeys.ENUM_NAME, new NBTTagCompound());
+            Logger.error("IronBackpacks: Item has no ENUM_ID tag, and fromNBT is being called");
+            return null;
         }
     }
 
@@ -101,7 +92,8 @@ public class ItemBackpackSubItems extends AbstractUpgradableTieredBackpack {
 
     @Override
     public int getId(ItemStack backpack) {
-        return fromNbt(backpack.getTagCompound()).id;
+//        return fromNbt(backpack.getTagCompound()).id;
+        return 1; //TODO: remove
 //        return this.id;
     }
 
@@ -197,6 +189,10 @@ public class ItemBackpackSubItems extends AbstractUpgradableTieredBackpack {
     }
 
     //====================================================Tiering=====================================================
+
+
+    //TODO: add fields to enum for this?
+
 
     @Override
     public IBackpack getBackpackAbove(ItemStack backpack) {

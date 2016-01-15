@@ -24,6 +24,12 @@ public class IronBackpacksConstants {
 
     //The backpack constants
     public static final class Backpacks{
+
+        public static final String BASIC_BACKPACK_ENUM_NAME = "BASIC";
+        public static final String IRON_BACKPACK_ENUM_NAME = "IRON";
+        public static final String GOLD_BACKPACK_ENUM_NAME = "GOLD";
+        public static final String DIAMOND_BACKPACK_ENUM_NAME = "DIAMOND";
+
         public static final int BASIC_ID = 1;
         public static final int IRON_ID = 2;
         public static final int GOLD_ID = 3;
@@ -201,7 +207,7 @@ public class IronBackpacksConstants {
     //The commonly used NBT keys
     public static final class NBTKeys {
 
-        public static final String BACKPACK_FIELDS = "BackpackFields";
+        public static final String ENUM_NAME = "EnumName";
 
         public static final String UPGRADES = "Upgrades";
         public static final String UPGRADE = "Upgrade";
