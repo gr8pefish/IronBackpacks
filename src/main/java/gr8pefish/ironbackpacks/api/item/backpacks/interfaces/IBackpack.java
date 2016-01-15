@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.api.item.backpacks.interfaces;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * This interface should be used for all backpacks.
@@ -28,5 +29,26 @@ public interface IBackpack {
      * @return - integer of the row length
      */
     int getRowLength(ItemStack backpack);
+
+    /**
+     * Get the location of the texture for the GUI.
+     * @param backpack - the backpack as an item stack (needed for sub items)
+     * @return - the resource location
+     */
+    ResourceLocation getGuiResourceLocation(ItemStack backpack);
+
+    /**
+     * Get the width of the GUI.
+     * @param backpack - the backpack as an item stack (needed for sub items)
+     * @return - the size in pixels in the x-direction
+     */
+    int getGuiXSize(ItemStack backpack);
+
+    /**
+     * Get the height of the GUI.
+     * @param backpack - the backpack as an item stack (needed for sub items)
+     * @return - the size in pixels in the y-direction
+     */
+    int getGuiYSize(ItemStack backpack);
 
 }

@@ -32,7 +32,7 @@ public class GuiHandler implements IGuiHandler {
         if (ID >= 0) { //normal gui
             ItemStack backpack = IronBackpacksHelper.getBackpack(player);
             int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
-            return GUIBackpack.GUI.buildGUI(player, new InventoryBackpack(player, backpack), upgrades, backpack);
+            return GUIBackpack.buildGUI(player, new InventoryBackpack(player, backpack), upgrades, backpack);
         }else if (ID < 0){ //alternate gui
             ItemStack backpack = IronBackpacksHelper.getBackpack(player);
             int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);

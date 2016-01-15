@@ -19,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -38,6 +39,10 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
     private final int upgradePoints; //number of upgradePoints
 
     private final int guiId; //the id of the gui (must only be unique to the mod)
+
+    private final ResourceLocation guiResourceLocation; //the resource location of the gui to display
+    private final int guiXSize; //the width of the gui
+    private final int guiYSize; //the height of the gui
 
     /**
      * The Item that represents an AbstractUpgradableTieredBackpack
@@ -59,6 +64,10 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
         this.upgradePoints = backpackEnum.getUpgradePoints();
 
         this.guiId = backpackEnum.guiId;
+
+        this.guiResourceLocation = backpackEnum.getGuiResourceLocation();
+        this.guiXSize = backpackEnum.getGuiXSize();
+        this.guiYSize = backpackEnum.getGuiYSize();
     }
 
     //================================================Override Vanilla Item Methods=========================================
@@ -202,6 +211,21 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
     @Override
     public int getRowLength(ItemStack backpack) {
         return this.rowLength;
+    }
+
+    @Override
+    public ResourceLocation getGuiResourceLocation(ItemStack backpack) {
+        return this.guiResourceLocation;
+    }
+
+    @Override
+    public int getGuiXSize(ItemStack backpack) {
+        return this.guiXSize;
+    }
+
+    @Override
+    public int getGuiYSize(ItemStack backpack) {
+        return this.guiYSize;
     }
 
     //TODO: fix with dynamic
