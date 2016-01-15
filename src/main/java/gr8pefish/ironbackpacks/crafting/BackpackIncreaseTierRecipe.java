@@ -1,6 +1,6 @@
 package gr8pefish.ironbackpacks.crafting;
 
-import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpackSubItems;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
@@ -44,7 +44,7 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe {
             backpack.setTagCompound(nbtTagCompound);
         }
 
-        ItemBackpack backpackItem = (ItemBackpack)backpack.getItem();
+        ItemBackpackSubItems backpackItem = (ItemBackpackSubItems)backpack.getItem();
         ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
         result = new ItemStack(backpacks.get(backpackItem.getId()));
         result.setTagCompound(backpack.getTagCompound());

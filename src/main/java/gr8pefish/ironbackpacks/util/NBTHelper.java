@@ -74,7 +74,6 @@ public class NBTHelper {
      */
     private static void initNBTCompound(ItemStack itemStack){
         if (itemStack.getTagCompound() == null){
-            Logger.info("Initializing NBT tag");
             itemStack.setTagCompound(new NBTTagCompound());
         }
     }

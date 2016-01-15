@@ -3,7 +3,7 @@ package gr8pefish.ironbackpacks.crafting;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpackSubItems;
 import gr8pefish.ironbackpacks.items.upgrades.ItemUpgradeBase;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
@@ -222,7 +222,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
      * @return - true if it can be applied, false otherwise
      */
     private boolean applyAdditional(NBTTagCompound nbtTagCompound, ItemStack backpack){
-        ItemBackpack backpackBase = (ItemBackpack) backpack.getItem();
+        ItemBackpackSubItems backpackBase = (ItemBackpackSubItems) backpack.getItem();
         if (backpackBase == null) return false;
         if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS)){
             int[] oldValuesArray = nbtTagCompound.getIntArray(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS);

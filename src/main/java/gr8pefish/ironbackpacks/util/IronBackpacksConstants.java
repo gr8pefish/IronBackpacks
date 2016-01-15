@@ -200,6 +200,9 @@ public class IronBackpacksConstants {
 
     //The commonly used NBT keys
     public static final class NBTKeys {
+
+        public static final String BACKPACK_FIELDS = "BackpackFields";
+
         public static final String UPGRADES = "Upgrades";
         public static final String UPGRADE = "Upgrade";
         public static final String ADDITIONAL_POINTS = "AdditionalPoints";

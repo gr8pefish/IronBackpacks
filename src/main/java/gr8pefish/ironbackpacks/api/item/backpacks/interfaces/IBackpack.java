@@ -23,13 +23,6 @@ public interface IBackpack {
     String getName(ItemStack backpack);
 
     /**
-     * The total size/slots of the backpack's normal storage (could be calculated from rowLength and numberOfRows)
-     * @param backpack - the backpack as an item stack (needed for sub items)
-     * @return - integer of the size
-     */
-    int getSize(ItemStack backpack);
-
-    /**
      * The number of the rows in the backpack
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - integer of the row count

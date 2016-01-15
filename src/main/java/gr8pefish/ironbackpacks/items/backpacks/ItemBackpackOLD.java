@@ -30,7 +30,7 @@ import java.util.List;
  * Base class for all the backpack items to extend
  */
 //@Optional.Interface(iface="vazkii.botania.api.item.IBlockProvider", modid="Botania") //No Botania in 1.8 (yet)
-public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider {
+public class ItemBackpackOLD extends Item implements IBackpack {//, IBlockProvider {
 
     private boolean openAltGui = true; //to track which gui to open
 
@@ -40,7 +40,7 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
     private final int upgradePoints; //number of upgradePoints
     private final String fancyName; //display name
 
-    public ItemBackpack(int id, int size, int rowLength, String fancyName, int upgradePoints) { //TODO: remove texture
+    public ItemBackpackOLD(int id, int size, int rowLength, String fancyName, int upgradePoints) { //TODO: remove texture
         setCreativeTab(IronBackpacks.creativeTab);
         setUnlocalizedName(Constants.MODID + ":" + fancyName);
         setMaxStackSize(1);
@@ -53,9 +53,15 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
         this.fancyName = fancyName;
     }
 
-    public ItemBackpack(BackpackTypes type) {
+    public ItemBackpackOLD(BackpackTypes type) {
         this(type.getId(), type.getSize(), type.getRowLength(), type.getName(), type.getUpgradePoints());
     }
+
+    @Override //TODO: test
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return false; //no more item backpack bobbing hopefully
+    }
+
 
     @Override
     public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
@@ -94,7 +100,7 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
             }
             boolean openAltGuiDepth;
             if (hasDepthUpgrade) {
-                ItemBackpack itemBackpack = (ItemBackpack)itemstack.getItem();
+                ItemBackpackSubItems itemBackpack = (ItemBackpackSubItems)itemstack.getItem();
                 ContainerBackpack container = new ContainerBackpack(player, new InventoryBackpack(player, itemstack, BackpackTypes.values()[itemBackpack.getId()]), BackpackTypes.values()[itemBackpack.getId()]);
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
@@ -237,6 +243,7 @@ public class ItemBackpack extends Item implements IBackpack {//, IBlockProvider 
     }
 
 //    @Override
+    //TODO: important, don't forget to to extend this or something
     public int getGuiId() {
         return getId() - 1;
     }

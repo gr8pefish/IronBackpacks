@@ -27,14 +27,13 @@ public enum BackpackTypes {
             ConfigHandler.enumDiamondBackpack.sizeX.getValue() * ConfigHandler.enumDiamondBackpack.sizeY.getValue(),
             ConfigHandler.enumDiamondBackpack.sizeX.getValue(),
             "diamondBackpack",
-            ConfigHandler.enumDiamondBackpack.upgradePoints.getValue(),
+            ConfigHandler.enumDiamondBackpack.upgradePoints.getValue();
 
     private int id; //id int value of number in enum
     private int size; //number of slots
     private int rowLength; //number of rows
-    public String name; //display name
-    public int upgradePoints; //the number of total upgrade points
-    public String texture; //the texture of the item to display
+    private String name; //display name
+    private int upgradePoints; //the number of total upgrade points
 
     BackpackTypes(int id, int size, int rowLength, String fancyName, int upgradePoints){
         this.id = id;

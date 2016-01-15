@@ -5,7 +5,7 @@ import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
-import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpackSubItems;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
@@ -127,7 +127,7 @@ public class IronBackpacksHelper {
      * @return - integer value
      */
     public static int getTotalUpgradePointsFromNBT(ItemStack stack){
-        ItemBackpack backpack = (ItemBackpack) stack.getItem();
+        ItemBackpackSubItems backpack = (ItemBackpackSubItems) stack.getItem();
         int upgradeCount = backpack.getUpgradePoints(); //from initialization via config
         int extraPoints = getAdditionalUpgradesUpgradeCount(stack);
         return (upgradeCount + extraPoints);
@@ -221,7 +221,7 @@ public class IronBackpacksHelper {
 
     //spawns a backpack as an entity so it can render on the player
     public static void spawnEntityBackpack(ItemStack backpack, EntityPlayer player){
-        EntityBackpack entityBackpack = new EntityBackpack(player.worldObj, player, ((ItemBackpack)backpack.getItem()).getGuiId());
+        EntityBackpack entityBackpack = new EntityBackpack(player.worldObj, player, ((ItemBackpackSubItems)backpack.getItem()).getGuiId());
         entityBackpack.setPositionAndRotation(player.posX, player.posY, player.posZ-.5, player.rotationPitch, player.rotationYaw);
         player.worldObj.spawnEntityInWorld(entityBackpack);
         EntityBackpack.backpacksSpawnedMap.put(player, entityBackpack);

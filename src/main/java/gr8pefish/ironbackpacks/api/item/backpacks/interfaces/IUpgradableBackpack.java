@@ -18,9 +18,11 @@ public interface IUpgradableBackpack extends IBackpack {
 
     /**
      * Get the upgrades applied to the backpack.
+     * The integer return type is each upgrade's internal id, so instead of saving an entire item stack you just save one byte.
+     *
      * @param backpack - the backpack as an item stack (needed for sub items)
-     * @return - the upgrades applied
+     * @return - the upgrades applied, as integer values.
      */
-    ArrayList<ItemStack> getUpgrades(ItemStack backpack);
+    ArrayList<Integer> getUpgrades(ItemStack backpack);
 
 }

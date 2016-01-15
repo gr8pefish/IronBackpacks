@@ -172,7 +172,7 @@ public class ConfigHandler {
         config.addCustomCategoryComment("0) Config", "IMPORTANT: If you ever manually edit ANY of these values, please change the value below to true. " +
                 "This will prevent them being overwritten if an update changes the config file.");
 
-        config.addCustomCategoryComment("1) Backpacks", "Here you can modify the traits of the backpacks.");
+        config.addCustomCategoryComment("1) BackpackNames", "Here you can modify the traits of the backpacks.");
         config.addCustomCategoryComment("6) Upgrade Costs", "Here you can modify how expensive the upgrades are to add to a backpack. " +
                 "A cost of 0 makes the upgrade 'free' to apply, while a higher number makes it more expensive.");
         config.addCustomCategoryComment("5) Recipes", "Each recipe has 9 lines, each corresponding to the next slot in the crafting grid. " +

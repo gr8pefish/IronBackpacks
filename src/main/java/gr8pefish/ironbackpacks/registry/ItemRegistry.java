@@ -1,6 +1,6 @@
 package gr8pefish.ironbackpacks.registry;
 
-import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpackSubItems;
 import gr8pefish.ironbackpacks.items.craftingItems.ItemJeweledFeather;
 import gr8pefish.ironbackpacks.items.upgrades.upgradeItems.*;
 import gr8pefish.ironbackpacks.items.upgrades.upgradeItems.filterUpgrades.*;
@@ -106,13 +106,13 @@ public class ItemRegistry {
     public static void registerItems() {
 
         //backpacks
-        basicBackpack = new ItemBackpack(BackpackTypes.BASIC);
+        basicBackpack = new ItemBackpackSubItems(BackpackTypes.BASIC);
         GameRegistry.registerItem(basicBackpack, BackpackTypes.BASIC.getName());
-        ironBackpack = new ItemBackpack(BackpackTypes.IRON);
+        ironBackpack = new ItemBackpackSubItems(BackpackTypes.IRON);
         GameRegistry.registerItem(ironBackpack, BackpackTypes.IRON.getName());
-        goldBackpack = new ItemBackpack(BackpackTypes.GOLD);
+        goldBackpack = new ItemBackpackSubItems(BackpackTypes.GOLD);
         GameRegistry.registerItem(goldBackpack, BackpackTypes.GOLD.getName());
-        diamondBackpack = new ItemBackpack(BackpackTypes.DIAMOND);
+        diamondBackpack = new ItemBackpackSubItems(BackpackTypes.DIAMOND);
         GameRegistry.registerItem(diamondBackpack, BackpackTypes.DIAMOND.getName());
 
         //upgrades
