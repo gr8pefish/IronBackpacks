@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.api.item.upgrades;
 
+import net.minecraft.item.ItemStack;
+
 import java.util.ArrayList;
 
 /**
@@ -10,7 +12,8 @@ public interface IConflicitingUpgrade extends IPackUpgrade{
 
     /**
      * Get the list of upgrades that this upgrade cannot be simultaneously applied alongside.
+     * @param upgrade - the upgrade as an item stack (needed for subitems)
      * @return - the list of conflicting upgrades
      */
-    ArrayList<IPackUpgrade> getConflictingUpgrades();
+    ArrayList<IPackUpgrade> getConflictingUpgrades(ItemStack upgrade);
 }
