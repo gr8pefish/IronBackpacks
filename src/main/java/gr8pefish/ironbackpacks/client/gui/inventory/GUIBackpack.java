@@ -4,7 +4,6 @@ import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
@@ -48,13 +47,13 @@ public class GUIBackpack extends GuiContainer {
     private EntityPlayer player; //TODO remove
 
     private GUIBackpack(EntityPlayer player, InventoryBackpack inventoryBackpack) {
-        super(new ContainerBackpack(player, inventoryBackpack, ((ItemBackpack)inventoryBackpack.getBackpackStack().getItem()).getGuiXSize(inventoryBackpack.getBackpackStack()), ((ItemBackpack)inventoryBackpack.getBackpackStack().getItem()).getGuiYSize(inventoryBackpack.getBackpackStack()))); //holy grossness batman
+        super(new ContainerBackpack(inventoryBackpack, ((ItemBackpack)inventoryBackpack.getBackpackStack().getItem()).getGuiXSize(inventoryBackpack.getBackpackStack()), ((ItemBackpack)inventoryBackpack.getBackpackStack().getItem()).getGuiYSize(inventoryBackpack.getBackpackStack()))); //holy grossness batman
 
         this.itemStack = inventoryBackpack.getBackpackStack();
         this.itemBackpack = (ItemBackpack)itemStack.getItem();
         this.xSize = itemBackpack.getGuiXSize(itemStack);
         this.ySize = itemBackpack.getGuiYSize(itemStack);
-        this.container = new ContainerBackpack(player, inventoryBackpack, xSize, ySize) ;
+        this.container = new ContainerBackpack(inventoryBackpack, xSize, ySize) ;
         this.allowUserInput = false;
         this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack));
         tooltipButtons = new ArrayList<>();
@@ -109,7 +108,6 @@ public class GUIBackpack extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        itemStack = PlayerBackpackProperties.getCurrentBackpack(player); //TODO: will probably break, have to fix this
 
         if (itemStack != null)
             this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way

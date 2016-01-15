@@ -8,7 +8,6 @@ import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
@@ -20,9 +19,9 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID >=0){ //normal gui
-            return new ContainerBackpack(player, new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player))); //TODO: check okay once refactoring
+            return new ContainerBackpack(new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player))); //TODO: check okay once done refactoring
         }else if (ID < 0){ //alternate gui
-            return new ContainerAlternateGui(player, new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player)));
+            return new ContainerAlternateGui(new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player)));
         }
         return null;
 	}
@@ -30,13 +29,9 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID >= 0) { //normal gui
-            ItemStack backpack = IronBackpacksHelper.getBackpack(player);
-            int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
-            return GUIBackpack.buildGUI(player, new InventoryBackpack(player, backpack), upgrades, backpack);
+            return GUIBackpack.buildGUI(player, new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player)));
         }else if (ID < 0){ //alternate gui
-            ItemStack backpack = IronBackpacksHelper.getBackpack(player);
-            int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
-            return GUIBackpackAlternate.GUI.buildGUIAlternate(player, new InventoryAlternateGui(player, backpack), upgrades, backpack); //TODO: refactor?
+            return GUIBackpackAlternate.GUI.buildGUIAlternate(new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player)));
         }
 		return null;
 	}

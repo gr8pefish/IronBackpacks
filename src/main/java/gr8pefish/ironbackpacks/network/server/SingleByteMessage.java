@@ -112,7 +112,7 @@ public class SingleByteMessage implements IMessage {
                     }
                     break;
                 default:
-                    Logger.error("Error in sending message for Iron BackpackNames in SingleByteMessage");
+                    Logger.error("Error in sending message for Iron Backpacks in SingleByteMessage");
                     break;
             }
             return null; //no return message necessary

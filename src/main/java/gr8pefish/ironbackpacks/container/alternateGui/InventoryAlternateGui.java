@@ -67,6 +67,10 @@ public class InventoryAlternateGui implements IInventory {
         return backpackStack;
     }
 
+    public EntityPlayer getPlayer(){
+        return player;
+    }
+
     @Override
     public int getSizeInventory() {
         return invSize;

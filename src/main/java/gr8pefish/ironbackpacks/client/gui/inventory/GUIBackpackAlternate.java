@@ -13,6 +13,7 @@ import gr8pefish.ironbackpacks.network.server.RenameMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -89,24 +90,22 @@ public class GUIBackpackAlternate extends GuiContainer {
 
         /**
          * Called from GuiHandler to create the GUI.
-         * @param player - the player opening the backpack
          * @param inv - the backpack's inventory
-         * @param upgrades - the backpack's upgrade
          * @return - the GUI built
          */
-        public static GUIBackpackAlternate buildGUIAlternate(EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, ItemStack backpack) {
+        public static GUIBackpackAlternate buildGUIAlternate(InventoryAlternateGui inv) {
+            int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(inv.getBackpackStack());
             GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades) + 3] : values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades)]; //shifts to correct index if renaming
-            return new GUIBackpackAlternate(gui, player, inv, upgrades, backpack);
+            return new GUIBackpackAlternate(gui, inv.getPlayer(), inv, upgrades, inv.getBackpackStack());
         }
 
         /**
          * Makes a container instance of a backpack.
-         * @param player - the player with the backpack
          * @param inv - the backpack's inventory
          * @return - the Container
          */
-        private Container makeContainer(EntityPlayer player, InventoryAlternateGui inv) {
-            return new ContainerAlternateGui(player, inv, xSize, ySize);
+        private Container makeContainer(InventoryAlternateGui inv) {
+            return new ContainerAlternateGui(inv, xSize, ySize);
         }
     }
 
@@ -145,9 +144,9 @@ public class GUIBackpackAlternate extends GuiContainer {
     private boolean hasFilterVoidUpgrade;
 
     private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, ItemStack backpack) {
-        super(type.makeContainer(player, inv));
+        super(type.makeContainer(inv));
         this.player = player;
-        this.container = (ContainerAlternateGui) type.makeContainer(player, inv);
+        this.container = (ContainerAlternateGui) type.makeContainer(inv);
         this.type = type;
 
         this.xSize = type.xSize;
@@ -352,7 +351,7 @@ public class GUIBackpackAlternate extends GuiContainer {
      * Draw the info strings in the GUI so each row has a label
      */
     private void drawInfoStrings(){
-//        itemStack = IronBackpacks.proxy.getCurrBackpack(player); //TODO remove
+
         fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752);
         int counter = hasFilterAdvancedUpgrade ? 5 : 4;
         fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 20, ySize - 96 + counter, 4210752);

@@ -234,7 +234,7 @@ public class ForgeEventHandler {
 
             if (UpgradeMethods.hasDepthUpgrade(upgrades)) {
                 ItemBackpack itemBackpack = (ItemBackpack)backpack.getItem();
-                ContainerBackpack container = new ContainerBackpack(player, new InventoryBackpack(player, backpack), backpack);
+                ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, backpack));
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
                     if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
@@ -282,7 +282,7 @@ public class ForgeEventHandler {
                 shouldSave = false;
 //                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
                 ItemBackpack itemBackpack = ((ItemBackpack)backpack.getItem()); //TODO: hardcoded
-                ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack), backpack); //TODO: remove additional itemstack parameter
+                ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(event.entityPlayer, backpack)); //TODO: remove additional itemstack parameter
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     container.sort(); //TODO: test with this removed
                     ArrayList<ItemStack> hopperItems = UpgradeMethods.getHopperItems(backpack);
@@ -385,7 +385,7 @@ public class ForgeEventHandler {
             for (ItemStack backpack : backpackStacks) {
 //                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
                 ItemBackpack itemBackpack = (ItemBackpack)backpack.getItem(); //TODO: hardcoded
-                ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack), backpack);
+                ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(event.entityPlayer, backpack));
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     container.sort(); //TODO: test with this removed
                     ArrayList<ItemStack> hopperItems = UpgradeMethods.getHopperItems(backpack);
@@ -461,7 +461,7 @@ public class ForgeEventHandler {
 
 //                    BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
                     ItemBackpack itemBackpack = (ItemBackpack)backpack.getItem();
-                    ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack), backpack);
+                    ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(event.entityPlayer, backpack));
 
                     container.sort(); //sort to make sure all items are in their smallest slot numbers possible
                     if (container.getInventoryBackpack().getStackInSlot( //if the last slot has an item
@@ -577,7 +577,7 @@ public class ForgeEventHandler {
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
 //                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
-                ContainerBackpack container = new ContainerBackpack(event.entityPlayer, new InventoryBackpack(event.entityPlayer, backpack), backpack);
+                ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(event.entityPlayer, backpack));
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
 

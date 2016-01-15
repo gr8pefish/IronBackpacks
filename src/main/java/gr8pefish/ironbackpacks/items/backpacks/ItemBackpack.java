@@ -114,7 +114,7 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
             }
             boolean openAltGuiDepth;
             if (hasDepthUpgrade) {
-                ContainerBackpack container = new ContainerBackpack(player, new InventoryBackpack(player, itemstack), itemstack);
+                ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, itemstack));
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
                     if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {

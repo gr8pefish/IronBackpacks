@@ -37,6 +37,10 @@ public class InventoryBackpack implements IInventory {
         return backpackStack;
     }
 
+    public EntityPlayer getPlayer(){
+        return player;
+    }
+
     @Override
     public int getSizeInventory() {
         return ((ItemBackpack)backpackStack.getItem()).getSize(backpackStack);

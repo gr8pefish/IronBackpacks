@@ -33,27 +33,27 @@ public class ContainerAlternateGui extends Container {
     private int filterAdvSlotIdStart; //the advanced filter's start
     private int[] upgrades; //the upgrades applied
 
-    public ContainerAlternateGui(EntityPlayer entityPlayer, InventoryAlternateGui inventoryAlternateGui, int xSize, int ySize){
-        this.player = entityPlayer;
+    public ContainerAlternateGui(InventoryAlternateGui inventoryAlternateGui, int xSize, int ySize){
+        this.player = inventoryAlternateGui.getPlayer();
         this.inventory = inventoryAlternateGui;
         this.xSize = xSize;
         this.ySize = ySize;
         this.stack = IronBackpacksHelper.getBackpack(player);
         this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
 
-        layoutContainer(entityPlayer.inventory, inventoryAlternateGui, xSize, ySize);
+        layoutContainer(this.player.inventory, inventoryAlternateGui, xSize, ySize);
         if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades))
             initFilterSlots();
     }
 
     //Overloaded constructor for when size doesn't matter
-    public ContainerAlternateGui(EntityPlayer entityPlayer, InventoryAlternateGui inventoryAlternateGui){
-        this.player = entityPlayer;
+    public ContainerAlternateGui(InventoryAlternateGui inventoryAlternateGui){
+        this.player = inventoryAlternateGui.getPlayer();
         this.inventory = inventoryAlternateGui;
         this.stack = IronBackpacksHelper.getBackpack(player);
         this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
 
-        layoutContainer(entityPlayer.inventory, inventoryAlternateGui, xSize, ySize);
+        layoutContainer(this.player.inventory, inventoryAlternateGui, xSize, ySize);
         if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades))
             initFilterSlots();
     }
