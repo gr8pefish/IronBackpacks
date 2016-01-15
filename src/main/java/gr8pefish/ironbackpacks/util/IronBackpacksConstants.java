@@ -17,8 +17,8 @@ public class IronBackpacksConstants {
 
     //General constants
     public static final class General{
-        public static final String CLIENTPROXY = "ClientProxy";
-        public static final String COMMONPROXY = "CommonProxy";
+        public static final String CLIENTPROXY = "gr8pefish.ironbackpacks.proxies.ClientProxy";
+        public static final String COMMONPROXY = "gr8pefish.ironbackpacks.proxies.CommonProxy";
         public static final String GUIFACTORY = "main.ironbackpacks.client.gui.config.ConfigGuiFactory";
     }
 
