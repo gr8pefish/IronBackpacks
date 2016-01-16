@@ -14,6 +14,7 @@ import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -94,6 +95,7 @@ public class GUIBackpackAlternate extends GuiContainer {
          * @return - the GUI built
          */
         public static GUIBackpackAlternate buildGUIAlternate(InventoryAlternateGui inv) {
+            Logger.info(inv.getBackpackStack() == null);
             int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(inv.getBackpackStack());
             GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades) + 3] : values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades)]; //shifts to correct index if renaming
             return new GUIBackpackAlternate(gui, inv.getPlayer(), inv, upgrades, inv.getBackpackStack());
@@ -168,6 +170,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         this.hasFilterVoidUpgrade = UpgradeMethods.hasFilterVoidUpgrade(upgrades);
 
         this.itemStack = backpack;
+        Logger.info(backpack == null);
     }
 
     @Override

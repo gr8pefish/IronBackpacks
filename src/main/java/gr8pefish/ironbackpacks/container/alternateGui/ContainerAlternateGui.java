@@ -80,6 +80,9 @@ public class ContainerAlternateGui extends Container {
      */
     private void layoutContainer(IInventory playerInventory, IInventory customInv, int xSize, int ySize){
 
+        ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player); //TODO: remove these 2 lines?
+        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(baseBackpack);
+
         //Need to calculate which row the advanced filter will be on to place the buttons correctly
         int advFilterRow = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) ? 0 : -1;
         if (UpgradeMethods.hasFilterBasicUpgrade(upgrades)) advFilterRow++;

@@ -141,6 +141,7 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
             PlayerBackpackProperties.setCurrentBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: client side
             return itemStack;
         } else {
+            NBTHelper.setUUID(itemStack);
             PlayerBackpackProperties.setCurrentBackpack(player, itemStack);
             if (!player.isSneaking()){
                 player.openGui(IronBackpacks.instance, getGuiId(itemStack), world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"

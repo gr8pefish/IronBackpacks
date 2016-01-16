@@ -3,7 +3,8 @@ To Do:
     1.8 Stuff:
 
         BUG: when shift keybinding to open alt gui of equipped pack, same null error as non-initialized shift right click gui
-            something with UUIDs
+            Null itemstack on client side - why? check difference between open normal and open alt
+            Probably the server isn't updated, it has the client ~ Could be something with UUIDs
             once fixed add this ability to changelog
 
         add registry items to API

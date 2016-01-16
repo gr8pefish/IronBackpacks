@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.client.gui;
 
+import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.client.gui.inventory.GUIBackpack;
 import gr8pefish.ironbackpacks.client.gui.inventory.GUIBackpackAlternate;
 import gr8pefish.ironbackpacks.container.alternateGui.ContainerAlternateGui;
@@ -7,6 +8,7 @@ import gr8pefish.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -29,9 +31,11 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID >= 0) { //normal gui
+            Logger.info((IronBackpacksHelper.getBackpack(player)) == null);
             return GUIBackpack.buildGUI(player, new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player)));
         }else if (ID < 0){ //alternate gui
-            return GUIBackpackAlternate.GUI.buildGUIAlternate(new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player)));
+            Logger.info((IronBackpacksHelper.getBackpack(player)) == null);
+            return GUIBackpackAlternate.GUI.buildGUIAlternate(new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player))); //TODO: THE BUG IS HERE?
         }
 		return null;
 	}

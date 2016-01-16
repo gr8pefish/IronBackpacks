@@ -11,6 +11,7 @@ import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -66,6 +67,7 @@ public class GUIBackpack extends GuiContainer {
      * @return - a GUI
      */
     public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack) {
+        Logger.info(backpack == null);
         return new GUIBackpack(player, backpack); //TODO: fix this grossness
     }
 

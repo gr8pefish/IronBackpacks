@@ -120,7 +120,6 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
     }
 
     public static void setCurrentBackpack(EntityLivingBase livingBase, ItemStack stack) {
-        NBTHelper.setUUID(stack);
         get(livingBase).setCurrentBackpack(stack);
     }
 
