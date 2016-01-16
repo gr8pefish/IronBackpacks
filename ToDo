@@ -2,7 +2,9 @@ To Do:
 
     1.8 Stuff:
 
-        check register packets also had to server side - ex: error on server startup if no getClientPlayer() - that's a bug
+        BUG: when shift keybinding to open alt gui of equipped pack, same null error as non-initialized shift right click gui
+            something with UUIDs
+            once fixed add this ability to changelog
 
         add registry items to API
             check BM api
@@ -39,9 +41,8 @@ To Do:
 
         REFACTOR:
 
-            gui/container/inv deep refactor via 1.8
-
             Data storage in player pack?
+                check register packets also had to server side - ex: error on server startup if no getClientPlayer() - that's a bug
 
         TESTING:
 
@@ -58,8 +59,8 @@ To Do:
             When I have time to play, tweaks for default config values
 
             Real API/Interfaces
-                IUpgradeableBackpack
-                IUpgrade, IAltGuiUpgrade, IConflictingUpgrade, (IEventUpgrade?)
+                (IEventUpgrade?)
+                Actually check for (if instance of IUpgradableBackpack) etc.
 
             Tick Handler
                 Restocking upgrade onItemPlaced - ask in IRC if the onBlockPlacedEvent exists

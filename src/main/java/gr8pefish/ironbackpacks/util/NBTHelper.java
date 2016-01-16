@@ -73,7 +73,7 @@ public class NBTHelper {
      * @param itemStack - the stack to set it to
      */
     private static void initNBTCompound(ItemStack itemStack){
-        if (itemStack.getTagCompound() == null){
+        if (!itemStack.hasTagCompound() || itemStack.getTagCompound() == null){
             itemStack.setTagCompound(new NBTTagCompound());
         }
     }
