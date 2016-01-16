@@ -352,7 +352,9 @@ public class GUIBackpackAlternate extends GuiContainer {
      */
     private void drawInfoStrings(){
 
-        fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752);
+        String displayName = (itemStack == null) ? "Open and close again" : itemStack.getDisplayName(); //TODO: localize/fix
+
+        fontRendererObj.drawString(StatCollector.translateToLocal(displayName), 20, 6, 4210752);
         int counter = hasFilterAdvancedUpgrade ? 5 : 4;
         fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 20, ySize - 96 + counter, 4210752);
 
