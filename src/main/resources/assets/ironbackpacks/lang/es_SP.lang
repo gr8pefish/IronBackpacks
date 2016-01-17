@@ -1,35 +1,35 @@
 # Artículos
-item.ironbackpacks:basicBackpack.name=Mochila Básica
-item.ironbackpacks:ironBackpack.name=Mochila Hierro
-item.ironbackpacks:goldBackpack.name=Mochila Oro
-item.ironbackpacks:diamondBackpack.name=Mochila Diamante
+item.ironbackpacks.basicBackpack.name=Mochila Básica
+item.ironbackpacks.ironBackpack.name=Mochila Hierro
+item.ironbackpacks.goldBackpack.name=Mochila Oro
+item.ironbackpacks.diamondBackpack.name=Mochila Diamante
 
-item.ironbackpacks:buttonUpgrade.name=Mejoramiento de Botón
-item.ironbackpacks:nestingUpgrade.name=Mejoramiento de la Jerarquización
-item.ironbackpacks:nestingAdvancedUpgrade.name=Mejoramiento de la Jerarquización Avanzado
-item.ironbackpacks:damageBarUpgrade.name=Mejoramiento de Barra de Daños
-item.ironbackpacks:filterBasicUpgrade.name=Mejoramiento de Filtro Básico
-item.ironbackpacks:filterFuzzyUpgrade.name=Mejoramiento de Filtro Borroso
-item.ironbackpacks:filterOreDictUpgrade.name=Mejoramiento de Filtro de Mineral Diccionario
-item.ironbackpacks:filterModSpecificUpgrade.name=Mejoramiento de Mod Filtro Específico
-item.ironbackpacks:filterAdvancedUpgrade.name=Mejoramiento de Filtro Avanzado
-item.ironbackpacks:hopperUpgrade.name=Mejoramiento de Repoblación
-item.ironbackpacks:condenserUpgrade.name=Mejoramiento de Fabricación
-item.ironbackpacks:condenserSmallUpgrade.name=Mejoramiento de Fabricación Pequeña
-item.ironbackpacks:condenserTinyUpgrade.name=Mejoramiento de Fabricación Minúsculo
-item.ironbackpacks:renamingUpgrade.name=Mejoramiento Cambio de Nombre
-item.ironbackpacks:keepOnDeathUpgrade.name=Mejoramiento de Eternidad
-item.ironbackpacks:additionalUpgradePointsUpgrade.name=Mejoramiento de Puntos Adicionales
-item.ironbackpacks:quickDepositUpgrade.name=Mejoramiento de Depósito Rápida
-item.ironbackpacks:quickDepositPreciseUpgrade.name=Mejoramiento de Depósito Rápida Precisa
-item.ironbackpacks:filterMiningUpgrade.name=Mejoramiento de Filtro Minería
-item.ironbackpacks:depthUpgrade.name=Mejoramiento de Interactividad
-item.ironbackpacks:filterVoidUpgrade.name=Mejoramiento de Filtro Vacío
+item.ironbackpacks.buttonUpgrade.name=Mejoramiento de Botón
+item.ironbackpacks.nestingUpgrade.name=Mejoramiento de la Jerarquización
+item.ironbackpacks.nestingAdvancedUpgrade.name=Mejoramiento de la Jerarquización Avanzado
+item.ironbackpacks.damageBarUpgrade.name=Mejoramiento de Barra de Daños
+item.ironbackpacks.filterBasicUpgrade.name=Mejoramiento de Filtro Básico
+item.ironbackpacks.filterFuzzyUpgrade.name=Mejoramiento de Filtro Borroso
+item.ironbackpacks.filterOreDictUpgrade.name=Mejoramiento de Filtro de Mineral Diccionario
+item.ironbackpacks.filterModSpecificUpgrade.name=Mejoramiento de Mod Filtro Específico
+item.ironbackpacks.filterAdvancedUpgrade.name=Mejoramiento de Filtro Avanzado
+item.ironbackpacks.hopperUpgrade.name=Mejoramiento de Repoblación
+item.ironbackpacks.condenserUpgrade.name=Mejoramiento de Fabricación
+item.ironbackpacks.condenserSmallUpgrade.name=Mejoramiento de Fabricación Pequeña
+item.ironbackpacks.condenserTinyUpgrade.name=Mejoramiento de Fabricación Minúsculo
+item.ironbackpacks.renamingUpgrade.name=Mejoramiento Cambio de Nombre
+item.ironbackpacks.keepOnDeathUpgrade.name=Mejoramiento de Eternidad
+item.ironbackpacks.additionalUpgradePointsUpgrade.name=Mejoramiento de Puntos Adicionales
+item.ironbackpacks.quickDepositUpgrade.name=Mejoramiento de Depósito Rápida
+item.ironbackpacks.quickDepositPreciseUpgrade.name=Mejoramiento de Depósito Rápida Precisa
+item.ironbackpacks.filterMiningUpgrade.name=Mejoramiento de Filtro Minería
+item.ironbackpacks.depthUpgrade.name=Mejoramiento de Interactividad
+item.ironbackpacks.filterVoidUpgrade.name=Mejoramiento de Filtro Vacío
 
-item.ironbackpacks:nest.name=Nido
-item.ironbackpacks:upgradeCore.name=Núcleo de Mejoramiento
-item.ironbackpacks:jeweledFeather.name=Pluma de Oro
-item.ironbackpacks:treatedLeather.name=Cuero Tratado
+item.ironbackpacks.nest.name=Nido
+item.ironbackpacks.upgradeCore.name=Núcleo de Mejoramiento
+item.ironbackpacks.jeweledFeather.name=Pluma de Oro
+item.ironbackpacks.treatedLeather.name=Cuero Tratado
 
 
 # Creativo Tab
@@ -73,7 +73,7 @@ button.ironbackpacks.clear.voidFilter.tooltip=Borra los elementos vacíos de fil
 
 # Tooltip
 tooltip.ironbackpacks.shift=cambio Hold para obtener más información.
-tooltip.ironbackpacks.uuid=UUID:% s
+tooltip.ironbackpacks.uuid=UUID.% s
 tooltip.ironbackpacks.backpack.upgrade.used=% d /% d actualizar puntos utilizados.
 tooltip.ironbackpacks.backpack.upgrade.used.alt=% d /% d mejoras GUI alternativos utilizados.
 tooltip.ironbackpacks.backpack.upgrade.used.tier=% d /% d puntos de actualización adicionales añadidos.
@@ -95,11 +95,11 @@ tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=Al igual que el filtro bás
 tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=Al igual que el filtro básico, excepto la mochila ignorará valores de daño en los artículos.
 tooltip.ironbackpacks.upgrade.oreDictFilter.desc=Al igual que el filtro básico, excepto la mochila va a recoger cualquier artículo que se ha registrado en el diccionario de mineral como el mismo que el elemento (s) en la ranura del filtro.
 tooltip.ironbackpacks.upgrade.hopperFilter.desc=Permite especificar un elemento para mantener surtida en su inventario / barra de acceso rápido que se suministra desde su mochila.
-tooltip.ironbackpacks.upgrade.condenser.desc=Le permite especificar un conjunto de temas que se hecha a mano en una cuadrícula de 3x3 al entrar en la mochila (ex:redstone -> bloque de piedra roja).
+tooltip.ironbackpacks.upgrade.condenser.desc=Le permite especificar un conjunto de temas que se hecha a mano en una cuadrícula de 3x3 al entrar en la mochila (ex.redstone -> bloque de piedra roja).
 tooltip.ironbackpacks.upgrade.advFilter.desc=Similar al filtro básico, excepto el filtro tiene 18 ranuras y cada ranuras tiene opciones configurables.
-tooltip.ironbackpacks.upgrade.mining.desc=capta automáticamente cualquier minerales, gemas, o polvos y tiene un filtro básico para otros artículos (ex:adoquín).
-tooltip.ironbackpacks.upgrade.condenser.small.desc=Le permite especificar un conjunto de temas que se hecha a mano en una cuadrícula de 2x2 al entrar en la mochila (por ejemplo:arena -> arenisca).
-tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Le permite especificar un conjunto de elementos a ser elaborado por sí mismo al entrar en la mochila (por ejemplo:madera -> tablones).
+tooltip.ironbackpacks.upgrade.mining.desc=capta automáticamente cualquier minerales, gemas, o polvos y tiene un filtro básico para otros artículos (ex.adoquín).
+tooltip.ironbackpacks.upgrade.condenser.small.desc=Le permite especificar un conjunto de temas que se hecha a mano en una cuadrícula de 2x2 al entrar en la mochila (por ejemplo.arena -> arenisca).
+tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Le permite especificar un conjunto de elementos a ser elaborado por sí mismo al entrar en la mochila (por ejemplo.madera -> tablones).
 tooltip.ironbackpacks.upgrade.addUpgrades.desc=Añade otro% s a la mochila. Puede aplicarse% s al más alto nivel de la mochila.
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=punto de actualización
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=% d actualizar puntos

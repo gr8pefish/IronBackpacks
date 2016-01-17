@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
  */
 public class ItemBase extends Item {
 
-	public ItemBase(String unlocName, String textureName) { //TODO: remove texture name
+	public ItemBase(String unlocName, String unneeded) {
 		super();
 		setUnlocalizedName(Constants.MODID + ":" + unlocName);
 		setCreativeTab(IronBackpacks.creativeTab);

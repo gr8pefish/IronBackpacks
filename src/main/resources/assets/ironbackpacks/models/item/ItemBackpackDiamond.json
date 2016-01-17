@@ -1,6 +1,6 @@
 {
   "parent":"ironbackpacks:item/baseModelJson",
   "textures": {
-    "layer0":"ironbackpacks:items/upgradeCore"
+    "layer0":"ironbackpacks:items/ItemBackpackDiamond"
   }
 }

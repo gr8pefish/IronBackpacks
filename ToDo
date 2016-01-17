@@ -13,6 +13,10 @@ To Do:
 
         JEI handlers for crafting
 
+        add in changelog limiting ids
+
+        add model backpack registry to API
+
         fix config nonsense
             change order so recipes are last
             fix item recipe stuff (and add metadata)

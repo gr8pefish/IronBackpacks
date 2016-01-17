@@ -237,6 +237,12 @@ public class IronBackpacksConstants {
         public static final String REMOVED = "Removed";
     }
 
+    public static final class Items {
+        public static final String BACKPACK_ITEM_BASE_NAME = "backpack";
+        public static final String UPGRADE_ITEM_BASE_NAME = "upgrade";
+        public static final String CRAFTING_ITEM_BASE_NAME = "crafting";
+    }
+
     //Miscellaneous
     public static final class Miscellaneous{
 

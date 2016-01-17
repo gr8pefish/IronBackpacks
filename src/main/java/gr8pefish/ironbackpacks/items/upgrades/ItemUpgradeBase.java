@@ -1,6 +1,6 @@
 package gr8pefish.ironbackpacks.items.upgrades;
 
-import gr8pefish.ironbackpacks.api.item.upgrades.IPackUpgrade;
+import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import gr8pefish.ironbackpacks.items.ItemBase;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -48,7 +48,7 @@ public abstract class ItemUpgradeBase extends ItemBase implements IPackUpgrade {
         return this.name;
     }
 
-    @Override
+//    @Override
     public int getId(ItemStack stack){
         return this.typeID;
     }

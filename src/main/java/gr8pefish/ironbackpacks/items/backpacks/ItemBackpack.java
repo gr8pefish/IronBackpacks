@@ -55,7 +55,7 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
 
         BackpackEnum backpackEnum = BackpackEnum.valueOf(enumName); //the backpack itself in the enum (accessed by the name)
 
-        setUnlocalizedName(Constants.MODID + ":" + backpackEnum.getName());
+        setUnlocalizedName(Constants.MODID + "." + IronBackpacksConstants.Items.BACKPACK_ITEM_BASE_NAME + "." + backpackEnum.getName());
 
         this.name = backpackEnum.getName();
         this.rowLength = backpackEnum.getRowLength();

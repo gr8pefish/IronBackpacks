@@ -1,4 +1,4 @@
-package gr8pefish.ironbackpacks.api.item.upgrades;
+package gr8pefish.ironbackpacks.api.item.upgrades.interfaces;
 
 import net.minecraft.item.ItemStack;
 
@@ -15,13 +15,6 @@ public interface IPackUpgrade {
      * @return - the string name
      */
     String getName(ItemStack upgrade);
-
-    /**
-     * The internal id of the upgrade
-     * @param upgrade - the upgrade as an item stack (needed for subitems)
-     * @return - the id of the item
-     */
-    int getId(ItemStack upgrade);
 
     /**
      * The cost (in upgrade points) to apply this upgrade

@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.registry;
 
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
+import gr8pefish.ironbackpacks.api.register.CraftingItemRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
@@ -29,7 +31,7 @@ public class ItemRecipeRegistry {
 	public static void registerItemRecipes() {
 
 		registerBasicRecipe(ItemRegistry.basicBackpack, ConfigHandler.basicBackpackRecipe); //register the basic backpack as a recipe
-		registerUpgradeRecipes(); //register the recipes to make the upgrades
+//		registerUpgradeRecipes(); //register the recipes to make the upgrades //TODO: broken
 		registerMiscRecipes(); //register the miscellaneous items' recipes
 
 		RecipeSorter.register("RemoveUpgrade", BackpackRemoveUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
@@ -43,11 +45,16 @@ public class ItemRecipeRegistry {
 
 	//Registers the miscellaneous recipes
 	private static void registerMiscRecipes(){
-		registerBasicRecipe(ItemRegistry.nest, ConfigHandler.nestRecipe);
-		registerBasicRecipe(ItemRegistry.upgradeCore, ConfigHandler.upgradeCoreRecipe);
+		registerCraftingItemRecipe(new ItemStack(ItemRegistry.craftingItem, 1, CraftingItemRegistry.getIndexOf(ItemRegistry.nest)), ConfigHandler.nestRecipe); //TODO: metadata in recipes
+		registerCraftingItemRecipe(new ItemStack(ItemRegistry.craftingItem, 1, CraftingItemRegistry.getIndexOf(ItemRegistry.upgradeCore)), ConfigHandler.upgradeCoreRecipe);
 
-		registerShapelessRecipe(ItemRegistry.jeweledFeather, ConfigHandler.jeweledFeatherRecipe);
-		registerShapelessRecipe(ItemRegistry.treatedLeather, ConfigHandler.treatedLeatherRecipe);
+		registerCraftingShapelessRecipe(new ItemStack(ItemRegistry.craftingItem, 1, CraftingItemRegistry.getIndexOf(ItemRegistry.treatedLeather)), ConfigHandler.treatedLeatherRecipe);
+		registerCraftingShapelessRecipe(new ItemStack(ItemRegistry.craftingItem, 1, CraftingItemRegistry.getIndexOf(ItemRegistry.jeweledFeather)), ConfigHandler.jeweledFeatherRecipe);
+
+//		registerBasicRecipe(ItemRegistry.upgradeCore, ConfigHandler.upgradeCoreRecipe);
+//
+//		registerShapelessRecipe(ItemRegistry.jeweledFeather, ConfigHandler.jeweledFeatherRecipe);
+//		registerShapelessRecipe(ItemRegistry.treatedLeather, ConfigHandler.treatedLeatherRecipe);
 	}
 
 	//Registers the recipes to create the upgrades
@@ -127,6 +134,11 @@ public class ItemRecipeRegistry {
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(output), theRecipe));
 	}
 
+	private static void registerCraftingShapelessRecipe(ItemStack output, String[] recipe) {
+		Object[] theRecipe = getShapelessOreRecipe(recipe);
+		GameRegistry.addRecipe(new ShapelessOreRecipe(output, theRecipe));
+	}
+
 	/**
 	 * Registers a shaped ore dictionary recipe.
 	 * @param output - the output item
@@ -135,6 +147,11 @@ public class ItemRecipeRegistry {
 	private static void registerBasicOreRecipe(Item output, String[] recipe){
 		Object[] theRecipe = getOreRecipe(recipe);
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(output), theRecipe));
+	}
+
+	private static void registerCraftingItemRecipe(ItemStack output, String[] recipe){
+		Object[] theRecipe = getOreRecipe(recipe);
+		GameRegistry.addRecipe(new ShapedOreRecipe(output, theRecipe));
 	}
 
 	//====================================================================================Ore Dictionary Recipe Helper Methods=======================================================

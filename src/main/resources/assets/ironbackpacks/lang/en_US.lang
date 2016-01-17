@@ -1,35 +1,35 @@
 # Items
-item.ironbackpacks:basicBackpack.name=Basic Backpack
-item.ironbackpacks:ironBackpack.name=Iron Backpack
-item.ironbackpacks:goldBackpack.name=Gold Backpack
-item.ironbackpacks:diamondBackpack.name=Diamond Backpack
+item.ironbackpacks.backpack.basicBackpack.name=Basic Backpack
+item.ironbackpacks.backpack.ironBackpack.name=Iron Backpack
+item.ironbackpacks.backpack.goldBackpack.name=Gold Backpack
+item.ironbackpacks.backpack.diamondBackpack.name=Diamond Backpack
 
-item.ironbackpacks:buttonUpgrade.name=Button Upgrade
-item.ironbackpacks:nestingUpgrade.name=Nesting Upgrade
-item.ironbackpacks:nestingAdvancedUpgrade.name=Advanced Nesting Upgrade
-item.ironbackpacks:damageBarUpgrade.name=Damage Bar Upgrade
-item.ironbackpacks:filterBasicUpgrade.name=Basic Filter Upgrade
-item.ironbackpacks:filterFuzzyUpgrade.name=Fuzzy Filter Upgrade
-item.ironbackpacks:filterOreDictUpgrade.name=Ore Dictionary Filter Upgrade
-item.ironbackpacks:filterModSpecificUpgrade.name=Mod Specific Filter Upgrade
-item.ironbackpacks:filterAdvancedUpgrade.name=Advanced Filter Upgrade
-item.ironbackpacks:hopperUpgrade.name=Restocking Upgrade
-item.ironbackpacks:condenserUpgrade.name=Crafting Upgrade
-item.ironbackpacks:condenserSmallUpgrade.name=Small Crafting Upgrade
-item.ironbackpacks:condenserTinyUpgrade.name=Tiny Crafting Upgrade
-item.ironbackpacks:renamingUpgrade.name=Renaming Upgrade
-item.ironbackpacks:keepOnDeathUpgrade.name=Eternity Upgrade
-item.ironbackpacks:additionalUpgradePointsUpgrade.name=Additional Upgrade Points Upgrade
-item.ironbackpacks:quickDepositUpgrade.name=Quick Deposit Upgrade
-item.ironbackpacks:quickDepositPreciseUpgrade.name=Precise Quick Deposit Upgrade
-item.ironbackpacks:filterMiningUpgrade.name=Mining Filter Upgrade
-item.ironbackpacks:filterVoidUpgrade.name=Void Filter Upgrade
-item.ironbackpacks:depthUpgrade.name=Depth Upgrade
+item.ironbackpacks.buttonUpgrade.name=Button Upgrade
+item.ironbackpacks.nestingUpgrade.name=Nesting Upgrade
+item.ironbackpacks.nestingAdvancedUpgrade.name=Advanced Nesting Upgrade
+item.ironbackpacks.damageBarUpgrade.name=Damage Bar Upgrade
+item.ironbackpacks.filterBasicUpgrade.name=Basic Filter Upgrade
+item.ironbackpacks.filterFuzzyUpgrade.name=Fuzzy Filter Upgrade
+item.ironbackpacks.filterOreDictUpgrade.name=Ore Dictionary Filter Upgrade
+item.ironbackpacks.filterModSpecificUpgrade.name=Mod Specific Filter Upgrade
+item.ironbackpacks.filterAdvancedUpgrade.name=Advanced Filter Upgrade
+item.ironbackpacks.hopperUpgrade.name=Restocking Upgrade
+item.ironbackpacks.condenserUpgrade.name=Crafting Upgrade
+item.ironbackpacks.condenserSmallUpgrade.name=Small Crafting Upgrade
+item.ironbackpacks.condenserTinyUpgrade.name=Tiny Crafting Upgrade
+item.ironbackpacks.renamingUpgrade.name=Renaming Upgrade
+item.ironbackpacks.keepOnDeathUpgrade.name=Eternity Upgrade
+item.ironbackpacks.additionalUpgradePointsUpgrade.name=Additional Upgrade Points Upgrade
+item.ironbackpacks.quickDepositUpgrade.name=Quick Deposit Upgrade
+item.ironbackpacks.quickDepositPreciseUpgrade.name=Precise Quick Deposit Upgrade
+item.ironbackpacks.filterMiningUpgrade.name=Mining Filter Upgrade
+item.ironbackpacks.filterVoidUpgrade.name=Void Filter Upgrade
+item.ironbackpacks.depthUpgrade.name=Depth Upgrade
 
-item.ironbackpacks:nest.name=Nest
-item.ironbackpacks:upgradeCore.name=Upgrade Core
-item.ironbackpacks:jeweledFeather.name=Golden Feather
-item.ironbackpacks:treatedLeather.name=Treated Leather
+item.ironbackpacks.crafting.nest.name=Nest
+item.ironbackpacks.crafting.upgradeCore.name=Upgrade Core
+item.ironbackpacks.crafting.jeweledFeather.name=Golden Feather
+item.ironbackpacks.crafting.treatedLeather.name=Treated Leather
 
 
 # Creative Tab
@@ -73,7 +73,7 @@ button.ironbackpacks.clear.condenser.tiny.tooltip=Clears the crafting items.
 
 # Tooltip
 tooltip.ironbackpacks.shift=Hold shift for more info.
-tooltip.ironbackpacks.uuid=UUID: %s
+tooltip.ironbackpacks.uuid=UUID. %s
 tooltip.ironbackpacks.backpack.upgrade.used=%d/%d upgrade points used.
 tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d alternate GUI upgrades used.
 tooltip.ironbackpacks.backpack.upgrade.used.tier=%d/%d additional upgrade points added.
@@ -95,12 +95,12 @@ tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=Similar to the basic filter
 tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=Similar to the basic filter, except the backpack will ignore damage values on the items.
 tooltip.ironbackpacks.upgrade.oreDictFilter.desc=Similar to the basic filter, except the backpack will pick up any item that is registered in the ore dictionary as the same as the item(s) in the filter slot.
 tooltip.ironbackpacks.upgrade.hopperFilter.desc=Allows you to specify an item to keep stocked in your inventory/hotbar which is supplied from your backpack.
-tooltip.ironbackpacks.upgrade.condenser.desc=Allows you to specify a set of items to be crafted in a 3x3 grid upon entering your backpack (ex: redstone -> redstone block).
+tooltip.ironbackpacks.upgrade.condenser.desc=Allows you to specify a set of items to be crafted in a 3x3 grid upon entering your backpack (ex. redstone -> redstone block).
 tooltip.ironbackpacks.upgrade.advFilter.desc=Similar to the basic filter, except the filter has 18 slots and each slots has configurable options.
-tooltip.ironbackpacks.upgrade.miningFilter.desc=Automatically picks up any ores, gems, or dusts and has a basic filter for other items (ex: cobble).
+tooltip.ironbackpacks.upgrade.miningFilter.desc=Automatically picks up any ores, gems, or dusts and has a basic filter for other items (ex. cobble).
 tooltip.ironbackpacks.upgrade.voidFilter.desc=Automatically deletes any items you pick up that are specified in the filter. It does so by fuzzy detection (ignores damage values).
-tooltip.ironbackpacks.upgrade.condenser.small.desc=Allows you to specify a set of items to be crafted in a 2x2 grid upon entering your backpack (ex: sand -> sandstone).
-tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Allows you to specify a set of items to be crafted by itself upon entering your backpack (ex: wood -> planks).
+tooltip.ironbackpacks.upgrade.condenser.small.desc=Allows you to specify a set of items to be crafted in a 2x2 grid upon entering your backpack (ex. sand -> sandstone).
+tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Allows you to specify a set of items to be crafted by itself upon entering your backpack (ex. wood -> planks).
 tooltip.ironbackpacks.upgrade.addUpgrades.desc=Adds another %s to the backpack. Can be applied %s to the highest tier backpack.
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=upgrade point
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d upgrade points

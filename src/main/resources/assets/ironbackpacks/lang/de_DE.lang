@@ -1,35 +1,35 @@
 # Items
-item.ironbackpacks:basicBackpack.name=Einfacher Rucksack
-item.ironbackpacks:ironBackpack.name=Eisenrucksack
-item.ironbackpacks:goldBackpack.name=Goldrucksack
-item.ironbackpacks:diamondBackpack.name=Diamantrucksack
+item.ironbackpacks.basicBackpack.name=Einfacher Rucksack
+item.ironbackpacks.ironBackpack.name=Eisenrucksack
+item.ironbackpacks.goldBackpack.name=Goldrucksack
+item.ironbackpacks.diamondBackpack.name=Diamantrucksack
 
-item.ironbackpacks:buttonUpgrade.name=Knopf-Upgrade
-item.ironbackpacks:nestingUpgrade.name=Schachtelungs-Upgrade
-item.ironbackpacks:nestingAdvancedUpgrade.name=Erweitertes Schachtelungs-Upgrade
-item.ironbackpacks:damageBarUpgrade.name=Füllstandsanzeigen-Upgrade
-item.ironbackpacks:filterBasicUpgrade.name=Einfaches Filter-Upgrade
-item.ironbackpacks:filterFuzzyUpgrade.name=Ungenaues Filter-Upgrade
-item.ironbackpacks:filterOreDictUpgrade.name=OreDictionary-Filter-Upgrade
-item.ironbackpacks:filterModSpecificUpgrade.name=Modspezifisches Filter-Upgrade
-item.ironbackpacks:filterAdvancedUpgrade.name=Erweitertes Filter-Upgrade
-item.ironbackpacks:hopperUpgrade.name=Auffüllungs-Upgrade
-item.ironbackpacks:condenserUpgrade.name=Fertigungs-Upgrade
-item.ironbackpacks:condenserSmallUpgrade.name=Kleines Fertigungs-Upgrade
-item.ironbackpacks:condenserTinyUpgrade.name=Winziges Fertigungs-Upgrade
-item.ironbackpacks:renamingUpgrade.name=Umbenennungs-Upgrade
-item.ironbackpacks:keepOnDeathUpgrade.name=Ewigkeits-Upgrade
-item.ironbackpacks:additionalUpgradePointsUpgrade.name=Zusätzliche Upgradepunkte-Upgrade
-item.ironbackpacks:quickDepositUpgrade.name=Schnellablager-Upgrade
-item.ironbackpacks:quickDepositPreciseUpgrade.name=Präzises Schnellablager-Upgrade
-item.ironbackpacks:filterMiningUpgrade.name=Abbaufilter-Upgrade
-item.ironbackpacks:depthUpgrade.name=Tiefen-Upgrade
-item.ironbackpacks:filterVoidUpgrade.name=Leere Filter-Upgrade
+item.ironbackpacks.buttonUpgrade.name=Knopf-Upgrade
+item.ironbackpacks.nestingUpgrade.name=Schachtelungs-Upgrade
+item.ironbackpacks.nestingAdvancedUpgrade.name=Erweitertes Schachtelungs-Upgrade
+item.ironbackpacks.damageBarUpgrade.name=Füllstandsanzeigen-Upgrade
+item.ironbackpacks.filterBasicUpgrade.name=Einfaches Filter-Upgrade
+item.ironbackpacks.filterFuzzyUpgrade.name=Ungenaues Filter-Upgrade
+item.ironbackpacks.filterOreDictUpgrade.name=OreDictionary-Filter-Upgrade
+item.ironbackpacks.filterModSpecificUpgrade.name=Modspezifisches Filter-Upgrade
+item.ironbackpacks.filterAdvancedUpgrade.name=Erweitertes Filter-Upgrade
+item.ironbackpacks.hopperUpgrade.name=Auffüllungs-Upgrade
+item.ironbackpacks.condenserUpgrade.name=Fertigungs-Upgrade
+item.ironbackpacks.condenserSmallUpgrade.name=Kleines Fertigungs-Upgrade
+item.ironbackpacks.condenserTinyUpgrade.name=Winziges Fertigungs-Upgrade
+item.ironbackpacks.renamingUpgrade.name=Umbenennungs-Upgrade
+item.ironbackpacks.keepOnDeathUpgrade.name=Ewigkeits-Upgrade
+item.ironbackpacks.additionalUpgradePointsUpgrade.name=Zusätzliche Upgradepunkte-Upgrade
+item.ironbackpacks.quickDepositUpgrade.name=Schnellablager-Upgrade
+item.ironbackpacks.quickDepositPreciseUpgrade.name=Präzises Schnellablager-Upgrade
+item.ironbackpacks.filterMiningUpgrade.name=Abbaufilter-Upgrade
+item.ironbackpacks.depthUpgrade.name=Tiefen-Upgrade
+item.ironbackpacks.filterVoidUpgrade.name=Leere Filter-Upgrade
 
-item.ironbackpacks:nest.name=Schachteln
-item.ironbackpacks:upgradeCore.name=Upgrade-Kern
-item.ironbackpacks:jeweledFeather.name=Goldene Feder
-item.ironbackpacks:treatedLeather.name=Behandeltes Leder
+item.ironbackpacks.nest.name=Schachteln
+item.ironbackpacks.upgradeCore.name=Upgrade-Kern
+item.ironbackpacks.jeweledFeather.name=Goldene Feder
+item.ironbackpacks.treatedLeather.name=Behandeltes Leder
 
 
 # Creative Tab
@@ -73,7 +73,7 @@ button.ironbackpacks.clear.voidFilter.tooltip=Löscht die leere-gefilterten Item
 
 # Tooltip
 tooltip.ironbackpacks.shift=Halte Shift für mehr Info
-tooltip.ironbackpacks.uuid=UUID: %s
+tooltip.ironbackpacks.uuid=UUID. %s
 tooltip.ironbackpacks.backpack.upgrade.used=%d/%d Upgrade-Punkte benutzt.
 tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d alternative GUI-Upgrade benutzt.
 tooltip.ironbackpacks.backpack.upgrade.used.tier=%d/%d zusätzliche Upgrade-Punkte benutzt.

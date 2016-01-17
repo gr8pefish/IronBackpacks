@@ -1,8 +1,11 @@
 package gr8pefish.ironbackpacks.config;
 
+import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The configuration file is handled by this class
@@ -85,6 +88,8 @@ public class ConfigHandler {
     public static int additionalUpgradePointsIncrease;
     public static boolean makeRenamedBackpacksNamesItalic;
 
+    public static ArrayList<String> itemBlacklist; //TODO
+
 
     //========================initialization====================================
 
@@ -165,6 +170,7 @@ public class ConfigHandler {
         String[] treatedLeatherDefault = {"items.leather", "items.water_bucket", "dyeLime", "items.flint"};
         //done
 
+//        ArrayList<String> itemBlacklist = new ArrayList<>();
 
         //===================================================Categories======================================
 
@@ -276,6 +282,9 @@ public class ConfigHandler {
                 "Negative numbers are allowed (ex: -1 will allow none on basic or iron backpacks, once on gold backpacks, and twice on diamond). Default is 1.").getInt();
         additionalUpgradePointsIncrease = config.get("7) Miscellaneous", "5) Additional Upgrades Increase", 2, "The amount of extra upgrade points the 'additional upgrade slots' upgrade will apply. Default is 2.").getInt();
         makeRenamedBackpacksNamesItalic = config.get("7) Miscellaneous", "6) Italic Renames", false, "Make the styling of the letters on a renamed backpack be in italics. Default false.").getBoolean();
+
+        //TODO: make this a thing
+        itemBlacklist = new ArrayList<>(Arrays.asList(config.get("7) Miscellaneous", "6) Italic Renames", false, "Make the styling of the letters on a renamed backpack be in italics. Default false.").getStringList()));
 
         config.save(); //Don't forget to save
     }

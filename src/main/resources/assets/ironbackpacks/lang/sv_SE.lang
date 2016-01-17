@@ -1,35 +1,35 @@
 # Objekt
-item.ironbackpacks:basicBackpack.name=Basisk Ryggsäck
-item.ironbackpacks:ironBackpack.name=Järn Ryggsäck
-item.ironbackpacks:goldBackpack.name=Guld Ryggsäck
-item.ironbackpacks:diamondBackpack.name=Diamant Ryggsäck
+item.ironbackpacks.basicBackpack.name=Basisk Ryggsäck
+item.ironbackpacks.ironBackpack.name=Järn Ryggsäck
+item.ironbackpacks.goldBackpack.name=Guld Ryggsäck
+item.ironbackpacks.diamondBackpack.name=Diamant Ryggsäck
 
-item.ironbackpacks:buttonUpgrade.name=Knapp Upgrade
-item.ironbackpacks:nestingUpgrade.name=Kapsling Upgrade
-item.ironbackpacks:nestingAdvancedUpgrade.name=Avancerad Kapsling Upgrade
-item.ironbackpacks:damageBarUpgrade.name=Skador Bar Upgrade
-item.ironbackpacks:filterBasicUpgrade.name=Basisk Filtrera Upgrade
-item.ironbackpacks:filterFuzzyUpgrade.name=Suddig Filtrera Upgrade
-item.ironbackpacks:filterOreDictUpgrade.name=Malm Lexikon Filtrera Upgrade
-item.ironbackpacks:filterModSpecificUpgrade.name=Mod Specifika Filtrera Upgrade
-item.ironbackpacks:filterAdvancedUpgrade.name=Avancerad Filtrera Upgrade
-item.ironbackpacks:hopperUpgrade.name=Utsättning Upgrade
-item.ironbackpacks:condenserUpgrade.name=Tillverka Upgrade
-item.ironbackpacks:condenserSmallUpgrade.name=Liten Tillverka uppgradering
-item.ironbackpacks:condenserTinyUpgrade.name=Mycket Liten Tillverka Upgrade
-item.ironbackpacks:renamingUpgrade.name=Döpa Upgrade
-item.ironbackpacks:keepOnDeathUpgrade.name=Evighet Upgrade
-item.ironbackpacks:additionalUpgradePointsUpgrade.name=Ytterligare Uppgradering Poäng Upgrade
-item.ironbackpacks:quickDepositUpgrade.name=Snabb Insättning Upgrade
-item.ironbackpacks:quickDepositPreciseUpgrade.name=Exakt Snabb Insättning Upgrade
-item.ironbackpacks:filterMiningUpgrade.name=Gruvfilter Upgrade
-item.ironbackpacks:depthUpgrade.name=Djup Upgrade
-item.ironbackpacks:filterVoidUpgrade.name=Ogiltig Filtrera Upgrade
+item.ironbackpacks.buttonUpgrade.name=Knapp Upgrade
+item.ironbackpacks.nestingUpgrade.name=Kapsling Upgrade
+item.ironbackpacks.nestingAdvancedUpgrade.name=Avancerad Kapsling Upgrade
+item.ironbackpacks.damageBarUpgrade.name=Skador Bar Upgrade
+item.ironbackpacks.filterBasicUpgrade.name=Basisk Filtrera Upgrade
+item.ironbackpacks.filterFuzzyUpgrade.name=Suddig Filtrera Upgrade
+item.ironbackpacks.filterOreDictUpgrade.name=Malm Lexikon Filtrera Upgrade
+item.ironbackpacks.filterModSpecificUpgrade.name=Mod Specifika Filtrera Upgrade
+item.ironbackpacks.filterAdvancedUpgrade.name=Avancerad Filtrera Upgrade
+item.ironbackpacks.hopperUpgrade.name=Utsättning Upgrade
+item.ironbackpacks.condenserUpgrade.name=Tillverka Upgrade
+item.ironbackpacks.condenserSmallUpgrade.name=Liten Tillverka uppgradering
+item.ironbackpacks.condenserTinyUpgrade.name=Mycket Liten Tillverka Upgrade
+item.ironbackpacks.renamingUpgrade.name=Döpa Upgrade
+item.ironbackpacks.keepOnDeathUpgrade.name=Evighet Upgrade
+item.ironbackpacks.additionalUpgradePointsUpgrade.name=Ytterligare Uppgradering Poäng Upgrade
+item.ironbackpacks.quickDepositUpgrade.name=Snabb Insättning Upgrade
+item.ironbackpacks.quickDepositPreciseUpgrade.name=Exakt Snabb Insättning Upgrade
+item.ironbackpacks.filterMiningUpgrade.name=Gruvfilter Upgrade
+item.ironbackpacks.depthUpgrade.name=Djup Upgrade
+item.ironbackpacks.filterVoidUpgrade.name=Ogiltig Filtrera Upgrade
 
-item.ironbackpacks:nest.name=Näste
-item.ironbackpacks:upgradeCore.name=Upgrade Kärna
-item.ironbackpacks:jeweledFeather.name=Gyllene Fjäder
-item.ironbackpacks:treatedLeather.name=Behandlad Läder
+item.ironbackpacks.nest.name=Näste
+item.ironbackpacks.upgradeCore.name=Upgrade Kärna
+item.ironbackpacks.jeweledFeather.name=Gyllene Fjäder
+item.ironbackpacks.treatedLeather.name=Behandlad Läder
 
 
 # Creative Tab
@@ -73,7 +73,7 @@ button.ironbackpacks.clear.voidFilter.tooltip=Raderar ogiltig filterobjekten.
 
 # Tooltip
 tooltip.ironbackpacks.shift=Håll skifte för mer info.
-tooltip.ironbackpacks.uuid=UUID:% s
+tooltip.ironbackpacks.uuid=UUID.% s
 tooltip.ironbackpacks.backpack.upgrade.used=% d /% d uppgradering poäng används.
 tooltip.ironbackpacks.backpack.upgrade.used.alt=% d /% d alternativa uppgraderingar GUI används.
 tooltip.ironbackpacks.backpack.upgrade.used.tier=% d /% d ytterligare uppgraderings punkter läggas.
@@ -95,11 +95,11 @@ tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=I likhet med grundfilter, f
 tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=I likhet med grundfilter, förutom ryggsäcken kommer att ignorera skadevärden på objekten.
 tooltip.ironbackpacks.upgrade.oreDictFilter.desc=I likhet med grundfilter, förutom ryggsäcken kommer att plocka upp någon post som är registrerad i malmen ordlistan som samma som produkt (er) i filterfacket.
 tooltip.ironbackpacks.upgrade.hopperFilter.desc=Gör att du kan ange ett objekt för att hålla lager i ditt lager / HotBar som tillförs från din ryggsäck.
-tooltip.ironbackpacks.upgrade.condenser.desc=Här kan du ange en uppsättning av olika rätter vara utformad i ett 3x3 rutnät på att ange din ryggsäck (ex: Redstone -> Redstone block).
+tooltip.ironbackpacks.upgrade.condenser.desc=Här kan du ange en uppsättning av olika rätter vara utformad i ett 3x3 rutnät på att ange din ryggsäck (ex. Redstone -> Redstone block).
 tooltip.ironbackpacks.upgrade.advFilter.desc=I likhet med grundfilter, förutom filtret har 18 platser och varje slitsar har konfigurerbara alternativ.
-tooltip.ironbackpacks.upgrade.mining.desc=plockar automatiskt upp alla malmer, ädelstenar eller damm och har en grundläggande filter för övriga poster (fd: kullersten).
-tooltip.ironbackpacks.upgrade.condenser.small.desc=Här kan du ange en uppsättning av olika rätter vara utformad i ett 2x2 rutnät på att ange din ryggsäck (ex: sand -> sandsten).
-tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Här kan du ange en uppsättning objekt som ska skapad av sig själv på att ange din ryggsäck (ex: trä -> plankor).
+tooltip.ironbackpacks.upgrade.mining.desc=plockar automatiskt upp alla malmer, ädelstenar eller damm och har en grundläggande filter för övriga poster (fd. kullersten).
+tooltip.ironbackpacks.upgrade.condenser.small.desc=Här kan du ange en uppsättning av olika rätter vara utformad i ett 2x2 rutnät på att ange din ryggsäck (ex. sand -> sandsten).
+tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Här kan du ange en uppsättning objekt som ska skapad av sig själv på att ange din ryggsäck (ex. trä -> plankor).
 tooltip.ironbackpacks.upgrade.addUpgrades.desc=Lägger annan% s till ryggsäcken. Kan appliceras% s till den högsta nivån ryggsäcken.
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=uppgradering punkt
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=% d uppgradera poäng
