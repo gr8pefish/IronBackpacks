@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.client.renderer;
 
 import gr8pefish.ironbackpacks.client.model.ModelBackpack;
+import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
@@ -33,7 +34,8 @@ public class RenderEntityBackpack extends Render<EntityBackpack> {
         final boolean isFpp = minecraft.gameSettings.thirdPersonView == 0;
 
         if (isLocalPlayer && isFpp) {
-            return; //don't render if in first person view on client
+            if (!ConfigHandler.enableFPPrendering)
+                return; //don't render if in first person view on client and the config option allows it
         }else if (owner.isInvisible()){
             return; //don't render when invisible
         }

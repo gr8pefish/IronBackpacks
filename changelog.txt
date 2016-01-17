@@ -8,7 +8,7 @@ Additions (in relation to 1.7.10 - 1.2.15)
 
 Changes (in relation to 1.7.10 - 1.2.15)
 - Default keybinding to open backpack is 'c' and to equip is now 'v'
-- The backpack no longer renders on the client if the player is in first person perspective
+- The backpack no longer renders on the client if the player is in first person perspective (configurable)
 - Start of a full fledged API
 - Tons of various minor fixes/changes/optimizations
 - Removed the option to have an alternate backpack texture
