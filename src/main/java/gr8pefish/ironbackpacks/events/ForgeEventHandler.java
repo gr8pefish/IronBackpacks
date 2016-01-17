@@ -725,7 +725,7 @@ public class ForgeEventHandler {
     private void deleteWithVoidFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event){
         for (ItemStack stack : filterItems) {
             if (stack != null) {
-                if (IronBackpacksHelper.areItemsEqualForStacking(stack, event.item.getEntityItem())){ //if same item
+                if (event.item.getEntityItem().getItem() == stack.getItem()){ //if same item (but different damage value)
                     event.item.setDead(); //delete it
                     event.item.onUpdate(); //update to make sure it's gone
                     event.setCanceled(true); //make sure it can't be picked up by other mods/vanilla

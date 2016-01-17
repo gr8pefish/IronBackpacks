@@ -2,14 +2,11 @@ To Do:
 
     1.8 Stuff:
 
-        BUG: when shift keybinding to open alt gui of equipped pack, same null error as non-initialized shift right click gui
-            IT WAS THE GET PARENT STACK NOT CHECKING EQUIPPED
-
         add registry items to API
             check BM api
             check inv tweaks api
 
-        Fix tooltips so they render on top of everything
+        Fix tooltips so they render on top of everything - update forge
 
         add crafttweaker support
         JEI handlers for crafting
@@ -18,7 +15,7 @@ To Do:
             change order so recipes are last
             fix item recipe stuff (and add metadata)
 
-        config option for entity rendering in fpp on client or not
+        fix versioning build.gradle incrementing stuff with api version
 
         then API/cut ids/refactor, etc.
 
@@ -28,8 +25,6 @@ To Do:
 
 
     NOW:
-
-	Change to fuzzy filter on void
 
 	limit ids so it can go in unabridged
 
@@ -44,6 +39,7 @@ To Do:
 
             Data storage in player pack?
                 check register packets also had to server side - ex: error on server startup if no getClientPlayer() - that's a bug
+                Make it all server
 
         TESTING:
 
@@ -54,6 +50,7 @@ To Do:
         ADDITIONS/TWEAKS:
 
             texture update (message CyanideX/interview person)
+                Make textures of upgrades more 3D looking
 
             Check the sv + es translation files
 
@@ -79,13 +76,10 @@ To Do:
                 vanillaEnder - vanilla ender chest linked backpack (with backpack able to take upgrades)
                 remoteEnder - or specified filter linking to a specific chest
 
-            Allow shift right click equipped?
-
             Add in more inter-mod compatibility
                 right click in my backpack to open TE satchels, golden bag of holding, etc.
                     look into if this is possible
-
-            Make textures of upgrades more 3D looking
+                    test this
 
             Make it so you can't move the opened backpack with number key presses, as there might be some dupe bug using that that I missed
 
@@ -104,7 +98,6 @@ To Do:
 
         EXTRA:
             add -b to beta versions in build.gradle
-            add api into versioning (https://mcforge.readthedocs.org/en/latest/conventions/versioning/)
 
             Fancier config updating/replacing values
                 See botania, vazkii is going to implement something similar
