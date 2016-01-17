@@ -1,7 +1,6 @@
 package gr8pefish.ironbackpacks.registry;
 
-import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.api.register.CraftingItemRegistry;
+import gr8pefish.ironbackpacks.api.register.ItemCraftingRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
@@ -45,11 +44,11 @@ public class ItemRecipeRegistry {
 
 	//Registers the miscellaneous recipes
 	private static void registerMiscRecipes(){
-		registerCraftingItemRecipe(new ItemStack(ItemRegistry.craftingItem, 1, CraftingItemRegistry.getIndexOf(ItemRegistry.nest)), ConfigHandler.nestRecipe); //TODO: metadata in recipes
-		registerCraftingItemRecipe(new ItemStack(ItemRegistry.craftingItem, 1, CraftingItemRegistry.getIndexOf(ItemRegistry.upgradeCore)), ConfigHandler.upgradeCoreRecipe);
+		registerCraftingItemRecipe(new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.nest)), ConfigHandler.nestRecipe); //TODO: metadata in recipes
+		registerCraftingItemRecipe(new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)), ConfigHandler.upgradeCoreRecipe);
 
-		registerCraftingShapelessRecipe(new ItemStack(ItemRegistry.craftingItem, 1, CraftingItemRegistry.getIndexOf(ItemRegistry.treatedLeather)), ConfigHandler.treatedLeatherRecipe);
-		registerCraftingShapelessRecipe(new ItemStack(ItemRegistry.craftingItem, 1, CraftingItemRegistry.getIndexOf(ItemRegistry.jeweledFeather)), ConfigHandler.jeweledFeatherRecipe);
+		registerCraftingShapelessRecipe(new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.treatedLeather)), ConfigHandler.treatedLeatherRecipe);
+		registerCraftingShapelessRecipe(new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.jeweledFeather)), ConfigHandler.jeweledFeatherRecipe);
 
 //		registerBasicRecipe(ItemRegistry.upgradeCore, ConfigHandler.upgradeCoreRecipe);
 //
@@ -58,30 +57,30 @@ public class ItemRecipeRegistry {
 	}
 
 	//Registers the recipes to create the upgrades
-	private static void registerUpgradeRecipes(){
-		registerBasicRecipe(ItemRegistry.buttonUpgrade, ConfigHandler.buttonUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.nestingUpgrade, ConfigHandler.nestingUpgradeRecipe);
-		if (ConfigHandler.renamingUpgradeRequired){
-			registerBasicRecipe(ItemRegistry.renamingUpgrade, ConfigHandler.renamingUpgradeRecipe);
-		}
-		registerBasicRecipe(ItemRegistry.damageBarUpgrade, ConfigHandler.damageBarUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.filterBasicUpgrade, ConfigHandler.filterBasicUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.filterFuzzyUpgrade, ConfigHandler.filterFuzzyUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.filterOreDictUpgrade, ConfigHandler.filterOreDictUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.filterModSpecificUpgrade, ConfigHandler.filterModSpecificUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.hopperUpgrade, ConfigHandler.hopperUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.condenserUpgrade, ConfigHandler.condenserUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.condenserSmallUpgrade, ConfigHandler.condenserSmallUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.condenserTinyUpgrade, ConfigHandler.condenserTinyUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.keepOnDeathUpgrade, ConfigHandler.keepOnDeathUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.additionalUpgradePointsUpgrade, ConfigHandler.additionalUpgradePointsUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.quickDepositUpgrade, ConfigHandler.quickDepositUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.filterAdvancedUpgrade, ConfigHandler.filterAdvancedUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.nestingAdvancedUpgrade, ConfigHandler.nestingAdvancedUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.depthUpgrade, ConfigHandler.depthUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.filterMiningUpgrade, ConfigHandler.filterMiningUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.quickDepositPreciseUpgrade, ConfigHandler.quickDepositPreciseUpgradeRecipe);
-		registerBasicRecipe(ItemRegistry.filterVoidUpgrade, ConfigHandler.filterVoidUpgradeRecipe);
+	private static void registerUpgradeRecipes(){ //TODO
+//		registerBasicRecipe(ItemRegistry.buttonUpgrade, ConfigHandler.buttonUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.nestingUpgrade, ConfigHandler.nestingUpgradeRecipe);
+//		if (ConfigHandler.renamingUpgradeRequired){
+//			registerBasicRecipe(ItemRegistry.renamingUpgrade, ConfigHandler.renamingUpgradeRecipe);
+//		}
+//		registerBasicRecipe(ItemRegistry.damageBarUpgrade, ConfigHandler.damageBarUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.filterBasicUpgrade, ConfigHandler.filterBasicUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.filterFuzzyUpgrade, ConfigHandler.filterFuzzyUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.filterOreDictUpgrade, ConfigHandler.filterOreDictUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.filterModSpecificUpgrade, ConfigHandler.filterModSpecificUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.hopperUpgrade, ConfigHandler.hopperUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.condenserUpgrade, ConfigHandler.condenserUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.condenserSmallUpgrade, ConfigHandler.condenserSmallUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.condenserTinyUpgrade, ConfigHandler.condenserTinyUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.keepOnDeathUpgrade, ConfigHandler.keepOnDeathUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.additionalUpgradePointsUpgrade, ConfigHandler.additionalUpgradePointsUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.quickDepositUpgrade, ConfigHandler.quickDepositUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.filterAdvancedUpgrade, ConfigHandler.filterAdvancedUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.nestingAdvancedUpgrade, ConfigHandler.nestingAdvancedUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.depthUpgrade, ConfigHandler.depthUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.filterMiningUpgrade, ConfigHandler.filterMiningUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.quickDepositPreciseUpgrade, ConfigHandler.quickDepositPreciseUpgradeRecipe);
+//		registerBasicRecipe(ItemRegistry.filterVoidUpgrade, ConfigHandler.filterVoidUpgradeRecipe);
 	}
 
 	//Registers the recipes that allow you to shapelessly craft an upgrade with a backpack to add/remove said upgrade

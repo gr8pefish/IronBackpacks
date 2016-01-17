@@ -5,9 +5,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class IronBackpacksAPI {
 
-    static public final String ITEM_BACKPACK = "backpack";
-    static public final String ITEM_CRAFTING = "crafting";
-    static public final String ITEM_UPGRADE= "upgrade";
+    static public final String ITEM_BACKPACK_BASE = "backpack";
+    static public final String ITEM_UPGRADE_BASE= "upgrade";
+    static public final String ITEM_CRAFTING_BASE = "crafting";
 
     /**
      * Used to obtain Items from IronBackpacks. Use the constants above for common
@@ -17,6 +17,7 @@ public class IronBackpacksAPI {
      * @return - The requested Item
      */
     public static Item getItem(String name) {
+        System.out.println("find "+name);
         return GameRegistry.findItem(Constants.MODID, name);
     }
 }

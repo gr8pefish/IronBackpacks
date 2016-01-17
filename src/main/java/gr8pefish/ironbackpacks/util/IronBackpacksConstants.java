@@ -73,10 +73,10 @@ public class IronBackpacksConstants {
         public static final String[] BUTTON_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.button.desc"));
         public static final String[] NESTING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.nesting.desc"));
         public static final String[] DAMAGE_BAR_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.bar.desc"));
-        public static final String[] KEEP_ON_DEATH_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.soulbound.desc"));
+        public static final String[] ETERNITY_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.soulbound.desc"));
         public static final String[] QUICK_DEPOSIT_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.quickDeposit.desc"));
         public static final String[] QUICK_DEPOSIT_PRECISE_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.quickDepositPrecise.desc"));
-        public static final String[] ADVANCED_NESTING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.advNesting.desc"));
+        public static final String[] NESTING_ADVANCED_DESRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.advNesting.desc"));
         public static final String[] DEPTH_UPGRADE_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.depth.desc"));
 
         //Alternate Gui
@@ -88,10 +88,10 @@ public class IronBackpacksConstants {
         public static final String[] FILTER_MINING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.miningFilter.desc"));
         public static final String[] FILTER_VOID_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.voidFilter.desc"));
         public static final String[] FILTER_ADVANCED_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.advFilter.desc"));
-        public static final String[] HOPPER_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.hopperFilter.desc"));
-        public static final String[] CONDENSER_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.desc"));
-        public static final String[] CONDENSER_SMALL_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.small.desc"));
-        public static final String[] CONDENSER_TINY_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.tiny.desc"));
+        public static final String[] RESTOCKING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.hopperFilter.desc"));
+        public static final String[] CRAFTING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.desc"));
+        public static final String[] CRAFTING_SMALL_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.small.desc"));
+        public static final String[] CRAFTING_TINY_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.tiny.desc"));
 
         //All the alternate gui upgrade ids
         public static final ArrayList<Integer> ALT_GUI_UPGRADE_IDS = new ArrayList<Integer>(Arrays.asList(
@@ -140,12 +140,12 @@ public class IronBackpacksConstants {
                 ConfigHandler.buttonUpgradeCost,
                 ConfigHandler.nestingUpgradeCost,
                 ConfigHandler.damageBarUpgradeCost,
-                ConfigHandler.keepOnDeathUpgradeCost,
+                ConfigHandler.eternityUpgradeCost,
                 ConfigHandler.renamingUpgradeCost,
                 ConfigHandler.filterBasicUpgradeCost,
                 ConfigHandler.filterModSpecificUpgradeCost,
-                ConfigHandler.hopperUpgradeCost,
-                ConfigHandler.condenserUpgradeCost,
+                ConfigHandler.restockingUpgradeCost,
+                ConfigHandler.craftingUpgradeCost,
                 0, //additional upgrade slots
                 ConfigHandler.filterFuzzyUpgradeCost,
                 ConfigHandler.filterOreDictUpgradeCost,
@@ -155,8 +155,8 @@ public class IronBackpacksConstants {
                 ConfigHandler.depthUpgradeCost,
                 ConfigHandler.filterMiningUpgradeCost,
                 ConfigHandler.quickDepositPreciseUpgradeCost,
-                ConfigHandler.condenserSmallUpgradeCost,
-                ConfigHandler.condenserTinyUpgradeCost,
+                ConfigHandler.craftingSmallUpgradeCost,
+                ConfigHandler.craftingTinyUpgradeCost,
                 ConfigHandler.filterVoidUpgradeCost
         };
 

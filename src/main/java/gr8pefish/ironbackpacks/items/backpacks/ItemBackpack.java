@@ -2,6 +2,7 @@ package gr8pefish.ironbackpacks.items.backpacks;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.Constants;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.backpacks.abstractClasses.AbstractUpgradableTieredBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
@@ -55,7 +56,7 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
 
         BackpackEnum backpackEnum = BackpackEnum.valueOf(enumName); //the backpack itself in the enum (accessed by the name)
 
-        setUnlocalizedName(Constants.MODID + "." + IronBackpacksConstants.Items.BACKPACK_ITEM_BASE_NAME + "." + backpackEnum.getName());
+        setUnlocalizedName(Constants.MODID + "." + IronBackpacksAPI.ITEM_BACKPACK_BASE + "." + backpackEnum.getName());
 
         this.name = backpackEnum.getName();
         this.rowLength = backpackEnum.getRowLength();
