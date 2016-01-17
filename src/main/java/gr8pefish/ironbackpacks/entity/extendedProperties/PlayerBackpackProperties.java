@@ -1,7 +1,6 @@
 package gr8pefish.ironbackpacks.entity.extendedProperties;
 
 import gr8pefish.ironbackpacks.api.Constants;
-import gr8pefish.ironbackpacks.util.NBTHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;

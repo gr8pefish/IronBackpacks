@@ -5,13 +5,13 @@ import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderEntityBackpack extends Render<EntityBackpack> {
@@ -42,26 +42,26 @@ public class RenderEntityBackpack extends Render<EntityBackpack> {
 
         final float rotation = interpolateRotation(pack.prevRotationYaw, pack.rotationYaw, f1);
 
-        GL11.glPushMatrix();
-        GL11.glTranslated(x, y, z);
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(x, y, z);
 
-        GL11.glRotatef(180.0F - rotation, 0.0F, 1.0F, 0.0F); //rotates it to the back of the player
-        GL11.glRotatef(180, 1, 0, 0); //flips it right side up
-        GL11.glScalef(0.8f, 0.7f, 0.8f); //scale slightly smaller
-        GL11.glTranslated(0, -1.6, -.25); //move it into the correct location
+        GlStateManager.rotate(180.0F - rotation, 0.0F, 1.0F, 0.0F); //rotates it to the back of the player
+        GlStateManager.rotate(180, 1, 0, 0); //flips it right side up
+        GlStateManager.scale(0.8f, 0.7f, 0.8f); //scale slightly smaller
+        GlStateManager.translate(0, -1.6, -.25); //move it into the correct location
 
         if (owner.inventory.armorInventory[2] != null) //if has chest armor slot
-            GL11.glTranslated(0, 0, -.1); //move it backwards a little
+            GlStateManager.translate(0, 0, -.1); //move it backwards a little
 
         if (owner.isSneaking()){
-            GL11.glRotatef(-25F, 1, 0, 0); //rotate it forward to still be on the player's back
-            GL11.glTranslated(0, .2, -.1); //move it back and down a little
+            GlStateManager.rotate(-25F, 1, 0, 0); //rotate it forward to still be on the player's back
+            GlStateManager.translate(0, .2, -.1); //move it back and down a little
         }
 
         bindEntityTexture(pack);
         modelBackpack.render(pack, 0, 0, 0, 0, 0, 1.0f / 8.0f);
 
-        GL11.glPopMatrix();
+        GlStateManager.popMatrix();
 
         super.doRender(pack, x, y, z, f, f1);
     }
