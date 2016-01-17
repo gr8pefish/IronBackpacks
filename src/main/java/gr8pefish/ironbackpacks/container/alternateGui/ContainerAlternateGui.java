@@ -8,6 +8,7 @@ import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.Logger;
 import invtweaks.api.container.ChestContainer;
 import invtweaks.api.container.InventoryContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,7 +39,7 @@ public class ContainerAlternateGui extends Container {
         this.inventory = inventoryAlternateGui;
         this.xSize = xSize;
         this.ySize = ySize;
-        this.stack = IronBackpacksHelper.getBackpack(player);
+        this.stack = inventoryAlternateGui.getBackpackStack(); //IronBackpacksHelper.getBackpack(player);
         this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
 
         layoutContainer(this.player.inventory, inventoryAlternateGui, xSize, ySize);
@@ -50,7 +51,7 @@ public class ContainerAlternateGui extends Container {
     public ContainerAlternateGui(InventoryAlternateGui inventoryAlternateGui){
         this.player = inventoryAlternateGui.getPlayer();
         this.inventory = inventoryAlternateGui;
-        this.stack = IronBackpacksHelper.getBackpack(player);
+        this.stack = inventoryAlternateGui.getBackpackStack(); //IronBackpacksHelper.getBackpack(player);
         this.upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
 
         layoutContainer(this.player.inventory, inventoryAlternateGui, xSize, ySize);

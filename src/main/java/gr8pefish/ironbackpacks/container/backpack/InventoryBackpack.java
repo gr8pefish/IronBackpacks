@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.container.backpack;
 
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.NBTHelper;
@@ -304,6 +305,13 @@ public class InventoryBackpack implements IInventory {
                     if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
                         return itemStack;
                     }
+                }
+            }
+
+            ItemStack equipped = PlayerBackpackProperties.getEquippedBackpack(entityPlayer);
+            if (equipped != null && equipped.getItem() instanceof IBackpack && NBTHelper.hasUUID(equipped)) {
+                if (equipped.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && equipped.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()) {
+                    return equipped;
                 }
             }
         }

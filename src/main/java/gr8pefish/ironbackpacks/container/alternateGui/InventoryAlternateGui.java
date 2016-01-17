@@ -4,6 +4,7 @@ import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.container.slot.BackpackSlot;
 import gr8pefish.ironbackpacks.container.slot.NestingBackpackSlot;
+import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
@@ -605,6 +606,13 @@ public class InventoryAlternateGui implements IInventory {
                     }
                 }
             }
+            ItemStack equipped = PlayerBackpackProperties.getEquippedBackpack(entityPlayer);
+            if (equipped != null && equipped.getItem() instanceof IBackpack && NBTHelper.hasUUID(equipped)) {
+                if (equipped.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && equipped.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()) {
+                    return equipped;
+                }
+            }
+
         }
         return null;
     }

@@ -105,8 +105,6 @@ public class ItemRegistry {
      */
     public static void registerItems() {
 
-        System.out.println("HERE");
-
         //backpacks
         basicBackpack = new ItemBackpack(IronBackpacksConstants.Backpacks.BASIC_BACKPACK_ENUM_NAME);
         GameRegistry.registerItem(basicBackpack, IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME);
@@ -116,8 +114,6 @@ public class ItemRegistry {
         GameRegistry.registerItem(goldBackpack, IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME);
         diamondBackpack = new ItemBackpack(IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_ENUM_NAME);
         GameRegistry.registerItem(diamondBackpack, IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME);
-
-        System.out.println("THERE");
 
         //upgrades
         buttonUpgrade = new ItemButtonUpgrade();

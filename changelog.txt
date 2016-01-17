@@ -4,7 +4,7 @@ Version 1.8.9 - 2.1.1.0
 Initial Port to 1.8.9 as a rewrite
 
 Additions (in relation to 1.7.10 - 1.2.15)
-- None
+- You can shift "keybinding open backpack (default 'c')" to open up the equipped backpack's alternate gui directly
 
 Changes (in relation to 1.7.10 - 1.2.15)
 - Default keybinding to open backpack is 'c' and to equip is now 'v'

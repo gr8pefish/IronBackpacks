@@ -31,10 +31,8 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID >= 0) { //normal gui
-            Logger.info((IronBackpacksHelper.getBackpack(player)) == null);
             return GUIBackpack.buildGUI(player, new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player)));
         }else if (ID < 0){ //alternate gui
-            Logger.info((IronBackpacksHelper.getBackpack(player)) == null);
             return GUIBackpackAlternate.GUI.buildGUIAlternate(new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player))); //TODO: THE BUG IS HERE?
         }
 		return null;

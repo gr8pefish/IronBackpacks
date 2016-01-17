@@ -67,8 +67,7 @@ public class GUIBackpack extends GuiContainer {
      * @return - a GUI
      */
     public static GUIBackpack buildGUI(EntityPlayer player, InventoryBackpack backpack) {
-        Logger.info(backpack == null);
-        return new GUIBackpack(player, backpack); //TODO: fix this grossness
+        return new GUIBackpack(player, backpack);
     }
 
 

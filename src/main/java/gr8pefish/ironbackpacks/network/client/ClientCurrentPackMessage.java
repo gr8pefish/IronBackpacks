@@ -2,6 +2,7 @@ package gr8pefish.ironbackpacks.network.client;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
+import gr8pefish.ironbackpacks.util.Logger;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -37,8 +38,9 @@ public class ClientCurrentPackMessage implements IMessage {
         public IMessage onMessage(ClientCurrentPackMessage message, MessageContext ctx) {
 
             EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
-            if (player != null)
+            if (player != null) {
                 PlayerBackpackProperties.setCurrentBackpack(player, message.stack); //update the backpack //TODO: client and this is just bad code
+            }
 
             return null; //no return message
         }
