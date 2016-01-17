@@ -2,13 +2,15 @@ To Do:
 
     1.8 Stuff:
 
+        Minor:
+            Doesn't init if going straight to alt gui
+
         add registry items to API
             check BM api
             check inv tweaks api
 
-        Fix tooltips so they render on top of everything - update forge
-
         add crafttweaker support
+
         JEI handlers for crafting
 
         fix config nonsense
@@ -23,13 +25,16 @@ To Do:
 
         add commands to remove stored packs' IEEP data
 
+        change so api version different?
+            check chisel API
+	
+	Test ondeath save to title
+
+        blocks are all in the itemRegistry
+            So new ItemStack(Items.itemRegistry.getObject(new ResourceLocation(BloodMagic:BlockRitualStone))) would work
 
     NOW:
 
-	limit ids so it can go in unabridged
-
-	blocks are all in the itemRegistry
-	So new ItemStack(Items.itemRegistry.getObject(new ResourceLocation(BloodMagic:BlockRitualStone))) would work
 		
     SOON:
 
@@ -39,7 +44,7 @@ To Do:
 
             Data storage in player pack?
                 check register packets also had to server side - ex: error on server startup if no getClientPlayer() - that's a bug
-                Make it all server
+                Make it all server - try again, since I fixed the getParentStack bug
 
         TESTING:
 
