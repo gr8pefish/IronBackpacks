@@ -4,16 +4,18 @@ Version 1.8.9 - 2.0.0.0 (versioning: major-api-minor-build)
 Initial Port to Minecraft 1.8.9 as a rewrite
 
 Additions (in relation to 1.7.10 - 1.2.15)
-- You can shift "keybinding open backpack (default 'c')" to open up the equipped backpack's alternate gui directly
+- You can crouch while opening an equipped backpack to open up the equipped backpack's alternate gui directly.
 
 Changes (in relation to 1.7.10 - 1.2.15)
-- Default keybinding to open backpack is 'c' and to equip is now 'v'
-- The backpack no longer renders on the client if the player is in first person perspective (configurable)
-- The void filters by fuzzy detection now
-- Removed the option to have an alternate backpack texture
-- Start of a full fledged API
-- (Internal) Tons of various minor fixes/changes/optimizations
+- The entire mod now only takes 6 Item IDs!
+    - 4 for the backpacks (each one is still a separate item), 1 for all the upgrades, and 1 for all the crafting items.
+- Default keybinding to open backpack is 'c' and to equip is now 'v'.
+- The backpack no longer renders on the client if the player is in first person perspective (configurable).
+- The void filter deletes items by fuzzy detection now (instead of exact as it was before)
+- Removed the option to have an alternate backpack texture.
+- Start of a full fledged API.
+- (Internal) Tons of various minor fixes/changes/optimizations.
 - (Internal) Changed how backpacks are stored internally, both for death and in general (uses two IEEPs), should be more stable.
 
 Bug Fixes (in relation to 1.7.10 - 1.2.15)
-- Tooltips now render on top of everything (it won't be hidden by jei's items)
+- Tooltips now render on top of everything (it won't be hidden by JEI's items).
