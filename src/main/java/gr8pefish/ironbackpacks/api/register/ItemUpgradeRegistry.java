@@ -89,16 +89,29 @@ public class ItemUpgradeRegistry {
         }
     }
 
-    public static ItemPackUpgrade getItemPackUpgrade(int directIndex) {
-        return itemsPack.get(directIndex);
+    @SuppressWarnings("SuspiciousMethodCalls")
+    public static int getIndexOfUpgrade(IPackUpgrade upgrade) {
+        if (itemsPack.contains(upgrade)){
+            return getIndexOfPackUpgrade((ItemPackUpgrade)upgrade);
+        } else if (itemsConflicting.contains(upgrade)) {
+            return getIndexOfConflictingUpgrade((ItemConflictingUpgrade)upgrade);
+        } else if (itemsAltGui.contains(upgrade)) {
+            return getIndexOfAltGuiUpgrade((ItemAltGuiUpgrade)upgrade);
+        } else {
+            throw new RuntimeException("No index found here");
+        }
     }
 
-    public static ItemConflictingUpgrade getItemConflictingUpgrade(int directIndex) {
-        return itemsConflicting.get(directIndex - itemsPack.size());
+    public static ItemPackUpgrade getItemPackUpgrade(int damageValue) {
+        return itemsPack.get(damageValue);
     }
 
-    public static ItemAltGuiUpgrade getItemAltGuiUpgrade(int directIndex) {
-        return itemsAltGui.get(directIndex - getInflatedSizeOfConflicting());
+    public static ItemConflictingUpgrade getItemConflictingUpgrade(int damageValue) {
+        return itemsConflicting.get(damageValue - itemsPack.size());
+    }
+
+    public static ItemAltGuiUpgrade getItemAltGuiUpgrade(int damageValue) {
+        return itemsAltGui.get(damageValue - getInflatedSizeOfConflicting());
     }
 
     public static ItemPackUpgrade getItemPackUpgrade(ItemStack stack) {

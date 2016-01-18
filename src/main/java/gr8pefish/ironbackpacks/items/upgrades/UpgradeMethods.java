@@ -1,9 +1,11 @@
 package gr8pefish.ironbackpacks.items.upgrades;
 
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
+import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
+import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -76,7 +78,7 @@ public class UpgradeMethods {
     public static boolean hasDamageBarUpgrade(int[] upgrades){
         boolean hasUpgrade = false;
         for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.DAMAGE_BAR_UPGRADE_ID) {
+            if (upgrade == ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.damageBarUpgrade)){// IronBackpacksConstants.Upgrades.DAMAGE_BAR_UPGRADE_ID) {
                 hasUpgrade = true;
                 break;
             }
@@ -87,7 +89,7 @@ public class UpgradeMethods {
     public static boolean hasFilterBasicUpgrade(int[] upgrades){
         boolean hasUpgrade = false;
         for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID) {
+            if (upgrade == ItemUpgradeRegistry.getIndexOfUpgrade(ItemRegistry.filterBasicUpgrade)) {
                 hasUpgrade = true;
                 break;
             }

@@ -53,9 +53,13 @@ public class ItemUpgrade extends Item {
 //    }
 
 //    @Override
-//    public int getUpgradeCost(ItemStack stack) {
-//        return getItemPackUpgrade(stack).getUpgradeCost(stack);
-//    }
+    public static int getUpgradeCost(ItemStack stack) {
+        return ItemUpgradeRegistry.getItemUpgrade(stack).getUpgradeCost(stack);
+    }
+
+    public static int getId(ItemStack stack) {
+        return stack.getItemDamage(); //TODO: I can do better, dynamic lookup or something
+    }
 
 //    @Override
 //    public List<String> getTooltip(ItemStack stack){
