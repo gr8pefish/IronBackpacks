@@ -1,11 +1,6 @@
 package gr8pefish.ironbackpacks.crafting;
 
-import gr8pefish.ironbackpacks.IronBackpacks;
-import gr8pefish.ironbackpacks.api.item.backpacks.abstractClasses.AbstractUpgradablePack;
-import gr8pefish.ironbackpacks.api.item.backpacks.abstractClasses.AbstractUpgradableTieredBackpack;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
-import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
@@ -14,11 +9,9 @@ import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
-import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -43,9 +36,9 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
      * If it has enough points available it progresses, otherwise it returns null;
      *
      * Then it checks for special cases, listed below:
-     * You can't have more than the config amount of 'additional upgrade' upgrades applied.
-     * You can't have multiple upgrades of the same type. If you try to apply the upgrade twice it will return the backpack with teh upgrade removed instead (which is how you remove upgrades).
-     * You can't have both an advanced nesting upgrade and a nesting upgrade on the same backpack.
+     * You can't have more than the config amount of 'additional upgrade points' upgrades applied.
+     * You can't have conflicting upgrades (as defined by each IConflictingUpgrade).
+     * You can only have a certain amount of alternate gui upgrades. Currently 'hardcoded' as 4, see IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED
      *
      * @param inventoryCrafting - the inventory crafting to check
      * @return - the resulting itemstack
@@ -53,21 +46,16 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
 
-        ItemStack backpack = getFirstUpgradableBackpack(inventoryCrafting);
-        if (backpack == null) return null; //if no valid backpack (i.e. an upgradable one, return nothing)
-        ItemStack result = backpack.copy();
+        ItemStack backpack = getFirstUpgradableBackpack(inventoryCrafting); //get the upgradable backpack in the crafting grid
+        if (backpack == null) return null; //if no valid backpack return nothing
+        ItemStack result = backpack.copy(); //the resulting backpack, copied so it's data can be more easily manipulated
 
-        ArrayList<ItemStack> upgrades = ItemBackpack.getUpgrades(result);
-//        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result); //ex 1,2
-        int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(result); //ex: 3
+        ArrayList<ItemStack> upgrades = ItemBackpack.getUpgrades(result); //get the upgrades
+        int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(result); //get the total upgrade points available to the backpack
 
-        ItemStack upgradeToApply = getFirstUpgrade(inventoryCrafting);
-//        ItemUpgrade upgradeToApplyBase = null;
-//        if (upgradeToApply != null) {
-//            System.out.println(upgradeToApply.getDisplayName());
-//            upgradeToApplyBase = (ItemUpgrade) upgradeToApply.getItem();
-//        }
+        ItemStack upgradeToApply = getFirstUpgrade(inventoryCrafting); //get the upgrade the player is attempting to apply to the backpack
 
+        //save all the items from the old pack
         NBTTagCompound nbtTagCompound = result.getTagCompound();
         if (nbtTagCompound == null){
             nbtTagCompound = new NBTTagCompound();
@@ -75,64 +63,46 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
             result.setTagCompound(nbtTagCompound);
         }
 
-        boolean upgradeFound = false; //will put upgrade in first valid slot
-        NBTTagList tagList = new NBTTagList();
+        boolean upgradeFound = false; //too determine if you need to return a new backpack in the output slot
+        NBTTagList tagList = new NBTTagList(); //the upgrade data base tag
 
         if (totalUpgradePoints != 0 && upgradeToApply != null) { //if have more than zero upgrade slots
-            if (upgrades.size() == 0){ //if no upgrades applied, apply upgrade
-                if (ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade)){ //ItemUpgrade.getId(upgradeToApply) == IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_POINTS_UPGRADE_ID){
-                    upgradeFound = applyAdditional(nbtTagCompound, result);
-                }else {
-                    if (IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints) {
-//                        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(ItemUpgrade.getId(upgradeToApply)))
-                        if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeToApply)){
-                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI, upgradeToApply.writeToNBT(new NBTTagCompound()));
-//                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED, new NBTTagCompound(); //int value of upgrade added
-                        }
-//                        NBTTagCompound tagCompound = new NBTTagCompound();
-//                        tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) ItemUpgrade.getId(upgradeToApply));
-//                        tagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADE, upgradeToApply.writeToNBT(new NBTTagCompound()));
-//                        upgradeToApply.writeToNBT(tagCompound);
-                        tagList.appendTag(upgradeToApply.writeToNBT(new NBTTagCompound()));
-                        upgradeFound = true;
+            if (upgrades.size() == 0){ //if no upgrades applied
+                if (ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade)){ //if the upgrade is an additional upgrade points upgrade
+                    upgradeFound = applyAdditional(nbtTagCompound, result); //if you can apply more upgrade points, do it
+                } else { //some other upgrade (i.e. not additional upgrade points)
+                    if (IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints) { //if you have enough upgrade points to apply it
+                        if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeToApply)) //if it is an alt gui upgrade
+                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI, upgradeToApply.writeToNBT(new NBTTagCompound())); //make sure to update so the alt gui can change when it is opened
+                        tagList.appendTag(upgradeToApply.writeToNBT(new NBTTagCompound())); //save the new upgrade
+                        upgradeFound = true; //you applied an upgrade, congratulations
                     }
                 }
-            }else { //upgrades have been applied
-                if (ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade)) {
-                    upgradeFound = applyAdditional(nbtTagCompound, result);
+            } else { //upgrades have been applied
+                if (ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade)) { //if the upgrade is an additional upgrade points upgrade
+                    upgradeFound = applyAdditional(nbtTagCompound, result); //if you can apply more upgrade points, do it
                 }
                 for (ItemStack upgrade : upgrades) { //for each upgrade in possible upgrades
-//                    if (!upgradeFound && shouldRemove(upgrade, upgradeToApply)){
-//                        //not adding the old recipe is the same outcome as removing the recipe, so no code needed here
-//                        upgradeFound = true;
-//                        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(ItemUpgrade.getId(upgradeToApply)))
-//                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(ItemUpgrade.getId(upgradeToApply)))); //int value of upgrade removed
-                    //save old contents to new tag
-//                    NBTTagCompound tagCompound = new NBTTagCompound();
-//                    tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgrade);
                     tagList.appendTag(upgrade.writeToNBT(new NBTTagCompound())); //save old contents to new tag (transfer over the data, essentially)
                 }
                 if (!upgradeFound && !(ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade))){ //if not already applied
-                    if (canApplyUpgrade(upgrades, totalUpgradePoints, upgradeToApply)){
-                        if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeToApply))
-                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI, upgradeToApply.writeToNBT(new NBTTagCompound()));
-//                        NBTTagCompound tagCompound = new NBTTagCompound();
-//                        tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) ItemUpgrade.getId(upgradeToApply));
-//                        tagList.appendTag(tagCompound);
-                        tagList.appendTag(upgradeToApply.writeToNBT(new NBTTagCompound()));
-                        upgradeFound = true;
+                    if (canApplyUpgrade(upgrades, totalUpgradePoints, upgradeToApply)){ //if you can apply the upgrade (this checks special conditions (i.e. IConflictingUpgrades) too)
+                        if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeToApply)) //if it is an alt gui upgrade
+                            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI, upgradeToApply.writeToNBT(new NBTTagCompound())); //make sure to update so the alt gui can change when it is opened
+                        tagList.appendTag(upgradeToApply.writeToNBT(new NBTTagCompound())); //save the new upgrade
+                        upgradeFound = true; //you applied an upgrade, congratulations
                     }
                 }
             }
-        }else if (upgradeToApply != null && ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade)){
-            upgradeFound = applyAdditional(nbtTagCompound, result);
+        } else if (upgradeToApply != null && ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade)){ //if no upgrade points you could apply to get more upgrade points (corner case)
+            upgradeFound = applyAdditional(nbtTagCompound, result); //if you can apply more upgrade points, do it
         }
 
-        nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADES, tagList);
-        if (upgradeFound) {
-            return result;
-        }else{
-            return null;
+        nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADES, tagList); //set the tag with all the upgrade that were just updated
+        if (upgradeFound) { //if you applied an upgrade
+            return result; //return the new backpack
+        } else { //otherwise
+            return null; //return nothing
         }
 
     }
@@ -178,6 +148,13 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
         return null;
     }
 
+    /**
+     * Checks the special conditions to see if the upgrade can be applied. Also checks if the backpack has sufficient available upgrade points to apply the upgrade.
+     * @param upgrades - the upgrades already on the backpack
+     * @param totalUpgradePoints - the total upgrade points on the backpack
+     * @param upgradeToApply - the upgradeToApply as an itemstack
+     * @return - true if it can be applied, false otherwise
+     */
     private boolean canApplyUpgrade(ArrayList<ItemStack> upgrades, int totalUpgradePoints, ItemStack upgradeToApply){
         if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(upgradeToApply) || ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeToApply)){
             if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(upgradeToApply)){ //conflicting
@@ -186,7 +163,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
                 } else { //no conflicting one tried to be applied
                     return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints; //if you have the upgrade points
                 }
-            }else{ //alt gui upgrade
+            } else{ //alt gui upgrade
                 if (UpgradeMethods.getAltGuiUpgradesUsed(upgrades) + 1 <= IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED){ //if you can fit the alt gui
                     return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints; //if you have the upgrade points
                 } else { //you can't fit another alternate gui upgrade
@@ -198,64 +175,6 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
         }
     }
 
-    /**
-     * Checks the special conditions to see if the upgrade can be applied. Also checks if the backpack has sufficient available upgrade points to apply the upgrade.
-     * @param upgrades - the upgrades already on the backpack
-     * @param totalUpgradePoints - the total upgrade points on the backpack
-     * @param upgradeToApply - the upgradeToApply as an itemstack
-     * @return - true if it can be applied, false otherwise
-     */
-//    @Deprecated
-//    private boolean canApplyUpgrade(int[] upgrades, int totalUpgradePoints, ItemStack upgradeToApply){
-//        if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(ItemUpgrade.getId(upgradeToApply))) { //alt gui upgrade
-//            if (UpgradeMethods.getAltGuiUpgradesUsed(upgrades) + 1 <= IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED) { //alt gui in general
-//                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints;
-//            }
-//            return false;
-//        }else if(ItemUpgrade.getId(upgradeToApply) == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID || ItemUpgrade.getId(upgradeToApply) == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID) { //have to choose between nesting upgrade and advanced nesting upgrade
-//            if (ItemUpgrade.getId(upgradeToApply) == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID) {
-//                for (int upgrade : upgrades) {
-//                    if (upgrade == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID) {
-//                        return false;
-//                    }
-//                }
-//                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints;
-//            } else {
-//                for (int upgrade : upgrades) {
-//                    if (upgrade == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID) {
-//                        return false;
-//                    }
-//                }
-//                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints;
-//            }
-//        }else if(ItemUpgrade.getId(upgradeToApply) == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_UPGRADE_ID || ItemUpgrade.getId(upgradeToApply) == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_UPGRADE_ID) { //have to choose between quick deposit normal and precise
-//            if (ItemUpgrade.getId(upgradeToApply) == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_UPGRADE_ID) {
-//                for (int upgrade : upgrades) {
-//                    if (upgrade == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_UPGRADE_ID) {
-//                        return false;
-//                    }
-//                }
-//                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints;
-//            } else {
-//                for (int upgrade : upgrades) {
-//                    if (upgrade == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_UPGRADE_ID) {
-//                        return false;
-//                    }
-//                }
-//                return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints;
-//            }
-//        }else if(ItemUpgrade.getId(upgradeToApply) == IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_ID){ //If trying to apply the depth upgrade you need a nesting upgrade applied already
-//            for (int upgrade : upgrades){
-//                if (upgrade == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID){
-//                    return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints;
-//                }
-//            }
-//            return false;
-//        }else{ //other upgrade (additional upgrade points already taken care of)
-//            return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints;
-//        }
-//
-//    }
 
     /**
      * Applies the upgrade to the backpack by adding it's NBT data.
@@ -263,7 +182,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
      * @param backpack - the backpack in the crafting grid
      * @return - true if it can be applied, false otherwise
      */
-    //TODO: I have no idea what this does, and I wrote it O_o
+    //TODO: I have no idea what this does, and I wrote it O_o That may cause some issues, as this is confusing NBT saving.
     private boolean applyAdditional(NBTTagCompound nbtTagCompound, ItemStack backpack){
         ItemBackpack backpackBase = (ItemBackpack) backpack.getItem();
         if (backpackBase == null) return false;
@@ -274,7 +193,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
                 return true;
             }
 
-        }else{
+        } else {
             if (ConfigHandler.additionalUpgradePointsLimit + backpackBase.getGuiId(backpack) > 0) {
                 nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS, new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradePointsIncrease, 1})); //[pointsAdded, upgradesApplied]
                 return true;

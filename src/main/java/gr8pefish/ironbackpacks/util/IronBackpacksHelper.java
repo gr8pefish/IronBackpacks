@@ -120,6 +120,8 @@ public class IronBackpacksHelper {
         return counter;
     }
 
+
+
     /**
      * Gets the point value of upgrades used.
      * @param upgrades - the upgrades applied
