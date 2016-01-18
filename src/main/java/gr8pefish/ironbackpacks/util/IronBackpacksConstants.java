@@ -110,7 +110,8 @@ public class IronBackpacksConstants {
                 ));
 
         //All the localized names
-        public static final String[] LOCALIZED_NAMES = {StatCollector.translateToLocal("emptyUpgradeSlot"),
+        public static final String[] LOCALIZED_NAMES = {
+                StatCollector.translateToLocal("emptyUpgradeSlot"),
                 StatCollector.translateToLocal("item.ironbackpacks:buttonUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:nestingUpgrade.name"),
                 StatCollector.translateToLocal("item.ironbackpacks:damageBarUpgrade.name"),
@@ -233,7 +234,7 @@ public class IronBackpacksConstants {
         public static final String CONDENSER_SMALL = "CondenserSmall";
         public static final String CONDENSER_TINY = "CondenserTiny";
         public static final String ITEMS = "Items";
-        public static final String ADDED = "Added";
+        public static final String ADDED_ALT_GUI = "AddedAltGui";
         public static final String REMOVED = "Removed";
     }
 

@@ -6,6 +6,7 @@ import gr8pefish.ironbackpacks.api.item.craftingItems.ItemAPICrafting;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemAltGuiUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemPackUpgrade;
+import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemCraftingRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
@@ -18,6 +19,8 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Registers all the items in this mod.
@@ -138,13 +141,13 @@ public class ItemRegistry {
         }
 
         //conflicting upgrades
-        nestingUpgrade = new ItemConflictingUpgrade("nesting", ConfigHandler.nestingUpgradeCost, IronBackpacksConstants.Upgrades.NESTING_DESCRIPTION, ConfigHandler.nestingUpgradeRecipe);
+        nestingUpgrade = new ItemConflictingUpgrade("nesting", ConfigHandler.nestingUpgradeCost, IronBackpacksConstants.Upgrades.NESTING_DESCRIPTION, ConfigHandler.nestingUpgradeRecipe, Collections.singletonList(nestingAdvancedUpgrade));
         ItemUpgradeRegistry.registerItemConflictingUpgrade(nestingUpgrade);
-        nestingAdvancedUpgrade = new ItemConflictingUpgrade("nestingAdvanced", ConfigHandler.nestingAdvancedUpgradeCost, IronBackpacksConstants.Upgrades.NESTING_ADVANCED_DESRIPTION, ConfigHandler.nestingAdvancedUpgradeRecipe);
+        nestingAdvancedUpgrade = new ItemConflictingUpgrade("nestingAdvanced", ConfigHandler.nestingAdvancedUpgradeCost, IronBackpacksConstants.Upgrades.NESTING_ADVANCED_DESRIPTION, ConfigHandler.nestingAdvancedUpgradeRecipe, Collections.singletonList(nestingUpgrade));
         ItemUpgradeRegistry.registerItemConflictingUpgrade(nestingAdvancedUpgrade);
-        quickDepositUpgrade = new ItemConflictingUpgrade("quickDeposit", ConfigHandler.quickDepositUpgradeCost, IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_DESCRIPTION, ConfigHandler.quickDepositUpgradeRecipe);
+        quickDepositUpgrade = new ItemConflictingUpgrade("quickDeposit", ConfigHandler.quickDepositUpgradeCost, IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_DESCRIPTION, ConfigHandler.quickDepositUpgradeRecipe, Collections.singletonList(quickDepositPreciseUpgrade));
         ItemUpgradeRegistry.registerItemConflictingUpgrade(quickDepositUpgrade);
-        quickDepositPreciseUpgrade = new ItemConflictingUpgrade("quickDepositPrecise", ConfigHandler.quickDepositPreciseUpgradeCost, IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_DESCRIPTION, ConfigHandler.quickDepositPreciseUpgradeRecipe);
+        quickDepositPreciseUpgrade = new ItemConflictingUpgrade("quickDepositPrecise", ConfigHandler.quickDepositPreciseUpgradeCost, IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_DESCRIPTION, ConfigHandler.quickDepositPreciseUpgradeRecipe, Collections.singletonList(quickDepositUpgrade));
         ItemUpgradeRegistry.registerItemConflictingUpgrade(quickDepositPreciseUpgrade);
 
         //alt gui upgrades

@@ -65,6 +65,10 @@ public class ItemUpgradeRegistry {
         ModelLoader.setCustomModelResourceLocation(IronBackpacksAPI.getItem(IronBackpacksAPI.ITEM_UPGRADE_BASE), meta, new ModelResourceLocation(resourceLocation, "inventory"));
     }
 
+    public static boolean isInstanceOfAnyUpgrade(ItemStack stack){
+        return (stack.getItemDamage() < getInflatedSizeOfAltGui());
+    }
+
     public static boolean isInstanceOfPackUpgrade(ItemStack stack){
         return (stack.getItemDamage() < itemsPack.size());
     }

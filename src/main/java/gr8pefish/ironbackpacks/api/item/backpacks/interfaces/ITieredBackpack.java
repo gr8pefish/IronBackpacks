@@ -17,7 +17,7 @@ public interface ITieredBackpack extends IBackpack {
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - the IBackpack that is higher (or null)
      */
-    ArrayList<ItemStack> getBackpacksAbove(ItemStack backpack);
+    ArrayList<ITieredBackpack> getBackpacksAbove(ItemStack backpack);
 
     /**
      * Return if there exists a higher tier backpack
@@ -31,7 +31,7 @@ public interface ITieredBackpack extends IBackpack {
      * @param baseBackpack - the backpack as an item stack (needed for sub items) to set this value for
      * @param aboveBackpacks - the backpacks as an array to set as higher
      */
-    void setBackpacksAbove(ItemStack baseBackpack, ArrayList<ItemStack> aboveBackpacks);
+//    void setBackpacksAbove(ItemStack baseBackpack, ArrayList<ITieredBackpack> aboveBackpacks);
 
     //==============================================Methods related to lower tier backpacks=======================================================
 
@@ -40,7 +40,7 @@ public interface ITieredBackpack extends IBackpack {
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - the IBackpack that is lower (or null)
      */
-    ArrayList<ItemStack> getBackpacksBelow(ItemStack backpack);
+    ArrayList<ITieredBackpack> getBackpacksBelow(ItemStack backpack);
 
     /**
      * Return if there exists a lower tier backpack
@@ -54,7 +54,7 @@ public interface ITieredBackpack extends IBackpack {
      * @param baseBackpack - the backpack as an item stack (needed for sub items) to set this value for
      * @param belowBackpacks - the backpacks as an array to set as lower
      */
-    void setBackpacksBelow(ItemStack baseBackpack, ArrayList<ItemStack> belowBackpacks);
+//    void setBackpacksBelow(ItemStack baseBackpack, ArrayList<ITieredBackpack> belowBackpacks);
 
 
 

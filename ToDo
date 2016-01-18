@@ -12,10 +12,13 @@ To Do:
         add crafttweaker support
 
         JEI handlers for crafting
+            https://github.com/williewillus/Botania/tree/MC18/src/main/java/vazkii/botania/client/integration/jei/manapool
 
         add in changelog limiting ids
 
         add model backpack registry to API
+
+        make API not need the recipe in case you don't want a custom one (add as end optional param)
 
         fix config nonsense
             change order so recipes are last
@@ -24,6 +27,7 @@ To Do:
         fix versioning build.gradle incrementing stuff with api version
 
         then API/cut ids/refactor, etc.
+            add all static methods to helpers in API
 
         bm blacklist for config to disable items (requested config option)
 
@@ -33,6 +37,8 @@ To Do:
             check chisel API
 	
 	Test ondeath save to title
+
+	probably breaks when you go through the end portal too
 
         blocks are all in the itemRegistry
             So new ItemStack(Items.itemRegistry.getObject(new ResourceLocation(BloodMagic:BlockRitualStone))) would work

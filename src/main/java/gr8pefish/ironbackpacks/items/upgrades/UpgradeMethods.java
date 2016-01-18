@@ -1,6 +1,8 @@
 package gr8pefish.ironbackpacks.items.upgrades;
 
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
+import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
+import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
@@ -22,15 +24,28 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UpgradeMethods {
 
     //===============================hasUpgrade Methods=====================================
 
+    public static boolean hasButtonUpgrade(ArrayList<ItemStack> upgrades){
+        boolean hasUpgrade = false;
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.buttonUpgrade)){
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
+
     public static boolean hasButtonUpgrade(int[] upgrades){
         boolean hasUpgrade = false;
         for (int upgrade: upgrades){
-            if (upgrade == IronBackpacksConstants.Upgrades.BUTTON_UPGRADE_ID){
+            if (upgrade == ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.damageBarUpgrade)){ //IronBackpacksConstants.Upgrades.BUTTON_UPGRADE_ID){
                 hasUpgrade = true;
                 break;
             }
@@ -311,11 +326,34 @@ public class UpgradeMethods {
         return slots;
     }
 
+    public static int getAltGuiUpgradesUsed(ArrayList<ItemStack> upgrades){
+        int counter = 0;
+        for (ItemStack upgrade : upgrades){
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgrade)){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public static boolean hasConflictingUpgradeInUpgrades(ItemStack upgradeToApply, ArrayList<ItemStack> upgrades) {
+        List<ItemConflictingUpgrade> conflictingUpgrades = ItemUpgradeRegistry.getItemConflictingUpgrade(upgradeToApply).getConflictingUpgrades(upgradeToApply);
+        for (ItemStack stack : upgrades){ //for every upgrade
+            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)){ //if it is an instance of a conflicting upgrade
+                if (conflictingUpgrades.contains(ItemUpgradeRegistry.getItemConflictingUpgrade(stack))){ //if it specifically conflicts with this upgrade applied
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Gets the number of alternate gui upgrades used.
      * @param upgrades - the upgrades to check
      * @return integer value
      */
+    @Deprecated
     public static int getAltGuiUpgradesUsed(int[] upgrades){
         int counter = 0;
         if (!ConfigHandler.renamingUpgradeRequired) {

@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.items.upgrades;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
+import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.creativetab.CreativeTabs;
@@ -59,6 +60,10 @@ public class ItemUpgrade extends Item {
 
     public static int getId(ItemStack stack) {
         return stack.getItemDamage(); //TODO: I can do better, dynamic lookup or something
+    }
+
+    public static boolean areUpgradesEqual(ItemStack toCheck, IPackUpgrade upgrade){
+        return ItemUpgradeRegistry.getItemUpgrade(toCheck).equals(upgrade);
     }
 
 //    @Override

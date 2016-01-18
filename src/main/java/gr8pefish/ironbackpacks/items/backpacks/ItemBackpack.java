@@ -5,6 +5,9 @@ import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.backpacks.abstractClasses.AbstractUpgradableTieredBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
+import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
+import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
@@ -21,6 +24,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -162,17 +166,18 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
-        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
+        ArrayList<ItemStack> upgrades = getUpgrades(stack);
         int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(stack);
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
             int upgradesUsed = 0;
-            for (int upgrade : upgrades) {
-                list.add(IronBackpacksConstants.Upgrades.LOCALIZED_NAMES[upgrade]);
-                upgradesUsed += IronBackpacksConstants.Upgrades.UPGRADE_POINTS[upgrade];
+
+            for (ItemStack upgradeStack : upgrades) {
+                list.add(TextUtils.localizeEffect("item.ironbackpacks.upgrade."+ItemUpgradeRegistry.getItemUpgrade(upgradeStack).getName(upgradeStack)+".name"));
+                upgradesUsed += ItemUpgradeRegistry.getItemUpgrade(upgradeStack).getUpgradeCost(upgradeStack);
             }
 
-            if (upgrades.length > 0)
+            if (upgrades.size() > 0)
                 list.add("");
 
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used", upgradesUsed, totalUpgradePoints));
@@ -245,9 +250,9 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
         return this.upgradePoints;
     }
 
-    @Override
-    public ArrayList<Integer> getUpgrades(ItemStack backpack) {
-        ArrayList<Integer> upgradesArrayList = new ArrayList<>();
+//    @Override
+    public static ArrayList<ItemStack> getUpgrades(ItemStack backpack) {
+        ArrayList<ItemStack> upgradesArrayList = new ArrayList<>();
         if (backpack != null) {
             NBTTagCompound nbtTagCompound = backpack.getTagCompound();
             if (nbtTagCompound != null) {
@@ -255,16 +260,19 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
                     NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.UPGRADES, net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int hasUpgrade = stackTag.getByte(IronBackpacksConstants.NBTKeys.UPGRADE);
-                        if (hasUpgrade != 0){ //if has an upgrade
-                            upgradesArrayList.add(hasUpgrade);
-                        }
+                        ItemStack upgrade = ItemStack.loadItemStackFromNBT(stackTag);
+                        if (upgrade != null)
+                            upgradesArrayList.add(upgrade);
                     }
                 }
             }
         }
         return upgradesArrayList;
     }
+
+//    public static ArrayList<ItemStack> getUpgrades(ItemStack backpack){
+//        return this.getUpgrades(backpack);
+//    }
 
     @Override
     public double getFullness(ItemStack stack) {
@@ -305,7 +313,7 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
     //TODO: add fields to enum for this?
 
     @Override
-    public ArrayList<ItemStack> getBackpacksAbove(ItemStack backpack) {
+    public ArrayList<ITieredBackpack> getBackpacksAbove(ItemStack backpack) {
         return null;
     }
 
@@ -314,13 +322,9 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
         return false;
     }
 
-    @Override
-    public void setBackpacksAbove(ItemStack baseBackpack, ArrayList<ItemStack> aboveBackpacks) {
-
-    }
 
     @Override
-    public ArrayList<ItemStack> getBackpacksBelow(ItemStack backpack) {
+    public ArrayList<ITieredBackpack> getBackpacksBelow(ItemStack backpack) {
         return null;
     }
 
@@ -328,12 +332,6 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
     public boolean hasBackpacksBelow(ItemStack backpack) {
         return false;
     }
-
-    @Override
-    public void setBackpacksBelow(ItemStack baseBackpack, ArrayList<ItemStack> belowBackpacks) {
-
-    }
-
 
 }
 

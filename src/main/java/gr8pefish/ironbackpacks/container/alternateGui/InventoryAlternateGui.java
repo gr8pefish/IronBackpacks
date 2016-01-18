@@ -426,10 +426,10 @@ public class InventoryAlternateGui implements IInventory {
                     nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.REMOVED);
                 }
                 int upgradeAdded = 100; //arbitrary high value
-                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDED)){
-                    upgradeAdded = nbtTagCompound.getInteger(IronBackpacksConstants.NBTKeys.ADDED) - 1; //-1 b/c renaming upgrade (no slots)
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI)){
+                    upgradeAdded = nbtTagCompound.getInteger(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI) - 1; //-1 b/c renaming upgrade (no slots)
                     if (upgradeAdded < 0) upgradeAdded = 100; //naming upgrade shouldn't affect slots
-                    nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.ADDED);
+                    nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI);
                 }
 
                 if (!UpgradeMethods.hasFilterBasicUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.FILTER_BASIC); //remove the data if the upgrade has been removed

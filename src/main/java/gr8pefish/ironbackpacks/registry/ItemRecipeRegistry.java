@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.registry;
 
 import gr8pefish.ironbackpacks.api.register.ItemCraftingRegistry;
+import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
@@ -30,7 +31,7 @@ public class ItemRecipeRegistry {
 	public static void registerItemRecipes() {
 
 		registerBasicRecipe(ItemRegistry.basicBackpack, ConfigHandler.basicBackpackRecipe); //register the basic backpack as a recipe
-//		registerUpgradeRecipes(); //register the recipes to make the upgrades //TODO: broken
+		registerUpgradeRecipes(); //register the recipes to make the upgrades //TODO: broken
 		registerMiscRecipes(); //register the miscellaneous items' recipes
 
 		RecipeSorter.register("RemoveUpgrade", BackpackRemoveUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
@@ -58,7 +59,7 @@ public class ItemRecipeRegistry {
 
 	//Registers the recipes to create the upgrades
 	private static void registerUpgradeRecipes(){ //TODO
-//		registerBasicRecipe(ItemRegistry.buttonUpgrade, ConfigHandler.buttonUpgradeRecipe);
+//		registerCraftingItemRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.buttonUpgrade)), ConfigHandler.buttonUpgradeRecipe);
 //		registerBasicRecipe(ItemRegistry.nestingUpgrade, ConfigHandler.nestingUpgradeRecipe);
 //		if (ConfigHandler.renamingUpgradeRequired){
 //			registerBasicRecipe(ItemRegistry.renamingUpgrade, ConfigHandler.renamingUpgradeRecipe);
@@ -86,12 +87,14 @@ public class ItemRecipeRegistry {
 	//Registers the recipes that allow you to shapelessly craft an upgrade with a backpack to add/remove said upgrade
 	private static void registerBackpackUpgradeAndRemovalRecipes(){
 		ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
-		ArrayList<Item> upgrades = ItemRegistry.getUpgrades();
+		ArrayList<ItemStack> upgrades = new ArrayList<>();
+		for (int i = 0; i < ItemUpgradeRegistry.getTotalSize(); i++)
+			upgrades.add(new ItemStack(ItemRegistry.upgradeItem, 1, i));
 
 		for (Item backpack : backpacks){
 			GameRegistry.addRecipe(new BackpackRemoveUpgradeRecipe(new ItemStack(backpack), new ItemStack(backpack)));
-			for (Item upgrade : upgrades){
-				GameRegistry.addRecipe(new BackpackAddUpgradeRecipe(new ItemStack(backpack), new ItemStack(upgrade), new ItemStack(backpack)));
+			for (ItemStack upgrade : upgrades){
+				GameRegistry.addRecipe(new BackpackAddUpgradeRecipe(new ItemStack(backpack), upgrade, new ItemStack(backpack)));
 			}
 		}
 	}

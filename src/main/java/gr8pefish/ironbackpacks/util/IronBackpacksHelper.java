@@ -2,6 +2,8 @@ package gr8pefish.ironbackpacks.util;
 
 
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
+import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
@@ -10,6 +12,7 @@ import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
+import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -83,6 +86,7 @@ public class IronBackpacksHelper {
      * @param stack - the backpack to check
      * @return - an int[] of the upgrades applied (only contains what is applied, no empty values)
      */
+    @Deprecated
     public static int[] getUpgradesAppliedFromNBT(ItemStack stack) {
         ArrayList<Integer> upgradesArrayList = new ArrayList<Integer>();
         if (stack != null) {
@@ -108,11 +112,20 @@ public class IronBackpacksHelper {
         return ret;
     }
 
+    public static int getUpgradePointsUsed(ArrayList<ItemStack> upgrades){
+        int counter = 0;
+        for (ItemStack stack : upgrades){
+            counter += ItemUpgradeRegistry.getItemUpgrade(stack).getUpgradeCost(stack);
+        }
+        return counter;
+    }
+
     /**
      * Gets the point value of upgrades used.
      * @param upgrades - the upgrades applied
      * @return - how many upgrade points have been applied
      */
+    @Deprecated
     public static int getUpgradePointsUsed(int[] upgrades){
         int counter = 0;
         for (int upgrade : upgrades){
@@ -127,7 +140,7 @@ public class IronBackpacksHelper {
      * @return - integer value
      */
     public static int getTotalUpgradePointsFromNBT(ItemStack stack){
-        ItemBackpack backpack = (ItemBackpack) stack.getItem();
+        IUpgradableBackpack backpack = (IUpgradableBackpack) stack.getItem();
         int upgradeCount = backpack.getUpgradePoints(stack); //from initialization via config
         int extraPoints = getAdditionalUpgradesUpgradeCount(stack);
         return (upgradeCount + extraPoints);

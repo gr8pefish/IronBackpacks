@@ -55,7 +55,7 @@ public class GUIBackpack extends GuiContainer {
         this.ySize = itemBackpack.getGuiYSize(itemStack);
         this.container = new ContainerBackpack(inventoryBackpack, xSize, ySize) ;
         this.allowUserInput = false;
-        this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack));
+        this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(ItemBackpack.getUpgrades(itemStack));// IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack));
         tooltipButtons = new ArrayList<>();
     }
 

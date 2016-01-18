@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.api.item.backpacks.interfaces;
 
+import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public interface IUpgradableBackpack extends IBackpack {
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - the upgrades applied, as integer values.
      */
-    ArrayList<Integer> getUpgrades(ItemStack backpack);
+//    ArrayList<ItemStack> getUpgrades(ItemStack backpack);
 
     /**
      * Gets the fullness of the backpack for the durability bar upgrade.
