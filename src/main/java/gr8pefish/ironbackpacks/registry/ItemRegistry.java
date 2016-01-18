@@ -215,10 +215,10 @@ public class ItemRegistry {
         ItemUpgradeRegistry.registerItemUpgradeTexture(filterAdvancedUpgrade, "ItemUpgradeFilterAdvanced");
         ItemUpgradeRegistry.registerItemUpgradeTexture(filterMiningUpgrade, "ItemUpgradeFilterMining");
         ItemUpgradeRegistry.registerItemUpgradeTexture(filterVoidUpgrade, "ItemUpgradeFilterVoid");
-        ItemUpgradeRegistry.registerItemUpgradeTexture(restockingUpgrade, "ItemUpgradeRestocking");
         ItemUpgradeRegistry.registerItemUpgradeTexture(craftingUpgrade, "ItemUpgradeCrafting");
         ItemUpgradeRegistry.registerItemUpgradeTexture(craftingSmallUpgrade, "ItemUpgradeCraftingSmall");
         ItemUpgradeRegistry.registerItemUpgradeTexture(craftingTinyUpgrade, "ItemUpgradeCraftingTiny");
+        ItemUpgradeRegistry.registerItemUpgradeTexture(restockingUpgrade, "ItemUpgradeRestocking");
 
 
         //render the crafting items

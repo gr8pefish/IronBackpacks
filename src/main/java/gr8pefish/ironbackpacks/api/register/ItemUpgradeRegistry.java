@@ -2,7 +2,6 @@ package gr8pefish.ironbackpacks.api.register;
 
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.api.item.craftingItems.ItemAPICrafting;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemPackUpgrade;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -19,13 +18,9 @@ public class ItemUpgradeRegistry {
     private static List<ItemPackUpgrade> items = new ArrayList<>(); //TODO; differentiate types
 
     public static void registerItemUpgrade(ItemPackUpgrade item) {
-        if (!items.contains(item)) {
-            System.out.println("adding item: " + item.getName());
+        if (!items.contains(item))
             items.add(item);
-        }else {
-            System.out.println("can't add item " + item.getName());
-            //TODO: else {print error in logger}
-        }
+
     }
 
     @SideOnly(Side.CLIENT)

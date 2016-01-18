@@ -5,13 +5,16 @@ import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemPackUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
-import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ItemUpgrade extends Item {
@@ -32,6 +35,33 @@ public class ItemUpgrade extends Item {
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         return super.getUnlocalizedName(stack) + ItemUpgradeRegistry.getItemUpgrade(stack.getItemDamage()).getName();
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("unchecked")
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean advanced) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.cost", getUpgradeCost(itemStack), getUpgradeCost(itemStack) == 1 ? "" : "s"));
+            list.addAll(getTooltip(itemStack));
+        } else {
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
+        }
+    }
+
+//    @Override
+    public String getName(ItemStack stack){
+        return getItemPackUpgrade(stack).getName(stack);
+    }
+
+//    @Override
+    public int getUpgradeCost(ItemStack stack) {
+        return getItemPackUpgrade(stack).getUpgradeCost(stack);
+    }
+
+//    @Override
+    public List<String> getTooltip(ItemStack stack){
+        return getItemPackUpgrade(stack).getTooltip(stack);
     }
 
     //necessary?

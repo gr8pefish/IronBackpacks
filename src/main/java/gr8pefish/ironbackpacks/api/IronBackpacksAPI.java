@@ -17,7 +17,6 @@ public class IronBackpacksAPI {
      * @return - The requested Item
      */
     public static Item getItem(String name) {
-        System.out.println("find "+name);
         return GameRegistry.findItem(Constants.MODID, name);
     }
 }

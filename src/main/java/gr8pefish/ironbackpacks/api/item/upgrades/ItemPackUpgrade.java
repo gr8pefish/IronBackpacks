@@ -13,17 +13,13 @@ public class ItemPackUpgrade implements IPackUpgrade {
     private String name;
     private int upgradeCost;
     private String[] description;
-    private String[] tooltip;
+    private String[] recipe;
 
-    public ItemPackUpgrade(String name, int upgradeCost, String[] description, String... tooltip){
+    public ItemPackUpgrade(String name, int upgradeCost, String[] description, String... recipe){
         this.name = name;
         this.upgradeCost = upgradeCost;
         this.description = description;
-        this.tooltip = tooltip;
-    }
-
-    public String[] getDescription(){
-        return description;
+        this.recipe = recipe;
     }
 
     public Item getItem(){
@@ -46,6 +42,7 @@ public class ItemPackUpgrade implements IPackUpgrade {
 
     @Override
     public List<String> getTooltip(ItemStack upgrade) {
-        return Arrays.asList(tooltip);
+        return Arrays.asList(description);
     }
+
 }
