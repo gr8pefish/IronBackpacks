@@ -1,6 +1,8 @@
 package gr8pefish.ironbackpacks.crafting;
 
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
+import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
+import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
@@ -9,6 +11,7 @@ import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,6 +20,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Deals with the cases when a backpack is shapelessly crafted with an upgrade.
@@ -140,9 +144,10 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-                if (itemstack != null && (ItemUpgradeRegistry.isInstanceOfAnyUpgrade(itemstack))) {
-                    return itemstack;
-                }
+                if (itemstack != null && itemstack.getItem() != null)
+                    if (itemstack.getItem() instanceof ItemUpgrade)  //hardcoded for ItemUpgrade
+                        if (ItemUpgradeRegistry.isInstanceOfAnyUpgrade(itemstack)) //any upgrade is fine here
+                            return itemstack;
             }
         }
         return null;
@@ -158,7 +163,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
     private boolean canApplyUpgrade(ArrayList<ItemStack> upgrades, int totalUpgradePoints, ItemStack upgradeToApply){
         if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(upgradeToApply) || ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeToApply)){
             if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(upgradeToApply)){ //conflicting
-                if (UpgradeMethods.hasConflictingUpgradeInUpgrades(upgradeToApply, upgrades)){ //if has the conflicting upgrade
+                if (hasConflictingUpgradeInUpgrades(upgradeToApply, upgrades)){ //if has the conflicting upgrade
                     return false; //can't apply conflicting
                 } else { //no conflicting one tried to be applied
                     return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints; //if you have the upgrade points
@@ -171,8 +176,30 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
                 }
             }
         } else { //normal upgrade
+            for (ItemStack upgrade : upgrades) { //check for duplicate
+                if ((upgrade.getItem().equals(upgradeToApply.getItem()) && (upgrade.getItemDamage() == upgradeToApply.getItemDamage()))) //if duplicate upgrade
+                    return false; //can't apply
+            }
             return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints; //if you have the upgrade points
         }
+    }
+
+    /**
+     * Check if the backpack's upgrades contain a conflicting upgrade (relative to the upgradeToApply itemStack).
+     * @param upgradeToApply - the upgrade that is attempted to be applied
+     * @param upgrades - the current upgrades on the pack
+     * @return - true if it has a conflicting upgrade, false otherwise
+     */
+    private boolean hasConflictingUpgradeInUpgrades(ItemStack upgradeToApply, ArrayList<ItemStack> upgrades) {
+        List<ItemConflictingUpgrade> conflictingUpgrades = ItemUpgradeRegistry.getItemConflictingUpgrade(upgradeToApply).getConflictingUpgrades(upgradeToApply);
+        for (ItemStack stack : upgrades){ //for every upgrade
+            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)){ //if it is an instance of a conflicting upgrade
+                if (conflictingUpgrades.contains(ItemUpgradeRegistry.getItemConflictingUpgrade(stack))){ //if it specifically conflicts with this upgrade applied
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

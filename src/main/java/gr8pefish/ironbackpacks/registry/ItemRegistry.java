@@ -2,11 +2,13 @@ package gr8pefish.ironbackpacks.registry;
 
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.item.craftingItems.ItemAPICrafting;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemAltGuiUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemPackUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
+import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemCraftingRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
@@ -15,7 +17,9 @@ import gr8pefish.ironbackpacks.items.craftingItems.*;
 import gr8pefish.ironbackpacks.items.upgrades.ItemUpgrade;
 import gr8pefish.ironbackpacks.util.InventoryRenderHelper;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
@@ -28,13 +32,13 @@ import java.util.Collections;
 public class ItemRegistry {
 
     //backpacks
-    public static Item basicBackpack;
-    public static Item ironBackpack;
-    public static Item goldBackpack;
-    public static Item diamondBackpack;
+    public static ItemBackpack basicBackpack;
+    public static ItemBackpack ironBackpack;
+    public static ItemBackpack goldBackpack;
+    public static ItemBackpack diamondBackpack;
 
     //upgrades
-    public static Item upgradeItem;
+    public static ItemUpgrade upgradeItem;
     //normal
     public static ItemPackUpgrade additionalUpgradePointsUpgrade;
     public static ItemPackUpgrade buttonUpgrade;
@@ -61,7 +65,7 @@ public class ItemRegistry {
     public static ItemAltGuiUpgrade restockingUpgrade;
 
     //misc
-    public static Item craftingItem;
+    public static ItemCrafting craftingItem;
     public static ItemAPICrafting jeweledFeather;
     public static ItemAPICrafting nest;
     public static ItemAPICrafting treatedLeather;
@@ -117,13 +121,64 @@ public class ItemRegistry {
     public static void registerItems() {
 
         //Backpack Items (Tiered order)
-        basicBackpack = registerItem(new ItemBackpack(IronBackpacksConstants.Backpacks.BASIC_BACKPACK_ENUM_NAME), IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME);
-        ironBackpack = registerItem(new ItemBackpack(IronBackpacksConstants.Backpacks.IRON_BACKPACK_ENUM_NAME), IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME);
-        goldBackpack = registerItem(new ItemBackpack(IronBackpacksConstants.Backpacks.GOLD_BACKPACK_ENUM_NAME), IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME);
-        diamondBackpack = registerItem(new ItemBackpack(IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_ENUM_NAME), IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME);
+        basicBackpack = (ItemBackpack) //typecast the returned item
+                registerItem(new ItemBackpack( //register the new ItemBackpack
+                IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME, //name
+                ConfigHandler.enumBasicBackpack.sizeX.getValue(), //rowLength
+                ConfigHandler.enumBasicBackpack.sizeY.getValue(), //rowCount
+                ConfigHandler.enumBasicBackpack.upgradePoints.getValue(), //upgrade points, (next line) resource location of gui
+                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png"),
+                (ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200: 236), //gui width
+                (114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue())), //gui height
+                null, //backpacks lower tier
+                Arrays.asList(ironBackpack, goldBackpack, diamondBackpack)), //backpacks higher tier
+                IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME); //registry name
+
+        ironBackpack = (ItemBackpack) registerItem(new ItemBackpack(
+                IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME,
+                ConfigHandler.enumIronBackpack.sizeX.getValue(),
+                ConfigHandler.enumIronBackpack.sizeY.getValue(),
+                ConfigHandler.enumIronBackpack.upgradePoints.getValue(),
+                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpack.sizeX.getValue())+".png"),
+                (ConfigHandler.enumIronBackpack.sizeX.getValue() == 9 ? 200: 236),
+                (114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue())),
+                Collections.singletonList(basicBackpack),
+                Arrays.asList(goldBackpack, diamondBackpack)),
+                IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME);
+
+        goldBackpack = (ItemBackpack) registerItem(new ItemBackpack(
+                IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME,
+                ConfigHandler.enumGoldBackpack.sizeX.getValue(),
+                ConfigHandler.enumGoldBackpack.sizeY.getValue(),
+                ConfigHandler.enumGoldBackpack.upgradePoints.getValue(),
+                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeX.getValue())+".png"),
+                (ConfigHandler.enumGoldBackpack.sizeX.getValue() == 9 ? 200: 236),
+                (114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue())),
+                Arrays.asList(basicBackpack, ironBackpack),
+                Collections.singletonList(diamondBackpack)),
+                IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME);
+
+        diamondBackpack = (ItemBackpack) registerItem(new ItemBackpack(
+                IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME,
+                ConfigHandler.enumDiamondBackpack.sizeX.getValue(),
+                ConfigHandler.enumDiamondBackpack.sizeY.getValue(),
+                ConfigHandler.enumDiamondBackpack.upgradePoints.getValue(),
+                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"),
+                (ConfigHandler.enumDiamondBackpack.sizeX.getValue() == 9 ? 200: 236),
+                (114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue())),
+                Arrays.asList(basicBackpack, ironBackpack, goldBackpack),
+                null),
+                IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME);
+
+        basicBackpack.setBackpacksAbove(null, Arrays.asList(ironBackpack, goldBackpack, diamondBackpack));
+        ironBackpack.setBackpacksAbove(null, Arrays.asList(goldBackpack, diamondBackpack));
+        goldBackpack.setBackpacksAbove(null, Collections.singletonList(diamondBackpack));
+        ironBackpack.setBackpacksBelow(null, Collections.singletonList(basicBackpack));
+        goldBackpack.setBackpacksBelow(null, Arrays.asList(basicBackpack, ironBackpack));
+        diamondBackpack.setBackpacksBelow(null, Arrays.asList(basicBackpack, ironBackpack, goldBackpack));
 
         //Upgrade Items (alphabetical order, except the adv. filter filters)
-        upgradeItem = registerItem(new ItemUpgrade(), IronBackpacksAPI.ITEM_UPGRADE_BASE);
+        upgradeItem = (ItemUpgrade) registerItem(new ItemUpgrade(), IronBackpacksAPI.ITEM_UPGRADE_BASE);
         //basic upgrades
         additionalUpgradePointsUpgrade = new ItemPackUpgrade("additionalUpgradePoints", 0, IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_POINTS_DESCRIPTION, ConfigHandler.additionalUpgradePointsUpgradeRecipe);
         ItemUpgradeRegistry.registerItemPackUpgrade(additionalUpgradePointsUpgrade);
@@ -176,7 +231,7 @@ public class ItemRegistry {
 
 
         //Crafting Items (alphabetical order)
-        craftingItem = registerItem(new ItemCrafting(), IronBackpacksAPI.ITEM_CRAFTING_BASE);
+        craftingItem = (ItemCrafting) registerItem(new ItemCrafting(), IronBackpacksAPI.ITEM_CRAFTING_BASE);
         //sub items
         jeweledFeather = new ItemAPICrafting("jeweledFeather");
         ItemCraftingRegistry.registerItemCrafting(jeweledFeather);
@@ -248,8 +303,13 @@ public class ItemRegistry {
      * @return - the item
      */
     private static Item registerItem(Item item, String name) {
-        if (!ConfigHandler.itemBlacklist.contains(name))
+        if (!ConfigHandler.itemBlacklist.contains(name)) {
+            if (item instanceof IBackpack){
+                Logger.info("got a backpack, registering");
+                ItemBackpackRegistry.registerItemBackpack((IBackpack)item);
+            }
             GameRegistry.registerItem(item, name);
+        }
 
         return item;
     }

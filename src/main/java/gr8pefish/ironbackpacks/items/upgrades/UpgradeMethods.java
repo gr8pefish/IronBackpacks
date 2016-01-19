@@ -6,6 +6,7 @@ import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
@@ -90,10 +91,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasDamageBarUpgrade(int[] upgrades){
+    public static boolean hasDamageBarUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.damageBarUpgrade)){// IronBackpacksConstants.Upgrades.DAMAGE_BAR_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.damageBarUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -326,6 +327,11 @@ public class UpgradeMethods {
         return slots;
     }
 
+    /**
+     * Gets the number of alternate gui upgrades used.
+     * @param upgrades - the upgrades to check
+     * @return integer value
+     */
     public static int getAltGuiUpgradesUsed(ArrayList<ItemStack> upgrades){
         int counter = 0;
         for (ItemStack upgrade : upgrades){
@@ -336,51 +342,6 @@ public class UpgradeMethods {
         return counter;
     }
 
-    public static boolean hasConflictingUpgradeInUpgrades(ItemStack upgradeToApply, ArrayList<ItemStack> upgrades) {
-        List<ItemConflictingUpgrade> conflictingUpgrades = ItemUpgradeRegistry.getItemConflictingUpgrade(upgradeToApply).getConflictingUpgrades(upgradeToApply);
-        for (ItemStack stack : upgrades){ //for every upgrade
-            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)){ //if it is an instance of a conflicting upgrade
-                if (conflictingUpgrades.contains(ItemUpgradeRegistry.getItemConflictingUpgrade(stack))){ //if it specifically conflicts with this upgrade applied
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Gets the number of alternate gui upgrades used.
-     * @param upgrades - the upgrades to check
-     * @return integer value
-     */
-    @Deprecated
-    public static int getAltGuiUpgradesUsed(int[] upgrades){
-        int counter = 0;
-        if (!ConfigHandler.renamingUpgradeRequired) {
-            for (int upgrade : upgrades) {
-                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_VOID_UPGRADE_ID) {
-                    counter++;
-                }
-            }
-        }else{
-            for (int upgrade : upgrades) {
-                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_VOID_UPGRADE_ID) {
-                    counter++;
-                }
-            }
-        }
-        return counter;
-    }
 
     //===================================================================Get Filter Items==========================================================
     //used in the event handler

@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.api.item.backpacks.interfaces;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implement this if a backpack needs to exist in the tiered system (i.e. there is a backpack inherently better or worse than it).
@@ -17,7 +18,7 @@ public interface ITieredBackpack extends IBackpack {
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - the IBackpack that is higher (or null)
      */
-    ArrayList<ITieredBackpack> getBackpacksAbove(ItemStack backpack);
+    List<ITieredBackpack> getBackpacksAbove(ItemStack backpack);
 
     /**
      * Return if there exists a higher tier backpack
@@ -31,7 +32,7 @@ public interface ITieredBackpack extends IBackpack {
      * @param baseBackpack - the backpack as an item stack (needed for sub items) to set this value for
      * @param aboveBackpacks - the backpacks as an array to set as higher
      */
-//    void setBackpacksAbove(ItemStack baseBackpack, ArrayList<ITieredBackpack> aboveBackpacks);
+    void setBackpacksAbove(ItemStack baseBackpack, List<ITieredBackpack> aboveBackpacks);
 
     //==============================================Methods related to lower tier backpacks=======================================================
 
@@ -40,7 +41,7 @@ public interface ITieredBackpack extends IBackpack {
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - the IBackpack that is lower (or null)
      */
-    ArrayList<ITieredBackpack> getBackpacksBelow(ItemStack backpack);
+    List<ITieredBackpack> getBackpacksBelow(ItemStack backpack);
 
     /**
      * Return if there exists a lower tier backpack
@@ -54,7 +55,7 @@ public interface ITieredBackpack extends IBackpack {
      * @param baseBackpack - the backpack as an item stack (needed for sub items) to set this value for
      * @param belowBackpacks - the backpacks as an array to set as lower
      */
-//    void setBackpacksBelow(ItemStack baseBackpack, ArrayList<ITieredBackpack> belowBackpacks);
+    void setBackpacksBelow(ItemStack baseBackpack, List<ITieredBackpack> belowBackpacks);
 
 
 

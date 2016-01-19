@@ -29,6 +29,11 @@ To Do:
         then API/cut ids/refactor, etc.
             add all static methods to helpers in API
 
+        Check working with inventory tweaks
+        Check working with Botania
+
+        Make basic recipe use less leather
+
         bm blacklist for config to disable items (requested config option)
 
         add commands to remove stored packs' IEEP data

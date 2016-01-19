@@ -1,12 +1,9 @@
 package gr8pefish.ironbackpacks.items.backpacks;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
-import gr8pefish.ironbackpacks.api.Constants;
-import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.api.item.backpacks.abstractClasses.AbstractUpgradableTieredBackpack;
+import gr8pefish.ironbackpacks.api.item.backpacks.ItemUpgradableTieredBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
-import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
@@ -24,7 +21,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,63 +29,21 @@ import org.lwjgl.input.Keyboard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemBackpack extends AbstractUpgradableTieredBackpack {
+
+public class ItemBackpack extends ItemUpgradableTieredBackpack {
 
     private boolean openAltGui = true; //to track which gui to open
 
-    private final String name; //display name
-    private final int rowLength; //length of each row
-    private final int rowCount; //number of rows
-    private final int size; //size of the backpack
-    private final int upgradePoints; //number of upgradePoints
-
-    private final int guiId; //the id of the gui (must only be unique to the mod)
-
-    private final ResourceLocation guiResourceLocation; //the resource location of the gui to display
-    private final int guiXSize; //the width of the gui
-    private final int guiYSize; //the height of the gui
-
-    /**
-     * The Item that represents an AbstractUpgradableTieredBackpack
-     * @param enumName - the name to access the enumeration of backpacks which stores all the other data (ex: GOLD)
-     */
-    public ItemBackpack(String enumName){
+    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, List<ITieredBackpack> backpacksBelow, List<ITieredBackpack> backpacksAbove){
+        super(name, rowLength, rowCount, upgradePoints, guiResourceLocation, guiXSize, guiYSize, backpacksBelow, backpacksAbove);
         setCreativeTab(IronBackpacks.creativeTab);
-        setMaxStackSize(1);
-        setNoRepair();
-
-        BackpackEnum backpackEnum = BackpackEnum.valueOf(enumName); //the backpack itself in the enum (accessed by the name)
-
-        setUnlocalizedName(Constants.MODID + "." + IronBackpacksAPI.ITEM_BACKPACK_BASE + "." + backpackEnum.getName());
-
-        this.name = backpackEnum.getName();
-        this.rowLength = backpackEnum.getRowLength();
-        this.rowCount = backpackEnum.getRowCount();
-        this.size = rowCount * rowLength;
-        this.upgradePoints = backpackEnum.getUpgradePoints();
-
-        this.guiId = backpackEnum.guiId;
-
-        this.guiResourceLocation = backpackEnum.getGuiResourceLocation();
-        this.guiXSize = backpackEnum.getGuiXSize();
-        this.guiYSize = backpackEnum.getGuiYSize();
     }
 
-    //================================================Override Vanilla Item Methods=========================================
-
-    @Override //TODO: test
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return false; //no more item backpack bobbing hopefully
-    }
-
-    @Override
-    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-        return false;
-    }
+    //=================================================================Overriden Vanilla Methods=============================================================
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-        return UpgradeMethods.hasDamageBarUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(stack));
+        return UpgradeMethods.hasDamageBarUpgrade(getUpgrades(stack));
     }
 
     @Override
@@ -173,7 +127,7 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
             int upgradesUsed = 0;
 
             for (ItemStack upgradeStack : upgrades) {
-                list.add(TextUtils.localizeEffect("item.ironbackpacks.upgrade."+ItemUpgradeRegistry.getItemUpgrade(upgradeStack).getName(upgradeStack)+".name"));
+                list.add(TextUtils.localizeEffect("item.ironbackpacks.upgrade."+ ItemUpgradeRegistry.getItemUpgrade(upgradeStack).getName(upgradeStack)+".name"));
                 upgradesUsed += ItemUpgradeRegistry.getItemUpgrade(upgradeStack).getUpgradeCost(upgradeStack);
             }
 
@@ -202,55 +156,7 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
             list.add(TextUtils.localize("tooltip.ironbackpacks.uuid", NBTHelper.getUUID(stack)));
     }
 
-    //=====================================================IBackpack=========================================================
-
-    @Override
-    public String getName(ItemStack backpack) {
-        return this.name;
-    }
-
-    @Override
-    public int getRowCount(ItemStack backpack) {
-        return this.rowCount;
-    }
-
-    @Override
-    public int getRowLength(ItemStack backpack) {
-        return this.rowLength;
-    }
-
-    @Override
-    public ResourceLocation getGuiResourceLocation(ItemStack backpack) {
-        return this.guiResourceLocation;
-    }
-
-    @Override
-    public int getGuiXSize(ItemStack backpack) {
-        return this.guiXSize;
-    }
-
-    @Override
-    public int getGuiYSize(ItemStack backpack) {
-        return this.guiYSize;
-    }
-
-    //TODO: fix with dynamic
-    public int getGuiId(ItemStack stack) {
-        return this.guiId;
-    }
-
-    public int getSize(ItemStack backpack) {
-        return this.size;
-    }
-
-    //====================================================Upgrades======================================================
-
-    @Override
-    public int getUpgradePoints(ItemStack backpack) {
-        return this.upgradePoints;
-    }
-
-//    @Override
+    //TODO: static
     public static ArrayList<ItemStack> getUpgrades(ItemStack backpack) {
         ArrayList<ItemStack> upgradesArrayList = new ArrayList<>();
         if (backpack != null) {
@@ -270,12 +176,9 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
         return upgradesArrayList;
     }
 
-//    public static ArrayList<ItemStack> getUpgrades(ItemStack backpack){
-//        return this.getUpgrades(backpack);
-//    }
+    //=============================================================================Helper Methods===================================================================================
 
-    @Override
-    public double getFullness(ItemStack stack) {
+    private double getFullness(ItemStack stack) {
         ItemStack[] inventory;
         int total = 0;
         int full = 0;
@@ -285,7 +188,7 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
             if (nbtTagCompound != null) {
                 if (nbtTagCompound.hasKey("Items")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Items", net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
-                    inventory = new ItemStack[((ItemBackpack)stack.getItem()).getSize(stack)]; //new ItemStack[BackpackNames.values()[getGuiId(stack)].getSize()]; //TODO: test
+                    inventory = new ItemStack[((ItemUpgradableTieredBackpack)stack.getItem()).getSize(stack)]; //new ItemStack[BackpackNames.values()[getGuiId(stack)].getSize()]; //TODO: test
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int slot = stackTag.getByte("Slot");
@@ -306,32 +209,4 @@ public class ItemBackpack extends AbstractUpgradableTieredBackpack {
 
         return 1 - ((double) full / total);
     }
-
-    //====================================================Tiering=====================================================
-
-
-    //TODO: add fields to enum for this?
-
-    @Override
-    public ArrayList<ITieredBackpack> getBackpacksAbove(ItemStack backpack) {
-        return null;
-    }
-
-    @Override
-    public boolean hasBackpacksAbove(ItemStack backpack) {
-        return false;
-    }
-
-
-    @Override
-    public ArrayList<ITieredBackpack> getBackpacksBelow(ItemStack backpack) {
-        return null;
-    }
-
-    @Override
-    public boolean hasBackpacksBelow(ItemStack backpack) {
-        return false;
-    }
-
 }
-

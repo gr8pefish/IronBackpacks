@@ -33,6 +33,6 @@ public interface IUpgradableBackpack extends IBackpack {
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - double representing the fullness
      */
-    double getFullness(ItemStack backpack);
+//    double getFullness(ItemStack backpack);
 
 }

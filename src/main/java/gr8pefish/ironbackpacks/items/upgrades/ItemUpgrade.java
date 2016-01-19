@@ -22,6 +22,7 @@ public class ItemUpgrade extends Item {
         setUnlocalizedName(Constants.MODID + "." + IronBackpacksAPI.ITEM_UPGRADE_BASE + ".");
         setCreativeTab(IronBackpacks.creativeTab);
         setHasSubtypes(true);
+        setMaxStackSize(16);
     }
 
     @Override

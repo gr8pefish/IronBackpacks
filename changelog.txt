@@ -14,6 +14,7 @@ Changes (in relation to 1.7.10 - 1.2.15)
 - The void filter deletes items by fuzzy detection now (instead of exact as it was before)
 - Removed the option to have an alternate backpack texture.
 - Removed the ability to remove an upgrade by crafting a backpack with the upgrade twice (the normal removal method still works though).
+- Removed compatibility with OpenBlocks and EnderStorage, since neither of those mods have updated.
 - Start of a full fledged API.
 - (Internal) Tons of various minor fixes/changes/optimizations.
 - (Internal) Changed how backpacks are stored internally, both for death and in general (uses two IEEPs), should be more stable.
