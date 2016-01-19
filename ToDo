@@ -31,6 +31,11 @@ To Do:
 
         Check all comments/javadocs
 
+        Send packet to client when join server to sync metas up
+
+        Remove adding crafting item to API
+            https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
+
         Check working with inventory tweaks
         Check working with Botania
 
