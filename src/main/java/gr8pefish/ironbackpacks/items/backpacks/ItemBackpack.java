@@ -34,8 +34,8 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
 
     private boolean openAltGui = true; //to track which gui to open
 
-    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, List<ITieredBackpack> backpacksBelow, List<ITieredBackpack> backpacksAbove){
-        super(name, rowLength, rowCount, upgradePoints, guiResourceLocation, guiXSize, guiYSize, backpacksBelow, backpacksAbove);
+    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize){
+        super(name, rowLength, rowCount, upgradePoints, guiResourceLocation, guiXSize, guiYSize);
         setCreativeTab(IronBackpacks.creativeTab);
     }
 
@@ -43,7 +43,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-        return UpgradeMethods.hasDamageBarUpgrade(getUpgrades(stack));
+        return UpgradeMethods.hasDamageBarUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(stack));
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
             if (!player.isSneaking()) { //only do it when player is sneaking
                 return false;
             }
-            int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
+            ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
             boolean hasDepthUpgrade = UpgradeMethods.hasDepthUpgrade(upgrades);
             if (UpgradeMethods.hasQuickDepositUpgrade(upgrades)) {
                 openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, false);
@@ -77,7 +77,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
                     if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
-                        int[] nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
+                        ArrayList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
                         if (UpgradeMethods.hasQuickDepositUpgrade(nestedUpgrades)) {
                             openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, false);
                             if (!openAltGuiDepth) openAltGui = false;
@@ -120,7 +120,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
-        ArrayList<ItemStack> upgrades = getUpgrades(stack);
+        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
         int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(stack);
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
@@ -135,7 +135,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
                 list.add("");
 
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used", upgradesUsed, totalUpgradePoints));
-            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.alt", UpgradeMethods.getAltGuiUpgradesUsed(upgrades), IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.alt", UpgradeMethods.getAltGuiUpgradesApplied(upgrades), IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
 
             if (ConfigHandler.renamingUpgradeRequired)
                 list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.rename", IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
@@ -154,26 +154,6 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
 
         if (advanced && NBTHelper.hasUUID(stack))
             list.add(TextUtils.localize("tooltip.ironbackpacks.uuid", NBTHelper.getUUID(stack)));
-    }
-
-    //TODO: static
-    public static ArrayList<ItemStack> getUpgrades(ItemStack backpack) {
-        ArrayList<ItemStack> upgradesArrayList = new ArrayList<>();
-        if (backpack != null) {
-            NBTTagCompound nbtTagCompound = backpack.getTagCompound();
-            if (nbtTagCompound != null) {
-                if(nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.UPGRADES)) {
-                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.UPGRADES, net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
-                    for (int i = 0; i < tagList.tagCount(); i++) {
-                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        ItemStack upgrade = ItemStack.loadItemStackFromNBT(stackTag);
-                        if (upgrade != null)
-                            upgradesArrayList.add(upgrade);
-                    }
-                }
-            }
-        }
-        return upgradesArrayList;
     }
 
     //=============================================================================Helper Methods===================================================================================

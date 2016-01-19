@@ -32,7 +32,7 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     /**
      * The Item that represents an AbstractUpgradableTieredBackpack
      */
-    public ItemUpgradableTieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, List<ITieredBackpack> backpacksBelow, List<ITieredBackpack> backpacksAbove){
+    public ItemUpgradableTieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize){
         setMaxStackSize(1);
         setNoRepair();
 
@@ -50,8 +50,8 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
         this.guiXSize = guiXSize;
         this.guiYSize = guiYSize;
 
-        this.backpacksBelow = backpacksBelow;
-        this.backpacksAbove = backpacksAbove;
+        this.backpacksBelow = new ArrayList<>(); //empty list
+        this.backpacksAbove = new ArrayList<>(); //empty list
     }
 
     //================================================Override Vanilla Item Methods=========================================

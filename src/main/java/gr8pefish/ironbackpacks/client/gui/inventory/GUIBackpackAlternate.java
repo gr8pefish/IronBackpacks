@@ -93,8 +93,8 @@ public class GUIBackpackAlternate extends GuiContainer {
          * @return - the GUI built
          */
         public static GUIBackpackAlternate buildGUIAlternate(InventoryAlternateGui inv) {
-            int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(inv.getBackpackStack());
-            GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades) + 3] : values()[UpgradeMethods.getAlternateGuiUpgradesCount(upgrades)]; //shifts to correct index if renaming
+            ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(inv.getBackpackStack());
+            GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades) + 3] : values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades)]; //shifts to correct index if renaming
             return new GUIBackpackAlternate(gui, inv.getPlayer(), inv, upgrades, inv.getBackpackStack());
         }
 
@@ -134,15 +134,15 @@ public class GUIBackpackAlternate extends GuiContainer {
     private boolean hasFilterFuzzyUpgrade;
     private boolean hasFilterOreDictUpgrade;
     private boolean hasFilterModSpecificUpgrade;
-    private boolean hasHopperUpgrade;
-    private boolean hasCondenserUpgrade;
-    private boolean hasCondenserSmallUpgrade;
-    private boolean hasCondenserTinyUpgrade;
+    private boolean hasRestockingUpgrade;
+    private boolean hasCraftingUpgrade;
+    private boolean hasCraftingSmallUpgrade;
+    private boolean hasCraftingTinyUpgrade;
     private boolean hasFilterAdvancedUpgrade;
     private boolean hasFilterMiningUpgrade;
     private boolean hasFilterVoidUpgrade;
 
-    private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, int[] upgrades, ItemStack backpack) {
+    private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, ArrayList<ItemStack> upgrades, ItemStack backpack) {
         super(type.makeContainer(inv));
         this.player = player;
         this.container = (ContainerAlternateGui) type.makeContainer(inv);
@@ -158,10 +158,10 @@ public class GUIBackpackAlternate extends GuiContainer {
         this.hasFilterFuzzyUpgrade = UpgradeMethods.hasFilterFuzzyUpgrade(upgrades);
         this.hasFilterOreDictUpgrade = UpgradeMethods.hasFilterOreDictUpgrade(upgrades);
         this.hasFilterModSpecificUpgrade = UpgradeMethods.hasFilterModSpecificUpgrade(upgrades);
-        this.hasHopperUpgrade = UpgradeMethods.hasHopperUpgrade(upgrades);
-        this.hasCondenserUpgrade = UpgradeMethods.hasCondenserUpgrade(upgrades);
-        this.hasCondenserSmallUpgrade = UpgradeMethods.hasCondenserSmallUpgrade(upgrades);
-        this.hasCondenserTinyUpgrade = UpgradeMethods.hasCondenserTinyUpgrade(upgrades);
+        this.hasRestockingUpgrade = UpgradeMethods.hasRestockingUpgrade(upgrades);
+        this.hasCraftingUpgrade = UpgradeMethods.hasCraftingUpgrade(upgrades);
+        this.hasCraftingSmallUpgrade = UpgradeMethods.hasCraftingSmallUpgrade(upgrades);
+        this.hasCraftingTinyUpgrade = UpgradeMethods.hasCraftingTinyUpgrade(upgrades);
         this.hasFilterAdvancedUpgrade = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades);
         this.hasFilterMiningUpgrade = UpgradeMethods.hasFilterMiningUpgrade(upgrades);
         this.hasFilterVoidUpgrade = UpgradeMethods.hasFilterVoidUpgrade(upgrades);
@@ -319,22 +319,22 @@ public class GUIBackpackAlternate extends GuiContainer {
                 rowIndex++;
                 yStartButton += 36;
             }
-            if (hasHopperUpgrade){
+            if (hasRestockingUpgrade){
                 buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.hopper.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
-            if (hasCondenserUpgrade){
+            if (hasCraftingUpgrade){
                 buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
-            if (hasCondenserSmallUpgrade){
+            if (hasCraftingSmallUpgrade){
                 buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.small.tooltip"))));
                 rowIndex++;
                 yStartButton += 36;
             }
-            if (hasCondenserTinyUpgrade){
+            if (hasCraftingTinyUpgrade){
                 buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.tiny.tooltip"))));
             }
         }
@@ -390,19 +390,19 @@ public class GUIBackpackAlternate extends GuiContainer {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:filterVoidUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
         }
-        if (hasHopperUpgrade) {
+        if (hasRestockingUpgrade) {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:hopperUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
         }
-        if (hasCondenserUpgrade) {
+        if (hasCraftingUpgrade) {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
         }
-        if (hasCondenserSmallUpgrade) {
+        if (hasCraftingSmallUpgrade) {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserSmallUpgrade.name"),20, yStart, 4210752);
             yStart += 36;
         }
-        if (hasCondenserTinyUpgrade) {
+        if (hasCraftingTinyUpgrade) {
             fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks:condenserTinyUpgrade.name"),20, yStart, 4210752);
         }
     }

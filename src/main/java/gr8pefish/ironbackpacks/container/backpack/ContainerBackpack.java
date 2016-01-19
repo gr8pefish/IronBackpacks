@@ -74,7 +74,7 @@ public class ContainerBackpack extends Container {
 
         //adds chest's slots
         ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player);
-        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(baseBackpack);
+        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(baseBackpack);
 
         for (int backpackRow = 0; backpackRow < backpackItem.getRowCount(backpackStack); backpackRow++) {
             for (int backpackCol = 0; backpackCol < backpackItem.getRowLength(backpackStack); backpackCol++) {

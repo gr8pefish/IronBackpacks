@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.client.gui.inventory;
 
+import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
@@ -55,7 +56,7 @@ public class GUIBackpack extends GuiContainer {
         this.ySize = itemBackpack.getGuiYSize(itemStack);
         this.container = new ContainerBackpack(inventoryBackpack, xSize, ySize) ;
         this.allowUserInput = false;
-        this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(ItemBackpack.getUpgrades(itemStack));// IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack));
+        this.hasAButtonUpgrade = UpgradeMethods.hasButtonUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack));// IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack));
         tooltipButtons = new ArrayList<>();
     }
 

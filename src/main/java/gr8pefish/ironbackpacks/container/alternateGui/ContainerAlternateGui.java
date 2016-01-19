@@ -16,6 +16,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -31,7 +32,7 @@ public class ContainerAlternateGui extends Container {
     private ItemStack stack; //the itemstack backpack
 
     private int filterAdvSlotIdStart; //the advanced filter's start
-    private int[] upgrades; //the upgrades applied
+    private ArrayList<ItemStack> upgrades; //the upgrades applied
 
     public ContainerAlternateGui(InventoryAlternateGui inventoryAlternateGui, int xSize, int ySize){
         this.player = inventoryAlternateGui.getPlayer();
@@ -81,7 +82,7 @@ public class ContainerAlternateGui extends Container {
     private void layoutContainer(IInventory playerInventory, IInventory customInv, int xSize, int ySize){
 
         ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player); //TODO: remove these 2 lines?
-        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(baseBackpack);
+        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(baseBackpack);
 
         //Need to calculate which row the advanced filter will be on to place the buttons correctly
         int advFilterRow = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) ? 0 : -1;

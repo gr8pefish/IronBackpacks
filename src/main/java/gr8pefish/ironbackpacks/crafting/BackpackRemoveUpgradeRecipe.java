@@ -1,14 +1,17 @@
 package gr8pefish.ironbackpacks.crafting;
 
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
+import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
+import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import java.util.ArrayList;
 
 /**
  * Deals with the cases when a backpack is shapelessly crafted alone to remove an upgrade.
@@ -36,7 +39,7 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
 
-        int slotOfBackpack = getFirstBackpackSlotNumber(inventoryCrafting);
+        int slotOfBackpack = getFirstUpgradableBackpackSlotNumber(inventoryCrafting);
         if (slotOfBackpack == -1) //if no backpack
             return null; //return no output
 
@@ -45,8 +48,8 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
         ItemStack result = backpack.copy();
 
         //get the upgrades
-        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result);
-        if (upgrades.length == 0) //no upgrades
+        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result);
+        if (upgrades.isEmpty()) //no upgrades
             return null; //no output itemStack, i.e. no crafting result
 
         //get the old tag compound
@@ -59,26 +62,24 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
 
         //make sure that we can check for an upgrade to remove
         boolean nullChecksPassed = false;
-        int upgradeInQuestion = -1;
-        if ((slotOfBackpack <= (upgrades.length - 1)) && (slotOfBackpack >= 0) && (upgrades[slotOfBackpack] > 0)) {
+        ItemStack upgradeInQuestion = null;
+        if ((slotOfBackpack <= (upgrades.size() - 1)) && (slotOfBackpack >= 0) && (upgrades.get(slotOfBackpack) != null)) {
             nullChecksPassed = true;
-            upgradeInQuestion = upgrades[slotOfBackpack];
+            upgradeInQuestion = upgrades.get(slotOfBackpack);
         }
 
         //init variables for the return stack
         boolean upgradeRemoved = false;
         NBTTagList tagList = new NBTTagList();
 
-        for (int upgrade : upgrades) { //for each slot in possible upgrades
-            if (nullChecksPassed && (upgrade == upgradeInQuestion)) { //same upgrade, remove it
+        for (ItemStack upgrade : upgrades) { //for each slot in possible upgrades
+            if (nullChecksPassed && (UpgradeMethods.areUpgradesFunctionallyEquivalent(upgrade, upgradeInQuestion))) { //same upgrade, remove it
                 upgradeRemoved = true;
                 //not adding the old recipe is the same outcome as removing the recipe, so no code needed here
-                if (IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.contains(upgradeInQuestion)) //if in alt gui need to remove the stored items there
-                    nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED, new NBTTagInt(IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADE_IDS.indexOf(upgradeInQuestion))); //int value of upgrade removed
+                if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeInQuestion)) //if in alt gui need to remove the stored items there
+                    nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED, upgradeInQuestion.writeToNBT(new NBTTagCompound())); //add item stack to nbt key
             } else { //save old contents to new tag
-                NBTTagCompound tagCompound = new NBTTagCompound();
-                tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgrade);
-                tagList.appendTag(tagCompound);
+                tagList.appendTag(upgrade.writeToNBT(new NBTTagCompound()));
             }
         }
 
@@ -103,10 +104,10 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
      * @param inventoryCrafting - the inventory to search
      * @return - the integer of the slot number that the backpack is in
      */
-    private int getFirstBackpackSlotNumber(InventoryCrafting inventoryCrafting) {
+    private int getFirstUpgradableBackpackSlotNumber(InventoryCrafting inventoryCrafting) {
         for (int i = 0; i < 9; ++i) {
             ItemStack itemstack = inventoryCrafting.getStackInSlot(i);
-            if (itemstack != null && (itemstack.getItem() instanceof IBackpack))
+            if (itemstack != null && (itemstack.getItem() instanceof IUpgradableBackpack))
                 return i;
         }
         return -1;

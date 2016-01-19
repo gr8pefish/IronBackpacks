@@ -1,16 +1,11 @@
 package gr8pefish.ironbackpacks.items.upgrades;
 
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
-import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
-import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
-import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
-import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -25,11 +20,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UpgradeMethods {
 
     //===============================hasUpgrade Methods=====================================
+
+    //Remove this one?
+    public static boolean hasAdditionalUpgradesUpgrade(ArrayList<ItemStack> upgrades){
+        boolean hasUpgrade = false;
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.buttonUpgrade)){
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
 
     public static boolean hasButtonUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
@@ -41,56 +47,6 @@ public class UpgradeMethods {
         }
         return hasUpgrade;
     }
-
-
-    public static boolean hasButtonUpgrade(int[] upgrades){
-        boolean hasUpgrade = false;
-        for (int upgrade: upgrades){
-            if (upgrade == ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.damageBarUpgrade)){ //IronBackpacksConstants.Upgrades.BUTTON_UPGRADE_ID){
-                hasUpgrade = true;
-                break;
-            }
-        }
-        return hasUpgrade;
-    }
-
-    public static boolean hasNestingUpgrade(int[] upgrades){
-        boolean hasUpgrade = false;
-        for (int upgrade: upgrades){
-            if (upgrade == IronBackpacksConstants.Upgrades.NESTING_UPGRADE_ID){
-                hasUpgrade = true;
-                break;
-            }
-        }
-        return hasUpgrade;
-    }
-
-    public static boolean hasNestingAdvancedUpgrade(int[] upgrades){
-        boolean hasUpgrade = false;
-        for (int upgrade: upgrades){
-            if (upgrade == IronBackpacksConstants.Upgrades.ADVANCED_NESTING_UPGRADE_ID){
-                hasUpgrade = true;
-                break;
-            }
-        }
-        return hasUpgrade;
-    }
-
-    public static boolean hasRenamingUpgrade(int[] upgrades){
-        boolean hasUpgrade = false;
-        if (!ConfigHandler.renamingUpgradeRequired){
-            return true;
-        }else {
-            for (int upgrade: upgrades) {
-                if (upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID) {
-                    hasUpgrade = true;
-                    break;
-                }
-            }
-        }
-        return hasUpgrade;
-    }
-
     public static boolean hasDamageBarUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
@@ -101,11 +57,20 @@ public class UpgradeMethods {
         }
         return hasUpgrade;
     }
-
-    public static boolean hasFilterBasicUpgrade(int[] upgrades){
+    public static boolean hasDepthUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == ItemUpgradeRegistry.getIndexOfUpgrade(ItemRegistry.filterBasicUpgrade)) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.depthUpgrade)){
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+    public static boolean hasEternityUpgrade(ArrayList<ItemStack> upgrades){
+        boolean hasUpgrade = false;
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.eternityUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -113,10 +78,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasFilterFuzzyUpgrade(int[] upgrades){
+    public static boolean hasRenamingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.renamingUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -124,10 +89,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasFilterOreDictUpgrade(int[] upgrades){
+    public static boolean hasNestingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.nestingUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -135,10 +100,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasFilterModSpecificUpgrade(int[] upgrades) {
+    public static boolean hasNestingAdvancedUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.nestingAdvancedUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -146,10 +111,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasFilterAdvancedUpgrade(int[] upgrades) {
+    public static boolean hasQuickDepositUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.quickDepositUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -157,10 +122,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasHopperUpgrade(int[] upgrades) {
+    public static boolean hasQuickDepositPreciseUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.quickDepositPreciseUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -168,10 +133,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasCondenserUpgrade(int[] upgrades) {
+    public static boolean hasCraftingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -179,10 +144,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasCondenserSmallUpgrade(int[] upgrades) {
+    public static boolean hasCraftingSmallUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingSmallUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -190,10 +155,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasCondenserTinyUpgrade(int[] upgrades) {
+    public static boolean hasCraftingTinyUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingTinyUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -201,10 +166,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasQuickDepositUpgrade(int[] upgrades) {
+    public static boolean hasFilterBasicUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterBasicUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -212,10 +177,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasQuickDepositPreciseUpgrade(int[] upgrades) {
+    public static boolean hasFilterFuzzyUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterFuzzyUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -223,10 +188,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasDepthUpgrade(int[] upgrades) {
+    public static boolean hasFilterOreDictUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterOreDictUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -234,10 +199,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasFilterMiningUpgrade(int[] upgrades) {
+    public static boolean hasFilterModSpecificUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterModSpecificUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -245,10 +210,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasFilterVoidUpgrade(int[] upgrades) {
+    public static boolean hasFilterAdvancedUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_VOID_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterAdvancedUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -256,11 +221,10 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
-    public static boolean hasKeepOnDeathUpgrade(ItemStack stack){ //only one that takes itemStack as a parameter
-        int[] upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
+    public static boolean hasFilterMiningUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_UPGRADE_ID) {
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterMiningUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -268,71 +232,46 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
+    public static boolean hasFilterVoidUpgrade(ArrayList<ItemStack> upgrades){
+        boolean hasUpgrade = false;
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterVoidUpgrade)){
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
+
+    public static boolean hasRestockingUpgrade(ArrayList<ItemStack> upgrades){
+        boolean hasUpgrade = false;
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.restockingUpgrade)){
+                hasUpgrade = true;
+                break;
+            }
+        }
+        return hasUpgrade;
+    }
 
     //=============================Other Methods====================================
 
 
     /**
-     * Gets the number of alternate gui upgrades in the backpack. Note - includes renaming upgrade (if applicable).
-     * @param upgrades - the upgrades to check
-     * @return integer amount
-     */
-    public static int getAlternateGuiUpgradesCount(int[] upgrades){
-        int numberOfUpgrades = 0;
-        if (!ConfigHandler.renamingUpgradeRequired) {
-            numberOfUpgrades = 1;
-            for (int upgrade: upgrades) {
-                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_VOID_UPGRADE_ID) {
-                    numberOfUpgrades++;
-                }
-            }
-        }else{
-            for (int upgrade: upgrades) {
-                if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.RENAMING_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID
-                        || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_VOID_UPGRADE_ID) {
-                    numberOfUpgrades++;
-                }
-            }
-        }
-        return numberOfUpgrades;
-    }
-
-    /**
-     * Gets the number of alternate gui slots from the upgrades. Hardcoded at 9 each (even advanced filter).
+     * Gets the number of alternate gui slots from the upgrades. Hardcoded at 9 each (even advanced filter), but keeping this method in case I change that later.
      * @param upgrades - the upgrades to check
      * @return integer value
      */
-    public static int getAlternateGuiUpgradeSlots(int[] upgrades) {
-        int slots = 0;
-        for (int upgrade: upgrades) {
-            if (upgrade == IronBackpacksConstants.Upgrades.FILTER_BASIC_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_UPGRADE_ID
-                    || upgrade == IronBackpacksConstants.Upgrades.FILTER_FUZZY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_OREDICT_UPGRADE_ID
-                    || upgrade == IronBackpacksConstants.Upgrades.HOPPER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_MINING_UPGRADE_ID
-                    || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_SMALL_UPGRADE_ID
-                    || upgrade == IronBackpacksConstants.Upgrades.CONDENSER_TINY_UPGRADE_ID || upgrade == IronBackpacksConstants.Upgrades.FILTER_VOID_UPGRADE_ID) {
-                slots += 9; //hardcoded
-            }else if (upgrade == IronBackpacksConstants.Upgrades.FILTER_ADVANCED_UPGRADE_ID){
-                slots += 9;
-            }
-        }
-        return slots;
+    public static int getAlternateGuiUpgradeSlots(ArrayList<ItemStack> upgrades) {
+        return (getAltGuiUpgradesApplied(upgrades) * 9);
     }
 
     /**
-     * Gets the number of alternate gui upgrades used.
+     * Gets the number of alternate gui upgrades applied.
      * @param upgrades - the upgrades to check
      * @return integer value
      */
-    public static int getAltGuiUpgradesUsed(ArrayList<ItemStack> upgrades){
+    public static int getAltGuiUpgradesApplied(ArrayList<ItemStack> upgrades){
         int counter = 0;
         for (ItemStack upgrade : upgrades){
             if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgrade)){
@@ -340,6 +279,16 @@ public class UpgradeMethods {
             }
         }
         return counter;
+    }
+
+    /**
+     * Check if
+     * @param upgrade1
+     * @param upgrade2
+     * @return
+     */
+    public static boolean areUpgradesFunctionallyEquivalent(ItemStack upgrade1, ItemStack upgrade2){
+        return (upgrade1.getItem().equals(upgrade2.getItem()) && upgrade1.getItemDamage() == upgrade2.getItemDamage());
     }
 
 
@@ -559,12 +508,12 @@ public class UpgradeMethods {
      * @param stack - the backpack to check
      * @return - the items that fit this criteria
      */
-    public static ArrayList<ItemStack> getHopperItems(ItemStack stack){
+    public static ArrayList<ItemStack> getRestockingItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
         if (nbtTagCompound != null){
-            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.HOPPER)) {
-                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.HOPPER, Constants.NBT.TAG_COMPOUND);
+            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.RESTOCKING)) {
+                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.RESTOCKING, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                     returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
@@ -579,12 +528,12 @@ public class UpgradeMethods {
      * @param stack - the backpack to check
      * @return - the items that fit this criteria
      */
-    public static ArrayList<ItemStack> getCondenserItems(ItemStack stack){
+    public static ArrayList<ItemStack> getCrafterItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
         if (nbtTagCompound != null){
-            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER)) {
-                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER, Constants.NBT.TAG_COMPOUND);
+            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CRAFTING)) {
+                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CRAFTING, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                     returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
@@ -599,12 +548,12 @@ public class UpgradeMethods {
      * @param stack - the backpack to check
      * @return - the items that fit this criteria
      */
-    public static ArrayList<ItemStack> getCondenserSmallItems(ItemStack stack){
+    public static ArrayList<ItemStack> getCrafterSmallItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
         if (nbtTagCompound != null){
-            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL)) {
-                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL, Constants.NBT.TAG_COMPOUND);
+            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CRAFTING_SMALL)) {
+                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CRAFTING_SMALL, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                     returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
@@ -619,12 +568,12 @@ public class UpgradeMethods {
      * @param stack - the backpack to check
      * @return - the items that fit this criteria
      */
-    public static ArrayList<ItemStack> getCondenserTinyItems(ItemStack stack){
+    public static ArrayList<ItemStack> getCrafterTinyItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
         if (nbtTagCompound != null){
-            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER_TINY)) {
-                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER_TINY, Constants.NBT.TAG_COMPOUND);
+            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CRAFTING_TINY)) {
+                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CRAFTING_TINY, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                     returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));

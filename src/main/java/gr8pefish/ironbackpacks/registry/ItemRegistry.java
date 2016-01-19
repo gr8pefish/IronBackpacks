@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.registry;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.item.craftingItems.ItemAPICrafting;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemAltGuiUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Registers all the items in this mod.
@@ -129,9 +131,7 @@ public class ItemRegistry {
                 ConfigHandler.enumBasicBackpack.upgradePoints.getValue(), //upgrade points, (next line) resource location of gui
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200: 236), //gui width
-                (114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue())), //gui height
-                null, //backpacks lower tier
-                Arrays.asList(ironBackpack, goldBackpack, diamondBackpack)), //backpacks higher tier
+                (114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue()))), //gui height
                 IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME); //registry name
 
         ironBackpack = (ItemBackpack) registerItem(new ItemBackpack(
@@ -141,9 +141,7 @@ public class ItemRegistry {
                 ConfigHandler.enumIronBackpack.upgradePoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumIronBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue())),
-                Collections.singletonList(basicBackpack),
-                Arrays.asList(goldBackpack, diamondBackpack)),
+                (114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue()))),
                 IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME);
 
         goldBackpack = (ItemBackpack) registerItem(new ItemBackpack(
@@ -153,9 +151,7 @@ public class ItemRegistry {
                 ConfigHandler.enumGoldBackpack.upgradePoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumGoldBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue())),
-                Arrays.asList(basicBackpack, ironBackpack),
-                Collections.singletonList(diamondBackpack)),
+                (114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue()))),
                 IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME);
 
         diamondBackpack = (ItemBackpack) registerItem(new ItemBackpack(
@@ -165,11 +161,10 @@ public class ItemRegistry {
                 ConfigHandler.enumDiamondBackpack.upgradePoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumDiamondBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue())),
-                Arrays.asList(basicBackpack, ironBackpack, goldBackpack),
-                null),
+                (114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue()))),
                 IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME);
 
+        //TODO: fancify this?
         basicBackpack.setBackpacksAbove(null, Arrays.asList(ironBackpack, goldBackpack, diamondBackpack));
         ironBackpack.setBackpacksAbove(null, Arrays.asList(goldBackpack, diamondBackpack));
         goldBackpack.setBackpacksAbove(null, Collections.singletonList(diamondBackpack));

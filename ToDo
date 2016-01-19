@@ -29,6 +29,8 @@ To Do:
         then API/cut ids/refactor, etc.
             add all static methods to helpers in API
 
+        Check all comments/javadocs
+
         Check working with inventory tweaks
         Check working with Botania
 

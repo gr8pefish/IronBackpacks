@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class IronBackpacksConstants {
 
-    //TODO: move to api.constants?
+    //TODO: move to api.constants? Also refactor this so hard
 
     //General constants
     public static final class General{
@@ -228,11 +228,11 @@ public class IronBackpacksConstants {
         public static final String FILTER_ADV_ALL_SLOTS = "FilterAdvAllSlots";
         public static final String FILTER_ADV_BUTTONS = "FilterAdvButtons";
         public static final String FILTER_ADV_START = "FilterAdvStart";
+        public static final String RESTOCKING = "Hopper";
+        public static final String CRAFTING = "Condenser";
+        public static final String CRAFTING_SMALL = "CondenserSmall";
+        public static final String CRAFTING_TINY = "CondenserTiny";
         public static final String SLOT = "Slot";
-        public static final String HOPPER = "Hopper";
-        public static final String CONDENSER = "Condenser";
-        public static final String CONDENSER_SMALL = "CondenserSmall";
-        public static final String CONDENSER_TINY = "CondenserTiny";
         public static final String ITEMS = "Items";
         public static final String ADDED_ALT_GUI = "AddedAltGui";
         public static final String REMOVED = "Removed";

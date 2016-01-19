@@ -18,7 +18,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
 
@@ -31,16 +30,16 @@ public class IronBackpacksHelper {
     //======================================================= Gets the player's relevant backpack ===============================================
 
     /**
-     * Gets the backpack to open. Checks for a backpack stored in the proxy first, then checks for an equipped backpack, and finally checks the player's inventory.
+     * Gets the backpack to open. Checks for the current backpack first, then checks for an equipped backpack, and finally checks the player's inventory.
      * @param player - the player with the backpack
      * @return - null if it can't be found, the itemstack otherwise
      */
     public static ItemStack getBackpack(EntityPlayer player) {
-        ItemStack backpack = null;
+        ItemStack backpack;
 
-        ItemStack proxyPack = PlayerBackpackProperties.getCurrentBackpack(player);
-        if (proxyPack != null) {
-            backpack = proxyPack;
+        ItemStack currPack = PlayerBackpackProperties.getCurrentBackpack(player);
+        if (currPack != null) {
+            backpack = currPack;
         }else if(PlayerBackpackProperties.getEquippedBackpack(player)!= null){
             backpack = PlayerBackpackProperties.getEquippedBackpack(player);
         }else {
@@ -54,7 +53,7 @@ public class IronBackpacksHelper {
     }
 
     /**
-     * Gets the backpack form the player's inventory
+     * Gets the backpack form the player's inventory. WARNING: won't get the equipped backpack.
      * @param player - the player with the backpack
      * @return - null if nothing can be found, the itemstack otherwise
      */
@@ -83,55 +82,37 @@ public class IronBackpacksHelper {
 
     /**
      * Get upgrades stored in the backpack's NBT data
-     * @param stack - the backpack to check
+//     * @param stack - the backpack to check
      * @return - an int[] of the upgrades applied (only contains what is applied, no empty values)
      */
-    @Deprecated
-    public static int[] getUpgradesAppliedFromNBT(ItemStack stack) {
-        ArrayList<Integer> upgradesArrayList = new ArrayList<Integer>();
-        if (stack != null) {
-            NBTTagCompound nbtTagCompound = stack.getTagCompound();
+    public static ArrayList<ItemStack> getUpgradesAppliedFromNBT(ItemStack backpack) {
+        ArrayList<ItemStack> upgradesArrayList = new ArrayList<>();
+        if (backpack != null) {
+            NBTTagCompound nbtTagCompound = backpack.getTagCompound();
             if (nbtTagCompound != null) {
                 if(nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.UPGRADES)) {
-                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.UPGRADES, Constants.NBT.TAG_COMPOUND);
+                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.UPGRADES, net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                        int hasUpgrade = stackTag.getByte(IronBackpacksConstants.NBTKeys.UPGRADE);
-                        if (hasUpgrade != 0){ //if has an upgrade
-                            upgradesArrayList.add(hasUpgrade);
-                        }
+                        ItemStack upgrade = ItemStack.loadItemStackFromNBT(stackTag);
+                        if (upgrade != null)
+                            upgradesArrayList.add(upgrade);
                     }
                 }
             }
         }
-        //converts ArrayList to int[]
-        int[] ret = new int[upgradesArrayList.size()];
-        int i = 0;
-        for (Integer e : upgradesArrayList)
-            ret[i++] = e.intValue();
-        return ret;
+        return upgradesArrayList;
     }
 
+    /**
+     * Get the number of upgrade points used.
+     * @param upgrades - the upgrades to check
+     * @return - integer value
+     */
     public static int getUpgradePointsUsed(ArrayList<ItemStack> upgrades){
         int counter = 0;
         for (ItemStack stack : upgrades){
             counter += ItemUpgradeRegistry.getItemUpgrade(stack).getUpgradeCost(stack);
-        }
-        return counter;
-    }
-
-
-
-    /**
-     * Gets the point value of upgrades used.
-     * @param upgrades - the upgrades applied
-     * @return - how many upgrade points have been applied
-     */
-    @Deprecated
-    public static int getUpgradePointsUsed(int[] upgrades){
-        int counter = 0;
-        for (int upgrade : upgrades){
-            counter += IronBackpacksConstants.Upgrades.UPGRADE_POINTS[upgrade];
         }
         return counter;
     }
@@ -187,11 +168,6 @@ public class IronBackpacksHelper {
     public static void equipBackpackFromKeybinding(EntityPlayer player) {
 
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(player);
-
-//        if (backpack == null)
-//            System.out.println("backpack null");
-//        else
-//            System.out.println("backpack "+backpack.getDisplayName());
 
         if (backpack != null) { //need to unequip backpack
 
@@ -269,10 +245,10 @@ public class IronBackpacksHelper {
         //deal with storing the equipped pack
         ItemStack equippedPack = PlayerBackpackProperties.getEquippedBackpack(player);
         if (equippedPack != null){
-            if (gameruleKeepInv || UpgradeMethods.hasKeepOnDeathUpgrade(equippedPack)) {
+            if (gameruleKeepInv || UpgradeMethods.hasEternityUpgrade(getUpgradesAppliedFromNBT(equippedPack))) {
                 ItemStack updatedEquippedPack = equippedPack;
                 if (!gameruleKeepInv) {
-                     updatedEquippedPack = removeKeepOnDeathUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(equippedPack), equippedPack); //remove upgrade
+                     updatedEquippedPack = removeEternityUpgrade(getUpgradesAppliedFromNBT(equippedPack), equippedPack); //remove upgrade
                 }
                 PlayerBackpackDeathProperties.setEquippedBackpack(player, updatedEquippedPack);
             } else {
@@ -287,10 +263,10 @@ public class IronBackpacksHelper {
             ItemStack tempStack = player.inventory.getStackInSlot(i);
             if (tempStack != null) {
                 if (tempStack.getItem() instanceof IBackpack) {
-                    if (gameruleKeepInv || UpgradeMethods.hasKeepOnDeathUpgrade(tempStack)) {
+                    if (gameruleKeepInv || UpgradeMethods.hasEternityUpgrade(getUpgradesAppliedFromNBT(tempStack))) {
                         ItemStack stackToAdd = tempStack;
                         if (!gameruleKeepInv) {
-                            stackToAdd = removeKeepOnDeathUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(tempStack), tempStack); //removes upgrade
+                            stackToAdd = removeEternityUpgrade(getUpgradesAppliedFromNBT(tempStack), tempStack); //removes upgrade
                         }
                         backpacks.add(stackToAdd);
                         player.inventory.setInventorySlotContents(i, null); //set to null so it doesn't drop
@@ -343,15 +319,13 @@ public class IronBackpacksHelper {
      * @param stack - the backpack to check
      * @return - the itemstack with the 'keepOnDeath' upgrade removed (if valid/applicable)
      */
-    private static ItemStack removeKeepOnDeathUpgrade(int[] upgrades, ItemStack stack){
+    private static ItemStack removeEternityUpgrade(ArrayList<ItemStack> upgrades, ItemStack stack){
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             NBTTagList tagList = new NBTTagList();
-            for (int upgrade: upgrades) {
-                if (!(upgrade == IronBackpacksConstants.Upgrades.KEEP_ON_DEATH_UPGRADE_ID)) {
-                    NBTTagCompound tagCompound = new NBTTagCompound();
-                    tagCompound.setByte(IronBackpacksConstants.NBTKeys.UPGRADE, (byte) upgrade);
-                    tagList.appendTag(tagCompound);
+            for (ItemStack upgrade : upgrades) {
+                if (!(ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.eternityUpgrade))) {
+                    tagList.appendTag(upgrade.writeToNBT(new NBTTagCompound()));
                 }
             }
             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADES, tagList);
@@ -363,6 +337,12 @@ public class IronBackpacksHelper {
 
     //===========================================================================Miscellaneous===========================================
 
+    /**
+     * Check if items are exactly the same.
+     * @param itemStack1
+     * @param itemStack2
+     * @return
+     */
     public static boolean areItemStacksTheSame(ItemStack itemStack1, ItemStack itemStack2){
         return (ItemStack.areItemStacksEqual(itemStack1, itemStack2) && ItemStack.areItemStackTagsEqual(itemStack1, itemStack2));
     }

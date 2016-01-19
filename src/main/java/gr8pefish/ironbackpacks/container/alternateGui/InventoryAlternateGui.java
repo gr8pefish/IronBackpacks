@@ -23,6 +23,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.util.Constants;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -34,7 +35,7 @@ public class InventoryAlternateGui implements IInventory {
     private ItemStack backpackStack; //the itemstack of the backpack
     private EntityPlayer player; //the player
     private ItemStack[] inventory; //the items in the backpack
-    private int[] upgrades; //the upgrades applied
+    private ArrayList<ItemStack> upgrades; //the upgrades applied
     private int invSize; //the size of the inventory
 
     protected ItemStack[] advFilterStacks; //the items in the advanced filter
@@ -160,6 +161,7 @@ public class InventoryAlternateGui implements IInventory {
         //unused
     }
 
+    //TODO: make this prettier
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
         if (UpgradeMethods.hasFilterBasicUpgrade(this.upgrades) || UpgradeMethods.hasFilterFuzzyUpgrade(this.upgrades)
@@ -173,13 +175,13 @@ public class InventoryAlternateGui implements IInventory {
                 BackpackSlot mySlot = new BackpackSlot(this, index, 0,0);
                 return mySlot.acceptsStack(itemStack);
             }
-        }else if (UpgradeMethods.hasHopperUpgrade(this.upgrades)){
+        }else if (UpgradeMethods.hasRestockingUpgrade(this.upgrades)){
             return itemStack.isStackable();
-        }else if (UpgradeMethods.hasCondenserTinyUpgrade(this.upgrades)){
+        }else if (UpgradeMethods.hasCraftingTinyUpgrade(this.upgrades)){
             return itemStack.isStackable();
-        }else if (UpgradeMethods.hasCondenserSmallUpgrade(this.upgrades)){
+        }else if (UpgradeMethods.hasCraftingSmallUpgrade(this.upgrades)){
             return itemStack.isStackable();
-        }else if (UpgradeMethods.hasCondenserUpgrade(this.upgrades)){
+        }else if (UpgradeMethods.hasCraftingUpgrade(this.upgrades)){
             return itemStack.isStackable();
         }else{
             Logger.error("Impossible error in isItemValidForSlot in InventoryAlternateGui"); //need to have an alternate gui upgrade to have slots exist
@@ -252,6 +254,7 @@ public class InventoryAlternateGui implements IInventory {
      */
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         nbtTagCompound = findParentItemStack(player).getTagCompound();
+        if (nbtTagCompound == null) Logger.warn("Error saving in inventory alternate gui.");
         int startIndex = 0; //need to start/increment at the slot number appropriate to the amount of valid upgrades
 
         // Write the ItemStacks in the inventory to NBT
@@ -353,7 +356,7 @@ public class InventoryAlternateGui implements IInventory {
             startIndex += 9;
             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.FILTER_VOID, tagList);
         }
-        if (UpgradeMethods.hasHopperUpgrade(this.upgrades)) {
+        if (UpgradeMethods.hasRestockingUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();
             for (int i = startIndex; i < startIndex + 9; i++) {
                 if (inventory[i] != null) {
@@ -364,9 +367,9 @@ public class InventoryAlternateGui implements IInventory {
                 }
             }
             startIndex += 9;
-            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.HOPPER, tagList);
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.RESTOCKING, tagList);
         }
-        if (UpgradeMethods.hasCondenserUpgrade(this.upgrades)) {
+        if (UpgradeMethods.hasCraftingUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();
             for (int i = startIndex; i < startIndex + 9; i++) {
                 if (inventory[i] != null) {
@@ -377,9 +380,9 @@ public class InventoryAlternateGui implements IInventory {
                 }
             }
             startIndex += 9;
-            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CONDENSER, tagList);
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CRAFTING, tagList);
         }
-        if (UpgradeMethods.hasCondenserSmallUpgrade(this.upgrades)) {
+        if (UpgradeMethods.hasCraftingSmallUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();
             for (int i = startIndex; i < startIndex + 9; i++) {
                 if (inventory[i] != null) {
@@ -390,9 +393,9 @@ public class InventoryAlternateGui implements IInventory {
                 }
             }
             startIndex += 9;
-            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL, tagList);
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CRAFTING_SMALL, tagList);
         }
-        if (UpgradeMethods.hasCondenserTinyUpgrade(this.upgrades)) {
+        if (UpgradeMethods.hasCraftingTinyUpgrade(this.upgrades)) {
             NBTTagList tagList = new NBTTagList();
             for (int i = startIndex; i < startIndex + 9; i++) {
                 if (inventory[i] != null) {
@@ -402,7 +405,7 @@ public class InventoryAlternateGui implements IInventory {
                     tagList.appendTag(tagCompound);
                 }
             } //no need to increment, as this is the last upgrade that appears. CAREFUL with this if adding more upgrades.
-            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CONDENSER_TINY, tagList);
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.CRAFTING_TINY, tagList);
         }
     }
 
@@ -533,9 +536,9 @@ public class InventoryAlternateGui implements IInventory {
                         }
                     }
                 }
-                if (!UpgradeMethods.hasHopperUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.HOPPER);
-                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.HOPPER)) {
-                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.HOPPER, Constants.NBT.TAG_COMPOUND);
+                if (!UpgradeMethods.hasRestockingUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.RESTOCKING);
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.RESTOCKING)) {
+                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.RESTOCKING, Constants.NBT.TAG_COMPOUND);
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
@@ -546,9 +549,9 @@ public class InventoryAlternateGui implements IInventory {
                         }
                     }
                 }
-                if (!UpgradeMethods.hasCondenserUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.CONDENSER);
-                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER)) {
-                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER, Constants.NBT.TAG_COMPOUND);
+                if (!UpgradeMethods.hasCraftingUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.CRAFTING);
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CRAFTING)) {
+                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CRAFTING, Constants.NBT.TAG_COMPOUND);
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
@@ -559,9 +562,9 @@ public class InventoryAlternateGui implements IInventory {
                         }
                     }
                 }
-                if (!UpgradeMethods.hasCondenserSmallUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL);
-                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL)) {
-                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER_SMALL, Constants.NBT.TAG_COMPOUND);
+                if (!UpgradeMethods.hasCraftingSmallUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.CRAFTING_SMALL);
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CRAFTING_SMALL)) {
+                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CRAFTING_SMALL, Constants.NBT.TAG_COMPOUND);
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
@@ -572,9 +575,9 @@ public class InventoryAlternateGui implements IInventory {
                         }
                     }
                 }
-                if (!UpgradeMethods.hasCondenserTinyUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.CONDENSER_TINY);
-                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CONDENSER_TINY)) {
-                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CONDENSER_TINY, Constants.NBT.TAG_COMPOUND);
+                if (!UpgradeMethods.hasCraftingTinyUpgrade(this.upgrades)) nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.CRAFTING_TINY);
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.CRAFTING_TINY)) {
+                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CRAFTING_TINY, Constants.NBT.TAG_COMPOUND);
 
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);

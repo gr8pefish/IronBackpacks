@@ -48,9 +48,6 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe {
         //get the higher tier backpack if it exists
         List<ITieredBackpack> backpacksAbove = ItemBackpackRegistry.getBackpacksAbove(backpack);
         if (backpacksAbove != null && backpacksAbove.size() > 0) {
-            System.out.println(backpacksAbove.size());
-            System.out.println(backpacksAbove.get(0));
-            System.out.println(backpacksAbove.get(0).getName(backpack));
             result = new ItemStack((ItemBackpack)backpacksAbove.get(0)); //hardcoded, get the next backpack above it and typecast to ItemBackpack so it can make an itemstack
             result.setTagCompound(backpack.getTagCompound());
             return result;

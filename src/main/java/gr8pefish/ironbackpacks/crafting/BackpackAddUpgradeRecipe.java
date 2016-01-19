@@ -54,7 +54,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
         if (backpack == null) return null; //if no valid backpack return nothing
         ItemStack result = backpack.copy(); //the resulting backpack, copied so it's data can be more easily manipulated
 
-        ArrayList<ItemStack> upgrades = ItemBackpack.getUpgrades(result); //get the upgrades
+        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result); //get the upgrades
         int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(result); //get the total upgrade points available to the backpack
 
         ItemStack upgradeToApply = getFirstUpgrade(inventoryCrafting); //get the upgrade the player is attempting to apply to the backpack
@@ -169,7 +169,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
                     return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints; //if you have the upgrade points
                 }
             } else{ //alt gui upgrade
-                if (UpgradeMethods.getAltGuiUpgradesUsed(upgrades) + 1 <= IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED){ //if you can fit the alt gui
+                if (UpgradeMethods.getAltGuiUpgradesApplied(upgrades) + 1 <= IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED){ //if you can fit the alt gui
                     return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints; //if you have the upgrade points
                 } else { //you can't fit another alternate gui upgrade
                     return false; //can't apply it
@@ -177,7 +177,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
             }
         } else { //normal upgrade
             for (ItemStack upgrade : upgrades) { //check for duplicate
-                if ((upgrade.getItem().equals(upgradeToApply.getItem()) && (upgrade.getItemDamage() == upgradeToApply.getItemDamage()))) //if duplicate upgrade
+                if (UpgradeMethods.areUpgradesFunctionallyEquivalent(upgrade, upgradeToApply)) //if duplicate upgrade
                     return false; //can't apply
             }
             return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints; //if you have the upgrade points
