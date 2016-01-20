@@ -86,36 +86,6 @@ public class ItemRegistry {
         return backpacks;
     } //TODO: change this
 
-    /**
-     * Gets every upgrade item.
-     * @return - upgrades as an ArrayList of Items
-     */
-    public static ArrayList<Item> getUpgrades(){
-        ArrayList<Item> upgrades = new ArrayList<Item>();
-        upgrades.add(buttonUpgrade.getItem());
-        upgrades.add(nestingUpgrade.getItem());
-        upgrades.add(damageBarUpgrade.getItem());
-        if (ConfigHandler.renamingUpgradeRequired) upgrades.add(renamingUpgrade.getItem());
-        upgrades.add(filterBasicUpgrade.getItem());
-        upgrades.add(filterFuzzyUpgrade.getItem());
-        upgrades.add(filterOreDictUpgrade.getItem());
-        upgrades.add(filterModSpecificUpgrade.getItem());
-        upgrades.add(restockingUpgrade.getItem());
-        upgrades.add(craftingUpgrade.getItem());
-        upgrades.add(craftingSmallUpgrade.getItem());
-        upgrades.add(craftingTinyUpgrade.getItem());
-        upgrades.add(eternityUpgrade.getItem());
-        upgrades.add(additionalUpgradePointsUpgrade.getItem());
-        upgrades.add(quickDepositUpgrade.getItem());
-        upgrades.add(quickDepositPreciseUpgrade.getItem());
-        upgrades.add(filterAdvancedUpgrade.getItem());
-        upgrades.add(nestingAdvancedUpgrade.getItem());
-        upgrades.add(depthUpgrade.getItem());
-        upgrades.add(filterMiningUpgrade.getItem());
-        upgrades.add(filterVoidUpgrade.getItem());
-        return upgrades;
-    } //TODO: change this
-
 
     /**
      * Registers all the items with the GameRegistry
@@ -131,7 +101,9 @@ public class ItemRegistry {
                 ConfigHandler.enumBasicBackpack.upgradePoints.getValue(), //upgrade points, (next line) resource location of gui
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200: 236), //gui width
-                (114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue()))), //gui height
+                (114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue())), //gui height
+                ConfigHandler.basicBackpackRecipe, //item recipe (to get the backpack directly)
+                null), //upgrade recipe (to get this item from upgrading another backpack)
                 IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME); //registry name
 
         ironBackpack = (ItemBackpack) registerItem(new ItemBackpack(
@@ -141,7 +113,9 @@ public class ItemRegistry {
                 ConfigHandler.enumIronBackpack.upgradePoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumIronBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue()))),
+                (114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue())),
+                null,
+                Collections.singletonList(ConfigHandler.ironBackpackToUpgradeRecipe)),
                 IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME);
 
         goldBackpack = (ItemBackpack) registerItem(new ItemBackpack(
@@ -151,7 +125,9 @@ public class ItemRegistry {
                 ConfigHandler.enumGoldBackpack.upgradePoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumGoldBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue()))),
+                (114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue())),
+                null,
+                Collections.singletonList(ConfigHandler.goldBackpackToUpgradeRecipe)),
                 IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME);
 
         diamondBackpack = (ItemBackpack) registerItem(new ItemBackpack(
@@ -161,67 +137,70 @@ public class ItemRegistry {
                 ConfigHandler.enumDiamondBackpack.upgradePoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumDiamondBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue()))),
+                (114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue())),
+                null,
+                Collections.singletonList(ConfigHandler.diamondBackpackToUpgradeRecipe)),
                 IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME);
 
-        //TODO: fancify this?
-        basicBackpack.setBackpacksAbove(null, Arrays.asList(ironBackpack, goldBackpack, diamondBackpack));
-        ironBackpack.setBackpacksAbove(null, Arrays.asList(goldBackpack, diamondBackpack));
-        goldBackpack.setBackpacksAbove(null, Collections.singletonList(diamondBackpack));
-        ironBackpack.setBackpacksBelow(null, Collections.singletonList(basicBackpack));
-        goldBackpack.setBackpacksBelow(null, Arrays.asList(basicBackpack, ironBackpack));
-        diamondBackpack.setBackpacksBelow(null, Arrays.asList(basicBackpack, ironBackpack, goldBackpack));
+        //Sets the tiers and links between all the backpacks.
+        //Has to be called after the item initialization because it uses the backpack items themselves.
+        setTieringOfBackpacks();
 
         //Upgrade Items (alphabetical order, except the adv. filter filters)
         upgradeItem = (ItemUpgrade) registerItem(new ItemUpgrade(), IronBackpacksAPI.ITEM_UPGRADE_BASE);
         //basic upgrades
-        additionalUpgradePointsUpgrade = new ItemPackUpgrade("additionalUpgradePoints", 0, IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_POINTS_DESCRIPTION, ConfigHandler.additionalUpgradePointsUpgradeRecipe);
+        additionalUpgradePointsUpgrade = new ItemPackUpgrade(
+                "additionalUpgradePoints", //name
+                0, //cost of upgrade points to apply the upgrade
+                0, //tier of backpack necessary to apply the upgrade (TODO: add as config option)
+                IronBackpacksConstants.Upgrades.ADDITIONAL_UPGRADE_POINTS_DESCRIPTION, //description/tooltip
+                ConfigHandler.additionalUpgradePointsUpgradeRecipe); //recipe
         ItemUpgradeRegistry.registerItemPackUpgrade(additionalUpgradePointsUpgrade);
-        buttonUpgrade = new ItemPackUpgrade("button", ConfigHandler.buttonUpgradeCost, IronBackpacksConstants.Upgrades.BUTTON_DESCRIPTION, ConfigHandler.buttonUpgradeRecipe);
+        buttonUpgrade = new ItemPackUpgrade("button", ConfigHandler.buttonUpgradeCost, 0, IronBackpacksConstants.Upgrades.BUTTON_DESCRIPTION, ConfigHandler.buttonUpgradeRecipe);
         ItemUpgradeRegistry.registerItemPackUpgrade(buttonUpgrade);
-        damageBarUpgrade = new ItemPackUpgrade("damageBar", ConfigHandler.damageBarUpgradeCost, IronBackpacksConstants.Upgrades.DAMAGE_BAR_DESCRIPTION, ConfigHandler.damageBarUpgradeRecipe);
+        damageBarUpgrade = new ItemPackUpgrade("damageBar", ConfigHandler.damageBarUpgradeCost, 0, IronBackpacksConstants.Upgrades.DAMAGE_BAR_DESCRIPTION, ConfigHandler.damageBarUpgradeRecipe);
         ItemUpgradeRegistry.registerItemPackUpgrade(damageBarUpgrade);
-        depthUpgrade = new ItemPackUpgrade("depth", ConfigHandler.depthUpgradeCost, IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_DESCRIPTION, ConfigHandler.depthUpgradeRecipe);
+        depthUpgrade = new ItemPackUpgrade("depth", ConfigHandler.depthUpgradeCost, 0, IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_DESCRIPTION, ConfigHandler.depthUpgradeRecipe);
         ItemUpgradeRegistry.registerItemPackUpgrade(depthUpgrade);
-        eternityUpgrade = new ItemPackUpgrade("eternity", ConfigHandler.eternityUpgradeCost, IronBackpacksConstants.Upgrades.ETERNITY_DESCRIPTION, ConfigHandler.eternityUpgradeRecipe);
+        eternityUpgrade = new ItemPackUpgrade("eternity", ConfigHandler.eternityUpgradeCost, 0, IronBackpacksConstants.Upgrades.ETERNITY_DESCRIPTION, ConfigHandler.eternityUpgradeRecipe);
         ItemUpgradeRegistry.registerItemPackUpgrade(eternityUpgrade);
         if (ConfigHandler.renamingUpgradeRequired){
-            renamingUpgrade = new ItemPackUpgrade("renaming", ConfigHandler.renamingUpgradeCost, IronBackpacksConstants.Upgrades.RENAMING_DESCRIPTION, ConfigHandler.renamingUpgradeRecipe);
+            renamingUpgrade = new ItemPackUpgrade("renaming", ConfigHandler.renamingUpgradeCost, 0, IronBackpacksConstants.Upgrades.RENAMING_DESCRIPTION, ConfigHandler.renamingUpgradeRecipe);
             ItemUpgradeRegistry.registerItemPackUpgrade(renamingUpgrade);
         }
 
         //conflicting upgrades
-        nestingUpgrade = new ItemConflictingUpgrade("nesting", ConfigHandler.nestingUpgradeCost, IronBackpacksConstants.Upgrades.NESTING_DESCRIPTION, ConfigHandler.nestingUpgradeRecipe, Collections.singletonList(nestingAdvancedUpgrade));
+        nestingUpgrade = new ItemConflictingUpgrade("nesting", ConfigHandler.nestingUpgradeCost, 0, IronBackpacksConstants.Upgrades.NESTING_DESCRIPTION, ConfigHandler.nestingUpgradeRecipe, Collections.singletonList(nestingAdvancedUpgrade));
         ItemUpgradeRegistry.registerItemConflictingUpgrade(nestingUpgrade);
-        nestingAdvancedUpgrade = new ItemConflictingUpgrade("nestingAdvanced", ConfigHandler.nestingAdvancedUpgradeCost, IronBackpacksConstants.Upgrades.NESTING_ADVANCED_DESRIPTION, ConfigHandler.nestingAdvancedUpgradeRecipe, Collections.singletonList(nestingUpgrade));
+        nestingAdvancedUpgrade = new ItemConflictingUpgrade("nestingAdvanced", ConfigHandler.nestingAdvancedUpgradeCost, 0, IronBackpacksConstants.Upgrades.NESTING_ADVANCED_DESRIPTION, ConfigHandler.nestingAdvancedUpgradeRecipe, Collections.singletonList(nestingUpgrade));
         ItemUpgradeRegistry.registerItemConflictingUpgrade(nestingAdvancedUpgrade);
-        quickDepositUpgrade = new ItemConflictingUpgrade("quickDeposit", ConfigHandler.quickDepositUpgradeCost, IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_DESCRIPTION, ConfigHandler.quickDepositUpgradeRecipe, Collections.singletonList(quickDepositPreciseUpgrade));
+        quickDepositUpgrade = new ItemConflictingUpgrade("quickDeposit", ConfigHandler.quickDepositUpgradeCost, 0, IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_DESCRIPTION, ConfigHandler.quickDepositUpgradeRecipe, Collections.singletonList(quickDepositPreciseUpgrade));
         ItemUpgradeRegistry.registerItemConflictingUpgrade(quickDepositUpgrade);
-        quickDepositPreciseUpgrade = new ItemConflictingUpgrade("quickDepositPrecise", ConfigHandler.quickDepositPreciseUpgradeCost, IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_DESCRIPTION, ConfigHandler.quickDepositPreciseUpgradeRecipe, Collections.singletonList(quickDepositUpgrade));
+        quickDepositPreciseUpgrade = new ItemConflictingUpgrade("quickDepositPrecise", ConfigHandler.quickDepositPreciseUpgradeCost, 0, IronBackpacksConstants.Upgrades.QUICK_DEPOSIT_PRECISE_DESCRIPTION, ConfigHandler.quickDepositPreciseUpgradeRecipe, Collections.singletonList(quickDepositUpgrade));
         ItemUpgradeRegistry.registerItemConflictingUpgrade(quickDepositPreciseUpgrade);
 
         //alt gui upgrades
-        craftingUpgrade = new ItemAltGuiUpgrade("crafting", ConfigHandler.craftingUpgradeCost, IronBackpacksConstants.Upgrades.CRAFTING_DESCRIPTION, ConfigHandler.craftingUpgradeRecipe);
+        craftingUpgrade = new ItemAltGuiUpgrade("crafting", ConfigHandler.craftingUpgradeCost, 0, IronBackpacksConstants.Upgrades.CRAFTING_DESCRIPTION, ConfigHandler.craftingUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(craftingUpgrade);
-        craftingSmallUpgrade = new ItemAltGuiUpgrade("craftingSmall", ConfigHandler.craftingSmallUpgradeCost, IronBackpacksConstants.Upgrades.CRAFTING_SMALL_DESCRIPTION, ConfigHandler.craftingSmallUpgradeRecipe);
+        craftingSmallUpgrade = new ItemAltGuiUpgrade("craftingSmall", ConfigHandler.craftingSmallUpgradeCost, 0, IronBackpacksConstants.Upgrades.CRAFTING_SMALL_DESCRIPTION, ConfigHandler.craftingSmallUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(craftingSmallUpgrade);
-        craftingTinyUpgrade = new ItemAltGuiUpgrade("craftingTiny", ConfigHandler.craftingTinyUpgradeCost, IronBackpacksConstants.Upgrades.CRAFTING_TINY_DESCRIPTION, ConfigHandler.craftingTinyUpgradeRecipe);
+        craftingTinyUpgrade = new ItemAltGuiUpgrade("craftingTiny", ConfigHandler.craftingTinyUpgradeCost, 0, IronBackpacksConstants.Upgrades.CRAFTING_TINY_DESCRIPTION, ConfigHandler.craftingTinyUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(craftingTinyUpgrade);
-        filterBasicUpgrade = new ItemAltGuiUpgrade("filterBasic", ConfigHandler.filterBasicUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_BASIC_DESCRIPTION, ConfigHandler.filterBasicUpgradeRecipe);
+        filterBasicUpgrade = new ItemAltGuiUpgrade("filterBasic", ConfigHandler.filterBasicUpgradeCost, 0, IronBackpacksConstants.Upgrades.FILTER_BASIC_DESCRIPTION, ConfigHandler.filterBasicUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterBasicUpgrade);
-        filterFuzzyUpgrade = new ItemAltGuiUpgrade("filterFuzzy", ConfigHandler.filterFuzzyUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_FUZZY_DESCRIPTION, ConfigHandler.filterFuzzyUpgradeRecipe);
+        filterFuzzyUpgrade = new ItemAltGuiUpgrade("filterFuzzy", ConfigHandler.filterFuzzyUpgradeCost, 0, IronBackpacksConstants.Upgrades.FILTER_FUZZY_DESCRIPTION, ConfigHandler.filterFuzzyUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterFuzzyUpgrade);
-        filterOreDictUpgrade = new ItemAltGuiUpgrade("filterOreDict", ConfigHandler.filterOreDictUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_OREDICT_DESCRIPTION, ConfigHandler.filterOreDictUpgradeRecipe);
+        filterOreDictUpgrade = new ItemAltGuiUpgrade("filterOreDict", ConfigHandler.filterOreDictUpgradeCost, 0, IronBackpacksConstants.Upgrades.FILTER_OREDICT_DESCRIPTION, ConfigHandler.filterOreDictUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterOreDictUpgrade);
-        filterModSpecificUpgrade = new ItemAltGuiUpgrade("filterModSpecific", ConfigHandler.filterModSpecificUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_DESCRIPTION, ConfigHandler.filterModSpecificUpgradeRecipe);
+        filterModSpecificUpgrade = new ItemAltGuiUpgrade("filterModSpecific", ConfigHandler.filterModSpecificUpgradeCost, 0, IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_DESCRIPTION, ConfigHandler.filterModSpecificUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterModSpecificUpgrade);
-        filterAdvancedUpgrade = new ItemAltGuiUpgrade("filterAdvanced", ConfigHandler.filterAdvancedUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_ADVANCED_DESCRIPTION, ConfigHandler.filterAdvancedUpgradeRecipe);
+        filterAdvancedUpgrade = new ItemAltGuiUpgrade("filterAdvanced", ConfigHandler.filterAdvancedUpgradeCost, 0, IronBackpacksConstants.Upgrades.FILTER_ADVANCED_DESCRIPTION, ConfigHandler.filterAdvancedUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterAdvancedUpgrade);
-        filterMiningUpgrade = new ItemAltGuiUpgrade("filterMining", ConfigHandler.filterMiningUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_MINING_DESCRIPTION, ConfigHandler.filterMiningUpgradeRecipe);
+        filterMiningUpgrade = new ItemAltGuiUpgrade("filterMining", ConfigHandler.filterMiningUpgradeCost, 0, IronBackpacksConstants.Upgrades.FILTER_MINING_DESCRIPTION, ConfigHandler.filterMiningUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterMiningUpgrade);
-        filterVoidUpgrade = new ItemAltGuiUpgrade("filterVoid", ConfigHandler.filterVoidUpgradeCost, IronBackpacksConstants.Upgrades.FILTER_VOID_DESCRIPTION, ConfigHandler.filterVoidUpgradeRecipe);
+        filterVoidUpgrade = new ItemAltGuiUpgrade("filterVoid", ConfigHandler.filterVoidUpgradeCost, 0, IronBackpacksConstants.Upgrades.FILTER_VOID_DESCRIPTION, ConfigHandler.filterVoidUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterVoidUpgrade);
-        restockingUpgrade = new ItemAltGuiUpgrade("restocking", ConfigHandler.restockingUpgradeCost, IronBackpacksConstants.Upgrades.RESTOCKING_DESCRIPTION, ConfigHandler.restockingUpgradeRecipe);
+        restockingUpgrade = new ItemAltGuiUpgrade("restocking", ConfigHandler.restockingUpgradeCost, 0, IronBackpacksConstants.Upgrades.RESTOCKING_DESCRIPTION, ConfigHandler.restockingUpgradeRecipe);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(restockingUpgrade);
 
 
@@ -300,12 +279,21 @@ public class ItemRegistry {
     private static Item registerItem(Item item, String name) {
         if (!ConfigHandler.itemBlacklist.contains(name)) {
             if (item instanceof IBackpack){
-                Logger.info("got a backpack, registering");
                 ItemBackpackRegistry.registerItemBackpack((IBackpack)item);
             }
             GameRegistry.registerItem(item, name);
         }
 
         return item;
+    }
+
+    private static void setTieringOfBackpacks(){
+        basicBackpack.setBackpacksAbove(null, Collections.singletonList(ironBackpack)); //first parameter is (in my case, unused) itemstack, so I use null
+        basicBackpack.setTier(null, 0);
+        ironBackpack.setBackpacksAbove(null, Collections.singletonList(goldBackpack));
+        ironBackpack.setTier(null, 1);
+        goldBackpack.setBackpacksAbove(null, Collections.singletonList(diamondBackpack));
+        goldBackpack.setTier(null, 2);
+        diamondBackpack.setTier(null, 3);
     }
 }

@@ -2,58 +2,87 @@ To Do:
 
     1.8 Stuff:
 
-        Minor:
-            Doesn't init if going straight to alt gui
+        Features:
 
-        add registry items to API
-            check BM api
-            check inv tweaks api
+            Backpacks:
+                Make them dyeable (I don't use damage values, I might as well)
 
-        add crafttweaker support
+                eventual integration with travelers gear, tiCon (backpack slot), baubles, etc.
 
-        JEI handlers for crafting
-            https://github.com/williewillus/Botania/tree/MC18/src/main/java/vazkii/botania/client/integration/jei/manapool
+            API:
+                make API not need the recipe in case you don't want a custom one (add as end optional param)
 
-        add in changelog limiting ids
+                change so api version different?
+                    check chisel API/ jei api
 
-        add model backpack registry to API
+                add model backpack registry to API
 
-        make API not need the recipe in case you don't want a custom one (add as end optional param)
+            Upgrades:
+                actually use the tiers to check stuff, add config option for the tiers
+                make the upgrades cheaper overall, introduce t1 and t2 crafting bases
 
-        fix config nonsense
-            change order so recipes are last
-            fix item recipe stuff (and add metadata)
+            JEI:
+                JEI handlers for crafting
+                    https://github.com/williewillus/Botania/tree/MC18/src/main/java/vazkii/botania/client/integration/jei/manapool
+                look at chisel and bits for description jei handler
 
-        fix versioning build.gradle incrementing stuff with api version
+            Investigate:
+                add crafttweaker support
+                Send packet to client when join server to sync metas up
 
-        then API/cut ids/refactor, etc.
-            add all static methods to helpers in API
+            Crafting:
+                make 1 path choose more upgrade points
+                    make the other choose more storage
 
-        Check all comments/javadocs
+                more recipe stuff - ask tterrag/tehnut for what to do
+                    config recipes as json? Ask tehnut/tterag
+                    Return upgrade on removal crafting?
+                        Figure out how, and yes, but that will be a crazy jei thing (super custom) - 2 output slots labeled
+                        (1 as main output the other as dropped on ground or extra output put back in crafting grid) or could add custom removal crafting table.
 
-        Send packet to client when join server to sync metas up
+                fix config nonsense
+                    change order so recipes are last
+                    fix item recipe stuff (and add metadata)
+                        blocks are all in the itemRegistry
+                            So new ItemStack(Items.itemRegistry.getObject(new ResourceLocation(BloodMagic:BlockRitualStone))) would work
 
-        Remove adding crafting item to API
-            https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
+                Remove adding crafting item to API?
+                    https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
 
-        Check working with inventory tweaks
-        Check working with Botania
+                Make basic recipe use less leather and rebalance a lot of them
 
-        Make basic recipe use less leather
+            Other:
+                add commands to remove stored packs' IEEP data
+                Make more null checks for backpack entity killing/spawning
 
-        bm blacklist for config to disable items (requested config option)
+                add all static methods to helpers in API
+                go through TODOs in code
+                Check all comments/javadocs
 
-        add commands to remove stored packs' IEEP data
+                texture update (message CyanideX/interview person)
+                    Make textures of upgrades more 3D looking
 
-        change so api version different?
-            check chisel API
-	
-	Test ondeath save to title
+                Add achievements
 
-	probably breaks when you go through the end portal too
+            Config:
+                re-enable fpp backpack? probably
+                bm blacklist for config to disable items (requested config option)
 
-        blocks are all in the itemRegistry
-            So new ItemStack(Items.itemRegistry.getObject(new ResourceLocation(BloodMagic:BlockRitualStone))) would work
+        Bugs:
+            Testing:
+                Run benchmarks/performance tests with iron backpacks installed
+
+                Check working with inventory tweaks
+                Check working with Botania
+
+                Test ondeath save to title
+                probably breaks when you go through the end portal too
+
+                Check mod specific dupe (fixed that already?)
+
+            Minor:
+                Doesn't init if going straight to alt gui
+
 
     NOW:
 
@@ -75,18 +104,6 @@ To Do:
 
 
         ADDITIONS/TWEAKS:
-
-            texture update (message CyanideX/interview person)
-                Make textures of upgrades more 3D looking
-
-            Check the sv + es translation files
-
-            When I have time to play, tweaks for default config values
-
-            Real API/Interfaces
-                (IEventUpgrade?)
-                Actually check for (if instance of IUpgradableBackpack) etc.
-
             Tick Handler
                 Restocking upgrade onItemPlaced - ask in IRC if the onBlockPlacedEvent exists
                 Crafting upgrade onItemPutInBackpack (so for manually putting items in)
@@ -109,10 +126,6 @@ To Do:
                     test this
 
             Make it so you can't move the opened backpack with number key presses, as there might be some dupe bug using that that I missed
-
-            Add documentation book - see TiCon books source
-                * or add ExtraUtils style docs with "u" in NEI * <-- This one, check power converters Github for implementation
-                Botania has this now?
 
             Add Baubles integration as belt slot to equip
                 config option to toggle between?
@@ -138,15 +151,11 @@ To Do:
 
             quick deposit into AE terminals - have to check efficient of deposit code for that to work probably
 
-            Shift right click to open nested guis too
-
             Change sorting to a configurable style (i.e. id, name, etc.) w/ right click sort button to change style in game
 
             add in config option (and subsequent functionality) where the itemBackpack can't be opened directly, it has to be equipped to be open (i.e. only one open at a time)
                 hard mode: weight is a factor? Harder nesting recipe for limited space? Some other way to increase space/nesting via gameplay/in-game research/other?
                 no shapeless crafting for removal of upgrades, have to use the crafted one specifically
-
-            Add achievements
 
             Recipes via config - support meta/damage values
 
@@ -173,7 +182,7 @@ To Do:
 
 MCF Posting:
 
-    Add all information about the mod to a github wiki as it is a more reliable source
+    Add all information about the mod to a github wiki/curseforge page as it is a more reliable source
 
     More pictures
 

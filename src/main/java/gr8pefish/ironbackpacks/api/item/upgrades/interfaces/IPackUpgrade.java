@@ -30,4 +30,11 @@ public interface IPackUpgrade {
      */
     List<String> getTooltip(ItemStack upgrade);
 
+    /**
+     * Get the minimum tier of the backpack necessary for the upgrade to be applied. 0 is any backpack, each number after that is one more tier of backpack (e.g. 2 = gold backpack or higher).
+     * @param upgrade - the upgrade as an item stack (needed for subitems)
+     * @return - the tier
+     */
+    int getTier(ItemStack upgrade);
+
 }

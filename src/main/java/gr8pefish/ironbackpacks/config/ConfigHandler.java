@@ -28,9 +28,9 @@ public class ConfigHandler {
     public static boolean isConfigManuallyChanged;
 
     public static String[] basicBackpackRecipe;
-    public static String[] ironBackpackRecipe;
-    public static String[] goldBackpackRecipe;
-    public static String[] diamondBackpackRecipe;
+    public static String[] ironBackpackToUpgradeRecipe;
+    public static String[] goldBackpackToUpgradeRecipe;
+    public static String[] diamondBackpackToUpgradeRecipe;
 
     public static String[] buttonUpgradeRecipe;
     public static String[] nestingUpgradeRecipe;
@@ -112,10 +112,10 @@ public class ConfigHandler {
 
         //TODO: better config code which updates if none are changed - (see botania?)
 
-        String[] basicRecipe = {"items.leather", "items.leather", "items.leather", "items.leather", "blocks.chest", "items.leather", "items.leather", "items.leather", "items.leather"};//Items.
-        String[] ironRecipe = {"ingotIron", "blockIron", "ingotIron", "ingotIron", "items.ironbackpacks:basicBackpack", "ingotIron", "ingotIron", "ingotIron", "ingotIron"};
-        String[] goldRecipe = {"ingotGold", "blockGold", "ingotGold", "ingotGold", "items.ironbackpacks:ironBackpack", "ingotGold", "ingotGold", "ingotGold", "ingotGold"};
-        String[] diamondRecipe = {"gemDiamond", "gemDiamond", "gemDiamond", "gemDiamond", "items.ironbackpacks:goldBackpack", "gemDiamond", "gemDiamond", "gemDiamond", "gemDiamond"};
+        String[] basicBackpackRecipe = {"items.leather", "items.leather", "items.leather", "items.leather", "blocks.chest", "items.leather", "items.leather", "items.leather", "items.leather"};//Items.
+        String[] ironBackpackRecipe = {"ingotIron", "blockIron", "ingotIron", "ingotIron", "items.ironbackpacks:basicBackpack", "ingotIron", "ingotIron", "ingotIron", "ingotIron"};
+        String[] goldBackpackRecipe = {"ingotGold", "blockGold", "ingotGold", "ingotGold", "items.ironbackpacks:ironBackpack", "ingotGold", "ingotGold", "ingotGold", "ingotGold"};
+        String[] diamondBackpackRecipe = {"gemDiamond", "gemDiamond", "gemDiamond", "gemDiamond", "items.ironbackpacks:goldBackpack", "gemDiamond", "gemDiamond", "gemDiamond", "gemDiamond"};
         //done - this comment refers to balance changes, if the recipe defaults need to be tweaked or are good for the time being
 
         String[] buttonRecipe = {"items.ironbackpacks:treatedLeather","blocks.stone_button","items.ironbackpacks:treatedLeather", "blocks.wooden_button", "items.ironbackpacks:upgradeCore", "blocks.wooden_button", "items.ironbackpacks:treatedLeather", "blocks.stone_button", "items.ironbackpacks:treatedLeather"};
@@ -208,22 +208,22 @@ public class ConfigHandler {
         basicBackpack[0] = config.get("1) Basic Backpack", "1) Upgrade Points", 8, "The number of upgrade points on the backpack. Default 8.").getInt();
         basicBackpack[1] = config.get("1) Basic Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
         basicBackpack[2] = config.get("1) Basic Backpack", "3) Number of Rows", 2, "The size of the backpack. Between 1 and 7. Default 2.").getInt();
-        basicBackpackRecipe = config.get("5) Recipes", "01) Basic Backpack Recipe", basicRecipe, "The recipe for the basic backpack. Default is blocks.chest surrounded by items.leather.").getStringList();
+        basicBackpackRecipe = config.get("5) Recipes", "01) Basic Backpack Recipe", basicBackpackRecipe, "The recipe for the basic backpack. Default is blocks.chest surrounded by items.leather.").getStringList();
 
         ironBackpack[0] = config.get("2) Iron Backpack", "1) Upgrade Points", 12, "The number of upgrade points on the backpack. Default 12.").getInt();
         ironBackpack[1] = config.get("2) Iron Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
         ironBackpack[2] = config.get("2) Iron Backpack", "3) Number of Rows", 4, "The size of the backpack. Between 1 and 7. Default 4.").getInt();
-        ironBackpackRecipe = config.get("5) Recipes", "02) Iron Backpack Recipe", ironRecipe, "The recipe to upgrade the backpack to an Iron Backpack. Default is surrounded by ingotIron.").getStringList();
+        ironBackpackToUpgradeRecipe = config.get("5) Recipes", "02) Iron Backpack Recipe", ironBackpackToUpgradeRecipe, "The recipe to upgrade the backpack to an Iron Backpack. Default is surrounded by ingotIron.").getStringList();
 
         goldBackpack[0] = config.get("3) Gold Backpack", "1) Upgrade Points", 16, "The number of upgrade points on the backpack. Default 16.").getInt();
         goldBackpack[1] = config.get("3) Gold Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
         goldBackpack[2] = config.get("3) Gold Backpack", "3) Number of Rows", 6, "The size of the backpack. Between 1 and 7. Default 6.").getInt();
-        goldBackpackRecipe = config.get("5) Recipes", "03) Gold Backpack Recipe", goldRecipe, "The recipe to upgrade the backpack to a Gold Backpack. Default is surrounded by ingotGold.").getStringList();
+        goldBackpackToUpgradeRecipe = config.get("5) Recipes", "03) Gold Backpack Recipe", goldBackpackToUpgradeRecipe, "The recipe to upgrade the backpack to a Gold Backpack. Default is surrounded by ingotGold.").getStringList();
 
         diamondBackpack[0] = config.get("4) Diamond Backpack", "1) Upgrade Points", 20, "The number of upgrade points on the backpack. Default 20.").getInt();
         diamondBackpack[1] = config.get("4) Diamond Backpack", "2) Number of Slots Per Row", 11, "The size of the backpack. Either 9 or 11. Default 11.").getInt();
         diamondBackpack[2] = config.get("4) Diamond Backpack", "3) Number of Rows", 7, "The size of the backpack. Between 1 and 7. Default 7.").getInt();
-        diamondBackpackRecipe = config.get("5) Recipes", "04) Diamond Backpack Recipe", diamondRecipe, "The recipe to upgrade the backpack to a Diamond Backpack. Default is surrounded by gemDiamond.").getStringList();
+        diamondBackpackToUpgradeRecipe = config.get("5) Recipes", "04) Diamond Backpack Recipe", diamondBackpackToUpgradeRecipe, "The recipe to upgrade the backpack to a Diamond Backpack. Default is surrounded by gemDiamond.").getStringList();
 
         buttonUpgradeRecipe = config.get("5) Recipes", "10) Button Upgrade Recipe", buttonRecipe, "The recipe for the button upgrade.").getStringList();
         nestingUpgradeRecipe = config.get("5) Recipes", "11) Nesting Upgrade Recipe", nestingRecipe, "The recipe for the nesting upgrade.").getStringList();

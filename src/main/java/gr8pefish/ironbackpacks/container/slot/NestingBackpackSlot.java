@@ -29,6 +29,7 @@ public class NestingBackpackSlot extends BackpackSlot {
             List<ITieredBackpack> backpacksAbove = ItemBackpackRegistry.getBackpacksAbove(mainBackpack);
             if (backpacksAbove != null){
                 if (backpacksAbove.isEmpty()) return true; //if no backpacks higher
+                //TODO: while loop to check the connections (like a tree)
                 return !(backpacksAbove.contains(toCheck.getItem())); //if current backpack's higher tier backpacks doesn't contain the itemstack in question, you can nest them
             } else {
                 Logger.warn("Null backpacks above. Report to mod author with details.");

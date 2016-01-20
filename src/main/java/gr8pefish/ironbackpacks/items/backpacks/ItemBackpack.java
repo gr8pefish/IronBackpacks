@@ -34,9 +34,15 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
 
     private boolean openAltGui = true; //to track which gui to open
 
-    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize){
+    private String[] itemRecipe; //the recipe to get this item directly (may be null)
+    private List<String[]> upgradeRecipes; //the recipe to get this item from upgrading another backpack (may be null) //TODO; refactor so it's to get next tier pack?
+
+    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, String[] itemRecipe, List<String[]> upgradeRecipes){
         super(name, rowLength, rowCount, upgradePoints, guiResourceLocation, guiXSize, guiYSize);
         setCreativeTab(IronBackpacks.creativeTab);
+
+        this.itemRecipe = itemRecipe;
+        this.upgradeRecipes = upgradeRecipes;
     }
 
     //=================================================================Overriden Vanilla Methods=============================================================
@@ -157,6 +163,14 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
     }
 
     //=============================================================================Helper Methods===================================================================================
+
+    public List<String[]> getUpgradeRecipes() {
+        return upgradeRecipes;
+    }
+
+    public String[] getItemRecipe() {
+        return itemRecipe;
+    }
 
     private double getFullness(ItemStack stack) {
         ItemStack[] inventory;

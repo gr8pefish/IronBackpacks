@@ -10,11 +10,21 @@ import java.util.List;
 public class ItemBackpackRegistry {
 
     private static List<IBackpack> backpacks = new ArrayList<>();
+    private static TierNode<ITieredBackpack> backpackTree;
 
     public static void registerItemBackpack(IBackpack item) {
         if (!backpacks.contains(item))
             backpacks.add(item);
         //TODO: else {print error in logger}
+    }
+
+    public static IBackpack getBackpackAtIndex(int index) {
+        if (backpacks.get(index) != null)
+            return backpacks.get(index);
+        else {
+            //Logger.info("error retreiving backpack at index "+index);
+            return null;
+        }
     }
 
     public static int getIndexOf(IBackpack backpack) {

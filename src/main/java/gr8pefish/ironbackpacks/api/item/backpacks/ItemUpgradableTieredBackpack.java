@@ -20,14 +20,12 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     private final int size; //size of the backpack
     private final int upgradePoints; //number of upgradePoints
 
-    private final int guiId; //the id of the gui (must only be unique to the mod)
-
     private final ResourceLocation guiResourceLocation; //the resource location of the gui to display
     private final int guiXSize; //the width of the gui
     private final int guiYSize; //the height of the gui
 
-    private List<ITieredBackpack> backpacksBelow; //the backpacks lower in tier (in order)
-    private List<ITieredBackpack> backpacksAbove; //the backpacks higher in tier (in order)
+    private List<ITieredBackpack> backpacksAbove; //the backpacks 1 higher in tier (likely a singleton list)
+    private int tier; //the tier of the backpack (0 is basic, 1 is iron, 2 is gold, etc.)
 
     /**
      * The Item that represents an AbstractUpgradableTieredBackpack
@@ -44,13 +42,10 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
         this.size = rowCount * rowLength;
         this.upgradePoints = upgradePoints;
 
-        this.guiId = 0;//backpackEnum.guiId; //TODO, use registry for this
-
         this.guiResourceLocation = guiResourceLocation;
         this.guiXSize = guiXSize;
         this.guiYSize = guiYSize;
 
-        this.backpacksBelow = new ArrayList<>(); //empty list
         this.backpacksAbove = new ArrayList<>(); //empty list
     }
 
@@ -133,21 +128,14 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
         backpacksAbove = aboveBackpacks;
     }
 
-
     @Override
-    public List<ITieredBackpack> getBackpacksBelow(ItemStack backpack) {
-        return backpacksBelow;
+    public void setTier(ItemStack backpack, int tier) {
+        this.tier = tier;
     }
 
     @Override
-    public boolean hasBackpacksBelow(ItemStack backpack) {
-        return (!backpacksBelow.isEmpty());
+    public int getTier(ItemStack backpack) {
+        return tier;
     }
-
-    @Override
-    public void setBackpacksBelow(ItemStack baseBackpack, List<ITieredBackpack> belowBackpacks) {
-        backpacksBelow = belowBackpacks;
-    }
-
 
 }

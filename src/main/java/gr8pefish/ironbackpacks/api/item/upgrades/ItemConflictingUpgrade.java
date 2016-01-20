@@ -12,11 +12,12 @@ public class ItemConflictingUpgrade implements IConflictingUpgrade {
 
     private String name;
     private int upgradeCost;
+    private int tier;
     private String[] description;
     private String[] recipe;
     private List<ItemConflictingUpgrade> conflictingUpgrades;
 
-    public ItemConflictingUpgrade(String name, int upgradeCost, String[] description, String[] recipe, List<ItemConflictingUpgrade> conflictingUpgrades){
+    public ItemConflictingUpgrade(String name, int upgradeCost, int tier, String[] description, String[] recipe, List<ItemConflictingUpgrade> conflictingUpgrades){
         this.name = name;
         this.upgradeCost = upgradeCost;
         this.description = description;
@@ -46,5 +47,10 @@ public class ItemConflictingUpgrade implements IConflictingUpgrade {
     @Override
     public List<ItemConflictingUpgrade> getConflictingUpgrades(ItemStack upgrade) {
         return conflictingUpgrades;
+    }
+
+    @Override
+    public int getTier(ItemStack upgrade) {
+        return tier;
     }
 }

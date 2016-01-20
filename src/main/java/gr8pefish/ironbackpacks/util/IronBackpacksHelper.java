@@ -368,4 +368,49 @@ public class IronBackpacksHelper {
         return (itemStack1.isStackable() && itemStack1.stackSize < itemStack1.getMaxStackSize() && areItemsEqualForStacking(itemStack1, itemStack2));
     }
 
+
+    //==========================================================================Registry======================================================
+
+
+    //TODO: figure out how to and the best way to implement trees for tiering later?
+
+//    private static TierNode<ITieredBackpack> backpackTree;
+//    private static BinaryTreeTraverser<ITieredBackpack> binaryTreeTraverser;
+//    private static BinarySearchTree<ITieredBackpack> bst;
+//
+//    //Have to do this for every tiering of backpack
+//    public static void generateTreeMapForBasicBackpackToDiamondTier(){
+//        backpackTree = new TierNode<>(ItemRegistry.basicBackpack);
+//        TierNode<ITieredBackpack> iron = new TierNode<>(ItemRegistry.ironBackpack, backpackTree);
+//        TierNode<ITieredBackpack> gold = new TierNode<>(ItemRegistry.goldBackpack, iron);
+//        TierNode<ITieredBackpack> diamond = new TierNode<>(ItemRegistry.diamondBackpack, gold);
+//    }
+//
+//    public static void genBT(){
+//        binaryTreeTraverser.leftChild()
+//    }
+//
+//
+//    public static List<TierNode<ITieredBackpack>> getBackpacksOfHigherTier(int tier){
+//        TierNode<ITieredBackpack> current = backpackTree;
+//        for (int i = 0; i < tier; i++){
+//            List<TierNode<ITieredBackpack>> children = backpackTree.getChildren();
+//            for (TierNode<ITieredBackpack> child : children){
+//                if (child.getBackpackData() == something)
+//            }
+//        }
+//        return current.getChildren();
+//    }
+//
+//    //this is very wrong
+//    public TierNode<ITieredBackpack> traverse(TierNode<ITieredBackpack> node, ITieredBackpack dataToMatch){ // post order traversal
+//        if (node.getBackpackData().equals(dataToMatch)){
+//            return node;
+//        }
+//        for(TierNode<ITieredBackpack> each : node.getChildren()) {
+//            traverse(each, dataToMatch);
+//        }
+//        return null;
+//    }
+
 }

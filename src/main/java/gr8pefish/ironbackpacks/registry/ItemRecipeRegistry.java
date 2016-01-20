@@ -1,11 +1,16 @@
 package gr8pefish.ironbackpacks.registry;
 
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
+import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemCraftingRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
 import gr8pefish.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,6 +23,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,6 +92,7 @@ public class ItemRecipeRegistry {
 
 	//Registers the recipes that allow you to shapelessly craft an upgrade with a backpack to add/remove said upgrade
 	private static void registerBackpackUpgradeAndRemovalRecipes(){
+		//TODO: dynamic
 		ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
 		ArrayList<ItemStack> upgrades = new ArrayList<>();
 		for (int i = 0; i < ItemUpgradeRegistry.getTotalSize(); i++)
@@ -101,17 +108,44 @@ public class ItemRecipeRegistry {
 
 	//Registers the recipes that allow you to upgrade a backpack to a new tier (ex: iron -> gold)
 	private static void registerBackpackTierRecipes(){
-		ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
 
-		String[] ironBackpackRecipe = ConfigHandler.ironBackpackRecipe;
-		String[] goldBackpackRecipe = ConfigHandler.goldBackpackRecipe;
-		String[] diamondBackpackRecipe = ConfigHandler.diamondBackpackRecipe;
-		String[][] recipes = {ironBackpackRecipe, goldBackpackRecipe, diamondBackpackRecipe};
+		for (int i = 0; i < ItemBackpackRegistry.getSize(); i++){
+			IBackpack backpack = ItemBackpackRegistry.getBackpackAtIndex(i);//getIBackpack and typecast to my registered type of backpack
+			try {
+				ITieredBackpack newPack = (ITieredBackpack)backpack;
+				//could add normal tiered recipe here I guess
+				try {
+					ItemBackpack itemBackpack = (ItemBackpack)newPack;
+					List<String[]> recipes = itemBackpack != null ? itemBackpack.getUpgradeRecipes() : null;
+					if (recipes == null) break; //if you have no recipe to upgrade, you can't register that, TODO: test
+					List<ITieredBackpack> upgradedPacks = itemBackpack.getBackpacksAbove(null); //unused item stack parameter
+					if (!recipes.isEmpty() && upgradedPacks != null && upgradedPacks.size() == recipes.size())
+					for (int j = 0; j < recipes.size(); j++) {
+						Logger.info("Adding upgraded tier recipe for "+itemBackpack.getName(null));
+						Object[] theRecipe = getOreRecipe(recipes.get(i));
+						GameRegistry.addRecipe(new BackpackIncreaseTierRecipe(new ItemStack((ItemBackpack)upgradedPacks.get(i)), theRecipe));
+					}
+				} catch (Exception e) {
+					Logger.warn("Couldn't register ItemBackpack backpack's tier upgrade recipe");
+				}
 
-		for (int i = 1; i < backpacks.size(); i++){ //start at 1 b/c first backpack can't be upgraded
-			Object[] theRecipe = getOreRecipe(recipes[i-1]);
-			GameRegistry.addRecipe(new BackpackIncreaseTierRecipe(new ItemStack(backpacks.get(i)), theRecipe));
+			} catch (Exception e) {
+				Logger.warn("Couldn't register ITiered backpack's tier upgrade recipe");
+			}
 		}
+
+		//todo automatic by tiers
+//		ArrayList<Item> backpacks = ItemRegistry.getBackpacks();
+//
+//		String[] ironBackpackRecipe = ConfigHandler.ironBackpackRecipe;
+//		String[] goldBackpackRecipe = ConfigHandler.goldBackpackRecipe;
+//		String[] diamondBackpackRecipe = ConfigHandler.diamondBackpackRecipe;
+//		String[][] recipes = {ironBackpackRecipe, goldBackpackRecipe, diamondBackpackRecipe};
+//
+//		for (int i = 1; i < backpacks.size(); i++){ //start at 1 b/c first backpack can't be upgraded
+//			Object[] theRecipe = getOreRecipe(recipes[i-1]);
+//			GameRegistry.addRecipe(new BackpackIncreaseTierRecipe(new ItemStack(backpacks.get(i)), theRecipe));
+//		}
 	}
 
 
