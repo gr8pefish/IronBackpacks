@@ -6,7 +6,9 @@ import gr8pefish.ironbackpacks.api.item.backpacks.abstractClasses.AbstractUpgrad
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
@@ -26,11 +28,13 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
 
     private List<ITieredBackpack> backpacksAbove; //the backpacks 1 higher in tier (likely a singleton list)
     private int tier; //the tier of the backpack (0 is basic, 1 is iron, 2 is gold, etc.)
+    private List<Object[]> tierRecipes; //the recipes that this backpack can be used in to increase it's tier
+    private IRecipe itemRecipe; //get the recipe to obtain the backpack as an item
 
     /**
      * The Item that represents an AbstractUpgradableTieredBackpack
      */
-    public ItemUpgradableTieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize){
+    public ItemUpgradableTieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, IRecipe itemRecipe){
         setMaxStackSize(1);
         setNoRepair();
 
@@ -41,12 +45,14 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
         this.rowCount = rowCount;
         this.size = rowCount * rowLength;
         this.upgradePoints = upgradePoints;
+        this.itemRecipe = itemRecipe;
 
         this.guiResourceLocation = guiResourceLocation;
         this.guiXSize = guiXSize;
         this.guiYSize = guiYSize;
 
         this.backpacksAbove = new ArrayList<>(); //empty list
+        this.tierRecipes = new ArrayList<>(); //empty list
     }
 
     //================================================Override Vanilla Item Methods=========================================
@@ -60,7 +66,7 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
         return false;
     }
-
+    
 
     //=====================================================IBackpack=========================================================
 
@@ -92,6 +98,16 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     @Override
     public int getGuiYSize(ItemStack backpack) {
         return guiYSize;
+    }
+
+    @Override
+    public IRecipe getItemRecipe(ItemStack backpack) {
+        return itemRecipe;
+    }
+
+    @Override
+    public void setItemRecipe(IRecipe recipe) {
+        itemRecipe = recipe;
     }
 
     //TODO: fix with dynamic
@@ -136,6 +152,16 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     @Override
     public int getTier(ItemStack backpack) {
         return tier;
+    }
+
+    @Override
+    public void setTierRecipes(ItemStack backpack, List<Object[]> tierRecipes) {
+        this.tierRecipes = tierRecipes;
+    }
+
+    @Override
+    public List<Object[]> getTierRecipes(ItemStack backpack) {
+        return tierRecipes;
     }
 
 }

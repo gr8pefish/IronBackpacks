@@ -4,13 +4,13 @@ import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.client.gui.GuiHandler;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.events.ForgeEventHandler;
+import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.proxies.CommonProxy;
 import gr8pefish.ironbackpacks.registry.BackpackEntityRegistry;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
-import gr8pefish.ironbackpacks.registry.ItemRecipeRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
-import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.registry.recipes.RecipeRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -83,7 +83,7 @@ public class IronBackpacks {
 		FMLCommonHandler.instance().bus().register(forgeEventHandler);
 
 		//recipes
-		ItemRecipeRegistry.registerItemRecipes();
+		RecipeRegistry.registerAllRecipes();
 
 		//entity rendering
 		proxy.init();

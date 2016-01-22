@@ -1,4 +1,4 @@
-package gr8pefish.ironbackpacks.util;
+package gr8pefish.ironbackpacks.util.helpers;
 
 
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
@@ -10,9 +10,12 @@ import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProp
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
+import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
+import gr8pefish.ironbackpacks.util.Logger;
+import gr8pefish.ironbackpacks.util.NBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -47,7 +50,7 @@ public class IronBackpacksHelper {
         }
 
         if (!player.worldObj.isRemote && backpack != null)
-            NBTHelper.setUUID(backpack);
+            NBTUtils.setUUID(backpack);
 
         return backpack;
     }
@@ -71,7 +74,7 @@ public class IronBackpacksHelper {
             }
         }
         if (!player.worldObj.isRemote && backpack != null) {
-            NBTHelper.setUUID(backpack);
+            NBTUtils.setUUID(backpack);
         }
 
         return backpack;
@@ -194,7 +197,7 @@ public class IronBackpacksHelper {
         else if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IBackpack) { //need to equip backpack
 
             ItemStack backpackStack = player.getHeldItem();
-            NBTHelper.setUUID(backpackStack);
+            NBTUtils.setUUID(backpackStack);
 
             //equip backpack from the backpack the player is holding
             PlayerBackpackProperties.setEquippedBackpack(player, backpackStack);

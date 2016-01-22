@@ -3,19 +3,20 @@ package gr8pefish.ironbackpacks.items.backpacks;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.item.backpacks.ItemUpgradableTieredBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
-import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
-import gr8pefish.ironbackpacks.util.NBTHelper;
+import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.registry.ItemRegistry;
+import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
@@ -34,15 +35,10 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
 
     private boolean openAltGui = true; //to track which gui to open
 
-    private String[] itemRecipe; //the recipe to get this item directly (may be null)
-    private List<String[]> upgradeRecipes; //the recipe to get this item from upgrading another backpack (may be null) //TODO; refactor so it's to get next tier pack?
-
-    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, String[] itemRecipe, List<String[]> upgradeRecipes){
-        super(name, rowLength, rowCount, upgradePoints, guiResourceLocation, guiXSize, guiYSize);
+    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize){
+        super(name, rowLength, rowCount, upgradePoints, guiResourceLocation, guiXSize, guiYSize, null);
         setCreativeTab(IronBackpacks.creativeTab);
 
-        this.itemRecipe = itemRecipe;
-        this.upgradeRecipes = upgradeRecipes;
     }
 
     //=================================================================Overriden Vanilla Methods=============================================================
@@ -106,7 +102,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
             PlayerBackpackProperties.setCurrentBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: client side
             return itemStack;
         } else {
-            NBTHelper.setUUID(itemStack);
+            NBTUtils.setUUID(itemStack);
             PlayerBackpackProperties.setCurrentBackpack(player, itemStack);
             if (!player.isSneaking()){
                 player.openGui(IronBackpacks.instance, getGuiId(itemStack), world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"
@@ -158,19 +154,12 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
                 list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
         }
 
-        if (advanced && NBTHelper.hasUUID(stack))
-            list.add(TextUtils.localize("tooltip.ironbackpacks.uuid", NBTHelper.getUUID(stack)));
+        if (advanced && NBTUtils.hasUUID(stack))
+            list.add(TextUtils.localize("tooltip.ironbackpacks.uuid", NBTUtils.getUUID(stack)));
     }
 
     //=============================================================================Helper Methods===================================================================================
 
-    public List<String[]> getUpgradeRecipes() {
-        return upgradeRecipes;
-    }
-
-    public String[] getItemRecipe() {
-        return itemRecipe;
-    }
 
     private double getFullness(ItemStack stack) {
         ItemStack[] inventory;

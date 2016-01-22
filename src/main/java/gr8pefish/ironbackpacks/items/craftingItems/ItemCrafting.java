@@ -5,7 +5,6 @@ import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.craftingItems.ItemAPICrafting;
 import gr8pefish.ironbackpacks.api.register.ItemCraftingRegistry;
-import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

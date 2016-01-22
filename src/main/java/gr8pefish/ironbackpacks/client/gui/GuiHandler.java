@@ -6,7 +6,7 @@ import gr8pefish.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import gr8pefish.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
-import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;

@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class IronBackpacksAPI {
 
     static public final String ITEM_BACKPACK_BASE = "backpack";
+    public static final String ITEM_BACKPACK = "ItemBackpack";
     static public final String ITEM_UPGRADE_BASE= "upgrade";
     static public final String ITEM_CRAFTING_BASE = "crafting";
 

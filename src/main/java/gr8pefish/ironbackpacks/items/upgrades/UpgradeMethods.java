@@ -5,7 +5,7 @@ import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
-import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;

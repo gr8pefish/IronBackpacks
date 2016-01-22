@@ -12,7 +12,7 @@ import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
-import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

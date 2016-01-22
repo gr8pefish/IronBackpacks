@@ -1,0 +1,191 @@
+package gr8pefish.ironbackpacks.registry.recipes;
+
+import gr8pefish.ironbackpacks.api.register.ItemCraftingRegistry;
+import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
+import gr8pefish.ironbackpacks.registry.ItemRegistry;
+import gr8pefish.ironbackpacks.util.Logger;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import java.util.ArrayList;
+
+
+public class ItemUpgradeRecipes {
+
+    //TODO: actual Todo: Have to make the recipes not be initialized when you make the item, it just makes it too messy since indices are not set and whatnot.
+    //TODO What I should do is something similar to setting the backpack tiering, a method after registering that sets the recipes. (has to be after the ItemUpgradeRegistry is set)
+
+    public static ShapedOreRecipe additionalUpgradePointsRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.additionalUpgradePointsUpgrade)),
+            "ere",
+            "rcr",
+            "ere",
+            'e', "blockEmerald", 'r', "record", 'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe buttonUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.buttonUpgrade)),
+            " w ",
+            "sps",
+            " w ",
+            'w', Blocks.wooden_button, 's', Blocks.stone_button, 'p', Items.paper);
+
+    public static ShapedOreRecipe damageBarUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.damageBarUpgrade)),
+            "bsb",
+            "sps",
+            "bsb",
+            's', Items.string, 'p', Items.paper, 'b', Items.bowl);
+
+    public static ShapedOreRecipe depthUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.depthUpgrade)),
+            "tnt",
+            "ndn",
+            "tnt",
+            't', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.treatedLeather)),
+            'n', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.nest)),
+            'd', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingUpgrade)));
+
+    public static ShapedOreRecipe eternityUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.eternityUpgrade)),
+            "ded",
+            "ece",
+            "ded",
+            'd', "gemDiamond",
+            'n', "gemEmerald",
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe renamingUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.renamingUpgrade)),
+            " f ",
+            "sps",
+            " i ",
+            'f', Items.feather, 's', "slabWood", 'p', Items.paper, 'i', "dyeBlack");
+
+    public static ShapedOreRecipe nestingUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingUpgrade)),
+            "fnf",
+            "ncn",
+            "fnf",
+            'f', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.jeweledFeather)),
+            'n', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.nest)),
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe nestingAdvancedUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingAdvancedUpgrade)),
+            "fnf",
+            "ndn",
+            "fnf",
+            'f', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.jeweledFeather)),
+            'n', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.nest)),
+            'd', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingUpgrade)));
+
+    public static ShapedOreRecipe quickDepositUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.quickDepositUpgrade)),
+            "psp",
+            "srs",
+            "psp",
+            'p', Blocks.piston, 'r', Items.paper, 's', Items.string);
+
+    public static ShapedOreRecipe quickDepositPreciseUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.quickDepositPreciseUpgrade)),
+            "psp",
+            "sds",
+            "psp",
+            'p', Blocks.sticky_piston, 's', Items.slime_ball,
+            'd', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.quickDepositUpgrade)));
+
+    public static ShapedOreRecipe craftingUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.craftingUpgrade)),
+            "rpb",
+            "tct",
+            "ttt",
+            'r', "dustRedstpne", 'b', "blockRedstone", 'p', Blocks.piston, 't', Blocks.crafting_table,
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe craftingSmallUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.craftingSmallUpgrade)),
+            "spn",
+            "tct",
+            "ttt",
+            's', "sand", 'n', "sandstone", 'p', Blocks.piston, 't', Blocks.crafting_table,
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe craftingTinyUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.craftingTinyUpgrade)),
+            "bpr",
+            "tct",
+            "ttt",
+            'b', "blockRedstone", 'r', "dustRedstpne", 'p', Blocks.piston, 't', Blocks.crafting_table,
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe filterBasicUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterBasicUpgrade)),
+            " p ",
+            "pcp",
+            " p ",
+            'p', Items.paper,
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe filterFuzzyUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterFuzzyUpgrade)),
+            " f ",
+            "pcp",
+            " p ",
+            'p', Items.paper,
+            'f', Blocks.red_flower,
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe filterOreDictUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterOreDictUpgrade)),
+            " t ",
+            "pcp",
+            " p ",
+            'p', Items.paper,
+            't', "treeSapling",
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe filterModSpecificUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterModSpecificUpgrade)),
+            " m ",
+            "pcp",
+            " p ",
+            'p', Items.paper,
+            'm', Items.compass,
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe filterAdvancedUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterAdvancedUpgrade)),
+            "bwe",
+            "xcy",
+            "ezb",
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)),
+            'e', Items.ender_eye,
+            'b', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.buttonUpgrade)),
+            'w', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterBasicUpgrade)),
+            'x', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterFuzzyUpgrade)),
+            'y', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterOreDictUpgrade)),
+            'z', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterModSpecificUpgrade)));
+
+    public static ShapedOreRecipe filterMiningUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterMiningUpgrade)),
+            "rir",
+            "pcp",
+            "rpr",
+            'r', "dustRedstone",
+            'p', Items.paper,
+            'i', Items.iron_pickaxe,
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe filterVoidUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterVoidUpgrade)),
+            " i ",
+            "pcp",
+            " p ",
+            'p', Items.paper,
+            'i', "dyeBlack",
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+    public static ShapedOreRecipe restockingUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.restockingUpgrade)),
+            "rbr",
+            "pcp",
+            "rbr",
+            'r', "dustRedstone",
+            'p', Blocks.sticky_piston,
+            'b', Blocks.piston,
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
+
+    /**
+     * Actually registers the recipes.
+     */
+    public static void registerItemUpgradeRecipes() {
+        for (int i = 0; i < ItemUpgradeRegistry.getTotalSize(); i++)
+            GameRegistry.addRecipe(ItemUpgradeRegistry.getItemRecipe(i));
+//        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, i), ItemUpgradeRegistry.getItemRecipe(i)));
+
+    }
+
+}

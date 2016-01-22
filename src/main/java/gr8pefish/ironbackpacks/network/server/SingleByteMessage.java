@@ -5,10 +5,10 @@ import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientCurrentPackMessage;
-import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import gr8pefish.ironbackpacks.util.Logger;
-import gr8pefish.ironbackpacks.util.NBTHelper;
+import gr8pefish.ironbackpacks.util.NBTUtils;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -95,7 +95,7 @@ public class SingleByteMessage implements IMessage {
                     player = ctx.getServerHandler().playerEntity;
                     ItemStack backpackStack = PlayerBackpackProperties.getEquippedBackpack(player);
                     if (backpackStack != null) {
-                        NBTHelper.setUUID(backpackStack);
+                        NBTUtils.setUUID(backpackStack);
                         PlayerBackpackProperties.setCurrentBackpack(player, backpackStack);
                         NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);
                         backpackStack.useItemRightClick(player.worldObj, player);

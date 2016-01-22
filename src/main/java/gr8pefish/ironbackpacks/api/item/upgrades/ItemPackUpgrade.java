@@ -2,8 +2,10 @@ package gr8pefish.ironbackpacks.api.item.upgrades;
 
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,14 +16,13 @@ public class ItemPackUpgrade implements IPackUpgrade {
     private int upgradeCost;
     private int tier;
     private String[] description;
-    private String[] recipe;
+    private IRecipe itemRecipe;
 
-    public ItemPackUpgrade(String name, int upgradeCost, int tier, String[] description, String... recipe){
+    public ItemPackUpgrade(String name, int upgradeCost, int tier, String[] description){
         this.name = name;
         this.upgradeCost = upgradeCost;
         this.tier = tier;
         this.description = description;
-        this.recipe = recipe;
     }
 
     public Item getItem(){
@@ -52,4 +53,14 @@ public class ItemPackUpgrade implements IPackUpgrade {
         return tier;
     }
 
+    @Override
+    public IRecipe getItemRecipe(ItemStack upgrade) {
+        Logger.info("Output "+itemRecipe.getRecipeOutput().getDisplayName());
+        return itemRecipe;
+    }
+
+    @Override
+    public void setItemRecipe(IRecipe recipe) {
+        itemRecipe = recipe;
+    }
 }

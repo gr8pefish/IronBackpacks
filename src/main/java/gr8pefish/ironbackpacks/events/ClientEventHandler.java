@@ -4,7 +4,7 @@ import gr8pefish.ironbackpacks.client.KeyHandler;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
-import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

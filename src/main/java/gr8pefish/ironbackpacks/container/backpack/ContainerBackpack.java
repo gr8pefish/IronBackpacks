@@ -7,7 +7,7 @@ import gr8pefish.ironbackpacks.container.slot.NestingBackpackSlot;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
-import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

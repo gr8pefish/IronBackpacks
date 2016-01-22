@@ -1,7 +1,8 @@
-package gr8pefish.ironbackpacks.util;
+package gr8pefish.ironbackpacks.libs;
 
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
+import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -25,11 +26,6 @@ public class IronBackpacksConstants {
     //The backpack constants
     public static final class Backpacks{
 
-        public static final String BASIC_BACKPACK_ENUM_NAME = "BASIC";
-        public static final String IRON_BACKPACK_ENUM_NAME = "IRON";
-        public static final String GOLD_BACKPACK_ENUM_NAME = "GOLD";
-        public static final String DIAMOND_BACKPACK_ENUM_NAME = "DIAMOND";
-
         public static final String BASIC_BACKPACK_NAME = "basicBackpack";
         public static final String IRON_BACKPACK_NAME = "ironBackpack";
         public static final String GOLD_BACKPACK_NAME = "goldBackpack";
@@ -44,30 +40,6 @@ public class IronBackpacksConstants {
 
     //The upgrade constants
     public static final class Upgrades{
-        //=============IDs==================== (not in order so that it doesn't break when updating)
-        public static final int BUTTON_UPGRADE_ID = 1;
-        public static final int NESTING_UPGRADE_ID = 2;
-        public static final int DAMAGE_BAR_UPGRADE_ID = 3;
-        public static final int KEEP_ON_DEATH_UPGRADE_ID = 4;
-        public static final int ADDITIONAL_UPGRADE_POINTS_UPGRADE_ID = 10;
-        public static final int QUICK_DEPOSIT_UPGRADE_ID = 13;
-        public static final int QUICK_DEPOSIT_PRECISE_UPGRADE_ID = 18;
-        public static final int ADVANCED_NESTING_UPGRADE_ID = 15;
-        public static final int DEPTH_UPGRADE_ID = 16;
-        //Alternate Gui
-        public static final int RENAMING_UPGRADE_ID = 5;
-        public static final int FILTER_BASIC_UPGRADE_ID = 6;
-        public static final int FILTER_MOD_SPECIFIC_UPGRADE_ID = 7;
-        public static final int HOPPER_UPGRADE_ID = 8;
-        public static final int CONDENSER_UPGRADE_ID = 9;
-        public static final int CONDENSER_SMALL_UPGRADE_ID = 19;
-        public static final int CONDENSER_TINY_UPGRADE_ID = 20;
-        public static final int FILTER_FUZZY_UPGRADE_ID = 11;
-        public static final int FILTER_OREDICT_UPGRADE_ID = 12;
-        public static final int FILTER_ADVANCED_UPGRADE_ID = 14;
-        public static final int FILTER_MINING_UPGRADE_ID = 17;
-        public static final int FILTER_VOID_UPGRADE_ID = 21;
-
 
         //================Upgrade Info===================
         public static final String[] BUTTON_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.button.desc"));
@@ -92,74 +64,6 @@ public class IronBackpacksConstants {
         public static final String[] CRAFTING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.desc"));
         public static final String[] CRAFTING_SMALL_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.small.desc"));
         public static final String[] CRAFTING_TINY_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.condenser.tiny.desc"));
-
-        //All the alternate gui upgrade ids
-        public static final ArrayList<Integer> ALT_GUI_UPGRADE_IDS = new ArrayList<Integer>(Arrays.asList(
-                RENAMING_UPGRADE_ID,
-                FILTER_BASIC_UPGRADE_ID,
-                FILTER_FUZZY_UPGRADE_ID,
-                FILTER_OREDICT_UPGRADE_ID,
-                FILTER_MOD_SPECIFIC_UPGRADE_ID,
-                FILTER_ADVANCED_UPGRADE_ID,
-                FILTER_MINING_UPGRADE_ID,
-                FILTER_VOID_UPGRADE_ID,
-                HOPPER_UPGRADE_ID,
-                CONDENSER_UPGRADE_ID,
-                CONDENSER_SMALL_UPGRADE_ID,
-                CONDENSER_TINY_UPGRADE_ID
-                ));
-
-        //All the localized names
-        public static final String[] LOCALIZED_NAMES = {
-                StatCollector.translateToLocal("emptyUpgradeSlot"),
-                StatCollector.translateToLocal("item.ironbackpacks:buttonUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:nestingUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:damageBarUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:keepOnDeathUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:renamingUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:filterBasicUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:filterModSpecificUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:hopperUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:condenserUpgrade.name"),
-                StatCollector.translateToLocal("gui.ironbackpacks.emptyUpgradeSlot")+"...", //additional upgrade slot
-                StatCollector.translateToLocal("item.ironbackpacks:filterFuzzyUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:filterOreDictUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:quickDepositUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:filterAdvancedUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:nestingAdvancedUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:depthUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:filterMiningUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:quickDepositPreciseUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:condenserSmallUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:condenserTinyUpgrade.name"),
-                StatCollector.translateToLocal("item.ironbackpacks:filterVoidUpgrade.name")
-        };
-
-        //All the upgrade costs
-        public static final int[] UPGRADE_POINTS = {
-                0, //blank upgrade
-                ConfigHandler.buttonUpgradeCost,
-                ConfigHandler.nestingUpgradeCost,
-                ConfigHandler.damageBarUpgradeCost,
-                ConfigHandler.eternityUpgradeCost,
-                ConfigHandler.renamingUpgradeCost,
-                ConfigHandler.filterBasicUpgradeCost,
-                ConfigHandler.filterModSpecificUpgradeCost,
-                ConfigHandler.restockingUpgradeCost,
-                ConfigHandler.craftingUpgradeCost,
-                0, //additional upgrade slots
-                ConfigHandler.filterFuzzyUpgradeCost,
-                ConfigHandler.filterOreDictUpgradeCost,
-                ConfigHandler.quickDepositUpgradeCost,
-                ConfigHandler.filterAdvancedUpgradeCost,
-                ConfigHandler.nestingAdvancedUpgradeCost,
-                ConfigHandler.depthUpgradeCost,
-                ConfigHandler.filterMiningUpgradeCost,
-                ConfigHandler.quickDepositPreciseUpgradeCost,
-                ConfigHandler.craftingSmallUpgradeCost,
-                ConfigHandler.craftingTinyUpgradeCost,
-                ConfigHandler.filterVoidUpgradeCost
-        };
 
         //===========================Misc==================================
         public static final int ALT_GUI_UPGRADES_ALLOWED = ConfigHandler.renamingUpgradeRequired ? 4 : 3;
@@ -195,7 +99,6 @@ public class IronBackpacksConstants {
 
             public static final byte EQUIP_BACKPACK_KEYBINDING = 10;
             public static final byte OPEN_BACKPACK_KEYBINDING = 11;
-            public static final byte OPEN_BACKPACK_ALT_KEYBINDING = 12;
         }
 
     }
@@ -204,6 +107,7 @@ public class IronBackpacksConstants {
     public static final class Resources {
         public static final ResourceLocation WIDGETS = new ResourceLocation(Constants.MODID, "textures/guis/widgets.png");
 
+        //TODO: add to backpack initialization
         public static final ResourceLocation MODEL_BASIC = new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackBasic.png");
         public static final ResourceLocation MODEL_IRON = new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackIron.png");
         public static final ResourceLocation MODEL_GOLD = new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackGold.png");
@@ -214,10 +118,7 @@ public class IronBackpacksConstants {
     //The commonly used NBT keys
     public static final class NBTKeys {
 
-        public static final String ENUM_NAME = "EnumName";
-
         public static final String UPGRADES = "Upgrades";
-        public static final String UPGRADE = "Upgrade";
         public static final String ADDITIONAL_POINTS = "AdditionalPoints";
         public static final String FILTER_BASIC = "FilterBasic";
         public static final String FILTER_FUZZY = "FilterFuzzy";

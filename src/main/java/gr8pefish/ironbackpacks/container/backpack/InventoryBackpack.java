@@ -3,8 +3,8 @@ package gr8pefish.ironbackpacks.container.backpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
-import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.util.NBTHelper;
+import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.NBTUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -296,12 +296,12 @@ public class InventoryBackpack implements IInventory {
      * @return - the itemstack if it is found, null otherwise
      */
     private ItemStack findParentItemStack(EntityPlayer entityPlayer){
-        if (NBTHelper.hasUUID(backpackStack)){
+        if (NBTUtils.hasUUID(backpackStack)){
             UUID parentUUID = new UUID(backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++){
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
-                if (itemStack != null && itemStack.getItem() instanceof IBackpack && NBTHelper.hasUUID(itemStack)){
+                if (itemStack != null && itemStack.getItem() instanceof IBackpack && NBTUtils.hasUUID(itemStack)){
                     if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
                         return itemStack;
                     }
@@ -309,7 +309,7 @@ public class InventoryBackpack implements IInventory {
             }
 
             ItemStack equipped = PlayerBackpackProperties.getEquippedBackpack(entityPlayer);
-            if (equipped != null && equipped.getItem() instanceof IBackpack && NBTHelper.hasUUID(equipped)) {
+            if (equipped != null && equipped.getItem() instanceof IBackpack && NBTUtils.hasUUID(equipped)) {
                 if (equipped.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && equipped.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()) {
                     return equipped;
                 }

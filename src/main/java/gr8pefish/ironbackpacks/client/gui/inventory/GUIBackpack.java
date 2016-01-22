@@ -1,6 +1,5 @@
 package gr8pefish.ironbackpacks.client.gui.inventory;
 
-import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
@@ -10,8 +9,8 @@ import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
-import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.util.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;

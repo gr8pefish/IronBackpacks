@@ -1,4 +1,11 @@
 To Do:
+    
+    Notes from 1.7 playthrough:
+        make conflicting tiers recipes use previous tiers by default?
+        press 'e' to escape backpack inventory
+        add as tooltip that extended inventory/increased upgrade points
+            change tooltip so that it says Alternate Upgrades, not alt gui, too confusing
+
 
     1.8 Stuff:
 
@@ -10,10 +17,16 @@ To Do:
                 eventual integration with travelers gear, tiCon (backpack slot), baubles, etc.
 
             API:
-                make API not need the recipe in case you don't want a custom one (add as end optional param)
-
-                change so api version different?
-                    check chisel API/ jei api
+                Add backpack tab (like TiCon)
+                    Add in clickable tab with icon and tooltip (in the correct location even if TiCon, etc, is installed)
+                    Render steve backwards so you can see the backpack
+                    Add in slot for the backpack to go on
+                    Optional
+                        Add in upgrade removal stuff
+                            Slot to put pack in'
+                            Slot to take pack out of
+                            Upgrade to remove slot
+                            Button to iterate through upgrade to remove
 
                 add model backpack registry to API
 
@@ -33,23 +46,30 @@ To Do:
             Crafting:
                 make 1 path choose more upgrade points
                     make the other choose more storage
+                    figure out how to do that internally
+                        could be two different packs
+                        could be 2 pack that look the same made from the same ItemBackpack, but 2 different tooltips
 
                 more recipe stuff - ask tterrag/tehnut for what to do
                     config recipes as json? Ask tehnut/tterag
                     Return upgrade on removal crafting?
                         Figure out how, and yes, but that will be a crazy jei thing (super custom) - 2 output slots labeled
                         (1 as main output the other as dropped on ground or extra output put back in crafting grid) or could add custom removal crafting table.
+				Do bucket style crafting (extra output in crafting grid) or put the removed upgrade item into the actual backpack resulting stack
+				    ^ for now, then think about adding it to the backpack tab
 
                 fix config nonsense
                     change order so recipes are last
                     fix item recipe stuff (and add metadata)
                         blocks are all in the itemRegistry
                             So new ItemStack(Items.itemRegistry.getObject(new ResourceLocation(BloodMagic:BlockRitualStone))) would work
+			    Just let minetweaker handle it, remove recipes from config
 
                 Remove adding crafting item to API?
                     https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
 
                 Make basic recipe use less leather and rebalance a lot of them
+                    Make lib folder to store all that stuff
 
             Other:
                 add commands to remove stored packs' IEEP data
@@ -67,6 +87,12 @@ To Do:
             Config:
                 re-enable fpp backpack? probably
                 bm blacklist for config to disable items (requested config option)
+
+            CurseForge/MCF:
+                Make curseforge page look more like PortableCrafting's
+                Make wiki (either github or curseforge) link for 1.8 documentation
+                    Fill in wiki with pictures and info about the mod
+                Add more pictures to curseforge page
 
         Bugs:
             Testing:
@@ -182,8 +208,5 @@ To Do:
 
 MCF Posting:
 
-    Add all information about the mod to a github wiki/curseforge page as it is a more reliable source
-
-    More pictures
 
 

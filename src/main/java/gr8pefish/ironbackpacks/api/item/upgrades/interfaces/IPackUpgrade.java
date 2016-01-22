@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.api.item.upgrades.interfaces;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 
 import java.util.List;
 
@@ -36,5 +37,14 @@ public interface IPackUpgrade {
      * @return - the tier
      */
     int getTier(ItemStack upgrade);
+
+    /**
+     * Get the recipe to make the upgrade.
+     * @param upgrade - the upgrade in question
+     * @return - an IRecipe (usually Shaped/ShapelessOreRecipe)
+     */
+    IRecipe getItemRecipe(ItemStack upgrade);
+
+    void setItemRecipe(IRecipe recipe);
 
 }

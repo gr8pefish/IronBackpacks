@@ -4,6 +4,7 @@ import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IConflictingUpgrade;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,14 +15,13 @@ public class ItemConflictingUpgrade implements IConflictingUpgrade {
     private int upgradeCost;
     private int tier;
     private String[] description;
-    private String[] recipe;
     private List<ItemConflictingUpgrade> conflictingUpgrades;
+    private IRecipe itemRecipe;
 
-    public ItemConflictingUpgrade(String name, int upgradeCost, int tier, String[] description, String[] recipe, List<ItemConflictingUpgrade> conflictingUpgrades){
+    public ItemConflictingUpgrade(String name, int upgradeCost, int tier, String[] description, List<ItemConflictingUpgrade> conflictingUpgrades){
         this.name = name;
         this.upgradeCost = upgradeCost;
         this.description = description;
-        this.recipe = recipe;
         this.conflictingUpgrades = conflictingUpgrades;
     }
 
@@ -52,5 +52,15 @@ public class ItemConflictingUpgrade implements IConflictingUpgrade {
     @Override
     public int getTier(ItemStack upgrade) {
         return tier;
+    }
+
+    @Override
+    public IRecipe getItemRecipe(ItemStack upgrade) {
+        return itemRecipe;
+    }
+
+    @Override
+    public void setItemRecipe(IRecipe recipe) {
+        itemRecipe = recipe;
     }
 }

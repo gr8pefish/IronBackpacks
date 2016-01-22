@@ -6,9 +6,11 @@ import gr8pefish.ironbackpacks.api.item.upgrades.ItemAltGuiUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemPackUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -152,5 +154,27 @@ public class ItemUpgradeRegistry {
 
     public static int getTotalSize() {
         return itemsPack.size() + itemsConflicting.size() + itemsAltGui.size();
+    }
+
+    public static IRecipe getItemRecipe(int index){
+        if (index < itemsPack.size()){
+            Logger.info("Name "+itemsPack.get(index).getName(null));
+            return itemsPack.get(index).getItemRecipe(null);
+        }else if (index < getInflatedSizeOfConflicting()){
+            return getItemConflictingUpgrade(index).getItemRecipe(null);
+        }else {
+            return getItemAltGuiUpgrade(index).getItemRecipe(null);
+        }
+    }
+
+    public static IRecipe getItemRecipe(ItemStack stack){
+        if (stack.getItem() instanceof IPackUpgrade){
+            Logger.info("pack upgrade");
+            return ((IPackUpgrade) stack.getItem()).getItemRecipe(stack);
+        }else{
+            Logger.info("not pack upgrade");
+            //TODO: logger
+            return null;
+        }
     }
 }

@@ -1,11 +1,12 @@
 package gr8pefish.ironbackpacks.util;
 
+import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.UUID;
 
-public class NBTHelper {
+public class NBTUtils {
 
     //Code for making sure the itemStack is unique, credit goes to sapient for almost all of this code
 

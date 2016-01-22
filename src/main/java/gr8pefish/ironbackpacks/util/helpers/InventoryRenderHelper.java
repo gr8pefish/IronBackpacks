@@ -1,4 +1,4 @@
-package gr8pefish.ironbackpacks.util;
+package gr8pefish.ironbackpacks.util.helpers;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.ItemMeshDefinition;

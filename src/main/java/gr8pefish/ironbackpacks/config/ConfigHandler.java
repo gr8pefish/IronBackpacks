@@ -27,32 +27,32 @@ public class ConfigHandler {
 
     public static boolean isConfigManuallyChanged;
 
-    public static String[] basicBackpackRecipe;
-    public static String[] ironBackpackToUpgradeRecipe;
-    public static String[] goldBackpackToUpgradeRecipe;
-    public static String[] diamondBackpackToUpgradeRecipe;
-
-    public static String[] buttonUpgradeRecipe;
-    public static String[] nestingUpgradeRecipe;
-    public static String[] renamingUpgradeRecipe;
-    public static String[] damageBarUpgradeRecipe;
-    public static String[] filterBasicUpgradeRecipe;
-    public static String[] filterFuzzyUpgradeRecipe;
-    public static String[] filterOreDictUpgradeRecipe;
-    public static String[] filterModSpecificUpgradeRecipe;
-    public static String[] restockingUpgradeRecipe;
-    public static String[] craftingUpgradeRecipe;
-    public static String[] craftingSmallUpgradeRecipe;
-    public static String[] craftingTinyUpgradeRecipe;
-    public static String[] eternityUpgradeRecipe;
-    public static String[] additionalUpgradePointsUpgradeRecipe;
-    public static String[] quickDepositUpgradeRecipe;
-    public static String[] quickDepositPreciseUpgradeRecipe;
-    public static String[] filterAdvancedUpgradeRecipe;
-    public static String[] filterMiningUpgradeRecipe;
-    public static String[] filterVoidUpgradeRecipe;
-    public static String[] nestingAdvancedUpgradeRecipe;
-    public static String[] depthUpgradeRecipe;
+//    public static String[] basicBackpackRecipe;
+//    public static String[] ironBackpackToUpgradeRecipe;
+//    public static String[] goldBackpackToUpgradeRecipe;
+//    public static String[] diamondBackpackToUpgradeRecipe;
+//
+//    public static String[] buttonUpgradeRecipe;
+//    public static String[] nestingUpgradeRecipe;
+//    public static String[] renamingUpgradeRecipe;
+//    public static String[] damageBarUpgradeRecipe;
+//    public static String[] filterBasicUpgradeRecipe;
+//    public static String[] filterFuzzyUpgradeRecipe;
+//    public static String[] filterOreDictUpgradeRecipe;
+//    public static String[] filterModSpecificUpgradeRecipe;
+//    public static String[] restockingUpgradeRecipe;
+//    public static String[] craftingUpgradeRecipe;
+//    public static String[] craftingSmallUpgradeRecipe;
+//    public static String[] craftingTinyUpgradeRecipe;
+//    public static String[] eternityUpgradeRecipe;
+//    public static String[] additionalUpgradePointsUpgradeRecipe;
+//    public static String[] quickDepositUpgradeRecipe;
+//    public static String[] quickDepositPreciseUpgradeRecipe;
+//    public static String[] filterAdvancedUpgradeRecipe;
+//    public static String[] filterMiningUpgradeRecipe;
+//    public static String[] filterVoidUpgradeRecipe;
+//    public static String[] nestingAdvancedUpgradeRecipe;
+//    public static String[] depthUpgradeRecipe;
 
     public static int buttonUpgradeCost;
     public static int nestingUpgradeCost;
@@ -75,13 +75,13 @@ public class ConfigHandler {
     public static int depthUpgradeCost;
     public static int filterVoidUpgradeCost;
 
-    public static String[] nestRecipe;
-    public static String[] upgradeCoreRecipe;
-    public static String[] jeweledFeatherRecipe;
-    public static String[] treatedLeatherRecipe;
+//    public static String[] nestRecipe;
+//    public static String[] upgradeCoreRecipe;
+//    public static String[] jeweledFeatherRecipe;
+//    public static String[] treatedLeatherRecipe;
 
     public static boolean disableRendering;
-    public static boolean enableFPPrendering;
+    public static boolean disableFPPrendering;
     public static boolean renamingUpgradeRequired;
     public static int tooltipDelay;
     public static int additionalUpgradePointsLimit;
@@ -110,67 +110,6 @@ public class ConfigHandler {
 
         //======================================================Recipe defaults================================
 
-        //TODO: better config code which updates if none are changed - (see botania?)
-
-        String[] basicBackpackRecipe = {"items.leather", "items.leather", "items.leather", "items.leather", "blocks.chest", "items.leather", "items.leather", "items.leather", "items.leather"};//Items.
-        String[] ironBackpackRecipe = {"ingotIron", "blockIron", "ingotIron", "ingotIron", "items.ironbackpacks:basicBackpack", "ingotIron", "ingotIron", "ingotIron", "ingotIron"};
-        String[] goldBackpackRecipe = {"ingotGold", "blockGold", "ingotGold", "ingotGold", "items.ironbackpacks:ironBackpack", "ingotGold", "ingotGold", "ingotGold", "ingotGold"};
-        String[] diamondBackpackRecipe = {"gemDiamond", "gemDiamond", "gemDiamond", "gemDiamond", "items.ironbackpacks:goldBackpack", "gemDiamond", "gemDiamond", "gemDiamond", "gemDiamond"};
-        //done - this comment refers to balance changes, if the recipe defaults need to be tweaked or are good for the time being
-
-        String[] buttonRecipe = {"items.ironbackpacks:treatedLeather","blocks.stone_button","items.ironbackpacks:treatedLeather", "blocks.wooden_button", "items.ironbackpacks:upgradeCore", "blocks.wooden_button", "items.ironbackpacks:treatedLeather", "blocks.stone_button", "items.ironbackpacks:treatedLeather"};
-        //done
-        String[] nestingRecipe = {"items.ironbackpacks:jeweledFeather","items.ironbackpacks:nest","items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
-        //done
-        String[] nestingAdvancedRecipe = {"items.ironbackpacks:jeweledFeather","items.ironbackpacks:nest","items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:nestingUpgrade", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
-        //done
-        String[] renamingRecipe = {"items.writable_book","items.paper","items.writable_book", "items.ironbackpacks:treatedLeather", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:treatedLeather", "items.writable_book", "items.paper", "items.writable_book"};
-        //done
-        String[] damageBarRecipe = {"items.ironbackpacks:treatedLeather","items.bowl","items.ironbackpacks:treatedLeather", "items.string", "items.ironbackpacks:upgradeCore", "items.string", "items.ironbackpacks:treatedLeather", "items.bowl", "items.ironbackpacks:treatedLeather"};
-        //done
-        String[] filterBasicRecipe = {"items.ironbackpacks:treatedLeather","items.writable_book","items.ironbackpacks:treatedLeather", "items.paper", "items.ironbackpacks:upgradeCore", "items.paper", "items.ironbackpacks:treatedLeather", "items.writable_book", "items.ironbackpacks:treatedLeather"};
-        //done
-        String[] restockingRecipe = {"none","blocks.hopper","none", "blocks.hopper", "items.ironbackpacks:upgradeCore", "blocks.hopper", "none", "blocks.hopper", "none"};
-        //done
-        String[] craftingRecipe = {"gemLapis","blockLapis","gemLapis", "blocks.crafting_table", "items.ironbackpacks:upgradeCore", "blocks.crafting_table", "dustRedstone", "blockRedstone", "dustRedstone"};
-        //done
-        String[] craftingSmallRecipe = {"gemLapis","blocks.crafting_table","gemLapis", "blocks.crafting_table", "items.ironbackpacks:upgradeCore", "blocks.crafting_table", "dustRedstone", "blocks.crafting_table", "dustRedstone"};
-        //TODO: tweak?
-        String[] craftingTinyRecipe = {"gemLapis","blocks.crafting_table","gemLapis", "logWood", "items.ironbackpacks:upgradeCore", "plankWood", "dustRedstone", "blocks.crafting_table", "dustRedstone"};
-        //TODO: tweak?
-        String[] eternityRecipe = {"blockDiamond","record","blockDiamond", "record", "items.ironbackpacks:upgradeCore", "record", "blockDiamond", "record", "blockDiamond"};
-        //done
-        String[] filterModSpecificRecipe = {"none","items.compass","none", "items.compass", "items.ironbackpacks:filterBasicUpgrade", "items.compass", "none", "items.compass", "none"};
-        //done
-        String[] filterFuzzyRecipe = {"blocks.clay","blocks.clay","blocks.clay", "blocks.red_flower", "items.ironbackpacks:filterBasicUpgrade", "blocks.red_flower", "blocks.clay", "blocks.clay", "blocks.clay"};
-        //done
-        String[] filterOreDictRecipe = {"none","items.clock","none", "items.clock", "items.ironbackpacks:filterBasicUpgrade", "items.clock", "none", "items.clock", "none"};
-        //done
-        String[] filterAdvancedRecipe = {"items.ironbackpacks:buttonUpgrade","items.ironbackpacks:filterBasicUpgrade","items.ender_eye", "items.ironbackpacks:filterFuzzyUpgrade", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:filterOreDictUpgrade", "items.ender_eye", "items.ironbackpacks:filterModSpecificUpgrade", "items.ironbackpacks:buttonUpgrade"};
-        //done
-        String[] filterMiningRecipe = {"oreGold","items.iron_pickaxe","oreGold", "items.iron_pickaxe", "items.ironbackpacks:filterBasicUpgrade", "items.iron_pickaxe", "oreIron", "items.iron_pickaxe", "oreIron"};
-        //TODO: tweak?
-        String[] filterVoidRecipe = {"items.string","cobblestone","items.string", "stone", "items.ironbackpacks:filterBasicUpgrade", "stone", "items.string", "cobblestone", "items.string"};
-        //TODO: tweak?
-        String[] additionalUpgradePointsRecipe = {"blockEmerald","record","blockEmerald", "record", "items.ironbackpacks:upgradeCore", "record", "blockEmerald", "record", "blockEmerald"};
-        //done
-        String[] quickDepositRecipe = {"slimeball","blocks.piston","slimeball", "slimeball", "items.ironbackpacks:upgradeCore", "slimeball", "blocks.piston", "slimeball", "blocks.piston"};
-        //done
-        String[] quickDepositPreciseRecipe = {"slimeball","blocks.sticky_piston","slimeball", "slimeball", "items.ironbackpacks:upgradeCore", "slimeball", "blocks.sticky_piston", "slimeball", "blocks.sticky_piston"};
-        //TODO: tweak?
-        String[] depthRecipe = {"items.ironbackpacks:jeweledFeather","items.ironbackpacks:nest","items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nestingUpgrade", "items.ironbackpacks:upgradeCore", "items.ironbackpacks:nestingUpgrade", "items.ironbackpacks:jeweledFeather", "items.ironbackpacks:nest", "items.ironbackpacks:jeweledFeather"};
-        //TODO: tweak?
-
-        String[] upgradeCoreRecipeDefault = {"items.leather","items.string","items.leather", "items.string", "items.paper", "items.string", "items.leather", "items.string", "items.leather"};
-        //done
-        String[] nestRecipeDefault = {"stickWood","stickWood","stickWood", "stickWood", "items.egg", "stickWood", "stickWood", "stickWood", "stickWood"};
-        //done
-        String[] jeweledFeatherDefault = {"items.feather", "nuggetGold", "nuggetGold"};
-        //done
-        String[] treatedLeatherDefault = {"items.leather", "items.water_bucket", "dyeLime", "items.flint"};
-        //done
-
-//        ArrayList<String> itemBlacklist = new ArrayList<>();
 
         //===================================================Categories======================================
 
@@ -182,7 +121,7 @@ public class ConfigHandler {
         config.addCustomCategoryComment("1) BackpackNames", "Here you can modify the traits of the backpacks.");
         config.addCustomCategoryComment("6) Upgrade Costs", "Here you can modify how expensive the upgrades are to add to a backpack. " +
                 "A cost of 0 makes the upgrade 'free' to apply, while a higher number makes it more expensive.");
-        config.addCustomCategoryComment("5) Recipes", "Each recipe has 9 lines, each corresponding to the next slot in the crafting grid. " +
+        config.addCustomCategoryComment("5) ItemUpgradeRecipes", "Each recipe has 9 lines, each corresponding to the next slot in the crafting grid. " +
                 "The recipes are registered with the oreDictionary, so putting in blocks.wool will allow you to use any color of wool while crafting."+
                 "Syntax: use 'items.item_name' or 'blocks.block_name' or 'oreDictionaryName' or 'none' for a blank space. " +
                 "\nExample:\n\titems.paper - vanilla item\n\tblocks.gold_block - vanilla block\n\titems.paper - vanilla item\n\t" +
@@ -198,6 +137,7 @@ public class ConfigHandler {
 
         //if loading for the first time and can change configs
         //then delete the file and let a new one regen (inefficient but effective)
+        //TODO: remove this
         if (firstLoad && !isConfigManuallyChanged){
             if(theFile.delete()){
                 config = new Configuration(theFile);
@@ -208,49 +148,49 @@ public class ConfigHandler {
         basicBackpack[0] = config.get("1) Basic Backpack", "1) Upgrade Points", 8, "The number of upgrade points on the backpack. Default 8.").getInt();
         basicBackpack[1] = config.get("1) Basic Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
         basicBackpack[2] = config.get("1) Basic Backpack", "3) Number of Rows", 2, "The size of the backpack. Between 1 and 7. Default 2.").getInt();
-        basicBackpackRecipe = config.get("5) Recipes", "01) Basic Backpack Recipe", basicBackpackRecipe, "The recipe for the basic backpack. Default is blocks.chest surrounded by items.leather.").getStringList();
+//        basicBackpackRecipe = config.get("5) ItemUpgradeRecipes", "01) Basic Backpack Recipe", basicBackpackRecipe, "The recipe for the basic backpack. Default is blocks.chest surrounded by items.leather.").getStringList();
 
         ironBackpack[0] = config.get("2) Iron Backpack", "1) Upgrade Points", 12, "The number of upgrade points on the backpack. Default 12.").getInt();
         ironBackpack[1] = config.get("2) Iron Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
         ironBackpack[2] = config.get("2) Iron Backpack", "3) Number of Rows", 4, "The size of the backpack. Between 1 and 7. Default 4.").getInt();
-        ironBackpackToUpgradeRecipe = config.get("5) Recipes", "02) Iron Backpack Recipe", ironBackpackToUpgradeRecipe, "The recipe to upgrade the backpack to an Iron Backpack. Default is surrounded by ingotIron.").getStringList();
+//        ironBackpackToUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "02) Iron Backpack Recipe", ironBackpackToUpgradeRecipe, "The recipe to upgrade the backpack to an Iron Backpack. Default is surrounded by ingotIron.").getStringList();
 
         goldBackpack[0] = config.get("3) Gold Backpack", "1) Upgrade Points", 16, "The number of upgrade points on the backpack. Default 16.").getInt();
         goldBackpack[1] = config.get("3) Gold Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
         goldBackpack[2] = config.get("3) Gold Backpack", "3) Number of Rows", 6, "The size of the backpack. Between 1 and 7. Default 6.").getInt();
-        goldBackpackToUpgradeRecipe = config.get("5) Recipes", "03) Gold Backpack Recipe", goldBackpackToUpgradeRecipe, "The recipe to upgrade the backpack to a Gold Backpack. Default is surrounded by ingotGold.").getStringList();
+//        goldBackpackToUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "03) Gold Backpack Recipe", goldBackpackToUpgradeRecipe, "The recipe to upgrade the backpack to a Gold Backpack. Default is surrounded by ingotGold.").getStringList();
 
         diamondBackpack[0] = config.get("4) Diamond Backpack", "1) Upgrade Points", 20, "The number of upgrade points on the backpack. Default 20.").getInt();
         diamondBackpack[1] = config.get("4) Diamond Backpack", "2) Number of Slots Per Row", 11, "The size of the backpack. Either 9 or 11. Default 11.").getInt();
         diamondBackpack[2] = config.get("4) Diamond Backpack", "3) Number of Rows", 7, "The size of the backpack. Between 1 and 7. Default 7.").getInt();
-        diamondBackpackToUpgradeRecipe = config.get("5) Recipes", "04) Diamond Backpack Recipe", diamondBackpackToUpgradeRecipe, "The recipe to upgrade the backpack to a Diamond Backpack. Default is surrounded by gemDiamond.").getStringList();
+//        diamondBackpackToUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "04) Diamond Backpack Recipe", diamondBackpackToUpgradeRecipe, "The recipe to upgrade the backpack to a Diamond Backpack. Default is surrounded by gemDiamond.").getStringList();
 
-        buttonUpgradeRecipe = config.get("5) Recipes", "10) Button Upgrade Recipe", buttonRecipe, "The recipe for the button upgrade.").getStringList();
-        nestingUpgradeRecipe = config.get("5) Recipes", "11) Nesting Upgrade Recipe", nestingRecipe, "The recipe for the nesting upgrade.").getStringList();
-        nestingAdvancedUpgradeRecipe = config.get("5) Recipes", "12) Advanced Nesting Upgrade Recipe", nestingAdvancedRecipe, "The recipe for the advanced nesting upgrade.").getStringList();
-        renamingUpgradeRecipe = config.get("5) Recipes", "13) Renaming Upgrade Recipe", renamingRecipe, "The recipe for the renaming upgrade. Only used if the upgrade is required (another option in config)").getStringList();
-        damageBarUpgradeRecipe = config.get("5) Recipes", "14) Damage Bar Upgrade Recipe", damageBarRecipe, "The recipe for the damage bar upgrade.").getStringList();
-        filterBasicUpgradeRecipe = config.get("5) Recipes", "15) Basic Filter Upgrade Recipe", filterBasicRecipe, "The recipe for the basic filter upgrade.").getStringList();
-        filterFuzzyUpgradeRecipe = config.get("5) Recipes", "16) Fuzzy Filter Upgrade Recipe", filterFuzzyRecipe, "The recipe for the fuzzy filter upgrade.").getStringList();
-        filterOreDictUpgradeRecipe = config.get("5) Recipes", "17) Ore Dictionary Filter Upgrade Recipe", filterOreDictRecipe, "The recipe for the ore dictionary filter upgrade.").getStringList();
-        filterModSpecificUpgradeRecipe = config.get("5) Recipes", "18) Mod Specific Filter Upgrade Recipe", filterModSpecificRecipe, "The recipe for the mod specific filter upgrade.").getStringList();
-        filterAdvancedUpgradeRecipe = config.get("5) Recipes", "19) Advanced Filter Upgrade Recipe", filterAdvancedRecipe, "The recipe for the advanced filter upgrade.").getStringList();
-        filterMiningUpgradeRecipe = config.get("5) Recipes", "20) Mining Upgrade Recipe", filterMiningRecipe, "The recipe for the mining filter upgrade.").getStringList();
-        filterVoidUpgradeRecipe = config.get("5) Recipes", "21) Void Upgrade Recipe", filterVoidRecipe, "The recipe for the void filter upgrade.").getStringList();
-        restockingUpgradeRecipe = config.get("5) Recipes", "22) Restocking Upgrade Recipe", restockingRecipe, "The recipe for the restocking upgrade.").getStringList();
-        craftingUpgradeRecipe = config.get("5) Recipes", "23) Crafting Upgrade Recipe", craftingRecipe, "The recipe for the crafting upgrade.").getStringList();
-        craftingSmallUpgradeRecipe = config.get("5) Recipes", "24) Small Crafting Upgrade Recipe", craftingSmallRecipe, "The recipe for the small crafting upgrade.").getStringList();
-        craftingTinyUpgradeRecipe = config.get("5) Recipes", "25) Tiny Crafting Upgrade Recipe", craftingTinyRecipe, "The recipe for the tiny crafting upgrade.").getStringList();
-        eternityUpgradeRecipe = config.get("5) Recipes", "26) Eternity Upgrade Recipe", eternityRecipe, "The recipe for the upgrade that allows you to keep the backpack upon dying.").getStringList();
-        additionalUpgradePointsUpgradeRecipe = config.get("5) Recipes", "27) Additional Upgrade Slots Recipe", additionalUpgradePointsRecipe, "The recipe for the upgrade which gives the backpack a configurable amount of additional upgrade points.").getStringList();
-        quickDepositUpgradeRecipe = config.get("5) Recipes", "28) Quick Deposit Upgrade Recipe", quickDepositRecipe, "The recipe for the upgrade which gives the backpack the ability to empty it's contents into an inventory.").getStringList();
-        quickDepositPreciseUpgradeRecipe = config.get("5) Recipes", "29) Quick Deposit Precise Upgrade Recipe", quickDepositPreciseRecipe, "The recipe for the upgrade which gives the backpack the ability to empty it's contents into an inventory if the items already exist in the inventory.").getStringList();
-        depthUpgradeRecipe = config.get("5) Recipes", "30) Depth Upgrade Recipe", depthRecipe, "The recipe for the upgrade which gives a backpack the ability to check fort nested backpacks before applying effects.").getStringList();
-
-        nestRecipe = config.get("5) Recipes", "31) Nest Recipe", nestRecipeDefault, "The recipe for the crafting item - nest.").getStringList();
-        upgradeCoreRecipe = config.get("5) Recipes", "32) Upgrade Core Recipe", upgradeCoreRecipeDefault, "The recipe for the crafting item - upgrade core.").getStringList();
-        jeweledFeatherRecipe = config.get("5) Recipes", "33) Jeweled Feather Recipe", jeweledFeatherDefault, "The recipe for the crafting item - jeweled feather. Shapeless Recipe, must be less than 9 items.").getStringList();
-        treatedLeatherRecipe = config.get("5) Recipes", "34) Treated Leather Recipe", treatedLeatherDefault, "The recipe for the crafting item - treated leather. Shapeless Recipe, must be less than 9 items. Default includes lime dye.").getStringList();
+//        buttonUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "10) Button Upgrade Recipe", buttonRecipe, "The recipe for the button upgrade.").getStringList();
+//        nestingUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "11) Nesting Upgrade Recipe", nestingRecipe, "The recipe for the nesting upgrade.").getStringList();
+//        nestingAdvancedUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "12) Advanced Nesting Upgrade Recipe", nestingAdvancedRecipe, "The recipe for the advanced nesting upgrade.").getStringList();
+//        renamingUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "13) Renaming Upgrade Recipe", renamingRecipe, "The recipe for the renaming upgrade. Only used if the upgrade is required (another option in config)").getStringList();
+//        damageBarUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "14) Damage Bar Upgrade Recipe", damageBarRecipe, "The recipe for the damage bar upgrade.").getStringList();
+//        filterBasicUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "15) Basic Filter Upgrade Recipe", filterBasicRecipe, "The recipe for the basic filter upgrade.").getStringList();
+//        filterFuzzyUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "16) Fuzzy Filter Upgrade Recipe", filterFuzzyRecipe, "The recipe for the fuzzy filter upgrade.").getStringList();
+//        filterOreDictUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "17) Ore Dictionary Filter Upgrade Recipe", filterOreDictRecipe, "The recipe for the ore dictionary filter upgrade.").getStringList();
+//        filterModSpecificUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "18) Mod Specific Filter Upgrade Recipe", filterModSpecificRecipe, "The recipe for the mod specific filter upgrade.").getStringList();
+//        filterAdvancedUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "19) Advanced Filter Upgrade Recipe", filterAdvancedRecipe, "The recipe for the advanced filter upgrade.").getStringList();
+//        filterMiningUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "20) Mining Upgrade Recipe", filterMiningRecipe, "The recipe for the mining filter upgrade.").getStringList();
+//        filterVoidUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "21) Void Upgrade Recipe", filterVoidRecipe, "The recipe for the void filter upgrade.").getStringList();
+//        restockingUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "22) Restocking Upgrade Recipe", restockingRecipe, "The recipe for the restocking upgrade.").getStringList();
+//        craftingUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "23) Crafting Upgrade Recipe", craftingRecipe, "The recipe for the crafting upgrade.").getStringList();
+//        craftingSmallUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "24) Small Crafting Upgrade Recipe", craftingSmallRecipe, "The recipe for the small crafting upgrade.").getStringList();
+//        craftingTinyUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "25) Tiny Crafting Upgrade Recipe", craftingTinyRecipe, "The recipe for the tiny crafting upgrade.").getStringList();
+//        eternityUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "26) Eternity Upgrade Recipe", eternityRecipe, "The recipe for the upgrade that allows you to keep the backpack upon dying.").getStringList();
+//        additionalUpgradePointsUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "27) Additional Upgrade Slots Recipe", additionalUpgradePointsRecipe, "The recipe for the upgrade which gives the backpack a configurable amount of additional upgrade points.").getStringList();
+//        quickDepositUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "28) Quick Deposit Upgrade Recipe", quickDepositRecipe, "The recipe for the upgrade which gives the backpack the ability to empty it's contents into an inventory.").getStringList();
+//        quickDepositPreciseUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "29) Quick Deposit Precise Upgrade Recipe", quickDepositPreciseRecipe, "The recipe for the upgrade which gives the backpack the ability to empty it's contents into an inventory if the items already exist in the inventory.").getStringList();
+//        depthUpgradeRecipe = config.get("5) ItemUpgradeRecipes", "30) Depth Upgrade Recipe", depthRecipe, "The recipe for the upgrade which gives a backpack the ability to check fort nested backpacks before applying effects.").getStringList();
+//
+//        nestRecipe = config.get("5) ItemUpgradeRecipes", "31) Nest Recipe", nestRecipeDefault, "The recipe for the crafting item - nest.").getStringList();
+//        upgradeCoreRecipe = config.get("5) ItemUpgradeRecipes", "32) Upgrade Core Recipe", upgradeCoreRecipeDefault, "The recipe for the crafting item - upgrade core.").getStringList();
+//        jeweledFeatherRecipe = config.get("5) ItemUpgradeRecipes", "33) Jeweled Feather Recipe", jeweledFeatherDefault, "The recipe for the crafting item - jeweled feather. Shapeless Recipe, must be less than 9 items.").getStringList();
+//        treatedLeatherRecipe = config.get("5) ItemUpgradeRecipes", "34) Treated Leather Recipe", treatedLeatherDefault, "The recipe for the crafting item - treated leather. Shapeless Recipe, must be less than 9 items. Default includes lime dye.").getStringList();
 
         buttonUpgradeCost = config.get("6) Upgrade Costs", "1) Button Upgrade Recipe", 2, "The cost for the button upgrade. Default 2.").getInt();
         nestingUpgradeCost = config.get("6) Upgrade Costs", "2) Nesting Upgrade Recipe", 3, "The cost for the nesting upgrade. Default 3.").getInt();
@@ -274,7 +214,7 @@ public class ConfigHandler {
         depthUpgradeCost = config.get("6) Upgrade Costs", "20) Depth Upgrade Recipe", 2, "The cost for the depth deposit upgrade. Default 2.").getInt();
 
         disableRendering = config.get("7) Miscellaneous", "0) Disable Rendering", false, "To disable the model rendering on the player when they have an equipped backpack. Default false.").getBoolean();
-        enableFPPrendering = config.get("7) Miscellaneous", "1) Enable FPP Rendering", false, "To enable the model rendering on the player when they have an equipped backpack and are in first person perspective. " +
+        disableFPPrendering = config.get("7) Miscellaneous", "1) Enable FPP Rendering", false, "To disable the model rendering on the player when they have an equipped backpack and are in first person perspective. " +
                 "You sometimes see it if you spin to the side quickly, the backpack takes longer to readjust than your forward vision as it swings back onto your back. Default false.").getBoolean();
         renamingUpgradeRequired = config.get("7) Miscellaneous", "2) Renaming Upgrade Required", false, "If the renaming upgrade is required to rename the backpack. Default is false (so you can rename backpacks natively).").getBoolean();
         tooltipDelay = config.get("7) Miscellaneous", "3) Tooltip Delay", 1500, "The delay (in milliseconds) until a tooltip will appear over the buttons. Default is 1500 (so 1.5 seconds).").getInt();

@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.api.item.backpacks.interfaces;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 
 /**
@@ -50,5 +51,14 @@ public interface IBackpack {
      * @return - the size in pixels in the y-direction
      */
     int getGuiYSize(ItemStack backpack);
+
+    /**
+     * Get the recipe to get the backpack directly. If you can only get this backpack from upgrading another, simply put in null.
+     * @param backpack - the backpack as an item stack (needed for sub items) to get the recipe for
+     * @return - the IRecipe to get the backpack item
+     */
+    IRecipe getItemRecipe(ItemStack backpack);
+
+    void setItemRecipe(IRecipe recipe);
 
 }
