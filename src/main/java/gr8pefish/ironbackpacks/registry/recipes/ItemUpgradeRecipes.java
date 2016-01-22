@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class ItemUpgradeRecipes {
             "ece",
             "ded",
             'd', "gemDiamond",
-            'n', "gemEmerald",
+            'e', "gemEmerald",
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe renamingUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.renamingUpgrade)),
@@ -91,7 +92,7 @@ public class ItemUpgradeRecipes {
             "rpb",
             "tct",
             "ttt",
-            'r', "dustRedstpne", 'b', "blockRedstone", 'p', Blocks.piston, 't', Blocks.crafting_table,
+            'r', "dustRedstone", 'b', "blockRedstone", 'p', Blocks.piston, 't', Blocks.crafting_table,
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe craftingSmallUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.craftingSmallUpgrade)),
@@ -105,7 +106,7 @@ public class ItemUpgradeRecipes {
             "bpr",
             "tct",
             "ttt",
-            'b', "blockRedstone", 'r', "dustRedstpne", 'p', Blocks.piston, 't', Blocks.crafting_table,
+            'b', "blockRedstone", 'r', "dustRedstone", 'p', Blocks.piston, 't', Blocks.crafting_table,
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe filterBasicUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterBasicUpgrade)),
@@ -184,8 +185,6 @@ public class ItemUpgradeRecipes {
     public static void registerItemUpgradeRecipes() {
         for (int i = 0; i < ItemUpgradeRegistry.getTotalSize(); i++)
             GameRegistry.addRecipe(ItemUpgradeRegistry.getItemRecipe(i));
-//        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, i), ItemUpgradeRegistry.getItemRecipe(i)));
-
     }
 
 }
