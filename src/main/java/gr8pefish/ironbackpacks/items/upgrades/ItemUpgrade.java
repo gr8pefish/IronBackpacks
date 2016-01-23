@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ItemUpgrade extends Item {
@@ -43,10 +44,27 @@ public class ItemUpgrade extends Item {
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean advanced) {
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.cost", ItemUpgradeRegistry.getItemUpgrade(itemStack).getUpgradeCost(itemStack), ItemUpgradeRegistry.getItemUpgrade(itemStack).getUpgradeCost(itemStack) == 1 ? "" : "s"));
+            list.addAll(Arrays.asList(TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.minimumTier", getMinimumTierBackpackName(ItemUpgradeRegistry.getItemUpgrade(itemStack).getTier(itemStack))))));
+            list.add(""); //spacing for clarity
             list.addAll(ItemUpgradeRegistry.getItemUpgrade(itemStack).getTooltip(itemStack));
         } else {
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
         }
+    }
+
+    //HARDCODED to my tiers
+    private String getMinimumTierBackpackName(int tier){
+        switch (tier){
+            case 0:
+                return TextUtils.localizeEffect("item.ironbackpacks.backpack.basicBackpack.name");
+            case 1:
+                return TextUtils.localizeEffect("item.ironbackpacks.backpack.ironBackpack.name");
+            case 2:
+                return TextUtils.localizeEffect("item.ironbackpacks.backpack.goldBackpack.name");
+            case 3:
+                return TextUtils.localizeEffect("item.ironbackpacks.backpack.diamondBackpack.name");
+        }
+        return "ERROR, report to mod author";
     }
 
 //    @Override

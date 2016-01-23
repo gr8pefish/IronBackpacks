@@ -6,7 +6,12 @@ To Do:
         add as tooltip that extended inventory/increased upgrade points
             change tooltip so that it says Alternate Upgrades, not alt gui, too confusing
         Add tier to upgrades' tooltips
-        Add that tiers in upgrades are a thing in the changelog
+        Make sure changelog is ordered in terms of importance before final update
+
+        Additional points upgrade cheaper
+
+        Move a lot of info from the tooltip to the info jei tab
+        shorten upgrade necessary backpack tier tooltip?
 
 
     1.8 Stuff:
