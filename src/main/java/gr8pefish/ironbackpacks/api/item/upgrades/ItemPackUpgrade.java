@@ -55,7 +55,6 @@ public class ItemPackUpgrade implements IPackUpgrade {
 
     @Override
     public IRecipe getItemRecipe(ItemStack upgrade) {
-        Logger.info("Output "+itemRecipe.getRecipeOutput().getDisplayName());
         return itemRecipe;
     }
 

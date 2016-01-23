@@ -158,23 +158,11 @@ public class ItemUpgradeRegistry {
 
     public static IRecipe getItemRecipe(int index){
         if (index < itemsPack.size()){
-            Logger.info("Name "+itemsPack.get(index).getName(null));
             return itemsPack.get(index).getItemRecipe(null);
         }else if (index < getInflatedSizeOfConflicting()){
             return getItemConflictingUpgrade(index).getItemRecipe(null);
         }else {
             return getItemAltGuiUpgrade(index).getItemRecipe(null);
-        }
-    }
-
-    public static IRecipe getItemRecipe(ItemStack stack){
-        if (stack.getItem() instanceof IPackUpgrade){
-            Logger.info("pack upgrade");
-            return ((IPackUpgrade) stack.getItem()).getItemRecipe(stack);
-        }else{
-            Logger.info("not pack upgrade");
-            //TODO: logger
-            return null;
         }
     }
 }

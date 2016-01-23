@@ -55,8 +55,8 @@ public class RecipeRegistry {
 
         //Register the recipes themselves
         BackpackTierRecipes.registerBackpackTierRecipes(); //register the recipes to upgrade a backpack to the next tier
-//		registerBackpackUpgradeRemovalRecipes(); //register the recipes to remove upgrades from backpacks
-//      registerBackpackUpgradeAdditionRecipes(); //register the recipes to add upgrades from backpacks
+		registerBackpackUpgradeRemovalRecipes(); //register the recipes to remove upgrades from backpacks
+        registerBackpackUpgradeAdditionRecipes(); //register the recipes to add upgrades from backpacks
 
 
 	}
@@ -102,16 +102,22 @@ public class RecipeRegistry {
 
     //=================================================================================Helper Registers==========================================================
 
+    /**
+     * Register the upgrade removal recipes for every backpack (if it is an IUpgradableBackpack)
+     */
     private static void registerBackpackUpgradeRemovalRecipes(){
-        //IBAPI.getItem doesn't work without sub items, so no backpack, hence the breakage on these 2 methods
         for (int i = 0; i < ItemBackpackRegistry.getSize(); i++){
             IBackpack backpack = ItemBackpackRegistry.getBackpackAtIndex(i);
             if (backpack instanceof IUpgradableBackpack) {
-                GameRegistry.addRecipe(new BackpackRemoveUpgradeRecipe(new ItemStack(IronBackpacksAPI.getItem(IronBackpacksAPI.ITEM_BACKPACK_BASE+backpack.getName(null))), new ItemStack(IronBackpacksAPI.getItem(IronBackpacksAPI.ITEM_BACKPACK_BASE+backpack.getName(null))))); //TODO, second one is unnecessary?
+                GameRegistry.addRecipe(new BackpackRemoveUpgradeRecipe(new ItemStack((ItemBackpack)backpack), new ItemStack((ItemBackpack)backpack))); //Hardcoded to ItemBackpack
             }
         }
     }
 
+    /**
+     * Register the recipe for the addition of upgrades to an IUpgradeableBackpack.
+     * If the backpack is also an ITieredBackpack, then the tier of the upgrade must be lower than or equal to the backpack to allow it to be applied.
+     */
     private static void registerBackpackUpgradeAdditionRecipes() {
         ArrayList<ItemStack> upgrades = new ArrayList<>();
         for (int i = 0; i < ItemUpgradeRegistry.getTotalSize(); i++)
@@ -121,7 +127,16 @@ public class RecipeRegistry {
             IBackpack backpack = ItemBackpackRegistry.getBackpackAtIndex(i);
             if (backpack instanceof IUpgradableBackpack) {
                 for (ItemStack upgrade : upgrades){
-                    GameRegistry.addRecipe(new BackpackAddUpgradeRecipe(new ItemStack(IronBackpacksAPI.getItem(IronBackpacksAPI.ITEM_BACKPACK_BASE+backpack.getName(null))), upgrade, new ItemStack(IronBackpacksAPI.getItem(IronBackpacksAPI.ITEM_BACKPACK_BASE+backpack.getName(null)))));
+                    int upgradeTier = ItemUpgradeRegistry.getItemUpgrade(upgrade).getTier(upgrade);
+                    if (backpack instanceof ITieredBackpack) {
+                        int backpackTier = ((ITieredBackpack) backpack).getTier(null);
+                        if (upgradeTier <= backpackTier)
+                            GameRegistry.addRecipe(new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack)backpack), upgrade, new ItemStack((ItemBackpack)backpack))); //Hardcoded to ItemBackpack
+                    } else {
+                        if (upgradeTier >= 0) //TODO: currently accepts any upgrade, should that be changed?
+                            GameRegistry.addRecipe(new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack)backpack), upgrade, new ItemStack((ItemBackpack)backpack))); //Hardcoded to ItemBackpack
+                    }
+
                 }
             }
         }

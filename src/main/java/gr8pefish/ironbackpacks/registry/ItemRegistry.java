@@ -147,7 +147,7 @@ public class ItemRegistry {
         ItemUpgradeRegistry.registerItemPackUpgrade(buttonUpgrade);
         damageBarUpgrade = new ItemPackUpgrade("damageBar", ConfigHandler.damageBarUpgradeCost, 0, IronBackpacksConstants.Upgrades.DAMAGE_BAR_DESCRIPTION);
         ItemUpgradeRegistry.registerItemPackUpgrade(damageBarUpgrade);
-        depthUpgrade = new ItemPackUpgrade("depth", ConfigHandler.depthUpgradeCost, 0, IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_DESCRIPTION);
+        depthUpgrade = new ItemPackUpgrade("depth", ConfigHandler.depthUpgradeCost, 3, IronBackpacksConstants.Upgrades.DEPTH_UPGRADE_DESCRIPTION);
         ItemUpgradeRegistry.registerItemPackUpgrade(depthUpgrade);
         eternityUpgrade = new ItemPackUpgrade("eternity", ConfigHandler.eternityUpgradeCost, 0, IronBackpacksConstants.Upgrades.ETERNITY_DESCRIPTION);
         ItemUpgradeRegistry.registerItemPackUpgrade(eternityUpgrade);
