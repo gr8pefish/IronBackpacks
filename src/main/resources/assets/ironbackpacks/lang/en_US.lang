@@ -111,3 +111,7 @@ tooltip.ironbackpacks.upgrade.addUpgrades.mult=%d times
 
 # Miscellaneous
 misc.ironbackpacks.default.equpped.backpack.name=Equipped Backpack
+
+
+#JEI
+jei.ironbackpacks.addUpgradeRecipe.name=Add Upgrade Recipe

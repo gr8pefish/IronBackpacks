@@ -28,7 +28,7 @@ To Do:
                     Add in slot for the backpack to go on
                     Optional
                         Add in upgrade removal stuff
-                            Slot to put pack in'
+                            Slot to put pack in
                             Slot to take pack out of
                             Upgrade to remove slot
                             Button to iterate through upgrade to remove
@@ -56,14 +56,6 @@ To Do:
                     figure out how to do that internally
                         could be two different packs
                         could be 2 pack that look the same made from the same ItemBackpack, but 2 different tooltips
-
-                more recipe stuff - ask tterrag/tehnut for what to do
-                    config recipes as json? Ask tehnut/tterag
-                    Return upgrade on removal crafting?
-                        Figure out how, and yes, but that will be a crazy jei thing (super custom) - 2 output slots labeled
-                        (1 as main output the other as dropped on ground or extra output put back in crafting grid) or could add custom removal crafting table.
-				Do bucket style crafting (extra output in crafting grid) or put the removed upgrade item into the actual backpack resulting stack
-				    ^ for now, then think about adding it to the backpack tab
 
                 Remove adding crafting item to API?
                     https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
