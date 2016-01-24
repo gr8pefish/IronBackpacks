@@ -46,22 +46,6 @@ import java.util.ArrayList;
  */
 public class ForgeEventHandler {
 
-    @SubscribeEvent
-    public void onCrafted(PlayerEvent.ItemCraftedEvent event){
-        ItemStack result = event.crafting;
-        if (result.getItem() instanceof IUpgradableBackpack) { //if item an upgradable backpack
-            NBTTagCompound tagCompound = result.getTagCompound();
-            if (tagCompound != null && tagCompound.hasKey(IronBackpacksConstants.NBTKeys.REMOVED)) {
-                ItemStack upgradeRemoved = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag(IronBackpacksConstants.NBTKeys.REMOVED));
-                if (upgradeRemoved != null){
-                    tagCompound.removeTag(IronBackpacksConstants.NBTKeys.REMOVED); //remove tag
-                    event.player.inventory.addItemStackToInventory(upgradeRemoved);
-                }
-            }
-        }
-
-    }
-
     /**
      * Called whenever an item is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and crafter/crafting upgrades too so it doesn't check too much and causes lag..
      * @param event - the event fired

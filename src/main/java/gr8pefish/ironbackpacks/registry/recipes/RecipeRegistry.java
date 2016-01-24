@@ -36,8 +36,8 @@ public class RecipeRegistry {
 
         //Register as special recipes
         RecipeSorter.register("RemoveUpgrade", BackpackRemoveUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
-        RecipeSorter.register("BackpackUpgrade", BackpackAddUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
-        RecipeSorter.register("BackpackTier", BackpackIncreaseTierRecipe.class, RecipeSorter.Category.SHAPED, ""); //register my special recipe
+        RecipeSorter.register("AddUpgrade", BackpackAddUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
+        RecipeSorter.register("IncreaseBackpackTier", BackpackIncreaseTierRecipe.class, RecipeSorter.Category.SHAPED, ""); //register my special recipe
 
         //Register the recipes themselves
         BackpackTierRecipes.registerBackpackTierRecipes(); //register the recipes to upgrade a backpack to the next tier

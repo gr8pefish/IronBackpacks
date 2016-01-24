@@ -414,7 +414,7 @@ public class GUIBackpackAlternate extends GuiContainer {
             yStart += 36;
         }
         if (hasRestockingUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.filterRestocking.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.restocking.name"),20, yStart, 4210752);
         }
 
     }

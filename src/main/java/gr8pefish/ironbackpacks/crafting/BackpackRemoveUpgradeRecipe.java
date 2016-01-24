@@ -11,9 +11,14 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Deals with the cases when a backpack is shapelessly crafted alone to remove an upgrade.
@@ -91,7 +96,6 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
         //set the new tag compound and return the new stack if it has changed
         nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADES, tagList);
         if (upgradeRemoved) {
-            Logger.info("setting result");
             upgradeRemovedStack = upgradeInQuestion;
             return result;
         } else {
@@ -100,26 +104,73 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
         }
     }
 
+    @Override //copied directly from ShapelessOreRecipe
+    public boolean matches(InventoryCrafting var1, World world)
+    {
+        ArrayList<Object> required = new ArrayList<Object>(input);
+
+        for (int x = 0; x < var1.getSizeInventory(); x++)
+        {
+            ItemStack slot = var1.getStackInSlot(x);
+
+            if (slot != null)
+            {
+                boolean inRecipe = false;
+                Iterator<Object> req = required.iterator();
+
+                while (req.hasNext())
+                {
+                    boolean match = false;
+
+                    Object next = req.next();
+
+                    if (next instanceof ItemStack)
+                    {
+                        match = OreDictionary.itemMatches((ItemStack)next, slot, false);
+                    }
+                    else if (next instanceof List)
+                    {
+                        Iterator<ItemStack> itr = ((List<ItemStack>)next).iterator();
+                        while (itr.hasNext() && !match)
+                        {
+                            match = OreDictionary.itemMatches(itr.next(), slot, false);
+                        }
+                    }
+
+                    if (match)
+                    {
+                        inRecipe = true;
+                        required.remove(next);
+                        break;
+                    }
+                }
+
+                if (!inRecipe)
+                {
+                    return false;
+                }
+            }
+        }
+        return required.isEmpty();
+    }
+
     @Override
     public ItemStack getRecipeOutput() {
         return recipeOutput;
     }
 
     @Override
-    public ItemStack[] getRemainingItems(InventoryCrafting inv){ //totally broken?
-        Logger.info("remaining");
-//        if (upgradeRemovedStack != null){
-//            Logger.info("remaining not null");
-//            ItemStack[] ret = new ItemStack[inv.getSizeInventory()];
-//            ret[0] = upgradeRemovedStack;
-//            for (int i = 1; i < ret.length; i++) {
-//                ret[i] = inv.getStackInSlot(i);
-//            }
-//            return ret;
-//        }else{
-//            return super.getRemainingItems(inv);
-//        }
-        return null;
+    public ItemStack[] getRemainingItems(InventoryCrafting inv){ //needs matches overridden due to (Forge?) bug
+        if (upgradeRemovedStack != null){
+            ItemStack[] ret = new ItemStack[inv.getSizeInventory()];
+            ret[0] = upgradeRemovedStack.copy();
+            for (int i = 1; i < ret.length; i++) {
+                ret[i] = null; //remove everything else (i.e can't leave backpack)
+            }
+            return ret;
+        }else{
+            return super.getRemainingItems(inv);
+        }
     }
 
     //=============================================================================Helper Methods====================================================================
