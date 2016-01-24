@@ -4,7 +4,9 @@ import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
 
     private final ItemStack recipeOutput; //The outputted item after crafting
+
+    private ItemStack upgradeRemovedStack;
 
     public BackpackRemoveUpgradeRecipe(ItemStack recipeOutput, Object... items) {
         super(recipeOutput, items);
@@ -77,7 +81,8 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
                 upgradeRemoved = true;
                 //not adding the old recipe is the same outcome as removing the recipe, so no code needed here
                 if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeInQuestion)) //if in alt gui need to remove the stored items there
-                    nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED, upgradeInQuestion.writeToNBT(new NBTTagCompound())); //add item stack to nbt key
+                    nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED_ALT_GUI, upgradeInQuestion.writeToNBT(new NBTTagCompound())); //add item stack to nbt key
+                nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED, upgradeInQuestion.writeToNBT(new NBTTagCompound())); //add tag so it can be refunded
             } else { //save old contents to new tag
                 tagList.appendTag(upgrade.writeToNBT(new NBTTagCompound()));
             }
@@ -86,8 +91,11 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
         //set the new tag compound and return the new stack if it has changed
         nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.UPGRADES, tagList);
         if (upgradeRemoved) {
+            Logger.info("setting result");
+            upgradeRemovedStack = upgradeInQuestion;
             return result;
         } else {
+            upgradeRemovedStack = null;
             return null;
         }
     }
@@ -97,17 +105,48 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
         return recipeOutput;
     }
 
+    @Override
+    public ItemStack[] getRemainingItems(InventoryCrafting inv){ //totally broken?
+        Logger.info("remaining");
+//        if (upgradeRemovedStack != null){
+//            Logger.info("remaining not null");
+//            ItemStack[] ret = new ItemStack[inv.getSizeInventory()];
+//            ret[0] = upgradeRemovedStack;
+//            for (int i = 1; i < ret.length; i++) {
+//                ret[i] = inv.getStackInSlot(i);
+//            }
+//            return ret;
+//        }else{
+//            return super.getRemainingItems(inv);
+//        }
+        return null;
+    }
+
     //=============================================================================Helper Methods====================================================================
 
     /**
      * Helper method for getting the first backpack in the crafting grid (which will be the one used)
      * @param inventoryCrafting - the inventory to search
-     * @return - the integer of the slot number that the backpack is in
+     * @return - the integer of the slot number that the backpack is in (-1 if no slot found)
      */
     private int getFirstUpgradableBackpackSlotNumber(InventoryCrafting inventoryCrafting) {
         for (int i = 0; i < 9; ++i) {
             ItemStack itemstack = inventoryCrafting.getStackInSlot(i);
             if (itemstack != null && (itemstack.getItem() instanceof IUpgradableBackpack))
+                return i;
+        }
+        return -1;
+    }
+
+    /**
+     * Find an empty slot in the crafting grid to put the removed upgrade in.
+     * @param inventoryCrafting - the inventory to search
+     * @return - the integer of the slot number of the empty slot (-1 if no slot found)
+     */
+    public static int findEmptySlot(IInventory inventoryCrafting) {
+        for (int i = 0; i < 9; i++) {
+            ItemStack itemstack = inventoryCrafting.getStackInSlot(i);
+            if (itemstack == null)
                 return i;
         }
         return -1;

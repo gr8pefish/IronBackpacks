@@ -5,6 +5,7 @@ import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemAltGuiUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemPackUpgrade;
+import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IAltGuiUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -107,6 +108,10 @@ public class ItemUpgradeRegistry {
         }
     }
 
+    public static int getIPackSize(){
+        return itemsPack.size();
+    }
+
     public static ItemPackUpgrade getItemPackUpgrade(int damageValue) {
         return itemsPack.get(damageValue);
     }
@@ -149,6 +154,10 @@ public class ItemUpgradeRegistry {
 
     public static int getIndexOfAltGuiUpgrade(ItemAltGuiUpgrade item) {
         return itemsPack.size() + itemsConflicting.size() + itemsAltGui.indexOf(item);
+    }
+
+    public static int getUninflatedIndexOfAltGuiUpgrade(ItemAltGuiUpgrade upgrade) {
+        return itemsAltGui.indexOf(upgrade);
     }
 
     public static int getTotalSize() {

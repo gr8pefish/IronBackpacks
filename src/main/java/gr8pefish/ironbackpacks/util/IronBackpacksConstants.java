@@ -124,6 +124,7 @@ public class IronBackpacksConstants {
         public static final String SLOT = "Slot";
         public static final String ITEMS = "Items";
         public static final String ADDED_ALT_GUI = "AddedAltGui";
+        public static final String REMOVED_ALT_GUI = "RemovedAltGui";
         public static final String REMOVED = "Removed";
     }
 

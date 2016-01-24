@@ -14,7 +14,7 @@ public class ModelBackpackHD extends ModelBase {
         textureWidth = 32;
         textureHeight = 32;
 
-        parts = new ArrayList<ModelRenderer>();
+        parts = new ArrayList<>();
 
         ModelRenderer main = new ModelRenderer(this, 0, 0);
         main.addBox(-2, -3, -1, 4, 6, 2);
@@ -35,7 +35,7 @@ public class ModelBackpackHD extends ModelBase {
         bottomPouchAddition2.addBox(-1.5F, -1, -0.5F, 3, 2, 1);
         bottomPouchAddition2.setRotationPoint(0, -.3F, -0.7F);
         parts.add(bottomPouchAddition2);
-//
+
         ModelRenderer sidePouch1 = new ModelRenderer(this, 0, 14);
         sidePouch1.addBox(-0.5F, -1, -0.5F, 1, 2, 1);
         sidePouch1.setRotationPoint(2, 1.5F, -0.2F);

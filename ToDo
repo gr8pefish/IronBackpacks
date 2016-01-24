@@ -33,14 +33,18 @@ To Do:
                             Upgrade to remove slot
                             Button to iterate through upgrade to remove
 
+                add IFilterUpgrade?
+
             Upgrades:
-                actually use the tiers to check stuff, add config option for the tiers
                 make the upgrades cheaper overall, introduce t1 and t2 crafting bases
+
+                Add void filter to advanced
+                make crafting advanced filter
 
             JEI:
                 JEI handlers for crafting
                     https://github.com/williewillus/Botania/tree/MC18/src/main/java/vazkii/botania/client/integration/jei/manapool
-                look at chisel and bits for description jei handler
+                look somewhere for description jei handler
 
             Investigate:
                 add crafttweaker support
@@ -80,6 +84,9 @@ To Do:
 
                 Add achievements
 
+                Check that it works with new forge and IItemHandler
+                    https://github.com/MinecraftForge/MinecraftForge/pull/2385
+
             Config:
                 bm blacklist for config to disable items (requested config option)
 
@@ -105,6 +112,9 @@ To Do:
 
             Minor:
                 Doesn't init if going straight to alt gui
+
+                You can add duplicate upgrades to same pack
+
 
 
     NOW:

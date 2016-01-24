@@ -2,9 +2,12 @@ package gr8pefish.ironbackpacks.events;
 
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
+import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
+import gr8pefish.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
@@ -12,6 +15,7 @@ import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
+import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +25,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -29,8 +34,10 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
 
@@ -38,6 +45,22 @@ import java.util.ArrayList;
  * All the events used that fire on the Forge Event bus
  */
 public class ForgeEventHandler {
+
+    @SubscribeEvent
+    public void onCrafted(PlayerEvent.ItemCraftedEvent event){
+        ItemStack result = event.crafting;
+        if (result.getItem() instanceof IUpgradableBackpack) { //if item an upgradable backpack
+            NBTTagCompound tagCompound = result.getTagCompound();
+            if (tagCompound != null && tagCompound.hasKey(IronBackpacksConstants.NBTKeys.REMOVED)) {
+                ItemStack upgradeRemoved = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag(IronBackpacksConstants.NBTKeys.REMOVED));
+                if (upgradeRemoved != null){
+                    tagCompound.removeTag(IronBackpacksConstants.NBTKeys.REMOVED); //remove tag
+                    event.player.inventory.addItemStackToInventory(upgradeRemoved);
+                }
+            }
+        }
+
+    }
 
     /**
      * Called whenever an item is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and crafter/crafting upgrades too so it doesn't check too much and causes lag..
@@ -247,7 +270,8 @@ public class ForgeEventHandler {
     private void addToLists(ItemStack stack, ArrayList<ItemStack> filterBackpacks, ArrayList<ItemStack> crafterTinyBackpacks, ArrayList<ItemStack> crafterSmallBackpacks, ArrayList<ItemStack> crafterBackpacks, ArrayList<ItemStack> restockerBackpacks, ArrayList<ItemStack> upgrades){
         if (UpgradeMethods.hasFilterBasicUpgrade(upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(upgrades) ||
                 UpgradeMethods.hasFilterFuzzyUpgrade(upgrades) || UpgradeMethods.hasFilterOreDictUpgrade(upgrades) ||
-                UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) || UpgradeMethods.hasFilterMiningUpgrade(upgrades)) {
+                UpgradeMethods.hasFilterVoidUpgrade(upgrades) || UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) ||
+                UpgradeMethods.hasFilterMiningUpgrade(upgrades)) {
             filterBackpacks.add(stack);
         }
         if (UpgradeMethods.hasCraftingTinyUpgrade(upgrades)) {
@@ -592,6 +616,9 @@ public class ForgeEventHandler {
                     if (UpgradeMethods.hasFilterOreDictUpgrade(upgrades))
                         transferWithOreDictFilter(UpgradeMethods.getOreDictFilterItems(backpack), getOreDict(event.item.getEntityItem()), event, container);
 
+                    if (UpgradeMethods.hasFilterVoidUpgrade(upgrades))
+                        deleteWithVoidFilter(UpgradeMethods.getVoidFilterItems(backpack), event);
+
                     if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades)) {
                         ItemStack[] advFilterItems = UpgradeMethods.getAdvFilterAllItems(backpack);
                         byte[] advFilterButtonStates = UpgradeMethods.getAdvFilterButtonStates(backpack);
@@ -600,13 +627,11 @@ public class ForgeEventHandler {
                         transferWithModSpecificFilter(UpgradeMethods.getAdvFilterModSpecificItems(advFilterItems, advFilterButtonStates), event, container);
                         transferWithFuzzyFilter(UpgradeMethods.getAdvFilterFuzzyItems(advFilterItems, advFilterButtonStates), event, container);
                         transferWithOreDictFilter(UpgradeMethods.getAdvFilterOreDictItems(advFilterItems, advFilterButtonStates), getOreDict(event.item.getEntityItem()), event, container);
+                        deleteWithVoidFilter(UpgradeMethods.getAdvFilterVoidItems(advFilterItems, advFilterButtonStates), event);
                     }
 
                     if (UpgradeMethods.hasFilterMiningUpgrade(upgrades))
                         transferWithMiningFilter(UpgradeMethods.getMiningFilterItems(backpack), getOreDict(event.item.getEntityItem()), event, container);
-
-                    if (UpgradeMethods.hasFilterVoidUpgrade(upgrades))
-                        deleteWithVoidFilter(UpgradeMethods.getVoidFilterItems(backpack), event);
 
                 }
             }

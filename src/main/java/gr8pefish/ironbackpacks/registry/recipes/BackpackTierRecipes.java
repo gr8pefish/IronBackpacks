@@ -61,7 +61,7 @@ public class BackpackTierRecipes {
             if (backpack instanceof ITieredBackpack) {
                 ITieredBackpack newPack = (ITieredBackpack) backpack;
                 List<Object[]> recipes = newPack.getTierRecipes(null);
-                if (recipes == null) break; //if you have no recipe to upgrade, you can't register that, TODO: test
+                if (recipes == null) break; //if you have no recipe to upgrade, you can't register that
                 List<ITieredBackpack> upgradedPacks = newPack.getBackpacksAbove(null); //unused item stack parameter
                 if (!recipes.isEmpty() && upgradedPacks != null && upgradedPacks.size() == recipes.size()) {
                     for (int j = 0; j < recipes.size(); j++) {

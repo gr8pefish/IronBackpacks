@@ -6,6 +6,7 @@ import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -40,39 +41,52 @@ public class UpgradeMethods {
     public static boolean hasButtonUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.buttonUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfPackUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.buttonUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
     }
-    public static boolean hasDamageBarUpgrade(ArrayList<ItemStack> upgrades){
+
+    public static boolean hasDamageBarUpgrade(ArrayList<ItemStack> upgrades){ //TODO: change this to cached NBTTag value so it doesn't always reference it dynamically to see if I need to render damage bar
         boolean hasUpgrade = false;
-        for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.damageBarUpgrade)){
-                hasUpgrade = true;
-                break;
+        for (ItemStack stack : upgrades) {
+            if (ItemUpgradeRegistry.isInstanceOfPackUpgrade(stack)) {
+                if (stack.getItemDamage() < ItemUpgradeRegistry.getIPackSize()) {
+                    if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.damageBarUpgrade)) {
+                        hasUpgrade = true;
+                        break;
+                    }
+                }
             }
         }
         return hasUpgrade;
     }
+
     public static boolean hasDepthUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.depthUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfPackUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.depthUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
     }
+
     public static boolean hasEternityUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.eternityUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfPackUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.eternityUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -81,9 +95,11 @@ public class UpgradeMethods {
     public static boolean hasRenamingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.renamingUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfPackUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.renamingUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -92,9 +108,11 @@ public class UpgradeMethods {
     public static boolean hasNestingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.nestingUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.nestingUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -103,9 +121,11 @@ public class UpgradeMethods {
     public static boolean hasNestingAdvancedUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.nestingAdvancedUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.nestingAdvancedUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -114,9 +134,11 @@ public class UpgradeMethods {
     public static boolean hasQuickDepositUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.quickDepositUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.quickDepositUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -125,9 +147,11 @@ public class UpgradeMethods {
     public static boolean hasQuickDepositPreciseUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.quickDepositPreciseUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.quickDepositPreciseUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -136,9 +160,11 @@ public class UpgradeMethods {
     public static boolean hasCraftingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -147,9 +173,11 @@ public class UpgradeMethods {
     public static boolean hasCraftingSmallUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingSmallUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingSmallUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -158,9 +186,11 @@ public class UpgradeMethods {
     public static boolean hasCraftingTinyUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingTinyUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingTinyUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -169,9 +199,11 @@ public class UpgradeMethods {
     public static boolean hasFilterBasicUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterBasicUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterBasicUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -180,9 +212,11 @@ public class UpgradeMethods {
     public static boolean hasFilterFuzzyUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterFuzzyUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterFuzzyUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -191,9 +225,11 @@ public class UpgradeMethods {
     public static boolean hasFilterOreDictUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterOreDictUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterOreDictUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -202,31 +238,11 @@ public class UpgradeMethods {
     public static boolean hasFilterModSpecificUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterModSpecificUpgrade)){
-                hasUpgrade = true;
-                break;
-            }
-        }
-        return hasUpgrade;
-    }
-
-    public static boolean hasFilterAdvancedUpgrade(ArrayList<ItemStack> upgrades){
-        boolean hasUpgrade = false;
-        for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterAdvancedUpgrade)){
-                hasUpgrade = true;
-                break;
-            }
-        }
-        return hasUpgrade;
-    }
-
-    public static boolean hasFilterMiningUpgrade(ArrayList<ItemStack> upgrades){
-        boolean hasUpgrade = false;
-        for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterMiningUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterModSpecificUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -235,9 +251,37 @@ public class UpgradeMethods {
     public static boolean hasFilterVoidUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterVoidUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterVoidUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
+            }
+        }
+        return hasUpgrade;
+    }
+
+    public static boolean hasFilterAdvancedUpgrade(ArrayList<ItemStack> upgrades){
+        boolean hasUpgrade = false;
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterAdvancedUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
+            }
+        }
+        return hasUpgrade;
+    }
+
+    public static boolean hasFilterMiningUpgrade(ArrayList<ItemStack> upgrades){
+        boolean hasUpgrade = false;
+        for (ItemStack stack : upgrades){
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterMiningUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -246,9 +290,11 @@ public class UpgradeMethods {
     public static boolean hasRestockingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.restockingUpgrade)){
-                hasUpgrade = true;
-                break;
+            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
+                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.restockingUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
             }
         }
         return hasUpgrade;
@@ -355,12 +401,12 @@ public class UpgradeMethods {
         return returnArray;
     }
 
-    public static ArrayList<ItemStack> getMiningFilterItems(ItemStack stack){
+    public static ArrayList<ItemStack> getVoidFilterItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
         if (nbtTagCompound != null){
-            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.FILTER_MINING)) {
-                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_MINING, Constants.NBT.TAG_COMPOUND);
+            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.FILTER_VOID)) {
+                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_VOID, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                     returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
@@ -370,12 +416,12 @@ public class UpgradeMethods {
         return returnArray;
     }
 
-    public static ArrayList<ItemStack> getVoidFilterItems(ItemStack stack){
+    public static ArrayList<ItemStack> getMiningFilterItems(ItemStack stack){
         ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
         if (nbtTagCompound != null){
-            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.FILTER_VOID)) {
-                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_VOID, Constants.NBT.TAG_COMPOUND);
+            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.FILTER_MINING)) {
+                NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_MINING, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                     returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
@@ -435,7 +481,7 @@ public class UpgradeMethods {
      * @return - the items that fit this criteria
      */
     public static ArrayList<ItemStack> getAdvFilterBasicItems(ItemStack[] itemStacks, byte[] buttonStates){
-        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> returnArray = new ArrayList<>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
                 if (buttonStates[i] == (byte) GuiButtonRegistry.getButton(ButtonNames.EXACT).getId()){
@@ -453,7 +499,7 @@ public class UpgradeMethods {
      * @return - the items that fit this criteria
      */
     public static ArrayList<ItemStack> getAdvFilterFuzzyItems(ItemStack[] itemStacks, byte[] buttonStates){
-        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> returnArray = new ArrayList<>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.FUZZY).getId()){
@@ -471,7 +517,7 @@ public class UpgradeMethods {
      * @return - the items that fit this criteria
      */
     public static ArrayList<ItemStack> getAdvFilterModSpecificItems(ItemStack[] itemStacks, byte[] buttonStates){
-        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> returnArray = new ArrayList<>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.MOD_SPECIFIC).getId()){
@@ -489,10 +535,28 @@ public class UpgradeMethods {
      * @return - the items that fit this criteria
      */
     public static ArrayList<ItemStack> getAdvFilterOreDictItems(ItemStack[] itemStacks, byte[] buttonStates){
-        ArrayList<ItemStack> returnArray = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> returnArray = new ArrayList<>();
         for (int i = 0; i < itemStacks.length; i++){
             if (itemStacks[i] != null){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.ORE_DICT).getId()){
+                    returnArray.add(itemStacks[i]);
+                }
+            }
+        }
+        return returnArray;
+    }
+
+    /**
+     * Gets the items in the advanced filter that are on the void matching
+     * @param itemStacks - the items in the advanced filter
+     * @param buttonStates - the filter states of each button
+     * @return - the items that fit this criteria
+     */
+    public static ArrayList<ItemStack> getAdvFilterVoidItems(ItemStack[] itemStacks, byte[] buttonStates){
+        ArrayList<ItemStack> returnArray = new ArrayList<>();
+        for (int i = 0; i < itemStacks.length; i++){
+            if (itemStacks[i] != null){
+                if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.VOID).getId()){
                     returnArray.add(itemStacks[i]);
                 }
             }

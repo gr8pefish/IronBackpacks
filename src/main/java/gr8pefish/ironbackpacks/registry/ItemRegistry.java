@@ -183,12 +183,12 @@ public class ItemRegistry {
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterOreDictUpgrade);
         filterModSpecificUpgrade = new ItemAltGuiUpgrade("filterModSpecific", ConfigHandler.filterModSpecificUpgradeCost, ConfigHandler.filterModSpecificUpgradeTier, IronBackpacksConstants.Upgrades.FILTER_MOD_SPECIFIC_DESCRIPTION);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterModSpecificUpgrade);
+        filterVoidUpgrade = new ItemAltGuiUpgrade("filterVoid", ConfigHandler.filterVoidUpgradeCost, ConfigHandler.filterVoidUpgradeTier, IronBackpacksConstants.Upgrades.FILTER_VOID_DESCRIPTION);
+        ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterVoidUpgrade);
         filterAdvancedUpgrade = new ItemAltGuiUpgrade("filterAdvanced", ConfigHandler.filterAdvancedUpgradeCost, ConfigHandler.filterAdvancedUpgradeTier, IronBackpacksConstants.Upgrades.FILTER_ADVANCED_DESCRIPTION);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterAdvancedUpgrade);
         filterMiningUpgrade = new ItemAltGuiUpgrade("filterMining", ConfigHandler.filterMiningUpgradeCost, ConfigHandler.filterMiningUpgradeTier, IronBackpacksConstants.Upgrades.FILTER_MINING_DESCRIPTION);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterMiningUpgrade);
-        filterVoidUpgrade = new ItemAltGuiUpgrade("filterVoid", ConfigHandler.filterVoidUpgradeCost, ConfigHandler.filterVoidUpgradeTier, IronBackpacksConstants.Upgrades.FILTER_VOID_DESCRIPTION);
-        ItemUpgradeRegistry.registerItemAltGuiUpgrade(filterVoidUpgrade);
         restockingUpgrade = new ItemAltGuiUpgrade("restocking", ConfigHandler.restockingUpgradeCost, ConfigHandler.restockingUpgradeTier, IronBackpacksConstants.Upgrades.RESTOCKING_DESCRIPTION);
         ItemUpgradeRegistry.registerItemAltGuiUpgrade(restockingUpgrade);
 
@@ -250,9 +250,9 @@ public class ItemRegistry {
         ItemUpgradeRegistry.registerItemAltGuiUpgradeTexture(filterFuzzyUpgrade, "ItemUpgradeFilterFuzzy");
         ItemUpgradeRegistry.registerItemAltGuiUpgradeTexture(filterOreDictUpgrade, "ItemUpgradeFilterOreDict");
         ItemUpgradeRegistry.registerItemAltGuiUpgradeTexture(filterModSpecificUpgrade, "ItemUpgradeFilterModSpecific");
+        ItemUpgradeRegistry.registerItemAltGuiUpgradeTexture(filterVoidUpgrade, "ItemUpgradeFilterVoid");
         ItemUpgradeRegistry.registerItemAltGuiUpgradeTexture(filterAdvancedUpgrade, "ItemUpgradeFilterAdvanced");
         ItemUpgradeRegistry.registerItemAltGuiUpgradeTexture(filterMiningUpgrade, "ItemUpgradeFilterMining");
-        ItemUpgradeRegistry.registerItemAltGuiUpgradeTexture(filterVoidUpgrade, "ItemUpgradeFilterVoid");
         ItemUpgradeRegistry.registerItemAltGuiUpgradeTexture(restockingUpgrade, "ItemUpgradeRestocking");
 
 

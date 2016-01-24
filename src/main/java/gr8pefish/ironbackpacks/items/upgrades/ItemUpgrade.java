@@ -67,12 +67,6 @@ public class ItemUpgrade extends Item {
         return "ERROR, report to mod author";
     }
 
-//    @Override
-//    public String getName(ItemStack stack){
-//        return getItemPackUpgrade(stack).getName(stack);
-//    }
-
-//    @Override
     public static int getUpgradeCost(ItemStack stack) {
         return ItemUpgradeRegistry.getItemUpgrade(stack).getUpgradeCost(stack);
     }
@@ -85,17 +79,4 @@ public class ItemUpgrade extends Item {
         return ItemUpgradeRegistry.getItemUpgrade(toCheck).equals(upgrade);
     }
 
-//    @Override
-//    public List<String> getTooltip(ItemStack stack){
-//        return getItemPackUpgrade(stack).getTooltip(stack);
-//    }
-
-//    //necessary?
-//    public ItemPackUpgrade getItemPackUpgrade(int meta) {
-//        return ItemUpgradeRegistry.getItemUpgrade(meta);
-//    }
-//
-//    public static ItemPackUpgrade getItemPackUpgrade(ItemStack stack) {
-//        return ItemUpgradeRegistry.getItemUpgrade(stack.getItemDamage());
-//    }
 }

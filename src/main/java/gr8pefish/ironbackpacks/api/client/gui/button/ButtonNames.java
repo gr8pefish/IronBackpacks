@@ -9,6 +9,7 @@ public enum ButtonNames {
     FUZZY,
     ORE_DICT,
     MOD_SPECIFIC,
+    VOID,
     CLEAR_ROW,
     BACKPACK_TO_INVENTORY,
     INVENTORY_TO_BACKPACK,

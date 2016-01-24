@@ -96,7 +96,7 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
      */
     public static int incrementType(GuiButton button){
         int buttonID = ((TooltipButton)button).buttonID;
-        if (buttonID < GuiButtonRegistry.getButton(ButtonNames.MOD_SPECIFIC).getId()){ //increment
+        if (buttonID < GuiButtonRegistry.getButton(ButtonNames.VOID).getId()){ //increment
             return ++buttonID;
         }else{
             return GuiButtonRegistry.getButton(ButtonNames.EXACT).getId(); //wraparound

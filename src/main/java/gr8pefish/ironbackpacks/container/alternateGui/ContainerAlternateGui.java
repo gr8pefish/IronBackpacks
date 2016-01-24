@@ -90,6 +90,7 @@ public class ContainerAlternateGui extends Container {
         if (UpgradeMethods.hasFilterFuzzyUpgrade(upgrades)) advFilterRow++;
         if (UpgradeMethods.hasFilterOreDictUpgrade(upgrades)) advFilterRow++;
         if (UpgradeMethods.hasFilterModSpecificUpgrade(upgrades)) advFilterRow++;
+        if (UpgradeMethods.hasFilterVoidUpgrade(upgrades)) advFilterRow++;
         filterAdvSlotIdStart = advFilterRow * 9;
 
         //adds slots depending on upgrades

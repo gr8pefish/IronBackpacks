@@ -136,12 +136,20 @@ public class ItemUpgradeRecipes {
             'm', Items.compass,
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
+    public static ShapedOreRecipe filterVoidUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterVoidUpgrade)),
+            " i ",
+            "pcp",
+            " p ",
+            'p', Items.paper,
+            'i', "dyeBlack",
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+
     public static ShapedOreRecipe filterAdvancedUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterAdvancedUpgrade)),
-            "bwe",
+            "bwv",
             "xcy",
-            "ezb",
+            "vzb",
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)),
-            'e', Items.ender_eye,
+            'v', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterVoidUpgrade)),
             'b', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.buttonUpgrade)),
             'w', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterBasicUpgrade)),
             'x', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterFuzzyUpgrade)),
@@ -155,14 +163,6 @@ public class ItemUpgradeRecipes {
             'r', "dustRedstone",
             'p', Items.paper,
             'i', Items.iron_pickaxe,
-            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
-
-    public static ShapedOreRecipe filterVoidUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.filterVoidUpgrade)),
-            " i ",
-            "pcp",
-            " p ",
-            'p', Items.paper,
-            'i', "dyeBlack",
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe restockingUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfAltGuiUpgrade(ItemRegistry.restockingUpgrade)),

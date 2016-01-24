@@ -52,6 +52,7 @@ button.ironbackpacks.exact.tooltip=Exact Matching
 button.ironbackpacks.fuzzy.tooltip=Fuzzy Matching
 button.ironbackpacks.oreDict.tooltip=Ore Dictionary Matching
 button.ironbackpacks.modSpecific.tooltip=Mod Specific Matching
+button.ironbackpacks.void.tooltip=Void Filter Matching (Deletes items)
 button.ironbackpacks.packToInv.tooltip=Moves items from the backpack to your inventory.
 button.ironbackpacks.invToPack.tooltip=Moves items from your inventory to the backpack
 button.ironbackpacks.barToPack.tooltip=Moves items from your hotbar to the backpack.
