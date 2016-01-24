@@ -95,7 +95,7 @@ public class ContainerAlternateGui extends Container {
         //adds slots depending on upgrades
         int rowCount = (int) Math.floor(customInv.getSizeInventory() / 9);
         int colCount = 9;
-        int yStart = UpgradeMethods.hasRenamingUpgrade(upgrades) ? 18 : 0;
+        int yStart = ConfigHandler.renamingUpgradeRequired ? (UpgradeMethods.hasRenamingUpgrade(upgrades) ? 18 : 0) : 18;
         for (int row = 0; row < rowCount; row++){
             yStart += 36;
             for (int col = 0; col < colCount; col++){

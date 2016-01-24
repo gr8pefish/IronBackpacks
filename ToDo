@@ -2,7 +2,6 @@ To Do:
     
     Notes from 1.7 playthrough:
         make conflicting tiers recipes use previous tiers by default?
-        press 'e' to escape backpack inventory
         add as tooltip that extended inventory/increased upgrade points
             change tooltip so that it says Alternate Upgrades, not alt gui, too confusing
         Add tier to upgrades' tooltips

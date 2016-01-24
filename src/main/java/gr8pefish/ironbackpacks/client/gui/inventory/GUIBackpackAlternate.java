@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.client.gui.inventory;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
+import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import gr8pefish.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import gr8pefish.ironbackpacks.container.slot.GhostSlot;
@@ -13,6 +14,7 @@ import gr8pefish.ironbackpacks.network.server.RenameMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.client.gui.GuiButton;
@@ -94,7 +96,13 @@ public class GUIBackpackAlternate extends GuiContainer {
          */
         public static GUIBackpackAlternate buildGUIAlternate(InventoryAlternateGui inv) {
             ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(inv.getBackpackStack());
-            GUI gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades) + 3] : values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades)]; //shifts to correct index if renaming
+            GUI gui;
+            if (ConfigHandler.renamingUpgradeRequired)
+                gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades) + 3] : values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades)]; //shifts to correct index if renaming
+            else {
+                Logger.info("Alt gui upgrades "+UpgradeMethods.getAltGuiUpgradesApplied(upgrades));
+                gui = values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades) + 4];
+            }
             return new GUIBackpackAlternate(gui, inv.getPlayer(), inv, upgrades, inv.getBackpackStack());
         }
 
@@ -153,7 +161,7 @@ public class GUIBackpackAlternate extends GuiContainer {
 
         this.hasNoUpgrades = type.equals(GUI.ZERO);
         this.hasButtonUpgrade = UpgradeMethods.hasButtonUpgrade(upgrades);
-        this.hasRenamingUpgrade = UpgradeMethods.hasRenamingUpgrade(upgrades);
+        this.hasRenamingUpgrade = ConfigHandler.renamingUpgradeRequired ? UpgradeMethods.hasRenamingUpgrade(upgrades) : true;
         this.hasFilterBasicUpgrade = UpgradeMethods.hasFilterBasicUpgrade(upgrades);
         this.hasFilterFuzzyUpgrade = UpgradeMethods.hasFilterFuzzyUpgrade(upgrades);
         this.hasFilterOreDictUpgrade = UpgradeMethods.hasFilterOreDictUpgrade(upgrades);
