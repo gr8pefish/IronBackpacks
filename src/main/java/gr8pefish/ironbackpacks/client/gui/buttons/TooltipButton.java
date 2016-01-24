@@ -5,7 +5,7 @@ import gr8pefish.ironbackpacks.api.client.gui.button.IBGuiButton;
 import gr8pefish.ironbackpacks.api.client.gui.button.ITooltipButton;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
-import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;

@@ -6,7 +6,7 @@ import gr8pefish.ironbackpacks.container.slot.GhostSlot;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
-import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import invtweaks.api.container.ChestContainer;
 import invtweaks.api.container.InventoryContainer;

@@ -1,9 +1,7 @@
 package gr8pefish.ironbackpacks.api.item.backpacks.interfaces;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

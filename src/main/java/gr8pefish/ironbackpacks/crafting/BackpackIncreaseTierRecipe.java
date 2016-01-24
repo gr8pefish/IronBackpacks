@@ -3,7 +3,7 @@ package gr8pefish.ironbackpacks.crafting;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
-import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

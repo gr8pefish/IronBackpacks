@@ -6,7 +6,6 @@ import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
 import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
-import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

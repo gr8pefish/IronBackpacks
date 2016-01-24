@@ -2,7 +2,6 @@ package gr8pefish.ironbackpacks.api.item.upgrades;
 
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
-import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;

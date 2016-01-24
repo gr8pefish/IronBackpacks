@@ -1,8 +1,5 @@
 package gr8pefish.ironbackpacks.registry;
 
-import gr8pefish.ironbackpacks.registry.recipes.BackpackTierRecipes;
-import gr8pefish.ironbackpacks.registry.recipes.ItemBackpackRecipes;
-
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
@@ -17,9 +14,9 @@ import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.craftingItems.ItemCrafting;
 import gr8pefish.ironbackpacks.items.upgrades.ItemUpgrade;
-import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.registry.recipes.ItemUpgradeRecipes;
+import gr8pefish.ironbackpacks.registry.recipes.BackpackTierRecipes;
 import gr8pefish.ironbackpacks.registry.recipes.RecipeRegistry;
+import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.InventoryRenderHelper;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;

@@ -1,13 +1,8 @@
-package gr8pefish.ironbackpacks.libs;
+package gr8pefish.ironbackpacks.util;
 
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
-import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Many of the constant values used in this mod.

@@ -1,9 +1,6 @@
 package gr8pefish.ironbackpacks.api.item.backpacks.interfaces;
 
-import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
 
 /**
  * This interface should be used for all backpacks that can accept upgrades.

@@ -3,7 +3,6 @@ package gr8pefish.ironbackpacks.api.item.upgrades.interfaces;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

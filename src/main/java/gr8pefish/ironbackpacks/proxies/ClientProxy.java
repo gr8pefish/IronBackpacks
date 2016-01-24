@@ -7,7 +7,7 @@ import gr8pefish.ironbackpacks.config.ConfigAdaptor;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.events.ClientEventHandler;
 import gr8pefish.ironbackpacks.registry.ProxyRegistry;
-import gr8pefish.ironbackpacks.libs.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
