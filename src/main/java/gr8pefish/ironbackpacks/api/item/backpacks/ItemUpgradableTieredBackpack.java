@@ -31,10 +31,11 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     private List<Object[]> tierRecipes; //the recipes that this backpack can be used in to increase it's tier
     private IRecipe itemRecipe; //get the recipe to obtain the backpack as an item
 
+    private final ResourceLocation modelTexture;
     /**
      * The Item that represents an AbstractUpgradableTieredBackpack
      */
-    public ItemUpgradableTieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, IRecipe itemRecipe){
+    public ItemUpgradableTieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture){
         setMaxStackSize(1);
         setNoRepair();
 
@@ -45,7 +46,6 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
         this.rowCount = rowCount;
         this.size = rowCount * rowLength;
         this.upgradePoints = upgradePoints;
-        this.itemRecipe = itemRecipe;
 
         this.guiResourceLocation = guiResourceLocation;
         this.guiXSize = guiXSize;
@@ -53,6 +53,8 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
 
         this.backpacksAbove = new ArrayList<>(); //empty list
         this.tierRecipes = new ArrayList<>(); //empty list
+
+        this.modelTexture = modelTexture;
     }
 
     //================================================Override Vanilla Item Methods=========================================
@@ -108,6 +110,11 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     @Override
     public void setItemRecipe(IRecipe recipe) {
         itemRecipe = recipe;
+    }
+
+    @Override
+    public ResourceLocation getModelTexture(ItemStack backpack) {
+        return modelTexture;
     }
 
     //TODO: fix with dynamic

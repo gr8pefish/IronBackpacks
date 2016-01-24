@@ -35,8 +35,8 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
 
     private boolean openAltGui = true; //to track which gui to open
 
-    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize){
-        super(name, rowLength, rowCount, upgradePoints, guiResourceLocation, guiXSize, guiYSize, null);
+    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture){
+        super(name, rowLength, rowCount, upgradePoints, guiResourceLocation, guiXSize, guiYSize, modelTexture); //null is for the recipe (set after item init)
         setCreativeTab(IronBackpacks.creativeTab);
 
     }

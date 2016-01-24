@@ -106,13 +106,6 @@ public class IronBackpacksConstants {
     //Visual resources
     public static final class Resources {
         public static final ResourceLocation WIDGETS = new ResourceLocation(Constants.MODID, "textures/guis/widgets.png");
-
-        //TODO: add to backpack initialization
-        public static final ResourceLocation MODEL_BASIC = new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackBasic.png");
-        public static final ResourceLocation MODEL_IRON = new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackIron.png");
-        public static final ResourceLocation MODEL_GOLD = new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackGold.png");
-        public static final ResourceLocation MODEL_DIAMOND = new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackDiamond.png");
-        public static final ResourceLocation[] MODEL_TEXTURES = {MODEL_BASIC, MODEL_IRON, MODEL_GOLD, MODEL_DIAMOND};
     }
 
     //The commonly used NBT keys

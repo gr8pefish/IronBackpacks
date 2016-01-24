@@ -23,7 +23,7 @@ public class ItemUpgradeRecipes {
             "ere",
             "rcr",
             "ere",
-            'e', "blockEmerald", 'r', "record", 'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+            'e', "gemEmerald", 'r', "record", 'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe buttonUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.buttonUpgrade)),
             " w ",

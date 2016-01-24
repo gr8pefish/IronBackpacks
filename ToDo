@@ -4,13 +4,10 @@ To Do:
         make conflicting tiers recipes use previous tiers by default?
         add as tooltip that extended inventory/increased upgrade points
             change tooltip so that it says Alternate Upgrades, not alt gui, too confusing
-        Add tier to upgrades' tooltips
         Make sure changelog is ordered in terms of importance before final update
 
-        Additional points upgrade cheaper
-
         Move a lot of info from the tooltip to the info jei tab
-        shorten upgrade necessary backpack tier tooltip?
+        shorten upgrade necessary backpack tier tooltip? -yes, with help of jei info tab it will be fine
 
 
     1.8 Stuff:

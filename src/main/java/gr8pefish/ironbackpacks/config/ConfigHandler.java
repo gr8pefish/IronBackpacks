@@ -121,13 +121,15 @@ public class ConfigHandler {
 
         //if loading for the first time and can change configs
         //then delete the file and let a new one regen (inefficient but effective)
-        //TODO: mnake this check versions before doing so, refactor this concept
+        //TODO: make this check versions before doing so, refactor this concept
         if (firstLoad && !isConfigManuallyChanged){
             if(theFile.delete()){
                 config = new Configuration(theFile);
                 syncConfig(false);
             }
         }
+
+        //TODO: fix ordering and pretty this all up, it's gross in the actual config for the user
 
         basicBackpack[0] = config.get("1) Basic Backpack", "1) Upgrade Points", 8, "The number of upgrade points on the backpack. Default 8.").getInt();
         basicBackpack[1] = config.get("1) Basic Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();

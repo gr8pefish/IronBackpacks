@@ -6,6 +6,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
@@ -16,7 +17,6 @@ import java.util.Map;
 public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData {
 
     private EntityPlayer player;
-    private int backpackType;
 
     //all the backpacks in one map
     public static Map<EntityPlayer, EntityBackpack> backpacksSpawnedMap = new MapMaker().weakKeys().weakValues().makeMap();
@@ -25,10 +25,9 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
         super(world);
     }
 
-    public EntityBackpack(World world, EntityPlayer player, int backpackType){
+    public EntityBackpack(World world, EntityPlayer player){
         super(world);
         this.player = player;
-        this.backpackType = backpackType;
     }
 
     @Override
@@ -43,10 +42,6 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
     public void setDead() {
         super.setDead();
         backpacksSpawnedMap.remove(player);
-    }
-
-    public int getTextureId(){
-        return backpackType;
     }
 
     /**
@@ -118,7 +113,6 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
             setDead();
         }
 
-        this.backpackType = data.readInt();
     }
 
     @Override
@@ -128,17 +122,16 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
         } else {
             data.writeInt(player.getEntityId());
         }
-        data.writeInt(this.backpackType);
     }
 
     //NBT unused because it is just an entity linked to a player and the items are stored in my IB custom NBT
     @Override
-    protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
+    protected void readEntityFromNBT(NBTTagCompound nbtTagCompound) {
 
     }
 
     @Override
-    protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {
+    protected void writeEntityToNBT(NBTTagCompound nbtTagCompound) {
 
     }
 }

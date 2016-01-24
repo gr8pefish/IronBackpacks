@@ -59,6 +59,12 @@ public interface IBackpack {
      */
     IRecipe getItemRecipe(ItemStack backpack);
 
+    /**
+     * Set the recipe to get the backpack directly. Needs it's own method so it can be set after all the items are initialized, in case it relies on other items.
+     * @param recipe - the IRecipe to get the backpack item
+     */
     void setItemRecipe(IRecipe recipe);
+
+    ResourceLocation getModelTexture(ItemStack backpack);
 
 }

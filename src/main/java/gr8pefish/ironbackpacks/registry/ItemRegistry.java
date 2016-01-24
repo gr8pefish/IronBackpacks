@@ -101,7 +101,8 @@ public class ItemRegistry {
                 ConfigHandler.enumBasicBackpack.upgradePoints.getValue(), //upgrade points, (next line) resource location of gui
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200: 236), //gui width
-                (114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue()))), //gui height
+                (114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue())), //gui height
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackBasic.png")), //resource location of the texture of the model
                 IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME); //registry name
 
         ironBackpack = (ItemBackpack) registerItem(new ItemBackpack(
@@ -111,7 +112,8 @@ public class ItemRegistry {
                 ConfigHandler.enumIronBackpack.upgradePoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumIronBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue()))),
+                (114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue())),
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackIron.png")),
                 IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME);
 
         goldBackpack = (ItemBackpack) registerItem(new ItemBackpack(
@@ -121,7 +123,8 @@ public class ItemRegistry {
                 ConfigHandler.enumGoldBackpack.upgradePoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumGoldBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue()))),
+                (114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue())),
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackGold.png")),
                 IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME);
 
         diamondBackpack = (ItemBackpack) registerItem(new ItemBackpack(
@@ -131,8 +134,10 @@ public class ItemRegistry {
                 ConfigHandler.enumDiamondBackpack.upgradePoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumDiamondBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue()))),
+                (114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue())),
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackDiamond.png")),
                 IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME);
+
 
         //Upgrade Items (alphabetical order, except the adv. filter filters)
         upgradeItem = (ItemUpgrade) registerItem(new ItemUpgrade(), IronBackpacksAPI.ITEM_UPGRADE_BASE);
@@ -218,7 +223,7 @@ public class ItemRegistry {
         //init the render helper
         InventoryRenderHelper renderHelper = new InventoryRenderHelper(Constants.DOMAIN);
 
-        //render the backpack items (tiered orded)
+        //render the backpack items (tiered orderd)
         renderHelper.itemRender(basicBackpack, "ItemBackpackBasic");
         renderHelper.itemRender(ironBackpack, "ItemBackpackIron");
         renderHelper.itemRender(goldBackpack, "ItemBackpackGold");
