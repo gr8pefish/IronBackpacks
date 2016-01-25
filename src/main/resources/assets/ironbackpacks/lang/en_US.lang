@@ -82,11 +82,17 @@ tooltip.ironbackpacks.backpack.upgrade.used=%d/%d upgrade points used.
 tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d alternate GUI upgrades used.
 tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints=%d/%d additional upgrade points added.
 tooltip.ironbackpacks.backpack.upgrade.rename=(The %dth upgrade must include the renaming upgrade)
+tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s
+tooltip.ironbackpacks.upgrade.minimumTier=Minimum tier: %d.
 tooltip.ironbackpacks.backpack.emphasis.storage=Storage Emphasis
 tooltip.ironbackpacks.backpack.emphasis.upgrade=Upgrade Emphasis
 
-tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s
-tooltip.ironbackpacks.upgrade.minimumTier=Minimum tier of backpack this upgrade can be applied to: %d.
+# Tier names (for upgrade tooltip minimum tier)
+tooltip.ironbackpacks.backpack.tier.basicBackpack.name=Basic Backpack
+tooltip.ironbackpacks.backpack.tier.ironBackpack.name=Iron Backpack
+tooltip.ironbackpacks.backpack.tier.goldBackpack.name=Gold Backpack
+tooltip.ironbackpacks.backpack.tier.diamondBackpack.name=Diamond Backpack
+
 tooltip.ironbackpacks.upgrade.button.desc=Adds buttons to quickly move items to and from your backpack, as well as a button to sort your backpack quickly.
 tooltip.ironbackpacks.upgrade.nesting.desc=Allows you to place any backpack of a previous tier inside the backpack.
 tooltip.ironbackpacks.upgrade.bar.desc=Adds a damage bar to visually represent how full the backpack is at a glance.

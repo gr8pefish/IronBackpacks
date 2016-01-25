@@ -4,6 +4,9 @@ Version 1.8.9 - 2.0.0 (versioning: major-minor-build)
 Initial Port to Minecraft 1.8.9 as a rewrite (and I rewrote *a lot*)
 
 Additions (in relation to 1.7.10 - 1.2.15)
+- When upgrading a backpack past basic you must now choose which emphasis you want on the upgraded backpack.
+    - Storage Emphasis backpacks have more raw storage capacity at the cost of less upgrade points (all configurable amounts).
+    - Upgrade Emphasis backpacks have more upgrade points at the cost of less raw storage capacity (all configurable amounts).
 - The upgrades now have a certain (configurable) minimum tier of backpack they can be applied to.
 - When removing an upgrade you now get said upgrade returned back in the crafting grid, much like how you get empty buckets back when crafting a cake.
 - The void filter is now an additional selectable filter type in the advanced filter.

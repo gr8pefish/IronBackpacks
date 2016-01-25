@@ -56,13 +56,13 @@ public class ItemUpgrade extends Item {
     private String getMinimumTierBackpackName(int tier){
         switch (tier){
             case 0:
-                return TextUtils.localizeEffect("item.ironbackpacks.backpack.basicBackpack.name");
+                return TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.tier.basicBackpack.name");
             case 1:
-                return TextUtils.localizeEffect("item.ironbackpacks.backpack.ironBackpack.name");
+                return TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.tier.ironBackpack.name");
             case 2:
-                return TextUtils.localizeEffect("item.ironbackpacks.backpack.goldBackpack.name");
+                return TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.tier.goldBackpack.name");
             case 3:
-                return TextUtils.localizeEffect("item.ironbackpacks.backpack.diamondBackpack.name");
+                return TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.tier.diamondBackpack.name");
         }
         return "ERROR, report to mod author";
     }
