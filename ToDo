@@ -40,6 +40,8 @@ To Do:
 
                 make crafting advanced filter
 
+                totally refactor AdditionalUpgradePointsUpgrade
+
             JEI:
                 JEI handlers for crafting
                     https://github.com/williewillus/Botania/tree/MC18/src/main/java/vazkii/botania/client/integration/jei/manapool
@@ -55,6 +57,13 @@ To Do:
                     figure out how to do that internally
                         could be two different packs
                         could be 2 pack that look the same made from the same ItemBackpack, but 2 different tooltips
+
+                        superior storage
+                        unrivaled upgrades
+
+                        Storage Emphasis
+                        Upgrade Emphasis
+
 
                 Remove adding crafting item to API?
                     https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
@@ -77,6 +86,8 @@ To Do:
 
                 Check that it works with new forge and IItemHandler
                     https://github.com/MinecraftForge/MinecraftForge/pull/2385
+
+                tehnut's advanced tooltips?
 
             Config:
                 bm blacklist for config to disable items (requested config option)

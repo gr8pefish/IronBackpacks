@@ -22,14 +22,12 @@ public class IronBackpacksConstants {
     public static final class Backpacks{
 
         public static final String BASIC_BACKPACK_NAME = "basicBackpack";
-        public static final String IRON_BACKPACK_NAME = "ironBackpack";
-        public static final String GOLD_BACKPACK_NAME = "goldBackpack";
-        public static final String DIAMOND_BACKPACK_NAME = "diamondBackpack";
-
-        public static final int BASIC_ID = 1; //gui ID 0,1,2,3
-        public static final int IRON_ID = 2;
-        public static final int GOLD_ID = 3;
-        public static final int DIAMOND_ID = 4;
+        public static final String IRON_BACKPACK_NAME_STORAGE = "ironBackpackStorageEmphasis";
+        public static final String IRON_BACKPACK_NAME_POINTS = "ironBackpackUpgradeEmphasis";
+        public static final String GOLD_BACKPACK_NAME_STORAGE = "goldBackpackStorageEmphasis";
+        public static final String GOLD_BACKPACK_NAME_POINTS = "goldBackpackUpgradeEmphasis";
+        public static final String DIAMOND_BACKPACK_NAME_STORAGE = "diamondBackpackStorageEmphasis";
+        public static final String DIAMOND_BACKPACK_NAME_POINTS = "diamondBackpackUpgradeEmphasis";
 
     }
 
@@ -125,13 +123,6 @@ public class IronBackpacksConstants {
         public static final String ITEMS = "Items";
         public static final String ADDED_ALT_GUI = "AddedAltGui";
         public static final String REMOVED_ALT_GUI = "RemovedAltGui";
-        public static final String REMOVED = "Removed";
-    }
-
-    public static final class Items {
-        public static final String BACKPACK_ITEM_BASE_NAME = "backpack";
-        public static final String UPGRADE_ITEM_BASE_NAME = "upgrade";
-        public static final String CRAFTING_ITEM_BASE_NAME = "crafting";
     }
 
     //Miscellaneous

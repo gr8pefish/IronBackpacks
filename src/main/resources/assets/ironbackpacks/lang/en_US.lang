@@ -1,8 +1,11 @@
 # Items
 item.ironbackpacks.backpack.basicBackpack.name=Basic Backpack
-item.ironbackpacks.backpack.ironBackpack.name=Iron Backpack
-item.ironbackpacks.backpack.goldBackpack.name=Gold Backpack
-item.ironbackpacks.backpack.diamondBackpack.name=Diamond Backpack
+item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=Iron Backpack (Storage Emphasis)
+item.ironbackpacks.backpack.ironBackpackUpgradeEmphasis.name=Iron Backpack (Upgrade Emphasis)
+item.ironbackpacks.backpack.goldBackpackStorageEmphasis.name=Gold Backpack (Storage Emphasis)
+item.ironbackpacks.backpack.goldBackpackUpgradeEmphasis.name=Gold Backpack (Upgrade Emphasis)
+item.ironbackpacks.backpack.diamondBackpackStorageEmphasis.name=Diamond Backpack (Storage Emphasis)
+item.ironbackpacks.backpack.diamondBackpackUpgradeEmphasis.name=Diamond Backpack (Upgrade Emphasis)
 
 item.ironbackpacks.upgrade.button.name=Button Upgrade
 item.ironbackpacks.upgrade.nesting.name=Nesting Upgrade
@@ -77,8 +80,10 @@ tooltip.ironbackpacks.shift=Hold shift for more info.
 tooltip.ironbackpacks.uuid=UUID: %s
 tooltip.ironbackpacks.backpack.upgrade.used=%d/%d upgrade points used.
 tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d alternate GUI upgrades used.
-tooltip.ironbackpacks.backpack.upgrade.used.tier=%d/%d additional upgrade points added.
+tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints=%d/%d additional upgrade points added.
 tooltip.ironbackpacks.backpack.upgrade.rename=(The %dth upgrade must include the renaming upgrade)
+tooltip.ironbackpacks.backpack.emphasis.storage=Storage Emphasis
+tooltip.ironbackpacks.backpack.emphasis.upgrade=Upgrade Emphasis
 
 tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s
 tooltip.ironbackpacks.upgrade.minimumTier=Minimum tier of backpack this upgrade can be applied to: %d.

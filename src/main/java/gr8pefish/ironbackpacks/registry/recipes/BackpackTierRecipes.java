@@ -8,7 +8,9 @@ import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import scala.actors.threadpool.Arrays;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,38 +21,67 @@ public class BackpackTierRecipes {
 
     //basic backpack tier upgrade
 
-    private static Object[] basicBackpackTierRecipe = new Object[]{
+    private static Object[] basicBackpackStorageEmphasisTierRecipe = new Object[]{
             "ioi",
             "ibi",
             "iii",
             'i', "ingotIron", 'o', "blockIron", 'b', ItemRegistry.basicBackpack};
 
+    private static Object[] basicBackpackUpgradeEmphasisTierRecipe = new Object[]{
+            "iii",
+            "ibi",
+            "ioi",
+            'i', "ingotIron", 'o', "blockIron", 'b', ItemRegistry.basicBackpack};
+
     public static List<Object[]> getBasicBackpackTierRecipes(){
-        return Collections.singletonList(basicBackpackTierRecipe);
+        ArrayList<Object[]> recipes = new ArrayList<>();
+        recipes.add(basicBackpackStorageEmphasisTierRecipe);
+        recipes.add(basicBackpackUpgradeEmphasisTierRecipe);
+        return recipes;
     }
 
     //iron backpack tier upgrade
 
-    private static Object[] ironBackpackTierRecipe = new Object[]{
+    private static Object[] ironBackpackStorageEmphasisTierRecipe = new Object[]{
             "ioi",
             "ibi",
             "iii",
-            'i', "ingotGold", 'o', "blockGold", 'b', ItemRegistry.ironBackpack};
+            'i', "ingotGold", 'o', "blockGold", 'b', ItemRegistry.ironBackpackStorageEmphasis};
 
-    public static List<Object[]> getIronBackpackTierRecipes(){
-        return Collections.singletonList(ironBackpackTierRecipe);
+    public static List<Object[]> getIronBackpackStorageEmphasisTierRecipes(){
+        return Collections.singletonList(ironBackpackStorageEmphasisTierRecipe);
+    }
+
+    private static Object[] ironBackpackUpgradeEmphasisTierRecipe = new Object[]{
+            "iii",
+            "ibi",
+            "ioi",
+            'i', "ingotGold", 'o', "blockGold", 'b', ItemRegistry.ironBackpackUpgradeEmphasis};
+
+    public static List<Object[]> getIronBackpackUpgradeEmphasisTierRecipes(){
+        return Collections.singletonList(ironBackpackUpgradeEmphasisTierRecipe);
     }
 
     //gold backpack tier upgrade
 
-    private static Object[] goldBackpackTierRecipe = new Object[]{
+    private static Object[] goldBackpackStorageEmphasisTierRecipe = new Object[]{
             "iii",
             "ibi",
-            "iii",
-            'i', "gemDiamond", 'b', ItemRegistry.goldBackpack};
+            "i i",
+            'i', "gemDiamond", 'b', ItemRegistry.goldBackpackStorageEmphasis};
 
-    public static List<Object[]> getGoldBackpackTierRecipes(){
-        return Collections.singletonList(goldBackpackTierRecipe);
+    public static List<Object[]> getGoldBackpackStorageEmphasisTierRecipes(){
+        return Collections.singletonList(goldBackpackStorageEmphasisTierRecipe);
+    }
+
+    private static Object[] goldBackpackUpgradeEmphasisTierRecipe = new Object[]{
+            "i i",
+            "ibi",
+            "iii",
+            'i', "gemDiamond", 'b', ItemRegistry.goldBackpackUpgradeEmphasis};
+
+    public static List<Object[]> getGoldBackpackUpgradeEmphasisTierRecipes(){
+        return Collections.singletonList(goldBackpackUpgradeEmphasisTierRecipe);
     }
 
     //=========================================================Registration======================================================================

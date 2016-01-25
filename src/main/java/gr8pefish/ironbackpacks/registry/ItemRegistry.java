@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.registry;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.item.craftingItems.ItemAPICrafting;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemAltGuiUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
@@ -21,9 +22,11 @@ import gr8pefish.ironbackpacks.util.helpers.InventoryRenderHelper;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Registers all the items in this mod.
@@ -32,9 +35,12 @@ public class ItemRegistry {
 
     //backpacks
     public static ItemBackpack basicBackpack;
-    public static ItemBackpack ironBackpack;
-    public static ItemBackpack goldBackpack;
-    public static ItemBackpack diamondBackpack;
+    public static ItemBackpack ironBackpackStorageEmphasis;
+    public static ItemBackpack ironBackpackUpgradeEmphasis;
+    public static ItemBackpack goldBackpackStorageEmphasis;
+    public static ItemBackpack goldBackpackUpgradeEmphasis;
+    public static ItemBackpack diamondBackpackStorageEmphasis;
+    public static ItemBackpack diamondBackpackUpgradeEmphasis;
 
     //upgrades
     public static ItemUpgrade upgradeItem;
@@ -70,19 +76,6 @@ public class ItemRegistry {
     public static ItemAPICrafting treatedLeather;
     public static ItemAPICrafting upgradeCore;
 
-    /**
-     * Gets every backpack item.
-     * @return - backpacks as an ArrayList of Items
-     */
-    public static ArrayList<Item> getBackpacks(){
-        ArrayList<Item> backpacks = new ArrayList<Item>();
-        backpacks.add(basicBackpack);
-        backpacks.add(ironBackpack);
-        backpacks.add(goldBackpack);
-        backpacks.add(diamondBackpack);
-        return backpacks;
-    } //TODO: change this
-
 
     /**
      * Registers all the items with the GameRegistry
@@ -99,41 +92,81 @@ public class ItemRegistry {
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200: 236), //gui width
                 (114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue())), //gui height
-                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackBasic.png")), //resource location of the texture of the model
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackBasic.png"), //resource location of the texture of the model
+                null), //unlocalized string of the emphasis of the backpack
                 IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME); //registry name
 
-        ironBackpack = (ItemBackpack) registerItem(new ItemBackpack(
-                IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME,
-                ConfigHandler.enumIronBackpack.sizeX.getValue(),
-                ConfigHandler.enumIronBackpack.sizeY.getValue(),
-                ConfigHandler.enumIronBackpack.upgradePoints.getValue(),
-                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpack.sizeX.getValue())+".png"),
-                (ConfigHandler.enumIronBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumIronBackpack.sizeY.getValue())),
-                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackIron.png")),
-                IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME);
+        ironBackpackStorageEmphasis = (ItemBackpack) registerItem(new ItemBackpack(
+                IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME_STORAGE,
+                ConfigHandler.enumIronBackpackStorageEmphasis.sizeX.getValue(),
+                ConfigHandler.enumIronBackpackStorageEmphasis.sizeY.getValue(),
+                ConfigHandler.enumIronBackpackStorageEmphasis.upgradePoints.getValue(),
+                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpackStorageEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpackStorageEmphasis.sizeX.getValue())+".png"),
+                (ConfigHandler.enumIronBackpackStorageEmphasis.sizeX.getValue() == 9 ? 200: 236),
+                (114 + (18 * ConfigHandler.enumIronBackpackStorageEmphasis.sizeY.getValue())),
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackIron.png"),
+                "tooltip.ironbackpacks.backpack.emphasis.storage"),
+                IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME_STORAGE);
 
-        goldBackpack = (ItemBackpack) registerItem(new ItemBackpack(
-                IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME,
-                ConfigHandler.enumGoldBackpack.sizeX.getValue(),
-                ConfigHandler.enumGoldBackpack.sizeY.getValue(),
-                ConfigHandler.enumGoldBackpack.upgradePoints.getValue(),
-                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpack.sizeX.getValue())+".png"),
-                (ConfigHandler.enumGoldBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumGoldBackpack.sizeY.getValue())),
-                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackGold.png")),
-                IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME);
+        ironBackpackUpgradeEmphasis = (ItemBackpack) registerItem(new ItemBackpack(
+                IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME_POINTS,
+                ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeX.getValue(),
+                ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeY.getValue(),
+                ConfigHandler.enumIronBackpackUpgradeEmphasis.upgradePoints.getValue(),
+                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeX.getValue())+".png"),
+                (ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeX.getValue() == 9 ? 200: 236),
+                (114 + (18 * ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeY.getValue())),
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackIron.png"),
+                "tooltip.ironbackpacks.backpack.emphasis.upgrade"),
+                IronBackpacksConstants.Backpacks.IRON_BACKPACK_NAME_POINTS);
 
-        diamondBackpack = (ItemBackpack) registerItem(new ItemBackpack(
-                IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME,
-                ConfigHandler.enumDiamondBackpack.sizeX.getValue(),
-                ConfigHandler.enumDiamondBackpack.sizeY.getValue(),
-                ConfigHandler.enumDiamondBackpack.upgradePoints.getValue(),
-                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpack.sizeX.getValue())+".png"),
-                (ConfigHandler.enumDiamondBackpack.sizeX.getValue() == 9 ? 200: 236),
-                (114 + (18 * ConfigHandler.enumDiamondBackpack.sizeY.getValue())),
-                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackDiamond.png")),
-                IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME);
+        goldBackpackStorageEmphasis = (ItemBackpack) registerItem(new ItemBackpack(
+                IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME_STORAGE,
+                ConfigHandler.enumGoldBackpackStorageEmphasis.sizeX.getValue(),
+                ConfigHandler.enumGoldBackpackStorageEmphasis.sizeY.getValue(),
+                ConfigHandler.enumGoldBackpackStorageEmphasis.upgradePoints.getValue(),
+                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpackStorageEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpackStorageEmphasis.sizeX.getValue())+".png"),
+                (ConfigHandler.enumGoldBackpackStorageEmphasis.sizeX.getValue() == 9 ? 200: 236),
+                (114 + (18 * ConfigHandler.enumGoldBackpackStorageEmphasis.sizeY.getValue())),
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackGold.png"),
+                "tooltip.ironbackpacks.backpack.emphasis.storage"),
+                IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME_STORAGE);
+
+        goldBackpackUpgradeEmphasis = (ItemBackpack) registerItem(new ItemBackpack(
+                IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME_POINTS,
+                ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeX.getValue(),
+                ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeY.getValue(),
+                ConfigHandler.enumGoldBackpackUpgradeEmphasis.upgradePoints.getValue(),
+                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeX.getValue())+".png"),
+                (ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeX.getValue() == 9 ? 200: 236),
+                (114 + (18 * ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeY.getValue())),
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackGold.png"),
+                "tooltip.ironbackpacks.backpack.emphasis.upgrade"),
+                IronBackpacksConstants.Backpacks.GOLD_BACKPACK_NAME_POINTS);
+
+        diamondBackpackStorageEmphasis = (ItemBackpack) registerItem(new ItemBackpack(
+                IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME_STORAGE,
+                ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeX.getValue(),
+                ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeY.getValue(),
+                ConfigHandler.enumDiamondBackpackStorageEmphasis.upgradePoints.getValue(),
+                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeX.getValue())+".png"),
+                (ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeX.getValue() == 9 ? 200: 236),
+                (114 + (18 * ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeY.getValue())),
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackDiamond.png"),
+                "tooltip.ironbackpacks.backpack.emphasis.storage"),
+                IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME_STORAGE);
+
+        diamondBackpackUpgradeEmphasis = (ItemBackpack) registerItem(new ItemBackpack(
+                IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME_POINTS,
+                ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeX.getValue(),
+                ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeY.getValue(),
+                ConfigHandler.enumDiamondBackpackUpgradeEmphasis.upgradePoints.getValue(),
+                new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeX.getValue())+".png"),
+                (ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeX.getValue() == 9 ? 200: 236),
+                (114 + (18 * ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeY.getValue())),
+                new ResourceLocation(Constants.MODID, "textures/models/ModelBackpackDiamond.png"),
+                "tooltip.ironbackpacks.backpack.emphasis.upgrade"),
+                IronBackpacksConstants.Backpacks.DIAMOND_BACKPACK_NAME_POINTS);
 
 
         //Upgrade Items (alphabetical order, except the adv. filter filters)
@@ -222,9 +255,12 @@ public class ItemRegistry {
 
         //render the backpack items (tiered orderd)
         renderHelper.itemRender(basicBackpack, "ItemBackpackBasic");
-        renderHelper.itemRender(ironBackpack, "ItemBackpackIron");
-        renderHelper.itemRender(goldBackpack, "ItemBackpackGold");
-        renderHelper.itemRender(diamondBackpack, "ItemBackpackDiamond");
+        renderHelper.itemRender(ironBackpackStorageEmphasis, "ItemBackpackIron");
+        renderHelper.itemRender(ironBackpackUpgradeEmphasis, "ItemBackpackIron");
+        renderHelper.itemRender(goldBackpackStorageEmphasis, "ItemBackpackGold");
+        renderHelper.itemRender(goldBackpackUpgradeEmphasis, "ItemBackpackGold");
+        renderHelper.itemRender(diamondBackpackStorageEmphasis, "ItemBackpackDiamond");
+        renderHelper.itemRender(diamondBackpackUpgradeEmphasis, "ItemBackpackDiamond");
 
 
         //render the upgrade items (alphabetical order, except adv. filter filters)
@@ -285,16 +321,32 @@ public class ItemRegistry {
     }
 
     private static void setTieringAndTierRecipesOfBackpacks(){
-        basicBackpack.setBackpacksAbove(null, Collections.singletonList(ironBackpack)); //first parameter is (in my case, unused) itemstack, so I use null
+        ArrayList basicBackpacksAbove = new ArrayList<ITieredBackpack>();
+        basicBackpacksAbove.add(ironBackpackStorageEmphasis);
+        basicBackpacksAbove.add(ironBackpackUpgradeEmphasis);
+        basicBackpack.setBackpacksAbove(null, basicBackpacksAbove); //first parameter is (in my case, unused) itemstack, so I use null
         basicBackpack.setTier(null, 0);
         basicBackpack.setTierRecipes(null, BackpackTierRecipes.getBasicBackpackTierRecipes());
-        ironBackpack.setBackpacksAbove(null, Collections.singletonList(goldBackpack));
-        ironBackpack.setTier(null, 1);
-        ironBackpack.setTierRecipes(null, BackpackTierRecipes.getIronBackpackTierRecipes());
-        goldBackpack.setBackpacksAbove(null, Collections.singletonList(diamondBackpack));
-        goldBackpack.setTier(null, 2);
-        goldBackpack.setTierRecipes(null, BackpackTierRecipes.getGoldBackpackTierRecipes());
-        diamondBackpack.setTier(null, 3);
+
+        ironBackpackStorageEmphasis.setBackpacksAbove(null, Collections.singletonList(goldBackpackStorageEmphasis));
+        ironBackpackStorageEmphasis.setTier(null, 1);
+        ironBackpackStorageEmphasis.setTierRecipes(null, BackpackTierRecipes.getIronBackpackStorageEmphasisTierRecipes());
+
+        ironBackpackUpgradeEmphasis.setBackpacksAbove(null, Collections.singletonList(goldBackpackUpgradeEmphasis));
+        ironBackpackUpgradeEmphasis.setTier(null, 1);
+        ironBackpackUpgradeEmphasis.setTierRecipes(null, BackpackTierRecipes.getIronBackpackUpgradeEmphasisTierRecipes());
+
+        goldBackpackStorageEmphasis.setBackpacksAbove(null, Collections.singletonList(diamondBackpackStorageEmphasis));
+        goldBackpackStorageEmphasis.setTier(null, 2);
+        goldBackpackStorageEmphasis.setTierRecipes(null, BackpackTierRecipes.getGoldBackpackStorageEmphasisTierRecipes());
+
+        goldBackpackUpgradeEmphasis.setBackpacksAbove(null, Collections.singletonList(diamondBackpackUpgradeEmphasis));
+        goldBackpackUpgradeEmphasis.setTier(null, 2);
+        goldBackpackUpgradeEmphasis.setTierRecipes(null, BackpackTierRecipes.getGoldBackpackUpgradeEmphasisTierRecipes());
+
+        diamondBackpackStorageEmphasis.setTier(null, 3);
+
+        diamondBackpackUpgradeEmphasis.setTier(null, 3);
     }
 
 }

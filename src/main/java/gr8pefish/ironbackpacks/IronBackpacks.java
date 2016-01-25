@@ -31,7 +31,7 @@ public class IronBackpacks {
 	public static final CreativeTabs creativeTab = new CreativeTabs(Constants.MODID) {
 		@Override
 		public Item getTabIconItem() {
-			return ItemRegistry.ironBackpack;
+			return ItemRegistry.ironBackpackStorageEmphasis;
 		}
 	};
 

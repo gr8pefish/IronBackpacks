@@ -33,9 +33,12 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
 
     private boolean openAltGui = true; //to track which gui to open
 
-    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture){
+    private String emphasis; //unlocalized string to show if the backpack has a specialty, could be null if none
+
+    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture, String specialty){
         super(name, rowLength, rowCount, upgradePoints, guiResourceLocation, guiXSize, guiYSize, modelTexture); //null is for the recipe (set after item init)
         setCreativeTab(IronBackpacks.creativeTab);
+        this.emphasis = specialty;
 
     }
 
@@ -134,6 +137,9 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
             if (upgrades.size() > 0)
                 list.add("");
 
+            if (emphasis != null)
+                list.add(TextUtils.localizeEffect(emphasis));
+
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used", upgradesUsed, totalUpgradePoints));
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.alt", UpgradeMethods.getAltGuiUpgradesApplied(upgrades), IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
 
@@ -145,7 +151,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
             if (tierUpgradeCount > 0) {
                 int used = IronBackpacksHelper.getAdditionalUpgradesTimesApplied(stack) * ConfigHandler.additionalUpgradePointsIncrease;
                 int have = tierUpgradeCount * ConfigHandler.additionalUpgradePointsIncrease;
-                list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.tier", used, have));
+                list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints", used, have));
             }
         } else {
             if (totalUpgradePoints > 0)

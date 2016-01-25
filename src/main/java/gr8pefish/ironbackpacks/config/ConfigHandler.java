@@ -14,9 +14,12 @@ public class ConfigHandler {
     //================ Backpack Enums (for easy reference by name rather than some number) ============================
 
     public static int[] basicBackpack;
-    public static int[] ironBackpack;
-    public static int[] goldBackpack;
-    public static int[] diamondBackpack;
+    public static int[] ironBackpackStorageEmphasis;
+    public static int[] ironBackpackUpgradeEmphasis;
+    public static int[] goldBackpackStorageEmphasis;
+    public static int[] goldBackpackUpgradeEmphasis;
+    public static int[] diamondBackpackStorageEmphasis;
+    public static int[] diamondBackpackUpgradeEmphasis;
 
     private static final int valuesToLoad = 3; //upgradePoints, sizeX, sizeY
 
@@ -94,9 +97,12 @@ public class ConfigHandler {
     public static void syncConfig(boolean firstLoad) {
 
         basicBackpack = new int[valuesToLoad];
-        ironBackpack = new int[valuesToLoad];
-        goldBackpack = new int[valuesToLoad];
-        diamondBackpack = new int[valuesToLoad];
+        ironBackpackStorageEmphasis = new int[valuesToLoad];
+        ironBackpackUpgradeEmphasis = new int[valuesToLoad];
+        goldBackpackStorageEmphasis = new int[valuesToLoad];
+        goldBackpackUpgradeEmphasis = new int[valuesToLoad];
+        diamondBackpackStorageEmphasis = new int[valuesToLoad];
+        diamondBackpackUpgradeEmphasis= new int[valuesToLoad];
 
         //======================================================Recipe defaults================================
 
@@ -135,17 +141,32 @@ public class ConfigHandler {
         basicBackpack[1] = config.get("1) Basic Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
         basicBackpack[2] = config.get("1) Basic Backpack", "3) Number of Rows", 2, "The size of the backpack. Between 1 and 7. Default 2.").getInt();
 
-        ironBackpack[0] = config.get("2) Iron Backpack", "1) Upgrade Points", 12, "The number of upgrade points on the backpack. Default 12.").getInt();
-        ironBackpack[1] = config.get("2) Iron Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
-        ironBackpack[2] = config.get("2) Iron Backpack", "3) Number of Rows", 4, "The size of the backpack. Between 1 and 7. Default 4.").getInt();
+        //TODO: balance all these out, they are the same currently (also balance basic backpack)
+        ironBackpackStorageEmphasis[0] = config.get("2) Iron Backpack (Storage Emphasis)", "1) Upgrade Points", 12, "The number of upgrade points on the backpack. Default 12.").getInt();
+        ironBackpackStorageEmphasis[1] = config.get("2) Iron Backpack (Storage Emphasis)", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
+        ironBackpackStorageEmphasis[2] = config.get("2) Iron Backpack (Storage Emphasis)", "3) Number of Rows", 4, "The size of the backpack. Between 1 and 7. Default 4.").getInt();
 
-        goldBackpack[0] = config.get("3) Gold Backpack", "1) Upgrade Points", 16, "The number of upgrade points on the backpack. Default 16.").getInt();
-        goldBackpack[1] = config.get("3) Gold Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
-        goldBackpack[2] = config.get("3) Gold Backpack", "3) Number of Rows", 6, "The size of the backpack. Between 1 and 7. Default 6.").getInt();
+        ironBackpackUpgradeEmphasis[0] = config.get("2) Iron Backpack (Upgrade Emphasis)", "1) Upgrade Points", 12, "The number of upgrade points on the backpack. Default 12.").getInt();
+        ironBackpackUpgradeEmphasis[1] = config.get("2) Iron Backpack (Upgrade Emphasis)", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
+        ironBackpackUpgradeEmphasis[2] = config.get("2) Iron Backpack (Upgrade Emphasis)", "3) Number of Rows", 4, "The size of the backpack. Between 1 and 7. Default 4.").getInt();
 
-        diamondBackpack[0] = config.get("4) Diamond Backpack", "1) Upgrade Points", 20, "The number of upgrade points on the backpack. Default 20.").getInt();
-        diamondBackpack[1] = config.get("4) Diamond Backpack", "2) Number of Slots Per Row", 11, "The size of the backpack. Either 9 or 11. Default 11.").getInt();
-        diamondBackpack[2] = config.get("4) Diamond Backpack", "3) Number of Rows", 7, "The size of the backpack. Between 1 and 7. Default 7.").getInt();
+        goldBackpackStorageEmphasis[0] = config.get("3) Gold Backpack (Storage Emphasis)", "1) Upgrade Points", 16, "The number of upgrade points on the backpack. Default 16.").getInt();
+        goldBackpackStorageEmphasis[1] = config.get("3) Gold Backpack (Storage Emphasis)", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
+        goldBackpackStorageEmphasis[2] = config.get("3) Gold Backpack (Storage Emphasis)", "3) Number of Rows", 6, "The size of the backpack. Between 1 and 7. Default 6.").getInt();
+
+        goldBackpackUpgradeEmphasis[0] = config.get("3) Gold Backpack (Upgrade Emphasis)", "1) Upgrade Points", 16, "The number of upgrade points on the backpack. Default 16.").getInt();
+        goldBackpackUpgradeEmphasis[1] = config.get("3) Gold Backpack (Upgrade Emphasis)", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
+        goldBackpackUpgradeEmphasis[2] = config.get("3) Gold Backpack (Upgrade Emphasis)", "3) Number of Rows", 6, "The size of the backpack. Between 1 and 7. Default 6.").getInt();
+
+        diamondBackpackStorageEmphasis[0] = config.get("4) Diamond Backpack (Storage Emphasis)", "1) Upgrade Points", 20, "The number of upgrade points on the backpack. Default 20.").getInt();
+        diamondBackpackStorageEmphasis[1] = config.get("4) Diamond Backpack (Storage Emphasis)", "2) Number of Slots Per Row", 11, "The size of the backpack. Either 9 or 11. Default 11.").getInt();
+        diamondBackpackStorageEmphasis[2] = config.get("4) Diamond Backpack (Storage Emphasis)", "3) Number of Rows", 7, "The size of the backpack. Between 1 and 7. Default 7.").getInt();
+
+        diamondBackpackUpgradeEmphasis[0] = config.get("4) Diamond Backpack (Upgrade Emphasis)", "1) Upgrade Points", 20, "The number of upgrade points on the backpack. Default 20.").getInt();
+        diamondBackpackUpgradeEmphasis[1] = config.get("4) Diamond Backpack (Upgrade Emphasis)", "2) Number of Slots Per Row", 11, "The size of the backpack. Either 9 or 11. Default 11.").getInt();
+        diamondBackpackUpgradeEmphasis[2] = config.get("4) Diamond Backpack (Upgrade Emphasis)", "3) Number of Rows", 7, "The size of the backpack. Between 1 and 7. Default 7.").getInt();
+
+
 
         buttonUpgradeCost = config.get("6) Upgrade Costs", "1) Button Upgrade Recipe", 2, "The cost for the button upgrade. Default 2.").getInt();
         buttonUpgradeTier = config.get("6) Upgrade Costs", "1.1) Button Upgrade Tier", 0, "The minimum backpack tier for the button upgrade. Default 0.").getInt();
@@ -221,13 +242,13 @@ public class ConfigHandler {
         }
     }
 
-    public enum enumIronBackpack {
-        upgradePoints(ironBackpack[0]),
-        sizeX(ironBackpack[1]),
-        sizeY(ironBackpack[2]);
+    public enum enumIronBackpackStorageEmphasis {
+        upgradePoints(ironBackpackStorageEmphasis[0]),
+        sizeX(ironBackpackStorageEmphasis[1]),
+        sizeY(ironBackpackStorageEmphasis[2]);
         private int value;
 
-        enumIronBackpack(int value) {
+        enumIronBackpackStorageEmphasis(int value) {
             this.value = value;
         }
 
@@ -236,13 +257,13 @@ public class ConfigHandler {
         }
     }
 
-    public enum enumGoldBackpack {
-        upgradePoints(goldBackpack[0]),
-        sizeX(goldBackpack[1]),
-        sizeY(goldBackpack[2]);
+    public enum enumIronBackpackUpgradeEmphasis {
+        upgradePoints(ironBackpackUpgradeEmphasis[0]),
+        sizeX(ironBackpackUpgradeEmphasis[1]),
+        sizeY(ironBackpackUpgradeEmphasis[2]);
         private int value;
 
-        enumGoldBackpack(int value) {
+        enumIronBackpackUpgradeEmphasis(int value) {
             this.value = value;
         }
 
@@ -251,13 +272,58 @@ public class ConfigHandler {
         }
     }
 
-    public enum enumDiamondBackpack {
-        upgradePoints(diamondBackpack[0]),
-        sizeX(diamondBackpack[1]),
-        sizeY(diamondBackpack[2]);
+    public enum enumGoldBackpackStorageEmphasis {
+        upgradePoints(goldBackpackStorageEmphasis[0]),
+        sizeX(goldBackpackStorageEmphasis[1]),
+        sizeY(goldBackpackStorageEmphasis[2]);
         private int value;
 
-        enumDiamondBackpack(int value) {
+        enumGoldBackpackStorageEmphasis(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public enum enumGoldBackpackUpgradeEmphasis {
+        upgradePoints(goldBackpackUpgradeEmphasis[0]),
+        sizeX(goldBackpackUpgradeEmphasis[1]),
+        sizeY(goldBackpackUpgradeEmphasis[2]);
+        private int value;
+
+        enumGoldBackpackUpgradeEmphasis(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public enum enumDiamondBackpackStorageEmphasis {
+        upgradePoints(diamondBackpackStorageEmphasis[0]),
+        sizeX(diamondBackpackStorageEmphasis[1]),
+        sizeY(diamondBackpackStorageEmphasis[2]);
+        private int value;
+
+        enumDiamondBackpackStorageEmphasis(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public enum enumDiamondBackpackUpgradeEmphasis {
+        upgradePoints(diamondBackpackUpgradeEmphasis[0]),
+        sizeX(diamondBackpackUpgradeEmphasis[1]),
+        sizeY(diamondBackpackUpgradeEmphasis[2]);
+        private int value;
+
+        enumDiamondBackpackUpgradeEmphasis(int value) {
             this.value = value;
         }
 
