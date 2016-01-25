@@ -87,7 +87,6 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
                 //not adding the old recipe is the same outcome as removing the recipe, so no code needed here
                 if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeInQuestion)) //if in alt gui need to remove the stored items there
                     nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED_ALT_GUI, upgradeInQuestion.writeToNBT(new NBTTagCompound())); //add item stack to nbt key
-                nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.REMOVED, upgradeInQuestion.writeToNBT(new NBTTagCompound())); //add tag so it can be refunded
             } else { //save old contents to new tag
                 tagList.appendTag(upgrade.writeToNBT(new NBTTagCompound()));
             }

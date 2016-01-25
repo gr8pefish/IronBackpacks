@@ -112,6 +112,10 @@ public class ItemUpgradeRegistry {
         return itemsPack.size();
     }
 
+    public static int getUninflatedIAltGuiSize() {
+        return itemsAltGui.size();
+    }
+
     public static ItemPackUpgrade getItemPackUpgrade(int damageValue) {
         return itemsPack.get(damageValue);
     }

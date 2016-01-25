@@ -86,6 +86,9 @@ public class ContainerAlternateGui extends Container {
 
         //Need to calculate which row the advanced filter will be on to place the buttons correctly
         int advFilterRow = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) ? 0 : -1;
+        if (UpgradeMethods.hasCraftingUpgrade(upgrades)) advFilterRow++;
+        if (UpgradeMethods.hasCraftingSmallUpgrade(upgrades)) advFilterRow++;
+        if (UpgradeMethods.hasCraftingTinyUpgrade(upgrades)) advFilterRow++;
         if (UpgradeMethods.hasFilterBasicUpgrade(upgrades)) advFilterRow++;
         if (UpgradeMethods.hasFilterFuzzyUpgrade(upgrades)) advFilterRow++;
         if (UpgradeMethods.hasFilterOreDictUpgrade(upgrades)) advFilterRow++;

@@ -107,6 +107,8 @@ To Do:
 
                 You can add duplicate upgrades to same pack
 
+                nesting and quick deposit upgrade tiers not right (showing as basic)
+
             Forge:
                 ShapedOreRecipes not working with getRemainingItems, report bug.
                     I just overrode it [matches], copying the matches code directly from ShapelessOreRecipe, and it works. So I think it actually might be some sort of forge bug where those recipes aren't registered properly, or it doesn't call the OreRecipes correctly or something else, I'm not sure.

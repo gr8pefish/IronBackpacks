@@ -100,7 +100,6 @@ public class GUIBackpackAlternate extends GuiContainer {
             if (ConfigHandler.renamingUpgradeRequired)
                 gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades) + 3] : values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades)]; //shifts to correct index if renaming
             else {
-                Logger.info("Alt gui upgrades "+UpgradeMethods.getAltGuiUpgradesApplied(upgrades));
                 gui = values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades) + 4];
             }
             return new GUIBackpackAlternate(gui, inv.getPlayer(), inv, upgrades, inv.getBackpackStack());
@@ -251,6 +250,8 @@ public class GUIBackpackAlternate extends GuiContainer {
                 yStartButton += 36;
             }
             if (hasCraftingTinyUpgrade){
+                rowIndex++;
+                yStartButton += 36;
                 buttonList.add(rowIndeces[rowIndex] = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.CLEAR_ROW), xStart, yStartButton, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.clear.condenser.tiny.tooltip"))));
             }
             if (hasFilterBasicUpgrade) {
