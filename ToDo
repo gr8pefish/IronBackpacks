@@ -98,14 +98,8 @@ To Do:
                 Test ondeath save to title
                 probably breaks when you go through the end portal too
 
-                Check mod specific dupe (fixed that already?)
-
-                Check adding and removing alt gui upgrade and the items in all the wrong spots and everything breaking
-
             Minor:
                 Doesn't init if going straight to alt gui
-
-                You can add duplicate upgrades to same pack
 
                 nesting and quick deposit upgrade tiers not right (showing as basic)
 

@@ -328,10 +328,10 @@ public class UpgradeMethods {
     }
 
     /**
-     * Check if
-     * @param upgrade1
-     * @param upgrade2
-     * @return
+     * Check if the upgrades are the same by comparing their item and the damage value.
+     * @param upgrade1 - the first upgrade to check
+     * @param upgrade2 - the second upgrade to check
+     * @return - boolean if they are equal (enough)
      */
     public static boolean areUpgradesFunctionallyEquivalent(ItemStack upgrade1, ItemStack upgrade2){
         return (upgrade1.getItem().equals(upgrade2.getItem()) && upgrade1.getItemDamage() == upgrade2.getItemDamage());

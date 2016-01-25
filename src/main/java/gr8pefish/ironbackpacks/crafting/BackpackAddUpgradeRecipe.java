@@ -9,6 +9,7 @@ import gr8pefish.ironbackpacks.items.upgrades.ItemUpgrade;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -160,6 +161,12 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
      */
     private boolean canApplyUpgrade(ArrayList<ItemStack> upgrades, int totalUpgradePoints, ItemStack upgradeToApply){
         if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(upgradeToApply) || ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeToApply)){
+
+            for (ItemStack upgrade : upgrades) { //check for duplicate
+                if (UpgradeMethods.areUpgradesFunctionallyEquivalent(upgrade, upgradeToApply)) //if duplicate upgrade
+                    return false; //can't apply
+            }
+
             if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(upgradeToApply)){ //conflicting
                 if (hasConflictingUpgradeInUpgrades(upgradeToApply, upgrades)){ //if has the conflicting upgrade
                     return false; //can't apply conflicting
@@ -174,10 +181,12 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
                 }
             }
         } else { //normal upgrade
+
             for (ItemStack upgrade : upgrades) { //check for duplicate
                 if (UpgradeMethods.areUpgradesFunctionallyEquivalent(upgrade, upgradeToApply)) //if duplicate upgrade
                     return false; //can't apply
             }
+
             return IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints; //if you have the upgrade points
         }
     }
