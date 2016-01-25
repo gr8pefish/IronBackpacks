@@ -22,6 +22,7 @@ public class ItemConflictingUpgrade implements IConflictingUpgrade {
         this.name = name;
         this.upgradeCost = upgradeCost;
         this.description = description;
+        this.tier = tier;
         this.conflictingUpgrades = conflictingUpgrades;
     }
 

@@ -101,7 +101,7 @@ To Do:
             Minor:
                 Doesn't init if going straight to alt gui
 
-                nesting and quick deposit upgrade tiers not right (showing as basic)
+                nesting and quick deposit upgrade tiers not right (showing as basic) - itemConflicting
 
             Forge:
                 ShapedOreRecipes not working with getRemainingItems, report bug.
