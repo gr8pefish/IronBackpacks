@@ -81,12 +81,15 @@ To Do:
 
                 tehnut's advanced tooltips?
 
+            Gradle:
                 gradle auto-increment version broken
+                Add sources/api/javadoc/etc. jars to curseforge upload, make sure they work too
 
             Config:
                 bm blacklist for config to disable items (requested config option)
 
             CurseForge/MCF:
+                Add that you need java 8 for 2.x.x and up
                 Make curseforge page look more like PortableCrafting's
                 Make wiki (either github or curseforge) link for 1.8 documentation
                     Fill in wiki with pictures and info about the mod
