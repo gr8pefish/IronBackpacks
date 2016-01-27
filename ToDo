@@ -40,8 +40,6 @@ To Do:
 
                 make crafting advanced filter
 
-                totally refactor AdditionalUpgradePointsUpgrade
-
                 some upgrade to increase storage slots?
                     rows and columns?
                     probably not
@@ -58,18 +56,6 @@ To Do:
                 Send packet to client when join server to sync metas up
 
             Crafting:
-                make 1 path choose more upgrade points
-                    make the other choose more storage
-                    figure out how to do that internally
-                        could be two different packs
-                        could be 2 pack that look the same made from the same ItemBackpack, but 2 different tooltips
-
-                        superior storage
-                        unrivaled upgrades
-
-                        Storage Emphasis
-                        Upgrade Emphasis
-
 
                 Remove adding crafting item to API?
                     https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
