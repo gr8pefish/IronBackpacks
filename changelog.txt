@@ -1,4 +1,15 @@
 ------------------------------------------------------
+Version 1.8.9 - 2.0.1
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- None
+
+Bug Fixes
+- None
+------------------------------------------------------
 Version 1.8.9 - 2.0.0 (versioning: major-minor-build)
 ------------------------------------------------------
 Initial Port to Minecraft 1.8.9 as a rewrite (and I rewrote *a lot*)

@@ -1,6 +1,5 @@
 package gr8pefish.ironbackpacks.crafting;
 
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
@@ -10,7 +9,6 @@ import gr8pefish.ironbackpacks.items.upgrades.ItemUpgrade;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;

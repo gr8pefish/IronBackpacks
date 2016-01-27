@@ -17,6 +17,10 @@ plugins {
 
 apply plugin: 'maven-publish'
 
+//set it so it has to be java 8
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 group = package_group
 archivesBaseName = mod_name
 version = "${mc_version}-${major_version}.${minor_version}.${build_number}"
@@ -167,7 +171,10 @@ curseforge {
     project {
         id = "${curse_id}"
         changelog = getChangelogText()
-        releaseType = release_as_beta.toBoolean() ? "beta" : "release"
+        //releaseType = release_as_beta.toBoolean() ? "beta" : "release"
+        releaseType = "alpha"
+
+        addGameVersion '1.8.9'
 
         relations curseRelations
     }

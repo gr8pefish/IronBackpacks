@@ -5,7 +5,6 @@ import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemAltGuiUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemPackUpgrade;
-import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IAltGuiUpgrade;
 import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;

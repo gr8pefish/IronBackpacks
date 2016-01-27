@@ -8,7 +8,6 @@ import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -22,11 +22,9 @@ import gr8pefish.ironbackpacks.util.helpers.InventoryRenderHelper;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Registers all the items in this mod.
