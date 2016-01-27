@@ -34,7 +34,7 @@ public class IronBackpacksConstants {
     //The upgrade constants
     public static final class Upgrades{
 
-        //================Upgrade Info===================
+        //================Upgrade Tooltips===================
         public static final String[] BUTTON_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.button.desc"));
         public static final String[] NESTING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.nesting.desc"));
         public static final String[] DAMAGE_BAR_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.bar.desc"));
@@ -43,6 +43,10 @@ public class IronBackpacksConstants {
         public static final String[] QUICK_DEPOSIT_PRECISE_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.quickDepositPrecise.desc"));
         public static final String[] NESTING_ADVANCED_DESRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.advNesting.desc"));
         public static final String[] DEPTH_UPGRADE_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.depth.desc"));
+
+        //additional points has numerically dependent formatting b/c english (i.e. singular vs plural -s)
+        private static String formatting = ConfigHandler.additionalUpgradePointsIncrease == 1 ? TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.amount.single") : TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult", ConfigHandler.additionalUpgradePointsIncrease);
+        public static final String[] ADDITIONAL_UPGRADE_POINTS_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.addUpgrades.desc", formatting));
 
         //Alternate Gui
         public static final String[] RENAMING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.naming.desc"));
@@ -60,9 +64,6 @@ public class IronBackpacksConstants {
 
         //===========================Misc==================================
         public static final int ALT_GUI_UPGRADES_ALLOWED = ConfigHandler.renamingUpgradeRequired ? 4 : 3;
-        private static String formatting1 = ConfigHandler.additionalUpgradePointsIncrease == 1 ? TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.amount.1") : TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult", ConfigHandler.additionalUpgradePointsIncrease);
-        private static String formatting2 = ConfigHandler.additionalUpgradePointsLimit + 3 == 1 ? TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.once") : TextUtils.localize("tooltip.ironbackpacks.upgrade.addUpgrades.mult", ConfigHandler.additionalUpgradePointsLimit + 3);
-        public static final String[] ADDITIONAL_UPGRADE_POINTS_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.addUpgrades.desc", formatting1, formatting2));
 
     }
 

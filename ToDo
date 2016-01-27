@@ -42,6 +42,12 @@ To Do:
 
                 totally refactor AdditionalUpgradePointsUpgrade
 
+                some upgrade to increase storage slots?
+                    rows and columns?
+                    probably not
+
+                add a way to remove additional upgrade points upgrades?
+
             JEI:
                 JEI handlers for crafting
                     https://github.com/williewillus/Botania/tree/MC18/src/main/java/vazkii/botania/client/integration/jei/manapool

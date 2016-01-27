@@ -20,6 +20,7 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     private final int rowCount; //number of rows
     private final int size; //size of the backpack
     private final int upgradePoints; //number of upgradePoints
+    private final int additionalPoints; //the number of additional upgrade points
 
     private final ResourceLocation guiResourceLocation; //the resource location of the gui to display
     private final int guiXSize; //the width of the gui
@@ -34,7 +35,7 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     /**
      * The Item that represents an AbstractUpgradableTieredBackpack
      */
-    public ItemUpgradableTieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture){
+    public ItemUpgradableTieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, int additionalPoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture){
         setMaxStackSize(1);
         setNoRepair();
 
@@ -45,6 +46,7 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
         this.rowCount = rowCount;
         this.size = rowCount * rowLength;
         this.upgradePoints = upgradePoints;
+        this.additionalPoints = additionalPoints;
 
         this.guiResourceLocation = guiResourceLocation;
         this.guiXSize = guiXSize;
@@ -130,6 +132,11 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     @Override
     public int getUpgradePoints(ItemStack backpack) {
         return upgradePoints;
+    }
+
+    @Override
+    public int getAdditionalUpgradePoints(ItemStack backpack) {
+        return additionalPoints;
     }
 
     //====================================================Tiering=====================================================

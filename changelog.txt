@@ -11,7 +11,8 @@ Additions (in relation to 1.7.10 - 1.2.15)
 - When removing an upgrade you now get said upgrade returned back in the crafting grid, much like how you get empty buckets back when crafting a cake.
 - The void filter is now an additional selectable filter type in the advanced filter.
 - You can crouch while opening an equipped backpack to open up the equipped backpack's alternate gui directly.
-- Config option to make the backpack no longer renders on the client if the player is in first person perspective
+- The number of additional upgrade points is now configurable for each backpack (except basic, as it can't accept any).
+- Config option to make the backpack no longer renders on the client if the player is in first person perspective.
 
 Changes (in relation to 1.7.10 - 1.2.15)
 - Made the mod significantly easier to get into in regards to recipes/resource costs.
@@ -26,6 +27,7 @@ Changes (in relation to 1.7.10 - 1.2.15)
 - Start of a full fledged API.
 - (Internal) Tons of various minor fixes/changes/optimizations.
 - (Internal) Changed how backpacks are stored internally, both for death and in general (uses two IEEPs), should be more stable.
+- (Internal) Changed how the additional upgrade points are stored.
 
 Bug Fixes (in relation to 1.7.10 - 1.2.15)
 - Tooltips now render on top of everything (it won't be hidden by JEI's items).

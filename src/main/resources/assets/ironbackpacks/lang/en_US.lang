@@ -82,10 +82,10 @@ tooltip.ironbackpacks.backpack.upgrade.used=%d/%d upgrade points used.
 tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d alternate GUI upgrades used.
 tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints=%d/%d additional upgrade points added.
 tooltip.ironbackpacks.backpack.upgrade.rename=(The %dth upgrade must include the renaming upgrade)
-tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s
-tooltip.ironbackpacks.upgrade.minimumTier=Minimum tier: %d.
 tooltip.ironbackpacks.backpack.emphasis.storage=Storage Emphasis
 tooltip.ironbackpacks.backpack.emphasis.upgrade=Upgrade Emphasis
+tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s
+tooltip.ironbackpacks.upgrade.minimumTier=Minimum tier: %d.
 
 # Tier names (for upgrade tooltip minimum tier)
 tooltip.ironbackpacks.backpack.tier.basicBackpack.name=Basic Backpack
@@ -114,10 +114,9 @@ tooltip.ironbackpacks.upgrade.miningFilter.desc=Automatically picks up any ores,
 tooltip.ironbackpacks.upgrade.voidFilter.desc=Automatically deletes any items you pick up that are specified in the filter. It does so by fuzzy detection (ignores damage values).
 tooltip.ironbackpacks.upgrade.condenser.small.desc=Allows you to specify a set of items to be crafted in a 2x2 grid upon entering your backpack (ex: sand -> sandstone).
 tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Allows you to specify a set of items to be crafted by itself upon entering your backpack (ex: redstone block -> redstone).
-tooltip.ironbackpacks.upgrade.addUpgrades.desc=Adds another %s to the backpack. Can be applied %s to the highest tier backpack.
-tooltip.ironbackpacks.upgrade.addUpgrades.amount.1=upgrade point
+tooltip.ironbackpacks.upgrade.addUpgrades.desc=Adds another %s to the backpack.
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.single=upgrade point
 tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d upgrade points
-tooltip.ironbackpacks.upgrade.addUpgrades.mult=%d times
 
 
 # Miscellaneous

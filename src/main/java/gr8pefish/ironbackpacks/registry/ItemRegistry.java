@@ -88,7 +88,8 @@ public class ItemRegistry {
                 IronBackpacksConstants.Backpacks.BASIC_BACKPACK_NAME, //name
                 ConfigHandler.enumBasicBackpack.sizeX.getValue(), //rowLength
                 ConfigHandler.enumBasicBackpack.sizeY.getValue(), //rowCount
-                ConfigHandler.enumBasicBackpack.upgradePoints.getValue(), //upgrade points, (next line) resource location of gui
+                ConfigHandler.enumBasicBackpack.upgradePoints.getValue(), //upgrade points
+                0, //additional upgrade points (hardcoded to 0 for the basic backpack), (next line) resource location of gui
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200: 236), //gui width
                 (114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue())), //gui height
@@ -101,6 +102,7 @@ public class ItemRegistry {
                 ConfigHandler.enumIronBackpackStorageEmphasis.sizeX.getValue(),
                 ConfigHandler.enumIronBackpackStorageEmphasis.sizeY.getValue(),
                 ConfigHandler.enumIronBackpackStorageEmphasis.upgradePoints.getValue(),
+                ConfigHandler.enumIronBackpackStorageEmphasis.additionalPoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpackStorageEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpackStorageEmphasis.sizeX.getValue())+".png"),
                 (ConfigHandler.enumIronBackpackStorageEmphasis.sizeX.getValue() == 9 ? 200: 236),
                 (114 + (18 * ConfigHandler.enumIronBackpackStorageEmphasis.sizeY.getValue())),
@@ -113,6 +115,7 @@ public class ItemRegistry {
                 ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeX.getValue(),
                 ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeY.getValue(),
                 ConfigHandler.enumIronBackpackUpgradeEmphasis.upgradePoints.getValue(),
+                ConfigHandler.enumIronBackpackUpgradeEmphasis.additionalPoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeX.getValue())+".png"),
                 (ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeX.getValue() == 9 ? 200: 236),
                 (114 + (18 * ConfigHandler.enumIronBackpackUpgradeEmphasis.sizeY.getValue())),
@@ -125,6 +128,7 @@ public class ItemRegistry {
                 ConfigHandler.enumGoldBackpackStorageEmphasis.sizeX.getValue(),
                 ConfigHandler.enumGoldBackpackStorageEmphasis.sizeY.getValue(),
                 ConfigHandler.enumGoldBackpackStorageEmphasis.upgradePoints.getValue(),
+                ConfigHandler.enumGoldBackpackStorageEmphasis.additionalPoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpackStorageEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpackStorageEmphasis.sizeX.getValue())+".png"),
                 (ConfigHandler.enumGoldBackpackStorageEmphasis.sizeX.getValue() == 9 ? 200: 236),
                 (114 + (18 * ConfigHandler.enumGoldBackpackStorageEmphasis.sizeY.getValue())),
@@ -137,6 +141,7 @@ public class ItemRegistry {
                 ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeX.getValue(),
                 ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeY.getValue(),
                 ConfigHandler.enumGoldBackpackUpgradeEmphasis.upgradePoints.getValue(),
+                ConfigHandler.enumGoldBackpackUpgradeEmphasis.additionalPoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeX.getValue())+".png"),
                 (ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeX.getValue() == 9 ? 200: 236),
                 (114 + (18 * ConfigHandler.enumGoldBackpackUpgradeEmphasis.sizeY.getValue())),
@@ -149,6 +154,7 @@ public class ItemRegistry {
                 ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeX.getValue(),
                 ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeY.getValue(),
                 ConfigHandler.enumDiamondBackpackStorageEmphasis.upgradePoints.getValue(),
+                ConfigHandler.enumDiamondBackpackStorageEmphasis.additionalPoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeX.getValue())+".png"),
                 (ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeX.getValue() == 9 ? 200: 236),
                 (114 + (18 * ConfigHandler.enumDiamondBackpackStorageEmphasis.sizeY.getValue())),
@@ -161,6 +167,7 @@ public class ItemRegistry {
                 ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeX.getValue(),
                 ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeY.getValue(),
                 ConfigHandler.enumDiamondBackpackUpgradeEmphasis.upgradePoints.getValue(),
+                ConfigHandler.enumDiamondBackpackUpgradeEmphasis.additionalPoints.getValue(),
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeX.getValue())+".png"),
                 (ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeX.getValue() == 9 ? 200: 236),
                 (114 + (18 * ConfigHandler.enumDiamondBackpackUpgradeEmphasis.sizeY.getValue())),

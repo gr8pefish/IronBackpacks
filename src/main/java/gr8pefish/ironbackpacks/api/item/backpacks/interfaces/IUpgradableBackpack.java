@@ -9,10 +9,19 @@ public interface IUpgradableBackpack extends IBackpack {
 
     /**
      * Get the total number of upgrade points available for the backpack.
+     * Note: DOES NOT include the additional upgrade points.
+     *
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - an integer amount of the total points
      */
     int getUpgradePoints(ItemStack backpack);
+
+    /**
+     * Return the amount of additional upgrade points that can be applied to the backpack.
+     * @param backpack - the backpack as an item stack (needed for sub items)
+     * @return - an integer amount of the total points
+     */
+    int getAdditionalUpgradePoints(ItemStack backpack);
 
     /**
      * Get the upgrades applied to the backpack.

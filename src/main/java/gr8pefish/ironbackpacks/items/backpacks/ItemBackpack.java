@@ -3,12 +3,14 @@ package gr8pefish.ironbackpacks.items.backpacks;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.item.backpacks.ItemUpgradableTieredBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
+import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.TextUtils;
@@ -35,8 +37,8 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
 
     private String emphasis; //unlocalized string to show if the backpack has a specialty, could be null if none
 
-    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture, String specialty){
-        super(name, rowLength, rowCount, upgradePoints, guiResourceLocation, guiXSize, guiYSize, modelTexture); //null is for the recipe (set after item init)
+    public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, int additionalPoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture, String specialty){
+        super(name, rowLength, rowCount, upgradePoints, additionalPoints, guiResourceLocation, guiXSize, guiYSize, modelTexture); //null is for the recipe (set after item init)
         setCreativeTab(IronBackpacks.creativeTab);
         this.emphasis = specialty;
 
@@ -130,6 +132,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
             int upgradesUsed = 0;
 
             for (ItemStack upgradeStack : upgrades) {
+//                if (!ItemUpgradeRegistry.getItemUpgrade(upgradeStack).equals(ItemRegistry.additionalUpgradePointsUpgrade))
                 list.add(TextUtils.localizeEffect("item.ironbackpacks.upgrade."+ ItemUpgradeRegistry.getItemUpgrade(upgradeStack).getName(upgradeStack)+".name"));
                 upgradesUsed += ItemUpgradeRegistry.getItemUpgrade(upgradeStack).getUpgradeCost(upgradeStack);
             }
@@ -146,12 +149,12 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
             if (ConfigHandler.renamingUpgradeRequired)
                 list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.rename", IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
 
-            int tierUpgradeCount = ConfigHandler.additionalUpgradePointsLimit + getGuiId(stack);
 
-            if (tierUpgradeCount > 0) {
+            int additionalPossiblePoints = this.getAdditionalUpgradePoints(null);
+
+            if (additionalPossiblePoints > 0) {
                 int used = IronBackpacksHelper.getAdditionalUpgradesTimesApplied(stack) * ConfigHandler.additionalUpgradePointsIncrease;
-                int have = tierUpgradeCount * ConfigHandler.additionalUpgradePointsIncrease;
-                list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints", used, have));
+                list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints", used, additionalPossiblePoints));
             }
         } else {
             if (totalUpgradePoints > 0)

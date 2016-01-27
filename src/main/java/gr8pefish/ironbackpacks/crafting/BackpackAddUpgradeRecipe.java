@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
@@ -222,13 +223,15 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
         if (backpackBase == null) return false;
         if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS)){
             int[] oldValuesArray = nbtTagCompound.getIntArray(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS);
-            if (oldValuesArray[1] < ConfigHandler.additionalUpgradePointsLimit + backpackBase.getGuiId(backpack)){
+//            if (oldValuesArray[1] < ConfigHandler.additionalUpgradePointsLimit + backpackBase.getGuiId(backpack)){
+            if (oldValuesArray[1] < ((IUpgradableBackpack)backpack.getItem()).getAdditionalUpgradePoints(backpack)){
                 nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS, new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradePointsIncrease + oldValuesArray[0], ++oldValuesArray[1]})); //[pointsAdded, upgradesApplied]
                 return true;
             }
 
         } else {
-            if (ConfigHandler.additionalUpgradePointsLimit + backpackBase.getGuiId(backpack) > 0) {
+//            if (ConfigHandler.additionalUpgradePointsLimit + backpackBase.getGuiId(backpack) > 0) {
+            if (((IUpgradableBackpack)backpack.getItem()).getAdditionalUpgradePoints(backpack) > 0) { //if upgrade points possible greater than 0, apply it
                 nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDITIONAL_POINTS, new NBTTagIntArray(new int[]{ConfigHandler.additionalUpgradePointsIncrease, 1})); //[pointsAdded, upgradesApplied]
                 return true;
             }
