@@ -16,7 +16,8 @@ Additions
 - None
 
 Changes
-- Where the backpack is viewable if in first person perspective (it is now less visible)
+- The backpack is less visible/obtrusive if in first person perspective.
+- (Internal) Changed backpackSpawnedMap to be ItemStacks and EntityBackpacks so that threading errors are less likely as the ItemStack/Equipped backpack can be obtained from the IEEP.
 
 Bug Fixes
 - Made client messages threaded so the backpack textures update properly.

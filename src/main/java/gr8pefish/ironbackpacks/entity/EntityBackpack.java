@@ -21,13 +21,12 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
     private ItemStack backpackStack; //the backpack as an item stack
 
     //all the backpacks in one map
-    private static Map<ItemStack, EntityBackpack> backpacksSpawnedMap = new HashMap<>();//new MapMaker().weakKeys().weakValues().makeMap();
+    private static Map<ItemStack, EntityBackpack> backpacksSpawnedMap = new HashMap<>();
 
     public EntityBackpack(World world){
         super(world);
     }
 
-    //TODO: set it so that the pack saves the world obj so it knows what world to render the pack in?
     public EntityBackpack(World world, EntityPlayer player, ItemStack backpackStack){
         super(world);
         this.player = player;
@@ -94,12 +93,6 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
                 else pack.setDead();
             }
         }
-//        for (Map.Entry<EntityPlayer, EntityBackpack> map : backpacksSpawnedMap.entrySet()) {
-//            EntityPlayer player = map.getKey();
-//            EntityBackpack backpack = map.getValue();
-//            if (isBackpackValid(player, backpack)) backpack.fixPositions(player, player instanceof EntityPlayerSP);
-//            else backpack.setDead();
-//        }
     }
 
     //make sure it is updated to the right position

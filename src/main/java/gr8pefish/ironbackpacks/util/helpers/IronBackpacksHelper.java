@@ -214,7 +214,7 @@ public class IronBackpacksHelper {
     }
 
     //spawns a backpack as an entity so it can render on the player
-    public static void spawnEntityBackpack(ItemStack backpack, EntityPlayer player){ //TODO: remove useless backpack param
+    public static void spawnEntityBackpack(ItemStack backpack, EntityPlayer player){
         EntityBackpack entityBackpack = new EntityBackpack(player.worldObj, player, backpack);
         entityBackpack.setPositionAndRotation(player.posX, player.posY, player.posZ-.5, player.rotationPitch, player.rotationYaw);
         player.worldObj.spawnEntityInWorld(entityBackpack);
@@ -224,10 +224,6 @@ public class IronBackpacksHelper {
     //kills the backpack on the player
     public static void killEntityBackpack(ItemStack backpack){
         EntityBackpack.killBackpack(backpack);
-//        if (EntityBackpack.backpacksSpawnedMap.containsKey(player) && EntityBackpack.backpacksSpawnedMap.get(player) != null)
-//            EntityBackpack.backpacksSpawnedMap.get(player).setDead();
-//        else
-//            Logger.warn("Couldn't kill entity backpack");
     }
 
 
