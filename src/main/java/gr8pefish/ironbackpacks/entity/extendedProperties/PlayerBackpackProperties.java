@@ -1,8 +1,10 @@
 package gr8pefish.ironbackpacks.entity.extendedProperties;
 
 import gr8pefish.ironbackpacks.api.Constants;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -17,6 +19,7 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
 
     @Override
     public void saveNBTData(NBTTagCompound tag) {
+
         //make new list
         NBTTagList tagList = new NBTTagList();
 
@@ -32,7 +35,7 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
         //make another for the saved one
         NBTTagCompound current = new NBTTagCompound();
         if (currentBackpack != null) {
-            currentBackpack.writeToNBT(equipped);
+            currentBackpack.writeToNBT(current);
         }else{
             current.setBoolean("noCurrent", false);
         }
@@ -111,6 +114,7 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
     }
 
     public static void setEquippedBackpack(EntityLivingBase livingBase, ItemStack stack) {
+        if (stack != null)System.out.println("setting equipped to: "+stack.getDisplayName()); else System.out.println("setting equipped to null");
         get(livingBase).setEquippedBackpack(stack);
     }
 

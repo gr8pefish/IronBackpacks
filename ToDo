@@ -107,6 +107,19 @@ To Do:
 
             Minor:
                 Doesn't init if going straight to alt gui
+                    containeralt gui rename crash
+
+
+            Major:
+                IEEP seems to not save data on server
+                    i.e. save equipped, log out, then another different pack is equipped on login
+                Textures funky on entity packs too
+                I changed entityBackpacks to a HashMap instead of a weak one
+                All seems to be server specific errors
+
+                could be switcihng saving loading current/equipped in IEEP
+                    yup it was
+                    still got texture error b/cv message player not right on client side
 
             Forge:
                 ShapedOreRecipes not working with getRemainingItems, report bug.

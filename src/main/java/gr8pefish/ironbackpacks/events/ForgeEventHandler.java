@@ -117,15 +117,20 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onPlayerLogIn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event){
+        System.out.println("side login");
+        Logger.info("side login");
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
-        if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
-
+        if (backpack!= null)System.out.println(backpack.getItem().getUnlocalizedName()); else System.out.println("null pack");
+        if (!EntityBackpack.containsPlayer(event.player) && backpack != null) {
+            System.out.println("kay, sneding to client");
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
-            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
+//            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack //TODO: unnecessary?
 
-            if (!ConfigHandler.disableRendering)
+            if (!ConfigHandler.disableRendering) {
+                System.out.println("spawnign pack");
                 IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
-        }
+            }
+        }else System.out.println("null stuff no login code");
     }
 
     /**
@@ -134,12 +139,16 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onPlayerCloning(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
+        System.out.printf("cloning");
         PlayerBackpackDeathProperties epNew = PlayerBackpackDeathProperties.get(event.entityPlayer);
+        if (epNew.getEquippedBackpack() != null) Logger.info(epNew.getEquippedBackpack().toString()); else Logger.info("new is null");
         PlayerBackpackDeathProperties epOld = PlayerBackpackDeathProperties.get(event.original);
+        if (epOld.getEquippedBackpack() != null) Logger.info(epOld.getEquippedBackpack().toString()); else Logger.info("old is null");
 
         //update new dat with old
         epNew.setEternityBackpacks(epOld.getEternityBackpacks());
         epNew.setEquippedBackpack(epOld.getEquippedBackpack());
+        System.out.println("setting new from old");
     }
 
     /**
@@ -148,15 +157,15 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onPlayerRespawn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent event){
-        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
-        if (!EntityBackpack.backpacksSpawnedMap.containsKey(event.player) && backpack != null) {
-
-            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
-            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
-
-            if (!ConfigHandler.disableRendering)
-                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
-        }
+//        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
+//        if (!EntityBackpack.containsPlayer(event.player) && backpack != null) {
+//
+//            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+//            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
+//
+//            if (!ConfigHandler.disableRendering)
+//                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
+//        }
     }
 
     /**
@@ -165,20 +174,20 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onPlayerDimChange(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent event){
-        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
-        if (backpack != null) {
-            if (EntityBackpack.backpacksSpawnedMap.containsKey(event.player)) //if has old dimension backpack
-                IronBackpacksHelper.killEntityBackpack(event.player); //kill old backpack
-
-            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
-            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //TODO: test with these removed
-
-            if (!ConfigHandler.disableRendering)
-                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
-        } else {
-            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP) event.player); //update client on correct pack
-            PlayerBackpackProperties.setEquippedBackpack(event.player, null);
-        }
+//        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
+//        if (backpack != null) {
+//            if (EntityBackpack.containsPlayer(event.player)) //if has old dimension backpack
+//                IronBackpacksHelper.killEntityBackpack(event.player); //kill old backpack
+//
+//            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
+//            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //TODO: test with these removed
+//
+//            if (!ConfigHandler.disableRendering)
+//                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
+//        } else {
+//            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP) event.player); //update client on correct pack
+//            PlayerBackpackProperties.setEquippedBackpack(event.player, null);
+//        }
     }
 
     /**

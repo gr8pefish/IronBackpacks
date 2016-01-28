@@ -215,17 +215,19 @@ public class IronBackpacksHelper {
     //spawns a backpack as an entity so it can render on the player
     public static void spawnEntityBackpack(ItemStack backpack, EntityPlayer player){ //TODO: remove useless backpack param
         EntityBackpack entityBackpack = new EntityBackpack(player.worldObj, player);
+        System.out.println("testing");
         entityBackpack.setPositionAndRotation(player.posX, player.posY, player.posZ-.5, player.rotationPitch, player.rotationYaw);
         player.worldObj.spawnEntityInWorld(entityBackpack);
-        EntityBackpack.backpacksSpawnedMap.put(player, entityBackpack);
+        EntityBackpack.updatePlayersBackpack(player, entityBackpack);
     }
 
     //kills the backpack on the player
     public static void killEntityBackpack(EntityPlayer player){
-        if (EntityBackpack.backpacksSpawnedMap.containsKey(player) && EntityBackpack.backpacksSpawnedMap.get(player) != null)
-            EntityBackpack.backpacksSpawnedMap.get(player).setDead();
-        else
-            Logger.warn("Couldn't kill entity backpack");
+        EntityBackpack.killBackpack(player);
+//        if (EntityBackpack.backpacksSpawnedMap.containsKey(player) && EntityBackpack.backpacksSpawnedMap.get(player) != null)
+//            EntityBackpack.backpacksSpawnedMap.get(player).setDead();
+//        else
+//            Logger.warn("Couldn't kill entity backpack");
     }
 
 
@@ -297,13 +299,14 @@ public class IronBackpacksHelper {
         //get equipped pack
         ItemStack equipped = PlayerBackpackDeathProperties.getEquippedBackpack(player);
         //respawn it
-        if (!EntityBackpack.backpacksSpawnedMap.containsKey(player) && equipped != null) {
+        if (equipped != null) {
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(equipped), (EntityPlayerMP) player); //update client on correct pack
             PlayerBackpackProperties.setEquippedBackpack(player, equipped); //update server on correct pack
 
-            if (!ConfigHandler.disableRendering)
+            if ((!EntityBackpack.containsPlayer(player)) && (!ConfigHandler.disableRendering)) {
                 IronBackpacksHelper.spawnEntityBackpack(equipped, player);
+            }
         }
 
         //get eternity packs and add them to inventory

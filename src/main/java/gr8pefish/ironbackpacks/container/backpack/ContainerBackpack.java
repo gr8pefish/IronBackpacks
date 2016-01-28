@@ -219,7 +219,7 @@ public class ContainerBackpack extends Container {
         int start = totalSize + player.inventory.getSizeInventory() - player.inventory.getHotbarSize() - 4;
         int end = start + this.player.inventory.getHotbarSize();
 
-        ItemStack equippedPack = IronBackpacksHelper.getBackpack(player); //access once here instead of in the loop
+        ItemStack openedPack = IronBackpacksHelper.getBackpack(player); //access once here instead of in the loop
 
         for (int slot = start; slot < end; slot++){ //for each slot in hotbar
             if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack()) { //non-empty slot
@@ -227,7 +227,7 @@ public class ContainerBackpack extends Container {
                     transferStackInSlot(player, slot); //transfer it
                 } else {
                     ItemStack stack = getSlot(slot).getStack();
-                    if (!ItemStack.areItemStackTagsEqual(stack, equippedPack)) { //can't move the same backpack you have open
+                    if (!ItemStack.areItemStackTagsEqual(stack, openedPack)) { //can't move the same backpack you have open
                         transferStackInSlot(player, slot);
                     }
                 }

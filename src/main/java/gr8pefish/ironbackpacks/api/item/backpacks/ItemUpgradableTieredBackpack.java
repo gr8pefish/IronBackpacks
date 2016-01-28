@@ -115,6 +115,7 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
 
     @Override
     public ResourceLocation getModelTexture(ItemStack backpack) {
+//        if (modelTexture != null) System.out.println(modelTexture); else System.out.println("modelTexture = null");
         return modelTexture;
     }
 

@@ -1,6 +1,5 @@
 package gr8pefish.ironbackpacks.entity;
 
-import com.google.common.collect.MapMaker;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
@@ -11,6 +10,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData {
@@ -18,12 +18,13 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
     private EntityPlayer player;
 
     //all the backpacks in one map
-    public static Map<EntityPlayer, EntityBackpack> backpacksSpawnedMap = new MapMaker().weakKeys().weakValues().makeMap();
+    private static Map<EntityPlayer, EntityBackpack> backpacksSpawnedMap = new HashMap<>();//new MapMaker().weakKeys().weakValues().makeMap();
 
     public EntityBackpack(World world){
         super(world);
     }
 
+    //TODO: set it so that the pack saves the world obj so it knows what world to render the pack in?
     public EntityBackpack(World world, EntityPlayer player){
         super(world);
         this.player = player;
@@ -32,6 +33,25 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
     @Override
     protected void entityInit() {
         //nothing extra needed here
+    }
+
+    public static void updatePlayersBackpack(EntityPlayer player, EntityBackpack backpack){
+        if (backpacksSpawnedMap.containsKey(player)) {
+            System.out.println("has player already, updating");
+            backpacksSpawnedMap.replace(player, backpacksSpawnedMap.get(player), backpack);
+        } else {
+            backpacksSpawnedMap.put(player, backpack);
+        }
+    }
+
+    public static void killBackpack(EntityPlayer player){
+        if (backpacksSpawnedMap.containsKey(player) && backpacksSpawnedMap.get(player) != null){
+            backpacksSpawnedMap.get(player).setDead();
+        }
+    }
+
+    public static boolean containsPlayer(EntityPlayer player){
+        return backpacksSpawnedMap.containsKey(player);
     }
 
     /**
