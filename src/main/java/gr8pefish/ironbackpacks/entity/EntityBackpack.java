@@ -1,9 +1,11 @@
 package gr8pefish.ironbackpacks.entity;
 
+import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
@@ -15,19 +17,21 @@ import java.util.Map;
 
 public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData {
 
-    private EntityPlayer player;
+    private EntityPlayer player; //server player
+    private ItemStack backpackStack; //the backpack as an item stack
 
     //all the backpacks in one map
-    private static Map<EntityPlayer, EntityBackpack> backpacksSpawnedMap = new HashMap<>();//new MapMaker().weakKeys().weakValues().makeMap();
+    private static Map<ItemStack, EntityBackpack> backpacksSpawnedMap = new HashMap<>();//new MapMaker().weakKeys().weakValues().makeMap();
 
     public EntityBackpack(World world){
         super(world);
     }
 
     //TODO: set it so that the pack saves the world obj so it knows what world to render the pack in?
-    public EntityBackpack(World world, EntityPlayer player){
+    public EntityBackpack(World world, EntityPlayer player, ItemStack backpackStack){
         super(world);
         this.player = player;
+        this.backpackStack = backpackStack;
     }
 
     @Override
@@ -35,23 +39,23 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
         //nothing extra needed here
     }
 
-    public static void updatePlayersBackpack(EntityPlayer player, EntityBackpack backpack){
-        if (backpacksSpawnedMap.containsKey(player)) {
-            System.out.println("has player already, updating");
-            backpacksSpawnedMap.replace(player, backpacksSpawnedMap.get(player), backpack);
+
+    public static void updatePlayersBackpack(ItemStack stack, EntityBackpack backpack){
+        if (backpacksSpawnedMap.containsKey(stack)) {
+            backpacksSpawnedMap.replace(stack, backpacksSpawnedMap.get(stack), backpack);
         } else {
-            backpacksSpawnedMap.put(player, backpack);
+            backpacksSpawnedMap.put(stack, backpack);
         }
     }
 
-    public static void killBackpack(EntityPlayer player){
-        if (backpacksSpawnedMap.containsKey(player) && backpacksSpawnedMap.get(player) != null){
-            backpacksSpawnedMap.get(player).setDead();
+    public static void killBackpack(ItemStack stack){
+        if (backpacksSpawnedMap.containsKey(stack) && backpacksSpawnedMap.get(stack) != null){
+            backpacksSpawnedMap.get(stack).setDead();
         }
     }
 
-    public static boolean containsPlayer(EntityPlayer player){
-        return backpacksSpawnedMap.containsKey(player);
+    public static boolean containsStack(ItemStack stack){
+        return backpacksSpawnedMap.containsKey(stack);
     }
 
     /**
@@ -60,7 +64,7 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
     @Override
     public void setDead() {
         super.setDead();
-        backpacksSpawnedMap.remove(player);
+        backpacksSpawnedMap.remove(backpackStack);
     }
 
     /**
@@ -80,13 +84,22 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
      * @param worldObj - the world to update them in
      */
     @SideOnly(Side.CLIENT)
-    public static void updateBackpacks(World worldObj) {
-        for (Map.Entry<EntityPlayer, EntityBackpack> map : backpacksSpawnedMap.entrySet()) {
-            EntityPlayer player = map.getKey();
-            EntityBackpack backpack = map.getValue();
-            if (isBackpackValid(player, backpack)) backpack.fixPositions(player, player instanceof EntityPlayerSP);
-            else backpack.setDead();
+    public static void updateBackpacks(Minecraft mc, World worldObj) {
+        EntityPlayer player = mc.thePlayer;
+        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(player);
+        if (backpack != null){
+            EntityBackpack pack = backpacksSpawnedMap.get(backpack);
+            if (pack != null) {
+                if (isBackpackValid(player, pack)) pack.fixPositions(player, true);
+                else pack.setDead();
+            }
         }
+//        for (Map.Entry<EntityPlayer, EntityBackpack> map : backpacksSpawnedMap.entrySet()) {
+//            EntityPlayer player = map.getKey();
+//            EntityBackpack backpack = map.getValue();
+//            if (isBackpackValid(player, backpack)) backpack.fixPositions(player, player instanceof EntityPlayerSP);
+//            else backpack.setDead();
+//        }
     }
 
     //make sure it is updated to the right position
@@ -127,7 +140,8 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
 
         if (e instanceof EntityPlayer) {
             player = (EntityPlayer)e;
-            backpacksSpawnedMap.put(player, this);
+            ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(player);
+            backpacksSpawnedMap.put(backpack, this);
         } else {
             setDead();
         }

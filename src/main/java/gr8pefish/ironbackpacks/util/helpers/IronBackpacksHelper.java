@@ -20,6 +20,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.WorldServer;
 
 import java.util.ArrayList;
 
@@ -189,7 +190,7 @@ public class IronBackpacksHelper {
                 NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP)player);
 
                 //stop the render - kill entity
-                killEntityBackpack(player);
+                killEntityBackpack(backpack);
             }
 
         }
@@ -214,16 +215,15 @@ public class IronBackpacksHelper {
 
     //spawns a backpack as an entity so it can render on the player
     public static void spawnEntityBackpack(ItemStack backpack, EntityPlayer player){ //TODO: remove useless backpack param
-        EntityBackpack entityBackpack = new EntityBackpack(player.worldObj, player);
-        System.out.println("testing");
+        EntityBackpack entityBackpack = new EntityBackpack(player.worldObj, player, backpack);
         entityBackpack.setPositionAndRotation(player.posX, player.posY, player.posZ-.5, player.rotationPitch, player.rotationYaw);
         player.worldObj.spawnEntityInWorld(entityBackpack);
-        EntityBackpack.updatePlayersBackpack(player, entityBackpack);
+        EntityBackpack.updatePlayersBackpack(backpack, entityBackpack);
     }
 
     //kills the backpack on the player
-    public static void killEntityBackpack(EntityPlayer player){
-        EntityBackpack.killBackpack(player);
+    public static void killEntityBackpack(ItemStack backpack){
+        EntityBackpack.killBackpack(backpack);
 //        if (EntityBackpack.backpacksSpawnedMap.containsKey(player) && EntityBackpack.backpacksSpawnedMap.get(player) != null)
 //            EntityBackpack.backpacksSpawnedMap.get(player).setDead();
 //        else
@@ -260,7 +260,7 @@ public class IronBackpacksHelper {
                 packToStore = equippedPack;
                 PlayerBackpackDeathProperties.setEquippedBackpack(player, null); //removes backpack
             }
-            IronBackpacksHelper.killEntityBackpack(player);
+            IronBackpacksHelper.killEntityBackpack(equippedPack);
         }
 
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
@@ -304,7 +304,7 @@ public class IronBackpacksHelper {
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(equipped), (EntityPlayerMP) player); //update client on correct pack
             PlayerBackpackProperties.setEquippedBackpack(player, equipped); //update server on correct pack
 
-            if ((!EntityBackpack.containsPlayer(player)) && (!ConfigHandler.disableRendering)) {
+            if ((!EntityBackpack.containsStack(equipped)) && (!ConfigHandler.disableRendering)) {
                 IronBackpacksHelper.spawnEntityBackpack(equipped, player);
             }
         }

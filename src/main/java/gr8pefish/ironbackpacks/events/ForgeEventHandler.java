@@ -28,6 +28,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -79,7 +80,7 @@ public class ForgeEventHandler {
      * When a player dies, check if player has any backpacks with keepOnDeathUpgrade so then they are saved for when they spawn
      * @param event - the event
      */
-    @SubscribeEvent//(priority = EventPriority.HIGHEST)
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onDeath(LivingDeathEvent event){
         if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer){ //server side
             IronBackpacksHelper.saveBackpackOnDeath((EntityPlayer) event.entity);
@@ -117,17 +118,15 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onPlayerLogIn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event){
-        System.out.println("side login");
-        Logger.info("side login");
+
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
         if (backpack!= null)System.out.println(backpack.getItem().getUnlocalizedName()); else System.out.println("null pack");
-        if (!EntityBackpack.containsPlayer(event.player) && backpack != null) {
-            System.out.println("kay, sneding to client");
+        if (backpack != null && !EntityBackpack.containsStack(backpack)) {
+
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack //TODO: unnecessary?
 
             if (!ConfigHandler.disableRendering) {
-                System.out.println("spawnign pack");
                 IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
             }
         }else System.out.println("null stuff no login code");
@@ -154,7 +153,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onPlayerRespawn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent event){
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
-        if (!EntityBackpack.containsPlayer(event.player) && backpack != null) {
+        if (backpack != null && !EntityBackpack.containsStack(backpack)) {
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
@@ -172,8 +171,8 @@ public class ForgeEventHandler {
     public void onPlayerDimChange(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent event){
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
         if (backpack != null) {
-            if (EntityBackpack.containsPlayer(event.player)) //if has old dimension backpack
-                IronBackpacksHelper.killEntityBackpack(event.player); //kill old backpack
+            if (EntityBackpack.containsStack(backpack)) //if has old dimension backpack
+                IronBackpacksHelper.killEntityBackpack(backpack); //kill old backpack
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //TODO: test with these removed

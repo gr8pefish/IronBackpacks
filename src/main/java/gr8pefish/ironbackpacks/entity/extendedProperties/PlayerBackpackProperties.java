@@ -114,7 +114,6 @@ public class PlayerBackpackProperties implements IExtendedEntityProperties {
     }
 
     public static void setEquippedBackpack(EntityLivingBase livingBase, ItemStack stack) {
-        if (stack != null)System.out.println("setting equipped to: "+stack.getDisplayName()); else System.out.println("setting equipped to null");
         get(livingBase).setEquippedBackpack(stack);
     }
 

@@ -39,7 +39,7 @@ public class ClientEventHandler {
     @SideOnly(Side.CLIENT)
     private void preRenderTick(Minecraft mc, World world, float renderTick) {
         //make sure all backpacks to be rendered are valid
-        EntityBackpack.updateBackpacks(world);
+        EntityBackpack.updateBackpacks(mc, world);
     }
 
     /**
