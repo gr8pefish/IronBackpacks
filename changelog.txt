@@ -1,11 +1,22 @@
 ------------------------------------------------------
-Version 1.8.9 - 2.0.1
+Version 1.8.9 - 2.0.2
 ------------------------------------------------------
 Additions
 - None
 
 Changes
 - None
+
+Bug Fixes
+- None
+------------------------------------------------------
+Version 1.8.9 - 2.0.1
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- Where the backpack is viewable if in first person perspective (it is now less visible)
 
 Bug Fixes
 - Made client messages threaded so the backpack textures update properly.
