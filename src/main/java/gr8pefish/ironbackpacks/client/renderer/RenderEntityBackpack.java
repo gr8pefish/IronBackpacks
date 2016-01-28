@@ -57,7 +57,11 @@ public class RenderEntityBackpack extends Render<EntityBackpack> {
 
         if (owner.isSneaking()){
             GlStateManager.rotate(-25F, 1, 0, 0); //rotate it forward to still be on the player's back
-            GlStateManager.translate(0, .2, -.1); //move it back and down a little
+            GlStateManager.translate(0, .2, -.1); //move it down and back a little
+        }
+
+        if (isFpp) {
+            GlStateManager.translate(0, -.25, -.6); //move up a little up and a little back
         }
 
         bindEntityTexture(pack);

@@ -1,26 +1,4 @@
 ------------------------------------------------------
-Version 1.8.9 - 2.0.2
-------------------------------------------------------
-Additions
-- None
-
-Changes
-- None
-
-Bug Fixes
-- None
-------------------------------------------------------
-Version 1.8.9 - 2.0.2
-------------------------------------------------------
-Additions
-- None
-
-Changes
-- None
-
-Bug Fixes
-- None
-------------------------------------------------------
 Version 1.8.9 - 2.0.1
 ------------------------------------------------------
 Additions
@@ -30,7 +8,8 @@ Changes
 - None
 
 Bug Fixes
-- None
+- Made client messages threaded so the backpack textures update properly.
+- Fixed the current backpack (the one open) saving as the equipped backpack.
 ------------------------------------------------------
 Version 1.8.9 - 2.0.0 (versioning: major-minor-build)
 ------------------------------------------------------
