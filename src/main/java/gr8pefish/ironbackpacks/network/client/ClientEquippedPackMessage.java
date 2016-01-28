@@ -38,9 +38,9 @@ public class ClientEquippedPackMessage implements IMessage {
         @Override
         public IMessage onMessage(ClientEquippedPackMessage message, MessageContext ctx) {
 
-//            EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
+            EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
             Logger.info("getting player on client side?");
-            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+//            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             if (player != null) {
                 if (message.stack != null) Logger.info("setting client equipped "+message.stack.toString()); else Logger.info("setting client null");
                 PlayerBackpackProperties.setEquippedBackpack(player, message.stack); //update the backpack //TODO: client

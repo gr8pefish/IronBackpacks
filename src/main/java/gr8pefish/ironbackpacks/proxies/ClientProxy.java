@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import scala.collection.parallel.ParIterableLike;
 
 /**
  * All the specifics that need to be called on the client side
@@ -55,7 +56,14 @@ public class ClientProxy extends CommonProxy {
     }
 
     public EntityPlayer getClientPlayer(){ //TODO: remove eventually
-        return Minecraft.getMinecraft().thePlayer;
+        System.out.println("getting client player");
+
+        EntityPlayer[] player = new EntityPlayer[1];
+        Minecraft.getMinecraft().addScheduledTask(() -> player[0] = Minecraft.getMinecraft().thePlayer);
+        System.out.println("null player "+(player[0] == null));
+
+        return player[0];
+
     }
 
 }
