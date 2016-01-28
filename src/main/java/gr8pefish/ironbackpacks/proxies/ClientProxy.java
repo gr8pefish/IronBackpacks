@@ -55,15 +55,8 @@ public class ClientProxy extends CommonProxy {
         return ConfigAdaptor.getLatestFilenameFromCurse(IronBackpacksConstants.Miscellaneous.URL_UPDATED_VERSION);
     }
 
-    public EntityPlayer getClientPlayer(){ //TODO: remove eventually
-        System.out.println("getting client player");
-
-        EntityPlayer[] player = new EntityPlayer[1];
-        Minecraft.getMinecraft().addScheduledTask(() -> player[0] = Minecraft.getMinecraft().thePlayer);
-        System.out.println("null player "+(player[0] == null));
-
-        return player[0];
-
+    public EntityPlayer getClientPlayer(){
+        return Minecraft.getMinecraft().thePlayer;
     }
 
 }

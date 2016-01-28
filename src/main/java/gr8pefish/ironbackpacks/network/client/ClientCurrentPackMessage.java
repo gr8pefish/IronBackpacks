@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.network.client;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -36,10 +37,13 @@ public class ClientCurrentPackMessage implements IMessage {
         @Override
         public IMessage onMessage(ClientCurrentPackMessage message, MessageContext ctx) {
 
-            EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
-            if (player != null) {
-                PlayerBackpackProperties.setCurrentBackpack(player, message.stack); //update the backpack //TODO: client and this is just bad code
-            }
+            //have to use threading system since 1.8
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
+                if (player != null) {
+                    PlayerBackpackProperties.setCurrentBackpack(player, message.stack); //update the backpack
+                }
+            });
 
             return null; //no return message
         }

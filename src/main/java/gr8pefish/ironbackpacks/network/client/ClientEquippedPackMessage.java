@@ -7,6 +7,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -38,13 +39,14 @@ public class ClientEquippedPackMessage implements IMessage {
         @Override
         public IMessage onMessage(ClientEquippedPackMessage message, MessageContext ctx) {
 
-            EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
-            Logger.info("getting player on client side?");
-//            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-            if (player != null) {
-                if (message.stack != null) Logger.info("setting client equipped "+message.stack.toString()); else Logger.info("setting client null");
-                PlayerBackpackProperties.setEquippedBackpack(player, message.stack); //update the backpack //TODO: client
-            }
+            //have to use threading system since 1.8
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
+                if (player != null) {
+                    PlayerBackpackProperties.setEquippedBackpack(player, message.stack); //update the backpack
+                }
+            });
+
 
             return null; //no return message
         }
