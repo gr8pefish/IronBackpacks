@@ -60,7 +60,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
     @Override
     public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) { //server side
-            if (!player.isSneaking()) { //only do it when player is sneaking
+            if (!(player.isSneaking())) { //only do it when player is sneaking
                 return false;
             }
             ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
@@ -105,7 +105,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
         } else {
             NBTUtils.setUUID(itemStack);
             PlayerBackpackProperties.setCurrentBackpack(player, itemStack);
-            if (!player.isSneaking()){
+            if (!(player.isSneaking())){
                 player.openGui(IronBackpacks.instance, getGuiId(itemStack), world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"
                 return itemStack;
             }else { //if sneaking

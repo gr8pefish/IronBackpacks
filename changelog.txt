@@ -8,7 +8,8 @@ Changes
 - None
 
 Bug Fixes
-- None
+- Fixed forge gradle not reobfuscating for some unknown reason O.o
+    - Closes #47
 ------------------------------------------------------
 Version 1.8.9 - 2.0.1
 ------------------------------------------------------

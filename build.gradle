@@ -97,14 +97,8 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
 }
 
-// Deobfuscated jar
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
-}
-
 //Not now not with clean and auto-upload to curse, it just deletes it so there is no point
-//tasks.build.dependsOn sourceJar, javadocJar, deobfJar
+//tasks.build.dependsOn sourceJar, javadocJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
@@ -117,7 +111,6 @@ publishing {
             artifact jar
             artifact sourceJar
             artifact javadocJar
-            artifact deobfJar
         }
     }
     repositories {

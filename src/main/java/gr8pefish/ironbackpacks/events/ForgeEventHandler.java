@@ -120,7 +120,7 @@ public class ForgeEventHandler {
     public void onPlayerLogIn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event){
 
         ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
-        if (backpack!= null)System.out.println(backpack.getItem().getUnlocalizedName()); else System.out.println("null pack");
+
         if (backpack != null && !EntityBackpack.containsStack(backpack)) {
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
