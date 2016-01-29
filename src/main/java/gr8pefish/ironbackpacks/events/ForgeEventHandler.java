@@ -356,15 +356,19 @@ public class ForgeEventHandler {
                                                     } else {
                                                         System.out.println("resupplying with less "+tempItem.stackSize);
                                                         tempSlot.decrStackSize(tempItem.stackSize);
+
+                                                        //slotToResupply is in the player's hotbar and isn't updated
                                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + tempItem.stackSize, stackToResupply.getItemDamage()));
 
-                                                        //need to save the change
+                                                        //need to save the change (none of these are working)
                                                         container.save(event.entityPlayer);
                                                         event.entityPlayer.inventory.markDirty();
                                                         slotToResupply.onSlotChanged();
                                                         slotToResupply.inventory.markDirty();
 
-                                                        System.out.println("new stack size: "+slotToResupply.getStack().stackSize);
+                                                        System.out.println("new stack size: "+slotToResupply.getStack().stackSize); //this works
+                                                        //but when it goes through the loop again (i.e. the slots, loop starts on line 327) the changes are discarded
+                                                            //discarded changes are proven by the print statement at the start of this else block
                                                     }
                                                 }
                                                 shouldSave = true;
