@@ -226,6 +226,8 @@ public class InventoryBackpack implements IInventory {
      */
     public void save(){
 
+        System.out.println("saving inv");
+
         NBTTagCompound nbtTagCompound = backpackStack.getTagCompound();
 
         if (nbtTagCompound == null) {

@@ -280,15 +280,15 @@ public class ForgeEventHandler {
      */
     private boolean checkRestockerUpgradeItemPickup(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){
         boolean doFilter = true;
-        boolean shouldSave = false;
+        boolean shouldSave;
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
                 shouldSave = false;
-//                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
+
                 ItemBackpack itemBackpack = ((ItemBackpack)backpack.getItem()); //TODO: hardcoded
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(event.entityPlayer, backpack)); //TODO: remove additional itemstack parameter
                 if (!(event.entityPlayer.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
-                    container.sort(); //TODO: test with this removed
+
                     ArrayList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
                         if (restockerItem != null) {
@@ -298,7 +298,7 @@ public class ForgeEventHandler {
                             Slot slotToResupply = null;
 
                             for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for item
-                                Slot tempSlot = (Slot) container.getSlot(i);
+                                Slot tempSlot = container.getSlot(i);
                                 if (tempSlot!= null && tempSlot.getHasStack()){
                                     ItemStack tempItem = tempSlot.getStack();
                                     if (IronBackpacksHelper.areItemsEqualAndStackable(tempItem, restockerItem)){ //found and less than max stack size
@@ -325,47 +325,59 @@ public class ForgeEventHandler {
                                 }
                                 if (!done) { //then resupply from the backpack (if necessary)
                                     for (int i = 0; i < itemBackpack.getSize(backpack); i++) {
-                                        Slot tempSlot = (Slot) container.getSlot(i);
+                                        Slot tempSlot = container.getSlot(i);
                                         if (tempSlot != null && tempSlot.getHasStack()) {
                                             ItemStack tempItem = tempSlot.getStack();
                                             if (IronBackpacksHelper.areItemsEqualForStacking(tempItem, stackToResupply)) {
                                                 int amountToResupply;
-                                                if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), stackToResupply)) {
+                                                if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), stackToResupply)) { //if resupplied already from the item picked up
                                                     amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize - event.item.getEntityItem().stackSize;
                                                     if (tempItem.stackSize >= amountToResupply) {
                                                         tempSlot.decrStackSize(amountToResupply);
                                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize() - event.item.getEntityItem().stackSize, stackToResupply.getItemDamage()));
-                                                        container.sort();
+//                                                        container.sort();
                                                         container.onContainerClosed(event.entityPlayer);
                                                         break;
                                                     } else {
                                                         tempSlot.decrStackSize(tempItem.stackSize);
                                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + tempItem.stackSize, stackToResupply.getItemDamage()));
                                                     }
-                                                }else{
+                                                } else { //normal resupply, no item picked up contribution
+                                                    System.out.println("original size: "+stackToResupply.stackSize);
                                                     amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize;
+                                                    System.out.println("resupply amount: "+amountToResupply);
                                                     if (tempItem.stackSize >= amountToResupply) {
+                                                        System.out.println("resupplying to full");
                                                         tempSlot.decrStackSize(amountToResupply);
                                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage()));
-                                                        container.sort();
+//                                                        container.sort();
                                                         container.onContainerClosed(event.entityPlayer);
                                                         break;
                                                     } else {
+                                                        System.out.println("resupplying with less "+tempItem.stackSize);
                                                         tempSlot.decrStackSize(tempItem.stackSize);
                                                         slotToResupply.putStack(new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + tempItem.stackSize, stackToResupply.getItemDamage()));
+
+                                                        //need to save the change
+                                                        container.save(event.entityPlayer);
+                                                        event.entityPlayer.inventory.markDirty();
+                                                        slotToResupply.onSlotChanged();
+                                                        slotToResupply.inventory.markDirty();
+
+                                                        System.out.println("new stack size: "+slotToResupply.getStack().stackSize);
                                                     }
                                                 }
                                                 shouldSave = true;
                                             }
                                         }
                                     }
+                                    System.out.println();
                                 }
                             }
                         }
                     }
                 }
                 if (shouldSave) {
-                    container.sort();
                     container.onContainerClosed(event.entityPlayer);
                 }
             }
