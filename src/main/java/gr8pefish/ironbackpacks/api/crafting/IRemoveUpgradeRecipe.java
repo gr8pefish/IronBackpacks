@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.api.crafting;
 
 /**
- * Created by Max on 1/14/2016.
+ * Currently enforces nothing extra.
  */
 public interface IRemoveUpgradeRecipe {
 }

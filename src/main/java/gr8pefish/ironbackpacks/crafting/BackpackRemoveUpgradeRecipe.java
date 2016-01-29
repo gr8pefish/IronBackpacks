@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import gr8pefish.ironbackpacks.api.crafting.IRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Deals with the cases when a backpack is shapelessly crafted alone to remove an upgrade.
  */
-public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe {
+public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements IRemoveUpgradeRecipe {
 
     private final ItemStack recipeOutput; //The outputted item after crafting
 

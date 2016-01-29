@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import gr8pefish.ironbackpacks.api.crafting.IIncreaseBackpackTierRecipe;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * The recipe to upgrade a backpack to it's next tier (ex: iron -&gt; gold)
  */
-public class BackpackIncreaseTierRecipe extends ShapedOreRecipe {
+public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncreaseBackpackTierRecipe {
 
     private final ItemStack recipeOutput;
 

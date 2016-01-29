@@ -83,23 +83,4 @@ public class BackpackTierRecipes {
         return Collections.singletonList(goldBackpackUpgradeEmphasisTierRecipe);
     }
 
-    //=========================================================Registration======================================================================
-
-    public static void registerBackpackTierRecipes(){
-        for (int i = 0; i < ItemBackpackRegistry.getSize(); i++){
-            IBackpack backpack = ItemBackpackRegistry.getBackpackAtIndex(i);
-            if (backpack instanceof ITieredBackpack) {
-                ITieredBackpack newPack = (ITieredBackpack) backpack;
-                List<Object[]> recipes = newPack.getTierRecipes(null);
-                if (recipes == null) break; //if you have no recipe to upgrade, you can't register that
-                List<ITieredBackpack> upgradedPacks = newPack.getBackpacksAbove(null); //unused item stack parameter
-                if (!recipes.isEmpty() && upgradedPacks != null && upgradedPacks.size() == recipes.size()) {
-                    for (int j = 0; j < recipes.size(); j++) {
-                        GameRegistry.addRecipe(new BackpackIncreaseTierRecipe(new ItemStack((ItemBackpack)upgradedPacks.get(j)), recipes.get(j))); //hardcoded to ItemBackpack
-                    }
-                }
-            }
-        }
-    }
-
 }

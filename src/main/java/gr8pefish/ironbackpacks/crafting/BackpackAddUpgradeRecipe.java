@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import gr8pefish.ironbackpacks.api.crafting.IAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * Deals with the cases when a backpack is shapelessly crafted with an upgrade.
  */
-public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
+public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAddUpgradeRecipe{
 
     private final ItemStack recipeOutput; //The outputted item after crafting
 
@@ -215,7 +216,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe {
      * @param backpack - the backpack in the crafting grid
      * @return - true if it can be applied, false otherwise
      */
-    //TODO: I have no idea what this does, and I wrote it O_o That may cause some issues, as this is confusing NBT saving.
+    //TODO: Clean up
     private boolean applyAdditional(NBTTagCompound nbtTagCompound, ItemStack backpack){
         ItemBackpack backpackBase = (ItemBackpack) backpack.getItem();
         if (backpackBase == null) return false;
