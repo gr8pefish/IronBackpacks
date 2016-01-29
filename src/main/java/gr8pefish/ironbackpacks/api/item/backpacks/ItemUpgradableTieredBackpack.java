@@ -149,6 +149,11 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     }
 
     @Override
+    public List<ITieredBackpack> getBackpacksAbove() {
+        return backpacksAbove;
+    }
+
+    @Override
     public boolean hasBackpacksAbove(ItemStack backpack) {
         return (!backpacksAbove.isEmpty());
     }

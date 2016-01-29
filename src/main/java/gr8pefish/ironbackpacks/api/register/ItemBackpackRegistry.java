@@ -45,7 +45,7 @@ public class ItemBackpackRegistry {
             return null;
     }
 
-    //Rong, to do, fix this
+    //Wrong, to do, fix this
     public static Item getItem(IBackpack backpack){
         //item name needs to be like ItemBackpack or something, not backpack.basicBackpack, the class name
         return IronBackpacksAPI.getItem(IronBackpacksAPI.getItem(IronBackpacksAPI.ITEM_BACKPACK_BASE)+backpack.getName(null)); //hardcoded to item backpack base

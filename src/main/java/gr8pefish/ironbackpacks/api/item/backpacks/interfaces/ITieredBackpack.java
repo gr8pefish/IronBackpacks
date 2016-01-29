@@ -20,6 +20,12 @@ public interface ITieredBackpack extends IBackpack { //TODO: use a tree datatype
     List<ITieredBackpack> getBackpacksAbove(ItemStack backpack);
 
     /**
+     * Non-item stack specific method of the one above.
+     * @return - the IBackpack that is higher (or null)
+     */
+    List<ITieredBackpack> getBackpacksAbove();
+
+    /**
      * Return if there exists a higher tier backpack
      * @param backpack - the backpack as an item stack (needed for sub items)
      * @return - true if there is, false otherwise
