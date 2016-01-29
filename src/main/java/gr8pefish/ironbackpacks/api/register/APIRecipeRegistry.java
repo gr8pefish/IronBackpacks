@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 public class APIRecipeRegistry {
 
-    public static ArrayList<IRemoveUpgradeRecipe> upgradeRemovalRecipes;
+    //Remove upgrade recipes
+
+    public static ArrayList<IRemoveUpgradeRecipe> upgradeRemovalRecipes = new ArrayList<>();
 
     public static void registerUpgradeRemovalRecipe(IRemoveUpgradeRecipe recipe){
         upgradeRemovalRecipes.add(recipe);
@@ -18,7 +20,9 @@ public class APIRecipeRegistry {
         return upgradeRemovalRecipes;
     }
 
-    public static ArrayList<IAddUpgradeRecipe> upgradeAdditionRecipes;
+    //Add upgrade recipes
+
+    public static ArrayList<IAddUpgradeRecipe> upgradeAdditionRecipes = new ArrayList<>();
 
     public static void registerUpgradeAdditionRecipe(IAddUpgradeRecipe recipe){
         upgradeAdditionRecipes.add(recipe);
@@ -28,7 +32,9 @@ public class APIRecipeRegistry {
         return upgradeAdditionRecipes;
     }
 
-    public static ArrayList<IIncreaseBackpackTierRecipe> tierIncreaseRecipes;
+    //Increase tier recipes
+
+    public static ArrayList<IIncreaseBackpackTierRecipe> tierIncreaseRecipes = new ArrayList<>();
 
     public static void registerTierIncreaseRecipe(IIncreaseBackpackTierRecipe recipe){
         tierIncreaseRecipes.add(recipe);
