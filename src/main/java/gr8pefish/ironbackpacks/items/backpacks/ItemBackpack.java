@@ -100,6 +100,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (world.isRemote){ //client side
+            NBTUtils.setUUID(itemStack);
             PlayerBackpackProperties.setCurrentBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: client side
             return itemStack;
         } else {

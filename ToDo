@@ -67,6 +67,8 @@ To Do:
                 Can you add a page to JEI easily? Say I have one recipe and I want to make it two pages long (so I can add more informational text), how could I do that?
                  Also, having 1 item iterate through each slot in a crafting grid in a custom IRecipeCategory, how would one go about that?
 
+                 Add tooltip over arrow "Shapeless crafting"
+
             Investigate:
                 add crafttweaker support
                 Send packet to client when join server to sync metas up
@@ -134,8 +136,6 @@ To Do:
                 probably breaks when you go through the end portal too
 
             Minor:
-                Doesn't init if going straight to alt gui
-                    containeralt gui rename crash
 
 
             Major:

@@ -419,6 +419,7 @@ public class InventoryAlternateGui implements IInventory {
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
         backpackStack = findParentItemStack(player);
         if (backpackStack != null) {
+
             nbtTagCompound = backpackStack.getTagCompound();
 
             if (nbtTagCompound != null) {
@@ -579,7 +580,6 @@ public class InventoryAlternateGui implements IInventory {
             UUID parentUUID = new UUID(backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++) {
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
-
                 if (itemStack != null && itemStack.getItem() instanceof IBackpack && NBTUtils.hasUUID(itemStack)) {
                     if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()) {
                         return itemStack;
