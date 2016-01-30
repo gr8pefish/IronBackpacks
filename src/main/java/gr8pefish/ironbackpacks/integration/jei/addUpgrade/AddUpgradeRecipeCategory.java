@@ -64,7 +64,7 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
         recipeLayout.getItemStacks().set(1, (ItemStack)recipeWrapper.getInputs().get(0));
 
         //backpack output
-        recipeLayout.getItemStacks().init(2, true, 119, 14);
+        recipeLayout.getItemStacks().init(2, false, 119, 14);
         recipeLayout.getItemStacks().set(2, (ItemStack)recipeWrapper.getOutputs().get(0));
 
     }

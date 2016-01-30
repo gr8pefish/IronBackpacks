@@ -2,6 +2,8 @@ package gr8pefish.ironbackpacks.integration.jei;
 
 import gr8pefish.ironbackpacks.integration.jei.addUpgrade.AddUpgradeRecipeCategory;
 import gr8pefish.ironbackpacks.integration.jei.addUpgrade.AddUpgradeRecipeHandler;
+import gr8pefish.ironbackpacks.integration.jei.removeUpgrade.RemoveUpgradeRecipeCategory;
+import gr8pefish.ironbackpacks.integration.jei.removeUpgrade.RemoveUpgradeRecipeHandler;
 import mezz.jei.api.*;
 
 @mezz.jei.api.JEIPlugin
@@ -20,11 +22,13 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void register(IModRegistry registry) {
         registry.addRecipeCategories(
-                new AddUpgradeRecipeCategory(jeiHelpers.getGuiHelper())
+                new AddUpgradeRecipeCategory(jeiHelpers.getGuiHelper()),
+                new RemoveUpgradeRecipeCategory(jeiHelpers.getGuiHelper())
         );
 
         registry.addRecipeHandlers(
-                new AddUpgradeRecipeHandler()
+                new AddUpgradeRecipeHandler(),
+                new RemoveUpgradeRecipeHandler()
         );
 
     }

@@ -8,9 +8,6 @@ import javax.annotation.Nonnull;
 
 public class AddUpgradeRecipeHandler implements IRecipeHandler<BackpackAddUpgradeRecipe> {
 
-//    public AddUpgradeRecipeHandler(){
-//    }
-
     @Nonnull
     @Override
     public Class<BackpackAddUpgradeRecipe> getRecipeClass() {
