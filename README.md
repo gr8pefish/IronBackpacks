@@ -4,6 +4,8 @@ Iron Backpacks is a [Minecraft](https://minecraft.net/) mod that adds upgrade-ab
 
 For all the juicy information (and downloads) see the CurseForge page [here](http://minecraft.curseforge.com/projects/iron-backpacks).
 
+Note: The 1.8 versions are currently in Alpha, as the mod has undergone and is in the process of a rewrite.
+
 
 
 
