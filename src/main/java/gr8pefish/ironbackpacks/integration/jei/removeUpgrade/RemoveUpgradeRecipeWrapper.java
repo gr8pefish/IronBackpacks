@@ -57,15 +57,15 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper {
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 
         for (int i = 0; i < description.length; i++)
-            minecraft.fontRendererObj.drawString(description[i], -15, 66 + (i*8), Color.darkGray.getRGB());
+            minecraft.fontRendererObj.drawString(description[i], -15, 66 + (i*8), Color.black.getRGB());
 
-        minecraft.fontRendererObj.drawString(descriptionContinues, -15, 107, Color.gray.getRGB());
+        minecraft.fontRendererObj.drawString(descriptionContinues, -15, 107, Color.darkGray.getRGB());
 
         for (int i = 0; i < descriptionAdditional.length; i++)
-            minecraft.fontRendererObj.drawString(descriptionAdditional[i], -15, 150 + (i*8), Color.darkGray.getRGB());
+            minecraft.fontRendererObj.drawString(descriptionAdditional[i], -15, 150 + (i*8), Color.black.getRGB());
 
         for (int i = 0; i < descriptionAdditionalMore.length; i++)
-            minecraft.fontRendererObj.drawString(descriptionAdditionalMore[i], -15, 150 + (i*8), Color.darkGray.getRGB());
+            minecraft.fontRendererObj.drawString(descriptionAdditionalMore[i], -15, 150 + (i*8), Color.black.getRGB());
     }
 
     @Override

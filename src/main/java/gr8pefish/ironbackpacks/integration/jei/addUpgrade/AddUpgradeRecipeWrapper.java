@@ -52,9 +52,9 @@ public class AddUpgradeRecipeWrapper implements IRecipeWrapper {
     @Override
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
         for (int i = 0; i < description.length; i++)
-            minecraft.fontRendererObj.drawString(description[i], 14, 40 + (i*8), Color.darkGray.getRGB());
+            minecraft.fontRendererObj.drawString(description[i], 14, 40 + (i*8), Color.black.getRGB());
         for (int i = 0; i < descriptionAdditional.length; i++)
-            minecraft.fontRendererObj.drawString(descriptionAdditional[i], 14, 72 + (i*8), Color.darkGray.getRGB());
+            minecraft.fontRendererObj.drawString(descriptionAdditional[i], 14, 72 + (i*8), Color.black.getRGB());
     }
 
     @Override
