@@ -51,11 +51,6 @@ public class ForgeEventHandler {
         else{
             ArrayList<ArrayList<ItemStack>> backpacks = getFilterCrafterAndRestockerBackpacks(event.entityPlayer);
             boolean doFilter = checkRestockingUpgradeItemPickup(event, backpacks.get(4)); //doFilter is false if the itemEntity is in the restockerUpgrade's slots and the itemEntity's stackSize < refillSize
-
-            //modified stack size of entity item in method above
-            System.out.println("Stack size: "+event.item.getEntityItem().stackSize); //will print out changed amount (ex: 5)
-            //player will still pick up the original (ex: 15)
-
             if (doFilter) {
                 checkFilterUpgrade(event, backpacks.get(0)); //beware creative testing takes the itemstack still
             }
@@ -319,32 +314,25 @@ public class ForgeEventHandler {
                                 boolean done = false;
                                 if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), stackToResupply)){
                                     int amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize;
-                                    System.out.println("resupplyAmount "+amountToResupply);
                                     if (event.item.getEntityItem().stackSize >= amountToResupply) { //if larger size of stack on the ground than needed to resupply
-                                        System.out.println("there");
 
-                                        event.item.setEntityItemStack(new ItemStack(event.item.getEntityItem().getItem(), event.item.getEntityItem().stackSize - amountToResupply, event.item.getEntityItem().getItemDamage()));
-//                                        event.item.getEntityItem().stackSize = event.item.getEntityItem().stackSize - amountToResupply;
-//                                        event.item.onUpdate();
+                                        //TODO: not updating event entity correctly, make this work
 
-                                        System.out.println("setting to "+(event.item.getEntityItem().stackSize - amountToResupply));
-
-//                                        event.item.setDead();
-//                                        event.item.onUpdate();
-//                                        event.setCanceled(true);
-                                        System.out.println("heh");
-                                        event.entityPlayer.inventory.setInventorySlotContents(slotToResupply.getSlotIndex(), new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage()));
+//                                        System.out.println("setting to "+(event.item.getEntityItem().stackSize - amountToResupply));
+//
+//                                        event.item.setEntityItemStack(new ItemStack(event.item.getEntityItem().getItem(), event.item.getEntityItem().stackSize - amountToResupply, event.item.getEntityItem().getItemDamage()));
+//
+//                                        event.entityPlayer.inventory.setInventorySlotContents(slotToResupply.getSlotIndex(), new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage()));
                                         done = true;
-                                        System.out.println("should be done");
+
                                         shouldSave = true;
                                     } else { //just resupply what you can, it will automatically go into the player's slot needed
-                                        System.out.println("here");
+
                                         doFilter = false;
                                         done = false;
                                     }
                                 }
                                 if (!done) { //then resupply from the backpack (if necessary)
-                                    System.out.println("not done");
                                     for (int i = 0; i < itemBackpack.getSize(backpack); i++) {
                                         Slot tempSlot = container.getSlot(i);
                                         if (tempSlot != null && tempSlot.getHasStack()) {
@@ -355,8 +343,6 @@ public class ForgeEventHandler {
 
                                                     ItemStack stackUpdated = event.entityPlayer.inventory.getStackInSlot(slotToResupply.getSlotIndex());
                                                     amountToResupply = stackToResupply.getMaxStackSize() - stackUpdated.stackSize - event.item.getEntityItem().stackSize;
-
-                                                    System.out.println("amount to Resupply: "+amountToResupply);
 
                                                     if (tempItem.stackSize >= amountToResupply) {
                                                         tempSlot.decrStackSize(amountToResupply);

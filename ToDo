@@ -81,6 +81,16 @@ To Do:
                 Check that it works with new forge and IItemHandler
                     https://github.com/MinecraftForge/MinecraftForge/pull/2385
 
+                    <pauljoda> https://github.com/TeamBR-Modding/Bookshelf/blob/1.8/src/main/scala/com/teambr/bookshelf/util/InventoryUtils.scala
+                    <pauljoda> That code will allow you to move items between inventories, supports old inventories and the new ones by wrapping old objects to the new system
+                    <pauljoda> https://github.com/TeamBR-Modding/Bookshelf/blob/1.8/src/main/scala/com/teambr/bookshelf/common/tiles/traits/Inventory.scala
+                    <pauljoda> This holds our inventory code on the new system, we kept the old methods for internal use as they work well. But others can't access them unless they are using Bookshelf
+                    <pauljoda> https://github.com/TeamBR-Modding/Bookshelf/blob/1.8/src/main/scala/com/teambr/bookshelf/common/tiles/traits/InventorySided.scala
+                    <pauljoda> That wraps the sidedness
+                    <pauljoda> For the sided, you must override hasCapability in the tile entity. Otherwise it won't work
+                    <gr8pefish> thanks, I'll look through that
+                    <pauljoda> No problem, feel free to ask me if you have any questions. If I'm not here, try #neotech
+
                 tehnut's advanced tooltips?
 
             Gradle:

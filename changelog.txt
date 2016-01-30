@@ -1,11 +1,24 @@
 ------------------------------------------------------
-Version 1.8.9 - 2.0.3
+Version 1.8.9 - 2.0.4
 ------------------------------------------------------
 Additions
 - None
 
 Changes
 - None
+
+Bug Fixes
+- None
+------------------------------------------------------
+Version 1.8.9 - 2.0.3
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- The restocking upgrade no longer sorts the backpack when restocking.
+    - Temporary "bug" introduced, where if you pick up items on the ground that are larger than the stack to resupply and you have a filter they will go in the filter and not resupply.
+    - You don't lose any items, and it is a specific uncommon-ish case, but the player has to pick something up to actually resupply in that case, which isn't ideal. Will be fixed in next version.
 
 Bug Fixes
 - The Nesting Upgrade should actually work properly now.
