@@ -1,13 +1,6 @@
-package gr8pefish.ironbackpacks.registry.recipes;
+package gr8pefish.ironbackpacks.libs.recipes;
 
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
-import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
-import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
-import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +23,7 @@ public class BackpackTierRecipes {
             "iii",
             "ibi",
             "ioi",
-            'i', "ingotIron", 'o', "blockIron", 'b', ItemRegistry.basicBackpack};
+            'i', "ingotIron", 'o', "blockGold", 'b', ItemRegistry.basicBackpack};
 
     public static List<Object[]> getBasicBackpackTierRecipes(){
         ArrayList<Object[]> recipes = new ArrayList<>();

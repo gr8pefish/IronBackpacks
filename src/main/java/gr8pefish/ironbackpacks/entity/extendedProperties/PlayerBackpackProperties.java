@@ -1,10 +1,8 @@
 package gr8pefish.ironbackpacks.entity.extendedProperties;
 
 import gr8pefish.ironbackpacks.api.Constants;
-import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

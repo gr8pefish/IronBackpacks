@@ -9,7 +9,7 @@ import gr8pefish.ironbackpacks.proxies.CommonProxy;
 import gr8pefish.ironbackpacks.registry.BackpackEntityRegistry;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
-import gr8pefish.ironbackpacks.registry.recipes.RecipeRegistry;
+import gr8pefish.ironbackpacks.registry.RecipeRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

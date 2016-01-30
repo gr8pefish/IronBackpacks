@@ -2,12 +2,10 @@ package gr8pefish.ironbackpacks.network.client;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
-import gr8pefish.ironbackpacks.util.Logger;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;

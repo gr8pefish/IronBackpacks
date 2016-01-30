@@ -2,13 +2,15 @@
 Version 1.8.9 - 2.0.4
 ------------------------------------------------------
 Additions
-- None
+- Added JEI support for adding upgrades, fancy!
 
 Changes
 - None
 
 Bug Fixes
-- None
+- Fixed backpack tier upgrade recipe not getting the correct one when upgrading the basic backpack to a speciality
+    - Closes #50
+- Fixed adding upgrade recipes ignoring tiers
 ------------------------------------------------------
 Version 1.8.9 - 2.0.3
 ------------------------------------------------------

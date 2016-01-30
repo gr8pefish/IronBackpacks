@@ -1,20 +1,26 @@
 package gr8pefish.ironbackpacks.integration.jei.addUpgrade;
 
 import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
+import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 
 public class AddUpgradeRecipeWrapper implements IRecipeWrapper {
 
     private BackpackAddUpgradeRecipe addUpgradeRecipe;
+    private final String[] description;
+    private final String[] descriptionAdditional;
 
     public AddUpgradeRecipeWrapper(BackpackAddUpgradeRecipe recipe){
+        this.description = TextUtils.cutLongString(TextUtils.localize("jei.description.addUpgrade"));
+        this.descriptionAdditional = TextUtils.cutLongString(TextUtils.localize("jei.description.addUpgrade.additional"));
         addUpgradeRecipe = recipe;
     }
 
@@ -40,7 +46,10 @@ public class AddUpgradeRecipeWrapper implements IRecipeWrapper {
 
     @Override
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
-
+        for (int i = 0; i < description.length; i++)
+            minecraft.fontRendererObj.drawString(description[i], 16, 40 + (i*8), Color.darkGray.getRGB());
+        for (int i = 0; i < descriptionAdditional.length; i++)
+            minecraft.fontRendererObj.drawString(descriptionAdditional[i], 16, 72 + (i*8), Color.darkGray.getRGB());
     }
 
     @Override

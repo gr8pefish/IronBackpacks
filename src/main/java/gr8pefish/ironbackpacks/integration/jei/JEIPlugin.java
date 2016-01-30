@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.integration.jei;
 
 import gr8pefish.ironbackpacks.integration.jei.addUpgrade.AddUpgradeRecipeCategory;
+import gr8pefish.ironbackpacks.integration.jei.addUpgrade.AddUpgradeRecipeHandler;
 import mezz.jei.api.*;
 
 @mezz.jei.api.JEIPlugin
@@ -21,10 +22,11 @@ public class JEIPlugin implements IModPlugin {
         registry.addRecipeCategories(
                 new AddUpgradeRecipeCategory(jeiHelpers.getGuiHelper())
         );
-//        registry.addRecipeHandlers(
-//                new AddUpgradeRecipeHandler();
-//        );
-//        registry.addRecipes(); //TODO: register recipes dynamically in registry
+
+        registry.addRecipeHandlers(
+                new AddUpgradeRecipeHandler()
+        );
+
     }
 
     @Override

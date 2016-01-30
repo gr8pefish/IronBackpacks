@@ -10,7 +10,7 @@ public class APIRecipeRegistry {
 
     //Remove upgrade recipes
 
-    public static ArrayList<IRemoveUpgradeRecipe> upgradeRemovalRecipes = new ArrayList<>();
+    private static ArrayList<IRemoveUpgradeRecipe> upgradeRemovalRecipes = new ArrayList<>();
 
     public static void registerUpgradeRemovalRecipe(IRemoveUpgradeRecipe recipe){
         upgradeRemovalRecipes.add(recipe);
@@ -22,7 +22,7 @@ public class APIRecipeRegistry {
 
     //Add upgrade recipes
 
-    public static ArrayList<IAddUpgradeRecipe> upgradeAdditionRecipes = new ArrayList<>();
+    private static ArrayList<IAddUpgradeRecipe> upgradeAdditionRecipes = new ArrayList<>();
 
     public static void registerUpgradeAdditionRecipe(IAddUpgradeRecipe recipe){
         upgradeAdditionRecipes.add(recipe);
@@ -34,7 +34,7 @@ public class APIRecipeRegistry {
 
     //Increase tier recipes
 
-    public static ArrayList<IIncreaseBackpackTierRecipe> tierIncreaseRecipes = new ArrayList<>();
+    private static ArrayList<IIncreaseBackpackTierRecipe> tierIncreaseRecipes = new ArrayList<>();
 
     public static void registerTierIncreaseRecipe(IIncreaseBackpackTierRecipe recipe){
         tierIncreaseRecipes.add(recipe);

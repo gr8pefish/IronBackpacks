@@ -4,6 +4,7 @@ To Do:
 
         add as tooltip that extended inventory/increased upgrade points type
             change tooltip so that it says Alternate Upgrades, not alt gui, too confusing
+            or 'Configurable Upgrades'
 
         Make sure changelog is ordered in terms of importance before final update
 
@@ -12,6 +13,9 @@ To Do:
         mek style tooltips with alt tooltip as well as shift?
 
         remove print statements in code
+
+        allow enter to be hit to act as hitting renaming button
+
 
 
     1.8 Stuff:
@@ -103,6 +107,8 @@ To Do:
 
             Config:
                 bm blacklist for config to disable items (requested config option)
+
+                add blacklist for items the backpack can't be equipped with in armor slot (i.e jetpacks)
 
             CurseForge/MCF:
                 Add that you need java 8 for 2.x.x and up

@@ -79,7 +79,7 @@ button.ironbackpacks.clear.condenser.tiny.tooltip=Clears the crafting items.
 tooltip.ironbackpacks.shift=Hold shift for more info.
 tooltip.ironbackpacks.uuid=UUID: %s
 tooltip.ironbackpacks.backpack.upgrade.used=%d/%d upgrade points used.
-tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d alternate GUI upgrades used.
+tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d configurable upgrades used.
 tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints=%d/%d additional upgrade points added.
 tooltip.ironbackpacks.backpack.upgrade.rename=(The %dth upgrade must include the renaming upgrade)
 tooltip.ironbackpacks.backpack.emphasis.storage=Storage Emphasis
@@ -125,3 +125,6 @@ misc.ironbackpacks.default.equpped.backpack.name=Equipped Backpack
 
 #JEI
 jei.ironbackpacks.addUpgradeRecipe.name=Add Upgrade Recipe
+
+jei.description.addUpgrade=To add an upgrade, simply craft it with the desired backpack in a crafting grid.
+jei.description.addUpgrade.additional=The backpack must be a high enough tier and have enough upgrade points available to accept the upgrade.

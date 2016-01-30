@@ -12,7 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import scala.collection.parallel.ParIterableLike;
 
 /**
  * All the specifics that need to be called on the client side

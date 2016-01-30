@@ -13,14 +13,12 @@ import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.NBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.world.WorldServer;
 
 import java.util.ArrayList;
 

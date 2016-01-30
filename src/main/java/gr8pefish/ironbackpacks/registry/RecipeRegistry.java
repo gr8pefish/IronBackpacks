@@ -1,4 +1,4 @@
-package gr8pefish.ironbackpacks.registry.recipes;
+package gr8pefish.ironbackpacks.registry;
 
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
@@ -11,7 +11,9 @@ import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
 import gr8pefish.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
-import gr8pefish.ironbackpacks.registry.ItemRegistry;
+import gr8pefish.ironbackpacks.libs.recipes.ItemBackpackRecipes;
+import gr8pefish.ironbackpacks.libs.recipes.ItemCraftingRecipes;
+import gr8pefish.ironbackpacks.libs.recipes.ItemUpgradeRecipes;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -124,13 +126,12 @@ public class RecipeRegistry {
                             BackpackAddUpgradeRecipe recipe = new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack) backpack), upgrade, new ItemStack((ItemBackpack) backpack)); //Hardcoded to ItemBackpack
                             GameRegistry.addRecipe(recipe);
                             APIRecipeRegistry.registerUpgradeAdditionRecipe(recipe);
-                        } else {
-                            if (upgradeTier >= 0) {//TODO: currently accepts any upgrade, should that be changed?
-                                BackpackAddUpgradeRecipe recipe = new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack) backpack), upgrade, new ItemStack((ItemBackpack) backpack)); //Hardcoded to ItemBackpack
-                                GameRegistry.addRecipe(recipe);
-                                APIRecipeRegistry.registerUpgradeAdditionRecipe(recipe);
-                            }
                         }
+                    } else {
+                        //TODO: remove casting for other backpacks (and in above for non-tiered ones)
+                        BackpackAddUpgradeRecipe recipe = new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack) backpack), upgrade, new ItemStack((ItemBackpack) backpack)); //Hardcoded to ItemBackpack
+                        GameRegistry.addRecipe(recipe);
+                        APIRecipeRegistry.registerUpgradeAdditionRecipe(recipe);
                     }
                 }
             }

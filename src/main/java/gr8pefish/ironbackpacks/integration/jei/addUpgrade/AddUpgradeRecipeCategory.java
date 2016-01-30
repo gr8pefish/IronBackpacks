@@ -6,6 +6,8 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import javax.annotation.Nonnull;
@@ -16,10 +18,10 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
     private IDrawable background;
 
     public AddUpgradeRecipeCategory(IGuiHelper guiHelper) {
-        background = guiHelper.createBlankDrawable(168, 64);
+
         title = StatCollector.translateToLocal("jei.ironbackpacks.addUpgradeRecipe.name");
-//        overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pureDaisyOverlay.png"),
-//                0, 0, 64, 46);
+
+        this.background = guiHelper.createDrawable(new ResourceLocation("ironbackpacks", "textures/jei/addUpgradeRecipeJEI.png"), 0, 0, 166, 108);
     }
 
     @Nonnull
@@ -53,5 +55,18 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
     @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 
+        //backpack input
+        recipeLayout.getItemStacks().init(0, true, 23, 14);
+        recipeLayout.getItemStacks().set(0, (ItemStack)recipeWrapper.getInputs().get(1));
+
+        //upgrade input
+        recipeLayout.getItemStacks().init(1, true, 59, 14);
+        recipeLayout.getItemStacks().set(1, (ItemStack)recipeWrapper.getInputs().get(0));
+
+        //backpack output
+        recipeLayout.getItemStacks().init(2, true, 119, 14);
+        recipeLayout.getItemStacks().set(2, (ItemStack)recipeWrapper.getOutputs().get(0));
+
     }
+
 }

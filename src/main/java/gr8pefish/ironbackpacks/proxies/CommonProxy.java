@@ -31,7 +31,6 @@ public class CommonProxy {
     }
 
     public EntityPlayer getClientPlayer(){
-        System.out.println("can't get client player");
         throw new RuntimeException("Can't get client player from server side");
     }
 

@@ -129,7 +129,7 @@ public class ForgeEventHandler {
             if (!ConfigHandler.disableRendering) {
                 IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
             }
-        }else System.out.println("null stuff no login code");
+        }
     }
 
     /**

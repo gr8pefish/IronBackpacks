@@ -1,4 +1,4 @@
-package gr8pefish.ironbackpacks.registry.recipes;
+package gr8pefish.ironbackpacks.libs.recipes;
 
 import gr8pefish.ironbackpacks.api.register.ItemCraftingRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;

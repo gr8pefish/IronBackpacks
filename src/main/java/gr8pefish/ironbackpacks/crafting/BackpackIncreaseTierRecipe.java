@@ -3,7 +3,6 @@ package gr8pefish.ironbackpacks.crafting;
 import gr8pefish.ironbackpacks.api.crafting.IIncreaseBackpackTierRecipe;
 import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
-import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -48,7 +47,7 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncr
         //get the higher tier backpack if it exists
         List<ITieredBackpack> backpacksAbove = ItemBackpackRegistry.getBackpacksAbove(backpack);
         if (backpacksAbove != null && backpacksAbove.size() > 0) {
-            result = new ItemStack((ItemBackpack)backpacksAbove.get(0)); //hardcoded, get the next backpack above it and typecast to ItemBackpack so it can make an itemstack
+            result = new ItemStack(recipeOutput.getItem());
             result.setTagCompound(backpack.getTagCompound());
             return result;
         } else {
