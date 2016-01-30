@@ -38,6 +38,10 @@ To Do:
                 add IFilterUpgrade?
 
             Upgrades:
+                cleanup event restocking
+                make event upgrades not sort the backpack before doing their things.
+                    tick handler too
+
                 make the upgrades cheaper overall, introduce t1 and t2 crafting bases
 
                 make crafting advanced filter
