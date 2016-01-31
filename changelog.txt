@@ -12,6 +12,7 @@ Changes
 
 Bug Fixes
 - Fixed configurable/alternate gui not initializing on first right click.
+- Fixed conflicting upgrades being able to be applied alongside each other.
 ------------------------------------------------------
 Version 1.8.9 - 2.0.4
 ------------------------------------------------------

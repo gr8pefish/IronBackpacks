@@ -197,14 +197,17 @@ public class ItemRegistry {
         }
 
         //conflicting upgrades
-        nestingUpgrade = new ItemConflictingUpgrade("nesting", ConfigHandler.nestingUpgradeCost, ConfigHandler.nestingUpgradeTier, LocalizedStrings.Upgrades.NESTING_DESCRIPTION, Collections.singletonList(nestingAdvancedUpgrade));
+        nestingUpgrade = new ItemConflictingUpgrade("nesting", ConfigHandler.nestingUpgradeCost, ConfigHandler.nestingUpgradeTier, LocalizedStrings.Upgrades.NESTING_DESCRIPTION);
         ItemUpgradeRegistry.registerItemConflictingUpgrade(nestingUpgrade);
-        nestingAdvancedUpgrade = new ItemConflictingUpgrade("nestingAdvanced", ConfigHandler.nestingAdvancedUpgradeCost, ConfigHandler.nestingAdvancedUpgradeTier, LocalizedStrings.Upgrades.NESTING_ADVANCED_DESRIPTION, Collections.singletonList(nestingUpgrade));
+        nestingAdvancedUpgrade = new ItemConflictingUpgrade("nestingAdvanced", ConfigHandler.nestingAdvancedUpgradeCost, ConfigHandler.nestingAdvancedUpgradeTier, LocalizedStrings.Upgrades.NESTING_ADVANCED_DESRIPTION);
         ItemUpgradeRegistry.registerItemConflictingUpgrade(nestingAdvancedUpgrade);
-        quickDepositUpgrade = new ItemConflictingUpgrade("quickDeposit", ConfigHandler.quickDepositUpgradeCost, ConfigHandler.quickDepositUpgradeTier, LocalizedStrings.Upgrades.QUICK_DEPOSIT_DESCRIPTION, Collections.singletonList(quickDepositPreciseUpgrade));
+        quickDepositUpgrade = new ItemConflictingUpgrade("quickDeposit", ConfigHandler.quickDepositUpgradeCost, ConfigHandler.quickDepositUpgradeTier, LocalizedStrings.Upgrades.QUICK_DEPOSIT_DESCRIPTION);
         ItemUpgradeRegistry.registerItemConflictingUpgrade(quickDepositUpgrade);
-        quickDepositPreciseUpgrade = new ItemConflictingUpgrade("quickDepositPrecise", ConfigHandler.quickDepositPreciseUpgradeCost, ConfigHandler.quickDepositPreciseUpgradeTier, LocalizedStrings.Upgrades.QUICK_DEPOSIT_PRECISE_DESCRIPTION, Collections.singletonList(quickDepositUpgrade));
+        quickDepositPreciseUpgrade = new ItemConflictingUpgrade("quickDepositPrecise", ConfigHandler.quickDepositPreciseUpgradeCost, ConfigHandler.quickDepositPreciseUpgradeTier, LocalizedStrings.Upgrades.QUICK_DEPOSIT_PRECISE_DESCRIPTION);
         ItemUpgradeRegistry.registerItemConflictingUpgrade(quickDepositPreciseUpgrade);
+
+        //have to set the conflicting upgrades after they are all initialized
+        setConflictingUpgrades();
 
         //alt gui upgrades
         craftingUpgrade = new ItemAltGuiUpgrade("crafting", ConfigHandler.craftingUpgradeCost, ConfigHandler.craftingUpgradeTier, LocalizedStrings.Upgrades.CRAFTING_DESCRIPTION);
@@ -352,6 +355,13 @@ public class ItemRegistry {
         diamondBackpackStorageEmphasis.setTier(null, 3);
 
         diamondBackpackUpgradeEmphasis.setTier(null, 3);
+    }
+
+    private static void setConflictingUpgrades(){
+        nestingUpgrade.setConflictingUpgrades(null, Collections.singletonList(nestingAdvancedUpgrade));
+        nestingAdvancedUpgrade.setConflictingUpgrades(null, Collections.singletonList(nestingUpgrade));
+        quickDepositUpgrade.setConflictingUpgrades(null, Collections.singletonList(quickDepositPreciseUpgrade));
+        quickDepositPreciseUpgrade.setConflictingUpgrades(null, Collections.singletonList(quickDepositUpgrade));
     }
 
 }

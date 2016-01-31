@@ -85,8 +85,8 @@ tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints=%d/%d additional up
 tooltip.ironbackpacks.backpack.upgrade.rename=(The %dth upgrade must include the renaming upgrade)
 tooltip.ironbackpacks.backpack.emphasis.storage=Storage Emphasis
 tooltip.ironbackpacks.backpack.emphasis.upgrade=Upgrade Emphasis
-tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s
-tooltip.ironbackpacks.upgrade.minimumTier=Minimum tier: %d.
+tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s.
+tooltip.ironbackpacks.upgrade.minimumTier=Minimum tier: %s.
 
 # Tier names (for upgrade tooltip minimum tier)
 tooltip.ironbackpacks.backpack.tier.basicBackpack.name=Basic Backpack
@@ -154,7 +154,7 @@ jei.description.addUpgrade.additional=The backpack must be a high enough tier an
 jei.ironbackpacks.removeUpgradeRecipe.name=Remove Upgrade Recipe
 jei.description.removeUpgrade.slot1=Location
 jei.description.removeUpgrade.slot2=Dependent
-jei.description.removeUpgrade=To remove an upgrade, place the desired backpack in the correct slot of the crafting grid.
+jei.description.removeUpgrade=To remove an upgrade, place the desired backpack in the correct (see location dependent) slot of the crafting grid.
 jei.description.removeUpgrade.locationDependent=The slot the backpack is in corresponds to the upgrade removed. For example, if it is in the first slot it will remove the first upgrade, the second slot the second upgrade, etc.
 jei.description.removeUpgrade.additional=The upgrade will be returned to you when you pick up the backpack; it will be placed back in the crafting grid.
 

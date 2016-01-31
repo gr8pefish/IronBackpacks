@@ -17,4 +17,11 @@ public interface IConflictingUpgrade extends IPackUpgrade {
      * @return - the list of conflicting upgrades
      */
     List<ItemConflictingUpgrade> getConflictingUpgrades(ItemStack upgrade);
+
+    /**
+     * Set the conflicting upgrades.
+     * @param upgrade - the upgrade as an item stack (needed for subitems)
+     * @param conflictingUpgradeList - the list of conflicting upgrades
+     */
+    void setConflictingUpgrades(ItemStack upgrade, List<ItemConflictingUpgrade> conflictingUpgradeList);
 }

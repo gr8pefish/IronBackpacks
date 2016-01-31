@@ -61,18 +61,6 @@ To Do:
                 add informational jei tabs (remove tooltips?)
 
             JEI:
-                JEI handlers for crafting
-                    https://github.com/williewillus/Botania/tree/MC18/src/main/java/vazkii/botania/client/integration/jei/manapool
-                look somewhere for description jei handler
-
-                ask mezz about nbt specific stuff
-                    outputs no longer show details, which is annoying
-
-                Can you add a page to JEI easily? Say I have one recipe and I want to make it two pages long (so I can add more informational text), how could I do that?
-                 Also, having 1 item iterate through each slot in a crafting grid in a custom IRecipeCategory, how would one go about that?
-
-                 Add tooltip over arrow "Shapeless crafting"
-
                  add tooltip over all the output and input items b/c nbt independent (i.e. has upgrade, upgrade removed)
 
             Investigate:

@@ -5,7 +5,9 @@ import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IConflictingUpgrade;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,12 +20,12 @@ public class ItemConflictingUpgrade implements IConflictingUpgrade {
     private List<ItemConflictingUpgrade> conflictingUpgrades;
     private IRecipe itemRecipe;
 
-    public ItemConflictingUpgrade(String name, int upgradeCost, int tier, String[] description, List<ItemConflictingUpgrade> conflictingUpgrades){
+    public ItemConflictingUpgrade(String name, int upgradeCost, int tier, String[] description){
         this.name = name;
         this.upgradeCost = upgradeCost;
         this.description = description;
         this.tier = tier;
-        this.conflictingUpgrades = conflictingUpgrades;
+        this.conflictingUpgrades = new ArrayList<>();
     }
 
     public Item getItem(){
@@ -43,6 +45,11 @@ public class ItemConflictingUpgrade implements IConflictingUpgrade {
     @Override
     public List<String> getTooltip(ItemStack upgrade) {
         return Arrays.asList(description);
+    }
+
+    @Override
+    public void setConflictingUpgrades(ItemStack stack, List<ItemConflictingUpgrade> conflictingUpgradeList){
+        conflictingUpgrades = conflictingUpgradeList;
     }
 
     @Override
