@@ -30,10 +30,7 @@ item.ironbackpacks.upgrade.filterMining.name=Mining Filter Upgrade
 item.ironbackpacks.upgrade.filterVoid.name=Void Filter Upgrade
 item.ironbackpacks.upgrade.depth.name=Depth Upgrade
 
-item.ironbackpacks.crafting.nest.name=Nest
 item.ironbackpacks.crafting.upgradeCore.name=Upgrade Core
-item.ironbackpacks.crafting.jeweledFeather.name=Golden Feather
-item.ironbackpacks.crafting.treatedLeather.name=Treated Leather
 
 
 # Creative Tab

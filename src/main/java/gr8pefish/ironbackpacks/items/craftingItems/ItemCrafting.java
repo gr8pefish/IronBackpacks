@@ -33,11 +33,8 @@ public class ItemCrafting extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
+        if (stack.getItemDamage() > (ItemCraftingRegistry.getSize()-1)) return super.getUnlocalizedName(stack); //for others that are updating before I removed the crafting items bloat
         return super.getUnlocalizedName(stack) + ItemCraftingRegistry.getItemCrafting(stack.getItemDamage()).getName();
     }
 
-    //necessary?
-    public ItemAPICrafting getItemAPICrafting(int meta) {
-        return ItemCraftingRegistry.getItemCrafting(meta);
-    }
 }

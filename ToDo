@@ -71,6 +71,8 @@ To Do:
 
             Crafting:
 
+                Remove treated leather and nest
+
                 Remove adding crafting item to API?
                     https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
 

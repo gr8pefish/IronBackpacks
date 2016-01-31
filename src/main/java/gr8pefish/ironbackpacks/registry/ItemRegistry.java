@@ -69,9 +69,6 @@ public class ItemRegistry {
 
     //misc
     public static ItemCrafting craftingItem;
-    public static ItemAPICrafting jeweledFeather;
-    public static ItemAPICrafting nest;
-    public static ItemAPICrafting treatedLeather;
     public static ItemAPICrafting upgradeCore;
 
 
@@ -278,15 +275,8 @@ public class ItemRegistry {
         //Crafting Items (alphabetical order)
         craftingItem = (ItemCrafting) registerItem(new ItemCrafting(), IronBackpacksAPI.ITEM_CRAFTING_BASE);
         //sub items
-        jeweledFeather = new ItemAPICrafting("jeweledFeather");
-        ItemCraftingRegistry.registerItemCrafting(jeweledFeather);
-        nest = new ItemAPICrafting("nest");
-        ItemCraftingRegistry.registerItemCrafting(nest);
-        treatedLeather = new ItemAPICrafting("treatedLeather");
-        ItemCraftingRegistry.registerItemCrafting(treatedLeather);
         upgradeCore = new ItemAPICrafting("upgradeCore");
         ItemCraftingRegistry.registerItemCrafting(upgradeCore);
-
 
 
         //Sets the tiers and links between all the backpacks.
@@ -342,9 +332,6 @@ public class ItemRegistry {
 
         //render the crafting items (alphabetical order)
         renderHelper.itemRenderAll(craftingItem);
-        ItemCraftingRegistry.registerItemCraftingTexture(jeweledFeather, "ItemCraftingJeweledFeather");
-        ItemCraftingRegistry.registerItemCraftingTexture(nest, "ItemCraftingNest");
-        ItemCraftingRegistry.registerItemCraftingTexture(treatedLeather, "ItemCraftingTreatedLeather");
         ItemCraftingRegistry.registerItemCraftingTexture(upgradeCore, "ItemCraftingUpgradeCore");
     }
 

@@ -5,7 +5,9 @@ Additions
 - None
 
 Changes
+- New textures!
 - Cleaned up the JEI integration, it is pretty much as nice as it will get.
+- Removed some crafting items (jeweled feather, treated leather, nest), they were just bloat.
 
 Bug Fixes
 - None

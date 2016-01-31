@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 
@@ -35,10 +36,10 @@ public class ItemUpgradeRecipes {
 
     public static ShapedOreRecipe depthUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.depthUpgrade)),
             "tnt",
-            "ndn",
+            "ncn",
             "tnt",
-            't', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.treatedLeather)),
-            'n', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.nest)),
+            't', Items.leather,
+            'c', "chestWood",
             'd', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingUpgrade)));
 
     public static ShapedOreRecipe eternityUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.eternityUpgrade)),
@@ -59,16 +60,16 @@ public class ItemUpgradeRecipes {
             "fnf",
             "ncn",
             "fnf",
-            'f', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.jeweledFeather)),
-            'n', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.nest)),
+            'f', "nuggetGold",
+            'n', Items.egg,
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe nestingAdvancedUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingAdvancedUpgrade)),
             "fnf",
             "ndn",
             "fnf",
-            'f', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.jeweledFeather)),
-            'n', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.nest)),
+            'f', "nuggetGold",
+            'n', Items.egg,
             'd', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingUpgrade)));
 
     public static ShapedOreRecipe quickDepositUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.quickDepositUpgrade)),
