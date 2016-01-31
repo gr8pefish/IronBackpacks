@@ -5,7 +5,6 @@ import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IConflictingUpgrade;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 import java.util.Arrays;

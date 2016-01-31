@@ -11,7 +11,6 @@ import gr8pefish.ironbackpacks.api.item.upgrades.ItemPackUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemCraftingRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
-import gr8pefish.ironbackpacks.config.Config;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.craftingItems.ItemCrafting;

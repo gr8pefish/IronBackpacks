@@ -3,8 +3,6 @@ package gr8pefish.ironbackpacks.config;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * The configuration file is handled by this class

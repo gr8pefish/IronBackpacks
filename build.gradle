@@ -164,8 +164,7 @@ curseforge {
     project {
         id = "${curse_id}"
         changelog = getChangelogText()
-        //releaseType = release_as_beta.toBoolean() ? "beta" : "release"
-        releaseType = "alpha"
+        releaseType = release_as_beta.toBoolean() ? "beta" : "release"
 
         addGameVersion '1.8.9'
 

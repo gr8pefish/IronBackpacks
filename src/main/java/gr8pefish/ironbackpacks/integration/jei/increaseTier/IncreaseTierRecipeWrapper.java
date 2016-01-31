@@ -1,10 +1,8 @@
 package gr8pefish.ironbackpacks.integration.jei.increaseTier;
 
 import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
-import gr8pefish.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.FluidStack;
 
