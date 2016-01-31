@@ -5,10 +5,11 @@ Additions
 - Added JEI Support for removing upgrades.
 - Added JEI Support for descriptions of the backpacks.
 - Added JEI Support for increasing the tier of a backpack.
+- Added a config option to disable any upgrade (experimental).
 
 Changes
-- Redid the config file to make it much more aesthetically pleasing.
-- Minor recipe tweaks.
+- Completely redid the config file to make it much more intelligible and aesthetically pleasing.
+- Minor recipe/config tweaks.
 
 Bug Fixes
 - Fixed configurable/alternate gui not initializing on first right click.
