@@ -37,11 +37,6 @@ public class JEIPlugin implements IModPlugin {
                 new IncreaseTierRecipeHandler()
         );
 
-        //TODO: add recipe here that is a copy of removeUpgrade/IncreaseTier but with text so you can have a page 2 description
-            //EDIT: actually emulate description recipe
-            //https://github.com/mezz/JustEnoughItems/blob/1.8.9/src/main/java/mezz/jei/plugins/jei/description/ItemDescriptionRecipe.java#L39
-            //https://github.com/mezz/JustEnoughItems/blob/1.8.9/src/main/java/mezz/jei/util/ModRegistry.java#L71
-
         registry.addDescription(new ItemStack(ItemRegistry.basicBackpack), "jei.description.backpack.basic", "jei.description.backpack.generic");
         registry.addDescription(new ItemStack(ItemRegistry.ironBackpackStorageEmphasis), "jei.description.backpack.iron", "jei.description.backpack.storage", "jei.description.backpack.generic");
         registry.addDescription(new ItemStack(ItemRegistry.ironBackpackUpgradeEmphasis), "jei.description.backpack.iron", "jei.description.backpack.upgrade", "jei.description.backpack.generic");

@@ -18,9 +18,7 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
     private IDrawable background;
 
     public RemoveUpgradeRecipeCategory(IGuiHelper guiHelper) {
-
         title = StatCollector.translateToLocal("jei.ironbackpacks.removeUpgradeRecipe.name");
-
         this.background = guiHelper.createDrawable(new ResourceLocation("ironbackpacks", "textures/jei/removeUpgradeRecipeJEI.png"), 0, 0, 166, 108);
     }
 
@@ -55,12 +53,15 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
     @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 
+        //add custom tooltips
+        recipeLayout.getItemStacks().addTooltipCallback((RemoveUpgradeRecipeWrapper)recipeWrapper);
+
         //backpack input
         recipeLayout.getItemStacks().init(0, true, 59, 14);
         recipeLayout.getItemStacks().set(0, (ItemStack)recipeWrapper.getInputs().get(0));
 
         //backpack output
-        recipeLayout.getItemStacks().init(2, false, 119, 14);
-        recipeLayout.getItemStacks().set(2, (ItemStack)recipeWrapper.getOutputs().get(0));
+        recipeLayout.getItemStacks().init(1, false, 119, 14);
+        recipeLayout.getItemStacks().set(1, (ItemStack)recipeWrapper.getOutputs().get(0));
     }
 }

@@ -21,11 +21,8 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory {
     private final ICraftingGridHelper craftingGridHelper;
 
     public IncreaseTierRecipeCategory(IGuiHelper guiHelper) {
-
         title = StatCollector.translateToLocal("jei.ironbackpacks.increaseTierRecipe.name");
-
         this.background = guiHelper.createDrawable(new ResourceLocation("ironbackpacks", "textures/jei/craftingGridRecipeJEI.png"), 0, 0, 166, 101);
-
         craftingGridHelper = guiHelper.createCraftingGridHelper(1, 0);
     }
 
@@ -60,11 +57,14 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory {
     @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 
+        //get the items to display
         IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
-        int craftInputSlot1 = 1;
-        guiItemStacks.init(0, false, 119, 22);
+        //init the output slot
+        guiItemStacks.init(0, false, 119, 23);
 
+        //init the input slots
+        int craftInputSlot1 = 1;
         for (int y = 0; y < 3; ++y) {
             for (int x = 0; x < 3; ++x) {
                 int index = craftInputSlot1 + x + (y * 3);
@@ -72,6 +72,7 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory {
             }
         }
 
+        //set the slots with the correct items
         craftingGridHelper.setInput(guiItemStacks, recipeWrapper.getInputs());
         craftingGridHelper.setOutput(guiItemStacks, recipeWrapper.getOutputs());
 

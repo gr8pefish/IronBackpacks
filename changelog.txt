@@ -5,7 +5,7 @@ Additions
 - None
 
 Changes
-- None
+- Cleaned up the JEI integration, it is pretty much as nice as it will get.
 
 Bug Fixes
 - None

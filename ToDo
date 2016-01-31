@@ -60,6 +60,8 @@ To Do:
 
                 add informational jei tabs (remove tooltips?)
 
+                advanced info tooltips that show the category (configurable/conflicting/etc.) and extra info
+
             JEI:
                  add tooltip over all the output and input items b/c nbt independent (i.e. has upgrade, upgrade removed)
 

@@ -18,9 +18,7 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
     private IDrawable background;
 
     public AddUpgradeRecipeCategory(IGuiHelper guiHelper) {
-
         title = StatCollector.translateToLocal("jei.ironbackpacks.addUpgradeRecipe.name");
-
         this.background = guiHelper.createDrawable(new ResourceLocation("ironbackpacks", "textures/jei/addUpgradeRecipeJEI.png"), 0, 0, 166, 108);
     }
 
@@ -54,6 +52,9 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+
+        //add custom tooltips
+        recipeLayout.getItemStacks().addTooltipCallback((AddUpgradeRecipeWrapper)recipeWrapper);
 
         //backpack input
         recipeLayout.getItemStacks().init(0, true, 23, 14);

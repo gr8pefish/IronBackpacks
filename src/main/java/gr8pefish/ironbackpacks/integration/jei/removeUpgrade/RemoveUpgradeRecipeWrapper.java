@@ -2,8 +2,10 @@ package gr8pefish.ironbackpacks.integration.jei.removeUpgrade;
 
 import gr8pefish.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.util.TextUtils;
+import mezz.jei.api.gui.ITooltipCallback;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
@@ -13,7 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper {
+public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack> {
 
     private BackpackRemoveUpgradeRecipe removeUpgradeRecipe;
     private final String[] description;
@@ -63,10 +65,12 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper {
     @Override
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 
+        //draw the type of crafting
         minecraft.fontRendererObj.drawString(craftingType, 43, -4, Color.darkGray.getRGB());
 
-        minecraft.fontRendererObj.drawString(removeSlot1, 8, 15, Color.darkGray.getRGB());
-        minecraft.fontRendererObj.drawString(removeSlot2, 4, 23, Color.darkGray.getRGB());
+        //draw the special text so the user knows it is location dependent
+        minecraft.fontRendererObj.drawString(removeSlot1, 8, 15, Color.darkGray.getRGB()); //Location
+        minecraft.fontRendererObj.drawString(removeSlot2, 4, 23, Color.darkGray.getRGB()); //Dependent
 
         for (int i = 0; i < description.length; i++)
             minecraft.fontRendererObj.drawString(description[i], 11, 40 + (i*8), Color.black.getRGB());
@@ -83,6 +87,7 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper {
     @Nullable
     @Override
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
+        //if mouse is over the 'Location Dependent' string, display this tooltip
         if (mouseX >= 4 && mouseX <= 50 && mouseY <= 31 && mouseY >= 15)
             return Arrays.asList(TextUtils.cutLongString(TextUtils.localize("jei.description.removeUpgrade.locationDependent")));
         return null;
@@ -91,5 +96,21 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper {
     @Override
     public boolean handleClick(@Nonnull Minecraft minecraft, int mouseX, int mouseY, int mouseButton) {
         return false;
+    }
+
+    @Override
+    public void onTooltip(int slotIndex, boolean input, ItemStack ingredient, List<String> tooltip) {
+
+        //input backpack
+        if (slotIndex == 0) {
+            tooltip.remove(tooltip.size()-1); //remove 'shift for more info'
+            tooltip.add("With the upgrade."); //add my tooltip
+        }
+
+        //output backpack
+        if (slotIndex == 1) {
+            tooltip.remove(tooltip.size()-1); //remove 'shift for more info'
+            tooltip.add("Without the upgrade."); //add my tooltip
+        }
     }
 }

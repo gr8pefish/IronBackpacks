@@ -12,7 +12,14 @@ public class TextUtils {
         return StatCollector.translateToLocalFormatted(input, format);
     }
 
+//    public static String localizeColor
+//    I18n.translate("my.lang.key", EnumChatFormatting.RED, EnumChatFormatting.RESET)
+
     public static String localizeEffect(String input, Object ... format) {
+        return localize(input.replaceAll("&", "\u00A7"), format);
+    }
+
+    public static String localizeColorEffect(String input, Object ... format) {
         return localize(input.replaceAll("&", "\u00A7"), format);
     }
 
