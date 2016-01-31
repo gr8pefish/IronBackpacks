@@ -27,6 +27,8 @@ To Do:
 
                 eventual integration with travelers gear, tiCon (backpack slot), baubles, etc.
 
+                add to info tooltips explanation of shift pressing
+
             API:
                 Add backpack tab (like TiCon)
                     Add in clickable tab with icon and tooltip (in the correct location even if TiCon, etc, is installed)
@@ -56,6 +58,8 @@ To Do:
 
                 add a way to remove additional upgrade points upgrades?
 
+                add informational jei tabs (remove tooltips?)
+
             JEI:
                 JEI handlers for crafting
                     https://github.com/williewillus/Botania/tree/MC18/src/main/java/vazkii/botania/client/integration/jei/manapool
@@ -68,6 +72,8 @@ To Do:
                  Also, having 1 item iterate through each slot in a crafting grid in a custom IRecipeCategory, how would one go about that?
 
                  Add tooltip over arrow "Shapeless crafting"
+
+                 add tooltip over all the output and input items b/c nbt independent (i.e. has upgrade, upgrade removed)
 
             Investigate:
                 add crafttweaker support
@@ -114,6 +120,9 @@ To Do:
                 Add sources/api/javadoc/etc. jars to curseforge upload, make sure they work too
 
             Config:
+
+                finish redoing it
+
                 bm blacklist for config to disable items (requested config option)
 
                 add blacklist for items the backpack can't be equipped with in armor slot (i.e jetpacks)
@@ -136,18 +145,10 @@ To Do:
                 probably breaks when you go through the end portal too
 
             Minor:
-
+                Broke tooltips of upgrades, can't use fancy format the same way with is as a properties file
 
             Major:
-                IEEP seems to not save data on server
-                    i.e. save equipped, log out, then another different pack is equipped on login
-                Textures funky on entity packs too
-                I changed entityBackpacks to a HashMap instead of a weak one
-                All seems to be server specific errors
-
-                could be switcihng saving loading current/equipped in IEEP
-                    yup it was
-                    still got texture error b/cv message player not right on client side
+                Can apply conflicting upgrades together
 
             Forge:
                 ShapedOreRecipes not working with getRemainingItems, report bug.

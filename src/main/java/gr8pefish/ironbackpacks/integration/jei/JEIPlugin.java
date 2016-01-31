@@ -2,6 +2,8 @@ package gr8pefish.ironbackpacks.integration.jei;
 
 import gr8pefish.ironbackpacks.integration.jei.addUpgrade.AddUpgradeRecipeCategory;
 import gr8pefish.ironbackpacks.integration.jei.addUpgrade.AddUpgradeRecipeHandler;
+import gr8pefish.ironbackpacks.integration.jei.increaseTier.IncreaseTierRecipeCategory;
+import gr8pefish.ironbackpacks.integration.jei.increaseTier.IncreaseTierRecipeHandler;
 import gr8pefish.ironbackpacks.integration.jei.removeUpgrade.RemoveUpgradeRecipeCategory;
 import gr8pefish.ironbackpacks.integration.jei.removeUpgrade.RemoveUpgradeRecipeHandler;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
@@ -25,15 +27,20 @@ public class JEIPlugin implements IModPlugin {
     public void register(IModRegistry registry) {
         registry.addRecipeCategories(
                 new AddUpgradeRecipeCategory(jeiHelpers.getGuiHelper()),
-                new RemoveUpgradeRecipeCategory(jeiHelpers.getGuiHelper())
+                new RemoveUpgradeRecipeCategory(jeiHelpers.getGuiHelper()),
+                new IncreaseTierRecipeCategory(jeiHelpers.getGuiHelper())
         );
 
         registry.addRecipeHandlers(
                 new AddUpgradeRecipeHandler(),
-                new RemoveUpgradeRecipeHandler()
+                new RemoveUpgradeRecipeHandler(),
+                new IncreaseTierRecipeHandler()
         );
 
-        //TODO, ask for 'u' for description //TODO: do it dynamically for upgrade ,ask for \p\ or something for new page
+        //TODO: add recipe here that is a copy of removeUpgrade/IncreaseTier but with text so you can have a page 2 description
+            //EDIT: actually emulate description recipe
+            //https://github.com/mezz/JustEnoughItems/blob/1.8.9/src/main/java/mezz/jei/plugins/jei/description/ItemDescriptionRecipe.java#L39
+            //https://github.com/mezz/JustEnoughItems/blob/1.8.9/src/main/java/mezz/jei/util/ModRegistry.java#L71
 
         registry.addDescription(new ItemStack(ItemRegistry.basicBackpack), "jei.description.backpack.basic", "jei.description.backpack.generic");
         registry.addDescription(new ItemStack(ItemRegistry.ironBackpackStorageEmphasis), "jei.description.backpack.iron", "jei.description.backpack.storage", "jei.description.backpack.generic");

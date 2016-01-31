@@ -2,10 +2,13 @@
 Version 1.8.9 - 2.0.5
 ------------------------------------------------------
 Additions
-- Added JEI Support for removing upgrades (still WIP)
+- Added JEI Support for removing upgrades.
+- Added JEI Support for descriptions of the backpacks.
+- Added JEI Support for increasing the tier of a backpack.
 
 Changes
-- None
+- Redid the config file to make it much more aesthetically pleasing.
+- Minor recipe tweaks.
 
 Bug Fixes
 - Fixed configurable/alternate gui not initializing on first right click.

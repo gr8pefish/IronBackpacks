@@ -32,44 +32,64 @@ public class ConfigHandler {
 
     //TODO: make this and the section below be in a nice, readable order (like my itemRegistry class)
 
+    public static boolean buttonUpgradeDisabled;
     public static int buttonUpgradeCost;
     public static int buttonUpgradeTier;
+    public static boolean nestingUpgradeDisabled;
     public static int nestingUpgradeCost;
     public static int nestingUpgradeTier;
+    public static boolean renamingUpgradeDisabled;
     public static int renamingUpgradeCost;
     public static int renamingUpgradeTier;
+    public static boolean damageBarUpgradeDisabled;
     public static int damageBarUpgradeCost;
     public static int damageBarUpgradeTier;
+    public static boolean filterBasicUpgradeDisabled;
     public static int filterBasicUpgradeCost;
     public static int filterBasicUpgradeTier;
+    public static boolean filterModSpecificUpgradeDisabled;
     public static int filterModSpecificUpgradeCost;
     public static int filterModSpecificUpgradeTier;
+    public static boolean filterFuzzyUpgradeDisabled;
     public static int filterFuzzyUpgradeCost;
     public static int filterFuzzyUpgradeTier;
+    public static boolean filterOreDictUpgradeDisabled;
     public static int filterOreDictUpgradeCost;
     public static int filterOreDictUpgradeTier;
+    public static boolean restockingUpgradeDisabled;
     public static int restockingUpgradeCost;
     public static int restockingUpgradeTier;
+    public static boolean craftingUpgradeDisabled;
     public static int craftingUpgradeCost;
     public static int craftingUpgradeTier;
+    public static boolean craftingSmallUpgradeDisabled;
     public static int craftingSmallUpgradeCost;
     public static int craftingSmallUpgradeTier;
+    public static boolean craftingTinyUpgradeDisabled;
     public static int craftingTinyUpgradeCost;
     public static int craftingTinyUpgradeTier;
+    public static boolean eternityUpgradeDisabled;
     public static int eternityUpgradeCost;
     public static int eternityUpgradeTier;
+    public static boolean quickDepositUpgradeDisabled;
     public static int quickDepositUpgradeCost;
     public static int quickDepositUpgradeTier;
+    public static boolean quickDepositPreciseUpgradeDisabled;
     public static int quickDepositPreciseUpgradeCost;
     public static int quickDepositPreciseUpgradeTier;
+    public static boolean filterAdvancedUpgradeDisabled;
     public static int filterAdvancedUpgradeCost;
     public static int filterAdvancedUpgradeTier;
+    public static boolean filterMiningDisabled;
     public static int filterMiningUpgradeCost;
     public static int filterMiningUpgradeTier;
+    public static boolean nestingAdvancedUpgradeDisabled;
     public static int nestingAdvancedUpgradeCost;
     public static int nestingAdvancedUpgradeTier;
+    public static boolean depthUpgradeDisabled;
     public static int depthUpgradeCost;
     public static int depthUpgradeTier;
+    public static boolean filterVoidUpgradeDisabled;
     public static int filterVoidUpgradeCost;
     public static int filterVoidUpgradeTier;
 
@@ -112,14 +132,16 @@ public class ConfigHandler {
 
         config.load();
 
+        String category;
+
         config.addCustomCategoryComment("0) Config", "IMPORTANT: If you ever manually edit ANY of these values, please change the value below to true. " +
                 "This will prevent them being overwritten if an update changes the config file.");
-        config.addCustomCategoryComment("1) Backpack Names", "Here you can modify the traits of the backpacks.");
-        config.addCustomCategoryComment("6) Upgrade Details", "Here you can modify how expensive the upgrades are to add to a backpack. " +
-                "A cost of 0 makes the upgrade 'free' to apply, while a higher number makes it more expensive. "+
-                "\nIn addition, you can modify the minimum tier of backpack necessary to apply this upgrade to. "+
-                "For example, a tier of 0 means it can be applied to any backpack, while a tier of 2 means it can only be applied to gold or diamond backpacks.");
-        config.addCustomCategoryComment("7) Miscellaneous", "A variety of miscellaneous configurable tweaks and changes to the mod.");
+//        config.addCustomCategoryComment("1) Backpack Names", "Here you can modify the traits of the backpacks.");
+//        config.addCustomCategoryComment("6) Upgrade Details", "Here you can modify how expensive the upgrades are to add to a backpack. " +
+//                "A cost of 0 makes the upgrade 'free' to apply, while a higher number makes it more expensive. "+
+//                "\nIn addition, you can modify the minimum tier of backpack necessary to apply this upgrade to. "+
+//                "For example, a tier of 0 means it can be applied to any backpack, while a tier of 2 means it can only be applied to gold or diamond backpacks.");
+//        config.addCustomCategoryComment("7) Miscellaneous", "A variety of miscellaneous configurable tweaks and changes to the mod.");
 
 
         //============================================Initializing everything, the numbers keep them in the order I want=======================================
@@ -137,44 +159,52 @@ public class ConfigHandler {
         }
 
         //TODO: fix ordering and pretty this all up, it's gross in the actual config for the user
-
-        basicBackpack[0] = config.get("1) Basic Backpack", "1) Upgrade Points", 8, "The number of upgrade points on the backpack. Default 8.").getInt();
-        basicBackpack[1] = config.get("1) Basic Backpack", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
-        basicBackpack[2] = config.get("1) Basic Backpack", "3) Number of Rows", 2, "The size of the backpack. Between 1 and 7. Default 2.").getInt();
-
         //TODO: balance all these out (also balance basic backpack) - and make sure to change text defaults
-        ironBackpackStorageEmphasis[0] = config.get("2) Iron Backpack (Storage Emphasis)", "1) Upgrade Points", 6, "The number of upgrade points on the backpack. Default 12.").getInt();
-        ironBackpackStorageEmphasis[1] = config.get("2) Iron Backpack (Storage Emphasis)", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
-        ironBackpackStorageEmphasis[2] = config.get("2) Iron Backpack (Storage Emphasis)", "3) Number of Rows", 4, "The size of the backpack. Between 1 and 7. Default 4.").getInt();
-        ironBackpackStorageEmphasis[3] = config.get("2) Iron Backpack (Storage Emphasis)", "4) Number of Additional Upgrade Points", 0, "The total number of additional upgrade points that can be applied to the backpack. Default 0.").getInt();
 
-        ironBackpackUpgradeEmphasis[0] = config.get("2) Iron Backpack (Upgrade Emphasis)", "1) Upgrade Points", 12, "The number of upgrade points on the backpack. Default 12.").getInt();
-        ironBackpackUpgradeEmphasis[1] = config.get("2) Iron Backpack (Upgrade Emphasis)", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
-        ironBackpackUpgradeEmphasis[2] = config.get("2) Iron Backpack (Upgrade Emphasis)", "3) Number of Rows", 3, "The size of the backpack. Between 1 and 7. Default 4.").getInt();
-        ironBackpackUpgradeEmphasis[3] = config.get("2) Iron Backpack (Upgrade Emphasis)", "4) Number of Additional Upgrade Points", 2, "The total number of additional upgrade points that can be applied to the backpack. Default 2.").getInt();
+        category = "Backpack Traits";
+        config.addCustomCategoryComment(category + " (Basic)", "The configurable traits of the basic backpack.");
+        basicBackpack[0] = config.getInt("Upgrade Points", category+" (Basic)", 8, 0, 100, "The number of upgrade points on the backpack.");
+        basicBackpack[1] = config.getInt("Number of Slots Per Row", category+" (Basic)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
+        basicBackpack[2] = config.getInt("Number of Rows", category+" (Basic)", 2, 1, 7, "The size of the backpack.");
 
-        goldBackpackStorageEmphasis[0] = config.get("3) Gold Backpack (Storage Emphasis)", "1) Upgrade Points", 8, "The number of upgrade points on the backpack. Default 16.").getInt();
-        goldBackpackStorageEmphasis[1] = config.get("3) Gold Backpack (Storage Emphasis)", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
-        goldBackpackStorageEmphasis[2] = config.get("3) Gold Backpack (Storage Emphasis)", "3) Number of Rows", 6, "The size of the backpack. Between 1 and 7. Default 6.").getInt();
-        goldBackpackStorageEmphasis[3] = config.get("2) Gold Backpack (Storage Emphasis)", "4) Number of Additional Upgrade Points", 1, "The total number of additional upgrade points that can be applied to the backpack. Default 1.").getInt();
+        config.addCustomCategoryComment(category + " (Iron - Storage Emphasis)", "The configurable traits of the iron backpack (storage emphasis).");
+        ironBackpackStorageEmphasis[0] = config.getInt("Upgrade Points", category+" (Iron - Storage Emphasis)", 12, 0, 100, "The number of upgrade points on the backpack.");
+        ironBackpackStorageEmphasis[1] = config.getInt("Number of Slots Per Row", category+" (Iron - Storage Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
+        ironBackpackStorageEmphasis[2] = config.getInt("Number of Rows", category+" (Iron - Storage Emphasis)", 4, 1, 7, "The size of the backpack.");
+        ironBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" (Iron - Storage Emphasis)", 0, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
-        goldBackpackUpgradeEmphasis[0] = config.get("3) Gold Backpack (Upgrade Emphasis)", "1) Upgrade Points", 16, "The number of upgrade points on the backpack. Default 16.").getInt();
-        goldBackpackUpgradeEmphasis[1] = config.get("3) Gold Backpack (Upgrade Emphasis)", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 9.").getInt();
-        goldBackpackUpgradeEmphasis[2] = config.get("3) Gold Backpack (Upgrade Emphasis)", "3) Number of Rows", 4, "The size of the backpack. Between 1 and 7. Default 6.").getInt();
-        goldBackpackUpgradeEmphasis[3] = config.get("2) Gold Backpack (Upgrade Emphasis)", "4) Number of Additional Upgrade Points", 4, "The total number of additional upgrade points that can be applied to the backpack. Default 4.").getInt();
+        config.addCustomCategoryComment(category + " (Iron - Upgrade Emphasis)", "The configurable traits of the iron backpack (upgrade emphasis).");
+        ironBackpackUpgradeEmphasis[0] = config.getInt("Upgrade Points", category+" (Iron - Upgrade Emphasis)", 12, 0, 100, "The number of upgrade points on the backpack.");
+        ironBackpackUpgradeEmphasis[1] = config.getInt("Number of Slots Per Row", category+" (Iron - Upgrade Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
+        ironBackpackUpgradeEmphasis[2] = config.getInt("Number of Rows", category+" (Iron - Upgrade Emphasis)", 3, 1, 7, "The size of the backpack.");
+        ironBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" (Iron - Upgrade Emphasis)", 2, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
-        diamondBackpackStorageEmphasis[0] = config.get("4) Diamond Backpack (Storage Emphasis)", "1) Upgrade Points", 10, "The number of upgrade points on the backpack. Default 20.").getInt();
-        diamondBackpackStorageEmphasis[1] = config.get("4) Diamond Backpack (Storage Emphasis)", "2) Number of Slots Per Row", 11, "The size of the backpack. Either 9 or 11. Default 11.").getInt();
-        diamondBackpackStorageEmphasis[2] = config.get("4) Diamond Backpack (Storage Emphasis)", "3) Number of Rows", 7, "The size of the backpack. Between 1 and 7. Default 7.").getInt();
-        diamondBackpackStorageEmphasis[3] = config.get("2) Diamond Backpack (Storage Emphasis)", "4) Number of Additional Upgrade Points", 2, "The total number of additional upgrade points that can be applied to the backpack. Default 2.").getInt();
+        config.addCustomCategoryComment(category + " (Gold - Storage Emphasis)", "The configurable traits of the gold backpack (storage emphasis).");
+        goldBackpackStorageEmphasis[0] = config.getInt("Upgrade Points", category+" (Gold - Storage Emphasis)", 9, 0, 100, "The number of upgrade points on the backpack.");
+        goldBackpackStorageEmphasis[1] = config.getInt("Number of Slots Per Row", category+" (Gold - Storage Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
+        goldBackpackStorageEmphasis[2] = config.getInt("Number of Rows", category+" (Gold - Storage Emphasis)", 6, 1, 7, "The size of the backpack.");
+        goldBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" (Gold - Storage Emphasis)", 1, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
-        diamondBackpackUpgradeEmphasis[0] = config.get("4) Diamond Backpack (Upgrade Emphasis)", "1) Upgrade Points", 20, "The number of upgrade points on the backpack. Default 20.").getInt();
-        diamondBackpackUpgradeEmphasis[1] = config.get("4) Diamond Backpack (Upgrade Emphasis)", "2) Number of Slots Per Row", 9, "The size of the backpack. Either 9 or 11. Default 11.").getInt();
-        diamondBackpackUpgradeEmphasis[2] = config.get("4) Diamond Backpack (Upgrade Emphasis)", "3) Number of Rows", 5, "The size of the backpack. Between 1 and 7. Default 7.").getInt();
-        diamondBackpackUpgradeEmphasis[3] = config.get("2) Diamond Backpack (Upgrade Emphasis)", "4) Number of Additional Upgrade Points", 6, "The total number of additional upgrade points that can be applied to the backpack. Default 6.").getInt();
+        config.addCustomCategoryComment(category + " (Gold - Upgrade Emphasis)", "The configurable traits of the gold backpack (upgrade emphasis).");
+        goldBackpackUpgradeEmphasis[0] = config.getInt("Upgrade Points", category+" (Gold - Upgrade Emphasis)", 16, 0, 100, "The number of upgrade points on the backpack.");
+        goldBackpackUpgradeEmphasis[1] = config.getInt("Number of Slots Per Row", category+" (Gold - Upgrade Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
+        goldBackpackUpgradeEmphasis[2] = config.getInt("Number of Rows", category+" (Gold - Upgrade Emphasis)", 4, 1, 7, "The size of the backpack.");
+        goldBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" (Gold - Upgrade Emphasis)", 4, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
+        config.addCustomCategoryComment(category + " (Diamond - Storage Emphasis)", "The configurable traits of the diamond backpack (storage emphasis).");
+        diamondBackpackStorageEmphasis[0] = config.getInt("Upgrade Points", category+" (diamond - Storage Emphasis)", 10, 0, 100, "The number of upgrade points on the backpack.");
+        diamondBackpackStorageEmphasis[1] = config.getInt("Number of Slots Per Row", category+" (diamond - Storage Emphasis)", 11, 9, 11, "The size of the backpack. Either 9 or 11.");
+        diamondBackpackStorageEmphasis[2] = config.getInt("Number of Rows", category+" (diamond - Storage Emphasis)", 7, 1, 7, "The size of the backpack.");
+        diamondBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" (diamond - Storage Emphasis)", 2, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
+        config.addCustomCategoryComment(category + " (Diamond - Upgrade Emphasis)", "The configurable traits of the diamond backpack (upgrade emphasis).");
+        diamondBackpackUpgradeEmphasis[0] = config.getInt("Upgrade Points", category+" (diamond - Upgrade Emphasis)", 20, 0, 100, "The number of upgrade points on the backpack.");
+        diamondBackpackUpgradeEmphasis[1] = config.getInt("Number of Slots Per Row", category+" (diamond - Upgrade Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
+        diamondBackpackUpgradeEmphasis[2] = config.getInt("Number of Rows", category+" (diamond - Upgrade Emphasis)", 5, 1, 7, "The size of the backpack.");
+        diamondBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" (diamond - Upgrade Emphasis)", 6, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
+        category = "Upgrade Traits";
+        config.addCustomCategoryComment(category, "The configurable traits of the upgrades.");
         buttonUpgradeCost = config.get("6) Upgrade Costs", "1) Button Upgrade Recipe", 2, "The cost for the button upgrade. Default 2.").getInt();
         buttonUpgradeTier = config.get("6) Upgrade Costs", "1.1) Button Upgrade Tier", 0, "The minimum backpack tier for the button upgrade. Default 0.").getInt();
         nestingUpgradeCost = config.get("6) Upgrade Costs", "2) Nesting Upgrade Recipe", 3, "The cost for the nesting upgrade. Default 3.").getInt();
@@ -216,6 +246,8 @@ public class ConfigHandler {
         depthUpgradeCost = config.get("6) Upgrade Costs", "20) Depth Upgrade Recipe", 2, "The cost for the depth deposit upgrade. Default 2.").getInt();
         depthUpgradeTier = config.get("6) Upgrade Costs", "20.1) Depth Upgrade Tier", 0, "The minimum backpack tier for the depth upgrade. Default 0.").getInt();
 
+        category = "Miscellaneous";
+        config.setCategoryComment(category, "Here you can modify all the miscellaneous tweaks regarding this mod.");
         disableRendering = config.get("7) Miscellaneous", "0) Disable Rendering", false, "To disable the model rendering on the player when they have an equipped backpack. Default false.").getBoolean();
         disableFPPrendering = config.get("7) Miscellaneous", "1) Enable FPP Rendering", false, "To disable the model rendering on the player when they have an equipped backpack and are in first person perspective. " +
                 "You sometimes see it if you spin to the side quickly, the backpack takes longer to readjust than your forward vision as it swings back onto your back. Default false.").getBoolean();

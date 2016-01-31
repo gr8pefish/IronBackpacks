@@ -23,7 +23,7 @@ public class BackpackTierRecipes {
             "iii",
             "ibi",
             "ioi",
-            'i', "ingotIron", 'o', "blockGold", 'b', ItemRegistry.basicBackpack};
+            'i', "ingotIron", 'o', "blockIron", 'b', ItemRegistry.basicBackpack};
 
     public static List<Object[]> getBasicBackpackTierRecipes(){
         ArrayList<Object[]> recipes = new ArrayList<>();
@@ -59,7 +59,7 @@ public class BackpackTierRecipes {
     private static Object[] goldBackpackStorageEmphasisTierRecipe = new Object[]{
             "iii",
             "ibi",
-            "i i",
+            "iii",
             'i', "gemDiamond", 'b', ItemRegistry.goldBackpackStorageEmphasis};
 
     public static List<Object[]> getGoldBackpackStorageEmphasisTierRecipes(){
@@ -67,7 +67,7 @@ public class BackpackTierRecipes {
     }
 
     private static Object[] goldBackpackUpgradeEmphasisTierRecipe = new Object[]{
-            "i i",
+            "iii",
             "ibi",
             "iii",
             'i', "gemDiamond", 'b', ItemRegistry.goldBackpackUpgradeEmphasis};

@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements IRemoveUpgradeRecipe {
 
-    private final ItemStack recipeOutput; //The outputted item after crafting
+    private ItemStack recipeOutput; //The outputted item after crafting
 
     private ItemStack upgradeRemovedStack;
 

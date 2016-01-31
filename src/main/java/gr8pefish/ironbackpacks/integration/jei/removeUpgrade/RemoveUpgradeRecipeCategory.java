@@ -21,8 +21,7 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
 
         title = StatCollector.translateToLocal("jei.ironbackpacks.removeUpgradeRecipe.name");
 
-        ResourceLocation location = new ResourceLocation("minecraft", "textures/gui/container/crafting_table.png");
-        background = guiHelper.createDrawable(location, 29, 16, 116, 54);
+        this.background = guiHelper.createDrawable(new ResourceLocation("ironbackpacks", "textures/jei/removeUpgradeRecipeJEI.png"), 0, 0, 166, 108);
     }
 
     @Nonnull
@@ -50,29 +49,18 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
 
     @Override
     public void drawAnimations(Minecraft minecraft) {
-        //TODO: make it move through each slot in crafting grid
+
     }
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 
-        int craftInputSlot1 = 1;
-
-        for (int y = 0; y < 3; ++y) {
-            for (int x = 0; x < 3; ++x) {
-                int index = craftInputSlot1 + x + (y * 3);
-                recipeLayout.getItemStacks().init(index, true, x * 18, y * 18);
-                recipeLayout.getItemStacks().set(index, (ItemStack)recipeWrapper.getInputs().get(0));
-            }
-        }
-
         //backpack input
-//        recipeLayout.getItemStacks().init(0, true, 23, 14);
-//        recipeLayout.getItemStacks().set(0, (ItemStack)recipeWrapper.getInputs().get(0));
-
-        //backpack output
-        recipeLayout.getItemStacks().init(0, false, 94, 18);
+        recipeLayout.getItemStacks().init(0, true, 59, 14);
         recipeLayout.getItemStacks().set(0, (ItemStack)recipeWrapper.getInputs().get(0));
 
+        //backpack output
+        recipeLayout.getItemStacks().init(2, false, 119, 14);
+        recipeLayout.getItemStacks().set(2, (ItemStack)recipeWrapper.getOutputs().get(0));
     }
 }

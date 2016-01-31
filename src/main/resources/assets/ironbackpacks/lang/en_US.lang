@@ -144,12 +144,20 @@ jei.description.backpack.gold=The penultimate tier of backpack, with even more s
 jei.description.backpack.diamond=The highest tier of backpack, able to apply any upgrade (assuming you have the upgrade points for it).\n \n \n \n \n \n
 
 jei.description.continuedNextPage=(More info on the next page)
+jei.description.shapelessCrafting=Shapeless Crafting
+jei.description.shapedCrafting=Shaped Crafting
 
 jei.ironbackpacks.addUpgradeRecipe.name=Add Upgrade Recipe
 jei.description.addUpgrade=To add an upgrade, simply craft it with the desired backpack in a crafting grid.
 jei.description.addUpgrade.additional=The backpack must be a high enough tier and have enough upgrade points available to accept the upgrade.
 
 jei.ironbackpacks.removeUpgradeRecipe.name=Remove Upgrade Recipe
-jei.description.removeUpgrade=To remove an upgrade, simply place the backpack in the correct slot in the crafting grid.
-jei.description.removeUpgrade.additional=The slot the backpack is in corresponds to the upgrade removed. For example, if it is in the first slot it will remove the first upgrade, the second slot the second upgrade, etc.
-jei.description.removeUpgrade.additional.more=The upgrade will be returned to you when you pick up the backpack, it will be placed in the crafting grid.
+jei.description.removeUpgrade.slot1=Location
+jei.description.removeUpgrade.slot2=Dependent
+jei.description.removeUpgrade=To remove an upgrade, place the desired backpack in the correct slot of the crafting grid.
+jei.description.removeUpgrade.locationDependent=The slot the backpack is in corresponds to the upgrade removed. For example, if it is in the first slot it will remove the first upgrade, the second slot the second upgrade, etc.
+jei.description.removeUpgrade.additional=The upgrade will be returned to you when you pick up the backpack; it will be placed back in the crafting grid.
+
+jei.ironbackpacks.increaseTierRecipe.name=Increase Tier Recipe
+jei.description.increaseTier=To increase the tier of a backpack, simply follow the desired crafting recipe. You may have to choose between different types of backpacks when upgrading. Choose wisely!
+#jei.description.increaseTier.additional=
