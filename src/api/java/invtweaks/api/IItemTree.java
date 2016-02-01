@@ -26,8 +26,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("unused")
 public interface IItemTree {
-    public void registerOre(String category, String name, String oreName, int order);
+    void registerOre(String category, String name, String oreName, int order);
 
     boolean matches(List<IItemTreeItem> items, String keyword);
 
@@ -36,6 +37,8 @@ public interface IItemTree {
     Collection<IItemTreeCategory> getAllCategories();
 
     IItemTreeCategory getRootCategory();
+
+    void setRootCategory(IItemTreeCategory category);
 
     IItemTreeCategory getCategory(String keyword);
 
@@ -50,8 +53,6 @@ public interface IItemTree {
     boolean containsItem(String name);
 
     boolean containsCategory(String name);
-
-    void setRootCategory(IItemTreeCategory category);
 
     IItemTreeCategory addCategory(String parentCategory, String newCategory) throws NullPointerException;
 

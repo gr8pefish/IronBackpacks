@@ -26,6 +26,7 @@ package invtweaks.api.container;
  * Names for specific parts of containers. For unknown container types (such as mod containers), only INVENTORY and
  * CHEST sections are available.
  */
+@SuppressWarnings("unused")
 public enum ContainerSection {
     /**
      * The player's inventory
@@ -44,15 +45,15 @@ public enum ContainerSection {
      */
     CHEST,
     /**
-     * The recipes input
+     * The crafting input
      */
     CRAFTING_IN,
     /**
-     * The recipes input, for containters that store it internally
+     * The crafting input, for containters that store it internally
      */
     CRAFTING_IN_PERSISTENT,
     /**
-     * The recipes output
+     * The crafting output
      */
     CRAFTING_OUT,
     /**

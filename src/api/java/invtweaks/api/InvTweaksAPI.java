@@ -27,40 +27,34 @@ import net.minecraft.item.ItemStack;
 
 /**
  * Interface to access functions exposed by Inventory Tweaks
- * <p/>
+ * <p>
  * The main @Mod instance of the mod implements this interface, so a refernce to it can
- * be obtained via @Instance("inventorytweaks") or methods in cpw.mods.fml.common.Loader
- * <p/>
+ * be obtained via @Instance("inventorytweaks") or methods in net.minecraftforge.fml.common.Loader
+ * <p>
  * All of these functions currently have no effect if called on a dedicated server.
  */
+@SuppressWarnings("unused")
 public interface InvTweaksAPI {
     /**
      * Add a listener for ItemTree load events
-     *
-     * @param listener
      */
     void addOnLoadListener(IItemTreeListener listener);
 
     /**
      * Remove a listener for ItemTree load events
      *
-     * @param listener
      * @return true if the listener was previously added
      */
     boolean removeOnLoadListener(IItemTreeListener listener);
 
     /**
      * Toggle sorting shortcut state.
-     *
-     * @param enabled
      */
     void setSortKeyEnabled(boolean enabled);
 
     /**
      * Toggle sorting shortcut supression.
      * Unlike setSortKeyEnabled, this flag is automatically cleared when GUIs are closed.
-     *
-     * @param enabled
      */
     void setTextboxMode(boolean enabled);
 
@@ -70,15 +64,12 @@ public interface InvTweaksAPI {
      *
      * @param i
      * @param j
-     * @return A value with a sign representing the relative order of the items stacks
+     * @return A value with a sign representing the relative order of the item stacks
      */
     int compareItems(ItemStack i, ItemStack j);
 
     /**
      * Initiate a sort as if the player had clicked on a sorting button or pressed the sort key.
-     *
-     * @param section
-     * @param method
      */
     void sort(ContainerSection section, SortingMethod method);
 }

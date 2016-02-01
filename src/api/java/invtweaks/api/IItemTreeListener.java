@@ -24,6 +24,7 @@ package invtweaks.api;
 
 import java.util.EventListener;
 
+@SuppressWarnings("unused")
 public interface IItemTreeListener extends EventListener {
     void onTreeLoaded(IItemTree tree);
 }

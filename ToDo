@@ -6,13 +6,9 @@ To Do:
             change tooltip so that it says Alternate Upgrades, not alt gui, too confusing
             or 'Configurable Upgrades'
 
-        Make sure changelog is ordered in terms of importance before final update
-
         Move a lot of info from the tooltip to the info jei tab
         shorten upgrade necessary backpack tier tooltip? -yes, with help of jei info tab it will be fine
         mek style tooltips with alt tooltip as well as shift?
-
-        remove print statements in code
 
         allow enter to be hit to act as hitting renaming button
 
@@ -136,11 +132,11 @@ To Do:
                 Test ondeath save to title
                 probably breaks when you go through the end portal too
 
+                test everything post-API refactor
+
             Minor:
-                Broke tooltips of upgrades, can't use fancy format the same way with is as a properties file
 
             Major:
-                Can apply conflicting upgrades together
 
             Forge:
                 ShapedOreRecipes not working with getRemainingItems, report bug.

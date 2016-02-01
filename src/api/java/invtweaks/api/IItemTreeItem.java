@@ -22,6 +22,7 @@
 
 package invtweaks.api;
 
+@SuppressWarnings("unused")
 public interface IItemTreeItem extends Comparable<IItemTreeItem> {
     String getName();
 
