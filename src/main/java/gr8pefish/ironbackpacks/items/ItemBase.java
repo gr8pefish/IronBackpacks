@@ -5,7 +5,7 @@ import gr8pefish.ironbackpacks.api.Constants;
 import net.minecraft.item.Item;
 
 /**
- * A very basic item class that every item on this mod extends
+ * A very basic items class that every items on this mod extends
  */
 public class ItemBase extends Item {
 

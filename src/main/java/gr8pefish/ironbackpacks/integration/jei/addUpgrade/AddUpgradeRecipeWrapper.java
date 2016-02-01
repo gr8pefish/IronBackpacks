@@ -23,7 +23,7 @@ public class AddUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback
     private final String craftingType;
 
     public AddUpgradeRecipeWrapper(BackpackAddUpgradeRecipe recipe){
-        this.craftingType = TextUtils.localize("jei.description.shapelessCrafting"); //to indicate the crafting style
+        this.craftingType = TextUtils.localize("jei.description.shapelessCrafting"); //to indicate the recipes style
         this.description = TextUtils.cutLongString(TextUtils.localize("jei.description.addUpgrade")); //the main description
         this.descriptionAdditional = TextUtils.cutLongString(TextUtils.localize("jei.description.addUpgrade.additional")); //the secondary description
         addUpgradeRecipe = recipe; //the recipe
@@ -57,7 +57,7 @@ public class AddUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback
     @Override
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 
-        //add the crafting type necessary at the top of the screen
+        //add the recipes type necessary at the top of the screen
         minecraft.fontRendererObj.drawString(craftingType, 29, -4, Color.darkGray.getRGB());
 
         //add the descriptions below the images (hardcoded for english length)

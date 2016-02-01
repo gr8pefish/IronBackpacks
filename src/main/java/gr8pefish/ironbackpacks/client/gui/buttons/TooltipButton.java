@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.client.gui.buttons;
 
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
-import gr8pefish.ironbackpacks.api.client.gui.button.IBGuiButton;
+import gr8pefish.ironbackpacks.api.client.gui.button.IGuiButton;
 import gr8pefish.ironbackpacks.api.client.gui.button.ITooltipButton;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
@@ -28,8 +28,8 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
     private ArrayList<String> tooltips; //the tooltip
     private int hoverTime; //the hover time (for displaying tooltips)
 
-    //Constructor which uses an IBGuiButton
-    public TooltipButton(IBGuiButton guiButton, int xPos, int yPos){
+    //Constructor which uses an IGuiButton
+    public TooltipButton(IGuiButton guiButton, int xPos, int yPos){
         super(guiButton.getId(), xPos, yPos, guiButton.getSizeX(), guiButton.getSizeY(), ""); //empty string displays no text on the button
         this.buttonID = guiButton.getId();
 
@@ -44,7 +44,7 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
     }
 
     //Overloaded constructor for more flexibility when initializing (used for the clear lines buttons in the alternate gui)
-    public TooltipButton(int id, IBGuiButton guiButton, int xPos, int yPos, String... tooltipLines){
+    public TooltipButton(int id, IGuiButton guiButton, int xPos, int yPos, String... tooltipLines){
         super(id, xPos, yPos, guiButton.getSizeX(), guiButton.getSizeY(), "");
         this.buttonID = id;
 

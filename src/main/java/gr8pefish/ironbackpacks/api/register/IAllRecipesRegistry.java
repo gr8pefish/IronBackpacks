@@ -1,12 +1,12 @@
 package gr8pefish.ironbackpacks.api.register;
 
-import gr8pefish.ironbackpacks.api.crafting.IAddUpgradeRecipe;
-import gr8pefish.ironbackpacks.api.crafting.IIncreaseBackpackTierRecipe;
-import gr8pefish.ironbackpacks.api.crafting.IRemoveUpgradeRecipe;
+import gr8pefish.ironbackpacks.api.recipes.IAddUpgradeRecipe;
+import gr8pefish.ironbackpacks.api.recipes.IIncreaseBackpackTierRecipe;
+import gr8pefish.ironbackpacks.api.recipes.IRemoveUpgradeRecipe;
 
 import java.util.ArrayList;
 
-public class APIRecipeRegistry {
+public class IAllRecipesRegistry {
 
     //Remove upgrade recipes
 

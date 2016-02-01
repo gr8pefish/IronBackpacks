@@ -1,15 +1,16 @@
-package gr8pefish.ironbackpacks.api.item.upgrades;
+package gr8pefish.ironbackpacks.api.items.upgrades;
 
-import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IAltGuiUpgrade;
-import net.minecraft.item.Item;
+import gr8pefish.ironbackpacks.api.items.upgrades.interfaces.IConfigurableUpgrade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class ItemAltGuiUpgrade implements IAltGuiUpgrade {
+/**
+ * Class for upgrades that extend IConfigurableUpgrade
+ */
+public class ItemIConfigurableUpgrade implements IConfigurableUpgrade {
 
     private String name;
     private int upgradeCost;
@@ -17,19 +18,11 @@ public class ItemAltGuiUpgrade implements IAltGuiUpgrade {
     private String[] description;
     private IRecipe itemRecipe;
 
-    public ItemAltGuiUpgrade(String name, int upgradeCost, int tier, String[] description){
+    public ItemIConfigurableUpgrade(String name, int upgradeCost, int tier, String[] description){
         this.name = name;
         this.upgradeCost = upgradeCost;
         this.tier = tier;
         this.description = description;
-    }
-
-    public Item getItem(){
-        return IronBackpacksAPI.getItem(IronBackpacksAPI.ITEM_CRAFTING_BASE);
-    }
-
-    public String getName(){
-        return name;
     }
 
     @Override

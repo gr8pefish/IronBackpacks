@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.events;
 
 import gr8pefish.ironbackpacks.api.Constants;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
@@ -41,7 +41,7 @@ import java.util.ArrayList;
 public class ForgeEventHandler {
 
     /**
-     * Called whenever an item is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and crafter/crafting upgrades too so it doesn't check too much and causes lag..
+     * Called whenever an items is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and crafter/recipes upgrades too so it doesn't check too much and causes lag..
      * @param event - the event fired
      */
     @SubscribeEvent
@@ -61,7 +61,7 @@ public class ForgeEventHandler {
     }
 
     /**
-     * Called whenever the player uses an item. Used for the restocking(hopper) upgrade.
+     * Called whenever the player uses an items. Used for the restocking(hopper) upgrade.
      * @param event - the event fired
      */
     @SubscribeEvent
@@ -297,7 +297,7 @@ public class ForgeEventHandler {
                             ItemStack stackToResupply = null;
                             Slot slotToResupply = null;
 
-                            for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for item
+                            for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for items
                                 Slot tempSlot = container.getSlot(i);
                                 if (tempSlot!= null && tempSlot.getHasStack()){
                                     ItemStack tempItem = tempSlot.getStack();
@@ -318,9 +318,9 @@ public class ForgeEventHandler {
 
                                         //TODO: not updating event entity correctly, make this work
 
-//                                        System.out.println("setting to "+(event.item.getEntityItem().stackSize - amountToResupply));
+//                                        System.out.println("setting to "+(event.items.getEntityItem().stackSize - amountToResupply));
 //
-//                                        event.item.setEntityItemStack(new ItemStack(event.item.getEntityItem().getItem(), event.item.getEntityItem().stackSize - amountToResupply, event.item.getEntityItem().getItemDamage()));
+//                                        event.items.setEntityItemStack(new ItemStack(event.items.getEntityItem().getItem(), event.items.getEntityItem().stackSize - amountToResupply, event.items.getEntityItem().getItemDamage()));
 //
 //                                        event.entityPlayer.inventory.setInventorySlotContents(slotToResupply.getSlotIndex(), new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage()));
                                         done = true;
@@ -339,7 +339,7 @@ public class ForgeEventHandler {
                                             ItemStack tempItem = tempSlot.getStack();
                                             if (IronBackpacksHelper.areItemsEqualForStacking(tempItem, stackToResupply)) {
                                                 int amountToResupply;
-                                                if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), stackToResupply)) { //if resupplied already from the item picked up
+                                                if (IronBackpacksHelper.areItemsEqualForStacking(event.item.getEntityItem(), stackToResupply)) { //if resupplied already from the items picked up
 
                                                     ItemStack stackUpdated = event.entityPlayer.inventory.getStackInSlot(slotToResupply.getSlotIndex());
                                                     amountToResupply = stackToResupply.getMaxStackSize() - stackUpdated.stackSize - event.item.getEntityItem().stackSize;
@@ -353,7 +353,7 @@ public class ForgeEventHandler {
                                                         tempSlot.decrStackSize(tempItem.stackSize);
                                                         event.entityPlayer.inventory.setInventorySlotContents(slotToResupply.getSlotIndex(), new ItemStack(stackToResupply.getItem(), stackUpdated.stackSize + tempItem.stackSize, stackToResupply.getItemDamage()));
                                                     }
-                                                } else { //normal resupply, no item picked up contribution
+                                                } else { //normal resupply, no items picked up contribution
 
                                                     ItemStack stackUpdated = event.entityPlayer.inventory.getStackInSlot(slotToResupply.getSlotIndex());
                                                     amountToResupply = stackToResupply.getMaxStackSize() - stackUpdated.stackSize;
@@ -412,11 +412,11 @@ public class ForgeEventHandler {
                             ItemStack stackToResupply = null;
                             Slot slotToResupply = null;
 
-                            for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for item (backpack size + 36 for player inv)
+                            for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for items (backpack size + 36 for player inv)
                                 Slot tempSlot = (Slot) container.getSlot(i);
                                 if (tempSlot!= null && tempSlot.getHasStack()){
                                     ItemStack tempItem = tempSlot.getStack();
-                                    if (IronBackpacksHelper.areItemsEqualForStacking(event.item, restockerItem) //has to be same item as what was used in the event
+                                    if (IronBackpacksHelper.areItemsEqualForStacking(event.item, restockerItem) //has to be same items as what was used in the event
                                             && IronBackpacksHelper.areItemsEqualAndStackable(tempItem, restockerItem)){ //found and less than max stack size
                                         foundSlot = true;
                                         slotToResupply = tempSlot;
@@ -462,10 +462,10 @@ public class ForgeEventHandler {
     }
 
     /**
-     * Checks the backpacks with the crafter/crafting upgrade to craft the specified items
+     * Checks the backpacks with the crafter/recipes upgrade to craft the specified items
      * @param event - EntityItemPickupEvent
      * @param backpackStacks - the backpacks with the crafter upgrade
-     * @param craftingGridDiameterToFill - The size of the crafting grid to try filling with (1x1 or 2x2 or 3x3)
+     * @param craftingGridDiameterToFill - The size of the recipes grid to try filling with (1x1 or 2x2 or 3x3)
      */
     private void checkCrafterUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks, int craftingGridDiameterToFill){
         boolean shouldSave = false;
@@ -480,7 +480,7 @@ public class ForgeEventHandler {
                     ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(event.entityPlayer, backpack));
 
                     container.sort(); //sort to make sure all items are in their smallest slot numbers possible
-                    if (container.getInventoryBackpack().getStackInSlot( //if the last slot has an item
+                    if (container.getInventoryBackpack().getStackInSlot( //if the last slot has an items
                             container.getInventoryBackpack().getSizeInventory()) != null){ //assume the backpack is full and stop trying to craft
                         break; //TODO: test
                     }
@@ -519,7 +519,7 @@ public class ForgeEventHandler {
                                             inventoryCrafting.setInventorySlotContents(4, myStack);
                                         }else {
                                             for (int i = 0; i < (craftingGridDiameterToFill*craftingGridDiameterToFill); i++) {
-                                                inventoryCrafting.setInventorySlotContents(i, myStack); //crafting grid with a 1x1 (single item) or 3x3 square of the item
+                                                inventoryCrafting.setInventorySlotContents(i, myStack); //recipes grid with a 1x1 (single items) or 3x3 square of the items
                                             }
                                         }
                                         ItemStack recipeOutput = craftingManager.findMatchingRecipe(inventoryCrafting, event.item.worldObj);
@@ -546,7 +546,7 @@ public class ForgeEventHandler {
 //                                                }
 
                                                 //TODO: iterates an excessive amount, make it more efficient by using the basis of the code above
-                                                for (int i = 0; i < numberOfIterations; i++){ //for every possible crafting operation
+                                                for (int i = 0; i < numberOfIterations; i++){ //for every possible recipes operation
                                                     ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), recipeOutput.stackSize, recipeOutput.getItemDamage()); //get the output
                                                     ItemStack stack = container.transferStackInSlot(myRecipeOutput); //try to put that output into the backpack
                                                     if (stack == null){ //can't put it anywhere
@@ -672,7 +672,7 @@ public class ForgeEventHandler {
     /**
      * Transfers items with respect to the ore dictionary
      * @param filterItems - the items to check
-     * @param itemEntityOre - the ore dictionary entry of the item
+     * @param itemEntityOre - the ore dictionary entry of the items
      * @param event - EntityItemPickupEvent
      * @param container - the backpack to move items into
      */
@@ -743,7 +743,7 @@ public class ForgeEventHandler {
     private void deleteWithVoidFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event){
         for (ItemStack stack : filterItems) {
             if (stack != null) {
-                if (event.item.getEntityItem().getItem() == stack.getItem()){ //if same item (but different damage value)
+                if (event.item.getEntityItem().getItem() == stack.getItem()){ //if same items (but different damage value)
                     event.item.setDead(); //delete it
                     event.item.onUpdate(); //update to make sure it's gone
                     event.setCanceled(true); //make sure it can't be picked up by other mods/vanilla
@@ -753,8 +753,8 @@ public class ForgeEventHandler {
     }
 
     /**
-     * Gets the ore dictionary entries from an item
-     * @param itemStack - the item to check
+     * Gets the ore dictionary entries from an items
+     * @param itemStack - the items to check
      * @return - OreDict entries in string form, null if no entries
      */
     private ArrayList<String> getOreDict(ItemStack itemStack){

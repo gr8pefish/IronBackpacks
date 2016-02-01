@@ -146,7 +146,7 @@ public class ContainerAlternateGui extends Container {
     //Where ghost slots' functionality is really handled
     @Override
     public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) {
-        // this will prevent the player from interacting with the item that opened the inventory:
+        // this will prevent the player from interacting with the items that opened the inventory:
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && player.getHeldItem() != null && getSlot(slot).getStack().isItemEqual(player.getHeldItem())) {
             return null;
         // otherwise they may be clicking on a ghostSlot
@@ -164,7 +164,7 @@ public class ContainerAlternateGui extends Container {
         try {
             return super.slotClick(slot, button, flag, player);
         } catch (Exception e) {
-            //Horrible work around for a bug when double clicking on a stack in inventory which matches a filter item
+            //Horrible work around for a bug when double clicking on a stack in inventory which matches a filter items
             //This does stop double clicking to fill a stack from working with this GUI open.
             return null;
         }

@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.libs.recipes;
 
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.register.ItemIBackpackRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -17,8 +17,8 @@ public class ItemBackpackRecipes {
             'l', Items.leather, 'c', "chestWood");
 
     public static void registerItemBackpackRecipes(){
-        for (int i = 0; i < ItemBackpackRegistry.getSize(); i++){
-            IBackpack backpack = ItemBackpackRegistry.getBackpackAtIndex(i);
+        for (int i = 0; i < ItemIBackpackRegistry.getSize(); i++){
+            IBackpack backpack = ItemIBackpackRegistry.getBackpackAtIndex(i);
             if (backpack != null) {
                 if(backpack.getItemRecipe(null) != null) {
                     GameRegistry.addRecipe(backpack.getItemRecipe(null)); //hardcoded to ItemBackpack

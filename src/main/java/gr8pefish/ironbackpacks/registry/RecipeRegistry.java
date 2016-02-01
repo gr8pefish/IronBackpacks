@@ -1,11 +1,11 @@
 package gr8pefish.ironbackpacks.registry;
 
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
-import gr8pefish.ironbackpacks.api.register.APIRecipeRegistry;
-import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
-import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
+import gr8pefish.ironbackpacks.api.register.IAllRecipesRegistry;
+import gr8pefish.ironbackpacks.api.register.ItemIBackpackRegistry;
+import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
@@ -32,7 +32,7 @@ public class RecipeRegistry {
 	public static void registerAllRecipes() {
 
         //Basic Item Recipes
-        ItemCraftingRecipes.registerItemCraftingRecipes(); //register the recipes to get the crafting items
+        ItemCraftingRecipes.registerItemCraftingRecipes(); //register the recipes to get the recipes items
         ItemUpgradeRecipes.registerItemUpgradeRecipes(); //register the recipes to get the the upgrades as items //broken (crashes) //TODO: figure this bope out
 		ItemBackpackRecipes.registerItemBackpackRecipes(); //register all the recipes to get the backpacks directly
 
@@ -53,7 +53,7 @@ public class RecipeRegistry {
 
     /**
      * Sets all the non tiered backpack recipes.
-     * Not in item initialization in case one item uses another item from this mod, as that item may not be initialized yet (very likely).
+     * Not in items initialization in case one items uses another items from this mod, as that items may not be initialized yet (very likely).
      */
     public static void setAllNonTierRecipes(){
         setItemBackpackRecipes();
@@ -96,12 +96,12 @@ public class RecipeRegistry {
      * Register the upgrade removal recipes for every backpack (if it is an IUpgradableBackpack)
      */
     private static void registerBackpackUpgradeRemovalRecipes(){
-        for (int i = 0; i < ItemBackpackRegistry.getSize(); i++){
-            IBackpack backpack = ItemBackpackRegistry.getBackpackAtIndex(i);
+        for (int i = 0; i < ItemIBackpackRegistry.getSize(); i++){
+            IBackpack backpack = ItemIBackpackRegistry.getBackpackAtIndex(i);
             if (backpack instanceof IUpgradableBackpack) {
                 BackpackRemoveUpgradeRecipe recipe = new BackpackRemoveUpgradeRecipe(new ItemStack((ItemBackpack)backpack), new ItemStack((ItemBackpack)backpack)); //Hardcoded to ItemBackpack
                 GameRegistry.addRecipe(recipe);
-                APIRecipeRegistry.registerUpgradeRemovalRecipe(recipe);
+                IAllRecipesRegistry.registerUpgradeRemovalRecipe(recipe);
             }
         }
     }
@@ -112,26 +112,26 @@ public class RecipeRegistry {
      */
     private static void registerBackpackUpgradeAdditionRecipes() {
         ArrayList<ItemStack> upgrades = new ArrayList<>();
-        for (int i = 0; i < ItemUpgradeRegistry.getTotalSize(); i++)
+        for (int i = 0; i < ItemIUpgradeRegistry.getTotalSize(); i++)
             upgrades.add(new ItemStack(ItemRegistry.upgradeItem, 1, i));
 
-        for (int i = 0; i < ItemBackpackRegistry.getSize(); i++) {
-            IBackpack backpack = ItemBackpackRegistry.getBackpackAtIndex(i);
+        for (int i = 0; i < ItemIBackpackRegistry.getSize(); i++) {
+            IBackpack backpack = ItemIBackpackRegistry.getBackpackAtIndex(i);
             if (backpack instanceof IUpgradableBackpack) {
                 for (ItemStack upgrade : upgrades) {
-                    int upgradeTier = ItemUpgradeRegistry.getItemUpgrade(upgrade).getTier(upgrade);
+                    int upgradeTier = ItemIUpgradeRegistry.getItemUpgrade(upgrade).getTier(upgrade);
                     if (backpack instanceof ITieredBackpack) {
                         int backpackTier = ((ITieredBackpack) backpack).getTier(null);
                         if (upgradeTier <= backpackTier) {
                             BackpackAddUpgradeRecipe recipe = new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack) backpack), upgrade, new ItemStack((ItemBackpack) backpack)); //Hardcoded to ItemBackpack
                             GameRegistry.addRecipe(recipe);
-                            APIRecipeRegistry.registerUpgradeAdditionRecipe(recipe);
+                            IAllRecipesRegistry.registerUpgradeAdditionRecipe(recipe);
                         }
                     } else {
                         //TODO: remove casting for other backpacks (and in above for non-tiered ones)
                         BackpackAddUpgradeRecipe recipe = new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack) backpack), upgrade, new ItemStack((ItemBackpack) backpack)); //Hardcoded to ItemBackpack
                         GameRegistry.addRecipe(recipe);
-                        APIRecipeRegistry.registerUpgradeAdditionRecipe(recipe);
+                        IAllRecipesRegistry.registerUpgradeAdditionRecipe(recipe);
                     }
                 }
             }
@@ -139,21 +139,21 @@ public class RecipeRegistry {
     }
 
     /**
-     * Registe the reipe for the backpack to increase a tier.
+     * Register the recipe for the backpack to increase a tier.
      */
     public static void registerBackpackTierRecipes(){
-        for (int i = 0; i < ItemBackpackRegistry.getSize(); i++){
-            IBackpack backpack = ItemBackpackRegistry.getBackpackAtIndex(i);
+        for (int i = 0; i < ItemIBackpackRegistry.getSize(); i++){
+            IBackpack backpack = ItemIBackpackRegistry.getBackpackAtIndex(i);
             if (backpack instanceof ITieredBackpack) {
                 ITieredBackpack newPack = (ITieredBackpack) backpack;
                 List<Object[]> recipes = newPack.getTierRecipes(null);
                 if (recipes == null) break; //if you have no recipe to upgrade, you can't register that
-                List<ITieredBackpack> upgradedPacks = newPack.getBackpacksAbove(null); //unused item stack parameter
+                List<ITieredBackpack> upgradedPacks = newPack.getBackpacksAbove(null); //unused items stack parameter
                 if (!recipes.isEmpty() && upgradedPacks != null && upgradedPacks.size() == recipes.size()) {
                     for (int j = 0; j < recipes.size(); j++) {
                         BackpackIncreaseTierRecipe tierRecipe = new BackpackIncreaseTierRecipe(new ItemStack((ItemBackpack)upgradedPacks.get(j)), recipes.get(j)); //hardcoded to ItemBackpack
                         GameRegistry.addRecipe(tierRecipe);
-                        APIRecipeRegistry.registerTierIncreaseRecipe(tierRecipe);
+                        IAllRecipesRegistry.registerTierIncreaseRecipe(tierRecipe);
                     }
                 }
             }

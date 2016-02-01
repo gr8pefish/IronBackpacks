@@ -10,7 +10,7 @@ public class NBTUtils {
     //Code for making sure the itemStack is unique, credit goes to sapient for almost all of this code
 
     /**
-     * Checks if the item has a UUID
+     * Checks if the items has a UUID
      * @param itemStack - the itemstack to check
      * @return - boolean value
      */

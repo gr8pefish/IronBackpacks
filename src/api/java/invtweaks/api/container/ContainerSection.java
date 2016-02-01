@@ -44,15 +44,15 @@ public enum ContainerSection {
      */
     CHEST,
     /**
-     * The crafting input
+     * The recipes input
      */
     CRAFTING_IN,
     /**
-     * The crafting input, for containters that store it internally
+     * The recipes input, for containters that store it internally
      */
     CRAFTING_IN_PERSISTENT,
     /**
-     * The crafting output
+     * The recipes output
      */
     CRAFTING_OUT,
     /**

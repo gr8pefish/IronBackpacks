@@ -3,7 +3,7 @@ package gr8pefish.ironbackpacks.api.client.gui.button;
 import java.util.ArrayList;
 
 /**
- * Interface for buttons that contain a tooltip when hovered over. Can be used in conjunction with IBGuiButton.
+ * Interface for buttons that contain a tooltip when hovered over. Can be used in conjunction with IGuiButton.
  */
 public interface ITooltipButton {
 

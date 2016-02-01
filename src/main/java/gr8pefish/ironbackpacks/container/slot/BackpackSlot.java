@@ -1,6 +1,6 @@
 package gr8pefish.ironbackpacks.container.slot;
 
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

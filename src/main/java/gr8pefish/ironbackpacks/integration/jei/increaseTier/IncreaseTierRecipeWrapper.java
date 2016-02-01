@@ -20,7 +20,7 @@ public class IncreaseTierRecipeWrapper implements IRecipeWrapper {
     private final String craftingType;
 
     public IncreaseTierRecipeWrapper(BackpackIncreaseTierRecipe recipe){
-        this.craftingType = TextUtils.localize("jei.description.shapedCrafting"); //type of crafting
+        this.craftingType = TextUtils.localize("jei.description.shapedCrafting"); //type of recipes
         this.description = TextUtils.cutLongString(TextUtils.localize("jei.description.increaseTier")); //description
         increaseTierRecipe = recipe;
 
@@ -54,7 +54,7 @@ public class IncreaseTierRecipeWrapper implements IRecipeWrapper {
     @Override
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 
-        //add the crafting type necessary at the top of the screen
+        //add the recipes type necessary at the top of the screen
         minecraft.fontRendererObj.drawString(craftingType, 43, -8, Color.darkGray.getRGB());
 
         //add the description below the images

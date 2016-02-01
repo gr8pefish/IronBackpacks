@@ -1,6 +1,6 @@
 package gr8pefish.ironbackpacks.client.renderer;
 
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.client.model.ModelBackpack;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;

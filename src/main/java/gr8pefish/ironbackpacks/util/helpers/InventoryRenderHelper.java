@@ -71,7 +71,7 @@ public class InventoryRenderHelper {
     }
 
     /**
-     * Registers a model for the item across all Meta's that get used for the item
+     * Registers a model for the items across all Meta's that get used for the items
      *
      * @param item - Item to register Model for
      */

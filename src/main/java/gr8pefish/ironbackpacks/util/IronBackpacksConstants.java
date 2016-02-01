@@ -22,12 +22,12 @@ public class IronBackpacksConstants {
     public static final class Backpacks{
 
         public static final String BASIC_BACKPACK_NAME = "basicBackpack";
-        public static final String IRON_BACKPACK_NAME_STORAGE = "ironBackpackStorageEmphasis";
-        public static final String IRON_BACKPACK_NAME_POINTS = "ironBackpackUpgradeEmphasis";
-        public static final String GOLD_BACKPACK_NAME_STORAGE = "goldBackpackStorageEmphasis";
-        public static final String GOLD_BACKPACK_NAME_POINTS = "goldBackpackUpgradeEmphasis";
-        public static final String DIAMOND_BACKPACK_NAME_STORAGE = "diamondBackpackStorageEmphasis";
-        public static final String DIAMOND_BACKPACK_NAME_POINTS = "diamondBackpackUpgradeEmphasis";
+        public static final String IRON_BACKPACK_NAME_EMPHASIS_STORAGE = "ironBackpackStorageEmphasis";
+        public static final String IRON_BACKPACK_NAME_EMPHASIS_UPGRADES = "ironBackpackUpgradeEmphasis";
+        public static final String GOLD_BACKPACK_NAME_EMPHASIS_STORAGE = "goldBackpackStorageEmphasis";
+        public static final String GOLD_BACKPACK_NAME_EMPHASIS_UPGRADES = "goldBackpackUpgradeEmphasis";
+        public static final String DIAMOND_BACKPACK_NAME_EMPHASIS_STORAGE = "diamondBackpackStorageEmphasis";
+        public static final String DIAMOND_BACKPACK_NAME_EMPHASIS_UPGRADES = "diamondBackpackUpgradeEmphasis";
 
     }
 

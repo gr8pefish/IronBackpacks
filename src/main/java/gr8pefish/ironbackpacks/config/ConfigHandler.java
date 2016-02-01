@@ -251,20 +251,20 @@ public class ConfigHandler {
         category = category_upgrade + "- 3)Configurable Upgrades";
         config.addCustomCategoryComment(category, "The configurable traits of the upgrades that add something to the configurable inventory of the backpack (in-game).");
 
-        craftingUpgradeCost = config.getInt("Crafting Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the crafting upgrade.\n" +
+        craftingUpgradeCost = config.getInt("Crafting Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the recipes upgrade.\n" +
                 "This upgrade allows you to craft the items in a 3x3 grid (ex: wheat -> hay bale)");
-        craftingUpgradeTier = config.getInt("Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the crafting upgrade.");
-        craftingUpgradeDisabled = config.getBoolean("Crafting Upgrade Disabled", category, false, "If the crafting upgrade should not exist.");
+        craftingUpgradeTier = config.getInt("Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the recipes upgrade.");
+        craftingUpgradeDisabled = config.getBoolean("Crafting Upgrade Disabled", category, false, "If the recipes upgrade should not exist.");
 
-        craftingSmallUpgradeCost = config.getInt("Small Crafting Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the small crafting upgrade.\n" +
+        craftingSmallUpgradeCost = config.getInt("Small Crafting Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the small recipes upgrade.\n" +
                 "This upgrade allows you to craft the items in a 2x2 grid (ex: sand -> sandstone)");
-        craftingSmallUpgradeTier = config.getInt("Small Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the small crafting upgrade.");
-        craftingSmallUpgradeDisabled = config.getBoolean("Small Crafting Upgrade Disabled", category, false, "If the small crafting upgrade should not exist.");
+        craftingSmallUpgradeTier = config.getInt("Small Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the small recipes upgrade.");
+        craftingSmallUpgradeDisabled = config.getBoolean("Small Crafting Upgrade Disabled", category, false, "If the small recipes upgrade should not exist.");
 
-        craftingTinyUpgradeCost = config.getInt("Tiny Crafting Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the tiny crafting upgrade.\n" +
+        craftingTinyUpgradeCost = config.getInt("Tiny Crafting Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the tiny recipes upgrade.\n" +
                 "This upgrade allows you to craft the items in a 1x1 grid (ex: log -> planks)");
-        craftingTinyUpgradeTier = config.getInt("Tiny Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the tiny crafting upgrade.");
-        craftingTinyUpgradeDisabled = config.getBoolean("Tiny Crafting Upgrade Disabled", category, false, "If the tiny crafting upgrade should not exist.");
+        craftingTinyUpgradeTier = config.getInt("Tiny Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the tiny recipes upgrade.");
+        craftingTinyUpgradeDisabled = config.getBoolean("Tiny Crafting Upgrade Disabled", category, false, "If the tiny recipes upgrade should not exist.");
 
         filterBasicUpgradeCost = config.getInt("Basic Filter Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the basic filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They must match exactly.");
@@ -282,7 +282,7 @@ public class ConfigHandler {
         filterOreDictUpgradeDisabled = config.getBoolean("Ore Dictionary Filter Upgrade Disabled", category, false, "If the ore dictionary filter upgrade should not exist.");
 
         filterModSpecificUpgradeCost = config.getInt("Mod Specific Filter Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the mod specific filter upgrade.\n" +
-                "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They are filtered by the mod, so anything from Botania placed in the filter will mean any Botania item is automatically routed into the backpack..");
+                "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They are filtered by the mod, so anything from Botania placed in the filter will mean any Botania items is automatically routed into the backpack..");
         filterModSpecificUpgradeTier = config.getInt("Mod Specific Filter Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the mod specific filter upgrade.");
         filterModSpecificUpgradeDisabled = config.getBoolean("Mod Specific Filter Upgrade Disabled", category, false, "If the mod specific filter upgrade should not exist.");
 
@@ -292,7 +292,7 @@ public class ConfigHandler {
         filterVoidUpgradeDisabled = config.getBoolean("Void Filter Upgrade Disabled", category, false, "If the void filter upgrade should not exist.");
 
         filterAdvancedUpgradeCost = config.getInt("Advanced Filter Upgrade Cost", category, 6, 0, 100, "The cost (in upgrade points) for the advanced filter upgrade.\n" +
-                "This upgrade allows you to choose items to go directly into the backpack when they are picked up. You can choose each configurable item to be filtered based on exact, fuzzy, ore dictionary, mod specific, or void matching.");
+                "This upgrade allows you to choose items to go directly into the backpack when they are picked up. You can choose each configurable items to be filtered based on exact, fuzzy, ore dictionary, mod specific, or void matching.");
         filterAdvancedUpgradeTier = config.getInt("Advanced Filter Upgrade Tier", category, 3, 0, 3, "The minimum backpack tier for the advanced filter upgrade.");
         filterAdvancedUpgradeDisabled = config.getBoolean("Advanced Filter Upgrade Disabled", category, false, "If the advanced filter upgrade should not exist.");
 

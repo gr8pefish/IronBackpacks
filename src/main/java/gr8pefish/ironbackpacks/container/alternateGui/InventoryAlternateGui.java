@@ -1,9 +1,9 @@
 package gr8pefish.ironbackpacks.container.alternateGui;
 
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.api.item.upgrades.ItemAltGuiUpgrade;
-import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.items.upgrades.ItemIConfigurableUpgrade;
+import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.container.slot.BackpackSlot;
 import gr8pefish.ironbackpacks.container.slot.NestingBackpackSlot;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
@@ -430,8 +430,8 @@ public class InventoryAlternateGui implements IInventory {
                 int indexRemoved = 0;
                 if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.REMOVED_ALT_GUI)){
                     ItemStack stack = ItemStack.loadItemStackFromNBT(nbtTagCompound.getCompoundTag(IronBackpacksConstants.NBTKeys.REMOVED_ALT_GUI));
-                    ItemAltGuiUpgrade altGuiUpgrade = ItemUpgradeRegistry.getItemAltGuiUpgrade(stack);
-                    indexRemoved = ItemUpgradeRegistry.getUninflatedIndexOfAltGuiUpgrade(altGuiUpgrade);
+                    ItemIConfigurableUpgrade altGuiUpgrade = ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack);
+                    indexRemoved = ItemIUpgradeRegistry.getUninflatedIndexOfConfigurableUpgrade(altGuiUpgrade);
                     hasUpgradeRemoved = true;
                     nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.REMOVED_ALT_GUI);
                 }
@@ -439,8 +439,8 @@ public class InventoryAlternateGui implements IInventory {
                 int indexAdded = 0;
                 if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI)){
                     ItemStack stack = ItemStack.loadItemStackFromNBT(nbtTagCompound.getCompoundTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI));
-                    ItemAltGuiUpgrade altGuiUpgrade = ItemUpgradeRegistry.getItemAltGuiUpgrade(stack);
-                    indexAdded = ItemUpgradeRegistry.getUninflatedIndexOfAltGuiUpgrade(altGuiUpgrade);
+                    ItemIConfigurableUpgrade altGuiUpgrade = ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack);
+                    indexAdded = ItemIUpgradeRegistry.getUninflatedIndexOfConfigurableUpgrade(altGuiUpgrade);
                     hasUpgradeAdded = true;
                     nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI);
                 }
@@ -542,28 +542,28 @@ public class InventoryAlternateGui implements IInventory {
         }
     }
 
-    private boolean shouldShiftAdded(boolean hasUpgradeAdded, int indexAdded, ItemAltGuiUpgrade itemAltGuiUpgrade){
-        return (hasUpgradeAdded && (indexAdded < ItemUpgradeRegistry.getUninflatedIndexOfAltGuiUpgrade(itemAltGuiUpgrade)));
+    private boolean shouldShiftAdded(boolean hasUpgradeAdded, int indexAdded, ItemIConfigurableUpgrade ItemIConfigurableUpgrade){
+        return (hasUpgradeAdded && (indexAdded < ItemIUpgradeRegistry.getUninflatedIndexOfConfigurableUpgrade(ItemIConfigurableUpgrade)));
     }
 
-    private boolean shouldShiftRemoved(boolean hasUpgradeRemoved, int indexRemoved, ItemAltGuiUpgrade itemAltGuiUpgrade){
-        return (hasUpgradeRemoved && (indexRemoved < ItemUpgradeRegistry.getUninflatedIndexOfAltGuiUpgrade(itemAltGuiUpgrade)));
+    private boolean shouldShiftRemoved(boolean hasUpgradeRemoved, int indexRemoved, ItemIConfigurableUpgrade ItemIConfigurableUpgrade){
+        return (hasUpgradeRemoved && (indexRemoved < ItemIUpgradeRegistry.getUninflatedIndexOfConfigurableUpgrade(ItemIConfigurableUpgrade)));
     }
 
     /**
-     * Loads the item stacks present in each filter into the inventory. Takes into account if upgrades were added or removed and shifts the indices accordingly.
+     * Loads the items stacks present in each filter into the inventory. Takes into account if upgrades were added or removed and shifts the indices accordingly.
      * @param tagList - the tagList of the upgrade, with all the slots and items
      * @param hasUpgradeRemoved - if it has to check for a removed upgrade
-     * @param indexRemoved - the index of the upgrade removed in relation to the ItemUpgradeRegistry and the itemsAltGui within
+     * @param indexRemoved - the index of the upgrade removed in relation to the ItemIUpgradeRegistry and the itemsAltGui within
      * @param hasUpgradeAdded - if it has to check for an added upgrade
-     * @param indexAdded - the index of teh upgrade added in relation to the ItemUpgradeRegistry and the itemsAltGui within
-     * @param itemAltGuiUpgrade - the item upgrade to specifically check
+     * @param indexAdded - the index of teh upgrade added in relation to the ItemIUpgradeRegistry and the itemsAltGui within
+     * @param ItemIConfigurableUpgrade - the items upgrade to specifically check
      */
-    private void loadStacksWithShifting(NBTTagList tagList, boolean hasUpgradeRemoved, int indexRemoved, boolean hasUpgradeAdded, int indexAdded, ItemAltGuiUpgrade itemAltGuiUpgrade) {
+    private void loadStacksWithShifting(NBTTagList tagList, boolean hasUpgradeRemoved, int indexRemoved, boolean hasUpgradeAdded, int indexAdded, ItemIConfigurableUpgrade ItemIConfigurableUpgrade) {
         for (int i = 0; i < tagList.tagCount(); i++) {
             NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-            int j = shouldShiftRemoved(hasUpgradeRemoved, indexRemoved, itemAltGuiUpgrade) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
-            if (shouldShiftAdded(hasUpgradeAdded, indexAdded, itemAltGuiUpgrade)) j+=9;
+            int j = shouldShiftRemoved(hasUpgradeRemoved, indexRemoved, ItemIConfigurableUpgrade) ? stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT) - 9 : stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
+            if (shouldShiftAdded(hasUpgradeAdded, indexAdded, ItemIConfigurableUpgrade)) j+=9;
             if (i >= 0 && i <= 9) {
                 this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
             }

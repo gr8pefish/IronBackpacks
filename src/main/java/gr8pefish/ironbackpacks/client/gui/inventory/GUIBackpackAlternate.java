@@ -374,47 +374,47 @@ public class GUIBackpackAlternate extends GuiContainer {
             fontRendererObj.drawString(StatCollector.translateToLocal("gui.ironbackpacks.noValidUpgradesFound"), 20, 22, 4210752);
         int yStart = hasRenamingUpgrade ? 44 : 25;
         if (hasCraftingUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.crafting.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.recipes.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasCraftingSmallUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.craftingSmall.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.craftingSmall.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasCraftingTinyUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.craftingTiny.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.craftingTiny.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterBasicUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.filterBasic.name"), 20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.filterBasic.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterFuzzyUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.filterFuzzy.name"), 20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.filterFuzzy.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterOreDictUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.filterOreDict.name"), 20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.filterOreDict.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterModSpecificUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.filterModSpecific.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.filterModSpecific.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterVoidUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.filterVoid.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.filterVoid.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterAdvancedUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.filterAdvanced.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.filterAdvanced.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterMiningUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.filterMining.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.filterMining.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasRestockingUpgrade) {
-            fontRendererObj.drawString(StatCollector.translateToLocal("item.ironbackpacks.upgrade.restocking.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(StatCollector.translateToLocal("items.ironbackpacks.upgrade.restocking.name"),20, yStart, 4210752);
         }
 
     }

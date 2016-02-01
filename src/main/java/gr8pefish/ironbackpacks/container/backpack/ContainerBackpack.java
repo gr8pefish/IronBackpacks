@@ -1,6 +1,6 @@
 package gr8pefish.ironbackpacks.container.backpack;
 
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import gr8pefish.ironbackpacks.container.slot.BackpackSlot;
 import gr8pefish.ironbackpacks.container.slot.NestingBackpackSlot;
@@ -29,7 +29,7 @@ public class ContainerBackpack extends Container {
     private EntityPlayer player; //the player
     private InventoryBackpack inventory; //the inventory
     private ItemStack backpackStack; //the backpack as an itemstack
-    private ItemBackpack backpackItem; //the backpack as an item
+    private ItemBackpack backpackItem; //the backpack as an items
     private int xSize = 0; //the x size
     private int ySize = 0; //the y size
     private int totalSize = 0; //the total size
@@ -126,7 +126,7 @@ public class ContainerBackpack extends Container {
     }
 
     /**
-     * Checks if the item can be put into the backpack, for use with the filter upgrade
+     * Checks if the items can be put into the backpack, for use with the filter upgrade
      * @param itemToPutInBackpack - the itemstack to put in
      * @return - the remaining itemstack (null if it has been put it, the remaining otherwise)
      */
@@ -153,7 +153,7 @@ public class ContainerBackpack extends Container {
 
     @Override
     public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) {
-        // this will prevent the player from interacting with the item that opened the inventory:
+        // this will prevent the player from interacting with the items that opened the inventory:
         ItemStack currPack = PlayerBackpackProperties.getCurrentBackpack(player);
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && ItemStack.areItemStacksEqual(getSlot(slot).getStack(), currPack) && button == 0) {
             return null;

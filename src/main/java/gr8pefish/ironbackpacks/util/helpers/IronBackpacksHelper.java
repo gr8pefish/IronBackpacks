@@ -1,9 +1,9 @@
 package gr8pefish.ironbackpacks.util.helpers;
 
 
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
-import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
+import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
@@ -113,7 +113,7 @@ public class IronBackpacksHelper {
     public static int getUpgradePointsUsed(ArrayList<ItemStack> upgrades){
         int counter = 0;
         for (ItemStack stack : upgrades){
-            counter += ItemUpgradeRegistry.getItemUpgrade(stack).getUpgradeCost(stack);
+            counter += ItemIUpgradeRegistry.getItemUpgrade(stack).getUpgradeCost(stack);
         }
         return counter;
     }
@@ -203,7 +203,7 @@ public class IronBackpacksHelper {
             //update equipped backpack on client side, not ideal but it works
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpackStack), (EntityPlayerMP)player); //works on SSP
 
-            //delete the held item
+            //delete the held items
             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 
             //start the render - spawn entity
@@ -323,7 +323,7 @@ public class IronBackpacksHelper {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             NBTTagList tagList = new NBTTagList();
             for (ItemStack upgrade : upgrades) {
-                if (!(ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.eternityUpgrade))) {
+                if (!(ItemIUpgradeRegistry.getItemIUpgrade(stack.getItemDamage()).equals(ItemRegistry.eternityUpgrade))) {
                     tagList.appendTag(upgrade.writeToNBT(new NBTTagCompound()));
                 }
             }

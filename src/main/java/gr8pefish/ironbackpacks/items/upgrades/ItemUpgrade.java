@@ -3,8 +3,8 @@ package gr8pefish.ironbackpacks.items.upgrades;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.api.item.upgrades.interfaces.IPackUpgrade;
-import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
+import gr8pefish.ironbackpacks.api.items.upgrades.interfaces.IUpgrade;
+import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +20,7 @@ import java.util.List;
 public class ItemUpgrade extends Item {
 
     public ItemUpgrade(){
-        setUnlocalizedName(Constants.MODID + "." + IronBackpacksAPI.ITEM_UPGRADE_BASE + ".");
+        setUnlocalizedName(Constants.MODID + "." + IronBackpacksAPI.ITEM_UPGRADE_BASE_NAME + ".");
         setCreativeTab(IronBackpacks.creativeTab);
         setHasSubtypes(true);
         setMaxStackSize(16);
@@ -29,13 +29,13 @@ public class ItemUpgrade extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item id, CreativeTabs creativeTab, List<ItemStack> list) {
-        for (int i = 0; i < ItemUpgradeRegistry.getTotalSize(); i++)
+        for (int i = 0; i < ItemIUpgradeRegistry.getTotalSize(); i++)
             list.add(new ItemStack(id, 1, i));
     }
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName(stack) + ItemUpgradeRegistry.getItemUpgrade(stack).getName(stack);
+        return super.getUnlocalizedName(stack) + ItemIUpgradeRegistry.getItemUpgrade(stack).getName(stack);
     }
 
     @Override
@@ -43,10 +43,10 @@ public class ItemUpgrade extends Item {
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean advanced) {
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.cost", ItemUpgradeRegistry.getItemUpgrade(itemStack).getUpgradeCost(itemStack), ItemUpgradeRegistry.getItemUpgrade(itemStack).getUpgradeCost(itemStack) == 1 ? "" : "s"));
-            list.addAll(Arrays.asList(TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.minimumTier", getMinimumTierBackpackName(ItemUpgradeRegistry.getItemUpgrade(itemStack).getTier(itemStack))))));
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.cost", ItemIUpgradeRegistry.getItemUpgrade(itemStack).getUpgradeCost(itemStack), ItemIUpgradeRegistry.getItemUpgrade(itemStack).getUpgradeCost(itemStack) == 1 ? "" : "s"));
+            list.addAll(Arrays.asList(TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.minimumTier", getMinimumTierBackpackName(ItemIUpgradeRegistry.getItemUpgrade(itemStack).getTier(itemStack))))));
             list.add(""); //spacing for clarity
-            list.addAll(ItemUpgradeRegistry.getItemUpgrade(itemStack).getTooltip(itemStack));
+            list.addAll(ItemIUpgradeRegistry.getItemUpgrade(itemStack).getTooltip(itemStack));
         } else {
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
         }
@@ -68,15 +68,15 @@ public class ItemUpgrade extends Item {
     }
 
     public static int getUpgradeCost(ItemStack stack) {
-        return ItemUpgradeRegistry.getItemUpgrade(stack).getUpgradeCost(stack);
+        return ItemIUpgradeRegistry.getItemUpgrade(stack).getUpgradeCost(stack);
     }
 
     public static int getId(ItemStack stack) {
         return stack.getItemDamage(); //TODO: I can do better, dynamic lookup or something
     }
 
-    public static boolean areUpgradesEqual(ItemStack toCheck, IPackUpgrade upgrade){
-        return ItemUpgradeRegistry.getItemUpgrade(toCheck).equals(upgrade);
+    public static boolean areUpgradesEqual(ItemStack toCheck, IUpgrade upgrade){
+        return ItemIUpgradeRegistry.getItemUpgrade(toCheck).equals(upgrade);
     }
 
 }

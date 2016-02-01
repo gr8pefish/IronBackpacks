@@ -5,7 +5,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 /**
- * Used in the alternate gui to create a 'ghost item' that disappears when it is picked up and doesn't decrement the item stack when it is placed in.
+ * Used in the alternate gui to create a 'ghost items' that disappears when it is picked up and doesn't decrement the items stack when it is placed in.
  */
 public class GhostSlot extends BackpackSlot{
 

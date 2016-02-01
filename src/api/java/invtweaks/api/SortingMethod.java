@@ -38,8 +38,8 @@ public enum SortingMethod {
      * Will always operate on main inventory.
      */
     INVENTORY,
-    /** Attempts to even the number of items in each stack of the same type of item, without moving full stacks.
-     * Used in crafting grid sorting.
+    /** Attempts to even the number of items in each stack of the same type of items, without moving full stacks.
+     * Used in recipes grid sorting.
      */
     EVEN_STACKS,
 }

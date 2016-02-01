@@ -65,7 +65,7 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallb
     @Override
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 
-        //draw the type of crafting
+        //draw the type of recipes
         minecraft.fontRendererObj.drawString(craftingType, 43, -4, Color.darkGray.getRGB());
 
         //draw the special text so the user knows it is location dependent

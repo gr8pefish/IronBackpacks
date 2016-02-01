@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.items.upgrades;
 
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
-import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
+import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
@@ -29,7 +29,7 @@ public class UpgradeMethods {
     public static boolean hasAdditionalUpgradesUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.buttonUpgrade)){
+            if (ItemIUpgradeRegistry.getItemIUpgrade(stack.getItemDamage()).equals(ItemRegistry.buttonUpgrade)){
                 hasUpgrade = true;
                 break;
             }
@@ -40,8 +40,8 @@ public class UpgradeMethods {
     public static boolean hasButtonUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfPackUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.buttonUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIUpgrade(stack.getItemDamage()).equals(ItemRegistry.buttonUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -53,9 +53,9 @@ public class UpgradeMethods {
     public static boolean hasDamageBarUpgrade(ArrayList<ItemStack> upgrades){ //TODO: change this to cached NBTTag value so it doesn't always reference it dynamically to see if I need to render damage bar
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades) {
-            if (ItemUpgradeRegistry.isInstanceOfPackUpgrade(stack)) {
-                if (stack.getItemDamage() < ItemUpgradeRegistry.getIPackSize()) {
-                    if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.damageBarUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIUpgrade(stack)) {
+                if (stack.getItemDamage() < ItemIUpgradeRegistry.getIPackSize()) {
+                    if (ItemIUpgradeRegistry.getItemIUpgrade(stack.getItemDamage()).equals(ItemRegistry.damageBarUpgrade)) {
                         hasUpgrade = true;
                         break;
                     }
@@ -68,8 +68,8 @@ public class UpgradeMethods {
     public static boolean hasDepthUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfPackUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.depthUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIUpgrade(stack.getItemDamage()).equals(ItemRegistry.depthUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -81,8 +81,8 @@ public class UpgradeMethods {
     public static boolean hasEternityUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfPackUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.eternityUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIUpgrade(stack.getItemDamage()).equals(ItemRegistry.eternityUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -94,8 +94,8 @@ public class UpgradeMethods {
     public static boolean hasRenamingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfPackUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemPackUpgrade(stack.getItemDamage()).equals(ItemRegistry.renamingUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIUpgrade(stack.getItemDamage()).equals(ItemRegistry.renamingUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -107,8 +107,8 @@ public class UpgradeMethods {
     public static boolean hasNestingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.nestingUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.nestingUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -120,8 +120,8 @@ public class UpgradeMethods {
     public static boolean hasNestingAdvancedUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.nestingAdvancedUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.nestingAdvancedUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -133,8 +133,8 @@ public class UpgradeMethods {
     public static boolean hasQuickDepositUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.quickDepositUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.quickDepositUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -146,8 +146,8 @@ public class UpgradeMethods {
     public static boolean hasQuickDepositPreciseUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.quickDepositPreciseUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConflictingUpgrade(stack.getItemDamage()).equals(ItemRegistry.quickDepositPreciseUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -159,8 +159,8 @@ public class UpgradeMethods {
     public static boolean hasCraftingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -172,8 +172,8 @@ public class UpgradeMethods {
     public static boolean hasCraftingSmallUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingSmallUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingSmallUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -185,8 +185,8 @@ public class UpgradeMethods {
     public static boolean hasCraftingTinyUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingTinyUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingTinyUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -198,8 +198,8 @@ public class UpgradeMethods {
     public static boolean hasFilterBasicUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterBasicUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterBasicUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -211,8 +211,8 @@ public class UpgradeMethods {
     public static boolean hasFilterFuzzyUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterFuzzyUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterFuzzyUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -224,8 +224,8 @@ public class UpgradeMethods {
     public static boolean hasFilterOreDictUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterOreDictUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterOreDictUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -237,8 +237,8 @@ public class UpgradeMethods {
     public static boolean hasFilterModSpecificUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterModSpecificUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterModSpecificUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -250,8 +250,8 @@ public class UpgradeMethods {
     public static boolean hasFilterVoidUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterVoidUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterVoidUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -263,8 +263,8 @@ public class UpgradeMethods {
     public static boolean hasFilterAdvancedUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterAdvancedUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterAdvancedUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -276,8 +276,8 @@ public class UpgradeMethods {
     public static boolean hasFilterMiningUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterMiningUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterMiningUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -289,8 +289,8 @@ public class UpgradeMethods {
     public static boolean hasRestockingUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(stack)) {
-                if (ItemUpgradeRegistry.getItemAltGuiUpgrade(stack.getItemDamage()).equals(ItemRegistry.restockingUpgrade)) {
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.restockingUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -319,7 +319,7 @@ public class UpgradeMethods {
     public static int getAltGuiUpgradesApplied(ArrayList<ItemStack> upgrades){
         int counter = 0;
         for (ItemStack upgrade : upgrades){
-            if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgrade)){
+            if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(upgrade)){
                 counter++;
             }
         }
@@ -327,7 +327,7 @@ public class UpgradeMethods {
     }
 
     /**
-     * Check if the upgrades are the same by comparing their item and the damage value.
+     * Check if the upgrades are the same by comparing their items and the damage value.
      * @param upgrade1 - the first upgrade to check
      * @param upgrade2 - the second upgrade to check
      * @return - boolean if they are equal (enough)
@@ -587,7 +587,7 @@ public class UpgradeMethods {
     }
 
     /**
-     * Gets the items in the condenser/crafting slots
+     * Gets the items in the condenser/recipes slots
      * @param stack - the backpack to check
      * @return - the items that fit this criteria
      */
@@ -607,7 +607,7 @@ public class UpgradeMethods {
     }
 
     /**
-     * Gets the items in the small crafting slots
+     * Gets the items in the small recipes slots
      * @param stack - the backpack to check
      * @return - the items that fit this criteria
      */
@@ -627,7 +627,7 @@ public class UpgradeMethods {
     }
 
     /**
-     * Gets the items in the tiny crafting slots
+     * Gets the items in the tiny recipes slots
      * @param stack - the backpack to check
      * @return - the items that fit this criteria
      */
@@ -656,7 +656,7 @@ public class UpgradeMethods {
      * @param backpack - the itemstack
      * @param world - the world object
      * @param pos - the position of the block
-     * @param usePrecise - to check if the item has to be in the inventory already or if it can be put in any empty slot
+     * @param usePrecise - to check if the items has to be in the inventory already or if it can be put in any empty slot
      * @return - boolean success if transferred
      */
     public static boolean transferFromBackpackToInventory(EntityPlayer player, ItemStack backpack, World world, BlockPos pos, boolean usePrecise){
@@ -687,7 +687,7 @@ public class UpgradeMethods {
      * @param player - the player doing the action
      * @param backpack - the itemstack backpack
      * @param transferTo - the inventory to transfer to
-     * @param usePrecise - to check if the item has to be in the inventory already or if it can be put in any empty slot
+     * @param usePrecise - to check if the items has to be in the inventory already or if it can be put in any empty slot
      * @return boolean if successful
      */
     private static boolean transferItemsToContainer(EntityPlayer player, ItemStack backpack, IInventory transferTo, boolean usePrecise){
@@ -708,17 +708,17 @@ public class UpgradeMethods {
     }
 
     /**
-     * Finds the first valid slot and puts the item inside it. Tries to merge if possible, otherwise it goes in an empty slot.
+     * Finds the first valid slot and puts the items inside it. Tries to merge if possible, otherwise it goes in an empty slot.
      * @param transferTo - the inventory to put the stack into
      * @param stackToTransfer - the itemstack to put into the inventory
-     * @param usePrecise - to check if the item has to be in the inventory already or if it can be put in any empty slot
+     * @param usePrecise - to check if the items has to be in the inventory already or if it can be put in any empty slot
      * @return whatever wasn't transferred
      */
     private static ItemStack putInFirstValidSlot(IInventory transferTo, ItemStack stackToTransfer, boolean usePrecise){
         for (int i = 0; i < transferTo.getSizeInventory(); i++){
             ItemStack tempStack = transferTo.getStackInSlot(i);
             if (tempStack == null){
-                if (usePrecise){ //precise, have to check if the item is in the inventory already
+                if (usePrecise){ //precise, have to check if the items is in the inventory already
                     if (isStackInInventoryAlready(transferTo, stackToTransfer)){
                         if (transferTo instanceof ISidedInventory){
                             ISidedInventory sidedInventory = (ISidedInventory)transferTo;
@@ -738,7 +738,7 @@ public class UpgradeMethods {
                             }
                         }
                     }
-                } else { //just check if the slot can accept the item
+                } else { //just check if the slot can accept the items
                     if (transferTo instanceof ISidedInventory){
                         ISidedInventory sidedInventory = (ISidedInventory)transferTo;
                         EnumFacing[] enumFacings = EnumFacing.values();
@@ -784,10 +784,10 @@ public class UpgradeMethods {
     }
 
     /**
-     * Checks if the item is already in the inventory somewhere. Not particularly efficient.
+     * Checks if the items is already in the inventory somewhere. Not particularly efficient.
      * @param transferTo - the inventory to check
      * @param stackToTransfer - the stack to check if the inventory has
-     * @return boolean of if it has the item
+     * @return boolean of if it has the items
      */
     private static boolean isStackInInventoryAlready(IInventory transferTo, ItemStack stackToTransfer){
         for (int i = 0; i < transferTo.getSizeInventory(); i++) {

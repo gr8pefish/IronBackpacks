@@ -70,7 +70,7 @@ public interface InvTweaksAPI {
      *
      * @param i
      * @param j
-     * @return A value with a sign representing the relative order of the item stacks
+     * @return A value with a sign representing the relative order of the items stacks
      */
     int compareItems(ItemStack i, ItemStack j);
 

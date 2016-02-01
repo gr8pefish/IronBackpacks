@@ -1,9 +1,9 @@
 package gr8pefish.ironbackpacks.crafting;
 
-import gr8pefish.ironbackpacks.api.crafting.IAddUpgradeRecipe;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IUpgradableBackpack;
-import gr8pefish.ironbackpacks.api.item.upgrades.ItemConflictingUpgrade;
-import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
+import gr8pefish.ironbackpacks.api.items.upgrades.ItemIConflictingUpgrade;
+import gr8pefish.ironbackpacks.api.recipes.IAddUpgradeRecipe;
+import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.ItemUpgrade;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAddUpgradeRecipe{
 
-    private final ItemStack recipeOutput; //The outputted item after crafting
+    private final ItemStack recipeOutput; //The outputted items after recipes
 
     public BackpackAddUpgradeRecipe(ItemStack recipeOutput, Object... items){
         super(recipeOutput, items);
@@ -43,13 +43,13 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
      * You can't have conflicting upgrades (as defined by each IConflictingUpgrade).
      * You can only have a certain amount of alternate gui upgrades. Currently 'hardcoded' as 4, see IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED
      *
-     * @param inventoryCrafting - the inventory crafting to check
+     * @param inventoryCrafting - the inventory recipes to check
      * @return - the resulting itemstack
      */
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
 
-        ItemStack backpack = getFirstUpgradableBackpack(inventoryCrafting); //get the upgradable backpack in the crafting grid
+        ItemStack backpack = getFirstUpgradableBackpack(inventoryCrafting); //get the upgradable backpack in the recipes grid
         if (backpack == null) return null; //if no valid backpack return nothing
         ItemStack result = backpack.copy(); //the resulting backpack, copied so it's data can be more easily manipulated
 
@@ -75,7 +75,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
                     upgradeFound = applyAdditional(nbtTagCompound, result); //if you can apply more upgrade points, do it
                 } else { //some other upgrade (i.e. not additional upgrade points)
                     if (IronBackpacksHelper.getUpgradePointsUsed(upgrades) + ItemUpgrade.getUpgradeCost(upgradeToApply) <= totalUpgradePoints) { //if you have enough upgrade points to apply it
-                        if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeToApply)) //if it is an alt gui upgrade
+                        if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(upgradeToApply)) //if it is an alt gui upgrade
                             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI, upgradeToApply.writeToNBT(new NBTTagCompound())); //make sure to update so the alt gui can change when it is opened
                         tagList.appendTag(upgradeToApply.writeToNBT(new NBTTagCompound())); //save the new upgrade
                         upgradeFound = true; //you applied an upgrade, congratulations
@@ -90,7 +90,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
                 }
                 if (!upgradeFound && !(ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade))){ //if not already applied
                     if (canApplyUpgrade(upgrades, totalUpgradePoints, upgradeToApply)){ //if you can apply the upgrade (this checks special conditions (i.e. IConflictingUpgrades) too)
-                        if (ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeToApply)) //if it is an alt gui upgrade
+                        if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(upgradeToApply)) //if it is an alt gui upgrade
                             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI, upgradeToApply.writeToNBT(new NBTTagCompound())); //make sure to update so the alt gui can change when it is opened
                         tagList.appendTag(upgradeToApply.writeToNBT(new NBTTagCompound())); //save the new upgrade
                         upgradeFound = true; //you applied an upgrade, congratulations
@@ -118,7 +118,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
     //=============================================================================Helper Methods====================================================================
 
     /**
-     * Helper method for getting the first backpack in the crafting grid (which will be the one used)
+     * Helper method for getting the first backpack in the recipes grid (which will be the one used)
      * @param inventoryCrafting - the inventory to search
      * @return - the backpack to be crafted
      */
@@ -135,7 +135,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
     }
 
     /**
-     * Helper method for getting the first upgrade in the crafting grid (which will be the one used)
+     * Helper method for getting the first upgrade in the recipes grid (which will be the one used)
      * @param inventoryCrafting - the inventory to search
      * @return - the upgrade to be used
      */
@@ -144,8 +144,8 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
             for (int j = 0; j < 3; ++j) {
                 ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
                 if (itemstack != null && itemstack.getItem() != null)
-                    if (itemstack.getItem() instanceof ItemUpgrade)  //hardcoded for ItemUpgrade
-                        if (ItemUpgradeRegistry.isInstanceOfAnyUpgrade(itemstack)) //any upgrade is fine here
+                    if (itemstack.getItem() instanceof ItemUpgrade)  //hardcoded for ItemIUpgrade
+                        if (ItemIUpgradeRegistry.isInstanceOfAnyUpgrade(itemstack)) //any upgrade is fine here
                             return itemstack;
             }
         }
@@ -160,14 +160,14 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
      * @return - true if it can be applied, false otherwise
      */
     private boolean canApplyUpgrade(ArrayList<ItemStack> upgrades, int totalUpgradePoints, ItemStack upgradeToApply){
-        if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(upgradeToApply) || ItemUpgradeRegistry.isInstanceOfAltGuiUpgrade(upgradeToApply)){
+        if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(upgradeToApply) || ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(upgradeToApply)){
 
             for (ItemStack upgrade : upgrades) { //check for duplicate
                 if (UpgradeMethods.areUpgradesFunctionallyEquivalent(upgrade, upgradeToApply)) //if duplicate upgrade
                     return false; //can't apply
             }
 
-            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(upgradeToApply)){ //conflicting
+            if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(upgradeToApply)){ //conflicting
                 System.out.println("conflicting");
                 if (hasConflictingUpgradeInUpgrades(upgradeToApply, upgrades)){ //if has the conflicting upgrade
                     return false; //can't apply conflicting
@@ -199,10 +199,10 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
      * @return - true if it has a conflicting upgrade, false otherwise
      */
     private boolean hasConflictingUpgradeInUpgrades(ItemStack upgradeToApply, ArrayList<ItemStack> upgrades) {
-        List<ItemConflictingUpgrade> conflictingUpgrades = ItemUpgradeRegistry.getItemConflictingUpgrade(upgradeToApply).getConflictingUpgrades(upgradeToApply);
+        List<ItemIConflictingUpgrade> conflictingUpgrades = ItemIUpgradeRegistry.getItemIConflictingUpgrade(upgradeToApply).getConflictingUpgrades(upgradeToApply);
         for (ItemStack stack : upgrades){ //for every upgrade
-            if (ItemUpgradeRegistry.isInstanceOfConflictingUpgrade(stack)){ //if it is an instance of a conflicting upgrade
-                if (conflictingUpgrades.contains(ItemUpgradeRegistry.getItemConflictingUpgrade(stack))){ //if it specifically conflicts with this upgrade applied
+            if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(stack)){ //if it is an instance of a conflicting upgrade
+                if (conflictingUpgrades.contains(ItemIUpgradeRegistry.getItemIConflictingUpgrade(stack))){ //if it specifically conflicts with this upgrade applied
                     return true;
                 }
             }
@@ -214,7 +214,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
     /**
      * Applies the upgrade to the backpack by adding it's NBT data.
      * @param nbtTagCompound - the tag compound of the resulting itemstack
-     * @param backpack - the backpack in the crafting grid
+     * @param backpack - the backpack in the recipes grid
      * @return - true if it can be applied, false otherwise
      */
     //TODO: Clean up

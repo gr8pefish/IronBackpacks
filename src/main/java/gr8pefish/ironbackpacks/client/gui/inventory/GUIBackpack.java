@@ -30,7 +30,7 @@ public class GUIBackpack extends GuiContainer {
 
     private ContainerBackpack container; //the container
     private ItemStack itemStack; //the itemstack backpack
-    private ItemBackpack itemBackpack; //the backpack as an item
+    private ItemBackpack itemBackpack; //the backpack as an items
 
     //the buttons in this GUI
     private TooltipButton backpack_to_inventory_BUTTON;

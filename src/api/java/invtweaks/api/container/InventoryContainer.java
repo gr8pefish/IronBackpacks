@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * A marker for containers that need special treatment, such as crafting inputs or alternate player inventory positions,
+ * A marker for containers that need special treatment, such as recipes inputs or alternate player inventory positions,
  * but do not have a chest-like component.
  * <p/>
  * Does not enable the Inventory Tweaks sorting buttons for this container.

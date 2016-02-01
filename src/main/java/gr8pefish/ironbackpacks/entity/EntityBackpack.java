@@ -18,7 +18,7 @@ import java.util.Map;
 public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData {
 
     private EntityPlayer player; //server player
-    private ItemStack backpackStack; //the backpack as an item stack
+    private ItemStack backpackStack; //the backpack as an items stack
 
     //all the backpacks in one map
     private static Map<ItemStack, EntityBackpack> backpacksSpawnedMap = new HashMap<>();

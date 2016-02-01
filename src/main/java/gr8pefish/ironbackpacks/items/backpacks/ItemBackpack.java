@@ -1,9 +1,10 @@
 package gr8pefish.ironbackpacks.items.backpacks;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
-import gr8pefish.ironbackpacks.api.item.backpacks.ItemUpgradableTieredBackpack;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.api.register.ItemUpgradeRegistry;
+import gr8pefish.ironbackpacks.api.items.backpacks.ItemIUpgradableITieredBackpack;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.api.register.ItemIBackpackRegistry;
+import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
@@ -29,14 +30,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ItemBackpack extends ItemUpgradableTieredBackpack {
+public class ItemBackpack extends ItemIUpgradableITieredBackpack {
 
     private boolean openAltGui = true; //to track which gui to open
 
     private String emphasis; //unlocalized string to show if the backpack has a specialty, could be null if none
 
     public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, int additionalPoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture, String specialty){
-        super(name, rowLength, rowCount, upgradePoints, additionalPoints, guiResourceLocation, guiXSize, guiYSize, modelTexture); //null is for the recipe (set after item init)
+        super(name, rowLength, rowCount, upgradePoints, additionalPoints, guiResourceLocation, guiXSize, guiYSize, modelTexture); //null is for the recipe (set after items init)
         setCreativeTab(IronBackpacks.creativeTab);
         this.emphasis = specialty;
 
@@ -107,12 +108,14 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
             NBTUtils.setUUID(itemStack);
             PlayerBackpackProperties.setCurrentBackpack(player, itemStack);
             if (!(player.isSneaking())){
-                player.openGui(IronBackpacks.instance, getGuiId(itemStack), world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"
+                int guiId = ItemIBackpackRegistry.getIndexOf((IBackpack)itemStack.getItem());
+                player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"
                 return itemStack;
-            }else { //if sneaking
-                if (openAltGui)
-                    player.openGui(IronBackpacks.instance, (getGuiId(itemStack) * -1) - 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
-                else
+            } else { //if sneaking
+                if (openAltGui) {
+                    int guiId = ItemIBackpackRegistry.getIndexOf((IBackpack) itemStack.getItem());
+                    player.openGui(IronBackpacks.instance, (guiId * -1) - 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+                } else
                     openAltGui = true;
                 return itemStack;
             }
@@ -131,9 +134,9 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
             int upgradesUsed = 0;
 
             for (ItemStack upgradeStack : upgrades) {
-//                if (!ItemUpgradeRegistry.getItemUpgrade(upgradeStack).equals(ItemRegistry.additionalUpgradePointsUpgrade))
-                list.add(TextUtils.localizeEffect("item.ironbackpacks.upgrade."+ ItemUpgradeRegistry.getItemUpgrade(upgradeStack).getName(upgradeStack)+".name"));
-                upgradesUsed += ItemUpgradeRegistry.getItemUpgrade(upgradeStack).getUpgradeCost(upgradeStack);
+//                if (!ItemIUpgradeRegistry.getItemUpgrade(upgradeStack).equals(ItemRegistry.additionalUpgradePointsUpgrade))
+                list.add(TextUtils.localizeEffect("items.ironbackpacks.upgrade."+ ItemIUpgradeRegistry.getItemUpgrade(upgradeStack).getName(upgradeStack)+".name"));
+                upgradesUsed += ItemIUpgradeRegistry.getItemUpgrade(upgradeStack).getUpgradeCost(upgradeStack);
             }
 
             if (upgrades.size() > 0)
@@ -177,7 +180,7 @@ public class ItemBackpack extends ItemUpgradableTieredBackpack {
             if (nbtTagCompound != null) {
                 if (nbtTagCompound.hasKey("Items")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Items", net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
-                    inventory = new ItemStack[((ItemUpgradableTieredBackpack)stack.getItem()).getSize(stack)]; //new ItemStack[BackpackNames.values()[getGuiId(stack)].getSize()]; //TODO: test
+                    inventory = new ItemStack[((ItemIUpgradableITieredBackpack)stack.getItem()).getSize(stack)]; //new ItemStack[BackpackNames.values()[getGuiId(stack)].getSize()]; //TODO: test
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int slot = stackTag.getByte("Slot");

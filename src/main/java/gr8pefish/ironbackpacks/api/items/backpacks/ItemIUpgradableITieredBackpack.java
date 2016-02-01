@@ -1,11 +1,10 @@
-package gr8pefish.ironbackpacks.api.item.backpacks;
+package gr8pefish.ironbackpacks.api.items.backpacks;
 
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.api.item.backpacks.abstractClasses.AbstractUpgradableTieredBackpack;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
-import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -13,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpack {
+public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableBackpack, ITieredBackpack {
 
     private final String name; //display name
     private final int rowLength; //length of each row
@@ -29,17 +28,19 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
     private List<ITieredBackpack> backpacksAbove; //the backpacks 1 higher in tier (likely a singleton list)
     private int tier; //the tier of the backpack (0 is basic, 1 is iron, 2 is gold, etc.)
     private List<Object[]> tierRecipes; //the recipes that this backpack can be used in to increase it's tier
-    private IRecipe itemRecipe; //get the recipe to obtain the backpack as an item
+    private IRecipe itemRecipe; //get the recipe to obtain the backpack as an items
 
-    private final ResourceLocation modelTexture;
+    private final ResourceLocation modelTexture; //the texture for the modelBackpack
+
+
     /**
      * The Item that represents an AbstractUpgradableTieredBackpack
      */
-    public ItemUpgradableTieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, int additionalPoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture){
+    public ItemIUpgradableITieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, int additionalPoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture){
         setMaxStackSize(1);
         setNoRepair();
 
-        setUnlocalizedName(Constants.MODID + "." + IronBackpacksAPI.ITEM_BACKPACK_BASE + "." + name);
+        setUnlocalizedName(Constants.MODID + "." + IronBackpacksAPI.ITEM_BACKPACK_BASE_NAME + "." + name);
 
         this.name = name;
         this.rowLength = rowLength;
@@ -62,12 +63,12 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
 
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return false; //no more item backpack bobbing hopefully
+        return false; //no more items backpack bobbing hopefully
     }
 
     @Override
     public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-        return false;
+        return false; //no enchants on the backpacks
     }
     
 
@@ -115,15 +116,10 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
 
     @Override
     public ResourceLocation getModelTexture(ItemStack backpack) {
-//        if (modelTexture != null) System.out.println(modelTexture); else System.out.println("modelTexture = null");
         return modelTexture;
     }
 
-    //TODO: fix with dynamic
-    public int getGuiId(ItemStack stack) {
-        return ItemBackpackRegistry.getIndexOf((IBackpack)stack.getItem());
-    }
-
+    @Override
     public int getSize(ItemStack backpack) {
         return size;
     }
@@ -145,11 +141,6 @@ public class ItemUpgradableTieredBackpack extends AbstractUpgradableTieredBackpa
 
     @Override
     public List<ITieredBackpack> getBackpacksAbove(ItemStack backpack) {
-        return backpacksAbove;
-    }
-
-    @Override
-    public List<ITieredBackpack> getBackpacksAbove() {
         return backpacksAbove;
     }
 

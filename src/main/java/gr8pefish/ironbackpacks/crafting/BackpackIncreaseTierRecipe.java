@@ -1,8 +1,7 @@
 package gr8pefish.ironbackpacks.crafting;
 
-import gr8pefish.ironbackpacks.api.crafting.IIncreaseBackpackTierRecipe;
-import gr8pefish.ironbackpacks.api.item.backpacks.interfaces.ITieredBackpack;
-import gr8pefish.ironbackpacks.api.register.ItemBackpackRegistry;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
+import gr8pefish.ironbackpacks.api.recipes.IIncreaseBackpackTierRecipe;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -25,8 +24,8 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncr
     }
 
     /**
-     * Simply gets the next tier backpack with the NBT data from the backpack in the crafting grid (so it keeps it's inventory/upgrades/etc.)
-     * @param inventoryCrafting - the crafting inventory
+     * Simply gets the next tier backpack with the NBT data from the backpack in the recipes grid (so it keeps it's inventory/upgrades/etc.)
+     * @param inventoryCrafting - the recipes inventory
      * @return - the itemstack result
      */
     @Override
@@ -45,7 +44,10 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncr
         }
 
         //get the higher tier backpack if it exists
-        List<ITieredBackpack> backpacksAbove = ItemBackpackRegistry.getBackpacksAbove(backpack);
+        List<ITieredBackpack> backpacksAbove = null;
+        if (backpack.getItem() instanceof ITieredBackpack && ((ITieredBackpack)backpack.getItem()).hasBackpacksAbove(backpack))
+            backpacksAbove = ((ITieredBackpack)backpack.getItem()).getBackpacksAbove(backpack);
+
         if (backpacksAbove != null && backpacksAbove.size() > 0) {
             result = new ItemStack(recipeOutput.getItem());
             result.setTagCompound(backpack.getTagCompound());
@@ -62,7 +64,7 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncr
     }
 
     /**
-     * Helper method for getting the first backpack in the crafting grid (which will be the one used)
+     * Helper method for getting the first backpack in the recipes grid (which will be the one used)
      * @param inventoryCrafting - the inventory to search
      * @return - the backpack to be crafted
      */
