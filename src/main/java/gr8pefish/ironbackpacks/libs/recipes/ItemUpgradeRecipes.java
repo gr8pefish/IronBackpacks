@@ -35,12 +35,12 @@ public class ItemUpgradeRecipes {
             's', Items.string, 'p', Items.paper, 'b', Items.bowl);
 
     public static ShapedOreRecipe depthUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.depthUpgrade)),
-            "tnt",
-            "ncn",
-            "tnt",
-            't', Items.leather,
+            "lcl",
+            "cnc",
+            "lcl",
+            'l', Items.leather,
             'c', "chestWood",
-            'd', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingUpgrade)));
+            'n', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingUpgrade)));
 
     public static ShapedOreRecipe eternityUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.eternityUpgrade)),
             "ded",
@@ -51,26 +51,26 @@ public class ItemUpgradeRecipes {
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe renamingUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfPackUpgrade(ItemRegistry.renamingUpgrade)),
-            " f ",
+            "fgi",
             "sps",
-            " i ",
-            'f', Items.feather, 's', "slabWood", 'p', Items.paper, 'i', "dyeBlack");
+            "sss",
+            'f', Items.feather, 's', "slabWood", 'p', Items.paper, 'i', "dyeBlack", 'g', Items.glass_bottle);
 
     public static ShapedOreRecipe nestingUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingUpgrade)),
-            "fnf",
-            "ncn",
-            "fnf",
-            'f', "nuggetGold",
-            'n', Items.egg,
+            "rer",
+            "ece",
+            "rer",
+            'r', "dustRedstone",
+            'e', Items.egg,
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemCraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe nestingAdvancedUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingAdvancedUpgrade)),
-            "fnf",
-            "ndn",
-            "fnf",
-            'f', "nuggetGold",
-            'n', Items.egg,
-            'd', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingUpgrade)));
+            "rer",
+            "ene",
+            "rer",
+            'r', "dustRedstone",
+            'e', Items.egg,
+            'n', new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.nestingUpgrade)));
 
     public static ShapedOreRecipe quickDepositUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemUpgradeRegistry.getIndexOfConflictingUpgrade(ItemRegistry.quickDepositUpgrade)),
             "psp",

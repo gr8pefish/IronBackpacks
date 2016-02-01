@@ -129,14 +129,6 @@ public class ConfigHandler {
 
         String category;
 
-//        config.addCustomCategoryComment("1) Backpack Names", "Here you can modify the traits of the backpacks.");
-//        config.addCustomCategoryComment("6) Upgrade Details", "Here you can modify how expensive the upgrades are to add to a backpack. " +
-//                "A cost of 0 makes the upgrade 'free' to apply, while a higher number makes it more expensive. "+
-//                "\nIn addition, you can modify the minimum tier of backpack necessary to apply this upgrade to. "+
-//                "For example, a tier of 0 means it can be applied to any backpack, while a tier of 2 means it can only be applied to gold or diamond backpacks.");
-//        config.addCustomCategoryComment("7) Miscellaneous", "A variety of miscellaneous configurable tweaks and changes to the mod.");
-
-
         //============================================Initializing everything, the numbers keep them in the order I want=======================================
 
         category = "0) Config Changes";
@@ -175,9 +167,9 @@ public class ConfigHandler {
         ironBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 3) (Iron - Upgrade Emphasis)", 2, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
         config.addCustomCategoryComment(category + " 4) (Gold - Storage Emphasis)", "The configurable traits of the gold backpack (storage emphasis).");
-        goldBackpackStorageEmphasis[0] = config.getInt("Upgrade Points", category+" 4) (Gold - Storage Emphasis)", 9, 0, 100, "The number of upgrade points on the backpack.");
+        goldBackpackStorageEmphasis[0] = config.getInt("Upgrade Points", category+" 4) (Gold - Storage Emphasis)", 10, 0, 100, "The number of upgrade points on the backpack.");
         goldBackpackStorageEmphasis[1] = config.getInt("Number of Slots Per Row", category+" 4) (Gold - Storage Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
-        goldBackpackStorageEmphasis[2] = config.getInt("Number of Rows", category+" 4) (Gold - Storage Emphasis)", 7, 1, 7, "The size of the backpack.");
+        goldBackpackStorageEmphasis[2] = config.getInt("Number of Rows", category+" 4) (Gold - Storage Emphasis)", 6, 1, 7, "The size of the backpack.");
         goldBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 4) (Gold - Storage Emphasis)", 1, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
         config.addCustomCategoryComment(category + " 5) (Gold - Upgrade Emphasis)", "The configurable traits of the gold backpack (upgrade emphasis).");
@@ -187,7 +179,7 @@ public class ConfigHandler {
         goldBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 5) (Gold - Upgrade Emphasis)", 4, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
         config.addCustomCategoryComment(category + " 6) (Diamond - Storage Emphasis)", "The configurable traits of the diamond backpack (storage emphasis).");
-        diamondBackpackStorageEmphasis[0] = config.getInt("Upgrade Points", category+" 6) (Diamond - Storage Emphasis)", 10, 0, 100, "The number of upgrade points on the backpack.");
+        diamondBackpackStorageEmphasis[0] = config.getInt("Upgrade Points", category+" 6) (Diamond - Storage Emphasis)", 12, 0, 100, "The number of upgrade points on the backpack.");
         diamondBackpackStorageEmphasis[1] = config.getInt("Number of Slots Per Row", category+" 6) (Diamond - Storage Emphasis)", 11, 9, 11, "The size of the backpack. Either 9 or 11.");
         diamondBackpackStorageEmphasis[2] = config.getInt("Number of Rows", category+" 6) (Diamond - Storage Emphasis)", 7, 1, 7, "The size of the backpack.");
         diamondBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 6) (Diamond - Storage Emphasis)", 2, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
@@ -296,7 +288,7 @@ public class ConfigHandler {
 
         filterVoidUpgradeCost = config.getInt("Void Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the void filter upgrade.\n" +
                 "This upgrade allows you to choose items to go be deleted when they are picked up.");
-        filterVoidUpgradeTier = config.getInt("Void Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the void filter upgrade.");
+        filterVoidUpgradeTier = config.getInt("Void Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the void filter upgrade.");
         filterVoidUpgradeDisabled = config.getBoolean("Void Filter Upgrade Disabled", category, false, "If the void filter upgrade should not exist.");
 
         filterAdvancedUpgradeCost = config.getInt("Advanced Filter Upgrade Cost", category, 6, 0, 100, "The cost (in upgrade points) for the advanced filter upgrade.\n" +
