@@ -226,7 +226,7 @@ public class ItemRegistry {
 
         //alt gui upgrades
         if (!ConfigHandler.craftingUpgradeDisabled) {
-            craftingUpgrade = new ItemIConfigurableUpgrade("recipes", ConfigHandler.craftingUpgradeCost, ConfigHandler.craftingUpgradeTier, LocalizedStrings.Upgrades.CRAFTING_DESCRIPTION);
+            craftingUpgrade = new ItemIConfigurableUpgrade("crafting", ConfigHandler.craftingUpgradeCost, ConfigHandler.craftingUpgradeTier, LocalizedStrings.Upgrades.CRAFTING_DESCRIPTION);
             ItemIUpgradeRegistry.registerItemConfigurableUpgrade(craftingUpgrade);
         }
         if (!ConfigHandler.craftingSmallUpgradeDisabled) {

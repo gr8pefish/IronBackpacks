@@ -2,12 +2,13 @@
 Version 1.8.9 - 2.0.6
 ------------------------------------------------------
 Additions
-- None
+- Descriptions in JEI for the upgrades.
 
 Changes
 - New textures!
-- Cleaned up the JEI integration, it is pretty much as nice as it will get.
+- Polished the JEI integration, it is looking quite nice, if I don't say so myself.
 - Removed some crafting items (jeweled feather, treated leather, nest), they were just bloat.
+- (Internal) Major cleanup of API
 
 Bug Fixes
 - None

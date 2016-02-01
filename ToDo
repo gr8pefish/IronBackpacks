@@ -13,7 +13,6 @@ To Do:
         allow enter to be hit to act as hitting renaming button
 
 
-
     1.8 Stuff:
 
         Features:
@@ -23,7 +22,7 @@ To Do:
 
                 eventual integration with travelers gear, tiCon (backpack slot), baubles, etc.
 
-                add to info tooltips explanation of shift pressing
+                add to info JEI description explanation of values in shift pressing
 
             API:
                 Add backpack tab (like TiCon)
@@ -61,6 +60,9 @@ To Do:
             JEI:
                  add tooltip over all the output and input items b/c nbt independent (i.e. has upgrade, upgrade removed)
 
+                 minor: tooltips have slightly lager space between first line and second, remove that
+
+
             Investigate:
                 add crafttweaker support
                 Send packet to client when join server to sync metas up
@@ -76,6 +78,9 @@ To Do:
                     Make lib folder to store all that stuff
 
             Other:
+
+                cleanup lang file
+
                 add commands to remove stored packs' IEEP data
                 Make more null checks for backpack entity killing/spawning
 

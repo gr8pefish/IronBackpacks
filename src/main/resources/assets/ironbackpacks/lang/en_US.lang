@@ -1,4 +1,5 @@
 #PARSE_ESCAPES
+
 # Items
 item.ironbackpacks.backpack.basicBackpack.name=Basic Backpack
 item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=Iron Backpack (Storage Emphasis)
@@ -121,7 +122,38 @@ tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d upgrade points
 misc.ironbackpacks.default.equpped.backpack.name=Equipped Backpack
 
 
-#JEI
+########################################
+# JEI Localizations
+########################################
+
+# Recipe Localizations (Miscellaneous)
+jei.description.continuedNextPage=(More info on the next page)
+jei.description.shapelessCrafting=Shapeless Crafting
+jei.description.shapedCrafting=Shaped Crafting
+
+# Recipe Localizations (Add Upgrade)
+jei.ironbackpacks.addUpgradeRecipe.name=Add Upgrades
+jei.description.addUpgrade=To add an upgrade, simply craft it with the desired backpack in a crafting grid.
+jei.description.addUpgrade.additional=The backpack must be a high enough tier, have enough upgrade points available, and meet any §2special cases§r to accept the upgrade.
+jei.description.addUpgrade.specialConditions=If the upgrade is configurable, you must have enough space for another configurable upgrade. \
+Also, the upgrade must not conflict with any already applied.
+
+# Recipe Localizations (Remove Upgrade)
+jei.ironbackpacks.removeUpgradeRecipe.name=Remove Upgrades
+jei.description.removeUpgrade.slot1=§2Location
+jei.description.removeUpgrade.slot2=§2Dependent
+jei.description.removeUpgrade=To remove an upgrade, place the desired backpack in the correct slot of the crafting grid.
+jei.description.removeUpgrade.locationDependent=The slot the backpack is in corresponds to the upgrade removed. \
+For example, if it is in the first slot it will remove the first upgrade, the second slot the second upgrade, etc.
+jei.description.removeUpgrade.additional=The upgrade will be returned to you when you pick up the backpack; it will be placed back in the crafting grid.
+
+# Recipe Localizations (Increase Tier)
+jei.ironbackpacks.increaseTierRecipe.name=Increase Backpack Tier
+jei.description.increaseTier=To increase the tier of a backpack, simply follow the desired crafting recipe. You may have to choose between different types of backpacks when upgrading. Choose wisely!
+
+###############################
+# Backpack Descriptions for JEI
+###############################
 
 jei.description.backpack.generic=\
 To access the backpack's inventory, simply right click the item. Some upgrades, including the inbuilt ability of renaming backpacks, can be configured. \
@@ -140,23 +172,36 @@ jei.description.backpack.iron=The main tier of backpack, more upgrades (but not 
 jei.description.backpack.gold=The penultimate tier of backpack, with even more storage space and upgrade points.\n \n \n \n \n \n
 jei.description.backpack.diamond=The highest tier of backpack, able to apply any upgrade (assuming you have the upgrade points for it).\n \n \n \n \n \n
 
-jei.description.continuedNextPage=(More info on the next page)
-jei.description.shapelessCrafting=Shapeless Crafting
-jei.description.shapedCrafting=Shaped Crafting
+##############################
+# Upgrade Descriptions for JEI
+##############################
 
-jei.ironbackpacks.addUpgradeRecipe.name=Add Upgrade Recipe
-jei.description.addUpgrade=To add an upgrade, simply craft it with the desired backpack in a crafting grid.
-jei.description.addUpgrade.additional=The backpack must be a high enough tier, have enough upgrade points available, and meet any §2special cases§r to accept the upgrade.
-jei.description.addUpgrade.specialConditions=If the upgrade is configurable, you must have enough space for another configurable upgrade. \
-Also, the upgrade must not conflict with any already applied.
+#IUpgrades
+jei.description.upgrade.additionalUpgradePoints=
+jei.description.upgrade.button=
+jei.description.upgrade.damageBar=
+jei.description.upgrade.depth=
+jei.description.upgrade.eternity=
+jei.description.upgrade.renaming=
 
-jei.ironbackpacks.removeUpgradeRecipe.name=Remove Upgrade Recipe
-jei.description.removeUpgrade.slot1=§2Location
-jei.description.removeUpgrade.slot2=§2Dependent
-jei.description.removeUpgrade=To remove an upgrade, place the desired backpack in the correct slot of the crafting grid.
-jei.description.removeUpgrade.locationDependent=The slot the backpack is in corresponds to the upgrade removed. \
-For example, if it is in the first slot it will remove the first upgrade, the second slot the second upgrade, etc.
-jei.description.removeUpgrade.additional=The upgrade will be returned to you when you pick up the backpack; it will be placed back in the crafting grid.
+#IConflictingUpgrades
+jei.description.upgrade.conflicting=
+jei.description.upgrade.nesting=
+jei.description.upgrade.nestingAdvanced=
+jei.description.upgrade.quickDeposit=
+jei.description.upgrade.quickDepositPrecise=
 
-jei.ironbackpacks.increaseTierRecipe.name=Increase Tier Recipe
-jei.description.increaseTier=To increase the tier of a backpack, simply follow the desired crafting recipe. You may have to choose between different types of backpacks when upgrading. Choose wisely!
+#IConfigurableUpgrades
+jei.description.upgrade.configurable=
+jei.description.upgrade.crafting=
+jei.description.upgrade.craftingSmall=
+jei.description.upgrade.craftingTiny=
+jei.description.upgrade.filter.generic=
+jei.description.upgrade.filter.basic=
+jei.description.upgrade.filter.fuzzy=
+jei.description.upgrade.filter.oreDict=
+jei.description.upgrade.filter.modSpecific=
+jei.description.upgrade.filter.void=
+jei.description.upgrade.filter.advanced=
+jei.description.upgrade.filter.mining=
+jei.description.upgrade.restocking=

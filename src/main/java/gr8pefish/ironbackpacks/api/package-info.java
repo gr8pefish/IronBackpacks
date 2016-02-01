@@ -1,4 +1,4 @@
-@API(owner = Constants.MODID, provides = "IronBackpacks|API", apiVersion = "0.4")
+@API(owner = Constants.MODID, provides = "IronBackpacks|API", apiVersion = "0.5")
 package gr8pefish.ironbackpacks.api;
 
 import net.minecraftforge.fml.common.API;
