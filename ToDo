@@ -80,6 +80,7 @@ To Do:
             Other:
 
                 cleanup lang file
+                    Make upgrade descriptions pretty (and check backpack ones too)
 
                 add commands to remove stored packs' IEEP data
                 Make more null checks for backpack entity killing/spawning
