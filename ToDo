@@ -12,6 +12,14 @@ To Do:
 
         allow enter to be hit to act as hitting renaming button
 
+        add ids to upgrades for future compatibility (removing/adding)
+
+        add if(upgrade_loaded) to addConflicting upgrades to prevent crash in recipe
+
+        change license to LGPL
+
+    1.9
+        new playerInteractEvent for restocking
 
     1.8 Stuff:
 
