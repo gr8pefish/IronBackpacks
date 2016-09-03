@@ -142,7 +142,10 @@ def parseConfig(File config) {
 }
 
 curseforge {
-    apiKey = priv.curse_key
+    if (project.hasProperty('priv')){
+        apiKey = priv.curse_key
+    }
+    
     project {
         id = "${curse_id}"
         changelog = getChangelogText()
