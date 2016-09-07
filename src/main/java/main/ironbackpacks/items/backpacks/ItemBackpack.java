@@ -241,12 +241,17 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
 
 
     //==============================================IBlockProvider from Botania's API============================================
-
+    /* Overall Botania API expects for provider to be in player's inventory, so we can support only non-equipped backpacks properly.
+     * Empty backpack in the inventory could trigger API call so that we can provide from equipped backpack, 
+     * but this is triggered by sideeffect and won't behave correctly (e.g. 2 backpacks in the inventory will call equipped backpack
+     * multiple times). 
+     * */
+    
     /**
      * Uses Botania's API to make the backpack able to provide blocks to items that need it.
      * @param player - the player
      * @param requestor - itemStack requesting items
-     * @param stack - the stack to request items from (i.e. my backpack)
+     * @param backPackStack - the stack to request items from (i.e. my backpack)
      * @param block - the block requested
      * @param meta - metadata of the block
      * @param doIt - if a test or real thing (currently opposite of what it should be...)
@@ -254,10 +259,8 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
      */
     @Optional.Method(modid="Botania")
     @Override
-    public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doIt) {
-
-        //simulate inventory to see if it has items
-        InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
+    public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack backPackStack, Block block, int meta, boolean doIt) { 	
+        InventoryBackpack invBackpack = makeInv(backPackStack, player);
         int amount = invBackpack.hasStackInInv(block, meta);
 
         if (amount > 0){
@@ -274,15 +277,15 @@ public class ItemBackpack extends Item implements IBackpack, IBlockProvider {
      * Uses Botania's API to get the available items
      * @param player - the player using the item
      * @param requestor - the item requestign the IBlockProvider
-     * @param stack - the stack to request items from (my backpack)
+     * @param backPackStack - the stack to request items from (my backpack)
      * @param block - the block to compare against
      * @param meta - the metadata of the block
      * @return integer of the amount of items the backpack has
      */
     @Optional.Method(modid="Botania")
     @Override
-    public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
-        InventoryBackpack invBackpack = makeInv(IronBackpacks.proxy.getCurrBackpack(player), player);
+    public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack backPackStack, Block block, int meta) {
+        InventoryBackpack invBackpack = makeInv(backPackStack, player);
         int amount = invBackpack.hasStackInInv(block, meta);
         return amount;
     }

@@ -8,7 +8,7 @@ Changes
 - None
 
 Bug Fixes
-- None
+- Fixed Botania API support, now works only on backpacks in inventory, not equipped ones.
 ------------------------------------------------------
 Version 1.7.10 - 1.2.15
 ------------------------------------------------------
