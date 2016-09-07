@@ -33,9 +33,18 @@ if (new File(projectDir, '.git').exists())
 if (new File(projectDir, 'private').exists())
     ext.priv = parseConfig(file('private'))
 
-repositories {}
+repositories {
+    maven {
+        name 'CB Maven FS'
+        url "http://chickenbones.net/maven/"
+    }
+}
 
-dependencies {}
+dependencies {
+    runtime "codechicken:CodeChickenLib:" + mc_version + "-" + cclib_version + ":dev"
+    runtime "codechicken:CodeChickenCore:" + mc_version + "-" + ccc_version + ":dev"
+    runtime "codechicken:NotEnoughItems:" + mc_version + "-" + nei_version + ":dev"
+}
 
 minecraft {
     version = "${mc_version}-${forge_version}"
@@ -133,7 +142,10 @@ def parseConfig(File config) {
 }
 
 curseforge {
-    apiKey = priv.curse_key
+    if (project.hasProperty('priv')){
+        apiKey = priv.curse_key
+    }
+    
     project {
         id = "${curse_id}"
         changelog = getChangelogText()
