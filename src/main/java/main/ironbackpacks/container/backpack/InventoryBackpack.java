@@ -244,7 +244,7 @@ public class InventoryBackpack implements IInventory {
                         for (int i = 0; i < tagList.tagCount(); i++) {
                             NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                             int j = stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
-                            if (i >= 0 && i <= inventory.length) {
+                            if (i >= 0 && i < inventory.length) {
                                 this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                             }
                         }
