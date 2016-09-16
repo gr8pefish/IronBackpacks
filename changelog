@@ -2,13 +2,13 @@
 Version 1.7.10 - 1.2.17
 ------------------------------------------------------
 Additions
-- None
+- Added in chinese translation files
 
 Changes
 - None
 
 Bug Fixes
-- None
+- Fixed crash with depth upgrade (Closes #74)
 ------------------------------------------------------
 Version 1.7.10 - 1.2.16
 ------------------------------------------------------
