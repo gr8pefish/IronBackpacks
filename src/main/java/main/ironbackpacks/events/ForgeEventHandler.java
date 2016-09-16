@@ -146,7 +146,7 @@ public class ForgeEventHandler {
 
             if (UpgradeMethods.hasDepthUpgrade(upgrades)) {
                 ItemBackpack itemBackpack = (ItemBackpack)backpack.getItem();
-                ContainerBackpack container = new ContainerBackpack(player, new InventoryBackpack(player, backpack, BackpackTypes.values()[itemBackpack.getId()]), BackpackTypes.values()[itemBackpack.getId()]);
+                ContainerBackpack container = new ContainerBackpack(player, new InventoryBackpack(player, backpack, BackpackTypes.values()[itemBackpack.getId()-1]), BackpackTypes.values()[itemBackpack.getId()-1]);  //-1 as getId is 1-4 whereas values is 0-3
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
                     if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
