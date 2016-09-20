@@ -102,25 +102,25 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
 
     //to open the guis
     @Override
-    public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand) {
         if (world.isRemote){ //client side
             NBTUtils.setUUID(itemStack);
             PlayerBackpackProperties.setCurrentBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: client side
-            return itemStack;
+            return new ActionResult(EnumActionResult.PASS, itemStack);
         } else {
             NBTUtils.setUUID(itemStack);
             PlayerBackpackProperties.setCurrentBackpack(player, itemStack);
             if (!(player.isSneaking())){
                 int guiId = ItemIBackpackRegistry.getIndexOf((IBackpack)itemStack.getItem());
                 player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"
-                return itemStack;
+                return new ActionResult(EnumActionResult.PASS, itemStack);
             } else { //if sneaking
                 if (openAltGui) {
                     int guiId = ItemIBackpackRegistry.getIndexOf((IBackpack) itemStack.getItem());
                     player.openGui(IronBackpacks.instance, (guiId * -1) - 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
                 } else
                     openAltGui = true;
-                return itemStack;
+                return new ActionResult(EnumActionResult.PASS, itemStack);
             }
         }
     }
