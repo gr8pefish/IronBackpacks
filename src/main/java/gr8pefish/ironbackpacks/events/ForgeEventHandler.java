@@ -21,12 +21,12 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -65,13 +65,14 @@ public class ForgeEventHandler {
      * @param event - the event fired
      */
     @SubscribeEvent
-    public void onPlayerItemUseEvent(PlayerUseItemEvent.Finish event){
+    public void onPlayerItemUseEvent(PlayerInteractEvent.RightClickItem event){
         ItemStack resuppliedStack = null;
         if (!event.isCanceled()){
-            ArrayList<ArrayList<ItemStack>> backpacks = getFilterCrafterAndRestockerBackpacks(event.entityPlayer);
+            ArrayList<ArrayList<ItemStack>> backpacks = getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
             resuppliedStack = checkRestockerUpgradeItemUse(event, backpacks.get(2)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
             if (resuppliedStack != null) {
-                event.result = resuppliedStack;
+//                ToDo: Set stack somehow
+//                event.stack = resuppliedStack;
             }
         }
     }
@@ -396,7 +397,7 @@ public class ForgeEventHandler {
      * @param event - PlayerUseItemEvent.Finish
      * @param backpackStacks - the backpacks with this upgrade
      */
-    private ItemStack checkRestockerUpgradeItemUse(PlayerUseItemEvent.Finish event, ArrayList<ItemStack> backpackStacks){
+    private ItemStack checkRestockerUpgradeItemUse(PlayerInteractEvent.RightClickItem event, ArrayList<ItemStack> backpackStacks){
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
 //                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
