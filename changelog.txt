@@ -1,90 +1,10 @@
 ------------------------------------------------------
-Version 1.8.9 - 2.0.6
+Version 1.10.2 - 2.1.0 (versioning: major-minor-build)
 ------------------------------------------------------
-Additions
-- Descriptions in JEI for the upgrades.
+Initial Port to Minecraft 1.10.2
 
-Changes
-- New textures!
-- Polished the JEI integration, it is looking quite nice, if I don't say so myself.
-- Removed some crafting items (jeweled feather, treated leather, nest), they were just bloat.
-- (Internal) Major cleanup of API
-
-Bug Fixes
-- None
-------------------------------------------------------
-Version 1.8.9 - 2.0.5
-------------------------------------------------------
-Additions
-- Added JEI Support for removing upgrades.
-- Added JEI Support for descriptions of the backpacks.
-- Added JEI Support for increasing the tier of a backpack.
-- Added a config option to disable any upgrade (experimental).
-
-Changes
-- Completely redid the config file to make it much more intelligible and aesthetically pleasing.
-- Minor recipe/config tweaks.
-
-Bug Fixes
-- Fixed configurable/alternate gui not initializing on first right click.
-- Fixed conflicting upgrades being able to be applied alongside each other.
-------------------------------------------------------
-Version 1.8.9 - 2.0.4
-------------------------------------------------------
-Additions
-- Added JEI support for adding upgrades, fancy!
-
-Changes
-- None
-
-Bug Fixes
-- Fixed backpack tier upgrade recipe not getting the correct one when upgrading the basic backpack to a speciality
-    - Closes #50
-- Fixed adding upgrade recipes ignoring tiers
-------------------------------------------------------
-Version 1.8.9 - 2.0.3
-------------------------------------------------------
-Additions
-- None
-
-Changes
-- The restocking upgrade no longer sorts the backpack when restocking.
-    - Temporary "bug" introduced, where if you pick up items on the ground that are larger than the stack to resupply and you have a filter they will go in the filter and not resupply.
-    - You don't lose any items, and it is a specific uncommon-ish case, but the player has to pick something up to actually resupply in that case, which isn't ideal. Will be fixed in next version.
-
-Bug Fixes
-- The Nesting Upgrade should actually work properly now.
-------------------------------------------------------
-Version 1.8.9 - 2.0.2
-------------------------------------------------------
-Additions
-- None
-
-Changes
-- None
-
-Bug Fixes
-- Fixed forge gradle not reobfuscating for some unknown reason O.o
-    - Closes #47
-------------------------------------------------------
-Version 1.8.9 - 2.0.1
-------------------------------------------------------
-Additions
-- None
-
-Changes
-- The backpack is less visible/obtrusive if in first person perspective.
-- (Internal) Changed backpackSpawnedMap to be ItemStacks and EntityBackpacks so that threading errors are less likely as the ItemStack/Equipped backpack can be obtained from the IEEP.
-
-Bug Fixes
-- Made client messages threaded so the backpack textures update properly.
-- Fixed the current backpack (the one open) saving as the equipped backpack.
-------------------------------------------------------
-Version 1.8.9 - 2.0.0 (versioning: major-minor-build)
-------------------------------------------------------
-Initial Port to Minecraft 1.8.9 as a rewrite (and I rewrote *a lot*)
-
-Additions (in relation to 1.7.10 - 1.2.15)
+Additions (in relation to 1.8.9 - 2.0.5)
+- ToDo: Fill out with actual changes
 - When upgrading a backpack past basic you must now choose which emphasis you want on the upgraded backpack.
     - Storage Emphasis backpacks have more raw storage capacity at the cost of less upgrade points (all configurable amounts).
     - Upgrade Emphasis backpacks have more upgrade points at the cost of less raw storage capacity (all configurable amounts).
@@ -95,7 +15,7 @@ Additions (in relation to 1.7.10 - 1.2.15)
 - The number of additional upgrade points is now configurable for each backpack (except basic, as it can't accept any).
 - Config option to make the backpack no longer renders on the client if the player is in first person perspective.
 
-Changes (in relation to 1.7.10 - 1.2.15)
+Changes (in relation to 1.8.9 - 2.0.5)
 - Made the mod significantly easier to get into in regards to recipes/resource costs.
 - The entire mod now takes substantially less Item IDs!
     - 4 for the backpacks (each one is still a separate item), 1 for all the upgrades, and 1 for all the crafting items.
@@ -110,6 +30,6 @@ Changes (in relation to 1.7.10 - 1.2.15)
 - (Internal) Changed how backpacks are stored internally, both for death and in general (uses two IEEPs), should be more stable.
 - (Internal) Changed how the additional upgrade points are stored.
 
-Bug Fixes (in relation to 1.7.10 - 1.2.15)
+Bug Fixes (in relation to 1.8.9 - 2.0.5)
 - Tooltips now render on top of everything (it won't be hidden by JEI's items).
 - Many minor fixes (some preemptive)
