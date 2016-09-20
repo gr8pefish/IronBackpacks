@@ -60,8 +60,8 @@ public class IronBackpacksHelper {
      */
     public static ItemStack getBackpackFromPlayersInventory(EntityPlayer player){
         ItemStack backpack = null;
-        if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IBackpack) {
-            backpack = player.getHeldItem();
+        if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IBackpack) {
+            backpack = player.getHeldItemMainhand();
         } else {
             for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
                 ItemStack stack = player.inventory.getStackInSlot(i);
@@ -192,9 +192,9 @@ public class IronBackpacksHelper {
             }
 
         }
-        else if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IBackpack) { //need to equip backpack
+        else if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IBackpack) { //need to equip backpack
 
-            ItemStack backpackStack = player.getHeldItem();
+            ItemStack backpackStack = player.getHeldItemMainhand();
             NBTUtils.setUUID(backpackStack);
 
             //equip backpack from the backpack the player is holding
