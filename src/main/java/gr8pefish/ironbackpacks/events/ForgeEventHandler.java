@@ -706,7 +706,7 @@ public class ForgeEventHandler {
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
                 //if modId1 == modId2 same mod so transfer
-                if (GameRegistry.findUniqueIdentifierFor(event.getItem().getEntityItem().getItem()).modId.equals(GameRegistry.findUniqueIdentifierFor(filterItem.getItem()).modId)){
+                if ((event.getItem().getEntityItem().getItem()).getRegistryName().getResourceDomain().equals(((filterItem.getItem()).getRegistryName().getResourceDomain()))){
                     container.transferStackInSlot(event.getItem().getEntityItem());
                     shouldSave = true;
                 }
