@@ -2,8 +2,8 @@ package gr8pefish.ironbackpacks.util.helpers;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -43,7 +43,7 @@ public class InventoryRenderHelper {
     public void itemRender(Item item, int meta, String name) {
         String resName = domain + name;
 
-        ModelBakery.addVariantName(item, resName);
+        ModelBakery.registerItemVariants(item, new ModelResourceLocation(resName));
         ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(resName, "inventory"));
     }
 
@@ -71,7 +71,7 @@ public class InventoryRenderHelper {
     }
 
     /**
-     * Registers a model for the items across all Meta's that get used for the items
+     * Registers a model for the item across all Meta's that get used for the item
      *
      * @param item - Item to register Model for
      */
@@ -99,4 +99,3 @@ public class InventoryRenderHelper {
         return item instanceof ItemBlock ? Block.getBlockFromItem(item).getClass().getSimpleName() : item.getClass().getSimpleName();
     }
 }
-
