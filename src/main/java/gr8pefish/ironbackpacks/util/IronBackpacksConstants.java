@@ -109,8 +109,8 @@ public class IronBackpacksConstants {
         public static final String MOVE_RIGHT = "right";
         public static final String MOVE_LEFT = "left";
 
-        //To get the most updated 1.7.10 of the mod
-        public static final String URL_UPDATED_VERSION = "https://raw.githubusercontent.com/gr8pefish/IronBackpacks/master-1.7.10/version/1.7.10"; //HARDCODED to 1.7.10
+        //To get the most updated 1.10.2 of the mod
+        public static final String URL_UPDATED_VERSION = "https://raw.githubusercontent.com/gr8pefish/IronBackpacks/master-1.10/version/1.10.2"; //HARDCODED
     }
 
 }

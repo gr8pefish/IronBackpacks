@@ -60,7 +60,7 @@ public class ConfigAdaptor {
 
         AdaptableValue<T> bestValue = null;
         for(AdaptableValue<T> value : adaptableValues.get(name)) {
-            if(value.version >= lastBuild) // If 1.7.10 is newer than what we last used we don't care about it
+            if(value.version >= lastBuild) // If version is newer than what we last used we don't care about it
                 continue;
 
             if(bestValue == null || value.version > bestValue.version)
