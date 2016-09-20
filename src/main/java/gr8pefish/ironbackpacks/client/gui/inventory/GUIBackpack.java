@@ -13,9 +13,9 @@ import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -110,11 +110,11 @@ public class GUIBackpack extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 
         if (itemStack != null)
-            this.fontRendererObj.drawString(StatCollector.translateToLocal(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
+            this.fontRendererObj.drawString(I18n.format(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
         else
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("misc.ironbackpacks.default.equpped.backpack.name"), 20, 6, 4210752); //default name, should ideally never be used
+            this.fontRendererObj.drawString(I18n.format("misc.ironbackpacks.default.equpped.backpack.name"), 20, 6, 4210752); //default name, should ideally never be used
 
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 20, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(I18n.format("container.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
         int k = (this.width - this.xSize) / 2; //X axis on GUI
         int l = (this.height - this.ySize) / 2; //Y axis on GUI

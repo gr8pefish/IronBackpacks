@@ -6,9 +6,9 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 
 import javax.annotation.Nonnull;
 
@@ -18,7 +18,7 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
     private IDrawable background;
 
     public AddUpgradeRecipeCategory(IGuiHelper guiHelper) {
-        title = StatCollector.translateToLocal("jei.ironbackpacks.addUpgradeRecipe.name");
+        title = I18n.format("jei.ironbackpacks.addUpgradeRecipe.name");
         this.background = guiHelper.createDrawable(new ResourceLocation("ironbackpacks", "textures/jei/addUpgradeRecipeJEI.png"), 0, 0, 166, 108);
     }
 
