@@ -18,8 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -56,24 +55,28 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
     }
 
     //Called before anything else
-    //returning true will stop the alt. gui from opening
-    //returning false will let it continue as normal (i.e. it can open)
+    //returning true=success will stop the alt. gui from opening
+    //returning false=pass will let it continue as normal (i.e. it can open)
     @Override
-    public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        //ToDo: Add specific hand opening only?
+//        if (!hand.equals(EnumHand.MAIN_HAND)) {
+//            return EnumActionResult.PASS;
+//        }
         if (!world.isRemote) { //server side
             if (!(player.isSneaking())) { //only do it when player is sneaking
-                return false;
+                return EnumActionResult.PASS;
             }
             ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
             boolean hasDepthUpgrade = UpgradeMethods.hasDepthUpgrade(upgrades);
             if (UpgradeMethods.hasQuickDepositUpgrade(upgrades)) {
                 openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, false);
                 if (!hasDepthUpgrade)
-                    return !openAltGui;
+                    return !openAltGui ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
             }else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(upgrades)) {
                 openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, true);
                 if (!hasDepthUpgrade)
-                    return !openAltGui;
+                    return !openAltGui ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
             }
             boolean openAltGuiDepth;
             if (hasDepthUpgrade) {
@@ -91,10 +94,10 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
                         }
                     }
                 }
-                return !openAltGui;
+                return !openAltGui ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
             }
         }
-        return false;
+        return EnumActionResult.PASS;
     }
 
     //to open the guis
