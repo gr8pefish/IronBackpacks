@@ -1,8 +1,8 @@
 package gr8pefish.ironbackpacks.network.server;
 
+import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientCurrentPackMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
@@ -94,10 +94,10 @@ public class SingleByteMessage implements IMessage {
                     break;
                 case IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING:
                     player = ctx.getServerHandler().playerEntity;
-                    ItemStack backpackStack = PlayerBackpackProperties.getEquippedBackpack(player);
+                    ItemStack backpackStack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
                     if (backpackStack != null) {
                         NBTUtils.setUUID(backpackStack);
-                        PlayerBackpackProperties.setCurrentBackpack(player, backpackStack);
+                        PlayerWearingBackpackCapabilities.setCurrentBackpack(player, backpackStack);
                         NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);
                         backpackStack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
                     }

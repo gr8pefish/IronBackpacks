@@ -8,8 +8,6 @@ import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
@@ -152,20 +150,20 @@ public class ForgeEventHandler {
         }
     }
 
-    /**
-     * When a player is "constructed" this is called, we need to give them our extended properties
-     * @param event - the construction event
-     */
-    @SubscribeEvent
-    public void onEntityConstruction(EntityEvent.EntityConstructing event) {
-        if (event.getEntity() instanceof EntityPlayer) {
-            if(PlayerBackpackProperties.get((EntityPlayer) event.getEntity()) == null)
-                PlayerBackpackProperties.create((EntityPlayer) event.getEntity());
-            if (PlayerBackpackDeathProperties.get((EntityPlayer) event.getEntity()) == null)
-                PlayerBackpackDeathProperties.create((EntityPlayer) event.getEntity());
-        }
-    }
-
+//    /**
+//     * When a player is "constructed" this is called, we need to give them our extended properties
+//     * @param event - the construction event
+//     */
+//    @SubscribeEvent
+//    public void onEntityConstruction(EntityEvent.EntityConstructing event) {
+//        if (event.getEntity() instanceof EntityPlayer) {
+//            if(PlayerBackpackProperties.get((EntityPlayer) event.getEntity()) == null)
+//                PlayerBackpackProperties.create((EntityPlayer) event.getEntity());
+//            if (PlayerBackpackDeathProperties.get((EntityPlayer) event.getEntity()) == null)
+//                PlayerBackpackDeathProperties.create((EntityPlayer) event.getEntity());
+//        }
+//    }
+//
     /**
      * Used to make sure the player's equipped backpack is shown correctly
      * @param event - the player logged in event
@@ -173,7 +171,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onPlayerLogIn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event){
 
-        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
+        ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(event.player);
 
         if (backpack != null && !EntityBackpack.containsStack(backpack)) {
 
@@ -186,19 +184,19 @@ public class ForgeEventHandler {
         }
     }
 
-    /**
-     * When a player dies and respawns we need to clone their old data over.
-     * @param event - the clone event
-     */
-    @SubscribeEvent
-    public void onPlayerCloning(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
-        PlayerBackpackDeathProperties epNew = PlayerBackpackDeathProperties.get(event.getEntityPlayer());
-        PlayerBackpackDeathProperties epOld = PlayerBackpackDeathProperties.get(event.getOriginal());
-
-        //update new dat with old
-        epNew.setEternityBackpacks(epOld.getEternityBackpacks());
-        epNew.setEquippedBackpack(epOld.getEquippedBackpack());
-    }
+//    /**
+//     * When a player dies and respawns we need to clone their old data over.
+//     * @param event - the clone event
+//     */
+//    @SubscribeEvent
+//    public void onPlayerCloning(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
+//        PlayerBackpackDeathProperties capNew = PlayerBackpackDeathProperties.get(event.getEntityPlayer());
+//        PlayerBackpackDeathProperties capOld = PlayerBackpackDeathProperties.get(event.getOriginal());
+//
+//        //update new data with old
+//        capNew.setEternityBackpacks(capOld.getEternityBackpacks());
+//        capNew.setEquippedBackpack(capOld.getEquippedBackpack());
+//    }
 
     /**
      * Used to make sure the player respawns with an equipped backpack if they should
@@ -206,7 +204,7 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onPlayerRespawn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent event){
-        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
+        ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(event.player);
         if (backpack != null && !EntityBackpack.containsStack(backpack)) {
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
@@ -223,7 +221,7 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onPlayerDimChange(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent event){
-        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(event.player);
+        ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(event.player);
         if (backpack != null) {
             if (EntityBackpack.containsStack(backpack)) //if has old dimension backpack
                 IronBackpacksHelper.killEntityBackpack(backpack); //kill old backpack
@@ -266,7 +264,7 @@ public class ForgeEventHandler {
         ArrayList<ArrayList<ItemStack>> returnArray = new ArrayList<ArrayList<ItemStack>>();
 
         //get the equipped pack
-        getEventBackpacks(PlayerBackpackProperties.getEquippedBackpack(player), filterBackpacks, crafterTinyBackpacks, crafterSmallBackpacks, crafterBackpacks, restockerBackpacks, player);
+        getEventBackpacks(PlayerWearingBackpackCapabilities.getEquippedBackpack(player), filterBackpacks, crafterTinyBackpacks, crafterSmallBackpacks, crafterBackpacks, restockerBackpacks, player);
 
 
         //get the packs in the inventory

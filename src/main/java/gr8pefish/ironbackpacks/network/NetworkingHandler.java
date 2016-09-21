@@ -27,6 +27,9 @@ public class NetworkingHandler {
         registerMessage(ClientEquippedPackMessage.Handler.class, ClientEquippedPackMessage.class, Side.CLIENT); //java.lang.RuntimeException: Attempted to load class net/minecraft/client/entity/EntityPlayerSP for invalid side SERVER
 //        registerMessage(ClientCurrentPackMessage.Handler.class, ClientCurrentPackMessage.class, Side.SERVER); //has to be registered on servers so the servers know it exists so they can send it to the client?
 //        registerMessage(ClientEquippedPackMessage.Handler.class, ClientEquippedPackMessage.class, Side.SERVER); //TODO: remove?
+
+//        registerMessage(BackpackCapabilityMessage.ServerHandler.class, BackpackCapabilityMessage.class, Side.SERVER);
+//        registerMessage(BackpackCapabilityMessage.ClientHandler.class, BackpackCapabilityMessage.class, Side.CLIENT);
     }
 
     private static int nextPacketId = 0;

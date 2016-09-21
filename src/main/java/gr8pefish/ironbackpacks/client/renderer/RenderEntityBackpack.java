@@ -1,10 +1,10 @@
 package gr8pefish.ironbackpacks.client.renderer;
 
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.client.model.ModelBackpack;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -89,7 +89,7 @@ public class RenderEntityBackpack extends Render<EntityBackpack> {
     protected ResourceLocation getEntityTexture(EntityBackpack entity) {
         //safe call to make sure it doesn't crash
         if (entity.getPlayer() != null && entity.getPlayer() instanceof EntityPlayer) {
-            ItemStack pack = PlayerBackpackProperties.getEquippedBackpack(entity.getPlayer());
+            ItemStack pack = PlayerWearingBackpackCapabilities.getEquippedBackpack(entity.getPlayer());
             if (pack != null) {
                 return ((IBackpack)pack.getItem()).getModelTexture(pack);
             }

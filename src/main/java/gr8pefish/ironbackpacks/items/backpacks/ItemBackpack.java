@@ -5,10 +5,10 @@ import gr8pefish.ironbackpacks.api.items.backpacks.ItemIUpgradableITieredBackpac
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemIBackpackRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
+import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.NBTUtils;
@@ -105,11 +105,11 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand) {
         if (world.isRemote){ //client side
             NBTUtils.setUUID(itemStack);
-            PlayerBackpackProperties.setCurrentBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: client side
+            PlayerWearingBackpackCapabilities.setCurrentBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: client side
             return new ActionResult(EnumActionResult.PASS, itemStack);
         } else {
             NBTUtils.setUUID(itemStack);
-            PlayerBackpackProperties.setCurrentBackpack(player, itemStack);
+            PlayerWearingBackpackCapabilities.setCurrentBackpack(player, itemStack);
             if (!(player.isSneaking())){
                 int guiId = ItemIBackpackRegistry.getIndexOf((IBackpack)itemStack.getItem());
                 player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"

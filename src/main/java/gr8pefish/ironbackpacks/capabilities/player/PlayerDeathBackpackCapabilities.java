@@ -1,11 +1,14 @@
 package gr8pefish.ironbackpacks.capabilities.player;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<NBTTagCompound> {
 
@@ -32,6 +35,22 @@ public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<
     }
 
     public static void register(){
+
+    }
+
+    public static ArrayList<ItemStack> getEternityBackpacks(EntityPlayer player) {
+        return null;
+    }
+
+    public static ItemStack getEquippedBackpack(EntityPlayer player) {
+        return null;
+    }
+
+    public static void setEquippedBackpack(EntityPlayer player, Object o) {
+
+    }
+
+    public static void setEternityBackpacks(EntityPlayer player, ArrayList<ItemStack> backpacks) {
 
     }
 }

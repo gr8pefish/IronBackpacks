@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.network.client;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
+import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,7 +41,7 @@ public class ClientEquippedPackMessage implements IMessage {
             Minecraft.getMinecraft().addScheduledTask(() -> {
                 EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
                 if (player != null) {
-                    PlayerBackpackProperties.setEquippedBackpack(player, message.stack); //update the backpack
+                    PlayerWearingBackpackCapabilities.setEquippedBackpack(player, message.stack); //update the backpack
                 }
             });
 

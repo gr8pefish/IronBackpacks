@@ -1,6 +1,6 @@
 package gr8pefish.ironbackpacks.entity;
 
-import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
+import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -85,7 +85,7 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
     @SideOnly(Side.CLIENT)
     public static void updateBackpacks(Minecraft mc, World worldObj) {
         EntityPlayer player = mc.thePlayer;
-        ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(player);
+        ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
         if (backpack != null){
             EntityBackpack pack = backpacksSpawnedMap.get(backpack);
             if (pack != null) {
@@ -133,7 +133,7 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
 
         if (e instanceof EntityPlayer) {
             player = (EntityPlayer)e;
-            ItemStack backpack = PlayerBackpackProperties.getEquippedBackpack(player);
+            ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
             backpacksSpawnedMap.put(backpack, this);
         } else {
             setDead();

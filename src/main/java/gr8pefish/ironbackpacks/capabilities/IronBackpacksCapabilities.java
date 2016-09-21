@@ -35,4 +35,5 @@ public class IronBackpacksCapabilities {
     //Links:
     //https://github.com/McJty/RFTools/tree/1.10/src/main/java/mcjty/rftools/playerprops
     //https://github.com/DiabolicaTrix/MinecraftLifeRPG/tree/master/src/main/java/me/diabolicatrix/other
+    //https://mcforge.readthedocs.io/en/latest/datastorage/capabilities/
 }
