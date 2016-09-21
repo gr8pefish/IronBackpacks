@@ -14,7 +14,7 @@ public class ItemBackpackRecipes {
             "lll",
             "lcl",
             "lll",
-            'l', Items.leather, 'c', "chestWood");
+            'l', Items.LEATHER, 'c', "chestWood");
 
     public static void registerItemBackpackRecipes(){
         for (int i = 0; i < ItemIBackpackRegistry.getSize(); i++){

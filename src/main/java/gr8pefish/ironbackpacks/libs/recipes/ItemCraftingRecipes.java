@@ -13,8 +13,8 @@ public class ItemCraftingRecipes {
             "sps",
             "plp",
             "sps",
-            'l', Items.leather,
-            's', Items.string, 'p', Items.paper);
+            'l', Items.LEATHER,
+            's', Items.STRING, 'p', Items.PAPER);
 
     public static void registerItemCraftingRecipes(){
         GameRegistry.addRecipe(upgradeCoreRecipe);
