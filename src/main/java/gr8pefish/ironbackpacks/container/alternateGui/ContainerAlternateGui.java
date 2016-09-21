@@ -11,6 +11,7 @@ import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import invtweaks.api.container.ChestContainer;
 import invtweaks.api.container.InventoryContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -145,9 +146,9 @@ public class ContainerAlternateGui extends Container {
 
     //Where ghost slots' functionality is really handled
     @Override
-    public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player) {
+    public ItemStack slotClick(int slot, int dragType, ClickType clickTypeIn, EntityPlayer player) {
         // this will prevent the player from interacting with the items that opened the inventory:
-        if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && player.getHeldItem() != null && getSlot(slot).getStack().isItemEqual(player.getHeldItem())) {
+        if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && player.getHeldItemMainhand() != null && getSlot(slot).getStack().isItemEqual(player.getHeldItemMainhand())) {
             return null;
         // otherwise they may be clicking on a ghostSlot
         }else if (slot >= 0 && slot < inventory.getSizeInventory()) {
@@ -162,7 +163,7 @@ public class ContainerAlternateGui extends Container {
         }
         //otherwise it is a normal slot
         try {
-            return super.slotClick(slot, button, flag, player);
+            return super.slotClick(slot, dragType, clickTypeIn, player);
         } catch (Exception e) {
             //Horrible work around for a bug when double clicking on a stack in inventory which matches a filter items
             //This does stop double clicking to fill a stack from working with this GUI open.
