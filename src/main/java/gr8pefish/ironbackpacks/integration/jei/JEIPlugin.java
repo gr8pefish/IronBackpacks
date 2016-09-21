@@ -8,7 +8,10 @@ import gr8pefish.ironbackpacks.integration.jei.increaseTier.IncreaseTierRecipeHa
 import gr8pefish.ironbackpacks.integration.jei.removeUpgrade.RemoveUpgradeRecipeCategory;
 import gr8pefish.ironbackpacks.integration.jei.removeUpgrade.RemoveUpgradeRecipeHandler;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
-import mezz.jei.api.*;
+import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.IJeiRuntime;
+import mezz.jei.api.IModPlugin;
+import mezz.jei.api.IModRegistry;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
