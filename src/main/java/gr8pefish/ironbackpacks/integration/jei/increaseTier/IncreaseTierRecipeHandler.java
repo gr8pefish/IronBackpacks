@@ -22,6 +22,12 @@ public class IncreaseTierRecipeHandler implements IRecipeHandler<BackpackIncreas
 
     @Nonnull
     @Override
+    public String getRecipeCategoryUid(@Nonnull BackpackIncreaseTierRecipe recipe) {
+        return "ironbackpacks.increaseTier";
+    }
+
+    @Nonnull
+    @Override
     public IRecipeWrapper getRecipeWrapper(@Nonnull BackpackIncreaseTierRecipe recipe) {
         return new IncreaseTierRecipeWrapper(recipe);
     }

@@ -11,21 +11,16 @@ import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import mezz.jei.api.*;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 @mezz.jei.api.JEIPlugin
 public class JEIPlugin implements IModPlugin {
 
-    public static IJeiHelpers jeiHelpers;
-
-    @Override
-    public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
-        JEIPlugin.jeiHelpers = jeiHelpers;
-    }
-
-    @Override
-    public void onItemRegistryAvailable(IItemRegistry itemRegistry) {}
-
     @Override
     public void register(IModRegistry registry) {
+
+        IJeiHelpers jeiHelpers = registry.getJeiHelpers();
+
         registry.addRecipeCategories(
                 new AddUpgradeRecipeCategory(jeiHelpers.getGuiHelper()),
                 new RemoveUpgradeRecipeCategory(jeiHelpers.getGuiHelper()),
@@ -75,7 +70,8 @@ public class JEIPlugin implements IModPlugin {
     }
 
     @Override
-    public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {}
+    public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime) {
 
+    }
 
 }

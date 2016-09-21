@@ -22,6 +22,12 @@ public class AddUpgradeRecipeHandler implements IRecipeHandler<BackpackAddUpgrad
 
     @Nonnull
     @Override
+    public String getRecipeCategoryUid(@Nonnull BackpackAddUpgradeRecipe recipe) {
+        return "ironbackpacks.addUpgrade";
+    }
+
+    @Nonnull
+    @Override
     public IRecipeWrapper getRecipeWrapper(@Nonnull BackpackAddUpgradeRecipe recipe) {
         return new AddUpgradeRecipeWrapper(recipe);
     }

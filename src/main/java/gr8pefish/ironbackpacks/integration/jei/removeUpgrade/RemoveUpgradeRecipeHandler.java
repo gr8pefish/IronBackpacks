@@ -22,6 +22,12 @@ public class RemoveUpgradeRecipeHandler implements IRecipeHandler<BackpackRemove
 
     @Nonnull
     @Override
+    public String getRecipeCategoryUid(@Nonnull BackpackRemoveUpgradeRecipe recipe) {
+        return "ironbackpacks.removeUpgrade";
+    }
+
+    @Nonnull
+    @Override
     public IRecipeWrapper getRecipeWrapper(@Nonnull BackpackRemoveUpgradeRecipe recipe) {
         return new RemoveUpgradeRecipeWrapper(recipe);
     }
