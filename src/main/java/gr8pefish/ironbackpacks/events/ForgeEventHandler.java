@@ -2,12 +2,15 @@ package gr8pefish.ironbackpacks.events;
 
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
+import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
+import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackDeathProperties;
 import gr8pefish.ironbackpacks.entity.extendedProperties.PlayerBackpackProperties;
+import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
@@ -21,7 +24,9 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -38,6 +43,55 @@ import java.util.ArrayList;
  * All the events used that fire on the Forge Event bus
  */
 public class ForgeEventHandler {
+
+
+    @SubscribeEvent
+    public void onAttachCapability(AttachCapabilitiesEvent.Entity event) {
+        if (event.getEntity() instanceof EntityPlayer) {
+            if (!event.getEntity().hasCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null)) {
+                event.addCapability(new ResourceLocation(Constants.MODID + Constants.WEARING_BACKPACK_CAPABILITY_STRING), new PlayerWearingBackpackCapabilities());
+                Logger.warn("Added cap wear!");
+            }
+            if (!event.getEntity().hasCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null)) {
+                event.addCapability(new ResourceLocation(Constants.MODID + Constants.DEATH_BACKPACK_CAPABILITY_STRING), new PlayerDeathBackpackCapabilities());
+                Logger.warn("Added cap death!");
+            }
+        }
+    }
+
+//    @SubscribeEvent
+//    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event)
+//    {
+//        if(event.player != null)
+//        {
+//            event.player.getCapability(IronBackpacks.BACKPACK_CAP, null).sync();
+//        }
+//        //ClientProxy.setLoaded(false);
+//    }
+//
+//    @SubscribeEvent
+//    public void onPlayerCloned(net.minecraftforge.event.entity.player.PlayerEvent.Clone event)
+//    {
+//        if(event.isWasDeath())
+//        {
+//            if(event.getOriginal().hasCapability(IronBackpacks.BACKPACK_CAP, null))
+//            {
+//                PlayerWearingBackpackCapabilities cap = event.getOriginal().getCapability(IronBackpacks.BACKPACK_CAP, null);
+//                PlayerWearingBackpackCapabilities newCap = event.getEntityPlayer().getCapability(IronBackpacks.BACKPACK_CAP, null);
+//                newCap.setSide(cap.getSide());
+//            }
+//        }
+//    }
+//
+//    @SubscribeEvent
+//    public void onPlayeRespawn(PlayerEvent.PlayerRespawnEvent event)
+//    {
+//        if(!event.player.worldObj.isRemote)
+//        {
+//            event.player.getCapability(IronBackpacks.BACKPACK_CAP, null).sync();
+//        }
+//    }
+
 
     /**
      * Called whenever an items is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and crafter/recipes upgrades too so it doesn't check too much and causes lag..

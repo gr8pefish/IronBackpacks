@@ -1,0 +1,37 @@
+package gr8pefish.ironbackpacks.capabilities.player;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+
+import javax.annotation.Nullable;
+
+public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<NBTTagCompound> {
+
+    //ToDo: All this
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        return false;
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+        return null;
+    }
+
+    @Override
+    public NBTTagCompound serializeNBT() {
+        return null;
+    }
+
+    @Override
+    public void deserializeNBT(NBTTagCompound nbt) {
+
+    }
+
+    public static void register(){
+
+    }
+}

@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.registry;
 
+import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
+
 public class ProxyRegistry {
 
     //=========================================================================Client Registry==================================================================
@@ -19,7 +21,7 @@ public class ProxyRegistry {
     //==========================================================================Server Registry===================================================================
 
     public static void preInitServer(){
-        //nothing
+        IronBackpacksCapabilities.registerAllCapabilities();
     }
 
     public static void initServer(){
