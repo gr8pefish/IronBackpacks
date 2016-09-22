@@ -205,10 +205,10 @@ jei.description.upgrade.nestingAdvanced=This upgrade allows you to place backpac
 Recall that you can right click any backpack while you have the inventory of any other backpack open to directly open the one you clicked on.
 jei.description.upgrade.quickDeposit=This upgrade allows the player to shift right click on any inventory to deposit the contents of the backpack directly into said inventory. \
 For example, you can come home with a backpack brimming with items after a mining trip, and instead of manually clicking the items into your (sorting) chest you can just shift right click \
-the backpack's items into the chest. \n \n \n \n \n\
-jei.description.upgrade.quickDepositPrecise= This upgrade allows the player to shift right click on any inventory to deposit the contents of the backpack directly into said inventory, but the items \
+the backpack's items into the chest. \n \n \n \n \n \n
+jei.description.upgrade.quickDepositPrecise=This upgrade allows the player to shift right click on any inventory to deposit the contents of the backpack directly into said inventory, but the items \
 will only be transferred if they already exist in the targeted inventory. \
-For example, if you have an ores chest and you use this upgrade, only the ores already in the chest will be deposited from the backpack for a convenient but basic sorting mechanism. \n \n \n\
+For example, if you have an ores chest and you use this upgrade, only the ores already in the chest will be deposited from the backpack for a convenient but basic sorting mechanism. \n \n \n \n
 
 #IConfigurableUpgrades
 jei.description.upgrade.configurable=This upgrade is one that adds to the configurable inventory (accessed by shift-right clicking), and it adds a variable number of slots for items to be placed in. \
@@ -234,18 +234,18 @@ Since this upgrade occurs only when an item goes into the backpack it needs a fi
 It also works fine with the restocking upgrade.
 jei.description.upgrade.filter.generic=This is a filter upgrade, meaning that you can put items in the filter slot of the configurable inventory, and when that item is picked up it will be placed \
 directly in your backpack (instead of just going into your main inventory). There are special conditions for each filter.
-jei.description.upgrade.filter.basic=\nThe item(s) in the filter slot(s) must exactly match the item being picked up. \n\
-jei.description.upgrade.filter.fuzzy=\nThe item(s) in the filter slot(s) can have different damage values and can still be picked up. \
-For example, if you specify an iron sword, any iron sword, regardless of durability, will go straight into the backpack. \n\
+jei.description.upgrade.filter.basic=\nThe item(s) in the filter slot(s) must exactly match the item being picked up. \n \n
+jei.description.upgrade.filter.fuzzy=\nThe item(s) in the filter slot(s) can have different damage values and can still be picked up. \n \n
+For example, if you specify an iron sword, any iron sword, regardless of durability, will go straight into the backpack. \n
 jei.description.upgrade.filter.oreDict=\nThe item(s) in the filter slot(s) can match by the ore dictionary and can still be picked up. \
-For example, you can place an oak log in the slot, and any log you pick up, regardless of type of wood, will go straight into the backpack. \n\
+For example, you can place an oak log in the slot, and any log you pick up, regardless of type of wood, will go straight into the backpack. \n \n
 jei.description.upgrade.filter.modSpecific=\nThe item(s) in the filter slot(s) can match simply by being in the same mod. \
-For example, if you place a yellow flower from Botania in the slot, any item from Botania that you pick up will go straight into the backpack. \n\
-jei.description.upgrade.filter.void=\nThe item(s) in the filter slot(s) will be DELETED when they are picked up. This upgrade matches by fuzzy detection, so damage values are ignored. \n\
-jei.description.upgrade.filter.advanced=\nThe item(s) in the filter slot(s) are configurable between exact, fuzzy, ore dictionary, mod specific, and void detection. \
+For example, if you place a yellow flower from Botania in the slot, any item from Botania that you pick up will go straight into the backpack. \n \n
+jei.description.upgrade.filter.void=\nThe item(s) in the filter slot(s) will be DELETED when they are picked up. This upgrade matches by fuzzy detection, so damage values are ignored. \n \n
+jei.description.upgrade.filter.advanced=\nThe item(s) in the filter slot(s) are configurable between exact, fuzzy, ore dictionary, mod specific, and void detection. \n\
 Simply click the button underneath the desired slot to rotate through the options. \
-This upgrade has 18 slots instead of 9 to filter from, you can get to them by either pressing the buttons on either side, or hovering your mouse over any slot and using the scroll wheel. \n\
+This upgrade has 18 slots instead of 9 to filter from, you can get to them by either pressing the buttons on either side, or hovering your mouse over any slot and using the scroll wheel. \n \n
 jei.description.upgrade.filter.mining=\nThis upgrade automatically picks up and ores, gems, or dust, and places it directly in the backpack. \
-There are 9 slots as well that act lke the basic filter, so you can specify items like cobblestone and gravel to be picked up while on a long mining expedition. \n\
-jei.description.upgrade.restocking=\nThis upgrade will allow whatever is placed in its slots to refill the player's inventory from the backpack's supply. \
-For example, if you put a piece of steak in the slot, whenever you eat a piece of steak the stack in your inventory will be refilled from the backpack (assuming it has steak). \n\
+There are 9 slots as well that act lke the basic filter, so you can specify items like cobblestone and gravel to be picked up while on a long mining expedition. \n \n
+jei.description.upgrade.restocking=This upgrade will allow whatever is placed in its slots to refill the player's inventory from the backpack's supply. \
+For example, if you put a piece of steak in the slot, whenever you eat a piece of steak the stack in your inventory will be refilled from the backpack (assuming it has steak). \n \n

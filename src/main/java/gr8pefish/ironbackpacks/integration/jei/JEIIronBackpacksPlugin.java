@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import javax.annotation.Nonnull;
 
 @mezz.jei.api.JEIPlugin
-public class JEIPlugin extends BlankModPlugin {
+public class JEIIronBackpacksPlugin extends BlankModPlugin {
 
     @Override
     public void register(@Nonnull IModRegistry registry) {
@@ -22,7 +22,7 @@ public class JEIPlugin extends BlankModPlugin {
         IJeiHelpers jeiHelpers = registry.getJeiHelpers();
         IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
-        registry.addRecipeCategories(
+        registry.addRecipeCategories( //not working for some reason
                 new AddUpgradeRecipeCategory(guiHelper),
                 new RemoveUpgradeRecipeCategory(guiHelper),
                 new IncreaseTierRecipeCategory(guiHelper)
@@ -56,20 +56,20 @@ public class JEIPlugin extends BlankModPlugin {
         //conflicting
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConflictingUpgrade(ItemRegistry.nestingUpgrade)), "jei.description.upgrade.nesting", "jei.description.upgrade.conflicting");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConflictingUpgrade(ItemRegistry.nestingAdvancedUpgrade)), "jei.description.upgrade.nestingAdvanced", "jei.description.upgrade.conflicting");
-        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConflictingUpgrade(ItemRegistry.quickDepositUpgrade)), "jei.description.upgrade.quickDeposit", "jei.description.upgrade.conflicting"); //broken
-        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConflictingUpgrade(ItemRegistry.quickDepositPreciseUpgrade)), "jei.description.upgrade.quickDepositPrecise", "jei.description.upgrade.conflicting"); //broken
+        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConflictingUpgrade(ItemRegistry.quickDepositUpgrade)), "jei.description.upgrade.quickDeposit", "jei.description.upgrade.conflicting");
+        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConflictingUpgrade(ItemRegistry.quickDepositPreciseUpgrade)), "jei.description.upgrade.quickDepositPrecise", "jei.description.upgrade.conflicting");
         //configurable
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.craftingUpgrade)), "jei.description.upgrade.crafting", "jei.description.upgrade.configurable");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.craftingSmallUpgrade)), "jei.description.upgrade.craftingSmall", "jei.description.upgrade.configurable");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.craftingTinyUpgrade)), "jei.description.upgrade.craftingTiny", "jei.description.upgrade.configurable");
-        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterBasicUpgrade)), "jei.description.upgrade.filter.generic", "jei.description.upgrade.filter.basic", "jei.description.upgrade.configurable"); //super broken (extras)
-        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterFuzzyUpgrade)), "jei.description.upgrade.filter.generic", "jei.description.upgrade.filter.fuzzy", "jei.description.upgrade.configurable"); //all filters broken
+        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterBasicUpgrade)), "jei.description.upgrade.filter.generic", "jei.description.upgrade.filter.basic", "jei.description.upgrade.configurable");
+        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterFuzzyUpgrade)), "jei.description.upgrade.filter.generic", "jei.description.upgrade.filter.fuzzy", "jei.description.upgrade.configurable"); //ToDo: replace ordering of filters so specifics first? Do it just for non-basic ones?
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterOreDictUpgrade)), "jei.description.upgrade.filter.generic", "jei.description.upgrade.filter.oreDict", "jei.description.upgrade.configurable");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterModSpecificUpgrade)), "jei.description.upgrade.filter.generic", "jei.description.upgrade.filter.modSpecific", "jei.description.upgrade.configurable");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterVoidUpgrade)), "jei.description.upgrade.filter.generic", "jei.description.upgrade.filter.void", "jei.description.upgrade.configurable");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterAdvancedUpgrade)), "jei.description.upgrade.filter.generic", "jei.description.upgrade.filter.advanced", "jei.description.upgrade.configurable");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterMiningUpgrade)), "jei.description.upgrade.filter.generic", "jei.description.upgrade.filter.mining", "jei.description.upgrade.configurable");
-        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.restockingUpgrade)), "jei.description.upgrade.restocking", "jei.description.upgrade.configurable"); //broken
+        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.restockingUpgrade)), "jei.description.upgrade.restocking", "jei.description.upgrade.configurable");
 
     }
 
