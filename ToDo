@@ -10,8 +10,11 @@ To Do:
             wait for mezz on IRC
     Add from 1.10 found stuff
         translation files, make their character escapes equal to en_us
+            Ask old 1.7.10 people to update translations for 1.10
         Fix player capabilities (WIP)
         Update changelog
+        ReAdd Botania integration
+        ReAdd EnderStorage integration
 
     
     Notes from 1.7 playthrough:

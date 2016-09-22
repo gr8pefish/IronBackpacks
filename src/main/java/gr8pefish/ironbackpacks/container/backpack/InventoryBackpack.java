@@ -279,7 +279,7 @@ public class InventoryBackpack implements IInventory {
                         for (int i = 0; i < tagList.tagCount(); i++) {
                             NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                             int j = stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
-                            if (i >= 0 && i <= inventory.length) {
+                            if (i >= 0 && i <= inventory.length) { //ToDo: Remove 2nd equals (so just less than) as per a 1.7.10 PR; test it
                                 this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
                             }
                         }
