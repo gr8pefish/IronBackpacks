@@ -40,7 +40,7 @@ repositories {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
+    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}:api"
 }
 
 minecraft {
@@ -167,7 +167,7 @@ curseforge {
         changelog = getChangelogText()
         releaseType = release_as_beta.toBoolean() ? "beta" : "release"
 
-        addGameVersion '1.8.9'
+        addGameVersion '1.10.2'
 
         relations curseRelations
     }
