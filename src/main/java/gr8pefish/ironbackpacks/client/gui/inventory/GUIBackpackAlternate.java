@@ -19,7 +19,6 @@ import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
@@ -365,56 +364,56 @@ public class GUIBackpackAlternate extends GuiContainer {
 
         String displayName = (itemStack == null) ? "Open and close again" : itemStack.getDisplayName(); //TODO: localize/fix
 
-        fontRendererObj.drawString(I18n.format(displayName), 20, 6, 4210752);
+        fontRendererObj.drawString(TextUtils.localize(displayName), 20, 6, 4210752);
         int counter = hasFilterAdvancedUpgrade ? 5 : 4;
-        fontRendererObj.drawString(I18n.format("container.inventory"), 20, ySize - 96 + counter, 4210752);
+        fontRendererObj.drawString(TextUtils.localize("container.inventory"), 20, ySize - 96 + counter, 4210752);
 
         //draw the titles of all the upgrades in their correct positions
         if (hasNoUpgrades)
-            fontRendererObj.drawString(I18n.format("gui.ironbackpacks.noValidUpgradesFound"), 20, 22, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("gui.ironbackpacks.noValidUpgradesFound"), 20, 22, 4210752);
         int yStart = hasRenamingUpgrade ? 44 : 25;
         if (hasCraftingUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.recipes.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.recipes.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasCraftingSmallUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.craftingSmall.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.craftingSmall.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasCraftingTinyUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.craftingTiny.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.craftingTiny.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterBasicUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.filterBasic.name"), 20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterBasic.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterFuzzyUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.filterFuzzy.name"), 20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterFuzzy.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterOreDictUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.filterOreDict.name"), 20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterOreDict.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterModSpecificUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.filterModSpecific.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterModSpecific.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterVoidUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.filterVoid.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterVoid.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterAdvancedUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.filterAdvanced.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterAdvanced.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterMiningUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.filterMining.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterMining.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasRestockingUpgrade) {
-            fontRendererObj.drawString(I18n.format("items.ironbackpacks.upgrade.restocking.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.restocking.name"),20, yStart, 4210752);
         }
 
     }

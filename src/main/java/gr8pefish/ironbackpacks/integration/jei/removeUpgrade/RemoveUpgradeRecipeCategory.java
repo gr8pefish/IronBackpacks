@@ -1,12 +1,12 @@
 package gr8pefish.ironbackpacks.integration.jei.removeUpgrade;
 
+import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -18,7 +18,7 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
     private IDrawable background;
 
     public RemoveUpgradeRecipeCategory(IGuiHelper guiHelper) {
-        title = I18n.format("jei.ironbackpacks.removeUpgradeRecipe.name");
+        title = TextUtils.localize("jei.ironbackpacks.removeUpgradeRecipe.name");
         this.background = guiHelper.createDrawable(new ResourceLocation("ironbackpacks", "textures/jei/removeUpgradeRecipeJEI.png"), 0, 0, 166, 108);
     }
 
