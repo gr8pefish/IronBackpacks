@@ -3,6 +3,14 @@ To Do:
     Reference: https://github.com/copygirl/WearableBackpacks
 
     Update to InventoryRenderHelperV2? https://github.com/WayofTime/BloodMagic/blob/1.9/src/main/java/WayofTime/bloodmagic/util/helper/InventoryRenderHelperV2.java
+
+    Bugs found in 1.10
+        JEI integration wacko
+            no custom categories
+            strings all wonky
+            wait for mezz on IRC
+        Lots of unlocalized strings
+
     
     Notes from 1.7 playthrough:
 

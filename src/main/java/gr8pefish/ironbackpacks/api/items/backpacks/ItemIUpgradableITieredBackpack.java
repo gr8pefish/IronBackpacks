@@ -4,6 +4,7 @@ import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
+import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -63,7 +64,7 @@ public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableB
 
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return false; //no more items backpack bobbing hopefully
+        return !((oldStack.getItem().equals(newStack.getItem())) && (ItemStack.areItemStackTagsEqual(oldStack, newStack) && (oldStack.getItemDamage() == newStack.getItemDamage()))); //no more items backpack bobbing if it is the same exact item
     }
 
     @Override
