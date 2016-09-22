@@ -138,7 +138,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
 
             for (ItemStack upgradeStack : upgrades) {
 //                if (!ItemIUpgradeRegistry.getItemUpgrade(upgradeStack).equals(ItemRegistry.additionalUpgradePointsUpgrade))
-                list.add(TextUtils.localizeEffect("items.ironbackpacks.upgrade."+ ItemIUpgradeRegistry.getItemUpgrade(upgradeStack).getName(upgradeStack)+".name"));
+                list.add(TextUtils.localizeEffect("item.ironbackpacks.upgrade."+ ItemIUpgradeRegistry.getItemUpgrade(upgradeStack).getName(upgradeStack)+".name"));
                 upgradesUsed += ItemIUpgradeRegistry.getItemUpgrade(upgradeStack).getUpgradeCost(upgradeStack);
             }
 
