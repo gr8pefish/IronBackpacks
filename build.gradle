@@ -205,4 +205,5 @@ tasks.makeNewChangelog.mustRunAfter incrementVersionNumber
 tasks.curseforge.dependsOn clean, build, incrementVersionNumber, makeNewChangelog
 
 //to make the resources work in idea
-idea { module { inheritOutputDirs = true } }
+//Update: Seems to cause errors now, could be outdated
+//idea { module { inheritOutputDirs = true  } }

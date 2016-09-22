@@ -9,6 +9,8 @@ import net.minecraft.item.Item;
  */
 public class ItemBase extends Item {
 
+	//ToDo: Never used, remove :(
+
 	public ItemBase(String unlocName, String unneeded) {
 		super();
 		setUnlocalizedName(Constants.MODID + ":" + unlocName);

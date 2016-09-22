@@ -348,7 +348,13 @@ public class ItemRegistry {
         if (item instanceof IBackpack){
             ItemIBackpackRegistry.registerItemBackpack((IBackpack)item);
         }
-        GameRegistry.registerItem(item, name);
+        //Set the registry name and register it
+        //unlocalized name taken care of in item creation
+        item.setRegistryName(name);
+        GameRegistry.register(item);
+
+        //Deprecated code
+        //GameRegistry.registerItem(item, name);
 
         return item;
     }
