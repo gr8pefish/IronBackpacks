@@ -39,8 +39,8 @@ itemGroup.ironbackpacks=Iron Backpacks
 
 
 # Keybindings
-key_ironbackpacks_openbackpack=Open Backpack
-key_ironbackpacks_equipbackpack=Equip Backpack
+key.ironbackpacks.open=Open Backpack
+key.ironbackpacks.equip=Equip/Unequip Backpack
 
 
 # GUI
