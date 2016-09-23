@@ -22,7 +22,7 @@ public class JEIIronBackpacksPlugin extends BlankModPlugin {
         IJeiHelpers jeiHelpers = registry.getJeiHelpers();
         IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
-        registry.addRecipeCategories( //not working for some reason
+        registry.addRecipeCategories(
                 new AddUpgradeRecipeCategory(guiHelper),
                 new RemoveUpgradeRecipeCategory(guiHelper),
                 new IncreaseTierRecipeCategory(guiHelper)
@@ -33,8 +33,6 @@ public class JEIIronBackpacksPlugin extends BlankModPlugin {
                 new RemoveUpgradeRecipeHandler(),
                 new IncreaseTierRecipeHandler()
         );
-
-        //Need to add recipes?
 
         //Add backpack descriptions
         registry.addDescription(new ItemStack(ItemRegistry.basicBackpack), "jei.description.backpack.basic", "jei.description.backpack.generic");
