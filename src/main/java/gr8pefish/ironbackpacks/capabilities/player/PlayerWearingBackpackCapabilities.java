@@ -27,26 +27,6 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
         this.currentBackpack = null;
     }
 
-//    public void sync() {
-//        BackpackCapabilityMessage packetSync = new BackpackCapabilityMessage(this.getSide());
-//        if(!this.player.worldObj.isRemote) {
-//            EntityPlayerMP playerMP = (EntityPlayerMP)player;
-//            NetworkingHandler.network.sendTo(packetSync, playerMP);
-//        }
-//        else
-//        {
-//            NetworkingHandler.network.sendToServer(packetSync);
-//        }
-//    }
-
-//    public void setSide(int side) {
-//        this.side = side;
-//    }
-//
-//    public int getSide() {
-//        return this.side;
-//    }
-
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         return IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY != null && capability == IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY;

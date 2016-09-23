@@ -42,16 +42,18 @@ import java.util.ArrayList;
 public class ForgeEventHandler {
 
 
+    /**
+     * Attaches a capability to the entity. Works on both the client and server players.
+     * @param event
+     */
     @SubscribeEvent
     public void onAttachCapability(AttachCapabilitiesEvent.Entity event) {
         if (event.getEntity() instanceof EntityPlayer) {
             if (!event.getEntity().hasCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null)) {
                 event.addCapability(new ResourceLocation(Constants.MODID + Constants.WEARING_BACKPACK_CAPABILITY_STRING), new PlayerWearingBackpackCapabilities());
-                Logger.warn("Added cap wear!");
             }
             if (!event.getEntity().hasCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null)) {
                 event.addCapability(new ResourceLocation(Constants.MODID + Constants.DEATH_BACKPACK_CAPABILITY_STRING), new PlayerDeathBackpackCapabilities());
-                Logger.warn("Added cap death!");
             }
         }
     }

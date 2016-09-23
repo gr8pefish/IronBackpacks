@@ -8,6 +8,7 @@ public class ProxyRegistry {
 
     public static void preInitClient(){
         ItemRegistry.registerItemRenders();
+        IronBackpacksCapabilities.registerAllCapabilities();
     }
 
     public static void initClient(){

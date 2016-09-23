@@ -5,9 +5,7 @@ To Do:
     Update to InventoryRenderHelperV2? https://github.com/WayofTime/BloodMagic/blob/1.9/src/main/java/WayofTime/bloodmagic/util/helper/InventoryRenderHelperV2.java
 
     Bugs found in 1.10
-        JEI integration wacko
-            no custom categories
-            wait for mezz on IRC
+        Nothing saves between world save/reload, should probably work on that...
     Add from 1.10 found stuff
         translation files, make their character escapes equal to en_us
             Ask old 1.7.10 people to update translations for 1.10
