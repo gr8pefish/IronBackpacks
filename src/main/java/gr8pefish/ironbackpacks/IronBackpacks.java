@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks;
 
 import gr8pefish.ironbackpacks.api.Constants;
+import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.client.gui.GuiHandler;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.events.ForgeEventHandler;
@@ -45,6 +46,9 @@ public class IronBackpacks {
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+
+		//register capabilities
+		IronBackpacksCapabilities.registerAllCapabilities();
 
 		//compatibility
 //		InterModSupport.preinit(); //Nothing yet in 1.8

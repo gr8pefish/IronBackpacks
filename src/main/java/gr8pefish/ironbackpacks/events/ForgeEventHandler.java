@@ -50,10 +50,10 @@ public class ForgeEventHandler {
     public void onAttachCapability(AttachCapabilitiesEvent.Entity event) {
         if (event.getEntity() instanceof EntityPlayer) {
             if (!event.getEntity().hasCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null)) {
-                event.addCapability(new ResourceLocation(Constants.MODID + Constants.WEARING_BACKPACK_CAPABILITY_STRING), new PlayerWearingBackpackCapabilities());
+                event.addCapability(new ResourceLocation(Constants.MODID + "." + Constants.WEARING_BACKPACK_CAPABILITY_STRING), new PlayerWearingBackpackCapabilities());
             }
             if (!event.getEntity().hasCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null)) {
-                event.addCapability(new ResourceLocation(Constants.MODID + Constants.DEATH_BACKPACK_CAPABILITY_STRING), new PlayerDeathBackpackCapabilities());
+                event.addCapability(new ResourceLocation(Constants.MODID + "." + Constants.DEATH_BACKPACK_CAPABILITY_STRING), new PlayerDeathBackpackCapabilities());
             }
         }
     }

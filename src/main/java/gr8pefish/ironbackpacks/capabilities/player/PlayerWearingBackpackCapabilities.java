@@ -126,19 +126,19 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
 
     //Getters and setters
 
-    protected ItemStack getEquippedBackpack() {
+    public ItemStack getEquippedBackpack() {
         return equippedBackpack;
     }
 
-    protected void setEquippedBackpack(ItemStack stack) {
+    public void setEquippedBackpack(ItemStack stack) {
         this.equippedBackpack = stack;
     }
 
-    protected ItemStack getCurrentBackpack() {
+    public ItemStack getCurrentBackpack() {
         return currentBackpack;
     }
 
-    protected void setCurrentBackpack(ItemStack stack) {
+    public void setCurrentBackpack(ItemStack stack) {
         this.currentBackpack = stack;
     }
 
