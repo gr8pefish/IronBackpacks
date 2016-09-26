@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.events;
 
+import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
@@ -44,7 +45,7 @@ public class ForgeEventHandler {
 
     /**
      * Attaches a capability to the entity. Works on both the client and server players.
-     * @param event
+     * @param event - attach capability event
      */
     @SubscribeEvent
     public void onAttachCapability(AttachCapabilitiesEvent.Entity event) {
@@ -68,19 +69,26 @@ public class ForgeEventHandler {
 //        //ClientProxy.setLoaded(false);
 //    }
 //
-//    @SubscribeEvent
-//    public void onPlayerCloned(net.minecraftforge.event.entity.player.PlayerEvent.Clone event)
-//    {
-//        if(event.isWasDeath())
-//        {
-//            if(event.getOriginal().hasCapability(IronBackpacks.BACKPACK_CAP, null))
-//            {
-//                PlayerWearingBackpackCapabilities cap = event.getOriginal().getCapability(IronBackpacks.BACKPACK_CAP, null);
-//                PlayerWearingBackpackCapabilities newCap = event.getEntityPlayer().getCapability(IronBackpacks.BACKPACK_CAP, null);
-//                newCap.setSide(cap.getSide());
-//            }
-//        }
-//    }
+//
+
+    /**
+     * When a player dies and respawns we need to clone their old data over
+     * @param event - the clone event
+     */
+    @SubscribeEvent
+    public void onPlayerCloning(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
+        if(event.isWasDeath()) { //deal with dumb returning from the end code
+            if(event.getOriginal().hasCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null)) {
+                PlayerDeathBackpackCapabilities oldCap = event.getOriginal().getCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null);
+                PlayerDeathBackpackCapabilities newCap = event.getEntityPlayer().getCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null);
+
+                //update new dat with old
+                newCap.setEternityBackpacks(oldCap.getEternityBackpacks());
+                newCap.setEquippedBackpack(oldCap.getEquippedBackpack());
+            }
+        }
+    }
+
 //
 //    @SubscribeEvent
 //    public void onPlayeRespawn(PlayerEvent.PlayerRespawnEvent event)
@@ -151,20 +159,7 @@ public class ForgeEventHandler {
         }
     }
 
-//    /**
-//     * When a player is "constructed" this is called, we need to give them our extended properties
-//     * @param event - the construction event
-//     */
-//    @SubscribeEvent
-//    public void onEntityConstruction(EntityEvent.EntityConstructing event) {
-//        if (event.getEntity() instanceof EntityPlayer) {
-//            if(PlayerBackpackProperties.get((EntityPlayer) event.getEntity()) == null)
-//                PlayerBackpackProperties.create((EntityPlayer) event.getEntity());
-//            if (PlayerBackpackDeathProperties.get((EntityPlayer) event.getEntity()) == null)
-//                PlayerBackpackDeathProperties.create((EntityPlayer) event.getEntity());
-//        }
-//    }
-//
+
     /**
      * Used to make sure the player's equipped backpack is shown correctly
      * @param event - the player logged in event
@@ -185,19 +180,7 @@ public class ForgeEventHandler {
         }
     }
 
-//    /**
-//     * When a player dies and respawns we need to clone their old data over.
-//     * @param event - the clone event
-//     */
-//    @SubscribeEvent
-//    public void onPlayerCloning(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
-//        PlayerBackpackDeathProperties capNew = PlayerBackpackDeathProperties.get(event.getEntityPlayer());
-//        PlayerBackpackDeathProperties capOld = PlayerBackpackDeathProperties.get(event.getOriginal());
-//
-//        //update new data with old
-//        capNew.setEternityBackpacks(capOld.getEternityBackpacks());
-//        capNew.setEquippedBackpack(capOld.getEquippedBackpack());
-//    }
+
 
     /**
      * Used to make sure the player respawns with an equipped backpack if they should
