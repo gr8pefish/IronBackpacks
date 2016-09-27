@@ -22,6 +22,8 @@
 
 package invtweaks.api;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -44,6 +46,8 @@ public interface IItemTree {
 
     boolean isItemUnknown(String id, int damage);
 
+    List<IItemTreeItem> getItems(String id, int damage, NBTTagCompound extra);
+
     List<IItemTreeItem> getItems(String id, int damage);
 
     List<IItemTreeItem> getItems(String name);
@@ -59,6 +63,9 @@ public interface IItemTree {
     void addCategory(String parentCategory, IItemTreeCategory newCategory) throws NullPointerException;
 
     IItemTreeItem addItem(String parentCategory, String name, String id, int damage, int order)
+            throws NullPointerException;
+
+    IItemTreeItem addItem(String parentCategory, String name, String id, int damage, NBTTagCompound extra, int order)
             throws NullPointerException;
 
     void addItem(String parentCategory, IItemTreeItem newItem) throws NullPointerException;
