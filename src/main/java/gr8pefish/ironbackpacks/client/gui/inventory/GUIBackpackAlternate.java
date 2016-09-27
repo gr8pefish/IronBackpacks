@@ -373,47 +373,47 @@ public class GUIBackpackAlternate extends GuiContainer {
             fontRendererObj.drawString(TextUtils.localize("gui.ironbackpacks.noValidUpgradesFound"), 20, 22, 4210752);
         int yStart = hasRenamingUpgrade ? 44 : 25;
         if (hasCraftingUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.recipes.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.recipes.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasCraftingSmallUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.craftingSmall.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.craftingSmall.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasCraftingTinyUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.craftingTiny.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.craftingTiny.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterBasicUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterBasic.name"), 20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterBasic.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterFuzzyUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterFuzzy.name"), 20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterFuzzy.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterOreDictUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterOreDict.name"), 20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterOreDict.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterModSpecificUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterModSpecific.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterModSpecific.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterVoidUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterVoid.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterVoid.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterAdvancedUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterAdvanced.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterAdvanced.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterMiningUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.filterMining.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterMining.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasRestockingUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("items.ironbackpacks.upgrade.restocking.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.restocking.name"),20, yStart, 4210752);
         }
 
     }
