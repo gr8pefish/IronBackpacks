@@ -173,7 +173,7 @@ public class IronBackpacksHelper {
         if (backpack != null) { //need to unequip backpack
 
             boolean hasEmptySlot = false;
-            for (int i = 0; i < player.inventory.getSizeInventory() - 4; i++){ //don't care about armor slots
+            for (int i = 0; i < player.inventory.getSizeInventory() - 5; i++){ //don't care about armor slots or offhand
                 if (player.inventory.getStackInSlot(i) == null) hasEmptySlot = true; //can only take it off if there is a place to put it
             }
 
