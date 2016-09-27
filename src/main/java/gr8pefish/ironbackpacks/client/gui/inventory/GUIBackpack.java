@@ -112,7 +112,7 @@ public class GUIBackpack extends GuiContainer {
         if (itemStack != null)
             this.fontRendererObj.drawString(TextUtils.localize(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
         else
-            this.fontRendererObj.drawString(TextUtils.localize("misc.ironbackpacks.default.equpped.backpack.name"), 20, 6, 4210752); //default name, should ideally never be used
+            this.fontRendererObj.drawString(TextUtils.localize("misc.ironbackpacks.default.equipped.backpack.name"), 20, 6, 4210752); //default name, should ideally never be used
 
         this.fontRendererObj.drawString(TextUtils.localize("container.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
