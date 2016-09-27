@@ -183,7 +183,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
             if (nbtTagCompound != null) {
                 if (nbtTagCompound.hasKey("Items")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Items", net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
-                    inventory = new ItemStack[((ItemIUpgradableITieredBackpack)stack.getItem()).getSize(stack)]; //new ItemStack[BackpackNames.values()[getGuiId(stack)].getSize()]; //TODO: test
+                    inventory = new ItemStack[((ItemIUpgradableITieredBackpack)stack.getItem()).getSize(stack)];
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int slot = stackTag.getByte("Slot");

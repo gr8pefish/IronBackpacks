@@ -281,7 +281,7 @@ public class ItemRegistry {
 
         //Sets the tiers and links between all the backpacks.
         //Has to be called after the items initialization because it uses the backpack items themselves.
-        setTieringAndTierRecipesOfBackpacks(); //TODO(So it's yellow): DON'T FORGET TO UPDATE THIS WHEN ADDING BACKPACKS
+        setTieringAndTierRecipesOfBackpacks(); //TODO: DON'T FORGET TO UPDATE THIS WHEN ADDING BACKPACKS
         RecipeRegistry.setAllNonTierRecipes(); //Update all the other recipes too!
 
     }
