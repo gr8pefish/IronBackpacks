@@ -1,6 +1,5 @@
 package gr8pefish.ironbackpacks.events;
 
-import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
