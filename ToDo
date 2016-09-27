@@ -6,8 +6,9 @@ To Do:
 
     Bugs found in 1.10
         Make sure capability stuff is okay, testing needed
-            Test currPack/nesting
+            Test nesting
         Fix eternity upgrade not disappearing on death
+        Sort button broken
     Add from 1.10 found stuff
         Disable/custom rendering when elytria equipped
         translation files, make their character escapes equal to en_us

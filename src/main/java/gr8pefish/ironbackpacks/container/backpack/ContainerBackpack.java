@@ -10,6 +10,7 @@ import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -213,7 +214,7 @@ public class ContainerBackpack extends Container {
      */
     public void inventoryToBackpack(){
         int start = totalSize;
-        int end = start + player.inventory.getSizeInventory() - player.inventory.getHotbarSize() - 4; //Not sure why it is 4 too large...
+        int end = start + player.inventory.getSizeInventory() - InventoryPlayer.getHotbarSize() - 5; //(4 for armor, 1 for offhand)
         for (int i = start; i < end; i++){
             transferStackInSlot(player, i);
         }
@@ -223,8 +224,8 @@ public class ContainerBackpack extends Container {
      * Moves items from the player's hotbar to the backpack
      */
     public void hotbarToBackpack(){
-        int start = totalSize + player.inventory.getSizeInventory() - player.inventory.getHotbarSize() - 4;
-        int end = start + this.player.inventory.getHotbarSize();
+        int start = totalSize + player.inventory.getSizeInventory() - InventoryPlayer.getHotbarSize() - 5;
+        int end = start + InventoryPlayer.getHotbarSize(); //offhand
 
         ItemStack openedPack = IronBackpacksHelper.getBackpack(player); //access once here instead of in the loop
 
