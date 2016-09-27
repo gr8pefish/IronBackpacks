@@ -13,7 +13,7 @@ Changes (in relation to 1.8.9 - 2.0.5)
 - Removed some crafting items (jeweled feather, treated leather, nest); they were just bloat.
 - (Internal) Major cleanup of API
 - (Internal) Tons of various minor fixes/changes/optimizations.
-- (Internal) Changed how backpacks are stored internally, both for death and in general (change from IEEP to capabilities), should be more stable.
+- (Internal) Changed how backpacks are stored internally, both for death and in general (change from IEEP to capabilities); should be more stable and relatively futureproof.
 
 Bug Fixes (in relation to 1.8.9 - 2.0.5)
 - Many minor fixes (some preemptive)
