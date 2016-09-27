@@ -7,9 +7,12 @@ To Do:
     Bugs found in 1.10
         Make sure capability stuff is okay, testing needed
             Test nesting
-        Fix eternity upgrade not disappearing on death
         Sort button broken
+        Odd non-consistent error of loading in world and backpacks gone
     Add from 1.10 found stuff
+        Add commands for fixing stuff and whatnot (e.g. despawn all pack entities)
+        Tooltip for storage emphasis shows how much space?
+            Add in description instead?
         Disable/custom rendering when elytria equipped
         translation files, make their character escapes equal to en_us
             Ask old 1.7.10 people to update translations for 1.10

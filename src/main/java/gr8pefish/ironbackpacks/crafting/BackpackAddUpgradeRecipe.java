@@ -168,7 +168,6 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
             }
 
             if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(upgradeToApply)){ //conflicting
-                System.out.println("conflicting");
                 if (hasConflictingUpgradeInUpgrades(upgradeToApply, upgrades)){ //if has the conflicting upgrade
                     return false; //can't apply conflicting
                 } else { //no conflicting one tried to be applied
