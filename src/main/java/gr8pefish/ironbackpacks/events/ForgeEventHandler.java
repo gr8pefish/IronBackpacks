@@ -521,7 +521,7 @@ public class ForgeEventHandler {
                         break; //TODO: test
                     }
 
-                    ContainerWorkbench containerWorkbench = new ContainerWorkbench(event.getEntityPlayer().inventory, event.getItem().worldObj, new BlockPos(0, 0, 0)); //TODO: test 1.8
+                    ContainerWorkbench containerWorkbench = new ContainerWorkbench(event.getEntityPlayer().inventory, event.getItem().worldObj, new BlockPos(0, 0, 0));
                     InventoryCrafting inventoryCrafting = new InventoryCrafting(containerWorkbench, 3, 3); //fake workbench/inventory for checking matching recipe
 
                     ArrayList<ItemStack> crafterItems;

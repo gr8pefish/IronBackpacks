@@ -33,7 +33,7 @@ public class RecipeRegistry {
 
         //Basic Item Recipes
         ItemCraftingRecipes.registerItemCraftingRecipes(); //register the recipes to get the recipes items
-        ItemUpgradeRecipes.registerItemUpgradeRecipes(); //register the recipes to get the the upgrades as items //broken (crashes) //TODO: figure this bope out
+        ItemUpgradeRecipes.registerItemUpgradeRecipes(); //register the recipes to get the the upgrades as items
 		ItemBackpackRecipes.registerItemBackpackRecipes(); //register all the recipes to get the backpacks directly
 
         //=============Fancy Iron Backpacks Recipes===========

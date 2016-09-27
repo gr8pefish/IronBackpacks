@@ -140,7 +140,7 @@ public class ItemIUpgradeRegistry {
     }
 
     public static int getIndexOfIConflictingUpgrade(ItemIConflictingUpgrade item) {
-        return upgradesIUpgrade.size() + upgradesIConflictingUpgrade.indexOf(item); //TODO: careful with this
+        return upgradesIUpgrade.size() + upgradesIConflictingUpgrade.indexOf(item);
     }
 
     public static int getIndexOfIConfigurableUpgrade(ItemIConfigurableUpgrade item) {

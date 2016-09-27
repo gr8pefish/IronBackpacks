@@ -19,7 +19,7 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID >=0){ //normal gui
-            return new ContainerBackpack(new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player))); //TODO: check okay once done refactoring
+            return new ContainerBackpack(new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player)));
         }else if (ID < 0){ //alternate gui
             return new ContainerAlternateGui(new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player)));
         }
@@ -31,7 +31,7 @@ public class GuiHandler implements IGuiHandler {
         if (ID >= 0) { //normal gui
             return GUIBackpack.buildGUI(player, new InventoryBackpack(player, IronBackpacksHelper.getBackpack(player)));
         }else if (ID < 0){ //alternate gui
-            return GUIBackpackAlternate.GUI.buildGUIAlternate(new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player))); //TODO: THE BUG IS HERE?
+            return GUIBackpackAlternate.GUI.buildGUIAlternate(new InventoryAlternateGui(player, IronBackpacksHelper.getBackpack(player)));
         }
 		return null;
 	}

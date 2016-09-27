@@ -27,7 +27,7 @@ public class ModelBackpack extends ModelBase {
         parts.add(bottomPouch);
 
         ModelRenderer bottomPouchAddition = new ModelRenderer(this, 0, 11);
-        bottomPouchAddition.addBox(-1.5F, -1F, -0.5F, 3, 2, 1);             //TODO: config option for HD or non hd model? - basic is probably fine
+        bottomPouchAddition.addBox(-1.5F, -1F, -0.5F, 3, 2, 1);
         bottomPouchAddition.setRotationPoint(0, .5F, -1F);
         parts.add(bottomPouchAddition);
 

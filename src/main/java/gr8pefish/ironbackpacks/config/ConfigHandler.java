@@ -195,7 +195,6 @@ public class ConfigHandler {
         String category_upgrade = "4) Upgrade Traits";
         config.addCustomCategoryComment(category_upgrade, "The configurable traits of the upgrades. Be warned that the ability to disable an upgrade is experimental, it may cause odd errors.");
 
-        //TODO: make sure they all have descriptions on the ends (i.e. not just button upgrade, but what it does)
         category = category_upgrade + "- 1)Basic Upgrades";
         config.addCustomCategoryComment(category, "The configurable traits of the \"normal\" upgrades.");
 
