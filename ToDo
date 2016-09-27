@@ -5,11 +5,13 @@ To Do:
     Update to InventoryRenderHelperV2? https://github.com/WayofTime/BloodMagic/blob/1.9/src/main/java/WayofTime/bloodmagic/util/helper/InventoryRenderHelperV2.java
 
     Bugs found in 1.10
-        Make sure capability stuff is okay, testing needed
-            Test nesting
-        Sort button broken
-        Odd non-consistent error of loading in world and backpacks gone
+        Deposit upgrades broken
+        Forge event for restocking broken
+        Odd non-consistent error of loading in world and backpacks gone?
     Add from 1.10 found stuff
+        Some way to see upgrades on equipped pack easily?
+        Change depth upgrade description to be more clear on which backpack is nested
+        When trying to make conflicting recipe, add tooltip explaining for output
         Add commands for fixing stuff and whatnot (e.g. despawn all pack entities)
         Tooltip for storage emphasis shows how much space?
             Add in description instead?

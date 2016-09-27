@@ -5,6 +5,7 @@ Initial Port to Minecraft 1.10.2
 
 Additions (in relation to 1.8.9 - 2.0.5)
 - JEI descriptions for each upgrades.
+- Added the ability to right click the sort button to toggle sorting by item ID or item name alphabetization
 
 Changes (in relation to 1.8.9 - 2.0.5)
 - New textures! (Credit to the wonderful BBoldt)

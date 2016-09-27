@@ -65,6 +65,8 @@ public class IronBackpacksConstants {
 
             public static final byte EQUIP_BACKPACK_KEYBINDING = 10;
             public static final byte OPEN_BACKPACK_KEYBINDING = 11;
+
+            public static final byte TOGGLE_SORT_BUTTON = 12;
         }
 
     }
@@ -94,6 +96,7 @@ public class IronBackpacksConstants {
         public static final String CRAFTING_TINY = "CondenserTiny";
         public static final String SLOT = "Slot";
         public static final String ITEMS = "Items";
+        public static final String SORT_TYPE = "SortType";
         public static final String ADDED_ALT_GUI = "AddedAltGui";
         public static final String REMOVED_ALT_GUI = "RemovedAltGui";
     }

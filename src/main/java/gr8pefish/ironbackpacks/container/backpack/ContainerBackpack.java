@@ -7,6 +7,7 @@ import gr8pefish.ironbackpacks.container.slot.BackpackSlot;
 import gr8pefish.ironbackpacks.container.slot.NestingBackpackSlot;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
+import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -352,8 +353,11 @@ public class ContainerBackpack extends Container {
             }
         }
         if (!itemStacks.isEmpty()) {
-//            Collections.sort(itemStacks, new ItemStackNameComparator()); //TODO ,add with options
-            Collections.sort(itemStacks, new ItemStackIDComparator());
+            if (this.inventory.getSortType().equals("id")) { //sort by ID
+                Collections.sort(itemStacks, new ItemStackIDComparator());
+            } else { //sort by name
+                Collections.sort(itemStacks, new ItemStackNameComparator());
+            }
             for (int i = 0; i < itemStacks.size(); i++) {
                 Slot tempSlot = (Slot) inventorySlots.get(i);
                 tempSlot.putStack(itemStacks.get(i));

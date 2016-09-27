@@ -10,7 +10,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.util.Constants;
@@ -25,12 +27,14 @@ public class InventoryBackpack implements IInventory {
     private ItemStack backpackStack; //the itemstack instance of the backpack
     private EntityPlayer player; //the player
     private ItemStack[] inventory; //the stored items
+    private String sortType; //the sort option (id/alphabetical)
 
     //Instantiated from GuiHandler
     public InventoryBackpack(EntityPlayer player, ItemStack backpackStack){
         this.backpackStack = backpackStack;
         this.player = player;
         this.inventory = new ItemStack[this.getSizeInventory()];
+        this.sortType = "id";
         readFromNBT(backpackStack.getTagCompound());
     }
 
@@ -40,6 +44,18 @@ public class InventoryBackpack implements IInventory {
 
     public EntityPlayer getPlayer(){
         return player;
+    }
+
+    public String getSortType() {
+        return sortType;
+    }
+
+    public void toggleSortType() {
+        if (sortType.equals("id"))
+            sortType = "alphabetical";
+        else
+            sortType = "id";
+        save();
     }
 
     @Override
@@ -257,6 +273,7 @@ public class InventoryBackpack implements IInventory {
                 }
             }
             nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.ITEMS, tagList);
+            nbtTagCompound.setTag(IronBackpacksConstants.NBTKeys.SORT_TYPE, new NBTTagString(sortType));
         }
     }
 
@@ -272,6 +289,11 @@ public class InventoryBackpack implements IInventory {
                 nbtTagCompound = backpackStack.getTagCompound();
 
                 if (nbtTagCompound != null) {
+                    //load in sortType
+                    if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.SORT_TYPE)) {
+                        this.sortType = nbtTagCompound.getString(IronBackpacksConstants.NBTKeys.SORT_TYPE);
+                    }
+                    //load in items
                     if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ITEMS)) {
                         NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.ITEMS, Constants.NBT.TAG_COMPOUND);
                         this.inventory = new ItemStack[this.getSizeInventory()];
@@ -285,6 +307,10 @@ public class InventoryBackpack implements IInventory {
                         }
                     }
                 }
+            }
+        } else { //client side: load in the sort-type for updating the sort button's tooltip
+            if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.SORT_TYPE)) {
+                this.sortType = nbtTagCompound.getString(IronBackpacksConstants.NBTKeys.SORT_TYPE);
             }
         }
     }

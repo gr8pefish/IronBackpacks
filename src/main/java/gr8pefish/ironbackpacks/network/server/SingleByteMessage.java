@@ -69,6 +69,10 @@ public class SingleByteMessage implements IMessage {
                     container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
                     container.sort();
                     break;
+                case IronBackpacksConstants.Messages.SingleByte.TOGGLE_SORT_BUTTON:
+                    container = (ContainerBackpack) ctx.getServerHandler().playerEntity.openContainer;
+                    container.getInventoryBackpack().toggleSortType();
+                    break;
                 case IronBackpacksConstants.Messages.SingleByte.MOVE_LEFT:
                     altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
                     altContainer.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);

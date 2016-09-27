@@ -83,6 +83,10 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
         return tooltips;
     }
 
+    public void setTooltip(ArrayList<String> newTooltips) {
+        tooltips = newTooltips;
+    }
+
     @Override
     public int getHoverTime(){
         return hoverTime;

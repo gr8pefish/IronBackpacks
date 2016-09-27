@@ -20,7 +20,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The main gui that holds the backpack's primary inventory
@@ -36,7 +38,7 @@ public class GUIBackpack extends GuiContainer {
     private TooltipButton backpack_to_inventory_BUTTON;
     private TooltipButton inventory_to_backpack_BUTTON;
     private TooltipButton hotbar_to_backpack_BUTTON;
-    private TooltipButton condense_backpack_BUTTON;
+    private TooltipButton sort_backpack_BUTTON;
     private boolean hasAButtonUpgrade;
 
     //fields used to show/hide the tooltips
@@ -87,12 +89,16 @@ public class GUIBackpack extends GuiContainer {
             buttonList.add(this.backpack_to_inventory_BUTTON =  new TooltipButton(GuiButtonRegistry.getButton(ButtonNames.BACKPACK_TO_INVENTORY), xStart - 20, yStart - 96));
             buttonList.add(this.hotbar_to_backpack_BUTTON    =  new TooltipButton(GuiButtonRegistry.getButton(ButtonNames.HOTBAR_TO_BACKPACK), xStart - 40, yStart - 96));
             buttonList.add(this.inventory_to_backpack_BUTTON =  new TooltipButton(GuiButtonRegistry.getButton(ButtonNames.INVENTORY_TO_BACKPACK), xStart - 60, yStart - 96));
-            buttonList.add(this.condense_backpack_BUTTON     =  new TooltipButton(GuiButtonRegistry.getButton(ButtonNames.SORT_BACKPACK), xStart - 80, yStart - 96));
+            buttonList.add(this.sort_backpack_BUTTON     =  new TooltipButton(GuiButtonRegistry.getButton(ButtonNames.SORT_BACKPACK), xStart - 80, yStart - 96));
+
+            //Update the tooltip description for sorting based on saved NBT data
+            this.container.getInventoryBackpack().readFromNBT(this.itemStack.getTagCompound());
+            this.sort_backpack_BUTTON.setTooltip(getUpdatedSortTooltip());
 
             tooltipButtons.add(backpack_to_inventory_BUTTON);
             tooltipButtons.add(hotbar_to_backpack_BUTTON);
             tooltipButtons.add(inventory_to_backpack_BUTTON);
-            tooltipButtons.add(condense_backpack_BUTTON);
+            tooltipButtons.add(sort_backpack_BUTTON);
         }
     }
 
@@ -154,10 +160,42 @@ public class GUIBackpack extends GuiContainer {
         } else if (button == hotbar_to_backpack_BUTTON) {
             this.container.hotbarToBackpack();
             NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.HOTBAR_TO_BACKPACK));
-        } else if (button == condense_backpack_BUTTON) {
+        } else if (button == sort_backpack_BUTTON) {
             this.container.sort();
             NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.SORT_BACKPACK));
         }
+    }
+
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int buttonClicked) throws IOException {
+        if (buttonClicked == 1) { //right click
+            for (GuiButton button : this.buttonList) {
+                if (button.mousePressed(this.mc, mouseX, mouseY)) {
+                    if (button == sort_backpack_BUTTON) { //right clicked on the sort button
+                        //update client sort option
+                        this.container.getInventoryBackpack().toggleSortType();
+                        //update client with new tooltip
+                        this.sort_backpack_BUTTON.setTooltip(getUpdatedSortTooltip());
+                        //update server to know which way to sort
+                        NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.TOGGLE_SORT_BUTTON));
+
+                    }
+                }
+            }
+        } else {
+            //normal handling
+            super.mouseClicked(mouseX, mouseY, buttonClicked);
+        }
+    }
+
+    private ArrayList<String> getUpdatedSortTooltip(){
+        ArrayList<String> tooltips = new ArrayList<>();
+        if (this.container.getInventoryBackpack().getSortType().equals("alphabetical")) {
+            Collections.addAll(tooltips, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.sort.tooltip.alphabetical")));
+        } else {
+            Collections.addAll(tooltips, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.sort.tooltip.id")));
+        }
+        return tooltips;
     }
 
 }
