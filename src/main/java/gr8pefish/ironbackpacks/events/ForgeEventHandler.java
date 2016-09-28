@@ -57,18 +57,7 @@ public class ForgeEventHandler {
             }
         }
     }
-
-//    @SubscribeEvent
-//    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event)
-//    {
-//        if(event.player != null)
-//        {
-//            event.player.getCapability(IronBackpacks.BACKPACK_CAP, null).sync();
-//        }
-//        //ClientProxy.setLoaded(false);
-//    }
-//
-//
+    
 
     /**
      * When a player dies and respawns we need to clone their old data over
@@ -87,16 +76,6 @@ public class ForgeEventHandler {
             }
         }
     }
-
-//
-//    @SubscribeEvent
-//    public void onPlayeRespawn(PlayerEvent.PlayerRespawnEvent event)
-//    {
-//        if(!event.player.worldObj.isRemote)
-//        {
-//            event.player.getCapability(IronBackpacks.BACKPACK_CAP, null).sync();
-//        }
-//    }
 
 
     /**
