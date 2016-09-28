@@ -169,16 +169,19 @@ public class GUIBackpack extends GuiContainer {
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int buttonClicked) throws IOException {
         if (buttonClicked == 1) { //right click
-            for (GuiButton button : this.buttonList) {
-                if (button.mousePressed(this.mc, mouseX, mouseY)) {
-                    if (button == sort_backpack_BUTTON) { //right clicked on the sort button
-                        //update client sort option
-                        this.container.getInventoryBackpack().toggleSortType();
-                        //update client with new tooltip
-                        this.sort_backpack_BUTTON.setTooltip(getUpdatedSortTooltip());
-                        //update server to know which way to sort
-                        NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.TOGGLE_SORT_BUTTON));
-
+            if (getSlotUnderMouse() != null) { //right click on slot means normal handling
+                super.mouseClicked(mouseX, mouseY, buttonClicked);
+            } else { //otherwise may be on a button
+                for (GuiButton button : this.buttonList) {
+                    if (button.mousePressed(this.mc, mouseX, mouseY)) {
+                        if (button == sort_backpack_BUTTON) { //right clicked on the sort button
+                            //update client sort option
+                            this.container.getInventoryBackpack().toggleSortType();
+                            //update client with new tooltip
+                            this.sort_backpack_BUTTON.setTooltip(getUpdatedSortTooltip());
+                            //update server to know which way to sort
+                            NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.TOGGLE_SORT_BUTTON));
+                        }
                     }
                 }
             }

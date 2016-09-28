@@ -8,7 +8,6 @@ To Do:
         Forge event for restocking broken
         Odd non-consistent error of loading in world and backpacks gone?
     Add from 1.10 found stuff
-        Allow right clicking to pick up half-stack in backpack inv
         Some way to see upgrades on equipped pack easily?
         Change depth upgrade description to be more clear on which backpack is nested
         When trying to make conflicting recipe, add tooltip explaining for output
