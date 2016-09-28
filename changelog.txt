@@ -10,6 +10,17 @@ Changes
 Bug Fixes
 - None
 ------------------------------------------------------
+Version 1.10.2 - 2.1.1
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- None
+
+Bug Fixes
+- Fix server crash due to bad import (Closes #76)
+------------------------------------------------------
 Version 1.10.2 - 2.1.0 (versioning: major-minor-build)
 ------------------------------------------------------
 Initial Port to Minecraft 1.10.2
