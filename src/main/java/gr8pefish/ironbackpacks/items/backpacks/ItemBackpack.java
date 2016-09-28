@@ -70,11 +70,11 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
             ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
             boolean hasDepthUpgrade = UpgradeMethods.hasDepthUpgrade(upgrades);
             if (UpgradeMethods.hasQuickDepositUpgrade(upgrades)) {
-                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, false);
+                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, side, false);
                 if (!hasDepthUpgrade)
                     return !openAltGui ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
             }else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(upgrades)) {
-                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, true);
+                openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, side, true);
                 if (!hasDepthUpgrade)
                     return !openAltGui ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
             }
@@ -86,10 +86,10 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
                     if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
                         ArrayList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
                         if (UpgradeMethods.hasQuickDepositUpgrade(nestedUpgrades)) {
-                            openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, false);
+                            openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, side, false);
                             if (!openAltGuiDepth) openAltGui = false;
                         }else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(nestedUpgrades)) {
-                            openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, true);
+                            openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, side, true);
                             if (!openAltGuiDepth) openAltGui = false;
                         }
                     }
