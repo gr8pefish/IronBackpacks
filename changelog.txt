@@ -1,11 +1,11 @@
 ------------------------------------------------------
-Version 1.10.2 - 2.1.1
+Version 1.10.2 - 2.1.2
 ------------------------------------------------------
 Additions
 - None
 
 Changes
-- None
+- Change the backpack bobbing excessively when it is changed.
 
 Bug Fixes
 - None

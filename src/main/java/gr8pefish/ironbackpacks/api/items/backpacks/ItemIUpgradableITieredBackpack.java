@@ -63,7 +63,7 @@ public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableB
 
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return !((oldStack.getItem().equals(newStack.getItem())) && (ItemStack.areItemStackTagsEqual(oldStack, newStack) && (oldStack.getItemDamage() == newStack.getItemDamage()))); //no more items backpack bobbing if it is the same exact item
+        return !(oldStack.getItem().equals(newStack.getItem())); //no more items backpack bobbing if it is the same exact item
     }
 
     @Override
