@@ -18,10 +18,13 @@ import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ContainerWorkbench;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -57,7 +60,7 @@ public class ForgeEventHandler {
             }
         }
     }
-    
+
 
     /**
      * When a player dies and respawns we need to clone their old data over
@@ -104,13 +107,12 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onPlayerItemUseEvent(PlayerInteractEvent.RightClickItem event){
-        ItemStack resuppliedStack = null;
-        if (!event.isCanceled()){
+        ItemStack resuppliedStack;
+        if (!event.isCanceled()){ //only do it for main hand clicks
             ArrayList<ArrayList<ItemStack>> backpacks = getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
-            resuppliedStack = checkRestockerUpgradeItemUse(event, backpacks.get(2)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
+            resuppliedStack = checkRestockerUpgradeItemUse(event, backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
             if (resuppliedStack != null) {
-//                ToDo: Set stack somehow
-//                event.stack = resuppliedStack;
+                event.getItemStack().stackSize = resuppliedStack.stackSize; //set the new stack size (as you can't/don't need to directly replace the stack)
             }
         }
     }
