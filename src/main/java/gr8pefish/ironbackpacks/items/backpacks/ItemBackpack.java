@@ -106,21 +106,21 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
         if (world.isRemote){ //client side
             NBTUtils.setUUID(itemStack);
             PlayerWearingBackpackCapabilities.setCurrentBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: client side
-            return new ActionResult(EnumActionResult.PASS, itemStack);
+            return new ActionResult(EnumActionResult.SUCCESS, itemStack);
         } else {
             NBTUtils.setUUID(itemStack);
             PlayerWearingBackpackCapabilities.setCurrentBackpack(player, itemStack);
             if (!(player.isSneaking())){
                 int guiId = ItemIBackpackRegistry.getIndexOf((IBackpack)itemStack.getItem());
                 player.openGui(IronBackpacks.instance, guiId, world, (int) player.posX, (int) player.posY, (int) player.posZ); //"Normal usage"
-                return new ActionResult(EnumActionResult.PASS, itemStack);
+                return new ActionResult(EnumActionResult.SUCCESS, itemStack);
             } else { //if sneaking
                 if (openAltGui) {
                     int guiId = ItemIBackpackRegistry.getIndexOf((IBackpack) itemStack.getItem());
                     player.openGui(IronBackpacks.instance, (guiId * -1) - 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
                 } else
                     openAltGui = true;
-                return new ActionResult(EnumActionResult.PASS, itemStack);
+                return new ActionResult(EnumActionResult.SUCCESS, itemStack);
             }
         }
     }

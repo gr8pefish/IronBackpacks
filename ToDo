@@ -5,7 +5,6 @@ To Do:
     Update to InventoryRenderHelperV2? https://github.com/WayofTime/BloodMagic/blob/1.9/src/main/java/WayofTime/bloodmagic/util/helper/InventoryRenderHelperV2.java
 
     Bugs found in 1.10
-        When opening backpack, cancel event for offhand right click
         Odd non-consistent error of loading in world and backpacks gone?
     Add from 1.10 found stuff
         Add onBlockPlaced event for restocking
