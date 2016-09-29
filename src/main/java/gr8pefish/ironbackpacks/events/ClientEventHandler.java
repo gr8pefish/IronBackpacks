@@ -1,11 +1,15 @@
 package gr8pefish.ironbackpacks.events;
 
+import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
+import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.client.KeyHandler;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -39,7 +43,19 @@ public class ClientEventHandler {
     @SideOnly(Side.CLIENT)
     private void preRenderTick(Minecraft mc, World world, float renderTick) {
         //make sure all backpacks to be rendered are valid
-        EntityBackpack.updateBackpacks(mc, world);
+
+        //add a scheduled task so there is no concurrency modification exception due to the client and server both trying to modify the entityBackpack map
+        mc.addScheduledTask(() -> {
+            EntityPlayer player1 = mc.thePlayer;
+            ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player1);
+            if (backpack != null){
+                EntityBackpack pack = EntityBackpack.getEntityBackpack(backpack);
+                if (pack != null) {
+                    if (EntityBackpack.isBackpackValid(player1, pack)) pack.fixPositions(player1, true);
+                    else pack.setDead();
+                }
+            }
+        });
     }
 
     /**

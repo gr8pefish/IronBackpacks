@@ -57,6 +57,14 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
         return backpacksSpawnedMap.containsKey(stack);
     }
 
+    public static EntityBackpack getEntityBackpack(ItemStack stack){
+        if (backpacksSpawnedMap.containsKey(stack)){
+            return backpacksSpawnedMap.get(stack);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Kills the backpack if it needs it.
      */
@@ -72,7 +80,7 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
      * @param backpack - the backpack
      * @return - boolean shouldExist
      */
-    private static boolean isBackpackValid(EntityPlayer player, EntityBackpack backpack) {
+    public static boolean isBackpackValid(EntityPlayer player, EntityBackpack backpack) {
         if (player == null || player.isDead || backpack == null || backpack.isDead) return false;
         if (player.worldObj.provider.getDimension() != backpack.worldObj.provider.getDimension()) return false;
         return true;
@@ -102,7 +110,7 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
      * @param thePlayer - the player with the pack
      * @param localPlayer - the local player
      */
-    private void fixPositions(EntityPlayer thePlayer, boolean localPlayer) {
+    public void fixPositions(EntityPlayer thePlayer, boolean localPlayer) {
         this.lastTickPosX = prevPosX = player.prevPosX;
         this.lastTickPosY = prevPosY = player.prevPosY;
         this.lastTickPosZ = prevPosZ = player.prevPosZ;
