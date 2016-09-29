@@ -298,9 +298,9 @@ public class IronBackpacksHelper {
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(equipped), (EntityPlayerMP) player); //update client on correct pack
             PlayerWearingBackpackCapabilities.setEquippedBackpack(player, equipped); //update server on correct pack
 
-            if ((!EntityBackpack.containsStack(equipped)) && (!ConfigHandler.disableRendering)) {
-                IronBackpacksHelper.spawnEntityBackpack(equipped, player);
-            }
+//            if ((!EntityBackpack.containsStack(equipped)) && (!ConfigHandler.disableRendering)) {
+//                IronBackpacksHelper.spawnEntityBackpack(equipped, player);
+//            }
         }
 
         //get eternity packs and add them to inventory
