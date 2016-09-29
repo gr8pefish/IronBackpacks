@@ -207,7 +207,7 @@ public class IronBackpacksHelper {
             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 
             //start the render - spawn entity
-            spawnEntityBackpack(backpackStack, player);
+//            spawnEntityBackpack(backpackStack, player);
         }
     }
 
