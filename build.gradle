@@ -168,7 +168,7 @@ curseforge {
     project {
         id = "${curse_id}"
         changelog = getChangelogText()
-        releaseType = release_as_beta.toBoolean() ? "beta" : "release"
+        releaseType = release_type.toString()
 
         addGameVersion '1.10.2'
 
@@ -177,7 +177,7 @@ curseforge {
 }
 
 task incrementVersionNumber {
-//    ant.replace(file: "gradle.properties", token: build_number, value: (build_number.toString().toInteger()) + 1) //need to make sure it only increments build number
+    ant.replace(file: "gradle.properties", token: "build_number=${build_number}", value: "build_number=${build_number.toString().toInteger() + 1}") //need to make sure it only increments build number
     file("version/${mc_version}.txt").write(major_version+"."+minor_version+"."+(build_number.toString().toInteger() + 1));
 }
 

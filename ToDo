@@ -5,6 +5,9 @@ To Do:
     Update to InventoryRenderHelperV2? https://github.com/WayofTime/BloodMagic/blob/1.9/src/main/java/WayofTime/bloodmagic/util/helper/InventoryRenderHelperV2.java
 
     Bugs found in 1.10
+
+        Work on rendering as an extra model, get rid of the entity. Lots of work, but will help immensely.
+
         Dimensions in servers breaks everything
         Odd non-consistent error of loading in world and backpacks gone?
     Add from 1.10 found stuff
