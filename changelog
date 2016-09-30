@@ -2,7 +2,7 @@
 Version 1.7.10 - 1.2.18
 ------------------------------------------------------
 Additions
-- None
+- Added ability to use the 'open backpack' keybinding to open the first backpack in the inventory if none are equipped.
 
 Changes
 - None

@@ -106,6 +106,15 @@ public class SingleByteMessage implements IMessage{
                         backpackStackAlt.useItemRightClick(player.worldObj, player);
                     }
                     break;
+                case IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_INV_KEYBINDING:
+                    player = ctx.getServerHandler().playerEntity;
+                    ItemStack invBackpackStack = IronBackpacksHelper.getFirstBackpackInInventory(player);
+                    if (invBackpackStack != null) {
+                        NBTHelper.setUUID(invBackpackStack);
+                        IronBackpacks.proxy.updateCurrBackpack(player, invBackpackStack);
+                        invBackpackStack.useItemRightClick(player.worldObj, player);
+                    }
+                    break;
                 default:
                     Logger.error("Error in sending message for Iron Backpacks in SingleByteMessage");
                     break;

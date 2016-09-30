@@ -177,6 +177,7 @@ public class IronBackpacksConstants {
             public static final byte EQUIP_BACKPACK_KEYBINDING = 10;
             public static final byte OPEN_BACKPACK_KEYBINDING = 11;
             public static final byte OPEN_BACKPACK_ALT_KEYBINDING = 12;
+            public static final byte OPEN_BACKPACK_INV_KEYBINDING = 13;
         }
 
     }

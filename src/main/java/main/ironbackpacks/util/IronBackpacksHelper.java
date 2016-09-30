@@ -7,6 +7,7 @@ import main.ironbackpacks.items.backpacks.IBackpack;
 import main.ironbackpacks.items.backpacks.ItemBackpack;
 import main.ironbackpacks.network.ClientPackMessage;
 import main.ironbackpacks.network.NetworkingHandler;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -265,4 +266,15 @@ public class IronBackpacksHelper {
         return (itemStack1.isStackable() && itemStack1.stackSize < itemStack1.getMaxStackSize() && areItemsEqualForStacking(itemStack1, itemStack2));
     }
 
+    public static ItemStack getFirstBackpackInInventory(EntityPlayer player) {
+        ItemStack returnStack = null;
+        for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+            ItemStack stack = player.inventory.getStackInSlot(i);
+            if (stack != null && stack.getItem() instanceof ItemBackpack ) {
+                returnStack = stack;
+                break;
+            }
+        }
+        return returnStack;
+    }
 }
