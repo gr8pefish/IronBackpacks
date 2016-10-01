@@ -7,6 +7,8 @@ To Do:
     Bugs found in 1.10
 
         Work on rendering as an extra model, get rid of the entity. Lots of work, but will help immensely.
+            Check out cyberware/#flaxbeard
+            Look at Tails source code: https://github.com/kihira/Tails
 
         Dimensions in servers breaks everything
         Odd non-consistent error of loading in world and backpacks gone?
@@ -132,6 +134,8 @@ To Do:
                     <pauljoda> For the sided, you must override hasCapability in the tile entity. Otherwise it won't work
                     <gr8pefish> thanks, I'll look through that
                     <pauljoda> No problem, feel free to ask me if you have any questions. If I'm not here, try #neotech
+
+                    Check out Botania's pouch for IItemHandler implementation
 
                 tehnut's advanced tooltips?
 
