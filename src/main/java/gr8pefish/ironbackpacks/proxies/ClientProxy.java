@@ -9,7 +9,10 @@ import gr8pefish.ironbackpacks.events.ClientEventHandler;
 import gr8pefish.ironbackpacks.registry.ProxyRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -24,6 +27,11 @@ public class ClientProxy extends CommonProxy {
 
         //register render backpack entity
         RenderingRegistry.registerEntityRenderingHandler(EntityBackpack.class, new EntityBackpackRenderFactory());
+
+        //initialize extra layer for rendering the backpack on the player
+        RenderManager manager = Minecraft.getMinecraft().getRenderManager();
+        Render render = manager.getEntityClassRenderObject(EntityPlayerMP.class);
+        render.someMethodtoAddNewBackpackLayerHere
 
         ProxyRegistry.preInitClient();
     }
