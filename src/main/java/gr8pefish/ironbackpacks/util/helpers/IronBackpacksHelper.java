@@ -186,9 +186,6 @@ public class IronBackpacksHelper {
 
                 //update equipped backpack on client side, not ideal but it works
                 NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP)player);
-
-                //stop the render - kill entity
-                killEntityBackpack(backpack);
             }
 
         }
@@ -205,23 +202,7 @@ public class IronBackpacksHelper {
 
             //delete the held items
             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-
-            //start the render - spawn entity
-//            spawnEntityBackpack(backpackStack, player);
         }
-    }
-
-    //spawns a backpack as an entity so it can render on the player
-    public static void spawnEntityBackpack(ItemStack backpack, EntityPlayer player){
-        EntityBackpack entityBackpack = new EntityBackpack(player.worldObj, player, backpack);
-        entityBackpack.setPositionAndRotation(player.posX, player.posY, player.posZ-.5, player.rotationPitch, player.rotationYaw);
-        player.worldObj.spawnEntityInWorld(entityBackpack);
-        EntityBackpack.updatePlayersBackpack(backpack, entityBackpack);
-    }
-
-    //kills the backpack on the player
-    public static void killEntityBackpack(ItemStack backpack){
-        EntityBackpack.killBackpack(backpack);
     }
 
 
@@ -254,7 +235,6 @@ public class IronBackpacksHelper {
                 packToStore = equippedPack;
                 PlayerDeathBackpackCapabilities.setEquippedBackpack(player, null); //removes backpack
             }
-            IronBackpacksHelper.killEntityBackpack(equippedPack);
         }
 
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
@@ -298,9 +278,6 @@ public class IronBackpacksHelper {
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(equipped), (EntityPlayerMP) player); //update client on correct pack
             PlayerWearingBackpackCapabilities.setEquippedBackpack(player, equipped); //update server on correct pack
 
-//            if ((!EntityBackpack.containsStack(equipped)) && (!ConfigHandler.disableRendering)) {
-//                IronBackpacksHelper.spawnEntityBackpack(equipped, player);
-//            }
         }
 
         //get eternity packs and add them to inventory

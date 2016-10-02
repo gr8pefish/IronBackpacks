@@ -7,7 +7,6 @@ import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.events.ForgeEventHandler;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.proxies.CommonProxy;
-import gr8pefish.ironbackpacks.registry.BackpackEntityRegistry;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.registry.RecipeRegistry;
@@ -63,9 +62,6 @@ public class IronBackpacks {
 
         //items
         ItemRegistry.registerItems();
-
-        //entity registering
-        BackpackEntityRegistry.init();
 
         //Register buttons
         GuiButtonRegistry.registerButtons(); //need it on server side for inventory stuff (i.e. containerAltGui)

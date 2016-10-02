@@ -157,7 +157,7 @@ public class ForgeEventHandler {
 
         ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(event.player);
 
-        if (backpack != null && !EntityBackpack.containsStack(backpack)) {
+        if (backpack != null) { //ToDo: even update if null?
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack //TODO: unnecessary?
@@ -177,7 +177,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onPlayerRespawn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent event){
         ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(event.player);
-        if (backpack != null && !EntityBackpack.containsStack(backpack)) {
+        if (backpack != null) {
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
@@ -195,8 +195,6 @@ public class ForgeEventHandler {
     public void onPlayerDimChange(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent event){
         ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(event.player);
         if (backpack != null) {
-            if (EntityBackpack.containsStack(backpack)) //if has old dimension backpack
-                IronBackpacksHelper.killEntityBackpack(backpack); //kill old backpack
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //TODO: test with these removed
