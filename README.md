@@ -2,11 +2,11 @@
 
 [![](https://img.shields.io/badge/1.10.2 status-alpha-orange.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)
 [![](https://img.shields.io/badge/Latest version-2.2.0-blue.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)
-[![](https://img.shields.io/badge/Supported-Yes-brightgreen.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)
+[![](https://img.shields.io/badge/Supported-Fully-brightgreen.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)
 
 [![](https://img.shields.io/badge/1.8.9 status-beta-yellow.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A4&filter-status=1)
 [![](https://img.shields.io/badge/Latest version-2.0.5-blue.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A4&filter-status=1)
-[![](https://img.shields.io/badge/Supported-Unsupported-red.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A4&filter-status=1)
+[![](https://img.shields.io/badge/Supported-Nope-red.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A4&filter-status=1)
 
 [![](https://img.shields.io/badge/1.7.10 status-release-green.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A5&filter-status=1)
 [![](https://img.shields.io/badge/Latest version-1.2.18-blue.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A5&filter-status=1)
