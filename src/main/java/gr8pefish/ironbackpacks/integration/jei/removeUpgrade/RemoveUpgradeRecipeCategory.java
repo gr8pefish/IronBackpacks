@@ -53,7 +53,11 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+        //deprecated
+    }
 
+    @Override
+    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
         //add custom tooltips
         recipeLayout.getItemStacks().addTooltipCallback((RemoveUpgradeRecipeWrapper)recipeWrapper);
 
@@ -64,10 +68,5 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
         //backpack output
         recipeLayout.getItemStacks().init(1, false, 119, 14);
         recipeLayout.getItemStacks().set(1, (ItemStack)recipeWrapper.getOutputs().get(0));
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-
     }
 }

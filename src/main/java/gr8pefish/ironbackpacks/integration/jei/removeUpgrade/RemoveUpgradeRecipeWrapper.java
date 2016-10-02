@@ -40,7 +40,7 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallb
 
     @Override
     public void getIngredients(IIngredients ingredients) {
-
+        //ToDo
     }
 
     @Override

@@ -57,7 +57,11 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory {
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+        //deprecated
+    }
 
+    @Override
+    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
         //get the items to display
         IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
@@ -76,11 +80,5 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory {
         //set the slots with the correct items
         craftingGridHelper.setInput(guiItemStacks, recipeWrapper.getInputs());
         craftingGridHelper.setOutput(guiItemStacks, recipeWrapper.getOutputs());
-
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-
     }
 }
