@@ -5,9 +5,12 @@ Additions
 - None
 
 Changes
+- Changed 'Crafting' upgrade's name back to to 'Compressing' as it fits the action more
 - (Internal) Large change to how backpacks are rendered. Backpacks are no longer an entity, but rather are now rendered as a layer on the player model.
 
 Bug Fixes
+- Fix localization error for crafting upgrade.
+- Fix crash/inconsistent data saving when changing dimensions with an equipped backpack on a dedicated server.
 - Fix crash when using backpacks in an anvil.
 ------------------------------------------------------
 Version 1.10.2 - 2.1.2
