@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.integration.jei.addUpgrade;
 import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.gui.ITooltipCallback;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -27,6 +28,11 @@ public class AddUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback
         this.description = TextUtils.cutLongString(TextUtils.localize("jei.description.addUpgrade")); //the main description
         this.descriptionAdditional = TextUtils.cutLongString(TextUtils.localize("jei.description.addUpgrade.additional")); //the secondary description
         addUpgradeRecipe = recipe; //the recipe
+    }
+
+    @Override
+    public void getIngredients(IIngredients ingredients) {
+
     }
 
     @Override

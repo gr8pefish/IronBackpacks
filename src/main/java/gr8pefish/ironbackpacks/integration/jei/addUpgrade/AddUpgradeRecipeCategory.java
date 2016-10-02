@@ -4,6 +4,7 @@ import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -67,6 +68,11 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
         //backpack output
         recipeLayout.getItemStacks().init(2, false, 119, 14);
         recipeLayout.getItemStacks().set(2, (ItemStack)recipeWrapper.getOutputs().get(0));
+
+    }
+
+    @Override
+    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
 
     }
 
