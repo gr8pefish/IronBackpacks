@@ -154,9 +154,9 @@ public class ForgeEventHandler {
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack //TODO: unnecessary?
 
-            if (!ConfigHandler.disableRendering) {
-                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
-            }
+//            if (!ConfigHandler.disableRendering) {
+//                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
+//            }
         }
     }
 
@@ -174,8 +174,8 @@ public class ForgeEventHandler {
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
 
-            if (!ConfigHandler.disableRendering)
-                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
+//            if (!ConfigHandler.disableRendering)
+//                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player);
         }
     }
 
@@ -193,8 +193,8 @@ public class ForgeEventHandler {
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //TODO: test with these removed
 
-            if (!ConfigHandler.disableRendering)
-                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
+//            if (!ConfigHandler.disableRendering)
+//                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
         } else {
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, null);

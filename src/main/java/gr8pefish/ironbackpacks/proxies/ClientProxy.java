@@ -3,13 +3,18 @@ package gr8pefish.ironbackpacks.proxies;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.client.KeyHandler;
 import gr8pefish.ironbackpacks.client.renderer.EntityBackpackRenderFactory;
+import gr8pefish.ironbackpacks.client.renderer.LayerBackpack;
 import gr8pefish.ironbackpacks.config.ConfigAdaptor;
 import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.events.ClientEventHandler;
 import gr8pefish.ironbackpacks.registry.ProxyRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -29,6 +34,15 @@ public class ClientProxy extends CommonProxy {
     }
 
     public void init(){
+
+        //initialize extra layer for rendering the backpack on the player
+        RenderManager manager = Minecraft.getMinecraft().getRenderManager();
+        Render render = manager.getEntityClassRenderObject(EntityPlayer.class);
+        if (render instanceof RenderPlayer) { //make sure only players get it
+            RenderPlayer renderPlayer = (RenderPlayer) render;
+            renderPlayer.addLayer(new LayerBackpack(renderPlayer)); //add my backpack layer to the player's model
+        }
+
         ProxyRegistry.initClient();
     }
 

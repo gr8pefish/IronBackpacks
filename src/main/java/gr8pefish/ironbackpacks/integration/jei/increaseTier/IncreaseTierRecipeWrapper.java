@@ -2,6 +2,7 @@ package gr8pefish.ironbackpacks.integration.jei.increaseTier;
 
 import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
 import gr8pefish.ironbackpacks.util.TextUtils;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.FluidStack;
@@ -23,6 +24,11 @@ public class IncreaseTierRecipeWrapper implements IRecipeWrapper {
         this.craftingType = TextUtils.localize("jei.description.shapedCrafting"); //type of recipes
         this.description = TextUtils.cutLongString(TextUtils.localize("jei.description.increaseTier")); //description
         increaseTierRecipe = recipe;
+
+    }
+
+    @Override
+    public void getIngredients(IIngredients ingredients) {
 
     }
 

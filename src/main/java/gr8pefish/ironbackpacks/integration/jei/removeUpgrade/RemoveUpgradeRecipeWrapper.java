@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.integration.jei.removeUpgrade;
 import gr8pefish.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.gui.ITooltipCallback;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -35,6 +36,11 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallb
         this.descriptionAdditional = TextUtils.cutLongString(TextUtils.localize("jei.description.removeUpgrade.additional"));
         this.descriptionAdditionalMore = TextUtils.cutLongString(TextUtils.localize("jei.description.removeUpgrade.additional.more"));
         removeUpgradeRecipe = recipe;
+    }
+
+    @Override
+    public void getIngredients(IIngredients ingredients) {
+
     }
 
     @Override

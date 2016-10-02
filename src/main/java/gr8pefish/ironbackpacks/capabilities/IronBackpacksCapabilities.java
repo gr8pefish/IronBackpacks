@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.capabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
@@ -30,6 +31,14 @@ public class IronBackpacksCapabilities {
     public static void registerAllCapabilities(){
         PlayerWearingBackpackCapabilities.register();
         PlayerDeathBackpackCapabilities.register();
+    }
+
+    //Useful methods for other classes
+    public static ItemStack getWornBackpack(EntityPlayer player) {
+        PlayerWearingBackpackCapabilities cap = getWearingBackpackCapability(player);
+        if (cap != null)
+            return cap.getEquippedBackpack();
+        return null;
     }
 
 }

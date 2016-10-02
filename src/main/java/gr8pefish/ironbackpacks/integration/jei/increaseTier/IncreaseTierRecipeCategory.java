@@ -6,6 +6,7 @@ import mezz.jei.api.gui.ICraftingGridHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -75,6 +76,11 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory {
         //set the slots with the correct items
         craftingGridHelper.setInput(guiItemStacks, recipeWrapper.getInputs());
         craftingGridHelper.setOutput(guiItemStacks, recipeWrapper.getOutputs());
+
+    }
+
+    @Override
+    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
 
     }
 }
