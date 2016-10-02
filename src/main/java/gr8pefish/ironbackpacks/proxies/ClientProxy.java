@@ -9,14 +9,14 @@ import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.events.ClientEventHandler;
 import gr8pefish.ironbackpacks.registry.ProxyRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 /**
  * All the specifics that need to be called on the client side
@@ -36,12 +36,7 @@ public class ClientProxy extends CommonProxy {
     public void init(){
 
         //initialize extra layer for rendering the backpack on the player
-        RenderManager manager = Minecraft.getMinecraft().getRenderManager();
-        Render render = manager.getEntityClassRenderObject(EntityPlayer.class);
-        if (render instanceof RenderPlayer) { //make sure only players get it
-            RenderPlayer renderPlayer = (RenderPlayer) render;
-            renderPlayer.addLayer(new LayerBackpack(renderPlayer)); //add my backpack layer to the player's model
-        }
+        addBackpackModelLayer();
 
         ProxyRegistry.initClient();
     }
@@ -70,6 +65,22 @@ public class ClientProxy extends CommonProxy {
 
     public EntityPlayer getClientPlayer(){
         return Minecraft.getMinecraft().thePlayer;
+    }
+
+    /**
+     * Add backpack layer via reflection.
+     * Credit to TehNut for the base code.
+     */
+    private void addBackpackModelLayer() {
+        RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
+        try {
+            RenderPlayer renderPlayer = ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, renderManager, "playerRenderer", "field_178637_m");
+            renderPlayer.addLayer(new LayerBackpack(renderPlayer));
+            Logger.info("Added Layer Backpack");
+        } catch (Exception e) {
+            Logger.error("Failed to add Layer Backpack!");
+            Logger.error(e.getLocalizedMessage());
+        }
     }
 
 }

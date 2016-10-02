@@ -61,16 +61,16 @@ public class ClientEventHandler {
 //        });
 //    }
 
-    @SubscribeEvent
-    public void renderPlayer(RenderPlayerEvent.Pre event) {
-
-        EntityPlayer player = event.getEntityPlayer();
-        ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
-        if (backpack != null) {
-//            renderBackpack(player, backpack);
-            event.getRenderer().addLayer(new LayerBackpack(event.getRenderer()));
-        }
-    }
+//    @SubscribeEvent
+//    public void renderPlayer(RenderPlayerEvent.Pre event) {
+//
+//        EntityPlayer player = event.getEntityPlayer();
+//        ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
+//        if (backpack != null) {
+////            renderBackpack(player, backpack);
+//            event.getRenderer().addLayer(new LayerBackpack(event.getRenderer()));
+//        }
+//    }
 
     /**
      * To handle keybindings
