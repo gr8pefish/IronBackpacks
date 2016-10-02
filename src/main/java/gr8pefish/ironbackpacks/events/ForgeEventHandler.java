@@ -80,6 +80,15 @@ public class ForgeEventHandler {
                 newCap.setEternityBackpacks(oldCap.getEternityBackpacks());
                 newCap.setEquippedBackpack(oldCap.getEquippedBackpack());
             }
+        } else { //return from end
+            if (event.getOriginal().hasCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null)) {
+                PlayerWearingBackpackCapabilities oldCap = event.getOriginal().getCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null);
+                PlayerWearingBackpackCapabilities newCap = event.getEntityPlayer().getCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null);
+
+                //update new data with old
+                newCap.setCurrentBackpack(oldCap.getCurrentBackpack());
+                newCap.setEquippedBackpack(oldCap.getEquippedBackpack());
+            }
         }
     }
 
