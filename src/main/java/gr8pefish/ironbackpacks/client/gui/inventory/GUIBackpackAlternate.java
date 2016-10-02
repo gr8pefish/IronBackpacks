@@ -373,7 +373,7 @@ public class GUIBackpackAlternate extends GuiContainer {
             fontRendererObj.drawString(TextUtils.localize("gui.ironbackpacks.noValidUpgradesFound"), 20, 22, 4210752);
         int yStart = hasRenamingUpgrade ? 44 : 25;
         if (hasCraftingUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.recipes.name"),20, yStart, 4210752);
+            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.crafting.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasCraftingSmallUpgrade) {
