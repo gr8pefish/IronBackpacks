@@ -5,6 +5,7 @@ import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.client.gui.GuiHandler;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.events.ForgeEventHandler;
+import gr8pefish.ironbackpacks.integration.InterModSupport;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.proxies.CommonProxy;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
@@ -75,7 +76,7 @@ public class IronBackpacks {
 	public void init(FMLInitializationEvent event) {
 
 		//compatibility
-//		InterModSupport.init();
+		InterModSupport.init();
 
 		//event config
 		ForgeEventHandler forgeEventHandler = new ForgeEventHandler();

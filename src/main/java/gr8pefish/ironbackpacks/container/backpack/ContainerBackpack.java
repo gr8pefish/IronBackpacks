@@ -1,10 +1,12 @@
 package gr8pefish.ironbackpacks.container.backpack;
 
+import codechicken.enderstorage.item.ItemEnderPouch;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
 import gr8pefish.ironbackpacks.container.slot.BackpackSlot;
 import gr8pefish.ironbackpacks.container.slot.NestingBackpackSlot;
+import gr8pefish.ironbackpacks.integration.InterModSupport;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.util.Logger;
@@ -167,17 +169,18 @@ public class ContainerBackpack extends Container {
 
                 ItemStack stack = getSlot(slot).getStack();
 
-                if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) //can't right click the same backpack you have open, causes it to not update correctly and dupe items
+                if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) {//can't right click the same backpack you have open, causes it to not update correctly and dupe items
                     if (stack != null) {
                         stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
                     }
+                }
+
                 return null;
 
-                //no EnderStorage yet in 1.8
-//            }else if(InterModSupport.isEnderStorageLoaded && getSlot(slot).getStack().getItem() instanceof ItemEnderPouch) {
-//                ItemStack stack = getSlot(slot).getStack();
-//                stack.useItemRightClick(player.worldObj, player);
-//                return null;
+            }else if(InterModSupport.isEnderStorageLoaded && getSlot(slot).getStack().getItem() instanceof ItemEnderPouch) {
+                ItemStack stack = getSlot(slot).getStack();
+                stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
+                return null;
             }else if(getSlot(slot).getStack().getItem() instanceof IInventory) { //TODO: Dangerous inter-mod IInventory code, test this
                 ItemStack stack = getSlot(slot).getStack();
                 if (stack != null) {

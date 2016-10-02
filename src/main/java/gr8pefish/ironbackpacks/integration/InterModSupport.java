@@ -21,8 +21,7 @@ public class InterModSupport {
 
     //Initializes each mod in the init phase
     public static void init() {
-//        ToDo: EnderStorage is updated, add support for it again
-//        initEnderStorage(); //not updated
+        initEnderStorage();
 //        initOpenBlocks(); //not updated
     }
 
@@ -37,6 +36,12 @@ public class InterModSupport {
             tagCompound.setString("curseProjectName", "227049-iron-backpacks");
             tagCompound.setString("curseFilenameParser", "IronBackpacks-1.10.2-[].jar");
             FMLInterModComms.sendRuntimeMessage(Constants.MODID, "VersionChecker", "addCurseCheck", tagCompound);
+        }
+    }
+
+    public static void initEnderStorage(){
+        if (Loader.isModLoaded("EnderStorage")) {
+            isEnderStorageLoaded = true;
         }
     }
 

@@ -2,7 +2,7 @@
 Version 1.10.2 - 2.2.1
 ------------------------------------------------------
 Additions
-- None
+- Added back EnderStorage support (can right click a pouch to open it directly from a backpack's inventory).
 
 Changes
 - None
