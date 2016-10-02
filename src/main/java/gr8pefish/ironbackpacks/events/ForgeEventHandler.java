@@ -27,6 +27,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -43,6 +44,13 @@ import java.util.ArrayList;
  * All the events used that fire on the Forge Event bus
  */
 public class ForgeEventHandler {
+
+    @SubscribeEvent
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
+        if ((event.getLeft().getItem() instanceof ItemBackpack) || (event.getRight().getItem() instanceof ItemBackpack)) { //if a backpack in an anvil slot
+            event.setCanceled(true); //no processing
+        }
+    }
 
 
     /**
