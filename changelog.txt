@@ -5,7 +5,7 @@ Additions
 - None
 
 Changes
-- None
+- Rebalanced a couple recipes (and made them more integrated with the OreDictionary).
 
 Bug Fixes
 - Fix backpack rendering poorly in player's inventory screen.

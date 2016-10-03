@@ -1,7 +1,6 @@
 To Do:
 
     NOW:
-        check coloring gl call
 
     Misc Ideas:
         Tooltip for storage emphasis shows how much space?
@@ -9,6 +8,11 @@ To Do:
 
 
     1.10 ToDo:
+
+        Add fancy label to incr. tier recipe for showing it keeps its inventory and whatnot.
+
+        Documentation (incl. github read me/wiki/cf page) like Refined storage
+            Ask Cyanide X in a week to retexture my page (logo/banner/etc)
 
         Features:
 
@@ -63,7 +67,7 @@ To Do:
                 Remove adding crafting item to API?
                     https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
 
-                Make basic recipe use less leather and rebalance a lot of them
+                Make basic recipe use less leather?
 
             Other:
 
