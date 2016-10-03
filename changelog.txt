@@ -3,6 +3,7 @@ Version 1.10.2 - 2.2.1
 ------------------------------------------------------
 Additions
 - Added back EnderStorage support (can right click a pouch to open it directly from a backpack's inventory).
+- Added a new command '/ib deleteEquippedBackpack [player]' which does exactly what it says, could be useful for admins if there are errors.
 
 Changes
 - None

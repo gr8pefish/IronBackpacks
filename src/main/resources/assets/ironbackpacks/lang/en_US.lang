@@ -37,6 +37,9 @@ item.ironbackpacks.crafting.upgradeCore.name=Upgrade Core
 # Creative Tab
 itemGroup.ironbackpacks=Iron Backpacks
 
+# Commands
+chat.ironbackpacks.command.deletedEquippedPack=Deleted the equipped backpack for
+chat.ironbackpacks.command.deletedYourEquippedPack=Deleted your equipped backpack.
 
 # Keybindings
 key.ironbackpacks.open=Open Backpack

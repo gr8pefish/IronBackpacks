@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.client.gui.GuiHandler;
+import gr8pefish.ironbackpacks.commands.IronBackpacksCommands;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.events.ForgeEventHandler;
 import gr8pefish.ironbackpacks.integration.InterModSupport;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import java.io.File;
@@ -100,5 +102,11 @@ public class IronBackpacks {
         //holder
         proxy.postInit();
 
+	}
+
+	// Register the commands used for the mod
+	@Mod.EventHandler
+	public void onServerStart(FMLServerStartingEvent event) {
+		event.registerServerCommand(new IronBackpacksCommands());
 	}
 }
