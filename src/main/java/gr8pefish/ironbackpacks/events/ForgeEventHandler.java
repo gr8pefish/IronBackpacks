@@ -181,6 +181,7 @@ public class ForgeEventHandler {
      * Called whenever an items is picked up by a player. The basis for all the filters, and the event used for the hopper/restocking and crafter/recipes upgrades too so it doesn't check too much and causes lag..
      * @param event - the event fired
      */
+    //ToDo: Make this functional for offhand restocking
     @SubscribeEvent
     public void onItemPickupEvent(EntityItemPickupEvent event) {
         if (event.isCanceled())
@@ -201,6 +202,7 @@ public class ForgeEventHandler {
      * Called whenever the player uses an items. Used for the restocking(hopper) upgrade.
      * @param event - the event fired
      */
+    //ToDo: Make this functional for offhand restocking
     @SubscribeEvent
     public void onPlayerItemUseEvent(PlayerInteractEvent.RightClickItem event){
         ItemStack resuppliedStack;
