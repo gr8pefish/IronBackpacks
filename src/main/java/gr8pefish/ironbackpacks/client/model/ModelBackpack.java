@@ -84,14 +84,6 @@ public class ModelBackpack extends ModelBase {
      */
     private static float interpolateRotation(float prevRotation, float nextRotation) {
         float rotation = nextRotation - prevRotation;
-
-        while (rotation < -180.0F)
-            rotation -= 360.0F;
-
-        while (rotation >= 180.0F) {
-            rotation += 360.0F;
-        }
-
         return prevRotation * rotation;
     }
 
