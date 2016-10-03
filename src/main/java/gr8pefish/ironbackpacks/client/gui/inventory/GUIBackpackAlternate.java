@@ -365,7 +365,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         String displayName = (itemStack == null) ? "Open and close again" : itemStack.getDisplayName(); //TODO: localize/fix
 
         fontRendererObj.drawString(TextUtils.localize(displayName), 20, 6, 4210752);
-        int counter = hasFilterAdvancedUpgrade ? 5 : 4;
+        int counter = (hasFilterAdvancedUpgrade && !hasFilterMiningUpgrade && !hasRestockingUpgrade) ? 5 : 4;
         fontRendererObj.drawString(TextUtils.localize("container.inventory"), 20, ySize - 96 + counter, 4210752);
 
         //draw the titles of all the upgrades in their correct positions
