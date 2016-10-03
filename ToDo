@@ -1,45 +1,16 @@
 To Do:
 
-    Reference: https://github.com/copygirl/WearableBackpacks
-
-    Update to InventoryRenderHelperV2? https://github.com/WayofTime/BloodMagic/blob/1.9/src/main/java/WayofTime/bloodmagic/util/helper/InventoryRenderHelperV2.java
-
-    Bugs found in 1.10
-
-    Add from 1.10 found stuff
-        Fix offhand restocking
-            Add onBlockPlaced event for restocking - Need forge PR to go through
-        Some way to see upgrades on equipped pack easily?
-        Change depth upgrade description to be more clear on which backpack is nested
-        When trying to make conflicting recipe, add tooltip explaining for output
-        Add commands for fixing stuff and whatnot (e.g. remove stored backpack capability data)
+    Misc Ideas:
         Tooltip for storage emphasis shows how much space?
             Add in description instead?
-        Disable/custom rendering when elytria equipped
-        translation files, make their character escapes equal to en_us
-            Ask old 1.7.10 people to update translations for 1.10
-        ReAdd Botania integration
-        Support Minetweaker/etc.
-
-    
-    Notes from 1.7 playthrough:
-
-        add as tooltip that extended inventory/increased upgrade points type
-            change tooltip so that it says Alternate Upgrades, not alt gui, too confusing
-            or 'Configurable Upgrades'
-
-        Move a lot of info from the tooltip to the info jei tab
-        shorten upgrade necessary backpack tier tooltip? -yes, with help of jei info tab it will be fine
-        mek style tooltips with alt tooltip as well as shift?
-
-        allow enter to be hit to act as hitting renaming button
 
 
-    1.8 Stuff:
+    1.10 ToDo:
 
         Features:
 
             Backpacks:
+
                 Make them dyeable (I don't use damage values, I might as well)
 
                 eventual integration with travelers gear, tiCon (backpack slot), baubles, etc.
@@ -60,10 +31,11 @@ To Do:
 
                 add IFilterUpgrade?
 
+                Move over capabilities to API
+
             Upgrades:
                 cleanup event restocking
-                make event upgrades not sort the backpack before doing their things.
-                    tick handler too
+                make event upgrades not sort the backpack before doing their things!
 
                 make the upgrades cheaper overall, introduce t1 and t2 crafting bases
 
@@ -75,45 +47,63 @@ To Do:
 
                 add a way to remove additional upgrade points upgrades?
 
-                add informational jei tabs (remove tooltips?)
-
-                advanced info tooltips that show the category (configurable/conflicting/etc.) and extra info
-
             JEI:
-                 add tooltip over all the output and input items b/c nbt independent (i.e. has upgrade, upgrade removed)
-
                  minor: tooltips have slightly lager space between first line and second, remove that
 
 
             Investigate:
                 add crafttweaker support
-                Send packet to client when join server to sync metas up
+                Send packet to client when join server to sync (metas?) configs up
 
             Crafting:
-
-                Remove treated leather and nest
 
                 Remove adding crafting item to API?
                     https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
 
                 Make basic recipe use less leather and rebalance a lot of them
-                    Make lib folder to store all that stuff
+
+            Other:
+
+                Allow enter to be hit to act as hitting renaming button
+                Change depth upgrade description to be more clear on which backpack is nested
+                ReAdd Botania integration
+                Some way to see upgrades on equipped pack easily?
+                Support Minetweaker/etc.
+                Add achievements
+                When trying to make conflicting recipe, add tooltip explaining for output
+                Add commands for storing/loading backpack data
+                    Will involve some fileIO for NBT data, not a trivial thing
+
+
+
+
+        Bugs:
+            Testing:
+                Test compiled mod with ender storage, inv. tweaks, etc. in dedicated server in non dev. enviro.
+            Minor:
+                Disable/custom rendering when elytria equipped
+                Fix offhand restocking
+                    Add onBlockPlaced event for restocking - Need forge PR to go through - https://github.com/MinecraftForge/MinecraftForge/pull/3270
+                translation files, make their character escapes equal to en_us
+                    Ask old 1.7.10 people to update translations for 1.10
+            Major:
+
+        Notes:
+            Reference: https://github.com/copygirl/WearableBackpacks
+            Update to InventoryRenderHelperV2? https://github.com/WayofTime/BloodMagic/blob/1.9/src/main/java/WayofTime/bloodmagic/util/helper/InventoryRenderHelperV2.java
+
+
+    1.8 Stuff (Archive):
+
+        Features:
 
             Other:
 
                 cleanup lang file
 
-                add commands to remove stored packs' IEEP data
-                Make more null checks for backpack entity killing/spawning
-
                 add all static methods to helpers in API
                 go through TODOs in code
                 Check all comments/javadocs
-
-                texture update (message CyanideX/interview person) - message BBoldt again
-                    Make textures of upgrades more 3D looking
-
-                Add achievements
 
                 Check that it works with new forge and IItemHandler
                     https://github.com/MinecraftForge/MinecraftForge/pull/2385
@@ -133,7 +123,6 @@ To Do:
                 tehnut's advanced tooltips?
 
             Gradle:
-                gradle auto-increment version broken
                 Add sources/api/javadoc/etc. jars to curseforge upload, make sure they work too
 
             Config:
@@ -146,20 +135,16 @@ To Do:
 
             CurseForge/MCF:
                 Add that you need java 8 for 2.x.x and up
-                Make curseforge page look more like PortableCrafting's
-                Make wiki (either github or curseforge) link for 1.8 documentation
-                    Fill in wiki with pictures and info about the mod
+                Fill in wiki with pictures and info about the mod
                 Add more pictures to curseforge page
 
         Bugs:
             Testing:
                 Run benchmarks/performance tests with iron backpacks installed
 
-                Check working with inventory tweaks
                 Check working with Botania
 
                 Test ondeath save to title
-                probably breaks when you go through the end portal too
 
                 test everything post-API refactor
 
@@ -182,10 +167,6 @@ To Do:
 
         REFACTOR:
 
-            Data storage in player pack?
-                check register packets also had to server side - ex: error on server startup if no getClientPlayer() - that's a bug
-                Make it all server - try again, since I fixed the getParentStack bug
-
         TESTING:
 
 
@@ -194,7 +175,6 @@ To Do:
 
         ADDITIONS/TWEAKS:
             Tick Handler
-                Restocking upgrade onItemPlaced - ask in IRC if the onBlockPlacedEvent exists
                 Crafting upgrade onItemPutInBackpack (so for manually putting items in)
 
             Open right click direct from 'e' inventory?
@@ -211,7 +191,6 @@ To Do:
 
             Add in more inter-mod compatibility
                 right click in my backpack to open TE satchels, golden bag of holding, etc.
-                    look into if this is possible
                     test this
 
             Make it so you can't move the opened backpack with number key presses, as there might be some dupe bug using that that I missed
@@ -226,7 +205,6 @@ To Do:
                 upgrade since the other two can condense item slots (assuming there is space for them to put the new items).
 
         EXTRA:
-            add -b to beta versions in build.gradle
 
             Fancier config updating/replacing values
                 See botania, vazkii is going to implement something similar
@@ -240,13 +218,9 @@ To Do:
 
             quick deposit into AE terminals - have to check efficient of deposit code for that to work probably
 
-            Change sorting to a configurable style (i.e. id, name, etc.) w/ right click sort button to change style in game
-
-            add in config option (and subsequent functionality) where the itemBackpack can't be opened directly, it has to be equipped to be open (i.e. only one open at a time)
+            add in hard mode config option (and subsequent functionality) where the itemBackpack can't be opened directly, it has to be equipped to be open (i.e. only one open at a time)
                 hard mode: weight is a factor? Harder nesting recipe for limited space? Some other way to increase space/nesting via gameplay/in-game research/other?
                 no shapeless crafting for removal of upgrades, have to use the crafted one specifically
-
-            Recipes via config - support meta/damage values
 
 
     LATER:
@@ -269,7 +243,7 @@ To Do:
         Craft a diamond/barrel/ender (IDyeable) backpack with dyes to color it
 
 
-MCF Posting:
+Documentation:
 
 
 
