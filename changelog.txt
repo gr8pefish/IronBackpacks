@@ -1,5 +1,5 @@
 ------------------------------------------------------
-Version 1.10.2 - 2.2.2
+Version 1.10.2 - 2.2.3
 ------------------------------------------------------
 Additions
 - None
@@ -9,6 +9,17 @@ Changes
 
 Bug Fixes
 - None
+------------------------------------------------------
+Version 1.10.2 - 2.2.2
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- Improved rendering location of backpack when chest armor/elytra equipped.
+
+Bug Fixes
+- Re-enable rendering; fixed bug that caused hangups on client.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.1
 ------------------------------------------------------
