@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 
 import java.util.ArrayList;
 
@@ -67,11 +68,14 @@ public class ModelBackpack extends ModelBase {
         GlStateManager.translate(0, .225, -.14); //move it into the correct location
 
         if (player.inventory.armorInventory[2] != null) //if has chest armor slot
-            GlStateManager.translate(0, 0, -.1); //move it backwards a little
+            if (player.inventory.armorInventory[2].getItem() == Items.ELYTRA) //if elytra
+                GlStateManager.translate(0, 0, .0175); //move it forwards a little
+            else
+                GlStateManager.translate(0, 0, -.04); //move it backwards a little
 
         if (player.isSneaking()){
             GlStateManager.rotate(-25F, 1, 0, 0); //rotate it forward to still be on the player's back
-            GlStateManager.translate(0, .105, -.05); //move it down and back a little
+            GlStateManager.translate(0, .075, -.05); //move it down and back a little
         }
 
     }
