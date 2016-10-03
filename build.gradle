@@ -178,6 +178,9 @@ curseforge {
 
 task incrementVersionNumber {
     ant.replace(file: "gradle.properties", token: "build_number=${build_number}", value: "build_number=${build_number.toString().toInteger() + 1}") //need to make sure it only increments build number
+    ant.replace(file: "README.md", token: "[![](https://img.shields.io/badge/1.10.2 status-beta-yellow.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)\n" +
+            "[![](https://img.shields.io/badge/Latest version-${major_version}.${minor_version}.${build_number.toString().toInteger() - 1}", value: "[![](https://img.shields.io/badge/1.10.2 status-beta-yellow.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)\n" +
+            "[![](https://img.shields.io/badge/Latest version-${major_version}.${minor_version}.${build_number}") //replace README 1.10 badge version with CURRENT build
     file("version/${mc_version}.txt").write(major_version+"."+minor_version+"."+(build_number.toString().toInteger() + 1));
 }
 
