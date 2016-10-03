@@ -41,7 +41,7 @@ public class LayerBackpack implements LayerRenderer<AbstractClientPlayer> {
 
             ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-            if (itemstack != null && itemstack.getItem() == Items.ELYTRA)
+            if (itemstack != null) //&& itemstack.getItem() == Items.ELYTRA) //ToDo: CRUCIAL!!!
                 return;
 
             ItemStack pack = IronBackpacksCapabilities.getWornBackpack(entitylivingbaseIn); //get the equipped backpack

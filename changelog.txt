@@ -10,7 +10,7 @@ Changes
 
 Bug Fixes
 - Fix background transparency for basic and gold backpacks.
-- Fix minecraft hanging when trying to render both a backpack and elytra.
+- Temporarily disable rendering when have something in chest slot, as it causes hangups.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.0
 ------------------------------------------------------
