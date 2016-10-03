@@ -14,6 +14,8 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -36,6 +38,12 @@ public class LayerBackpack implements LayerRenderer<AbstractClientPlayer> {
     public void doRenderLayer(@Nonnull AbstractClientPlayer entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
         if (!entitylivingbaseIn.isInvisible() && !ConfigHandler.disableRendering) { //if not invisible and should render
+
+            ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+
+            if (itemstack != null && itemstack.getItem() == Items.ELYTRA)
+                return;
+
             ItemStack pack = IronBackpacksCapabilities.getWornBackpack(entitylivingbaseIn); //get the equipped backpack
             if (pack != null) { //if there is one
 

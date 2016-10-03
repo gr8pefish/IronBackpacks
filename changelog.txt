@@ -2,7 +2,7 @@
 Version 1.10.2 - 2.2.1
 ------------------------------------------------------
 Additions
-- Added back EnderStorage support (can right click a pouch to open it directly from a backpack's inventory).
+- Added back EnderStorage support (can right click an ender pouch to open it directly from a backpack's inventory).
 - Added a new command '/ib deleteEquippedBackpack [player]' which does exactly what it says, could be useful for admins if there are errors.
 
 Changes
@@ -10,6 +10,7 @@ Changes
 
 Bug Fixes
 - Fix background transparency for basic and gold backpacks.
+- Fix minecraft hanging when trying to render both a backpack and elytra.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.0
 ------------------------------------------------------
