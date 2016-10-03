@@ -39,11 +39,6 @@ public class LayerBackpack implements LayerRenderer<AbstractClientPlayer> {
 
         if (!entitylivingbaseIn.isInvisible() && !ConfigHandler.disableRendering) { //if not invisible and should render
 
-            ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-
-//            if (itemstack != null) //&& itemstack.getItem() == Items.ELYTRA) //ToDo: CRUCIAL!!!
-//                return;
-
             ItemStack pack = IronBackpacksCapabilities.getWornBackpack(entitylivingbaseIn); //get the equipped backpack
             if (pack != null) { //if there is one
 
@@ -56,11 +51,6 @@ public class LayerBackpack implements LayerRenderer<AbstractClientPlayer> {
                         return; //don't render if local player in first person perspective
                     }
                 }
-
-                //eltytrya code
-                //ToDo: test these Gl calls
-                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                GlStateManager.enableBlend();
 
                 //bind texture of the current backpack
                 this.playerRenderer.bindTexture(((IBackpack)pack.getItem()).getModelTexture(pack));

@@ -8,7 +8,7 @@ Changes
 - None
 
 Bug Fixes
-- None
+- Fix backpack rendering poorly in player's inventory screen.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.2
 ------------------------------------------------------
