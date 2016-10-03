@@ -1,6 +1,5 @@
 package gr8pefish.ironbackpacks.commands;
 
-import com.sun.istack.internal.Nullable;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientCurrentPackMessage;
@@ -16,6 +15,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
