@@ -34,6 +34,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -43,6 +44,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.ArrayList;
 
@@ -242,6 +244,18 @@ public class ForgeEventHandler {
 //            }
 //        }
 //    }
+
+    @SubscribeEvent
+    public void onArrowLoose(ArrowLooseEvent event) {
+        if (!event.isCanceled()){ //only do it for main hand clicks
+            ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
+            ImmutablePair<ItemStack, Slot> pair = IronBackpacksEventHelper.checkRestockerUpgradeArrowLoose(event.getEntityPlayer(), backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
+            if (pair != null) {
+                event.getEntityPlayer().inventory.setInventorySlotContents(pair.getRight().getSlotIndex(), pair.getLeft());
+//                event.getItemStack().stackSize = resuppliedStack.stackSize; //set the new stack size (as you can't/don't need to directly replace the stack)
+            }
+        }
+    }
 
     //====================================================================== Misc. Events =======================================================================
 

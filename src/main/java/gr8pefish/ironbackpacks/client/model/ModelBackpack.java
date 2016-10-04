@@ -1,15 +1,13 @@
 package gr8pefish.ironbackpacks.client.model;
 
-import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.config.ConfigHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 
 import java.util.ArrayList;
@@ -63,7 +61,10 @@ public class ModelBackpack extends ModelBase {
         EntityPlayer player = (EntityPlayer) entityIn;
         final float rotation = interpolateRotation(player.prevRotationYaw, player.rotationYaw);
 
-        GlStateManager.rotate(180.0F - rotation, 0.0F, 1.0F, 0.0F); //rotates it to the back of the player, and at the correct angle
+        if (Minecraft.getMinecraft().currentScreen instanceof GuiInventory) //the main inventory screen that renders the player
+            GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F); //rotates it to the back of the player, and at the correct angle
+        else //in-world
+            GlStateManager.rotate(180.0F - rotation, 0.0F, 1.0F, 0.0F); //add rotation depending on movement
         GlStateManager.scale(1.6f, 1.4f, 1.6f); //scale slightly larger
         GlStateManager.translate(0, .225, -.14); //move it into the correct location
 

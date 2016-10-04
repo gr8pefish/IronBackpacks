@@ -2,13 +2,16 @@
 Version 1.10.2 - 2.2.3
 ------------------------------------------------------
 Additions
-- None
+- Added informational hover button in alternate inventory to display information about a backpack (useful for equipped backpacks, where you can't easily check it out).
+- Added ability to press 'enter' to rename a backpack instead of mandating clicking the button.
+- Added another command for forcing removal of an equipped backpack (not quite as destructive as the delete command), also for admin purposes.
 
 Changes
-- None
+- Rebalanced a couple recipes (and made all of them more integrated with the OreDictionary).
+- Restocking upgrade now works when firing an arrow as well.
 
 Bug Fixes
-- None
+- Fix backpack rendering poorly in player's inventory screen.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.2
 ------------------------------------------------------

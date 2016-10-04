@@ -5,6 +5,7 @@ import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ItemCraftingRecipes {
@@ -13,8 +14,9 @@ public class ItemCraftingRecipes {
             "sps",
             "plp",
             "sps",
-            'l', Items.LEATHER,
-            's', Items.STRING, 'p', Items.PAPER);
+            'l', "leather",
+            's', "string",
+            'p', "paper");
 
     public static void registerItemCraftingRecipes(){
         GameRegistry.addRecipe(upgradeCoreRecipe);

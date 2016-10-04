@@ -1,7 +1,7 @@
 To Do:
 
     NOW:
-        check coloring gl call
+        Fix arrow restocking upgrade (PotionEffectHelper)
 
     Misc Ideas:
         Tooltip for storage emphasis shows how much space?
@@ -9,6 +9,11 @@ To Do:
 
 
     1.10 ToDo:
+
+        Add fancy label to incr. tier recipe for showing it keeps its inventory and whatnot.
+
+        Documentation (incl. github read me/wiki/cf page) like Refined storage
+            Ask Cyanide X in a week to retexture my page (logo/banner/etc)
 
         Features:
 
@@ -34,13 +39,15 @@ To Do:
 
                 add IFilterUpgrade?
 
+                refactor totally
+
                 Move over capabilities to API
 
             Upgrades:
                 cleanup event restocking
                 make event upgrades not sort the backpack before doing their things!
 
-                make the upgrades cheaper overall, introduce t1 and t2 crafting bases
+                make the upgrades cheaper overall, introduce t1 and t2 crafting bases?
 
                 make crafting advanced filter
 
@@ -63,11 +70,10 @@ To Do:
                 Remove adding crafting item to API?
                     https://github.com/WayofTime/BloodMagic/blob/1.8-Rewrite/src/main/java/WayofTime/bloodmagic/item/ItemSlate.java
 
-                Make basic recipe use less leather and rebalance a lot of them
+                Make basic recipe use less leather?
 
             Other:
 
-                Allow enter to be hit to act as hitting renaming button
                 Change depth upgrade description to be more clear on which backpack is nested
                 ReAdd Botania integration
                 Some way to see upgrades on equipped pack easily?
@@ -76,6 +82,8 @@ To Do:
                 When trying to make conflicting recipe, add tooltip explaining for output
                 Add commands for storing/loading backpack data
                     Will involve some fileIO for NBT data, not a trivial thing
+
+                Some super fancy intro popup that shows to a user semi-hidden features on first use (like the ability to right click backpacks inside another).
 
 
 
@@ -87,9 +95,12 @@ To Do:
                 Disable/custom rendering when elytria equipped
                 Fix offhand restocking
                     Add onBlockPlaced event for restocking - Need forge PR to go through - https://github.com/MinecraftForge/MinecraftForge/pull/3270
+                Fix informational tooltip and GuiInputField overlapping
                 translation files, make their character escapes equal to en_us
                     Ask old 1.7.10 people to update translations for 1.10
+                backpack still renders in player inventory screen for creative (super minor)
             Major:
+                Investigate? - BugFix with unequipping backpack not working (see server backup 10/4) - wouldn't persist, stack size of 0, can't replicate
 
         Notes:
             Reference: https://github.com/copygirl/WearableBackpacks
@@ -146,8 +157,6 @@ To Do:
                 Run benchmarks/performance tests with iron backpacks installed
 
                 Check working with Botania
-
-                Test ondeath save to title
 
                 test everything post-API refactor
 

@@ -1,29 +1,37 @@
 package gr8pefish.ironbackpacks.client.gui.inventory;
 
 import gr8pefish.ironbackpacks.api.Constants;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
+import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import gr8pefish.ironbackpacks.container.alternateGui.InventoryAlternateGui;
 import gr8pefish.ironbackpacks.container.slot.GhostSlot;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.AdvFilterTypesMessage;
 import gr8pefish.ironbackpacks.network.server.RenameMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
+import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
@@ -33,6 +41,7 @@ import org.lwjgl.opengl.GL11;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Called when the backpack is shift-right clicked to open the alternate gui.
@@ -121,6 +130,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     //The buttons
     private GuiTextField textField; //to type in the new backpack name
     private TooltipButton renameButton;
+    private TooltipButton infoButton;
     private TooltipButton moveLeft;
     private TooltipButton moveRight;
     private ArrayList<TooltipButton> advFilters = new ArrayList<TooltipButton>(); //the advanced filter buttons
@@ -231,6 +241,12 @@ public class GUIBackpackAlternate extends GuiContainer {
             buttonList.add(renameButton = new TooltipButton(GuiButtonRegistry.getButton(ButtonNames.RENAME), xStart + xSize - 57, yStart + 22));
             tooltipButtons.add(renameButton);
         }
+
+        //Add button for information about the pack
+        int xStartInfo = ((width - xSize) / 2) + xSize - 12;
+        int yStartInfo = (hasFilterAdvancedUpgrade && !hasFilterMiningUpgrade && !hasRestockingUpgrade) ? ((height - ySize) / 2) + ySize + 2: ((height - ySize) / 2) + ySize; //if filter adv in last slot
+        buttonList.add(infoButton = new TooltipButton(rowIndex, GuiButtonRegistry.getButton(ButtonNames.INFO), xStartInfo - 20, yStartInfo - 92, getInfoTooltip()));
+        tooltipButtons.add(infoButton);
 
         int yStartButton = ((height - ySize) / 2) + (hasRenamingUpgrade ? 40 : 21);
         int xStart = ((width - xSize) / 2) + xSize - 12 - 19;
@@ -365,7 +381,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         String displayName = (itemStack == null) ? "Open and close again" : itemStack.getDisplayName(); //TODO: localize/fix
 
         fontRendererObj.drawString(TextUtils.localize(displayName), 20, 6, 4210752);
-        int counter = hasFilterAdvancedUpgrade ? 5 : 4;
+        int counter = (hasFilterAdvancedUpgrade && !hasFilterMiningUpgrade && !hasRestockingUpgrade) ? 5 : 4;
         fontRendererObj.drawString(TextUtils.localize("container.inventory"), 20, ySize - 96 + counter, 4210752);
 
         //draw the titles of all the upgrades in their correct positions
@@ -424,6 +440,7 @@ public class GUIBackpackAlternate extends GuiContainer {
      * @param mouseY - the mouse's Y position
      */
     private void drawHoveringOverTooltipButton(int mouseX, int mouseY){
+        ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
         int w = (this.width - this.xSize) / 2; //X axis on GUI
         int h = (this.height - this.ySize) / 2; //Y axis on GUI
 
@@ -436,7 +453,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         }
         if (curr != null){
             if (curr.getHoverTime() == 0)
-                this.drawHoveringText(curr.getTooltip(), (int) mouseX - w, (int) mouseY - h, fontRendererObj);
+                GuiUtils.drawHoveringText(curr.getTooltip(), mouseX - w, mouseY - h, scaledResolution.getScaledWidth() - w, scaledResolution.getScaledHeight() - h, -1, fontRendererObj);
             else {
                 long systemTime = System.currentTimeMillis();
                 if (prevSystemTime != 0)
@@ -444,7 +461,7 @@ public class GUIBackpackAlternate extends GuiContainer {
                 prevSystemTime = systemTime;
 
                 if (hoverTime > curr.getHoverTime())
-                    this.drawHoveringText(curr.getTooltip(), (int) mouseX - w, (int) mouseY - h, fontRendererObj);
+                    GuiUtils.drawHoveringText(curr.getTooltip(), mouseX - w, mouseY - h, scaledResolution.getScaledWidth() - w, scaledResolution.getScaledHeight() - h, -1, fontRendererObj);
             }
         }else{
             hoverTime = 0;
@@ -460,7 +477,7 @@ public class GUIBackpackAlternate extends GuiContainer {
                 container.renameBackpack(textToChangeTo);
                 NetworkingHandler.network.sendToServer(new RenameMessage(textToChangeTo));
                 textField.setText(""); //clears/resets the textField
-                textField.setFocused(true);
+                textField.setFocused(false);
             }
         }else if(button == moveLeft) {
             container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
@@ -552,11 +569,72 @@ public class GUIBackpackAlternate extends GuiContainer {
         }
     }
 
+    /**
+     * Allows you to press enter to input a new name for the backpack directly.
+     */
+    @Override
+    public void handleKeyboardInput() throws IOException {
+        super.handleKeyboardInput();
+        if (hasRenamingUpgrade && textField.isFocused()){
+            if (Keyboard.getEventKey() == Keyboard.KEY_RETURN) { //press enter when entering text
+                String textToChangeTo = textField.getText();
+                if (textToChangeTo.length() > 0) { //have to actually enter a character
+                    container.renameBackpack(textToChangeTo);
+                    NetworkingHandler.network.sendToServer(new RenameMessage(textToChangeTo));
+                    textField.setText(""); //clears/resets the textField
+                    textField.setFocused(false);
+                }
+            }
+        }
+    }
+
     //Private helper method that accounts for the gui size
     private boolean isMouseOverSlot(Slot slot, int mPosX, int mPosY) {
         mPosX -= this.guiLeft;
         mPosY -= this.guiTop;
         return mPosX >= slot.xDisplayPosition - 1 && mPosX < slot.xDisplayPosition + 16 + 1 && mPosY >= slot.yDisplayPosition - 1 && mPosY < slot.yDisplayPosition + 16 + 1;
+    }
+
+    //Gets the string to put in the tooltip for the backpack information
+    private String[] getInfoTooltip(){
+
+        ArrayList<String> list = new ArrayList<>();
+
+        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack);
+        int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(itemStack);
+
+        int upgradesUsed = 0;
+
+        //Adds tier of backpack
+        list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.tier")+" "+((ItemBackpack)itemStack.getItem()).getTierName(itemStack));
+
+        for (ItemStack upgradeStack : upgrades) {
+            list.add(TextUtils.localizeEffect("item.ironbackpacks.upgrade."+ ItemIUpgradeRegistry.getItemUpgrade(upgradeStack).getName(upgradeStack)+".name"));
+            upgradesUsed += ItemIUpgradeRegistry.getItemUpgrade(upgradeStack).getUpgradeCost(upgradeStack);
+        }
+
+        if (upgrades.size() > 0)
+            list.add("");
+
+        String speciality = ((ItemBackpack)itemStack.getItem()).getSpecialty(null);
+        if (speciality != null)
+            list.add(TextUtils.localizeEffect(speciality));
+
+        list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used", upgradesUsed, totalUpgradePoints));
+        list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.alt", UpgradeMethods.getAltGuiUpgradesApplied(upgrades), IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
+
+        if (ConfigHandler.renamingUpgradeRequired)
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.rename", IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
+
+
+        int additionalPossiblePoints = ((ItemBackpack)itemStack.getItem()).getAdditionalUpgradePoints(null);
+
+        if (additionalPossiblePoints > 0) {
+            int used = IronBackpacksHelper.getAdditionalUpgradesTimesApplied(itemStack) * ConfigHandler.additionalUpgradePointsIncrease;
+            list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints", used, additionalPossiblePoints));
+        }
+
+        return list.toArray(new String[list.size()]);
     }
 
 

@@ -16,5 +16,6 @@ public enum ButtonNames {
     HOTBAR_TO_BACKPACK,
     SORT_BACKPACK,
     MOVE_LEFT,
-    MOVE_RIGHT
+    MOVE_RIGHT,
+    INFO
 }

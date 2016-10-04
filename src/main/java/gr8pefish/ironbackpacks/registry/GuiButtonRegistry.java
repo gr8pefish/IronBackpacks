@@ -31,6 +31,7 @@ public class GuiButtonRegistry {
         registerButton(ButtonNames.SORT_BACKPACK, new IGuiButton(12, 11, 12, 64, 48, true, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.sort.tooltip.id"))));
         registerButton(ButtonNames.MOVE_LEFT, new IGuiButton(13, 4, 9, 18, 57, true, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.left.tooltip"))));
         registerButton(ButtonNames.MOVE_RIGHT, new IGuiButton(14, 4, 9, 18, 37, true, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.right.tooltip"))));
+        registerButton(ButtonNames.INFO, new IGuiButton(15, 7, 7, 36, 13, false, TextUtils.cutLongString(TextUtils.localizeEffect("button.ironbackpacks.info.tooltip"))));
 
         //set the buttons shown in the advanced filter
         setAdvancedFilterButtons();
