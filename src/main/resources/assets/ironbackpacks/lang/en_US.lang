@@ -65,6 +65,7 @@ button.ironbackpacks.sort.tooltip.alphabetical=Sorts and condenses the items in 
 button.ironbackpacks.sort.tooltip.id=Sorts and condenses the items in the backpack by item ID (right click to change).
 button.ironbackpacks.left.tooltip=Shift to the left.
 button.ironbackpacks.right.tooltip=Shift to the right.
+button.ironbackpacks.info.tooltip=Information about the backpack goes here.
 button.ironbackpacks.clear.basicFilter.tooltip=Clears the basic filter items.
 button.ironbackpacks.clear.fuzzyFilter.tooltip=Clears the fuzzy filter items.
 button.ironbackpacks.clear.oreDictFilter.tooltip=Clears the Ore Dictionary filter items.
@@ -91,6 +92,7 @@ tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s.
 tooltip.ironbackpacks.upgrade.minimumTier=Minimum tier: %s.
 
 # Tier names (for upgrade tooltip minimum tier)
+tooltip.ironbackpacks.backpack.tier=Tier:
 tooltip.ironbackpacks.backpack.tier.basicBackpack.name=Basic Backpack
 tooltip.ironbackpacks.backpack.tier.ironBackpack.name=Iron Backpack
 tooltip.ironbackpacks.backpack.tier.goldBackpack.name=Gold Backpack

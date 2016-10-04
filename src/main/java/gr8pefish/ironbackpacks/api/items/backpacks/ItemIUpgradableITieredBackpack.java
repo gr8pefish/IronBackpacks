@@ -2,6 +2,7 @@ package gr8pefish.ironbackpacks.api.items.backpacks;
 
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ISpecializedBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
 import net.minecraft.item.Item;
@@ -12,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableBackpack, ITieredBackpack {
+public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableBackpack, ITieredBackpack, ISpecializedBackpack {
 
     private final String name; //display name
     private final int rowLength; //length of each row
@@ -20,6 +21,7 @@ public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableB
     private final int size; //size of the backpack
     private final int upgradePoints; //number of upgradePoints
     private final int additionalPoints; //the number of additional upgrade points
+    private String specialty; //unlocalized string to show if the backpack has a specialty, could be null if none
 
     private final ResourceLocation guiResourceLocation; //the resource location of the gui to display
     private final int guiXSize; //the width of the gui
@@ -36,7 +38,7 @@ public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableB
     /**
      * The Item that represents an AbstractUpgradableTieredBackpack
      */
-    public ItemIUpgradableITieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, int additionalPoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture){
+    public ItemIUpgradableITieredBackpack(String name, int rowLength, int rowCount, int upgradePoints, int additionalPoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture, String specialty){
         setMaxStackSize(1);
         setNoRepair();
 
@@ -48,6 +50,7 @@ public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableB
         this.size = rowCount * rowLength;
         this.upgradePoints = upgradePoints;
         this.additionalPoints = additionalPoints;
+        this.specialty = specialty;
 
         this.guiResourceLocation = guiResourceLocation;
         this.guiXSize = guiXSize;
@@ -174,4 +177,28 @@ public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableB
         return tierRecipes;
     }
 
+    //====================================================Speciality=====================================================
+
+    @Override
+    public String getSpecialty(ItemStack backpack){
+        return specialty;
+    }
+
+    @Override
+    public void setSpecialty(ItemStack backpack, String specialty){
+        this.specialty = specialty;
+    }
+
+    //====================================================Helper=====================================================
+
+    /**
+     * Returns the name of the tier of the backpack capitalized, e.g. 'Diamond' or 'Basic'
+     * @param stack - the item stack passed in (unused)
+     * @return - a string
+     */
+    public String getTierName(ItemStack stack){
+        String name = this.getName(stack); //get name (e.g. diamondBackpack)
+        String firstName = name.split("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])")[0]; //regex to get first word in camelCase text (e.g. diamond)
+        return firstName.substring(0, 1).toUpperCase() + firstName.substring(1); //capitalize first letter (e.g. Diamond)
+    }
 }

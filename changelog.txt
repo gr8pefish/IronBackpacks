@@ -2,10 +2,10 @@
 Version 1.10.2 - 2.2.3
 ------------------------------------------------------
 Additions
-- None
+- Added informational hover button in alternate inventory to display information about a backpack (useful for equipped backpacks, where you can't easily check it out).
 
 Changes
-- Rebalanced a couple recipes (and made them more integrated with the OreDictionary).
+- Rebalanced a couple recipes (and made all of them more integrated with the OreDictionary).
 
 Bug Fixes
 - Fix backpack rendering poorly in player's inventory screen.

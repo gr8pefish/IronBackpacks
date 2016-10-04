@@ -33,13 +33,9 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
 
     private boolean openAltGui = true; //to track which gui to open
 
-    private String emphasis; //unlocalized string to show if the backpack has a specialty, could be null if none
-
     public ItemBackpack(String name, int rowLength, int rowCount, int upgradePoints, int additionalPoints, ResourceLocation guiResourceLocation, int guiXSize, int guiYSize, ResourceLocation modelTexture, String specialty){
-        super(name, rowLength, rowCount, upgradePoints, additionalPoints, guiResourceLocation, guiXSize, guiYSize, modelTexture); //null is for the recipe (set after items init)
+        super(name, rowLength, rowCount, upgradePoints, additionalPoints, guiResourceLocation, guiXSize, guiYSize, modelTexture, specialty); //null is for the recipe (set after items init)
         setCreativeTab(IronBackpacks.creativeTab);
-        this.emphasis = specialty;
-
     }
 
     //=================================================================Overriden Vanilla Methods=============================================================
@@ -145,8 +141,8 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
             if (upgrades.size() > 0)
                 list.add("");
 
-            if (emphasis != null)
-                list.add(TextUtils.localizeEffect(emphasis));
+            if (this.getSpecialty(null) != null)
+                list.add(TextUtils.localizeEffect(this.getSpecialty(null)));
 
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used", upgradesUsed, totalUpgradePoints));
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.alt", UpgradeMethods.getAltGuiUpgradesApplied(upgrades), IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
