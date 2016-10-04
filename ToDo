@@ -1,7 +1,7 @@
 To Do:
 
     NOW:
-        BugFix with unequipping backpack not working (see server)
+        Fix arrow restocking upgrade (PotionEffectHelper)
 
     Misc Ideas:
         Tooltip for storage emphasis shows how much space?
@@ -100,6 +100,7 @@ To Do:
                     Ask old 1.7.10 people to update translations for 1.10
                 backpack still renders in player inventory screen for creative (super minor)
             Major:
+                Investigate? - BugFix with unequipping backpack not working (see server backup 10/4) - wouldn't persist, stack size of 0, can't replicate
 
         Notes:
             Reference: https://github.com/copygirl/WearableBackpacks

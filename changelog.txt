@@ -8,6 +8,7 @@ Additions
 
 Changes
 - Rebalanced a couple recipes (and made all of them more integrated with the OreDictionary).
+- Restocking upgrade now works when firing an arrow as well.
 
 Bug Fixes
 - Fix backpack rendering poorly in player's inventory screen.

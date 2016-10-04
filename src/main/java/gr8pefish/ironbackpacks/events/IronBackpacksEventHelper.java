@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.events;
 
+
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
@@ -9,9 +10,11 @@ import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.math.BlockPos;
@@ -19,6 +22,8 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 
@@ -297,7 +302,6 @@ public class IronBackpacksEventHelper {
      *          resupply itemUsed
      *              get rid of backpackStack
      *              return new size of itemUsed stack
-     * @param event - PlayerUseItemEvent.Finish
      * @param backpackStacks - the backpacks with this upgrade
      */
     //ToDo: Need PR https://github.com/MinecraftForge/MinecraftForge/pull/3270 to go through
@@ -352,6 +356,86 @@ public class IronBackpacksEventHelper {
                                                 container.sort();
                                                 container.onContainerClosed(player);
                                                 return (new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + backpackItemStack.stackSize, stackToResupply.getItemDamage()));
+                                                //don't have to iterate
+                                                //b/c once sorted you have as big of a stack as you will ever have so it can only refill that much
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } //no save b/c returns and saves if it does anything
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Checks the hopper/restocking upgrade to try and refill items. Decrements from the backpack's stacks and updates the appropriate slot/stack in the player's inventory.
+     * for each backpack
+     *  if backpack has itemUsed in filter
+     *      if backpack has itemUsed in inv
+     *          resupply itemUsed
+     *              get rid of backpackStack
+     *              return new size of itemUsed stack
+     * @param backpackStacks - the backpacks with this upgrade
+     */
+    //ToDo: Need to fix it for derivative arrows, works for normal arrows only.
+    protected static ImmutablePair<ItemStack, Slot> checkRestockerUpgradeArrowLoose(EntityPlayer player, ArrayList<ItemStack> backpackStacks){
+        if (!backpackStacks.isEmpty()){
+
+            for (ItemStack backpack : backpackStacks) {
+//                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
+                ItemBackpack itemBackpack = (ItemBackpack)backpack.getItem(); //TODO: hardcoded
+                ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, backpack));
+                if (!(player.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
+                    container.sort(); //TODO: test with this removed
+                    ArrayList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
+                    for (ItemStack restockerItem : restockerItems) {
+                        if ((restockerItem != null) && (restockerItem.getItem() instanceof ItemArrow || restockerItem.getItem().getClass().isAssignableFrom(ItemArrow.class))) { //only restock arrows
+                            boolean foundSlot = false;
+                            ItemStack stackToResupply = null;
+                            Slot slotToResupply = null;
+
+                            for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for items (backpack size + 36 for player inv)
+                                Slot tempSlot = (Slot) container.getSlot(i);
+                                if (tempSlot!= null && tempSlot.getHasStack()){
+                                    ItemStack tempItem = tempSlot.getStack();
+                                    if (tempItem.getItem() instanceof ItemArrow) {
+                                        if (IronBackpacksHelper.areItemsEqualForStacking(tempItem, restockerItem) //has to be same items as what was used in the event
+                                                && IronBackpacksHelper.areItemsEqualAndStackable(tempItem, restockerItem)) { //found and less than max stack size
+                                            foundSlot = true;
+                                            slotToResupply = tempSlot;
+                                            stackToResupply = tempItem;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (foundSlot){ // resupply from the backpack
+                                for (int i = 0; i < itemBackpack.getSize(backpack); i++) {
+                                    Slot backpackSlot = (Slot) container.getSlot(i);
+                                    if (backpackSlot != null && backpackSlot.getHasStack()) {
+                                        ItemStack backpackItemStack = backpackSlot.getStack();
+
+                                        if (IronBackpacksHelper.areItemsEqualForStacking(stackToResupply, backpackItemStack)) {
+                                            int amountToResupply = stackToResupply.getMaxStackSize() - (stackToResupply.stackSize - 1);
+                                            System.out.println("amount to resupply: "+amountToResupply);
+
+                                            if (backpackItemStack.stackSize >= amountToResupply) {
+                                                backpackSlot.decrStackSize(amountToResupply);
+                                                container.sort();
+                                                container.onContainerClosed(player);
+                                                return new ImmutablePair<>((new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage())), slotToResupply);
+
+                                            } else {
+                                                backpackSlot.decrStackSize(backpackItemStack.stackSize);
+                                                container.sort();
+                                                container.onContainerClosed(player);
+                                                return new ImmutablePair<>((new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + backpackItemStack.stackSize, stackToResupply.getItemDamage())), slotToResupply);
                                                 //don't have to iterate
                                                 //b/c once sorted you have as big of a stack as you will ever have so it can only refill that much
                                             }
