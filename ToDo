@@ -1,6 +1,7 @@
 To Do:
 
     NOW:
+        BugFix with unequipping backpack not working (see server)
 
     Misc Ideas:
         Tooltip for storage emphasis shows how much space?
@@ -73,7 +74,6 @@ To Do:
 
             Other:
 
-                Allow enter to be hit to act as hitting renaming button
                 Change depth upgrade description to be more clear on which backpack is nested
                 ReAdd Botania integration
                 Some way to see upgrades on equipped pack easily?

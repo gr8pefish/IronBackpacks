@@ -52,7 +52,7 @@ gui.ironbackpacks.noValidUpgradesFound=No Valid Upgrades Found!
 
 
 # Button
-button.ironbackpacks.rename.tooltip=Renames the backpack
+button.ironbackpacks.rename.tooltip=Renames the backpack. You can also just press 'Enter'.
 button.ironbackpacks.exact.tooltip=Exact Matching
 button.ironbackpacks.fuzzy.tooltip=Fuzzy Matching
 button.ironbackpacks.oreDict.tooltip=Ore Dictionary Matching

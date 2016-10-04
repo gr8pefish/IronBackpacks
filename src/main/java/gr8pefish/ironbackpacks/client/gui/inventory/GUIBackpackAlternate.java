@@ -30,6 +30,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -460,7 +461,7 @@ public class GUIBackpackAlternate extends GuiContainer {
                 prevSystemTime = systemTime;
 
                 if (hoverTime > curr.getHoverTime())
-                    this.drawHoveringText(curr.getTooltip(), (int) mouseX - w, (int) mouseY - h, fontRendererObj);
+                    GuiUtils.drawHoveringText(curr.getTooltip(), mouseX - w, mouseY - h, scaledResolution.getScaledWidth() - w, scaledResolution.getScaledHeight() - h, -1, fontRendererObj);
             }
         }else{
             hoverTime = 0;
@@ -476,7 +477,7 @@ public class GUIBackpackAlternate extends GuiContainer {
                 container.renameBackpack(textToChangeTo);
                 NetworkingHandler.network.sendToServer(new RenameMessage(textToChangeTo));
                 textField.setText(""); //clears/resets the textField
-                textField.setFocused(true);
+                textField.setFocused(false);
             }
         }else if(button == moveLeft) {
             container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
@@ -563,6 +564,25 @@ public class GUIBackpackAlternate extends GuiContainer {
                             drawButtons();
                         }
                     }
+                }
+            }
+        }
+    }
+
+    /**
+     * Allows you to press enter to input a new name for the backpack directly.
+     */
+    @Override
+    public void handleKeyboardInput() throws IOException {
+        super.handleKeyboardInput();
+        if (hasRenamingUpgrade && textField.isFocused()){
+            if (Keyboard.getEventKey() == Keyboard.KEY_RETURN) { //press enter when entering text
+                String textToChangeTo = textField.getText();
+                if (textToChangeTo.length() > 0) { //have to actually enter a character
+                    container.renameBackpack(textToChangeTo);
+                    NetworkingHandler.network.sendToServer(new RenameMessage(textToChangeTo));
+                    textField.setText(""); //clears/resets the textField
+                    textField.setFocused(false);
                 }
             }
         }

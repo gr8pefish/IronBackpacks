@@ -3,6 +3,7 @@ Version 1.10.2 - 2.2.3
 ------------------------------------------------------
 Additions
 - Added informational hover button in alternate inventory to display information about a backpack (useful for equipped backpacks, where you can't easily check it out).
+- Added ability to press 'enter' to rename a backpack instead of mandating clicking the button.
 
 Changes
 - Rebalanced a couple recipes (and made all of them more integrated with the OreDictionary).
