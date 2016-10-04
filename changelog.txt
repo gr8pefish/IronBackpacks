@@ -2,7 +2,7 @@
 Version 1.10.2 - 2.2.4
 ------------------------------------------------------
 Additions
-- None
+- Added fancy effect to my (gr8pefish's) backpack. Mwahaha, developer privileges xD
 
 Changes
 - None
