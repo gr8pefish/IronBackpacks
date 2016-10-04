@@ -95,6 +95,7 @@ To Do:
                 Disable/custom rendering when elytria equipped
                 Fix offhand restocking
                     Add onBlockPlaced event for restocking - Need forge PR to go through - https://github.com/MinecraftForge/MinecraftForge/pull/3270
+                Fix informational tooltip and GuiInputField overlapping
                 translation files, make their character escapes equal to en_us
                     Ask old 1.7.10 people to update translations for 1.10
                 backpack still renders in player inventory screen for creative (super minor)

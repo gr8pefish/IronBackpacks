@@ -40,6 +40,8 @@ itemGroup.ironbackpacks=Iron Backpacks
 # Commands
 chat.ironbackpacks.command.deletedEquippedPack=Deleted the equipped backpack for
 chat.ironbackpacks.command.deletedYourEquippedPack=Deleted your equipped backpack.
+chat.ironbackpacks.command.removedEquippedPack=Removed (put in offhand) the equipped backpack for
+chat.ironbackpacks.command.removedYourEquippedPack=Removed (put in offhand) your equipped backpack.
 
 # Keybindings
 key.ironbackpacks.open=Open Backpack
