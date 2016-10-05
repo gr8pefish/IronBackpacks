@@ -8,8 +8,8 @@
   "url": "",
   "updateUrl": "",
   "authorList": ["gr8pefish"],
-  "credits": "cpw, sapient, #minecraftforge (especially diesieben07), TehNut",
-  "logoFile": "",
+  "credits": "cpw, sapient, #minecraftforge (especially diesieben07), TehNut, tterrag",
+  "logoFile": "assets/ironbackpacks/textures/items/ItemBackpackIron.png",
   "screenshots": [],
   "dependencies": []
 }

@@ -3,6 +3,7 @@ Version 1.10.2 - 2.2.4
 ------------------------------------------------------
 Additions
 - Added fancy effect to my (gr8pefish's) backpack. Mwahaha, developer privileges xD
+- Added a logo to IronBackpacks' entry in the "Mods" page that can be accessed from the main screen.
 
 Changes
 - None
@@ -10,6 +11,7 @@ Changes
 Bug Fixes
 - Fix all types of arrows being restocked with the upgrade.
 - Fix ghost slot not taking in the *exact* item.
+- Fix an anvil not modifying a backpack under any circumstances.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.3
 ------------------------------------------------------
