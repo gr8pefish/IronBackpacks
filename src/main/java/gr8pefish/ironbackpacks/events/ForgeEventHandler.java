@@ -41,6 +41,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -266,7 +267,10 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent event) {
         if ((event.getLeft().getItem() instanceof ItemBackpack) || (event.getRight().getItem() instanceof ItemBackpack)) { //if a backpack in an anvil slot
-            event.setCanceled(true); //no processing
+            //probably overkill, but making sure it can't process
+            event.setOutput(null);
+            event.setResult(Event.Result.DENY);
+            event.setCanceled(true);
         }
     }
 
