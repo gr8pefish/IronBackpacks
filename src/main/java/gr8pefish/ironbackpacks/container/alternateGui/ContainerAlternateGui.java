@@ -153,8 +153,9 @@ public class ContainerAlternateGui extends Container {
         // otherwise they may be clicking on a ghostSlot
         }else if (slot >= 0 && slot < inventory.getSizeInventory()) {
             if (player.inventory.getItemStack() != null) { //clicking on slot with an itemStack
-                ItemStack usedStack = player.inventory.getItemStack();
-                inventory.setInventorySlotContents(slot, new ItemStack(usedStack.getItem(), 1, usedStack.getItemDamage()));
+                ItemStack usedStack = player.inventory.getItemStack().copy(); //exact item copied
+                usedStack.stackSize = 1; //stack size of 1
+                inventory.setInventorySlotContents(slot, usedStack);
                 return null;
             }else{ //clicking with an empty hand
                 inventory.setInventorySlotContents(slot, null);

@@ -423,19 +423,22 @@ public class IronBackpacksEventHelper {
 
                                         if (IronBackpacksHelper.areItemsEqualForStacking(stackToResupply, backpackItemStack)) {
                                             int amountToResupply = stackToResupply.getMaxStackSize() - (stackToResupply.stackSize - 1);
-                                            System.out.println("amount to resupply: "+amountToResupply);
 
                                             if (backpackItemStack.stackSize >= amountToResupply) {
                                                 backpackSlot.decrStackSize(amountToResupply);
                                                 container.sort();
                                                 container.onContainerClosed(player);
-                                                return new ImmutablePair<>((new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage())), slotToResupply);
+                                                ItemStack stackToReturn = stackToResupply.copy();
+                                                stackToReturn.stackSize = stackToResupply.getMaxStackSize();
+                                                return new ImmutablePair<>(stackToReturn, slotToResupply);
 
                                             } else {
                                                 backpackSlot.decrStackSize(backpackItemStack.stackSize);
                                                 container.sort();
                                                 container.onContainerClosed(player);
-                                                return new ImmutablePair<>((new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + backpackItemStack.stackSize, stackToResupply.getItemDamage())), slotToResupply);
+                                                ItemStack stackToReturn = stackToResupply.copy();
+                                                stackToReturn.stackSize = stackToResupply.stackSize + backpackItemStack.stackSize;
+                                                return new ImmutablePair<>(stackToReturn, slotToResupply);
                                                 //don't have to iterate
                                                 //b/c once sorted you have as big of a stack as you will ever have so it can only refill that much
                                             }

@@ -1,6 +1,8 @@
 package gr8pefish.ironbackpacks.items.backpacks;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
+import gr8pefish.ironbackpacks.achievements.IBackpackCraftAchievement;
+import gr8pefish.ironbackpacks.achievements.IronBackpacksAchievements;
 import gr8pefish.ironbackpacks.api.items.backpacks.ItemIUpgradableITieredBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemIBackpackRegistry;
@@ -15,9 +17,11 @@ import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -29,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ItemBackpack extends ItemIUpgradableITieredBackpack {
+public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBackpackCraftAchievement {
 
     private boolean openAltGui = true; //to track which gui to open
 
@@ -199,5 +203,23 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack {
         }
 
         return 1 - ((double) full / total);
+    }
+
+    @Override
+    public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+        if (stack.getItem() instanceof ItemBackpack) {
+            ItemBackpack backpack = (ItemBackpack) stack.getItem();
+            switch (backpack.getTier(null)){
+                case 0: //ToDo: Make NOT magic numbers, enum somewhere
+                    return IronBackpacksAchievements.basicPackCrafted;
+                case 1:
+                    return IronBackpacksAchievements.ironPackCrafted;
+                case 2:
+                    return IronBackpacksAchievements.goldPackCrafted;
+                case 3:
+                    return IronBackpacksAchievements.diamondPackCrafted;
+            }
+        }
+        return null;
     }
 }

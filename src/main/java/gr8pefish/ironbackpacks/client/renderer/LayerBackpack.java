@@ -11,6 +11,7 @@ import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.client.renderer.entity.layers.LayerArmorBase;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
 @SideOnly(Side.CLIENT)
 public class LayerBackpack implements LayerRenderer<AbstractClientPlayer> {
@@ -61,6 +63,11 @@ public class LayerBackpack implements LayerRenderer<AbstractClientPlayer> {
                 //set rotation angles of the backpack and render it
                 this.modelBackpack.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
                 this.modelBackpack.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+
+                //special glint for me xD
+                if (entitylivingbaseIn.getName().equals("gr8pefish")) {
+                    LayerArmorBase.renderEnchantedGlint(this.playerRenderer, entitylivingbaseIn, this.modelBackpack, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+                }
 
                 //pop matrix
                 GlStateManager.popMatrix();

@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks;
 
+import gr8pefish.ironbackpacks.achievements.IronBackpacksAchievements;
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.client.gui.GuiHandler;
@@ -68,6 +69,9 @@ public class IronBackpacks {
 
         //Register buttons
         GuiButtonRegistry.registerButtons(); //need it on server side for inventory stuff (i.e. containerAltGui)
+
+		//Achievements
+		IronBackpacksAchievements.init();
 
 		//Keybindings, Client Event Handler, and Rendering
 		proxy.preInit();

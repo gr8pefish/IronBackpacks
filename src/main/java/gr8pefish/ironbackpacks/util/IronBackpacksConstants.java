@@ -101,6 +101,23 @@ public class IronBackpacksConstants {
         public static final String REMOVED_ALT_GUI = "RemovedAltGui";
     }
 
+    //Achievements
+    public static final class Achievements {
+
+        public static final class Names {
+            public static final String BASIC_BACKPACK_CRAFTED = "basicBackpackCrafted";
+            public static final String IRON_BACKPACK_CRAFTED = "ironBackpackCrafted";
+            public static final String GOLD_BACKPACK_CRAFTED = "goldBackpackCrafted";
+            public static final String DIAMOND_BACKPACK_CRAFTED = "diamondBackpackCrafted";
+            public static final String STORAGE_EMPHASIS_CRAFTED = "storageEmphasisCrafted";
+            public static final String UPGRADE_EMPHASIS_CRAFTED = "upgradeEmphasisCrafted";
+            public static final String UPGRADE_CRAFTED = "upgradeCrafted";
+            //ToDo: Make achievement for all upgrades?
+            //ToDo: Make achievement for equipping backpack?
+        }
+
+    }
+
     //Miscellaneous
     public static final class Miscellaneous{
 

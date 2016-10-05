@@ -1,11 +1,15 @@
 To Do:
 
     NOW:
-        Fix arrow restocking upgrade (PotionEffectHelper)
+
 
     Misc Ideas:
         Tooltip for storage emphasis shows how much space?
             Add in description instead?
+        Add it so need upgrade specialization for certain upgrades?
+        look at Botania for tutorialIfFirstUse
+            Set of GuiScreens with informational tooltips/textboxes that you click through to see all the ways to use a backpack
+            Expand this idea so when you make an (i.e. AdvancedFilter) for the first item, shows popup for the nifty things for it.
 
 
     1.10 ToDo:
@@ -76,7 +80,6 @@ To Do:
 
                 Change depth upgrade description to be more clear on which backpack is nested
                 ReAdd Botania integration
-                Some way to see upgrades on equipped pack easily?
                 Support Minetweaker/etc.
                 Add achievements
                 When trying to make conflicting recipe, add tooltip explaining for output
