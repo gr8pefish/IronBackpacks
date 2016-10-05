@@ -130,6 +130,17 @@ tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d upgrade points
 misc.ironbackpacks.default.equipped.backpack.name=Equipped Backpack
 
 
+#Achievements
+achievement.ironbackpacks.basicBackpackCrafted=The Basics
+achievement.ironbackpacks.basicBackpackCrafted.desc=Craft a basic backpack
+achievement.ironbackpacks.ironBackpackCrafted=Ironing Things Out
+achievement.ironbackpacks.ironBackpackCrafted.desc=Craft an iron backpack (either specialization)
+achievement.ironbackpacks.goldBackpackCrafted=Gilded Age
+achievement.ironbackpacks.goldBackpackCrafted.desc=Craft a gold backpack (either specialization)
+achievement.ironbackpacks.diamondBackpackCrafted=Tier-y Eyed
+achievement.ironbackpacks.diamondBackpackCrafted.desc=Craft a diamond backpack (either specialization)
+
+
 ########################################
 # JEI Localizations
 ########################################

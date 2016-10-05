@@ -2,8 +2,9 @@
 Version 1.10.2 - 2.2.4
 ------------------------------------------------------
 Additions
-- Added fancy effect to my (gr8pefish's) backpack. Mwahaha, developer privileges xD
+- Add basic achievements (more to come soon).
 - Added a logo to IronBackpacks' entry in the "Mods" page that can be accessed from the main screen.
+- Added fancy effect to my (gr8pefish's) backpack. Mwahaha, developer privileges xD
 
 Changes
 - None
