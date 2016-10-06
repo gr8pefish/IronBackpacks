@@ -10,6 +10,8 @@ To Do:
         look at Botania for tutorialIfFirstUse
             Set of GuiScreens with informational tooltips/textboxes that you click through to see all the ways to use a backpack
             Expand this idea so when you make an (i.e. AdvancedFilter) for the first item, shows popup for the nifty things for it.
+        Different models/textures for upgrade/storage emphasis (more pockets vs bigger model)
+
 
 
     1.10 ToDo:
@@ -81,7 +83,7 @@ To Do:
                 Change depth upgrade description to be more clear on which backpack is nested
                 ReAdd Botania integration
                 Support Minetweaker/etc.
-                Add achievements
+                Add more achievements
                 When trying to make conflicting recipe, add tooltip explaining for output
                 Add commands for storing/loading backpack data
                     Will involve some fileIO for NBT data, not a trivial thing
@@ -95,7 +97,6 @@ To Do:
             Testing:
                 Test compiled mod with ender storage, inv. tweaks, etc. in dedicated server in non dev. enviro.
             Minor:
-                Disable/custom rendering when elytria equipped
                 Fix offhand restocking
                     Add onBlockPlaced event for restocking - Need forge PR to go through - https://github.com/MinecraftForge/MinecraftForge/pull/3270
                 Fix informational tooltip and GuiInputField overlapping
