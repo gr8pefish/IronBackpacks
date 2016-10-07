@@ -7,6 +7,8 @@ Additions
 Changes
 - Added ability to right click to open a backpack directly from *any* inventory instead of just backpack inventories.
 - Made eternity upgrade cheaper.
+- Improved command to forcefully unequip a backpack to work in all situations.
+- Removed command to delete equipped backpack.
 
 Bug Fixes
 - Fixed localization for compression upgrade.

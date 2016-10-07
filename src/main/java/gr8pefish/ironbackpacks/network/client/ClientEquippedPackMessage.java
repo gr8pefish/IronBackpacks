@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.network.client;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
+import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -42,6 +43,7 @@ public class ClientEquippedPackMessage implements IMessage {
                 EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
                 if (player != null) {
                     PlayerWearingBackpackCapabilities.setEquippedBackpack(player, message.stack); //update the backpack
+                    PlayerDeathBackpackCapabilities.setEquippedBackpack(player, message.stack); //update death just in case too
                 }
             });
 
