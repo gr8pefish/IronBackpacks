@@ -374,7 +374,7 @@ public class GUIBackpackAlternate extends GuiContainer {
      */
     private void drawInfoStrings(){
 
-        String displayName = (itemStack == null) ? "Open and close again" : itemStack.getDisplayName(); //TODO: localize/fix
+        String displayName = (itemStack == null) ? TextUtils.localize("gui.ironbackpacks.uuidError") : itemStack.getDisplayName();
 
         fontRendererObj.drawString(TextUtils.localize(displayName), 20, 6, 4210752);
         int counter = (hasFilterAdvancedUpgrade && !hasFilterMiningUpgrade && !hasRestockingUpgrade) ? 5 : 4;

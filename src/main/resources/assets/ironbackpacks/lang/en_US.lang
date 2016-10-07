@@ -51,6 +51,7 @@ key.ironbackpacks.equip=Equip/Unequip Backpack
 # GUI
 gui.ironbackpacks.emptyUpgradeSlot=Empty Upgrade Slot
 gui.ironbackpacks.noValidUpgradesFound=No Valid Upgrades Found!
+gui.ironbackpacks.uuidError=Open this backpack normally once!
 
 
 # Button
