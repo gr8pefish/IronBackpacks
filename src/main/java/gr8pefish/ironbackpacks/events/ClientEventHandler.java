@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 /**
@@ -53,7 +54,7 @@ public class ClientEventHandler {
                     if (slot != null && slot.getHasStack()) { //needs an item
                         ItemStack stack = slot.getStack();
                         if (stack.getItem() instanceof ItemBackpack) { //needs to be a backpack
-                            NetworkingHandler.network.sendToServer(new ItemStackMessage(stack)); //open the backpack via pseudo-right click on server
+                            NetworkingHandler.network.sendToServer(new ItemStackMessage(stack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? ItemStackMessage.SNEAKING : ItemStackMessage.NOT_SNEAKING)); //open the backpack via pseudo-right click on server
                             event.setCanceled(true); //cancel pickup/further processing
                         }
                     }

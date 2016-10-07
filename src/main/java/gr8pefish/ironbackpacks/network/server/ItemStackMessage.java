@@ -1,13 +1,11 @@
 package gr8pefish.ironbackpacks.network.server;
 
-import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientCurrentPackMessage;
 import gr8pefish.ironbackpacks.util.NBTUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -21,21 +19,29 @@ public class ItemStackMessage implements IMessage {
 
     //the data sent
     private ItemStack stack;
+    private int isSneaking;
+
+    //for sneaking or not, sending as an integer rather than a bool
+    public static int SNEAKING = 0;
+    public static int NOT_SNEAKING = 1;
 
     public ItemStackMessage() {} //default constructor is necessary
 
-    public ItemStackMessage(ItemStack stack) {
+    public ItemStackMessage(ItemStack stack, int isSneaking) {
         this.stack = stack;
+        this.isSneaking = isSneaking;
     }
 
     @Override
     public void fromBytes(ByteBuf buf){
         stack = ByteBufUtils.readItemStack(buf);
+        isSneaking = ByteBufUtils.readVarShort(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf){
         ByteBufUtils.writeItemStack(buf, stack);
+        ByteBufUtils.writeVarShort(buf, isSneaking);
     }
 
     public static class Handler implements IMessageHandler<ItemStackMessage, IMessage> {
@@ -50,7 +56,10 @@ public class ItemStackMessage implements IMessage {
                 NBTUtils.setUUID(backpackStack);
                 PlayerWearingBackpackCapabilities.setCurrentBackpack(player, backpackStack);
                 NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);
-                backpackStack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
+                if (message.isSneaking == NOT_SNEAKING)
+                    backpackStack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND); //normal right click open
+                else
+                    ((ItemBackpack)backpackStack.getItem()).handleBackpackOpening(backpackStack, ((EntityPlayerMP) player).worldObj, player, EnumHand.MAIN_HAND, true); //special sneak right click open
             }
 
             return null; //no return message
