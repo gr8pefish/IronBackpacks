@@ -87,7 +87,7 @@ public class ItemUpgradeRecipes {
             "rpb",
             "tct",
             "ttt",
-            'r', Blocks.field_189880_di, 'b', "blockRedstone", 'p', Blocks.PISTON, 't', "workbench", //could do bone meal -> bone block
+            'r', "dustRedstone", 'b', "blockRedstone", 'p', Blocks.PISTON, 't', "workbench", //could do bone meal -> bone block
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe craftingSmallUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.craftingSmallUpgrade)),

@@ -2,13 +2,15 @@
 Version 1.10.2 - 2.2.5
 ------------------------------------------------------
 Additions
-- None
+- Added shift right click to directly open the configurable inventory of a backpack.
 
 Changes
-- None
+- Added ability to right click to open a backpack directly from *any* inventory instead of just backpack inventories.
+- Made eternity upgrade cheaper.
 
 Bug Fixes
-- None
+- Fixed localization for compression upgrade.
+- Fixed recipe for compression upgrade.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.4
 ------------------------------------------------------
