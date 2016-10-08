@@ -13,6 +13,7 @@ Changes
 Bug Fixes
 - Fixed localization for compression upgrade.
 - Fixed recipe for compression upgrade.
+- Likely fix for backpack state reversion/non-unequipable (can't replicate to be certain)
 ------------------------------------------------------
 Version 1.10.2 - 2.2.4
 ------------------------------------------------------
