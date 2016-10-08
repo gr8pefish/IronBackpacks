@@ -19,7 +19,7 @@ item.ironbackpacks.upgrade.filterOreDict.name=Ore Dictionary Filter Upgrade
 item.ironbackpacks.upgrade.filterModSpecific.name=Mod Specific Filter Upgrade
 item.ironbackpacks.upgrade.filterAdvanced.name=Advanced Filter Upgrade
 item.ironbackpacks.upgrade.restocking.name=Restocking Upgrade
-item.ironbackpacks.upgrade.crafting.name=Compressions Upgrade
+item.ironbackpacks.upgrade.crafting.name=Compression Upgrade
 item.ironbackpacks.upgrade.craftingSmall.name=Small Compression Upgrade
 item.ironbackpacks.upgrade.craftingTiny.name=Decompression Upgrade
 item.ironbackpacks.upgrade.renaming.name=Renaming Upgrade
@@ -51,6 +51,7 @@ key.ironbackpacks.equip=Equip/Unequip Backpack
 # GUI
 gui.ironbackpacks.emptyUpgradeSlot=Empty Upgrade Slot
 gui.ironbackpacks.noValidUpgradesFound=No Valid Upgrades Found!
+gui.ironbackpacks.uuidError=Open this backpack normally once!
 
 
 # Button

@@ -1,7 +1,6 @@
 package gr8pefish.ironbackpacks.client.gui.inventory;
 
 import gr8pefish.ironbackpacks.api.Constants;
-import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
@@ -16,7 +15,6 @@ import gr8pefish.ironbackpacks.network.server.AdvFilterTypesMessage;
 import gr8pefish.ironbackpacks.network.server.RenameMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
-import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
@@ -30,7 +28,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,7 +38,6 @@ import org.lwjgl.opengl.GL11;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Called when the backpack is shift-right clicked to open the alternate gui.
@@ -378,7 +374,7 @@ public class GUIBackpackAlternate extends GuiContainer {
      */
     private void drawInfoStrings(){
 
-        String displayName = (itemStack == null) ? "Open and close again" : itemStack.getDisplayName(); //TODO: localize/fix
+        String displayName = (itemStack == null) ? TextUtils.localize("gui.ironbackpacks.uuidError") : itemStack.getDisplayName();
 
         fontRendererObj.drawString(TextUtils.localize(displayName), 20, 6, 4210752);
         int counter = (hasFilterAdvancedUpgrade && !hasFilterMiningUpgrade && !hasRestockingUpgrade) ? 5 : 4;

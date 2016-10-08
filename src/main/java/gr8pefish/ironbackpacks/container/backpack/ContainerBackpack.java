@@ -9,7 +9,6 @@ import gr8pefish.ironbackpacks.container.slot.NestingBackpackSlot;
 import gr8pefish.ironbackpacks.integration.InterModSupport;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
-import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -165,28 +164,18 @@ public class ContainerBackpack extends Container {
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && ItemStack.areItemStacksEqual(getSlot(slot).getStack(), currPack) && dragType == 0) {
             return null;
         }else if (dragType == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack()){ //right click on non-empty slot
-            if(getSlot(slot).getStack().getItem() instanceof IBackpack) { //has to be a backpack
-
-                ItemStack stack = getSlot(slot).getStack();
-
-                if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) {//can't right click the same backpack you have open, causes it to not update correctly and dupe items
-                    if (stack != null) {
-                        stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
-                    }
-                }
-
-                return null;
-
-            }else if(InterModSupport.isEnderStorageLoaded && getSlot(slot).getStack().getItem() instanceof ItemEnderPouch) {
+            if(InterModSupport.isEnderStorageLoaded && getSlot(slot).getStack().getItem() instanceof ItemEnderPouch) {
                 ItemStack stack = getSlot(slot).getStack();
                 stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
                 return null;
             }else if(getSlot(slot).getStack().getItem() instanceof IInventory) { //TODO: Dangerous inter-mod IInventory code, test this
-                ItemStack stack = getSlot(slot).getStack();
-                if (stack != null) {
-                    stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
+                if (!(getSlot(slot).getStack().getItem() instanceof IBackpack)) { //my backpacks handled already by client mouse event
+                    ItemStack stack = getSlot(slot).getStack();
+                    if (stack != null) {
+                        stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
+                    }
+                    return null;
                 }
-                return null;
             }
         }
         return super.slotClick(slot, dragType, clickTypeIn, player);

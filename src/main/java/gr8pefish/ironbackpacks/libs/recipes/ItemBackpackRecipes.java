@@ -3,10 +3,8 @@ package gr8pefish.ironbackpacks.libs.recipes;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemIBackpackRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ItemBackpackRecipes {

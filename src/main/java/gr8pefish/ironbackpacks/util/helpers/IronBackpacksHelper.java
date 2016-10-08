@@ -6,8 +6,6 @@ import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpac
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
-import gr8pefish.ironbackpacks.config.ConfigHandler;
-import gr8pefish.ironbackpacks.entity.EntityBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
@@ -287,6 +285,9 @@ public class IronBackpacksHelper {
                 player.inventory.addItemStackToInventory(stack);
             }
         }
+
+        //after loading in, reset the death capabilities
+        PlayerDeathBackpackCapabilities.reset(player);
     }
 
     /**
