@@ -285,6 +285,9 @@ public class IronBackpacksHelper {
                 player.inventory.addItemStackToInventory(stack);
             }
         }
+
+        //after loading in, reset the death capabilities
+        PlayerDeathBackpackCapabilities.reset(player);
     }
 
     /**
