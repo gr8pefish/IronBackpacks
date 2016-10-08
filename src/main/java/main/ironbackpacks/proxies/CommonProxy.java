@@ -185,6 +185,9 @@ public class CommonProxy {
             if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
                 player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, rootPersistentCompound);
         }
+        if (rootPersistentCompound != null && rootPersistentCompound.hasKey(deathBackpack)){
+            rootPersistentCompound.removeTag(deathBackpack);
+        }
     }
 
     /**
