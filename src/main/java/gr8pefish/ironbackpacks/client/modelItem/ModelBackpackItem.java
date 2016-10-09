@@ -3,17 +3,22 @@ package gr8pefish.ironbackpacks.client.modelItem;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.block.model.ModelRotation;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
+import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nullable;
+import javax.vecmath.Matrix4f;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModelUVLock {
 
@@ -90,5 +95,98 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
     @Override
     public IModelState getDefaultState() {
         return ModelRotation.X0_Y0;
+    }
+
+
+    //IBaked Model as a private static inner class
+
+    private static class PerspectiveModelBackpack implements IPerspectiveAwareModel {
+
+        protected final boolean gui3d;
+        protected final boolean smoothLighting;
+        protected final boolean uvlock;
+        private final ImmutableMap immutableMap;
+        private final ModelBackpackItem handModelBackpack;
+        private final ModelBackpackItem groundModelBackpack;
+
+        //For instantiation via ModelBackpackItem (IModel)
+        public PerspectiveModelBackpack(ModelBackpackItem groundModelBackpack, ModelBackpackItem handModelBackpack, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap, boolean gui3d, boolean smoothLighting, boolean uvlock){
+            this.gui3d = gui3d;
+            this.smoothLighting = smoothLighting;
+            this.uvlock = uvlock;
+            this.immutableMap = immutableMap;
+            this.handModelBackpack = handModelBackpack;
+            this.groundModelBackpack = groundModelBackpack;
+        }
+
+        @Override
+        public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+            // Depending on the TransformType, choose the IBakedModel to return
+            IBakedModel modelToReturn;
+            if (cameraTransformType.equals(ItemCameraTransforms.TransformType.GROUND)) {
+                modelToReturn = (IBakedModel) groundModelBackpack; //dangerous typecasting here
+            } else {
+                modelToReturn = (IBakedModel) handModelBackpack;
+            }
+            // If that model is also an IPerspectiveAwareModel (instanceof), use handlePerspective and store the returned Pair
+            if (modelToReturn instanceof IPerspectiveAwareModel) {
+                return ((IPerspectiveAwareModel) modelToReturn).handlePerspective(cameraTransformType);
+            } else{ // Otherwise:
+                // Use getItemCameraTransforms().getTransforms() to get ItemTransformVec3f
+                ItemTransformVec3f vec3f = getItemCameraTransforms().getTransform(cameraTransformType); //deprecated
+                // Convert that to TRSRTransformation with the TRSRT constructor
+                TRSRTransformation trsrTransformation = new TRSRTransformation(vec3f); //deprecated also
+                // Use TRSRT.blockCenterToCorner on it
+                TRSRTransformation transformation = TRSRTransformation.blockCenterToCorner(trsrTransformation);
+                // Then convert THAT into a Matrix4f with getMatrix
+                Matrix4f matrix4f = transformation.getMatrix();
+                // Pair the model and matrix with Pair.of
+                Pair myPair = Pair.of(modelToReturn, matrix4f);
+                // From the stored ImmutableMap<TransformType, TRSRTransformation>, get the relevant transform and get its matrix
+                TRSRTransformation trsrTransformationFromImmutable = (TRSRTransformation)this.immutableMap.get(cameraTransformType);
+                Matrix4f matrix4fFromImmutable = trsrTransformationFromImmutable.getMatrix();
+                // Multiply the matrix in the pair with the matrix from the map
+                matrix4f.mul(matrix4fFromImmutable); //stores it back in itself
+                //Return a pair of the model and the new matrix
+                return Pair.of(modelToReturn, matrix4f);
+            }
+
+        }
+
+        @Override
+        public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+            return new ArrayList<BakedQuad>();
+        }
+
+        @Override
+        public boolean isAmbientOcclusion() {
+            return smoothLighting;
+        }
+
+        @Override
+        public boolean isGui3d() {
+            return gui3d;
+        }
+
+        @Override
+        public boolean isBuiltInRenderer() {
+            return false;
+        }
+
+        @Override
+        public TextureAtlasSprite getParticleTexture() {
+//        return new TextureAtlasSprite(new ResourceLocation("missingno")); //can't do this as it is a protected instantiation call
+            return null;
+        }
+
+        @Override
+        public ItemCameraTransforms getItemCameraTransforms() {
+            return ItemCameraTransforms.DEFAULT;
+        }
+
+        @Override
+        public ItemOverrideList getOverrides() {
+            return ItemOverrideList.NONE;
+        }
     }
 }
