@@ -82,7 +82,7 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
             ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
 
             // Create an instance of your custom IPerspectiveAwareModel containing the other two IBakedModels, the ImmutableMap, gui3d, smoothLighting, and uvLock and return it.
-            PerspectiveModelBackpack perspectiveModelBackpack = new PerspectiveModelBackpack((ModelBackpackItem)groundBaked, (ModelBackpackItem)handBaked, immutableMap, gui3d, smoothLighting, uvlock);
+            PerspectiveModelBackpack perspectiveModelBackpack = new PerspectiveModelBackpack(groundBaked, handBaked, immutableMap, gui3d, smoothLighting, uvlock);
             return perspectiveModelBackpack;
 
         } catch (Exception e) {
@@ -106,11 +106,11 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
         protected final boolean smoothLighting;
         protected final boolean uvlock;
         private final ImmutableMap immutableMap;
-        private final ModelBackpackItem handModelBackpack;
-        private final ModelBackpackItem groundModelBackpack;
+        private final IBakedModel handModelBackpack;
+        private final IBakedModel groundModelBackpack;
 
         //For instantiation via ModelBackpackItem (IModel)
-        public PerspectiveModelBackpack(ModelBackpackItem groundModelBackpack, ModelBackpackItem handModelBackpack, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap, boolean gui3d, boolean smoothLighting, boolean uvlock){
+        public PerspectiveModelBackpack(IBakedModel groundModelBackpack, IBakedModel handModelBackpack, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap, boolean gui3d, boolean smoothLighting, boolean uvlock){
             this.gui3d = gui3d;
             this.smoothLighting = smoothLighting;
             this.uvlock = uvlock;
@@ -124,9 +124,9 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
             // Depending on the TransformType, choose the IBakedModel to return
             IBakedModel modelToReturn;
             if (cameraTransformType.equals(ItemCameraTransforms.TransformType.GROUND)) {
-                modelToReturn = (IBakedModel) groundModelBackpack; //dangerous typecasting here
+                modelToReturn = groundModelBackpack; //dangerous typecasting here
             } else {
-                modelToReturn = (IBakedModel) handModelBackpack;
+                modelToReturn = handModelBackpack;
             }
             // If that model is also an IPerspectiveAwareModel (instanceof), use handlePerspective and store the returned Pair
             if (modelToReturn instanceof IPerspectiveAwareModel) {
