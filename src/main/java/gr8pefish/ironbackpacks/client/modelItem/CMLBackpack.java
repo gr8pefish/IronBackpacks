@@ -8,18 +8,18 @@ import net.minecraftforge.client.model.IModel;
 
 public class CMLBackpack implements ICustomModelLoader {
 
-    //Possibly incorrect RL
+    //Possibly incorrect RL, need to test it
     public static ResourceLocation resourceLocationBackpack = new ResourceLocation(Constants.MODID, "backpackBasic");
     public static ResourceLocation resourceLocationBackpackHand = new ResourceLocation(Constants.MODID, "ItemBackpackBasic");
 
     @Override
     public boolean accepts(ResourceLocation modelLocation) {
-        return (modelLocation == resourceLocationBackpack);
+        return (modelLocation == resourceLocationBackpack); //need both?
     }
 
     @Override
     public IModel loadModel(ResourceLocation modelLocation) throws Exception {
-        return new ModelBackpackItem();
+        return new ModelBackpackItem(false, false, false); //okay to instantiate with all false?
     }
 
     @Override

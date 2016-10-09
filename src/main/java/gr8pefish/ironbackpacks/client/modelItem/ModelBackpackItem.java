@@ -3,8 +3,6 @@ package gr8pefish.ironbackpacks.client.modelItem;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import gr8pefish.ironbackpacks.api.Constants;
-import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ModelRotation;
@@ -15,36 +13,38 @@ import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 
-import java.util.*;
+import java.util.Collection;
 
 public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModelUVLock {
 
-    protected boolean smoothLighting;
-    protected boolean gui3d;
-    protected boolean uvlock;
+    protected final boolean smoothLighting;
+    protected final boolean gui3d;
+    protected final boolean uvlock;
+
+    public ModelBackpackItem(boolean smoothLighting, boolean gui3d, boolean uvlock){
+        this.smoothLighting = smoothLighting;
+        this.gui3d = gui3d;
+        this.uvlock = uvlock;
+    }
 
     @Override
     public IModel smoothLighting(boolean value) {
-        smoothLighting = value;
-        return new ModelBackpackItem();
+        return new ModelBackpackItem(value, gui3d, uvlock);
     }
 
     @Override
     public IModel gui3d(boolean value) {
-        gui3d = value;
-        return new ModelBackpackItem();
+        return new ModelBackpackItem(smoothLighting, value, uvlock);
     }
 
     @Override
     public IModel uvlock(boolean value) {
-        uvlock = value;
-        return new ModelBackpackItem();
+        return new ModelBackpackItem(smoothLighting, gui3d, value);
     }
 
     @Override
     public Collection<ResourceLocation> getDependencies() {
-        List<ResourceLocation> list = new ArrayList<>(Arrays.asList(CMLBackpack.resourceLocationBackpack, CMLBackpack.resourceLocationBackpackHand));
-        return Collections.unmodifiableList(list);
+        return ImmutableList.of(CMLBackpack.resourceLocationBackpack, CMLBackpack.resourceLocationBackpackHand);
     }
 
     @Override
@@ -61,33 +61,29 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
             IModel handModelIModel = ModelLoaderRegistry.getModel(CMLBackpack.resourceLocationBackpackHand);
 
             // For both of them, do some instanceof checks and call gui3d, smoothLighting, and uvLock on them with the stored values
-            if (groundModelIModel instanceof ModelBackpackItem && handModelIModel instanceof ModelBackpackItem){ //instanceof checks likely wrong
+            IModel ground1 = ModelProcessingHelper.gui3d(groundModelIModel, gui3d);
+            IModel ground2 = ModelProcessingHelper.smoothLighting(ground1, smoothLighting);
+            IModel ground3 = ModelProcessingHelper.uvlock(ground2, uvlock);
 
-                ((ModelBackpackItem) groundModelIModel).gui3d(((ModelBackpackItem) groundModelIModel).gui3d);
-                ((ModelBackpackItem) groundModelIModel).smoothLighting(((ModelBackpackItem) groundModelIModel).smoothLighting);
-                ((ModelBackpackItem) groundModelIModel).uvlock(((ModelBackpackItem) groundModelIModel).uvlock);
+            IModel hand1 = ModelProcessingHelper.gui3d(handModelIModel, gui3d);
+            IModel hand2 = ModelProcessingHelper.smoothLighting(hand1, smoothLighting);
+            IModel hand3 = ModelProcessingHelper.uvlock(hand2, uvlock);
 
-                ((ModelBackpackItem) handModelIModel).gui3d(((ModelBackpackItem) handModelIModel).gui3d);
-                ((ModelBackpackItem) handModelIModel).smoothLighting(((ModelBackpackItem) handModelIModel).smoothLighting);
-                ((ModelBackpackItem) handModelIModel).uvlock(((ModelBackpackItem) handModelIModel).uvlock);
-                // don't save the above changes anywhere?
+            // Two new IModels go into local vars
+            IModel groundModelBackpack = ground3; //unsure why this is here, seems redundant?
+            IModel handModelBackpack = hand3;
 
-                // Two new IModels go into local vars
-                ModelBackpackItem groundModelBackpack = new ModelBackpackItem(); //completely new?
-                ModelBackpackItem handModelBackpack = new ModelBackpackItem();
+            // Bake both models with the given IModelState, VertexFormat, and textureGetter
+            groundModelBackpack.bake(state, format, bakedTextureGetter);
+            handModelBackpack.bake(state, format, bakedTextureGetter);
 
-                // Bake both models with the given IModelState, VertexFormat, and textureGetter
-                groundModelBackpack.bake(state, format, bakedTextureGetter);
-                handModelBackpack.bake(state, format, bakedTextureGetter);
+            // Use IPerspectiveAwareModel.MapWrapper.getTransforms on the IModelState to get an ImmutableMap
+            ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
 
-                // Use IPerspectiveAwareModel.MapWrapper.getTransforms on the IModelState to get an ImmutableMap
-                ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
+            // Create an instance of your custom IPerspectiveAwareModel containing the other two IBakedModels, the ImmutableMap, gui3d, smoothLighting, and uvLock and return it.
+            PerspectiveModelBackpack perspectiveModelBackpack = new PerspectiveModelBackpack((ModelBackpackItem)groundModelBackpack, (ModelBackpackItem)handModelBackpack, immutableMap, gui3d, smoothLighting, uvlock);
+            return perspectiveModelBackpack;
 
-                // Create an instance of your custom IPerspectiveAwareModel containing the other two IBakedModels, the ImmutableMap, gui3d, smoothLighting, and uvLock and return it.
-                PerspectiveModelBackpack perspectiveModelBackpack = new PerspectiveModelBackpack(groundModelBackpack, handModelBackpack, immutableMap, gui3d, smoothLighting, uvlock);
-                return perspectiveModelBackpack;
-
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

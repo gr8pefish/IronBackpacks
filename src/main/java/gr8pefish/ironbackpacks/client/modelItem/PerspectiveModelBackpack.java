@@ -17,12 +17,12 @@ import java.util.List;
 
 public class PerspectiveModelBackpack implements IPerspectiveAwareModel {
 
-    protected boolean gui3d;
-    protected boolean smoothLighting;
-    protected boolean uvlock;
-    private ImmutableMap immutableMap;
-    private ModelBackpackItem handModelBackpack;
-    private ModelBackpackItem groundModelBackpack;
+    protected final boolean gui3d;
+    protected final boolean smoothLighting;
+    protected final boolean uvlock;
+    private final ImmutableMap immutableMap;
+    private final ModelBackpackItem handModelBackpack;
+    private final ModelBackpackItem groundModelBackpack;
 
     private Pair perspective;
 
@@ -41,7 +41,7 @@ public class PerspectiveModelBackpack implements IPerspectiveAwareModel {
         // Depending on the TransformType, choose the IBakedModel to return
         IBakedModel modelToReturn;
         if (cameraTransformType.equals(ItemCameraTransforms.TransformType.GROUND)) {
-            modelToReturn = (IBakedModel) groundModelBackpack;
+            modelToReturn = (IBakedModel) groundModelBackpack; //dangerous typecasting here
         } else {
             modelToReturn = (IBakedModel) handModelBackpack;
         }
@@ -65,35 +65,9 @@ public class PerspectiveModelBackpack implements IPerspectiveAwareModel {
             // Multiply the matrix in the pair with the matrix from the map
             matrix4f.mul(matrix4fFromImmutable); //does it store it back in itself?
             //Return a pair of the model and the new matrix
-            return new Pair<IBakedModel, Matrix4f>() {
-                @Override
-                public IBakedModel getLeft() {
-                    return modelToReturn;
-                }
-
-                @Override
-                public Matrix4f getRight() {
-                    return matrix4f;
-                }
-
-                @Override
-                public Matrix4f setValue(Matrix4f value) {
-                    matrix4f.set(value);
-                    return matrix4f;
-                }
-            };
-
+            return Pair.of(modelToReturn, matrix4f);
         }
 
-//
-
-//
-//
-//
-//
-//
-//
-//
         return null;
     }
 
