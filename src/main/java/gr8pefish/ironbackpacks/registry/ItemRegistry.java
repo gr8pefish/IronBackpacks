@@ -292,7 +292,7 @@ public class ItemRegistry {
         InventoryRenderHelper renderHelper = new InventoryRenderHelper(Constants.DOMAIN);
 
         //render the backpack items (tiered orderd)
-        renderHelper.itemRender(basicBackpack, "ItemBackpackBasic");
+        renderHelper.itemRender(basicBackpack, "backpack");
         renderHelper.itemRender(ironBackpackStorageEmphasis, "ItemBackpackIron");
         renderHelper.itemRender(ironBackpackUpgradeEmphasis, "ItemBackpackIron");
         renderHelper.itemRender(goldBackpackStorageEmphasis, "ItemBackpackGold");
