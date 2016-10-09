@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.client.modelItem;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import gr8pefish.ironbackpacks.api.Constants;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -21,6 +22,11 @@ import java.util.Collection;
 import java.util.List;
 
 public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModelUVLock {
+
+    //json for the model
+    public static final ResourceLocation BASE_LOC = new ResourceLocation(Constants.MODID, "backpack_basic");
+    //empty
+    public static final ResourceLocation EMPTY_LOC = new ResourceLocation("minecraft:builtin/generated");
 
     protected final boolean smoothLighting;
     protected final boolean gui3d;
@@ -49,7 +55,7 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
 
     @Override
     public Collection<ResourceLocation> getDependencies() {
-        return ImmutableList.of(CMLBackpack.resourceLocationBackpackGround, CMLBackpack.resourceLocationBackpackHand);
+        return ImmutableList.of(BASE_LOC, EMPTY_LOC);
     }
 
     @Override
@@ -60,35 +66,29 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
     @Override
     public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 
-        // Load the other two models with ModelLoader.getModel
-        try {
-            IModel groundModelIModel = ModelLoaderRegistry.getModel(CMLBackpack.resourceLocationBackpackGround);
-            IModel handModelIModel = ModelLoaderRegistry.getModel(new ResourceLocation("minecraft:builtin/generated"));
+        // Load the two models
+        IModel baseModel = ModelLoaderRegistry.getModelOrLogError(BASE_LOC, "Base location for backpack model not found!");
+        IModel handModel = ModelLoaderRegistry.getModelOrLogError(EMPTY_LOC, "Empty location for backpack model not found!");
 
-            // For both of them, do some instanceof checks and call gui3d, smoothLighting, and uvLock on them with the stored values
-            IModel ground1 = ModelProcessingHelper.gui3d(groundModelIModel, gui3d);
-            IModel ground2 = ModelProcessingHelper.smoothLighting(ground1, smoothLighting);
-            IModel ground3 = ModelProcessingHelper.uvlock(ground2, uvlock);
+        // For both of them, call gui3d, smoothLighting, and uvLock on them with the stored values
+        baseModel = ModelProcessingHelper.gui3d(baseModel, gui3d);
+        baseModel = ModelProcessingHelper.smoothLighting(baseModel, smoothLighting);
+        baseModel = ModelProcessingHelper.uvlock(baseModel, uvlock);
 
-            IModel hand1 = ModelProcessingHelper.gui3d(handModelIModel, gui3d);
-            IModel hand2 = ModelProcessingHelper.smoothLighting(hand1, smoothLighting);
-            IModel hand3 = ModelProcessingHelper.uvlock(hand2, uvlock);
+        handModel = ModelProcessingHelper.gui3d(handModel, gui3d);
+        handModel = ModelProcessingHelper.smoothLighting(handModel, smoothLighting);
+        handModel = ModelProcessingHelper.uvlock(handModel, uvlock);
 
-            // Bake both models with the given IModelState, VertexFormat, and textureGetter
-            IBakedModel groundBaked = ground3.bake(state, format, bakedTextureGetter);
-            IBakedModel handBaked = hand3.bake(state, format, bakedTextureGetter);
+        // Bake both models with the given IModelState, VertexFormat, and textureGetter
+        IBakedModel bakedBase = baseModel.bake(state, format, bakedTextureGetter);
+        IBakedModel bakedHand = handModel.bake(state, format, bakedTextureGetter);
 
-            // Use IPerspectiveAwareModel.MapWrapper.getTransforms on the IModelState to get an ImmutableMap
-            ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
+        // Use IPerspectiveAwareModel.MapWrapper.getTransforms on the IModelState to get an ImmutableMap
+        ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
 
-            // Create an instance of your custom IPerspectiveAwareModel containing the other two IBakedModels, the ImmutableMap, gui3d, smoothLighting, and uvLock and return it.
-            return new PerspectiveModelBackpack(groundBaked, handBaked, immutableMap, gui3d, smoothLighting, uvlock);
+        // Create an instance of your custom IPerspectiveAwareModel containing the other two IBakedModels, the ImmutableMap, gui3d, smoothLighting, and uvLock and return it.
+        return new BakedBackpack(bakedBase, bakedHand, transforms, gui3d, smoothLighting);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     @Override
@@ -99,63 +99,52 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
 
     //IBaked Model as a private static inner class
 
-    private static class PerspectiveModelBackpack implements IPerspectiveAwareModel {
+    private static class BakedBackpack implements IBakedModel, IPerspectiveAwareModel {
 
         protected final boolean gui3d;
         protected final boolean smoothLighting;
-        protected final boolean uvlock;
-        private final ImmutableMap immutableMap;
-        private final IBakedModel handModelBackpack;
-        private final IBakedModel groundModelBackpack;
+        private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
+        private final IBakedModel bakedBase;
+        private final IBakedModel bakedHand;
 
         //For instantiation via ModelBackpackItem (IModel)
-        public PerspectiveModelBackpack(IBakedModel groundModelBackpack, IBakedModel handModelBackpack, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap, boolean gui3d, boolean smoothLighting, boolean uvlock){
+        public BakedBackpack(IBakedModel base, IBakedModel hand, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap, boolean gui3d, boolean smoothLighting){
             this.gui3d = gui3d;
             this.smoothLighting = smoothLighting;
-            this.uvlock = uvlock;
-            this.immutableMap = immutableMap;
-            this.handModelBackpack = handModelBackpack;
-            this.groundModelBackpack = groundModelBackpack;
+            this.transforms = immutableMap;
+            this.bakedBase = base;
+            this.bakedHand = hand;
+
         }
 
         @Override
-        public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+        public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType transformType) {
+
             // Depending on the TransformType, choose the IBakedModel to return
-            IBakedModel modelToReturn;
-
-            // Store a pair depending
-            Pair<? extends IBakedModel, Matrix4f> pairStored;
-
-            if (cameraTransformType.equals(ItemCameraTransforms.TransformType.GROUND)) {
-                modelToReturn = groundModelBackpack;
+            final IBakedModel bakedModel;
+            if(transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND || transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND || transformType == ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND || transformType == ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
+                bakedModel = bakedHand;
             } else {
-                modelToReturn = handModelBackpack;
-            }
-            // If that model is also an IPerspectiveAwareModel (instanceof), use handlePerspective and store the returned Pair
-            if (modelToReturn instanceof IPerspectiveAwareModel) {
-                pairStored = ((IPerspectiveAwareModel) modelToReturn).handlePerspective(cameraTransformType);
-            } else { // Otherwise:
-                // Use getItemCameraTransforms().getTransforms() to get ItemTransformVec3f
-                ItemTransformVec3f vec3f = getItemCameraTransforms().getTransform(cameraTransformType); //deprecated
-                // Convert that to TRSRTransformation with the TRSRT constructor
-                TRSRTransformation trsrTransformation = new TRSRTransformation(vec3f); //deprecated also
-                // Use TRSRT.blockCenterToCorner on it
-                TRSRTransformation transformation = TRSRTransformation.blockCenterToCorner(trsrTransformation);
-                // Then convert THAT into a Matrix4f with getMatrix
-                Matrix4f matrix4f = transformation.getMatrix();
-                // Pair the model and matrix with Pair.of
-                pairStored = Pair.of(modelToReturn, matrix4f);
+                bakedModel = bakedBase;
             }
 
-            // From the stored ImmutableMap<TransformType, TRSRTransformation>, get the relevant transform and get its matrix
-            TRSRTransformation trsrTransformationFromImmutable = (TRSRTransformation)this.immutableMap.get(cameraTransformType);
-            Matrix4f matrix4fFromImmutable = trsrTransformationFromImmutable.getMatrix();
+            // Store a pair depending on modelInstance
+            final Pair<? extends IBakedModel, Matrix4f> transformed;
+            // If that model is also an IPerspectiveAwareModel, use handlePerspective and store the returned Pair
+            if(bakedModel instanceof IPerspectiveAwareModel) {
+                transformed = ((IPerspectiveAwareModel)bakedModel).handlePerspective(transformType);
+            } else { // Otherwise:
+                TRSRTransformation baseTRSR = new TRSRTransformation(bakedModel.getItemCameraTransforms().getTransform(transformType));
+                TRSRTransformation properTRSR = TRSRTransformation.blockCenterToCorner(baseTRSR);
+                transformed = Pair.of(bakedModel, properTRSR.getMatrix());
+            }
+
             // Get Matrix from pair
-            Matrix4f matrix4fFromPair = pairStored.getRight();
+            Matrix4f baseMatrix = transformed.getRight();
             // Multiply the matrix in the pair with the matrix from the map
-            matrix4fFromPair.mul(matrix4fFromImmutable); //stores it back in itself
-            //Return a pair of the model and the new matrix
-            return Pair.of(modelToReturn, matrix4fFromPair);
+            baseMatrix.mul(transforms.get(transformType).getMatrix()); // Stores back into itself
+
+            return transformed;
 
         }
 
