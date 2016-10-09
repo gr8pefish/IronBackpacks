@@ -14,7 +14,6 @@ import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.util.vector.Matrix;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
@@ -27,7 +26,7 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
     //json for the model
     public static final ResourceLocation BASE_LOC = new ResourceLocation(Constants.MODID, "backpack_basic");
     //empty
-    public static final ResourceLocation EMPTY_LOC = new ResourceLocation("minecraft:builtin/generated");
+    public static final ResourceLocation EMPTY_LOC = new ResourceLocation(Constants.MODID, "item/ItemBackpackBasic");
 
     protected final boolean smoothLighting;
     protected final boolean gui3d;
@@ -123,7 +122,7 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
 
             // Depending on the TransformType, choose the IBakedModel to return
             final IBakedModel bakedModel;
-            if(transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND || transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND || transformType == ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND || transformType == ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
+            if(transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND || transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND || transformType == ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND || transformType == ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND || transformType == ItemCameraTransforms.TransformType.GUI) {
                 bakedModel = bakedHand;
             } else {
                 bakedModel = bakedBase;
