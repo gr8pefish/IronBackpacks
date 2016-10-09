@@ -58,7 +58,7 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
         // Load the other two models with ModelLoader.getModel
         try {
             IModel groundModelIModel = ModelLoaderRegistry.getModel(CMLBackpack.resourceLocationBackpack);
-            IModel handModelIModel = ModelLoaderRegistry.getModel(CMLBackpack.resourceLocationBackpackHand);
+            IModel handModelIModel = ModelLoaderRegistry.getModel(new ResourceLocation("minecraft:builtin/generated"));
 
             // For both of them, do some instanceof checks and call gui3d, smoothLighting, and uvLock on them with the stored values
             IModel ground1 = ModelProcessingHelper.gui3d(groundModelIModel, gui3d);
@@ -69,19 +69,15 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
             IModel hand2 = ModelProcessingHelper.smoothLighting(hand1, smoothLighting);
             IModel hand3 = ModelProcessingHelper.uvlock(hand2, uvlock);
 
-            // Two new IModels go into local vars
-            IModel groundModelBackpack = ground3; //unsure why this is here, seems redundant?
-            IModel handModelBackpack = hand3;
-
             // Bake both models with the given IModelState, VertexFormat, and textureGetter
-            groundModelBackpack.bake(state, format, bakedTextureGetter);
-            handModelBackpack.bake(state, format, bakedTextureGetter);
+            IBakedModel groundBaked = ground3.bake(state, format, bakedTextureGetter);
+            IBakedModel handBaked = hand3.bake(state, format, bakedTextureGetter);
 
             // Use IPerspectiveAwareModel.MapWrapper.getTransforms on the IModelState to get an ImmutableMap
             ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
 
             // Create an instance of your custom IPerspectiveAwareModel containing the other two IBakedModels, the ImmutableMap, gui3d, smoothLighting, and uvLock and return it.
-            PerspectiveModelBackpack perspectiveModelBackpack = new PerspectiveModelBackpack((ModelBackpackItem)groundModelBackpack, (ModelBackpackItem)handModelBackpack, immutableMap, gui3d, smoothLighting, uvlock);
+            PerspectiveModelBackpack perspectiveModelBackpack = new PerspectiveModelBackpack((ModelBackpackItem)groundBaked, (ModelBackpackItem)handBaked, immutableMap, gui3d, smoothLighting, uvlock);
             return perspectiveModelBackpack;
 
         } catch (Exception e) {
