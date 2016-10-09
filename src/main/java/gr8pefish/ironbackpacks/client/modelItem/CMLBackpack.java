@@ -9,12 +9,14 @@ import net.minecraftforge.client.model.IModel;
 public class CMLBackpack implements ICustomModelLoader {
 
     //Possibly incorrect RL, need to test it
-    public static ResourceLocation resourceLocationBackpack = new ResourceLocation(Constants.MODID, "backpackBasic");
-    public static ResourceLocation resourceLocationBackpackHand = new ResourceLocation(Constants.MODID, "ItemBackpackBasic");
+    public static ResourceLocation resourceLocationBackpackGround = new ResourceLocation(Constants.MODID, "backpackBasic"); //json for ground (resources/assets/ironbackpacks/models/items/backpackBasic.json)
+    public static ResourceLocation resourceLocationBackpackHand = new ResourceLocation("minecraft:builtin/generated"); //empty model for hand
+    public static ResourceLocation resourceLocationBackpackCustom = new ResourceLocation("Not Sure What Goes Here"); //custom combined IModel
+
 
     @Override
     public boolean accepts(ResourceLocation modelLocation) {
-        return (modelLocation == resourceLocationBackpack); //need both?
+        return (modelLocation == resourceLocationBackpackCustom); //need both?
     }
 
     @Override

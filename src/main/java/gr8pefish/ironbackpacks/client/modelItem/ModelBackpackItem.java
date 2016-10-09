@@ -49,7 +49,7 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
 
     @Override
     public Collection<ResourceLocation> getDependencies() {
-        return ImmutableList.of(CMLBackpack.resourceLocationBackpack, CMLBackpack.resourceLocationBackpackHand);
+        return ImmutableList.of(CMLBackpack.resourceLocationBackpackGround, CMLBackpack.resourceLocationBackpackHand);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
 
         // Load the other two models with ModelLoader.getModel
         try {
-            IModel groundModelIModel = ModelLoaderRegistry.getModel(CMLBackpack.resourceLocationBackpack);
+            IModel groundModelIModel = ModelLoaderRegistry.getModel(CMLBackpack.resourceLocationBackpackGround);
             IModel handModelIModel = ModelLoaderRegistry.getModel(new ResourceLocation("minecraft:builtin/generated"));
 
             // For both of them, do some instanceof checks and call gui3d, smoothLighting, and uvLock on them with the stored values
@@ -82,8 +82,7 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
             ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> immutableMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
 
             // Create an instance of your custom IPerspectiveAwareModel containing the other two IBakedModels, the ImmutableMap, gui3d, smoothLighting, and uvLock and return it.
-            PerspectiveModelBackpack perspectiveModelBackpack = new PerspectiveModelBackpack(groundBaked, handBaked, immutableMap, gui3d, smoothLighting, uvlock);
-            return perspectiveModelBackpack;
+            return new PerspectiveModelBackpack(groundBaked, handBaked, immutableMap, gui3d, smoothLighting, uvlock);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,15 +122,19 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
         public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
             // Depending on the TransformType, choose the IBakedModel to return
             IBakedModel modelToReturn;
+
+            // Store a pair depending
+            Pair<? extends IBakedModel, Matrix4f> pairStored;
+
             if (cameraTransformType.equals(ItemCameraTransforms.TransformType.GROUND)) {
-                modelToReturn = groundModelBackpack; //dangerous typecasting here
+                modelToReturn = groundModelBackpack;
             } else {
                 modelToReturn = handModelBackpack;
             }
             // If that model is also an IPerspectiveAwareModel (instanceof), use handlePerspective and store the returned Pair
             if (modelToReturn instanceof IPerspectiveAwareModel) {
-                return ((IPerspectiveAwareModel) modelToReturn).handlePerspective(cameraTransformType);
-            } else{ // Otherwise:
+                pairStored = ((IPerspectiveAwareModel) modelToReturn).handlePerspective(cameraTransformType);
+            } else { // Otherwise:
                 // Use getItemCameraTransforms().getTransforms() to get ItemTransformVec3f
                 ItemTransformVec3f vec3f = getItemCameraTransforms().getTransform(cameraTransformType); //deprecated
                 // Convert that to TRSRTransformation with the TRSRT constructor
@@ -141,15 +144,18 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
                 // Then convert THAT into a Matrix4f with getMatrix
                 Matrix4f matrix4f = transformation.getMatrix();
                 // Pair the model and matrix with Pair.of
-                Pair myPair = Pair.of(modelToReturn, matrix4f);
-                // From the stored ImmutableMap<TransformType, TRSRTransformation>, get the relevant transform and get its matrix
-                TRSRTransformation trsrTransformationFromImmutable = (TRSRTransformation)this.immutableMap.get(cameraTransformType);
-                Matrix4f matrix4fFromImmutable = trsrTransformationFromImmutable.getMatrix();
-                // Multiply the matrix in the pair with the matrix from the map
-                matrix4f.mul(matrix4fFromImmutable); //stores it back in itself
-                //Return a pair of the model and the new matrix
-                return Pair.of(modelToReturn, matrix4f);
+                pairStored = Pair.of(modelToReturn, matrix4f);
             }
+
+            // From the stored ImmutableMap<TransformType, TRSRTransformation>, get the relevant transform and get its matrix
+            TRSRTransformation trsrTransformationFromImmutable = (TRSRTransformation)this.immutableMap.get(cameraTransformType);
+            Matrix4f matrix4fFromImmutable = trsrTransformationFromImmutable.getMatrix();
+            // Get Matrix from pair
+            Matrix4f matrix4fFromPair = pairStored.getRight();
+            // Multiply the matrix in the pair with the matrix from the map
+            matrix4fFromPair.mul(matrix4fFromImmutable); //stores it back in itself
+            //Return a pair of the model and the new matrix
+            return Pair.of(modelToReturn, matrix4fFromPair);
 
         }
 
