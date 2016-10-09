@@ -14,6 +14,7 @@ import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.util.vector.Matrix;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
@@ -139,12 +140,16 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
                 transformed = Pair.of(bakedModel, properTRSR.getMatrix());
             }
 
-            // Get Matrix from pair
-            Matrix4f baseMatrix = transformed.getRight();
-            // Multiply the matrix in the pair with the matrix from the map
-            baseMatrix.mul(transforms.getOrDefault(transformType, TRSRTransformation.identity()).getMatrix()); // Stores back into itself
+            // Get Matrix from pair (with null checks)
+            Matrix4f baseMatrix = transformed.getRight() == null ? TRSRTransformation.identity().getMatrix() : transformed.getRight() ;
 
-            return transformed;
+            // Get matrix from transforms
+            Matrix4f transformMatrix = transforms.getOrDefault(transformType, TRSRTransformation.identity()).getMatrix();
+
+            // Multiply the matrix in the pair with the matrix from the map
+            baseMatrix.mul(transformMatrix); // Stores back into itself
+
+            return Pair.of(transformed.getLeft(), baseMatrix);
 
         }
 
