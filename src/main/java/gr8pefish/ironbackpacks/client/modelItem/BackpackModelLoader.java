@@ -15,7 +15,9 @@ public final class BackpackModelLoader implements ICustomModelLoader {
 
     @Override
     public boolean accepts(ResourceLocation modelLocation) {
-        return MODEL_LOCATION.equals(modelLocation);
+        if (modelLocation.getResourceDomain().equals(Constants.MODID))
+            return (modelLocation.getResourcePath().equals("backpack") || modelLocation.getResourcePath().equals("block/backpack") || modelLocation.getResourcePath().equals("models/block/backpack"));
+        return false;
     }
 
     @Override

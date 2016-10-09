@@ -142,7 +142,7 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
             // Get Matrix from pair
             Matrix4f baseMatrix = transformed.getRight();
             // Multiply the matrix in the pair with the matrix from the map
-            baseMatrix.mul(transforms.get(transformType).getMatrix()); // Stores back into itself
+            baseMatrix.mul(transforms.getOrDefault(transformType, TRSRTransformation.identity()).getMatrix()); // Stores back into itself
 
             return transformed;
 
