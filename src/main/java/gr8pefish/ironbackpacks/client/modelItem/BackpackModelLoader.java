@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 public final class BackpackModelLoader implements ICustomModelLoader {
 
     // Combined model
-    public static final ResourceLocation MODEL_LOCATION = new ResourceLocation(Constants.MODID, "backpack");
+    public static final ResourceLocation MODEL_LOCATION = new ResourceLocation(Constants.MODID, "blocks/backpack");
 
     @Override
     public boolean accepts(ResourceLocation modelLocation) {

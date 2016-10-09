@@ -19,8 +19,11 @@ import gr8pefish.ironbackpacks.libs.LocalizedStrings;
 import gr8pefish.ironbackpacks.libs.recipes.BackpackTierRecipes;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.InventoryRenderHelper;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
@@ -292,7 +295,9 @@ public class ItemRegistry {
         InventoryRenderHelper renderHelper = new InventoryRenderHelper(Constants.DOMAIN);
 
         //render the backpack items (tiered orderd)
-        renderHelper.itemRender(basicBackpack, "backpack");
+//        renderHelper.itemRender(basicBackpack, "backpack_basic_parent");
+        //custom
+        ModelLoader.setCustomModelResourceLocation(basicBackpack, 0, new ModelResourceLocation(Constants.DOMAIN+"backpack_basic_parent", "inventory"));
         renderHelper.itemRender(ironBackpackStorageEmphasis, "ItemBackpackIron");
         renderHelper.itemRender(ironBackpackUpgradeEmphasis, "ItemBackpackIron");
         renderHelper.itemRender(goldBackpackStorageEmphasis, "ItemBackpackGold");

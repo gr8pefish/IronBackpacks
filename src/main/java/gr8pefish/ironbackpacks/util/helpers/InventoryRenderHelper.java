@@ -43,7 +43,7 @@ public class InventoryRenderHelper {
     public void itemRender(Item item, int meta, String name) {
         String resName = domain + name;
 
-        ModelBakery.registerItemVariants(item, new ModelResourceLocation(resName));
+        //ModelBakery.registerItemVariants(item, new ModelResourceLocation(resName)); //done already by set CMRL
         ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(resName, "inventory"));
     }
 
