@@ -1,14 +1,14 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "ironbackpacks:models/packIronMain",
-        "1": "ironbackpacks:models/packIronPouch"
+        "0": "ironbackpacks:models/packDiamondMain",
+        "1": "ironbackpacks:models/packDiamondPouch"
     },
     "elements": [
         {
             "name": "Main",
-            "from": [ 7.0, 1.0, 5.0 ], 
-            "to": [ 9.0, 7.0, 11.0 ], 
+            "from": [ 7.0, 7.0, 5.0 ],
+            "to": [ 9.0, 13.0, 11.0 ],
             "faces": {
                 "north": { "texture": "#0", "uv": [ 16.0, 0.0, 12.0, 12.0 ] },
                 "east": { "texture": "#0", "uv": [ 12.0, 0.0, 0.0, 12.0 ] },
@@ -20,8 +20,8 @@
         },
         {
             "name": "pouch",
-            "from": [ 6.0, 1.0, 6.0 ], 
-            "to": [ 7.0, 5.0, 10.0 ], 
+            "from": [ 6.0, 7.0, 6.0 ],
+            "to": [ 7.0, 11.0, 10.0 ],
             "faces": {
                 "north": { "texture": "#1", "uv": [ 9.0, 0.0, 11.0, 8.0 ] },
                 "east": { "texture": "#1", "uv": [ 2.0, 2.0, 6.0, 6.0 ] },
@@ -33,8 +33,8 @@
         },
         {
             "name": "Cube",
-            "from": [ 7.0, 0.0, 6.0 ], 
-            "to": [ 9.0, 1.0, 10.0 ], 
+            "from": [ 7.0, 6.0, 6.0 ],
+            "to": [ 9.0, 7.0, 10.0 ],
             "faces": {
                 "north": { "texture": "#0", "uv": [ 10.0, 10.0, 6.0, 12.0 ] },
                 "east": { "texture": "#0", "uv": [ 2.0, 10.0, 10.0, 12.0 ] },
@@ -46,8 +46,8 @@
         },
         {
             "name": "Cube",
-            "from": [ 7.499999992549419, 7.0, 6.0 ], 
-            "to": [ 9.0, 7.499999992549419, 10.0 ], 
+            "from": [ 7.499999992549419, 13.0, 6.0 ],
+            "to": [ 9.0, 13.499999992549419, 10.0 ],
             "faces": {
                 "north": { "texture": "#0", "uv": [ 11.0, 12.0, 8.0, 11.0 ] },
                 "east": { "texture": "#0", "uv": [ 1.0, 11.0, 9.0, 12.0 ] },

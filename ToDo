@@ -1,6 +1,107 @@
 To Do:
 
     NOW:
+
+    howtonotwin's gist for new version of docs
+    https://gist.github.com/howtonotwin/399aa28984d729060f30b44a02d4c726
+
+    <gr8pefish> howtonotwin, ugh sorry, but I can't figure out the json stuff in combination with variable states to make the IModel perspective changer work via IModelCustomData. Help me just a little more?
+    <howtonotwin> illy ! Message("illy ! PoisonPill")
+    <howtonotwin> ok
+    <howtonotwin> so IModelCustomData is very simply
+    <howtonotwin> *simple
+    <howtonotwin> in a blockstate JSON
+    <Roburrito> @SubscribeEvent
+    <Roburrito> public void registerModels(RegistryEvent.Register<ModelBase> ev) {}
+    <illy> Why do you always try to poison me?
+    <Roburrito> Yes no?
+    <howtonotwin> you can have a "custom" block next to a "model"
+    <howtonotwin> only in forge blockstates mind you
+    <gr8pefish> okay, I'm following
+    <howtonotwin> and this data can be anything
+    <howtonotwin> now
+    <howtonotwin> actually I forget
+    <gigaherz> Roburrito: no.
+    <howtonotwin> how many TransformTypes are there?
+    <Roburrito> http://mcforge.readthedocs.io/en/latest/events/intro/
+    <gr8pefish> like a lot xD
+    <gr8pefish> 10ish
+    <Roburrito> Where can I get more in-depth?
+    <howtonotwin> alright
+    <howtonotwin> so for each of those
+    <howtonotwin> the best way to write this model
+    <howtonotwin> to make it as extensible as possible
+    <gigaherz> Roburrito: the idea is that you handle it once, in your client proxy
+    <gigaherz> and you call all the items from it
+    <howtonotwin> is to allow each perspective to have its own IModel behind it
+    <howtonotwin> so your custom IModel acts as a dispatch table to the others
+    <howtonotwin> follow?
+    <gr8pefish> mostly
+    <Roburrito> DANG IT
+    <gr8pefish> the data is described in the json
+    <Roburrito> So I was going the right way in teh first place.
+    <gr8pefish> and then the IModel reads it essentially?
+    <howtonotwin> yes
+    <gr8pefish> for each of the perspectives
+    <howtonotwin> so now your "custom data" is just a simple map transformtype -> resourcelocation of model
+    <gr8pefish> okay sure
+    <howtonotwin> and you'll receive this data in IModelCustomData::process
+    <howtonotwin> as a map String -> String
+    <howtonotwin> vanilla has a certain "JSON name" for each transform
+    <howtonotwin> like firstperson_righthand
+    <howtonotwin> bit different from the code
+    <howtonotwin> you can see it on the wiki
+    <howtonotwin> i digress
+    <howtonotwin> anyway you just deserialize a TransformType and a ResourceLocation from each entry of the map
+    <howtonotwin> simple, right?
+    * Noppie has quit (Read error: Connection reset by peer)
+    <gr8pefish> Okay, yeah that makes sense
+    <howtonotwin> And when you bake the model, you load and bake all 10-ish of the other models
+    <howtonotwin> and pass the map TransformType -> IBakedModel to the IBakedModel class
+    <Roburrito> Okay, I'm going to take a break from this and cook dinner.
+    <howtonotwin> so in Scala that would be
+    <gr8pefish> eww scala :P
+    <gr8pefish> jk go on
+    * amadornes is now known as amadornes[OFF]
+    <howtonotwin> deserializedMap mapValues ModelLoaderRegistry.loadModelOrLogError mapValues { _.bake(...) }
+    <howtonotwin> so for each pair (TransformType, ResourceLocation)
+    <howtonotwin> load the model
+    <gigaherz> barteks2x: seems I misread. the full class name is @Mod.EventBusSubscriber, and it doesn't work on any random class, only the @Mod class
+    <howtonotwin> and get a (TransformType, IModel)
+    <howtonotwin> then bake it
+    * ThePsionic has quit (Quit: Leaving)
+    <howtonotwin> and get a map TransformType -> IBakedModel
+    <howtonotwin> still very simple, right?
+    <gigaherz> or maybe I'm doing it wrong ;P
+    <howtonotwin> then you pass that down to the IBakedModel
+    <howtonotwin> and when IPAM::handlePersp is called
+    <howtonotwin> you just choose the model from that map
+    <howtonotwin> simple?
+    <gr8pefish> I think I have to try doing it. Mind slowing down, i'll get what you have written so far and then come back?
+    <howtonotwin> ok
+    <howtonotwin> really I just explained the entire thing though
+    <howtonotwin> xD
+    <gr8pefish> lol okay :P
+    <gr8pefish> so the json syntax would be what exactly? like this? custom { perspective1: (IModel? or RL?), perspective2: etc. }
+    <howtonotwin> just RL
+    <gr8pefish> ^ RL, not an IModel in the json actually, you said that
+    <gr8pefish> and for each of the backpacks I would have a seperate json with all these perspectives, the only difference would be that the RL would change?
+    <howtonotwin> yes
+    <gr8pefish> okay, I'll work on that then
+    <gr8pefish> thanks!
+    <howtonotwin> you can probably also have a syntax like
+    <howtonotwin> default: something
+    <howtonotwin> which could make it shorter
+    <howtonotwin> really it's all your thing now :P
+    <gr8pefish> okay, I'll just make it functional then optimize later xD
+
+
+        look into alex model backpack not rendering?
+
+        http://pastebin.com/eaY352wN
+
+        update forge/jei
+
         Add right click ability as an upgrade
 
         Basic description improvements

@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModelUVLock {
+public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModelUVLock, IModelCustomData {
 
     //json for the model
-    public static final ResourceLocation BASE_LOC = new ResourceLocation(Constants.MODID, "backpack_basic");
+    public ResourceLocation BASE_LOC = new ResourceLocation(Constants.MODID, "backpack_basic");
     //empty
-    public static final ResourceLocation EMPTY_LOC = new ResourceLocation(Constants.MODID, "item/ItemBackpackBasic");
+    public ResourceLocation EMPTY_LOC = new ResourceLocation(Constants.MODID, "item/ItemBackpackBasic");
 
     protected final boolean smoothLighting;
     protected final boolean gui3d;
@@ -94,6 +94,20 @@ public class ModelBackpackItem implements IModel, IModelSimpleProperties, IModel
     @Override
     public IModelState getDefaultState() {
         return ModelRotation.X0_Y0;
+    }
+
+    //To account for more than 1 backpack
+    @Override
+    public IModel process(ImmutableMap<String, String> customData) {
+        if (customData.containsKey("basic"))
+            customData.get("basic");// = someVar? //set RL (customData part2) to basic
+        else if (customData.containsKey("iron"))
+            customData.get("iron");
+        else if (customData.containsKey("gold"))
+            customData.get("gold");
+        else if (customData.containsKey("diamond"))
+            customData.get("diamond");
+        return new ModelBackpackItem(smoothLighting, gui3d, uvlock);
     }
 
 

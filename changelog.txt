@@ -2,7 +2,7 @@
 Version 1.10.2 - 2.2.6
 ------------------------------------------------------
 Additions
-- None
+- Updated the wiki (external documentation on Github), go check it out!
 
 Changes
 - None

@@ -294,16 +294,14 @@ public class ItemRegistry {
         //init the render helper
         InventoryRenderHelper renderHelper = new InventoryRenderHelper(Constants.DOMAIN);
 
-        //render the backpack items (tiered orderd)
-//        renderHelper.itemRender(basicBackpack, "backpack_basic_parent");
-        //custom
-        ModelLoader.setCustomModelResourceLocation(basicBackpack, 0, new ModelResourceLocation(Constants.DOMAIN+"backpack_basic_parent", "inventory"));
-        renderHelper.itemRender(ironBackpackStorageEmphasis, "ItemBackpackIron");
-        renderHelper.itemRender(ironBackpackUpgradeEmphasis, "ItemBackpackIron");
-        renderHelper.itemRender(goldBackpackStorageEmphasis, "ItemBackpackGold");
-        renderHelper.itemRender(goldBackpackUpgradeEmphasis, "ItemBackpackGold");
-        renderHelper.itemRender(diamondBackpackStorageEmphasis, "ItemBackpackDiamond");
-        renderHelper.itemRender(diamondBackpackUpgradeEmphasis, "ItemBackpackDiamond");
+        //render the backpack items (tiered ordered)
+        renderHelper.itemRender(basicBackpack, "backpack_modeler");
+        renderHelper.itemRender(ironBackpackStorageEmphasis, "backpack_modeler");
+        renderHelper.itemRender(ironBackpackUpgradeEmphasis, "backpack_modeler");
+        renderHelper.itemRender(goldBackpackStorageEmphasis, "backpack_modeler");
+        renderHelper.itemRender(goldBackpackUpgradeEmphasis, "backpack_modeler");
+        renderHelper.itemRender(diamondBackpackStorageEmphasis, "backpack_modeler");
+        renderHelper.itemRender(diamondBackpackUpgradeEmphasis, "backpack_modeler");
 
 
         //render the upgrade items (alphabetical order, except adv. filter filters)

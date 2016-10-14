@@ -1,0 +1,18 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "inventory": [{
+      "model": "ironbackpacks:backpack",
+      "custom": {
+        "firstperson_lefthand": "item/ItemBackpackBasic",
+        "firstperson_righthand": "item/ItemBackpackBasic",
+        "thirdperson_lefthand": "item/ItemBackpackBasic",
+        "thirdperson_righthand": "item/ItemBackpackBasic",
+        "gui": "item/ItemBackpackBasic",
+        "head": "backpack_basic",
+        "ground": "backpack_basic",
+        "fixed": "backpack_basic"
+      }
+    }]
+  }
+}
