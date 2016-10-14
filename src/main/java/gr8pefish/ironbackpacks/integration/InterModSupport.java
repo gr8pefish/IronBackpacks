@@ -1,8 +1,11 @@
 package gr8pefish.ironbackpacks.integration;
 
+import codechicken.enderstorage.item.ItemEnderPouch;
 import gr8pefish.ironbackpacks.api.Constants;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 /**
@@ -43,6 +46,11 @@ public class InterModSupport {
         if (Loader.isModLoaded("EnderStorage")) {
             isEnderStorageLoaded = true;
         }
+    }
+
+    @Optional.Method(modid = "EnderStorage")
+    public static boolean isEnderPouch(Item item) {
+        return isEnderStorageLoaded && item instanceof ItemEnderPouch;
     }
 
 

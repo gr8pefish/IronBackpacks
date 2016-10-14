@@ -164,7 +164,7 @@ public class ContainerBackpack extends Container {
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && ItemStack.areItemStacksEqual(getSlot(slot).getStack(), currPack) && dragType == 0) {
             return null;
         }else if (dragType == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack()){ //right click on non-empty slot
-            if(InterModSupport.isEnderStorageLoaded && getSlot(slot).getStack().getItem() instanceof ItemEnderPouch) {
+            if(InterModSupport.isEnderPouch(getSlot(slot).getStack().getItem())) {
                 ItemStack stack = getSlot(slot).getStack();
                 stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
                 return null;
