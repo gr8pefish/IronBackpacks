@@ -1,5 +1,21 @@
 To Do:
 
+    Add in TehNut's code to display as snail...
+        @Override
+        @SideOnly(Side.CLIENT)
+        public String getItemStackDisplayName(ItemStack stack) {
+            if (!Minecraft.getMinecraft().thePlayer.getGameProfile().getId().equals(UUID.fromString("eb21559e-bb22-46f2-897b-71eee2d5c09b")))
+                return super.getItemStackDisplayName(stack);
+
+            return super.getItemStackDisplayName(stack).replaceAll("Backpack", "Snail");
+        }
+
+    Notes/ideas from hiking:
+        Disable upgrades via disable recipe and .disabled field in ItemUpgrade from config, also do JEI checks when instantiating
+        Fat backpack for storage emphasis, and some extra texture for upgrade emphasis
+        Differentiate between tiers more
+        Harsher upgrade point limits on packs in general
+
     NOW:
         Add right click ability as an upgrade
         Improve message for 'open and then close again'
