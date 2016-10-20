@@ -16,6 +16,14 @@ To Do:
         Differentiate between tiers more
         Harsher upgrade point limits on packs in general
 
+        Change names for filters to be more player-friendly (i.e. ore dictionary?)
+
+    Check playthrough notes
+    Config option for 32x textures (make 16x default)
+
+    1.11
+        New UpgradeItem types for all of the IIUpgradeInterfaces to allow scalability
+
     NOW:
         Add right click ability as an upgrade
         Improve message for 'open and then close again'
