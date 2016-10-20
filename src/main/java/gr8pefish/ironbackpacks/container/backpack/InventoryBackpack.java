@@ -37,6 +37,15 @@ public class InventoryBackpack implements IInventory {
         readFromNBT(backpackStack.getTagCompound());
     }
 
+    //Instantiated for crafting result (no-player specific opening)
+    public InventoryBackpack(ItemStack backpackStack, boolean noPlayer){
+        this.backpackStack = backpackStack;
+        this.player = null;
+        this.inventory = new ItemStack[this.getSizeInventory()];
+        this.sortType = "id";
+        readFromNBT(backpackStack.getTagCompound(), noPlayer);
+    }
+
     public ItemStack getBackpackStack(){
         return backpackStack;
     }
@@ -280,6 +289,7 @@ public class InventoryBackpack implements IInventory {
      * Loads in the data stored in the NBT of this stack and puts the items in their respective slots.
      * @param nbtTagCompound - the tag compound
      */
+    //ToDo: Really need to remove this nonsense in next refactor
     public void readFromNBT(NBTTagCompound nbtTagCompound){
         if (!player.worldObj.isRemote) { //server side only
             ItemStack tempStack = findParentItemStack(player);
@@ -310,6 +320,32 @@ public class InventoryBackpack implements IInventory {
         } else { //client side: load in the sort-type for updating the sort button's tooltip
             if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.SORT_TYPE)) {
                 this.sortType = nbtTagCompound.getString(IronBackpacksConstants.NBTKeys.SORT_TYPE);
+            }
+        }
+    }
+
+    public void readFromNBT(NBTTagCompound nbtTagCompound, boolean noPlayer){
+        if (noPlayer && (backpackStack != null)) {
+            nbtTagCompound = backpackStack.getTagCompound();
+
+            if (nbtTagCompound != null) {
+                //load in sortType
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.SORT_TYPE)) {
+                    this.sortType = nbtTagCompound.getString(IronBackpacksConstants.NBTKeys.SORT_TYPE);
+                }
+                //load in items
+                if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ITEMS)) {
+                    NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.ITEMS, Constants.NBT.TAG_COMPOUND);
+                    this.inventory = new ItemStack[this.getSizeInventory()];
+
+                    for (int i = 0; i < tagList.tagCount(); i++) {
+                        NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+                        int j = stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT);
+                        if (i >= 0 && i <= inventory.length) { //ToDo: Remove 2nd equals (so just less than) as per a 1.7.10 PR; test it
+                            this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                        }
+                    }
+                }
             }
         }
     }
