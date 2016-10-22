@@ -22,6 +22,10 @@ To Do:
     Config option for 32x textures (make 16x default)
     Check out Baubles compat again, has a chest slot that could be perfect (and good way to test saving)
 
+    Nesting opening backpacks via right click broke from change to the event for any backpack to open via right click
+        Examine code from back then versus now. May be because it is called client side only now? Nor sure.
+        InvAltGui.backpackSTack is fine w/ instantiation, but using it with the container turns it to null?!?
+
     Textures:
         Gold color is wrong, look at ingots
         More definite shading
