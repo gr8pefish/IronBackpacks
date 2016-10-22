@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.items.ItemStackHandler;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.ArrayList;
@@ -63,7 +65,9 @@ public class ForgeEventHandler {
         if (event.isWasDeath()) { //deal with dumb returning from the end code, have to only clone data when the player actually dies
             if (event.getOriginal().hasCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null)) {
                 PlayerDeathBackpackCapabilities oldCap = event.getOriginal().getCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null);
+//                NBTTagCompound tagCompound = oldCap.serializeNBT();
                 PlayerDeathBackpackCapabilities newCap = event.getEntityPlayer().getCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null);
+//                newCap.deserializeNBT(tagCompound); //ToDo: Test inclusion, as better than manually copying over?
 
                 //update new data with old
                 newCap.setEternityBackpacks(oldCap.getEternityBackpacks());
@@ -72,7 +76,9 @@ public class ForgeEventHandler {
         } else { //return from end
             if (event.getOriginal().hasCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null)) {
                 PlayerWearingBackpackCapabilities oldCap = event.getOriginal().getCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null);
+//                NBTTagCompound tagCompound = oldCap.serializeNBT();
                 PlayerWearingBackpackCapabilities newCap = event.getEntityPlayer().getCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null);
+//                newCap.deserializeNBT(tagCompound);
 
                 //update new data with old
                 newCap.setCurrentBackpack(oldCap.getCurrentBackpack());
