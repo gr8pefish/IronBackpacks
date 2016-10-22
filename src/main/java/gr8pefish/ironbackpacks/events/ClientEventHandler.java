@@ -1,15 +1,15 @@
 package gr8pefish.ironbackpacks.events;
 
-import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.client.KeyHandler;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.ItemStackMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import net.minecraft.client.Minecraft;
+import mezz.jei.api.IGuiHelper;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
@@ -50,12 +50,14 @@ public class ClientEventHandler {
             if (Mouse.getEventButton() == 1) { //right click only
                 if (guiScreen instanceof GuiContainer) { //containers only
                     GuiContainer container = (GuiContainer) guiScreen;
-                    Slot slot = container.getSlotUnderMouse();
-                    if (slot != null && slot.getHasStack()) { //needs an item
-                        ItemStack stack = slot.getStack();
-                        if (stack.getItem() instanceof ItemBackpack) { //needs to be a backpack
-                            NetworkingHandler.network.sendToServer(new ItemStackMessage(stack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? ItemStackMessage.SNEAKING : ItemStackMessage.NOT_SNEAKING)); //open the backpack via pseudo-right click on server
-                            event.setCanceled(true); //cancel pickup/further processing
+                    if ( (!(container instanceof IGuiHelper)) && (!(container instanceof GuiContainerCreative)) ) { //exclude JEI and creative inventories
+                        Slot slot = container.getSlotUnderMouse();
+                        if (slot != null && slot.getHasStack()) { //needs an item
+                            ItemStack stack = slot.getStack();
+                            if (stack.getItem() instanceof ItemBackpack) { //needs to be a backpack
+                                NetworkingHandler.network.sendToServer(new ItemStackMessage(stack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? ItemStackMessage.SNEAKING : ItemStackMessage.NOT_SNEAKING)); //open the backpack via pseudo-right click on server
+                                event.setCanceled(true); //cancel pickup/further processing
+                            }
                         }
                     }
                 }

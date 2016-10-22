@@ -1,11 +1,18 @@
 package gr8pefish.ironbackpacks.crafting;
 
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
+import gr8pefish.ironbackpacks.api.items.upgrades.ItemIUpgrade;
 import gr8pefish.ironbackpacks.api.recipes.IRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
+import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
+import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
+import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
+import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -72,8 +79,16 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
         boolean nullChecksPassed = false;
         ItemStack upgradeInQuestion = null;
         if ((slotOfBackpack <= (upgrades.size() - 1)) && (slotOfBackpack >= 0) && (upgrades.get(slotOfBackpack) != null)) {
-            nullChecksPassed = true;
             upgradeInQuestion = upgrades.get(slotOfBackpack);
+
+            //can't remove it if is a nesting upgrade and there are nested backpacks inside
+            //ToDo: Give descriptive error message to player
+            if (!canRemoveNestingUpgrade(backpack, upgradeInQuestion)) {
+                upgradeInQuestion = null;
+            } else {
+                nullChecksPassed = true;
+            }
+
         }
 
         //init variables for the return stack
@@ -199,6 +214,27 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
                 return i;
         }
         return -1;
+    }
+
+    /**
+     * Checks if the upgrade is a nesting or advanced nesting, and then checks if the backpack has any nested inside of it, because if it does the upgrade should be impossible to remove.
+     * @param backpack - the backpack to remove the upgrade from
+     * @param upgrade - the upgrade in question
+     * @return true if it can be removed, false otherwise
+     */
+    private boolean canRemoveNestingUpgrade(ItemStack backpack, ItemStack upgrade) {
+        if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(upgrade)) {
+            if (ItemIUpgradeRegistry.getItemIConflictingUpgrade(upgrade.getItemDamage()).equals(ItemRegistry.nestingUpgrade) || ItemIUpgradeRegistry.getItemIConflictingUpgrade(upgrade.getItemDamage()).equals(ItemRegistry.nestingAdvancedUpgrade)) {
+                //check if has backpack of any tier inside
+                InventoryBackpack inventoryBackpack = new InventoryBackpack(backpack, true);
+                for (int i = 0; i < inventoryBackpack.getSizeInventory(); i++){
+                    if (inventoryBackpack.getStackInSlot(i) != null && inventoryBackpack.getStackInSlot(i).getItem() instanceof ItemBackpack) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
 }
