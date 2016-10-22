@@ -22,6 +22,10 @@ To Do:
     Config option for 32x textures (make 16x default)
     Check out Baubles compat again, has a chest slot that could be perfect (and good way to test saving)
 
+    Textures:
+        Gold color is wrong, look at ingots
+        More definite shading
+
     1.11
         New UpgradeItem types for all of the IIUpgradeInterfaces to allow scalability
 
