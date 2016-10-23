@@ -293,12 +293,12 @@ public class ItemRegistry {
 
         //render the backpack items (tiered orderd)
         renderHelper.itemRender(basicBackpack, "ItemBackpackBasic");
-        renderHelper.itemRender(ironBackpackStorageEmphasis, "ItemBackpackIron");
-        renderHelper.itemRender(ironBackpackUpgradeEmphasis, "ItemBackpackIron");
-        renderHelper.itemRender(goldBackpackStorageEmphasis, "ItemBackpackGold");
-        renderHelper.itemRender(goldBackpackUpgradeEmphasis, "ItemBackpackGold");
-        renderHelper.itemRender(diamondBackpackStorageEmphasis, "ItemBackpackDiamond");
-        renderHelper.itemRender(diamondBackpackUpgradeEmphasis, "ItemBackpackDiamond");
+        renderHelper.itemRender(ironBackpackStorageEmphasis, "ItemBackpackIronStorage");
+        renderHelper.itemRender(ironBackpackUpgradeEmphasis, "ItemBackpackIronUpgrade");
+        renderHelper.itemRender(goldBackpackStorageEmphasis, "ItemBackpackGoldStorage");
+        renderHelper.itemRender(goldBackpackUpgradeEmphasis, "ItemBackpackGoldUpgrade");
+        renderHelper.itemRender(diamondBackpackStorageEmphasis, "ItemBackpackDiamondStorage");
+        renderHelper.itemRender(diamondBackpackUpgradeEmphasis, "ItemBackpackDiamondUpgrade");
 
 
         //render the upgrade items (alphabetical order, except adv. filter filters)
