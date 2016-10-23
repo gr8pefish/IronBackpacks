@@ -5,10 +5,10 @@ Additions
 - None
 
 Changes
-- None
+- Slight update of textures again.
 
 Bug Fixes
-- None
+- Fix crash when EnderStorage was not installed.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.6
 ------------------------------------------------------
