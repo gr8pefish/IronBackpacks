@@ -5,10 +5,16 @@ Additions
 - None
 
 Changes
-- None
+- Changed textures to some much more fitting 16x16 ones!
+    - Note that these are still WIP.
+- Temporary removal of ability to shift-right click backpacks from inside other ones to directly open the alternate inventory.
+    - Can still be done in-hand, or directly from other inventories/GUIS, just not from backpacks.
 
 Bug Fixes
-- None
+- Fixed nested backpacks not updating contents.
+- Fixed ability to remove nesting upgrade when backpacks were nested in said backpack.
+- Fixed opening of backpacks directly in creative inventories.
+- Miscellaneous small fixes.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.5
 ------------------------------------------------------
