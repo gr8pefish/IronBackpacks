@@ -164,18 +164,28 @@ public class ContainerBackpack extends Container {
         if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && ItemStack.areItemStacksEqual(getSlot(slot).getStack(), currPack) && dragType == 0) {
             return null;
         }else if (dragType == 1 && slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack()){ //right click on non-empty slot
-            if(InterModSupport.isEnderPouch(getSlot(slot).getStack().getItem())) {
+            if(getSlot(slot).getStack().getItem() instanceof IBackpack) { //has to be a backpack
+                ItemStack stack = getSlot(slot).getStack();
+
+                if (!ItemStack.areItemStackTagsEqual(stack, IronBackpacksHelper.getBackpack(player))) {//can't right click the same backpack you have open, causes it to not update correctly and dupe items
+                    if (stack != null) {
+                        stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
+                    }
+                }
+
+                return null;
+            }else if(InterModSupport.isEnderPouch(getSlot(slot).getStack().getItem())) {
                 ItemStack stack = getSlot(slot).getStack();
                 stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
                 return null;
             }else if(getSlot(slot).getStack().getItem() instanceof IInventory) { //TODO: Dangerous inter-mod IInventory code, test this
-                if (!(getSlot(slot).getStack().getItem() instanceof IBackpack)) { //my backpacks handled already by client mouse event
+//                if (!(getSlot(slot).getStack().getItem() instanceof IBackpack)) { //my backpacks handled already by client mouse event
                     ItemStack stack = getSlot(slot).getStack();
                     if (stack != null) {
                         stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
                     }
                     return null;
-                }
+//                }
                 //ToDo: Possibly add normal here and remove compat from clientClickEvent
             }
         }

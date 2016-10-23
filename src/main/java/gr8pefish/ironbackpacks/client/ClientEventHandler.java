@@ -52,7 +52,7 @@ public class ClientEventHandler {
             if (Mouse.getEventButton() == 1) { //right click only
                 if (guiScreen instanceof GuiContainer) { //containers only
                     GuiContainer container = (GuiContainer) guiScreen;
-                    if ( (!(container instanceof IGuiHelper)) && (!(container instanceof GuiContainerCreative)) ) { //exclude JEI and creative inventories //ToDo: Possibly remove compat from clientClickEvent in favor of containerBackpack
+                    if ( (!(container instanceof IGuiHelper)) && (!(container instanceof GuiContainerCreative)) && (!(container instanceof GUIBackpack)) ) { //exclude JEI and creative inventories //ToDo: Possibly remove compat from clientClickEvent in favor of containerBackpack
                         Slot slot = container.getSlotUnderMouse();
                         if (slot != null && slot.getHasStack()) { //needs an item
                             ItemStack stack = slot.getStack();
