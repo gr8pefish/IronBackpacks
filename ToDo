@@ -29,6 +29,7 @@ To Do:
     Textures:
         Gold color is wrong, look at ingots
         More definite shading
+        add open/closed ones
 
     1.11
         New UpgradeItem types for all of the IIUpgradeInterfaces to allow scalability

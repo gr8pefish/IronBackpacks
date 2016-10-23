@@ -176,6 +176,7 @@ public class ContainerBackpack extends Container {
                     }
                     return null;
                 }
+                //ToDo: Possibly add normal here and remove compat from clientClickEvent
             }
         }
         return super.slotClick(slot, dragType, clickTypeIn, player);
