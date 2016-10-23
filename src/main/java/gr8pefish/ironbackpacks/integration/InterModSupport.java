@@ -50,7 +50,7 @@ public class InterModSupport {
 
     @Optional.Method(modid = "EnderStorage")
     public static boolean isEnderPouch(Item item) {
-        return isEnderStorageLoaded && item instanceof ItemEnderPouch;
+        return item instanceof ItemEnderPouch;
     }
 
 

@@ -174,7 +174,7 @@ public class ContainerBackpack extends Container {
                 }
 
                 return null;
-            }else if(InterModSupport.isEnderPouch(getSlot(slot).getStack().getItem())) {
+            }else if(InterModSupport.isEnderStorageLoaded && InterModSupport.isEnderPouch(getSlot(slot).getStack().getItem())) {
                 ItemStack stack = getSlot(slot).getStack();
                 stack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
                 return null;
