@@ -277,7 +277,7 @@ public class ConfigHandler {
         additionalUpgradesLimit = config.get("7) Miscellaneous", "3) Additional Upgrades Limit", 1, "The maximum number of times you can apply the 'additional upgrade slots' upgrade. This number represents the starting number (for the basic backpack), each backpack tier increments this number by one. " +
                 "Negative numbers are allowed (ex: -1 will allow none on basic or iron backpacks, once on gold backpacks, and twice on diamond). Default is 1.").getInt();
         additionalUpgradesIncrease = config.get("7) Miscellaneous", "4) Additional Upgrades Increase", 2, "The amount of extra upgrade points the 'additional upgrade slots' upgrade will apply. Default is 2.").getInt();
-        useAlternateBackpackTextures = config.get("7) Miscellaneous", "5) Alternate Backpack Textures", false, "Use alternate, lower definition textures for the backpacks. Default is false.").getBoolean();
+        useAlternateBackpackTextures = config.get("7) Miscellaneous", "5) Alternate Backpack Textures", false, "Use alternate, higher definition textures for the backpacks. Default is false.").getBoolean();
         makeRenamedBackpacksNamesItalic = config.get("7) Miscellaneous", "6) Italic Renames", false, "Make the styling of the letters on a renamed backpack be in italics. Default false.").getBoolean();
 
         config.save(); //Don't forget to save

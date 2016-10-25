@@ -5,7 +5,8 @@ Additions
 - None
 
 Changes
-- None
+- Changed to the 16x16 textures present in the 1.10 version.
+    - The config option to use the alternate textures now refers to the 32x32 ones, and is still available.
 
 Bug Fixes
 - None
