@@ -1,61 +1,76 @@
 To Do:
 
-    Add in TehNut's code to display as snail...
-        @Override
-        @SideOnly(Side.CLIENT)
-        public String getItemStackDisplayName(ItemStack stack) {
-            if (!Minecraft.getMinecraft().thePlayer.getGameProfile().getId().equals(UUID.fromString("eb21559e-bb22-46f2-897b-71eee2d5c09b")))
-                return super.getItemStackDisplayName(stack);
-
-            return super.getItemStackDisplayName(stack).replaceAll("Backpack", "Snail");
-        }
-
-    Notes/ideas from hiking:
-        Disable upgrades via disable recipe and .disabled field in ItemUpgrade from config, also do JEI checks when instantiating
-        Fat backpack for storage emphasis, and some extra texture for upgrade emphasis
-        Differentiate between tiers more
-        Harsher upgrade point limits on packs in general
-
-        Change names for filters to be more player-friendly (i.e. ore dictionary?)
-
-    Check playthrough notes
-    Config option for 32x textures (make 16x default)
-    Check out Baubles compat again, has a chest slot that could be perfect (and good way to test saving)
-
-    Nesting opening backpacks via right click broke from change to the event for any backpack to open via right click
-        Examine code from back then versus now. May be because it is called client side only now? Nor sure.
-        InvAltGui.backpackSTack is fine w/ instantiation, but using it with the container turns it to null?!?
-
-    Textures:
-        Gold color is wrong, look at ingots
-        More definite shading
-        add open/closed ones
-
     1.11
+        Rewrite mod again
+            use IItemHandler Cap?
         New UpgradeItem types for all of the IIUpgradeInterfaces to allow scalability
-
-    NOW:
-        Add right click ability as an upgrade
-        Improve message for 'open and then close again'
-
-    Misc Ideas:
-        Tooltip for storage emphasis shows how much space?
-            Add in description instead?
-        Add it so need upgrade specialization for certain upgrades?
-        look at Botania for tutorialIfFirstUse
-            Set of GuiScreens with informational tooltips/textboxes that you click through to see all the ways to use a backpack
-            Expand this idea so when you make an (i.e. AdvancedFilter) for the first item, shows popup for the nifty things for it.
-        Different models/textures for upgrade/storage emphasis (more pockets vs bigger model)
-        Order tooltip for backpack upgrades alphabetically?
-
-
+            Multiple items w/ sub-items, not just 1 -> 3
 
     1.10 ToDo:
 
-        Add fancy label to incr. tier recipe for showing it keeps its inventory and whatnot.
-
         Documentation (incl. github read me/wiki/cf page) like Refined storage
             Ask Cyanide X in a week to retexture my page (logo/banner/etc)
+
+        Bugs:
+            Nesting opening backpacks via right click broke from change to the event for any backpack to open via right click
+                Examine code from back then versus now. May be because it is called client side only now? Nor sure.
+                InvAltGui.backpackSTack is fine w/ instantiation, but using it with the container turns it to null?!?
+            Improve message for 'open and then close again'
+                Fix this bug occuring at all
+                    Look at UUID removal feasibility (ask Nut)
+            Add in file-based storage
+                Look at LE: https://github.com/TehNut/LoreExpansion/tree/1.10/src/main/java/me/dmillerw/loreexpansion/core/saving
+                    Ask Nut for assistence if needed
+
+        Features:
+            Disable upgrades via disable recipe and .disabled field in ItemUpgrade from config, also do JEI checks when instantiating
+            Add right click ability as an upgrade
+            Ender backpack
+                    iron -> ender or diamond -> ender?
+            Tool upgrade, slots in alt gui and then mouse wheel to rotate through them
+                render on pack eventually for extra fancyness?
+
+
+        QoL Changes:
+            Add in TehNut's code to display as snail...
+                @Override
+                @SideOnly(Side.CLIENT)
+                public String getItemStackDisplayName(ItemStack stack) {
+                    if (!Minecraft.getMinecraft().thePlayer.getGameProfile().getId().equals(UUID.fromString("eb21559e-bb22-46f2-897b-71eee2d5c09b")))
+                        return super.getItemStackDisplayName(stack);
+
+                    return super.getItemStackDisplayName(stack).replaceAll("Backpack", "Snail");
+                }
+           Check playthrough notes
+           Config option for 32x textures (make 16x default)
+           Check out Baubles compat again, has a chest slot that could be perfect (and good way to test saving)
+           Change names for filters to be more player-friendly (i.e. ore dictionary?)
+           Add fancy label to incr. tier recipe for showing it keeps its inventory and whatnot.
+
+           look at Botania for tutorialIfFirstUse
+               Set of GuiScreens with informational tooltips/textboxes that you click through to see all the ways to use a backpack
+               Expand this idea so when you make an (i.e. AdvancedFilter) for the first item, shows popup for the nifty things for it.
+
+           Tooltip for storage emphasis shows how much space?
+               Add in description instead?
+
+           Order tooltip for backpack upgrades alphabetically?
+
+
+        Balance Tweaks:
+            Differentiate between tiers more
+            Harsher upgrade point limits on packs in general
+            Add it so need upgrade specialization for certain upgrades?
+
+        Visuals:
+            Fat backpack for storage emphasis, and some extra texture for upgrade emphasis?
+                More definite shading for storage emphasis ones?
+                Some other way to differentiate between two?
+                    Clasp color?
+                    Pockets/designs?
+            add open/closed ones
+            Different models/textures for upgrade/storage emphasis (more pockets vs bigger model)
+
 
         Features:
 
