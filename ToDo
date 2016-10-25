@@ -22,6 +22,11 @@ To Do:
                 Look at LE: https://github.com/TehNut/LoreExpansion/tree/1.10/src/main/java/me/dmillerw/loreexpansion/core/saving
                     Ask Nut for assistence if needed
 
+        Branches:
+            worldFileDataSaving
+            removeUUID
+            rewriteFor1.11
+
         Features:
             Disable upgrades via disable recipe and .disabled field in ItemUpgrade from config, also do JEI checks when instantiating
             Add right click ability as an upgrade
