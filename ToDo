@@ -24,8 +24,10 @@ To Do:
 
         Branches:
             worldFileDataSaving
-            removeUUID
+
             rewriteFor1.11
+                removeUUID
+                IItemHandler
 
         Features:
             Disable upgrades via disable recipe and .disabled field in ItemUpgrade from config, also do JEI checks when instantiating
