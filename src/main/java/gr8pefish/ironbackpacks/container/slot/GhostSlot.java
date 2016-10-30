@@ -31,8 +31,10 @@ public class GhostSlot extends BackpackSlot{
     public void putStack(ItemStack itemStack){
         if(itemStack != null) {
             itemStack.stackSize = 1;
+            inventory.setInventorySlotContents(index, itemStack.copy());
+        } else {
+            inventory.setInventorySlotContents(index, null);
         }
-        inventory.setInventorySlotContents(index, itemStack.copy());
         onSlotChanged();
     }
 
