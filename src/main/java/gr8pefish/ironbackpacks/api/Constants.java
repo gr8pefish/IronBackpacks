@@ -8,5 +8,5 @@ public class Constants {
 	public static final String DEATH_BACKPACK_CAPABILITY_STRING = "DEATH_BACKPACK_CAP"; //For backpacks persisting through death
 	public static final String DOMAIN = MODID + ":"; //For resources
 	public static final String VERSION = "@VERSION@";
-	public static final String DEPEND = "";
+	public static final String DEPEND = "after:JEI;";
 }
