@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.container.alternateGui;
 
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
+import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.slot.GhostSlot;
@@ -183,12 +184,11 @@ public class ContainerAlternateGui extends Container {
         //client side is easy
         stack.setStackDisplayName(ConfigHandler.makeRenamedBackpacksNamesItalic ? toName : "\u00A7r" + toName); //client
 
-        ItemStack itemStack = IronBackpacksHelper.getBackpackFromPlayersInventory(this.player); //works only for opening w/out nested, change to currPack?
+        ItemStack itemStack = PlayerWearingBackpackCapabilities.getCurrentBackpack(player);
         if (itemStack == null)
             itemStack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
         if (itemStack != null)
             itemStack.setStackDisplayName(ConfigHandler.makeRenamedBackpacksNamesItalic ? toName : "\u00A7r" + toName); //server (not really, but this way works...)
-//        ItemStack itemStack1 = CommonProxy.getCurrBackpack(player); //need something like this if you can open alt gui in nested packs
 
     }
 
