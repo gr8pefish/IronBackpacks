@@ -2,13 +2,13 @@
 Version 1.10.2 - 2.2.9
 ------------------------------------------------------
 Additions
-- None
+- Added chinese translation file (thanks jiuyaolx)
 
 Changes
 - None
 
 Bug Fixes
-- None
+- Fix crash from loading after JEI (thanks p455w0rd)
 ------------------------------------------------------
 Version 1.10.2 - 2.2.8
 ------------------------------------------------------
