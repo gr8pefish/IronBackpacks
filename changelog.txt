@@ -2,13 +2,14 @@
 Version 1.10.2 - 2.2.9
 ------------------------------------------------------
 Additions
-- Added chinese translation file (thanks jiuyaolx)
+- Added chinese translation file (thanks jiuyaolx).
 
 Changes
 - None
 
 Bug Fixes
-- Fix crash from loading after JEI (thanks p455w0rd)
+- Fix crash from loading after JEI (thanks p455w0rd).
+- Fix renaming of backpacks not always applied to the correct one.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.8
 ------------------------------------------------------
