@@ -2,6 +2,8 @@ To Do:
 
     Update JEI and test more
     Bring over code from glider for rendering layer in MP
+    Check out right click lasting too long and picks up a stack of whatever is in the backpack
+    Add red text to upgrade disabled tooltip
 
     1.11
         Rewrite mod again
@@ -24,6 +26,7 @@ To Do:
             Add in file-based storage
                 Look at LE: https://github.com/TehNut/LoreExpansion/tree/1.10/src/main/java/me/dmillerw/loreexpansion/core/saving
                     Ask Nut for assistence if needed
+            Mouse tweaks causes crash if some setting is enabled - see issue #96
 
         Branches:
             worldFileDataSaving

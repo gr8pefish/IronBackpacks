@@ -101,6 +101,7 @@ tooltip.ironbackpacks.backpack.tier.ironBackpack.name=Iron Backpack
 tooltip.ironbackpacks.backpack.tier.goldBackpack.name=Gold Backpack
 tooltip.ironbackpacks.backpack.tier.diamondBackpack.name=Diamond Backpack
 
+tooltip.ironbackpacks.upgrade.recipeDisabled=Recipe Disabled!
 tooltip.ironbackpacks.upgrade.button.desc=Adds buttons to quickly move items to and from your backpack, as well as a button to sort your backpack quickly.
 tooltip.ironbackpacks.upgrade.nesting.desc=Allows you to place any backpack of a previous tier inside the backpack.
 tooltip.ironbackpacks.upgrade.bar.desc=Adds a damage bar to visually represent how full the backpack is at a glance.

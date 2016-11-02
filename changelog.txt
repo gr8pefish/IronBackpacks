@@ -2,10 +2,11 @@
 Version 1.10.2 - 2.2.10
 ------------------------------------------------------
 Additions
-- None
+- Added config option to disable the equipping of backpacks.
 
 Changes
-- None
+- Changed the config resetting every load time (outdated concept that should have been removed a while ago).
+- Removed the buggy config-based disabling of items entirely in favor of a working disabling of just the recipes.
 
 Bug Fixes
 - None

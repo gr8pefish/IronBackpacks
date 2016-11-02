@@ -178,98 +178,74 @@ public class ItemRegistry {
                 "additionalUpgradePoints", //name
                 0, //cost of upgrade points to apply the upgrade
                 0, //tier of backpack necessary to apply the upgrade (TODO: special handling for this whole upgrade)
-                LocalizedStrings.Upgrades.ADDITIONAL_UPGRADE_POINTS_DESCRIPTION); //description/tooltip
+                ConfigHandler.additionalUpgradePointsRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.ADDITIONAL_UPGRADE_POINTS_DESCRIPTION); //description/tooltip
         ItemIUpgradeRegistry.registerItemPackUpgrade(additionalUpgradePointsUpgrade);
-        if (!ConfigHandler.buttonUpgradeDisabled) {
-            buttonUpgrade = new ItemIUpgrade("button", ConfigHandler.buttonUpgradeCost, ConfigHandler.buttonUpgradeTier, LocalizedStrings.Upgrades.BUTTON_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemPackUpgrade(buttonUpgrade);
-        }
-        if (!ConfigHandler.damageBarUpgradeDisabled) {
-            damageBarUpgrade = new ItemIUpgrade("damageBar", ConfigHandler.damageBarUpgradeCost, ConfigHandler.damageBarUpgradeTier, LocalizedStrings.Upgrades.DAMAGE_BAR_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemPackUpgrade(damageBarUpgrade);
-        }
-        if (!ConfigHandler.depthUpgradeDisabled) {
-            depthUpgrade = new ItemIUpgrade("depth", ConfigHandler.depthUpgradeCost, ConfigHandler.depthUpgradeTier, LocalizedStrings.Upgrades.DEPTH_UPGRADE_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemPackUpgrade(depthUpgrade);
-        }
-        if (!ConfigHandler.eternityUpgradeDisabled) {
-            eternityUpgrade = new ItemIUpgrade("eternity", ConfigHandler.eternityUpgradeCost, ConfigHandler.eternityUpgradeTier, LocalizedStrings.Upgrades.ETERNITY_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemPackUpgrade(eternityUpgrade);
-        }
+        buttonUpgrade = new ItemIUpgrade("button", ConfigHandler.buttonUpgradeCost, ConfigHandler.buttonUpgradeTier, ConfigHandler.buttonUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.BUTTON_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemPackUpgrade(buttonUpgrade);
+
+        damageBarUpgrade = new ItemIUpgrade("damageBar", ConfigHandler.damageBarUpgradeCost, ConfigHandler.damageBarUpgradeTier, ConfigHandler.damageBarUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.DAMAGE_BAR_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemPackUpgrade(damageBarUpgrade);
+
+        depthUpgrade = new ItemIUpgrade("depth", ConfigHandler.depthUpgradeCost, ConfigHandler.depthUpgradeTier, ConfigHandler.depthUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.DEPTH_UPGRADE_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemPackUpgrade(depthUpgrade);
+
+        eternityUpgrade = new ItemIUpgrade("eternity", ConfigHandler.eternityUpgradeCost, ConfigHandler.eternityUpgradeTier, ConfigHandler.eternityUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.ETERNITY_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemPackUpgrade(eternityUpgrade);
+
         if (ConfigHandler.renamingUpgradeRequired){
-            if (!ConfigHandler.renamingUpgradeDisabled) {
-                renamingUpgrade = new ItemIUpgrade("renaming", ConfigHandler.renamingUpgradeCost, ConfigHandler.renamingUpgradeTier, LocalizedStrings.Upgrades.RENAMING_DESCRIPTION);
-                ItemIUpgradeRegistry.registerItemPackUpgrade(renamingUpgrade);
-            }
+            renamingUpgrade = new ItemIUpgrade("renaming", ConfigHandler.renamingUpgradeCost, ConfigHandler.renamingUpgradeTier, ConfigHandler.renamingUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.RENAMING_DESCRIPTION);
+            ItemIUpgradeRegistry.registerItemPackUpgrade(renamingUpgrade);
         }
 
         //conflicting upgrades
-        if (!ConfigHandler.nestingUpgradeDisabled) {
-            nestingUpgrade = new ItemIConflictingUpgrade("nesting", ConfigHandler.nestingUpgradeCost, ConfigHandler.nestingUpgradeTier, LocalizedStrings.Upgrades.NESTING_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConflictingUpgrade(nestingUpgrade);
-        }
-        if (!ConfigHandler.nestingAdvancedUpgradeDisabled) {
-            nestingAdvancedUpgrade = new ItemIConflictingUpgrade("nestingAdvanced", ConfigHandler.nestingAdvancedUpgradeCost, ConfigHandler.nestingAdvancedUpgradeTier, LocalizedStrings.Upgrades.NESTING_ADVANCED_DESRIPTION);
-            ItemIUpgradeRegistry.registerItemConflictingUpgrade(nestingAdvancedUpgrade);
-        }
-        if (!ConfigHandler.quickDepositUpgradeDisabled) {
-            quickDepositUpgrade = new ItemIConflictingUpgrade("quickDeposit", ConfigHandler.quickDepositUpgradeCost, ConfigHandler.quickDepositUpgradeTier, LocalizedStrings.Upgrades.QUICK_DEPOSIT_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConflictingUpgrade(quickDepositUpgrade);
-        }
-        if (!ConfigHandler.quickDepositPreciseUpgradeDisabled) {
-            quickDepositPreciseUpgrade = new ItemIConflictingUpgrade("quickDepositPrecise", ConfigHandler.quickDepositPreciseUpgradeCost, ConfigHandler.quickDepositPreciseUpgradeTier, LocalizedStrings.Upgrades.QUICK_DEPOSIT_PRECISE_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConflictingUpgrade(quickDepositPreciseUpgrade);
-        }
+        nestingUpgrade = new ItemIConflictingUpgrade("nesting", ConfigHandler.nestingUpgradeCost, ConfigHandler.nestingUpgradeTier, ConfigHandler.nestingUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.NESTING_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConflictingUpgrade(nestingUpgrade);
+
+        nestingAdvancedUpgrade = new ItemIConflictingUpgrade("nestingAdvanced", ConfigHandler.nestingAdvancedUpgradeCost, ConfigHandler.nestingAdvancedUpgradeTier, ConfigHandler.nestingAdvancedUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.NESTING_ADVANCED_DESRIPTION);
+        ItemIUpgradeRegistry.registerItemConflictingUpgrade(nestingAdvancedUpgrade);
+
+        quickDepositUpgrade = new ItemIConflictingUpgrade("quickDeposit", ConfigHandler.quickDepositUpgradeCost, ConfigHandler.quickDepositUpgradeTier, ConfigHandler.quickDepositUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.QUICK_DEPOSIT_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConflictingUpgrade(quickDepositUpgrade);
+
+        quickDepositPreciseUpgrade = new ItemIConflictingUpgrade("quickDepositPrecise", ConfigHandler.quickDepositPreciseUpgradeCost, ConfigHandler.quickDepositPreciseUpgradeTier, ConfigHandler.quickDepositPreciseUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.QUICK_DEPOSIT_PRECISE_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConflictingUpgrade(quickDepositPreciseUpgrade);
 
         //have to set the conflicting upgrades after they are all initialized
         setConflictingUpgrades();
 
         //alt gui upgrades
-        if (!ConfigHandler.craftingUpgradeDisabled) {
-            craftingUpgrade = new ItemIConfigurableUpgrade("crafting", ConfigHandler.craftingUpgradeCost, ConfigHandler.craftingUpgradeTier, LocalizedStrings.Upgrades.CRAFTING_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(craftingUpgrade);
-        }
-        if (!ConfigHandler.craftingSmallUpgradeDisabled) {
-            craftingSmallUpgrade = new ItemIConfigurableUpgrade("craftingSmall", ConfigHandler.craftingSmallUpgradeCost, ConfigHandler.craftingSmallUpgradeTier, LocalizedStrings.Upgrades.CRAFTING_SMALL_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(craftingSmallUpgrade);
-        }
-        if (!ConfigHandler.craftingTinyUpgradeDisabled) {
-            craftingTinyUpgrade = new ItemIConfigurableUpgrade("craftingTiny", ConfigHandler.craftingTinyUpgradeCost, ConfigHandler.craftingTinyUpgradeTier, LocalizedStrings.Upgrades.CRAFTING_TINY_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(craftingTinyUpgrade);
-        }
-        if (!ConfigHandler.filterBasicUpgradeDisabled) {
-            filterBasicUpgrade = new ItemIConfigurableUpgrade("filterBasic", ConfigHandler.filterBasicUpgradeCost, ConfigHandler.filterBasicUpgradeTier, LocalizedStrings.Upgrades.FILTER_BASIC_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterBasicUpgrade);
-        }
-        if (!ConfigHandler.filterFuzzyUpgradeDisabled) {
-            filterFuzzyUpgrade = new ItemIConfigurableUpgrade("filterFuzzy", ConfigHandler.filterFuzzyUpgradeCost, ConfigHandler.filterFuzzyUpgradeTier, LocalizedStrings.Upgrades.FILTER_FUZZY_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterFuzzyUpgrade);
-        }
-        if (!ConfigHandler.filterOreDictUpgradeDisabled) {
-            filterOreDictUpgrade = new ItemIConfigurableUpgrade("filterOreDict", ConfigHandler.filterOreDictUpgradeCost, ConfigHandler.filterOreDictUpgradeTier, LocalizedStrings.Upgrades.FILTER_OREDICT_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterOreDictUpgrade);
-        }
-        if (!ConfigHandler.filterModSpecificUpgradeDisabled) {
-            filterModSpecificUpgrade = new ItemIConfigurableUpgrade("filterModSpecific", ConfigHandler.filterModSpecificUpgradeCost, ConfigHandler.filterModSpecificUpgradeTier, LocalizedStrings.Upgrades.FILTER_MOD_SPECIFIC_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterModSpecificUpgrade);
-        }
-        if (!ConfigHandler.filterVoidUpgradeDisabled) {
-            filterVoidUpgrade = new ItemIConfigurableUpgrade("filterVoid", ConfigHandler.filterVoidUpgradeCost, ConfigHandler.filterVoidUpgradeTier, LocalizedStrings.Upgrades.FILTER_VOID_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterVoidUpgrade);
-        }
-        if (!ConfigHandler.filterAdvancedUpgradeDisabled) {
-            filterAdvancedUpgrade = new ItemIConfigurableUpgrade("filterAdvanced", ConfigHandler.filterAdvancedUpgradeCost, ConfigHandler.filterAdvancedUpgradeTier, LocalizedStrings.Upgrades.FILTER_ADVANCED_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterAdvancedUpgrade);
-        }
-        if (!ConfigHandler.filterMiningUpgradeDisabled) {
-            filterMiningUpgrade = new ItemIConfigurableUpgrade("filterMining", ConfigHandler.filterMiningUpgradeCost, ConfigHandler.filterMiningUpgradeTier, LocalizedStrings.Upgrades.FILTER_MINING_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterMiningUpgrade);
-        }
-        if (!ConfigHandler.restockingUpgradeDisabled) {
-            restockingUpgrade = new ItemIConfigurableUpgrade("restocking", ConfigHandler.restockingUpgradeCost, ConfigHandler.restockingUpgradeTier, LocalizedStrings.Upgrades.RESTOCKING_DESCRIPTION);
-            ItemIUpgradeRegistry.registerItemConfigurableUpgrade(restockingUpgrade);
-        }
+        craftingUpgrade = new ItemIConfigurableUpgrade("crafting", ConfigHandler.craftingUpgradeCost, ConfigHandler.craftingUpgradeTier, ConfigHandler.craftingUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.CRAFTING_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(craftingUpgrade);
 
+        craftingSmallUpgrade = new ItemIConfigurableUpgrade("craftingSmall", ConfigHandler.craftingSmallUpgradeCost, ConfigHandler.craftingSmallUpgradeTier, ConfigHandler.craftingSmallUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.CRAFTING_SMALL_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(craftingSmallUpgrade);
+
+        craftingTinyUpgrade = new ItemIConfigurableUpgrade("craftingTiny", ConfigHandler.craftingTinyUpgradeCost, ConfigHandler.craftingTinyUpgradeTier, ConfigHandler.craftingTinyUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.CRAFTING_TINY_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(craftingTinyUpgrade);
+
+        filterBasicUpgrade = new ItemIConfigurableUpgrade("filterBasic", ConfigHandler.filterBasicUpgradeCost, ConfigHandler.filterBasicUpgradeTier, ConfigHandler.filterBasicUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.FILTER_BASIC_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterBasicUpgrade);
+
+        filterFuzzyUpgrade = new ItemIConfigurableUpgrade("filterFuzzy", ConfigHandler.filterFuzzyUpgradeCost, ConfigHandler.filterFuzzyUpgradeTier, ConfigHandler.filterFuzzyUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.FILTER_FUZZY_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterFuzzyUpgrade);
+
+        filterOreDictUpgrade = new ItemIConfigurableUpgrade("filterOreDict", ConfigHandler.filterOreDictUpgradeCost, ConfigHandler.filterOreDictUpgradeTier, ConfigHandler.filterOreDictUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.FILTER_OREDICT_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterOreDictUpgrade);
+
+        filterModSpecificUpgrade = new ItemIConfigurableUpgrade("filterModSpecific", ConfigHandler.filterModSpecificUpgradeCost, ConfigHandler.filterModSpecificUpgradeTier, ConfigHandler.filterModSpecificUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.FILTER_MOD_SPECIFIC_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterModSpecificUpgrade);
+
+        filterVoidUpgrade = new ItemIConfigurableUpgrade("filterVoid", ConfigHandler.filterVoidUpgradeCost, ConfigHandler.filterVoidUpgradeTier, ConfigHandler.filterVoidUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.FILTER_VOID_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterVoidUpgrade);
+
+        filterAdvancedUpgrade = new ItemIConfigurableUpgrade("filterAdvanced", ConfigHandler.filterAdvancedUpgradeCost, ConfigHandler.filterAdvancedUpgradeTier, ConfigHandler.filterAdvancedUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.FILTER_ADVANCED_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterAdvancedUpgrade);
+
+        filterMiningUpgrade = new ItemIConfigurableUpgrade("filterMining", ConfigHandler.filterMiningUpgradeCost, ConfigHandler.filterMiningUpgradeTier, ConfigHandler.filterMiningUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.FILTER_MINING_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(filterMiningUpgrade);
+
+        restockingUpgrade = new ItemIConfigurableUpgrade("restocking", ConfigHandler.restockingUpgradeCost, ConfigHandler.restockingUpgradeTier, ConfigHandler.restockingUpgradeRecipeDisabled ? LocalizedStrings.Upgrades.UPGRADE_RECIPE_DISABLED : LocalizedStrings.Upgrades.RESTOCKING_DESCRIPTION);
+        ItemIUpgradeRegistry.registerItemConfigurableUpgrade(restockingUpgrade);
 
 
         //Crafting Items (alphabetical order)

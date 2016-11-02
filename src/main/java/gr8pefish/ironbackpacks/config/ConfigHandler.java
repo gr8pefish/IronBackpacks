@@ -30,68 +30,69 @@ public class ConfigHandler {
 
     //TODO: make this and the section below be in a nice, readable order (like my itemRegistry class)
 
-    public static boolean buttonUpgradeDisabled;
+    public static boolean additionalUpgradePointsRecipeDisabled;
+    public static boolean buttonUpgradeRecipeDisabled;
     public static int buttonUpgradeCost;
     public static int buttonUpgradeTier;
-    public static boolean nestingUpgradeDisabled;
+    public static boolean nestingUpgradeRecipeDisabled;
     public static int nestingUpgradeCost;
     public static int nestingUpgradeTier;
-    public static boolean renamingUpgradeDisabled;
+    public static boolean renamingUpgradeRecipeDisabled;
     public static int renamingUpgradeCost;
     public static int renamingUpgradeTier;
-    public static boolean damageBarUpgradeDisabled;
+    public static boolean damageBarUpgradeRecipeDisabled;
     public static int damageBarUpgradeCost;
     public static int damageBarUpgradeTier;
-    public static boolean filterBasicUpgradeDisabled;
+    public static boolean filterBasicUpgradeRecipeDisabled;
     public static int filterBasicUpgradeCost;
     public static int filterBasicUpgradeTier;
-    public static boolean filterModSpecificUpgradeDisabled;
+    public static boolean filterModSpecificUpgradeRecipeDisabled;
     public static int filterModSpecificUpgradeCost;
     public static int filterModSpecificUpgradeTier;
-    public static boolean filterFuzzyUpgradeDisabled;
+    public static boolean filterFuzzyUpgradeRecipeDisabled;
     public static int filterFuzzyUpgradeCost;
     public static int filterFuzzyUpgradeTier;
-    public static boolean filterOreDictUpgradeDisabled;
+    public static boolean filterOreDictUpgradeRecipeDisabled;
     public static int filterOreDictUpgradeCost;
     public static int filterOreDictUpgradeTier;
-    public static boolean restockingUpgradeDisabled;
+    public static boolean restockingUpgradeRecipeDisabled;
     public static int restockingUpgradeCost;
     public static int restockingUpgradeTier;
-    public static boolean craftingUpgradeDisabled;
+    public static boolean craftingUpgradeRecipeDisabled;
     public static int craftingUpgradeCost;
     public static int craftingUpgradeTier;
-    public static boolean craftingSmallUpgradeDisabled;
+    public static boolean craftingSmallUpgradeRecipeDisabled;
     public static int craftingSmallUpgradeCost;
     public static int craftingSmallUpgradeTier;
-    public static boolean craftingTinyUpgradeDisabled;
+    public static boolean craftingTinyUpgradeRecipeDisabled;
     public static int craftingTinyUpgradeCost;
     public static int craftingTinyUpgradeTier;
-    public static boolean eternityUpgradeDisabled;
+    public static boolean eternityUpgradeRecipeDisabled;
     public static int eternityUpgradeCost;
     public static int eternityUpgradeTier;
-    public static boolean quickDepositUpgradeDisabled;
+    public static boolean quickDepositUpgradeRecipeDisabled;
     public static int quickDepositUpgradeCost;
     public static int quickDepositUpgradeTier;
-    public static boolean quickDepositPreciseUpgradeDisabled;
+    public static boolean quickDepositPreciseUpgradeRecipeDisabled;
     public static int quickDepositPreciseUpgradeCost;
     public static int quickDepositPreciseUpgradeTier;
-    public static boolean filterAdvancedUpgradeDisabled;
+    public static boolean filterAdvancedUpgradeRecipeDisabled;
     public static int filterAdvancedUpgradeCost;
     public static int filterAdvancedUpgradeTier;
-    public static boolean filterMiningUpgradeDisabled;
+    public static boolean filterMiningUpgradeRecipeDisabled;
     public static int filterMiningUpgradeCost;
     public static int filterMiningUpgradeTier;
-    public static boolean nestingAdvancedUpgradeDisabled;
+    public static boolean nestingAdvancedUpgradeRecipeDisabled;
     public static int nestingAdvancedUpgradeCost;
     public static int nestingAdvancedUpgradeTier;
-    public static boolean depthUpgradeDisabled;
+    public static boolean depthUpgradeRecipeDisabled;
     public static int depthUpgradeCost;
     public static int depthUpgradeTier;
-    public static boolean filterVoidUpgradeDisabled;
+    public static boolean filterVoidUpgradeRecipeDisabled;
     public static int filterVoidUpgradeCost;
     public static int filterVoidUpgradeTier;
 
-
+    public static boolean disableEquipping;
     public static boolean disableRendering;
     public static boolean disableFPPrendering;
     public static boolean renamingUpgradeRequired;
@@ -131,20 +132,22 @@ public class ConfigHandler {
 
         //============================================Initializing everything, the numbers keep them in the order I want=======================================
 
-        category = "0) Config Changes";
-        config.addCustomCategoryComment(category, "IMPORTANT: If you ever manually edit ANY of these values, please change the value below to true. " +
-                "This will prevent them being overwritten if an update changes the config file.");
-        isConfigManuallyChanged = config.getBoolean("Manually Changed", category, false, "If you modify ANY values here set this to true so a future update doesn't override them. Otherwise leave it as false and any new changes in the config defaults will automatically be updated.");
+        //ToDo: Make it cleaner looking for the user
+
+//        category = "0) Config Changes";
+//        config.addCustomCategoryComment(category, "IMPORTANT: If you ever manually edit ANY of these values, please change the value below to true. " +
+//                "This will prevent them being overwritten if an update changes the config file.");
+//        isConfigManuallyChanged = config.getBoolean("Manually Changed", category, false, "If you modify ANY values here set this to true so a future update doesn't override them. Otherwise leave it as false and any new changes in the config defaults will automatically be updated.");
 
         //if loading for the first time and can change configs
         //then delete the file and let a new one regen (inefficient but effective)
-        //TODO: make this check versions before doing so, refactor this concept
-        if (firstLoad && !isConfigManuallyChanged){
-            if(theFile.delete()){
-                config = new Configuration(theFile);
-                syncConfig(false);
-            }
-        }
+//        //TODO: make this check versions before doing so, refactor this concept
+//        if (firstLoad && !isConfigManuallyChanged){
+//            if(theFile.delete()){
+//                config = new Configuration(theFile);
+//                syncConfig(false);
+//            }
+//        }
 
         //TODO: balance all these out
 
@@ -193,36 +196,38 @@ public class ConfigHandler {
 
 
         String category_upgrade = "4) Upgrade Traits";
-        config.addCustomCategoryComment(category_upgrade, "The configurable traits of the upgrades. Be warned that the ability to disable an upgrade is experimental, it may cause odd errors.");
+        config.addCustomCategoryComment(category_upgrade, "The configurable traits of the upgrades.");
 
         category = category_upgrade + "- 1)Basic Upgrades";
         config.addCustomCategoryComment(category, "The configurable traits of the \"normal\" upgrades.");
 
+        additionalUpgradePointsRecipeDisabled = config.getBoolean("Additional Upgrade Points Upgrade Disabled", category, false, "If the additional upgrade points upgrade recipe should not exist.");
+
         buttonUpgradeCost = config.getInt("Button Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the button upgrade.\n" +
                 "This upgrade allows the player to move items to and from the backpack quickly by use of some button.");
         buttonUpgradeTier = config.getInt("Button Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the button upgrade.");
-        buttonUpgradeDisabled = config.getBoolean("Button Upgrade Disabled", category, false, "If the button upgrade should not exist.");
+        buttonUpgradeRecipeDisabled = config.getBoolean("Button Upgrade Disabled", category, false, "If the button upgrade recipe should not exist.");
 
         damageBarUpgradeCost = config.getInt("Damage Bar Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the damage bar upgrade.\n" +
                 "This upgrade adds a damage bar that visually represents how full the backpack is at a glance.");
         damageBarUpgradeTier = config.getInt("Damage Bar Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the damage bar upgrade.");
-        damageBarUpgradeDisabled = config.getBoolean("Damage Bar Upgrade Disabled", category, false, "If the damage bar upgrade should not exist.");
+        damageBarUpgradeRecipeDisabled = config.getBoolean("Damage Bar Upgrade Disabled", category, false, "If the damage bar upgrade recipe should not exist.");
 
         depthUpgradeCost = config.getInt("Depth Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the depth deposit upgrade.\n" +
                 "This upgrade allows other backpacks's configurable upgrades to still function when they are nested inside a backpack with this upgrade.");
         depthUpgradeTier = config.getInt("Depth Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the depth upgrade.");
-        depthUpgradeDisabled = config.getBoolean("Depth Upgrade Disabled", category, false, "If the depth upgrade should not exist.");
+        depthUpgradeRecipeDisabled = config.getBoolean("Depth Upgrade Disabled", category, false, "If the depth upgrade recipe should not exist.");
 
         eternityUpgradeCost = config.getInt("Eternity Upgrade Cost", category, 5, 0, 100, "The cost (in upgrade points) for the eternity upgrade.\n" +
                 "This upgrade allows you to keep the backpack upon dying, but it disappears after it is used and must be reapplied.");
         eternityUpgradeTier = config.getInt("Eternity Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the eternity upgrade.");
-        eternityUpgradeDisabled = config.getBoolean("Eternity Upgrade Disabled", category, false, "If the eternity upgrade should not exist.");
+        eternityUpgradeRecipeDisabled = config.getBoolean("Eternity Upgrade Disabled", category, false, "If the eternity upgrade recipe should not exist.");
 
         renamingUpgradeCost = config.getInt("Renaming Upgrade Cost", category, 1, 0, 100,"The cost (in upgrade points) for the renaming upgrade. \n" +
                 "This upgrade allows the player to rename the backpack to anything they want, by usage of a text input box in the configurable inventory.\n" +
                 "Only used if the upgrade is required (another option in config, miscellaneous section).");
         renamingUpgradeTier = config.getInt("Renaming Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the renaming upgrade. Only used if the upgrade is required (another option in config, miscellaneous section).");
-        renamingUpgradeDisabled = config.getBoolean("Renaming Upgrade Disabled", category, false, "If the renaming upgrade should not exist.");
+        renamingUpgradeRecipeDisabled = config.getBoolean("Renaming Upgrade Disabled", category, false, "If the renaming upgrade recipe should not exist.");
 
         category = category_upgrade + "- 2)Conflicting Upgrades";
         config.addCustomCategoryComment(category, "The configurable traits of the upgrades that cannot be simultaneously applied with another upgrade (e.g. nesting + advanced nesting).");
@@ -230,22 +235,22 @@ public class ConfigHandler {
         nestingUpgradeCost = config.getInt("Nesting Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the nesting upgrade.\n" +
                 "This upgrade allows the player to put any backpack inside another if it is of a lower tier.");
         nestingUpgradeTier = config.getInt("Nesting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the nesting upgrade.");
-        nestingUpgradeDisabled = config.getBoolean("Nesting Upgrade Disabled", category, false, "If the nesting upgrade should not exist.");
+        nestingUpgradeRecipeDisabled = config.getBoolean("Nesting Upgrade Disabled", category, false, "If the nesting upgrade recipe should not exist.");
 
         nestingAdvancedUpgradeCost = config.getInt("Advanced Nesting Upgrade Cost", category, 5, 0, 100, "The cost (in upgrade points) for the advanced nesting upgrade.\n" +
                 "This upgrade allows the player to put any backpack inside another, regardless of tier.");
         nestingAdvancedUpgradeTier = config.getInt("Advanced Nesting Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the advanced nesting upgrade.");
-        nestingAdvancedUpgradeDisabled = config.getBoolean("Advanced Nesting Upgrade Disabled", category, false, "If the advanced nesting upgrade should not exist.");
+        nestingAdvancedUpgradeRecipeDisabled = config.getBoolean("Advanced Nesting Upgrade Disabled", category, false, "If the advanced nesting upgrade recipe should not exist.");
 
         quickDepositUpgradeCost = config.getInt("Quick Deposit Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the quick deposit upgrade.\n" +
                 "This upgrade allows you to shift right click an inventory to drop off the contents of the backpack directly into the inventory.");
         quickDepositUpgradeTier = config.getInt("Quick Deposit Upgrade Tier", category, 1, 0, 3,"The minimum backpack tier for the quick deposit upgrade.");
-        quickDepositUpgradeDisabled = config.getBoolean("Quick Deposit Upgrade Disabled", category, false, "If the quick deposit upgrade should not exist.");
+        quickDepositUpgradeRecipeDisabled = config.getBoolean("Quick Deposit Upgrade Disabled", category, false, "If the quick deposit upgrade recipe should not exist.");
 
         quickDepositPreciseUpgradeCost = config.getInt("Precise Quick Deposit Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the precise quick deposit upgrade.\n" +
                 "This upgrade allows you to shift right click an inventory to drop off the contents of the backpack directly into the inventory, but only the items that are already present in the inventory will be transferred from the backpack.");
         quickDepositPreciseUpgradeTier = config.getInt("Precise Quick Deposit Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the precise quick deposit upgrade.");
-        quickDepositPreciseUpgradeDisabled = config.getBoolean("Precise Quick Deposit Upgrade Disabled", category, false, "If the precise quick deposit upgrade should not exist.");
+        quickDepositPreciseUpgradeRecipeDisabled = config.getBoolean("Precise Quick Deposit Upgrade Disabled", category, false, "If the precise quick deposit upgrade recipe should not exist.");
 
         category = category_upgrade + "- 3)Configurable Upgrades";
         config.addCustomCategoryComment(category, "The configurable traits of the upgrades that add something to the configurable inventory of the backpack (in-game).");
@@ -253,62 +258,63 @@ public class ConfigHandler {
         craftingUpgradeCost = config.getInt("Crafting Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the recipes upgrade.\n" +
                 "This upgrade allows you to craft the items in a 3x3 grid (ex: wheat -> hay bale)");
         craftingUpgradeTier = config.getInt("Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the recipes upgrade.");
-        craftingUpgradeDisabled = config.getBoolean("Crafting Upgrade Disabled", category, false, "If the recipes upgrade should not exist.");
+        craftingUpgradeRecipeDisabled = config.getBoolean("Crafting Upgrade Disabled", category, false, "If the recipes upgrade recipe should not exist.");
 
         craftingSmallUpgradeCost = config.getInt("Small Crafting Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the small recipes upgrade.\n" +
                 "This upgrade allows you to craft the items in a 2x2 grid (ex: sand -> sandstone)");
         craftingSmallUpgradeTier = config.getInt("Small Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the small recipes upgrade.");
-        craftingSmallUpgradeDisabled = config.getBoolean("Small Crafting Upgrade Disabled", category, false, "If the small recipes upgrade should not exist.");
+        craftingSmallUpgradeRecipeDisabled = config.getBoolean("Small Crafting Upgrade Disabled", category, false, "If the small recipes upgrade recipe should not exist.");
 
         craftingTinyUpgradeCost = config.getInt("Tiny Crafting Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the tiny recipes upgrade.\n" +
                 "This upgrade allows you to craft the items in a 1x1 grid (ex: log -> planks)");
         craftingTinyUpgradeTier = config.getInt("Tiny Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the tiny recipes upgrade.");
-        craftingTinyUpgradeDisabled = config.getBoolean("Tiny Crafting Upgrade Disabled", category, false, "If the tiny recipes upgrade should not exist.");
+        craftingTinyUpgradeRecipeDisabled = config.getBoolean("Tiny Crafting Upgrade Disabled", category, false, "If the tiny recipes upgrade recipe should not exist.");
 
         filterBasicUpgradeCost = config.getInt("Basic Filter Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the basic filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They must match exactly.");
         filterBasicUpgradeTier = config.getInt("Basic Filter Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the basic filter upgrade.");
-        filterBasicUpgradeDisabled = config.getBoolean("Basic Filter Upgrade Disabled", category, false, "If the basic filter upgrade should not exist.");
+        filterBasicUpgradeRecipeDisabled = config.getBoolean("Basic Filter Upgrade Disabled", category, false, "If the basic filter upgrade recipe should not exist.");
 
         filterFuzzyUpgradeCost = config.getInt("Fuzzy Filter Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the fuzzy filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They can have different damage values (e.g. any sword, regardless of damage).");
         filterFuzzyUpgradeTier = config.getInt("Fuzzy Filter Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the fuzzy filter upgrade.");
-        filterFuzzyUpgradeDisabled = config.getBoolean("Fuzzy Filter Upgrade Disabled", category, false, "If the fuzzy filter upgrade should not exist.");
+        filterFuzzyUpgradeRecipeDisabled = config.getBoolean("Fuzzy Filter Upgrade Disabled", category, false, "If the fuzzy filter upgrade recipe should not exist.");
 
         filterOreDictUpgradeCost = config.getInt("Ore Dictionary Filter Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the ore dictionary filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They can match in the ore dictionary (e.g. any log or any copper ore).");
         filterOreDictUpgradeTier = config.getInt("Ore Dictionary Filter Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the ore dictionary filter upgrade.");
-        filterOreDictUpgradeDisabled = config.getBoolean("Ore Dictionary Filter Upgrade Disabled", category, false, "If the ore dictionary filter upgrade should not exist.");
+        filterOreDictUpgradeRecipeDisabled = config.getBoolean("Ore Dictionary Filter Upgrade Disabled", category, false, "If the ore dictionary filter upgrade recipe should not exist.");
 
         filterModSpecificUpgradeCost = config.getInt("Mod Specific Filter Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the mod specific filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They are filtered by the mod, so anything from Botania placed in the filter will mean any Botania items is automatically routed into the backpack..");
         filterModSpecificUpgradeTier = config.getInt("Mod Specific Filter Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the mod specific filter upgrade.");
-        filterModSpecificUpgradeDisabled = config.getBoolean("Mod Specific Filter Upgrade Disabled", category, false, "If the mod specific filter upgrade should not exist.");
+        filterModSpecificUpgradeRecipeDisabled = config.getBoolean("Mod Specific Filter Upgrade Disabled", category, false, "If the mod specific filter upgrade recipe should not exist.");
 
         filterVoidUpgradeCost = config.getInt("Void Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the void filter upgrade.\n" +
                 "This upgrade allows you to choose items to go be deleted when they are picked up.");
         filterVoidUpgradeTier = config.getInt("Void Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the void filter upgrade.");
-        filterVoidUpgradeDisabled = config.getBoolean("Void Filter Upgrade Disabled", category, false, "If the void filter upgrade should not exist.");
+        filterVoidUpgradeRecipeDisabled = config.getBoolean("Void Filter Upgrade Disabled", category, false, "If the void filter upgrade recipe should not exist.");
 
         filterAdvancedUpgradeCost = config.getInt("Advanced Filter Upgrade Cost", category, 6, 0, 100, "The cost (in upgrade points) for the advanced filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. You can choose each configurable items to be filtered based on exact, fuzzy, ore dictionary, mod specific, or void matching.");
         filterAdvancedUpgradeTier = config.getInt("Advanced Filter Upgrade Tier", category, 3, 0, 3, "The minimum backpack tier for the advanced filter upgrade.");
-        filterAdvancedUpgradeDisabled = config.getBoolean("Advanced Filter Upgrade Disabled", category, false, "If the advanced filter upgrade should not exist.");
+        filterAdvancedUpgradeRecipeDisabled = config.getBoolean("Advanced Filter Upgrade Disabled", category, false, "If the advanced filter upgrade recipe should not exist.");
 
         filterMiningUpgradeCost = config.getInt("Mining Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the mining filter upgrade.\n" +
                 "This upgrade automatically picks up any ores or gems, and has a basic filter for items like cobblestone/granite/etc.");
         filterMiningUpgradeTier = config.getInt("Mining Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the mining filter upgrade.");
-        filterMiningUpgradeDisabled = config.getBoolean("Mining Filter Upgrade Disabled", category, false, "If the mining filter upgrade should not exist.");
+        filterMiningUpgradeRecipeDisabled = config.getBoolean("Mining Filter Upgrade Disabled", category, false, "If the mining filter upgrade recipe should not exist.");
 
         restockingUpgradeCost = config.getInt("Restocking Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the restocking upgrade.\n" +
                 "This upgrade automatically restocks the specified items in your inventory from the backpack's inventory.");
         restockingUpgradeTier = config.getInt("Restocking Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the restocking upgrade.");
-        restockingUpgradeDisabled = config.getBoolean("Restocking Upgrade Disabled", category, false, "If the restocking upgrade should not exist.");
+        restockingUpgradeRecipeDisabled = config.getBoolean("Restocking Upgrade Disabled", category, false, "If the restocking upgrade recipe should not exist.");
 
 
         category = "3) Miscellaneous";
         config.setCategoryComment(category, "Here you can modify all the miscellaneous tweaks regarding this mod.");
 
+        disableEquipping = config.getBoolean("Disable Equipping", category, false, "To disable the backpack's ability to be equipped on a player.");
         disableRendering = config.getBoolean("Disable Rendering", category, false, "To disable the model rendering on the player when they have an equipped backpack.");
         disableFPPrendering = config.getBoolean("Enable FPP Rendering", category, true, "To disable the model rendering on the player when they have an equipped backpack and are in first person perspective. " +
                 "You sometimes see it if you spin to the side or look down quickly, the backpack takes longer to readjust than your forward vision as it takes time to swing onto your back again.");

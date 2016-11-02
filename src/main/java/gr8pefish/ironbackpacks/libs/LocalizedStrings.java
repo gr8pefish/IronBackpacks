@@ -8,6 +8,7 @@ public class LocalizedStrings {
     public static final class Upgrades {
 
         //================Upgrade Tooltips===================
+        public static final String[] UPGRADE_RECIPE_DISABLED = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.recipeDisabled"));
         public static final String[] BUTTON_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.button.desc"));
         public static final String[] NESTING_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.nesting.desc"));
         public static final String[] DAMAGE_BAR_DESCRIPTION = TextUtils.cutLongString(TextUtils.localizeEffect("tooltip.ironbackpacks.upgrade.bar.desc"));

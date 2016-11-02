@@ -6,6 +6,7 @@ import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -178,8 +179,11 @@ public class ItemUpgradeRecipes {
      * Actually registers the recipes.
      */
     public static void registerItemUpgradeRecipes() {
-        for (int i = 0; i < ItemIUpgradeRegistry.getTotalSize(); i++)
-            GameRegistry.addRecipe(ItemIUpgradeRegistry.getItemRecipe(i));
+        for (int i = 0; i < ItemIUpgradeRegistry.getTotalSize(); i++) {
+            IRecipe recipe = ItemIUpgradeRegistry.getItemRecipe(i);
+            if (recipe != null)
+                GameRegistry.addRecipe(recipe);
+        }
     }
 
 }

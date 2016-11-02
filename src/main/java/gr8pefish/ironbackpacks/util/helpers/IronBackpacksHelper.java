@@ -6,6 +6,7 @@ import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpac
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
+import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
@@ -187,7 +188,7 @@ public class IronBackpacksHelper {
             }
 
         }
-        else if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IBackpack) { //need to equip backpack
+        else if (!ConfigHandler.disableEquipping && player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IBackpack) { //need to equip backpack
 
             ItemStack backpackStack = player.getHeldItemMainhand();
             NBTUtils.setUUID(backpackStack);
