@@ -3,7 +3,24 @@ To Do:
     Update JEI and test more
     Bring over code from glider for rendering layer in MP
     Check out right click lasting too long and picks up a stack of whatever is in the backpack
+        http://i.imgur.com/AEY5f0x.png
     Add red text to upgrade disabled tooltip
+    balance overhaul
+    retexture different specializations
+
+    order categories in JEI to the right order
+    Make note so that user knows when upgrading tiers all the information is kept. (add tooltip like in other pages)
+    Make additional upgrade points be removable as well? (just spit out an upgrade if in 9th slot or something)
+    recipes no longer include record :(
+
+    Basic just a tad too expensive, and maybe okay even
+        Same with iron (ingots only, some way to differentiate with tiers)
+    integrate filter to put in ender storage pack directly
+    diamond too expensive
+    filter to accept everything picked up (blacklist/whitelist mode change)
+    Implement tab system instead of shift-right click?
+        Could be used for other upgrades like crafting, fluid, energy storage.
+        Could make it possible to remove limit on configurable upgrades (just add 3 per tab and add multiple tabs)
 
     1.11
         Rewrite mod again
@@ -119,7 +136,7 @@ To Do:
 
                 make the upgrades cheaper overall, introduce t1 and t2 crafting bases?
 
-                make crafting advanced filter
+                make compression/crafting advanced filter
 
                 some upgrade to increase storage slots?
                     rows and columns?

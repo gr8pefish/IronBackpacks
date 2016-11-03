@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 
@@ -17,9 +18,9 @@ public class ItemUpgradeRecipes {
     //TODO What I should do is something similar to setting the backpack tiering, a method after registering that sets the recipes. (has to be after the ItemIUpgradeRegistry is set)
 
     public static ShapedOreRecipe additionalUpgradePointsRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.additionalUpgradePointsUpgrade)),
-            "ere",
-            "rcr",
-            "ere",
+            "e e",
+            " c ",
+            "e e",
             'e', "gemEmerald", 'r', "record", 'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe buttonUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.buttonUpgrade)),
@@ -43,10 +44,11 @@ public class ItemUpgradeRecipes {
             'n', new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConflictingUpgrade(ItemRegistry.nestingUpgrade)));
 
     public static ShapedOreRecipe eternityUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.eternityUpgrade)),
-            "d d",
-            " c ",
-            "d d",
+            "ded",
+            "ece",
+            "ded",
             'd', "gemDiamond",
+            'e', "gemEmerald",
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe renamingUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.renamingUpgrade)),
@@ -88,7 +90,9 @@ public class ItemUpgradeRecipes {
             "rpb",
             "tct",
             "ttt",
-            'r', "dustRedstone", 'b', "blockRedstone", 'p', Blocks.PISTON, 't', "workbench", //could do bone meal -> bone block
+//            'r', "dustRedstone", 'b', "blockRedstone",
+            'r', "dyeWhite", 'b', Blocks.field_189880_di,
+            'p', Blocks.PISTON, 't', "workbench", //could do bone meal -> bone block
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe craftingSmallUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.craftingSmallUpgrade)),
@@ -102,7 +106,9 @@ public class ItemUpgradeRecipes {
             "bpr",
             "tct",
             "ttt",
-            'b', "blockRedstone", 'r', "dustRedstone", 'p', Blocks.PISTON, 't', "workbench",
+//            'b', "blockRedstone", 'r', "dustRedstone",
+            'r', "dyeWhite", 'b', Blocks.field_189880_di,
+            'p', Blocks.PISTON, 't', "workbench",
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe filterBasicUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterBasicUpgrade)),
@@ -166,10 +172,9 @@ public class ItemUpgradeRecipes {
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe restockingUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.restockingUpgrade)),
-            "rbr",
+            " b ",
             "pcp",
-            "rbr",
-            'r', "dustRedstone",
+            " b ",
             'p', Blocks.STICKY_PISTON,
             'b', Blocks.PISTON,
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));

@@ -84,7 +84,7 @@ public class ItemRegistry {
                 ConfigHandler.enumBasicBackpack.sizeX.getValue(), //rowLength
                 ConfigHandler.enumBasicBackpack.sizeY.getValue(), //rowCount
                 ConfigHandler.enumBasicBackpack.upgradePoints.getValue(), //upgrade points
-                0, //additional upgrade points (hardcoded to 0 for the basic backpack), (next line) resource location of gui
+                ConfigHandler.enumBasicBackpack.additionalPoints.getValue(), //additional upgrade points; (next line) resource location of gui
                 new ResourceLocation(Constants.MODID, "textures/guis/backpacks/"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeY.getValue())+"RowsOf"+String.valueOf(ConfigHandler.enumBasicBackpack.sizeX.getValue())+".png"),
                 (ConfigHandler.enumBasicBackpack.sizeX.getValue() == 9 ? 200: 236), //gui width
                 (114 + (18 * ConfigHandler.enumBasicBackpack.sizeY.getValue())), //gui height

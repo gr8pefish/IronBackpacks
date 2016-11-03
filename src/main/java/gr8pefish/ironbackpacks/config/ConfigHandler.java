@@ -19,7 +19,7 @@ public class ConfigHandler {
     public static int[] diamondBackpackStorageEmphasis;
     public static int[] diamondBackpackUpgradeEmphasis;
 
-    private static final int valuesToLoadBasic = 3; //upgradePoints, sizeX, sizeY
+    private static final int valuesToLoadBasic = 4; //upgradePoints, sizeX, sizeY, additionalPointsLimit (used to not have additional points, hence the differentiation)
     private static final int valuesToLoadAdditional = 4; //upgradePoints, sizeX, sizeY, additionalPointsLimit
 
     //==================== All the publicly accessible values====================================
@@ -156,42 +156,43 @@ public class ConfigHandler {
         basicBackpack[0] = config.getInt("Upgrade Points", category+" 1) (Basic)", 6, 0, 100, "The number of upgrade points on the backpack.");
         basicBackpack[1] = config.getInt("Number of Slots Per Row", category+" 1) (Basic)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
         basicBackpack[2] = config.getInt("Number of Rows", category+" 1) (Basic)", 2, 1, 7, "The size of the backpack.");
+        basicBackpack[3] = config.getInt("Number of Additional Upgrade Points", category+" 1) (Basic)", 1, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
         config.addCustomCategoryComment(category + " 2) (Iron - Storage Emphasis)", "The configurable traits of the iron backpack (storage emphasis).");
         ironBackpackStorageEmphasis[0] = config.getInt("Upgrade Points", category+" 2) (Iron - Storage Emphasis)", 8, 0, 100, "The number of upgrade points on the backpack.");
         ironBackpackStorageEmphasis[1] = config.getInt("Number of Slots Per Row", category+" 2) (Iron - Storage Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
         ironBackpackStorageEmphasis[2] = config.getInt("Number of Rows", category+" 2) (Iron - Storage Emphasis)", 4, 1, 7, "The size of the backpack.");
-        ironBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 2) (Iron - Storage Emphasis)", 0, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
+        ironBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 2) (Iron - Storage Emphasis)", 1, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
         config.addCustomCategoryComment(category + " 3) (Iron - Upgrade Emphasis)", "The configurable traits of the iron backpack (upgrade emphasis).");
         ironBackpackUpgradeEmphasis[0] = config.getInt("Upgrade Points", category+" 3) (Iron - Upgrade Emphasis)", 12, 0, 100, "The number of upgrade points on the backpack.");
         ironBackpackUpgradeEmphasis[1] = config.getInt("Number of Slots Per Row", category+" 3) (Iron - Upgrade Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
         ironBackpackUpgradeEmphasis[2] = config.getInt("Number of Rows", category+" 3) (Iron - Upgrade Emphasis)", 3, 1, 7, "The size of the backpack.");
-        ironBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 3) (Iron - Upgrade Emphasis)", 2, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
+        ironBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 3) (Iron - Upgrade Emphasis)", 3, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
         config.addCustomCategoryComment(category + " 4) (Gold - Storage Emphasis)", "The configurable traits of the gold backpack (storage emphasis).");
         goldBackpackStorageEmphasis[0] = config.getInt("Upgrade Points", category+" 4) (Gold - Storage Emphasis)", 10, 0, 100, "The number of upgrade points on the backpack.");
         goldBackpackStorageEmphasis[1] = config.getInt("Number of Slots Per Row", category+" 4) (Gold - Storage Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
         goldBackpackStorageEmphasis[2] = config.getInt("Number of Rows", category+" 4) (Gold - Storage Emphasis)", 6, 1, 7, "The size of the backpack.");
-        goldBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 4) (Gold - Storage Emphasis)", 1, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
+        goldBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 4) (Gold - Storage Emphasis)", 2, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
         config.addCustomCategoryComment(category + " 5) (Gold - Upgrade Emphasis)", "The configurable traits of the gold backpack (upgrade emphasis).");
         goldBackpackUpgradeEmphasis[0] = config.getInt("Upgrade Points", category+" 5) (Gold - Upgrade Emphasis)", 16, 0, 100, "The number of upgrade points on the backpack.");
         goldBackpackUpgradeEmphasis[1] = config.getInt("Number of Slots Per Row", category+" 5) (Gold - Upgrade Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
         goldBackpackUpgradeEmphasis[2] = config.getInt("Number of Rows", category+" 5) (Gold - Upgrade Emphasis)", 5, 1, 7, "The size of the backpack.");
-        goldBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 5) (Gold - Upgrade Emphasis)", 4, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
+        goldBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 5) (Gold - Upgrade Emphasis)", 5, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
         config.addCustomCategoryComment(category + " 6) (Diamond - Storage Emphasis)", "The configurable traits of the diamond backpack (storage emphasis).");
         diamondBackpackStorageEmphasis[0] = config.getInt("Upgrade Points", category+" 6) (Diamond - Storage Emphasis)", 12, 0, 100, "The number of upgrade points on the backpack.");
         diamondBackpackStorageEmphasis[1] = config.getInt("Number of Slots Per Row", category+" 6) (Diamond - Storage Emphasis)", 11, 9, 11, "The size of the backpack. Either 9 or 11.");
         diamondBackpackStorageEmphasis[2] = config.getInt("Number of Rows", category+" 6) (Diamond - Storage Emphasis)", 7, 1, 7, "The size of the backpack.");
-        diamondBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 6) (Diamond - Storage Emphasis)", 2, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
+        diamondBackpackStorageEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 6) (Diamond - Storage Emphasis)", 3, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
         config.addCustomCategoryComment(category + " 7) (Diamond - Upgrade Emphasis)", "The configurable traits of the diamond backpack (upgrade emphasis).");
         diamondBackpackUpgradeEmphasis[0] = config.getInt("Upgrade Points", category+" 7) (Diamond - Upgrade Emphasis)", 20, 0, 100, "The number of upgrade points on the backpack.");
         diamondBackpackUpgradeEmphasis[1] = config.getInt("Number of Slots Per Row", category+" 7) (Diamond - Upgrade Emphasis)", 9, 9, 11, "The size of the backpack. Either 9 or 11.");
         diamondBackpackUpgradeEmphasis[2] = config.getInt("Number of Rows", category+" 7) (Diamond - Upgrade Emphasis)", 7, 1, 7, "The size of the backpack.");
-        diamondBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 7) (Diamond - Upgrade Emphasis)", 6, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
+        diamondBackpackUpgradeEmphasis[3] = config.getInt("Number of Additional Upgrade Points", category+" 7) (Diamond - Upgrade Emphasis)", 7, 0, 100, "The total number of additional upgrade points that can be applied to the backpack.");
 
 
 
@@ -213,7 +214,7 @@ public class ConfigHandler {
         damageBarUpgradeTier = config.getInt("Damage Bar Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the damage bar upgrade.");
         damageBarUpgradeRecipeDisabled = config.getBoolean("Damage Bar Upgrade Disabled", category, false, "If the damage bar upgrade recipe should not exist.");
 
-        depthUpgradeCost = config.getInt("Depth Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the depth deposit upgrade.\n" +
+        depthUpgradeCost = config.getInt("Depth Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the depth deposit upgrade.\n" +
                 "This upgrade allows other backpacks's configurable upgrades to still function when they are nested inside a backpack with this upgrade.");
         depthUpgradeTier = config.getInt("Depth Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the depth upgrade.");
         depthUpgradeRecipeDisabled = config.getBoolean("Depth Upgrade Disabled", category, false, "If the depth upgrade recipe should not exist.");
@@ -237,17 +238,17 @@ public class ConfigHandler {
         nestingUpgradeTier = config.getInt("Nesting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the nesting upgrade.");
         nestingUpgradeRecipeDisabled = config.getBoolean("Nesting Upgrade Disabled", category, false, "If the nesting upgrade recipe should not exist.");
 
-        nestingAdvancedUpgradeCost = config.getInt("Advanced Nesting Upgrade Cost", category, 5, 0, 100, "The cost (in upgrade points) for the advanced nesting upgrade.\n" +
+        nestingAdvancedUpgradeCost = config.getInt("Advanced Nesting Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the advanced nesting upgrade.\n" +
                 "This upgrade allows the player to put any backpack inside another, regardless of tier.");
         nestingAdvancedUpgradeTier = config.getInt("Advanced Nesting Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the advanced nesting upgrade.");
         nestingAdvancedUpgradeRecipeDisabled = config.getBoolean("Advanced Nesting Upgrade Disabled", category, false, "If the advanced nesting upgrade recipe should not exist.");
 
-        quickDepositUpgradeCost = config.getInt("Quick Deposit Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the quick deposit upgrade.\n" +
+        quickDepositUpgradeCost = config.getInt("Quick Deposit Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the quick deposit upgrade.\n" +
                 "This upgrade allows you to shift right click an inventory to drop off the contents of the backpack directly into the inventory.");
         quickDepositUpgradeTier = config.getInt("Quick Deposit Upgrade Tier", category, 1, 0, 3,"The minimum backpack tier for the quick deposit upgrade.");
         quickDepositUpgradeRecipeDisabled = config.getBoolean("Quick Deposit Upgrade Disabled", category, false, "If the quick deposit upgrade recipe should not exist.");
 
-        quickDepositPreciseUpgradeCost = config.getInt("Precise Quick Deposit Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the precise quick deposit upgrade.\n" +
+        quickDepositPreciseUpgradeCost = config.getInt("Precise Quick Deposit Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the precise quick deposit upgrade.\n" +
                 "This upgrade allows you to shift right click an inventory to drop off the contents of the backpack directly into the inventory, but only the items that are already present in the inventory will be transferred from the backpack.");
         quickDepositPreciseUpgradeTier = config.getInt("Precise Quick Deposit Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the precise quick deposit upgrade.");
         quickDepositPreciseUpgradeRecipeDisabled = config.getBoolean("Precise Quick Deposit Upgrade Disabled", category, false, "If the precise quick deposit upgrade recipe should not exist.");
@@ -260,32 +261,32 @@ public class ConfigHandler {
         craftingUpgradeTier = config.getInt("Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the recipes upgrade.");
         craftingUpgradeRecipeDisabled = config.getBoolean("Crafting Upgrade Disabled", category, false, "If the recipes upgrade recipe should not exist.");
 
-        craftingSmallUpgradeCost = config.getInt("Small Crafting Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the small recipes upgrade.\n" +
+        craftingSmallUpgradeCost = config.getInt("Small Crafting Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the small recipes upgrade.\n" +
                 "This upgrade allows you to craft the items in a 2x2 grid (ex: sand -> sandstone)");
         craftingSmallUpgradeTier = config.getInt("Small Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the small recipes upgrade.");
         craftingSmallUpgradeRecipeDisabled = config.getBoolean("Small Crafting Upgrade Disabled", category, false, "If the small recipes upgrade recipe should not exist.");
 
-        craftingTinyUpgradeCost = config.getInt("Tiny Crafting Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the tiny recipes upgrade.\n" +
+        craftingTinyUpgradeCost = config.getInt("Tiny Crafting Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the tiny recipes upgrade.\n" +
                 "This upgrade allows you to craft the items in a 1x1 grid (ex: log -> planks)");
         craftingTinyUpgradeTier = config.getInt("Tiny Crafting Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the tiny recipes upgrade.");
         craftingTinyUpgradeRecipeDisabled = config.getBoolean("Tiny Crafting Upgrade Disabled", category, false, "If the tiny recipes upgrade recipe should not exist.");
 
-        filterBasicUpgradeCost = config.getInt("Basic Filter Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the basic filter upgrade.\n" +
+        filterBasicUpgradeCost = config.getInt("Basic Filter Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the basic filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They must match exactly.");
         filterBasicUpgradeTier = config.getInt("Basic Filter Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the basic filter upgrade.");
         filterBasicUpgradeRecipeDisabled = config.getBoolean("Basic Filter Upgrade Disabled", category, false, "If the basic filter upgrade recipe should not exist.");
 
-        filterFuzzyUpgradeCost = config.getInt("Fuzzy Filter Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the fuzzy filter upgrade.\n" +
+        filterFuzzyUpgradeCost = config.getInt("Fuzzy Filter Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the fuzzy filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They can have different damage values (e.g. any sword, regardless of damage).");
         filterFuzzyUpgradeTier = config.getInt("Fuzzy Filter Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the fuzzy filter upgrade.");
         filterFuzzyUpgradeRecipeDisabled = config.getBoolean("Fuzzy Filter Upgrade Disabled", category, false, "If the fuzzy filter upgrade recipe should not exist.");
 
-        filterOreDictUpgradeCost = config.getInt("Ore Dictionary Filter Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the ore dictionary filter upgrade.\n" +
+        filterOreDictUpgradeCost = config.getInt("Ore Dictionary Filter Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the ore dictionary filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They can match in the ore dictionary (e.g. any log or any copper ore).");
         filterOreDictUpgradeTier = config.getInt("Ore Dictionary Filter Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the ore dictionary filter upgrade.");
         filterOreDictUpgradeRecipeDisabled = config.getBoolean("Ore Dictionary Filter Upgrade Disabled", category, false, "If the ore dictionary filter upgrade recipe should not exist.");
 
-        filterModSpecificUpgradeCost = config.getInt("Mod Specific Filter Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the mod specific filter upgrade.\n" +
+        filterModSpecificUpgradeCost = config.getInt("Mod Specific Filter Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the mod specific filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. They are filtered by the mod, so anything from Botania placed in the filter will mean any Botania items is automatically routed into the backpack..");
         filterModSpecificUpgradeTier = config.getInt("Mod Specific Filter Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the mod specific filter upgrade.");
         filterModSpecificUpgradeRecipeDisabled = config.getBoolean("Mod Specific Filter Upgrade Disabled", category, false, "If the mod specific filter upgrade recipe should not exist.");
@@ -295,17 +296,17 @@ public class ConfigHandler {
         filterVoidUpgradeTier = config.getInt("Void Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the void filter upgrade.");
         filterVoidUpgradeRecipeDisabled = config.getBoolean("Void Filter Upgrade Disabled", category, false, "If the void filter upgrade recipe should not exist.");
 
-        filterAdvancedUpgradeCost = config.getInt("Advanced Filter Upgrade Cost", category, 6, 0, 100, "The cost (in upgrade points) for the advanced filter upgrade.\n" +
+        filterAdvancedUpgradeCost = config.getInt("Advanced Filter Upgrade Cost", category, 9, 0, 100, "The cost (in upgrade points) for the advanced filter upgrade.\n" +
                 "This upgrade allows you to choose items to go directly into the backpack when they are picked up. You can choose each configurable items to be filtered based on exact, fuzzy, ore dictionary, mod specific, or void matching.");
-        filterAdvancedUpgradeTier = config.getInt("Advanced Filter Upgrade Tier", category, 3, 0, 3, "The minimum backpack tier for the advanced filter upgrade.");
+        filterAdvancedUpgradeTier = config.getInt("Advanced Filter Upgrade Tier", category, 2, 0, 3, "The minimum backpack tier for the advanced filter upgrade.");
         filterAdvancedUpgradeRecipeDisabled = config.getBoolean("Advanced Filter Upgrade Disabled", category, false, "If the advanced filter upgrade recipe should not exist.");
 
-        filterMiningUpgradeCost = config.getInt("Mining Upgrade Cost", category, 4, 0, 100, "The cost (in upgrade points) for the mining filter upgrade.\n" +
+        filterMiningUpgradeCost = config.getInt("Mining Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the mining filter upgrade.\n" +
                 "This upgrade automatically picks up any ores or gems, and has a basic filter for items like cobblestone/granite/etc.");
         filterMiningUpgradeTier = config.getInt("Mining Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the mining filter upgrade.");
         filterMiningUpgradeRecipeDisabled = config.getBoolean("Mining Filter Upgrade Disabled", category, false, "If the mining filter upgrade recipe should not exist.");
 
-        restockingUpgradeCost = config.getInt("Restocking Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the restocking upgrade.\n" +
+        restockingUpgradeCost = config.getInt("Restocking Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the restocking upgrade.\n" +
                 "This upgrade automatically restocks the specified items in your inventory from the backpack's inventory.");
         restockingUpgradeTier = config.getInt("Restocking Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the restocking upgrade.");
         restockingUpgradeRecipeDisabled = config.getBoolean("Restocking Upgrade Disabled", category, false, "If the restocking upgrade recipe should not exist.");
@@ -331,7 +332,8 @@ public class ConfigHandler {
     public enum enumBasicBackpack {
         upgradePoints(basicBackpack[0]),
         sizeX(basicBackpack[1]),
-        sizeY(basicBackpack[2]);
+        sizeY(basicBackpack[2]),
+        additionalPoints(basicBackpack[3]);
         private int value;
 
         enumBasicBackpack(int value) {

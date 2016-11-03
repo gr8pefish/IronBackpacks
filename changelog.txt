@@ -5,7 +5,8 @@ Additions
 - None
 
 Changes
-- None
+- Balance changes! Tweaked a lot of recipes.
+    - Note: Many of these were changed via the config, so it is recommended that you DELETE THE CONFIG to let the new default values regenerate.
 
 Bug Fixes
 - None

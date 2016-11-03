@@ -109,7 +109,7 @@ tooltip.ironbackpacks.upgrade.soulbound.desc=Allows you to keep the backpack whe
 tooltip.ironbackpacks.upgrade.quickDeposit.desc=When you shift right click on an inventory with this upgrade the backpack will attempt to empty it's contents into the inventory.
 tooltip.ironbackpacks.upgrade.quickDepositPrecise.desc=Similar to the quick deposit, except the backpack will only attempt to empty it's contents into the inventory if they already exist in that inventory.
 tooltip.ironbackpacks.upgrade.advNesting.desc=Allows you to place any backpack, regardless of tier, inside the backpack.
-tooltip.ironbackpacks.upgrade.depth.desc=Allows any nested backpacks to have full functionality (i.e. filter/restocking/crafting upgrades). Only works in backpacks nested once (no infinite nesting).
+tooltip.ironbackpacks.upgrade.depth.desc=Allows any nested backpacks to have full functionality (i.e. filter/restocking/compression upgrades). Only works in backpacks nested once (no infinite nesting).
 tooltip.ironbackpacks.upgrade.naming.desc=Allows you to rename the backpack.
 
 tooltip.ironbackpacks.upgrade.basicFilter.desc=Adds a configurable filter of items that the backpack will automatically collect.
