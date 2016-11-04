@@ -16,12 +16,15 @@ import javax.annotation.Nullable;
 
 public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
 
-    private String title;
-    private IDrawable background;
+    private final String title;
+    private final IDrawable background;
+    private final IDrawable icon;
 
     public RemoveUpgradeRecipeCategory(IGuiHelper guiHelper) {
         title = TextUtils.localize("jei.ironbackpacks.removeUpgradeRecipe.name");
-        this.background = guiHelper.createDrawable(new ResourceLocation("ironbackpacks", "textures/jei/removeUpgradeRecipeJEI.png"), 0, 0, 166, 108);
+        ResourceLocation RL = new ResourceLocation("ironbackpacks", "textures/jei/removeUpgradeRecipeJEI.png");
+        background = guiHelper.createDrawable(RL, 0, 0, 166, 108);
+        icon = guiHelper.createDrawable(RL, 168, 0, 16, 16);
     }
 
     @Nonnull
@@ -45,7 +48,7 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
     @Nullable
     @Override
     public IDrawable getIcon() {
-        return null;
+        return icon;
     }
 
     @Override

@@ -17,14 +17,17 @@ import javax.annotation.Nullable;
 
 public class IncreaseTierRecipeCategory implements IRecipeCategory {
 
-    private String title;
-    private IDrawable background;
+    private final String title;
+    private final IDrawable background;
+    private final IDrawable icon;
 
     private final ICraftingGridHelper craftingGridHelper;
 
     public IncreaseTierRecipeCategory(IGuiHelper guiHelper) {
         title = TextUtils.localize("jei.ironbackpacks.increaseTierRecipe.name");
-        this.background = guiHelper.createDrawable(new ResourceLocation("ironbackpacks", "textures/jei/craftingGridRecipeJEI.png"), 0, 0, 166, 101);
+        ResourceLocation RL = new ResourceLocation("ironbackpacks", "textures/jei/craftingGridRecipeJEI.png");
+        background = guiHelper.createDrawable(RL, 0, 0, 166, 101);
+        icon = guiHelper.createDrawable(RL, 168, 0, 16, 16);
         craftingGridHelper = guiHelper.createCraftingGridHelper(1, 0);
     }
 
@@ -49,7 +52,7 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory {
     @Nullable
     @Override
     public IDrawable getIcon() {
-        return null;
+        return icon;
     }
 
     @Override

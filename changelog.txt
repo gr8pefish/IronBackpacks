@@ -5,7 +5,8 @@ Additions
 - None
 
 Changes
-- Updated dependencies - Forge (12.18.2.2120) and JEI (3.13.2.348)
+- Updated dependencies - Forge (12.18.2.2120) and JEI (3.13.2.350)
+- Add new icons for the JEI tabs
 
 Bug Fixes
 - None
