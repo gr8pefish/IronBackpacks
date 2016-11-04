@@ -5,8 +5,10 @@ Additions
 - None
 
 Changes
+- Updated backpack textures again (thanks to .vhs)
 - Updated dependencies - Forge (12.18.2.2120) and JEI (3.13.2.350)
-- Add new icons for the JEI tabs
+- Added fancy icons for the new JEI tabs.
+- Added link to complete changelog at the end of each individual one when using gradle to push to curseforge.
 
 Bug Fixes
 - None

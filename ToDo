@@ -1,22 +1,23 @@
 To Do:
 
-    Update JEI and test more
+    Add in event for restocking to actually work onBlockPlace b/c of new forge!
+
     Bring over code from glider for rendering layer in MP
     Check out right click lasting too long and picks up a stack of whatever is in the backpack
         http://i.imgur.com/AEY5f0x.png
     Add red text to upgrade disabled tooltip
-    balance overhaul
-    retexture different specializations
 
-    order categories in JEI to the right order
+    retexture different specializations
+    put all JEI images on one 256x256 texture sheet? (could be some work)
+    Fix JEI IIngredient stuff
+
+    order categories in JEI to the right order - need issue to be addressed (do a PR?)
     Make note so that user knows when upgrading tiers all the information is kept. (add tooltip like in other pages)
     Make additional upgrade points be removable as well? (just spit out an upgrade if in 9th slot or something)
     recipes no longer include record :(
 
-    Basic just a tad too expensive, and maybe okay even
-        Same with iron (ingots only, some way to differentiate with tiers)
     integrate filter to put in ender storage pack directly
-    diamond too expensive
+    diamond too expensive still?
     filter to accept everything picked up (blacklist/whitelist mode change)
     Implement tab system instead of shift-right click?
         Could be used for other upgrades like crafting, fluid, energy storage.
@@ -93,6 +94,7 @@ To Do:
             Add it so need upgrade specialization for certain upgrades?
 
         Visuals:
+            try - reduce number of colors in sprites - look more like vanilla armor
             Fat backpack for storage emphasis, and some extra texture for upgrade emphasis?
                 More definite shading for storage emphasis ones?
                 Some other way to differentiate between two?
