@@ -12,17 +12,14 @@ import net.minecraftforge.fluids.FluidStack;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack> {
 
     private BackpackRemoveUpgradeRecipe removeUpgradeRecipe;
     private final String[] description;
-    private final String descriptionContinues;
     private final String[] descriptionAdditional;
-    private final String[] descriptionAdditionalMore;
     private final String craftingType;
     private final String removeSlot1;
     private final String removeSlot2;
@@ -32,32 +29,38 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallb
         this.removeSlot1 = TextUtils.localize("jei.description.removeUpgrade.slot1");
         this.removeSlot2 = TextUtils.localize("jei.description.removeUpgrade.slot2");
         this.description = TextUtils.cutLongString(TextUtils.localize("jei.description.removeUpgrade"));
-        this.descriptionContinues = TextUtils.localize("jei.description.continuedNextPage");
         this.descriptionAdditional = TextUtils.cutLongString(TextUtils.localize("jei.description.removeUpgrade.additional"));
-        this.descriptionAdditionalMore = TextUtils.cutLongString(TextUtils.localize("jei.description.removeUpgrade.additional.more"));
         removeUpgradeRecipe = recipe;
     }
 
     @Override
-    public void getIngredients(IIngredients ingredients) {
+    public void getIngredients(@Nonnull IIngredients ingredients) {
         //ToDo
+//        ingredients.setInput(ItemStack.class, );
+//        ingredients.setOutputs(ItemStack.class, new ArrayList<>(Collections.singletonList(removeUpgradeRecipe.getRecipeOutput())));
     }
 
+    @Nonnull
     @Override
     public List getInputs() {
+        //ToDo: move to ingredients
         return removeUpgradeRecipe.getInput();
     }
 
+    @Nonnull
     @Override
     public List getOutputs() {
+        //ToDo: move to ingredients
         return Collections.singletonList(removeUpgradeRecipe.getRecipeOutput());
     }
 
+    @Nonnull
     @Override
     public List<FluidStack> getFluidInputs() {
         return null;
     }
 
+    @Nonnull
     @Override
     public List<FluidStack> getFluidOutputs() {
         return null;
@@ -100,7 +103,7 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallb
     }
 
     @Override
-    public void onTooltip(int slotIndex, boolean input, ItemStack ingredient, List<String> tooltip) {
+    public void onTooltip(int slotIndex, boolean input, @Nonnull ItemStack ingredient, @Nonnull List<String> tooltip) {
 
         //input backpack
         if (slotIndex == 0) {

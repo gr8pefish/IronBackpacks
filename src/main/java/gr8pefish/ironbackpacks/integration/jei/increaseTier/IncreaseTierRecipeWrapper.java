@@ -28,25 +28,31 @@ public class IncreaseTierRecipeWrapper implements IRecipeWrapper {
     }
 
     @Override
-    public void getIngredients(IIngredients ingredients) {
+    public void getIngredients(@Nonnull IIngredients ingredients) {
         //ToDo
     }
 
+    @Nonnull
     @Override
     public List getInputs() {
+        //ToDo: move to ingredients
         return Arrays.asList(increaseTierRecipe.getInput());
     }
 
+    @Nonnull
     @Override
     public List getOutputs() {
+        //ToDo: move to ingredients
         return Collections.singletonList(increaseTierRecipe.getRecipeOutput());
     }
 
+    @Nonnull
     @Override
     public List<FluidStack> getFluidInputs() {
         return null;
     }
 
+    @Nonnull
     @Override
     public List<FluidStack> getFluidOutputs() {
         return null;

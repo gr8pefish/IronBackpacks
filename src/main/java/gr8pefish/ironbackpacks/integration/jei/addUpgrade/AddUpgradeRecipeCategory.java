@@ -52,12 +52,12 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void drawExtras(Minecraft minecraft) {
+    public void drawExtras(@Nonnull Minecraft minecraft) {
 
     }
 
     @Override
-    public void drawAnimations(Minecraft minecraft) {
+    public void drawAnimations(@Nonnull Minecraft minecraft) {
 
     }
 
@@ -67,7 +67,7 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
+    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 
         //add custom tooltips
         recipeLayout.getItemStacks().addTooltipCallback((AddUpgradeRecipeWrapper)recipeWrapper);

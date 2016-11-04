@@ -31,25 +31,31 @@ public class AddUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback
     }
 
     @Override
-    public void getIngredients(IIngredients ingredients) {
+    public void getIngredients(@Nonnull IIngredients ingredients) {
         //ToDo
     }
 
+    @Nonnull
     @Override
     public List getInputs() {
+        //ToDo: move to ingredients
         return addUpgradeRecipe.getInput();
     }
 
+    @Nonnull
     @Override
     public List getOutputs() {
+        //ToDo: move to ingredients
         return Collections.singletonList(addUpgradeRecipe.getRecipeOutput());
     }
 
+    @Nonnull
     @Override
     public List<FluidStack> getFluidInputs() {
         return null;
     }
 
+    @Nonnull
     @Override
     public List<FluidStack> getFluidOutputs() {
         return null;
@@ -88,7 +94,7 @@ public class AddUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback
     }
 
     @Override
-    public void onTooltip(int slotIndex, boolean input, ItemStack ingredient, List<String> tooltip) {
+    public void onTooltip(int slotIndex, boolean input, @Nonnull ItemStack ingredient, @Nonnull List<String> tooltip) {
 
         //input backpack
         if (slotIndex == 0) {
