@@ -1,6 +1,6 @@
 To Do:
 
-    Add in event for restocking to actually work onBlockPlace b/c of new forge!
+    Clean up events (so gross in there)
 
     Bring over code from glider for rendering layer in MP
     Check out right click lasting too long and picks up a stack of whatever is in the backpack
@@ -10,8 +10,8 @@ To Do:
     retexture different specializations
     put all JEI images on one 256x256 texture sheet? (could be some work)
     Fix JEI IIngredient stuff
-
     order categories in JEI to the right order - need issue to be addressed (do a PR?)
+
     Make note so that user knows when upgrading tiers all the information is kept. (add tooltip like in other pages)
     Make additional upgrade points be removable as well? (just spit out an upgrade if in 9th slot or something)
     recipes no longer include record :(

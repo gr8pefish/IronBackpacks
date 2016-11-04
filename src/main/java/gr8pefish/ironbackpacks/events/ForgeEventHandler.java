@@ -11,9 +11,11 @@ import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -22,6 +24,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -208,29 +211,31 @@ public class ForgeEventHandler {
         }
     }
 
-    //ToDo: Need PR https://github.com/MinecraftForge/MinecraftForge/pull/3270 to go through
-//    /**
-//     * Called whenever the player places a block. Used for the restocking(hopper) upgrade.
-//     * @param event - the event fired
-//     */
-//    @SubscribeEvent
-//    public void onBlockPlacedEvent(BlockEvent.PlaceEvent event) {
-//        System.out.println("PLACED BLOCK +"+event.getHeldItem(event.getHand()).getDisplayName());
-//        if (!event.isCanceled()){ //only do it for main hand clicks
-//            ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getPlayer());
-//            resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemPlace(event.getPlayer(), event.getHeldItem(event.getHand()), backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
-//            if (resuppliedStack != null) {
-//                if (event.getHand() == EnumHand.MAIN_HAND) { //if main hand item should be incremented
-//                    event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.MAINHAND, resuppliedStack);
-//                } else { //offhand replacement
-//                    event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.OFFHAND, resuppliedStack);
-//                }
-//                System.out.println("Resupplies stack size: "+resuppliedStack.stackSize);
-//                System.out.println("Curr size: "+event.getPlayer().getHeldItem(EnumHand.MAIN_HAND).stackSize);
-//                System.out.println("Setting to size: "+resuppliedStack.stackSize);
-//            }
-//        }
-//    }
+    /**
+     * Called whenever the player places a block. Used for the restocking(hopper) upgrade.
+     * @param event - the event fired
+     */
+    @SubscribeEvent
+    public void onBlockPlacedEvent(BlockEvent.PlaceEvent event) {
+        System.out.println("PLACED BLOCK +"+event.getItemInHand().getDisplayName());
+        ItemStack resuppliedStack;
+        if (!event.isCanceled()){ //only do it for main hand clicks
+            ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getPlayer());
+            resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemPlace(event.getPlayer(), event.getHand(), event.getItemInHand(), backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
+            System.out.println(resuppliedStack == null);
+            if (resuppliedStack != null) {
+                if (event.getHand() == EnumHand.MAIN_HAND) { //if main hand item should be incremented
+                    event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.MAINHAND, resuppliedStack);
+                } else { //offhand replacement
+                    System.out.println("setting offhand");
+                    event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.OFFHAND, resuppliedStack);
+                }
+                System.out.println("Resupplies stack size: "+resuppliedStack.stackSize);
+                System.out.println("Curr size: "+event.getPlayer().getHeldItem(event.getHand()).stackSize);
+                System.out.println("Setting to size: "+resuppliedStack.stackSize);
+            }
+        }
+    }
 
     @SubscribeEvent
     public void onArrowLoose(ArrowLooseEvent event) {
