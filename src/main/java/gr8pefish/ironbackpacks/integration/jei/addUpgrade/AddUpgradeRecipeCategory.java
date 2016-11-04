@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class AddUpgradeRecipeCategory implements IRecipeCategory {
 
@@ -39,6 +40,12 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
     @Override
     public IDrawable getBackground() {
         return background;
+    }
+
+    @Nullable
+    @Override
+    public IDrawable getIcon() {
+        return null;
     }
 
     @Override

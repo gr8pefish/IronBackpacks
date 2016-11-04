@@ -32,7 +32,7 @@ import org.ajoberstar.grgit.*
 ext.repo = Grgit.open(project.file('.'))
 def gitHash = 'unknown'
 
-if (new File(projectDir, '.git').exists())
+if (file('.git').exists())
     gitHash = repo.log().find().abbreviatedId
 
 repositories {
@@ -50,13 +50,12 @@ minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "run"
 
-    useDepAts = true
+//    useDepAts = true
 
     replace "@VERSION@", project.version
     replaceIn "Constants.java"
 
-    if (project.hasProperty('mappings_version'))
-        mappings = project.mappings_version
+    mappings = project.mappings_version
 }
 
 processResources {
@@ -73,14 +72,6 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
         exclude '**/*.properties'
-    }
-}
-
-if (JavaVersion.current().isJava8Compatible()) {
-    allprojects {
-        tasks.withType(Javadoc) {
-            options.addStringOption('Xdoclint:none', '-quiet')
-        }
     }
 }
 

@@ -91,7 +91,7 @@ public class ItemUpgradeRecipes {
             "tct",
             "ttt",
 //            'r', "dustRedstone", 'b', "blockRedstone",
-            'r', "dyeWhite", 'b', Blocks.field_189880_di,
+            'r', "dyeWhite", 'b', Blocks.BONE_BLOCK,
             'p', Blocks.PISTON, 't', "workbench", //could do bone meal -> bone block
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
@@ -107,7 +107,7 @@ public class ItemUpgradeRecipes {
             "tct",
             "ttt",
 //            'b', "blockRedstone", 'r', "dustRedstone",
-            'r', "dyeWhite", 'b', Blocks.field_189880_di,
+            'r', "dyeWhite", 'b', Blocks.BONE_BLOCK,
             'p', Blocks.PISTON, 't', "workbench",
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 

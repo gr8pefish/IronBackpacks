@@ -5,7 +5,7 @@ Additions
 - None
 
 Changes
-- None
+- Updated dependencies - Forge (12.18.2.2120) and JEI (3.13.2.348)
 
 Bug Fixes
 - None
