@@ -8,8 +8,9 @@ Changes
 - Updated backpack textures again (thanks to .vhs)
 - Updated dependencies - Forge (12.18.2.2120) and JEI (3.13.2.350)
     - Added fancy icons for the new JEI tabs.
-    - Added ability for restocking upgrade to trigger on block placed (includes via offhand).
-- Added a link to complete changelog at the end of each individual one.
+- Changed the restocking upgrade to trigger on block placed (includes via offhand).
+- Added coal to be natively included in the mining filter.
+- Added a link to the complete changelog at the end of each individual one.
 
 Bug Fixes
 - None

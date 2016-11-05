@@ -10,6 +10,7 @@ import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.InventoryCrafting;
@@ -723,6 +724,7 @@ public class IronBackpacksEventHelper {
      */
     private static void transferWithMiningFilter(ArrayList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
+        filterItems.add(new ItemStack(Items.COAL, 1, 0)); //add coal to filter
         transferWithBasicFilter(filterItems, event, container);
         if (itemEntityOre != null) {
             for (String oreName : itemEntityOre) {
