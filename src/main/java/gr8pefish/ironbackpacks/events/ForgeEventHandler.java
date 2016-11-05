@@ -217,22 +217,16 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onBlockPlacedEvent(BlockEvent.PlaceEvent event) {
-        System.out.println("PLACED BLOCK +"+event.getItemInHand().getDisplayName());
         ItemStack resuppliedStack;
         if (!event.isCanceled()){ //only do it for main hand clicks
             ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getPlayer());
             resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemPlace(event.getPlayer(), event.getHand(), event.getItemInHand(), backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
-            System.out.println(resuppliedStack == null);
             if (resuppliedStack != null) {
                 if (event.getHand() == EnumHand.MAIN_HAND) { //if main hand item should be incremented
                     event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.MAINHAND, resuppliedStack);
                 } else { //offhand replacement
-                    System.out.println("setting offhand");
                     event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.OFFHAND, resuppliedStack);
                 }
-                System.out.println("Resupplies stack size: "+resuppliedStack.stackSize);
-                System.out.println("Curr size: "+event.getPlayer().getHeldItem(event.getHand()).stackSize);
-                System.out.println("Setting to size: "+resuppliedStack.stackSize);
             }
         }
     }

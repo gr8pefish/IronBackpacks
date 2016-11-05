@@ -6,7 +6,9 @@ To Do:
     Check out right click lasting too long and picks up a stack of whatever is in the backpack
         http://i.imgur.com/AEY5f0x.png
     Add red text to upgrade disabled tooltip
-
+    tints for upgrade tiers
+        Also make increased one require increased tiers of packs (i.e. gold is unused)
+    reinforced upgrade - indestructibly itemEntity won't despawn or burn, crafted w/obsidian
     retexture different specializations
     put all JEI images on one 256x256 texture sheet? (could be some work)
     Fix JEI IIngredient stuff
