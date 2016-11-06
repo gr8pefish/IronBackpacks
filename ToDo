@@ -2,6 +2,8 @@ To Do:
 
     Clean up events (so gross in there)
 
+    Look up noise not playing when picking up items via filter
+    Make sure texture map is small: https://github.com/mezz/TextureDump
     Bring over code from glider for rendering layer in MP
     Check out right click lasting too long and picks up a stack of whatever is in the backpack
         http://i.imgur.com/AEY5f0x.png
