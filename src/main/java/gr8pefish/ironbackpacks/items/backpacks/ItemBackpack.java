@@ -12,6 +12,7 @@ import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
+import gr8pefish.ironbackpacks.sounds.IronBackpacksSounds;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.TextUtils;
@@ -157,6 +158,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
         if (world.isRemote){ //client side
             NBTUtils.setUUID(itemStack);
             PlayerWearingBackpackCapabilities.setCurrentBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: client side
+            player.playSound(IronBackpacksSounds.open_backpack, 1F, 1F);
             return new ActionResult(EnumActionResult.SUCCESS, itemStack);
         } else {
             NBTUtils.setUUID(itemStack);

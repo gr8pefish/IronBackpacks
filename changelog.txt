@@ -2,10 +2,10 @@
 Version 1.10.2 - 2.2.12
 ------------------------------------------------------
 Additions
-- None
+- Added a sound when the backpack opens (disable-able via config) (thanks to .vhs for the recording)
 
 Changes
-- Updated backpack textures again (thanks to .vhs)
+- Updated backpack textures again (thanks to .vhs for assistance)
 - Updated dependencies - Forge (12.18.2.2120) and JEI (3.13.2.350)
     - Added fancy icons for the new JEI tabs.
 - Changed the restocking upgrade to trigger on block placed (includes via offhand).

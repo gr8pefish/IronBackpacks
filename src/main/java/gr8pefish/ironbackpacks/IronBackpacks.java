@@ -13,6 +13,7 @@ import gr8pefish.ironbackpacks.proxies.CommonProxy;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.registry.RecipeRegistry;
+import gr8pefish.ironbackpacks.sounds.IronBackpacksSounds;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -72,6 +73,9 @@ public class IronBackpacks {
 
 		//Achievements
 		IronBackpacksAchievements.init();
+
+		//Sounds
+		IronBackpacksSounds.registerSounds();
 
 		//Keybindings, Client Event Handler, and Rendering
 		proxy.preInit();

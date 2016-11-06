@@ -1,0 +1,10 @@
+{
+  "open_backpack": {
+    "category": "player",
+    "sounds": [ "ironbackpacks:open_backpack_sound" ]
+  },
+  "close_backpack": {
+    "category": "player",
+    "sounds": [ "ironbackpacks:close_backpack_sound" ]
+  }
+}

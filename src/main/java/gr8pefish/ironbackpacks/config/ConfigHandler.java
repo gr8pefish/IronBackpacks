@@ -95,6 +95,7 @@ public class ConfigHandler {
     public static boolean disableEquipping;
     public static boolean disableRendering;
     public static boolean disableFPPrendering;
+    public static boolean disableSounds;
     public static boolean renamingUpgradeRequired;
     public static int tooltipDelay;
     public static int additionalUpgradePointsIncrease;
@@ -319,6 +320,7 @@ public class ConfigHandler {
         disableRendering = config.getBoolean("Disable Rendering", category, false, "To disable the model rendering on the player when they have an equipped backpack.");
         disableFPPrendering = config.getBoolean("Enable FPP Rendering", category, true, "To disable the model rendering on the player when they have an equipped backpack and are in first person perspective. " +
                 "You sometimes see it if you spin to the side or look down quickly, the backpack takes longer to readjust than your forward vision as it takes time to swing onto your back again.");
+        disableSounds = config.getBoolean("Disable Sounds", category, false, "To disable the sounds played when a backpack is opened or closed.");
         renamingUpgradeRequired = config.getBoolean("Renaming Upgrade Required", category, false, "If the renaming upgrade is required to rename the backpack. Default is false (so you can rename backpacks natively).");
         additionalUpgradePointsIncrease = config.getInt("Additional Upgrades Increase", category, 1, 0, 10, "The amount of extra upgrade points the 'additional upgrade points' upgrade will apply.");
         makeRenamedBackpacksNamesItalic = config.getBoolean("Italic Renames", category, false, "Make the styling of the letters on a renamed backpack be in italics.");
