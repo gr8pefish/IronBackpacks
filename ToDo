@@ -1,7 +1,10 @@
 To Do:
 
+    Make sure it works with the mods in TPPI
+	    - MouseTweaks, TombManyGraves
     Clean up events (so gross in there)
 
+    add in hq gui as option in config? (use git to get old files)
     Look up noise not playing when picking up items via filter
     Make sure texture map is small: https://github.com/mezz/TextureDump
     Bring over code from glider for rendering layer in MP
