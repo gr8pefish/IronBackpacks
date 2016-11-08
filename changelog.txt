@@ -2,10 +2,10 @@
 Version 1.10.2 - 2.2.13
 ------------------------------------------------------
 Additions
-- None
+- Added explicit dependency on Forge version 12.18.2.120+
 
 Changes
-- None
+- Changed GUIs to Vanilla resolution
 
 Bug Fixes
 - None
