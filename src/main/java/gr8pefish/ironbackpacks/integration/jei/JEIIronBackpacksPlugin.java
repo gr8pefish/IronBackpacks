@@ -9,6 +9,7 @@ import gr8pefish.ironbackpacks.integration.jei.removeUpgrade.RemoveUpgradeRecipe
 import gr8pefish.ironbackpacks.integration.jei.removeUpgrade.RemoveUpgradeRecipeHandler;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import mezz.jei.api.*;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -33,6 +34,7 @@ public class JEIIronBackpacksPlugin extends BlankModPlugin {
                 new RemoveUpgradeRecipeHandler(),
                 new IncreaseTierRecipeHandler()
         );
+        registry.addRecipeCategoryCraftingItem(new ItemStack(Blocks.CRAFTING_TABLE), "ironbackpacks.addUpgrade", "ironbackpacks.removeUpgrade", "ironbackpacks.increaseTier");
 
         //Add backpack descriptions
         registry.addDescription(new ItemStack(ItemRegistry.basicBackpack), "jei.description.backpack.basic", "jei.description.backpack.generic");
