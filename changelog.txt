@@ -2,10 +2,11 @@
 Version 1.10.2 - 2.2.15
 ------------------------------------------------------
 Additions
-- None
+- Added crafting table tabs to the side of all of this mod's custom JEI recipe categories.
+    - Should clearly indicate all recipes are done in a normal crafting grid.
 
 Changes
-- None
+- Improved mining filter's item checking for what it should pick up.
 
 Bug Fixes
 - None
