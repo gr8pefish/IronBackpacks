@@ -728,8 +728,7 @@ public class IronBackpacksEventHelper {
         transferWithBasicFilter(filterItems, event, container);
         if (itemEntityOre != null) {
             for (String oreName : itemEntityOre) {
-                //TODO: fancier checking method, this is a 'contains' so it will get extra items ex: 'mining c*ore*'
-                if (oreName != null && (oreName.contains("ore") || oreName.contains("gem") || oreName.contains("dust"))) {
+                if (oreName != null && (oreName.startsWith("ore") || oreName.startsWith("gem") || oreName.startsWith("dust"))) {
                     container.transferStackInSlot(event.getItem().getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
                     shouldSave = true;
                 }
