@@ -2,10 +2,11 @@
 Version 1.10.2 - 2.2.14
 ------------------------------------------------------
 Additions
-- None
+- Added pickup sound to play even when a backpack picks up an item directly
+- Added tooltip to JEI page for increasing tiers recipe (detailing how everything in the previous backpack is carried over automatically).
 
 Changes
-- None
+- Changed JEI to no longer be a mandatory/hard dependency.
 
 Bug Fixes
 - None

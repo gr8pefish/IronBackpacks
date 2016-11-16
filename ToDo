@@ -4,8 +4,6 @@ To Do:
 	    - MouseTweaks, TombManyGraves
     Clean up events (so gross in there)
 
-    add in hq gui as option in config? (use git to get old files)
-    Look up noise not playing when picking up items via filter
     Make sure texture map is small: https://github.com/mezz/TextureDump
     Bring over code from glider for rendering layer in MP
     Check out right click lasting too long and picks up a stack of whatever is in the backpack
@@ -17,11 +15,10 @@ To Do:
     retexture different specializations
     put all JEI images on one 256x256 texture sheet? (could be some work)
     Fix JEI IIngredient stuff
-    order categories in JEI to the right order - need issue to be addressed (do a PR?)
+    order categories in JEI to the right order - need PR to be addressed
 
-    Make note so that user knows when upgrading tiers all the information is kept. (add tooltip like in other pages)
     Make additional upgrade points be removable as well? (just spit out an upgrade if in 9th slot or something)
-    recipes no longer include record :(
+    recipes no longer include records (mc:item.record) :(
 
     integrate filter to put in ender storage pack directly
     diamond too expensive still?
@@ -29,6 +26,8 @@ To Do:
     Implement tab system instead of shift-right click?
         Could be used for other upgrades like crafting, fluid, energy storage.
         Could make it possible to remove limit on configurable upgrades (just add 3 per tab and add multiple tabs)
+
+    add in hq gui PR to faithful 32x? (use git to get old files)
 
     1.11
         Rewrite mod again
