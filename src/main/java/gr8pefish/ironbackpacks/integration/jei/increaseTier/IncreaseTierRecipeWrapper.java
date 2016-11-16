@@ -78,6 +78,9 @@ public class IncreaseTierRecipeWrapper implements IRecipeWrapper {
     @Nullable
     @Override
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
+        //if mouse is over the word to have a tooltip (hardcoded for english 'crafting recipe')
+        if (mouseX >= 52 && mouseX <= 130 && mouseY >= 80 && mouseY <= 86)
+            return Arrays.asList(TextUtils.cutLongString(TextUtils.localize("jei.description.increaseTier.tooltip")));
         return null;
     }
 

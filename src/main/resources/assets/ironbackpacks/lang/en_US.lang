@@ -169,7 +169,8 @@ jei.description.removeUpgrade.additional=The upgrade will be returned to you whe
 
 # Recipe Localizations (Increase Tier)
 jei.ironbackpacks.increaseTierRecipe.name=Increase Backpack Tier
-jei.description.increaseTier=To increase the tier of a backpack, simply follow the desired crafting recipe. You may have to choose between different types of backpacks when upgrading. Choose wisely!
+jei.description.increaseTier=To increase the tier of a backpack, simply follow the desired §2crafting recipe§r. You may have to choose between different types of backpacks when upgrading. Choose wisely!
+jei.description.increaseTier.tooltip=Note that when upgrading to a new tier you automatically keep all items, upgrades, configurations, etc. present in the previous backpack!
 
 ###############################
 # Backpack Descriptions for JEI
