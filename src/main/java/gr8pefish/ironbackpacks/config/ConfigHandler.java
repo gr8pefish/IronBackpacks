@@ -324,7 +324,7 @@ public class ConfigHandler {
         renamingUpgradeRequired = config.getBoolean("Renaming Upgrade Required", category, false, "If the renaming upgrade is required to rename the backpack. Default is false (so you can rename backpacks natively).");
         additionalUpgradePointsIncrease = config.getInt("Additional Upgrades Increase", category, 1, 0, 10, "The amount of extra upgrade points the 'additional upgrade points' upgrade will apply.");
         makeRenamedBackpacksNamesItalic = config.getBoolean("Italic Renames", category, false, "Make the styling of the letters on a renamed backpack be in italics.");
-        tooltipDelay = config.getInt("Tooltip Delay", category, 1500, 0, 10000, "The delay (in milliseconds) until a tooltip will appear over the buttons. Default is 1.5 seconds.");
+        tooltipDelay = config.getInt("Tooltip Delay", category, 1000, 0, 10000, "The delay (in milliseconds) until a tooltip will appear over the buttons. Default is 1 second.");
 
         config.save(); //Don't forget to save
     }
