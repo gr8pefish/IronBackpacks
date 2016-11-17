@@ -1,5 +1,10 @@
 To Do:
 
+where the bag can be thrown out of the inventory and then picked back up again without closing the GUI, and the content refresh only happened after clicking on a slot.
+
+    Add support for restocking with wands of equal trade/builder's wands/etc.
+        Botania integration as well
+
     Make sure it works with the mods in TPPI
 	    - MouseTweaks, TombManyGraves
     Clean up events (so gross in there)
@@ -28,6 +33,8 @@ To Do:
         Could make it possible to remove limit on configurable upgrades (just add 3 per tab and add multiple tabs)
 
     add in hq gui PR to faithful 32x? (use git to get old files)
+    Add in crafting grid upgrade (but make it all sorts of expensive/takes away inventory slots/some big cost)?
+        Tab system above ^
 
     1.11
         Rewrite mod again

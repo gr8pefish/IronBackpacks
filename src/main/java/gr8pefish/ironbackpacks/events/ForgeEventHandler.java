@@ -189,10 +189,6 @@ public class ForgeEventHandler {
             for (int i = 1; i < 4; i++) {
                 IronBackpacksEventHelper.checkCrafterUpgrade(event, backpacks.get(i), i);//1x1, 2x2, and 3x3 crafters/crafters
             }
-
-            //always play pickup sound
-            EntityPlayerMP playerMP = ((EntityPlayerMP)event.getEntityPlayer());
-            playerMP.connection.sendPacket(new SPacketCustomSound("minecraft:entity.item.pickup", SoundCategory.PLAYERS, playerMP.getPositionVector().xCoord, playerMP.getPositionVector().yCoord, playerMP.getPositionVector().zCoord, (float)16.0D, (float)1.0D));
         }
     }
 

@@ -10,15 +10,17 @@ import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ContainerWorkbench;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.network.play.server.SPacketCustomSound;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -26,6 +28,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class IronBackpacksEventHelper {
 
@@ -649,7 +652,10 @@ public class IronBackpacksEventHelper {
                 }
             }
         }
-        if (shouldSave) container.onContainerClosed(event.getEntityPlayer());
+        if (shouldSave) {
+            playItemPickupSound(event);
+            container.onContainerClosed(event.getEntityPlayer());
+        }
     }
 
     /**
@@ -668,7 +674,10 @@ public class IronBackpacksEventHelper {
                 }
             }
         }
-        if (shouldSave) container.onContainerClosed(event.getEntityPlayer());
+        if (shouldSave) {
+            playItemPickupSound(event);
+            container.onContainerClosed(event.getEntityPlayer());
+        }
     }
 
     /**
@@ -693,7 +702,10 @@ public class IronBackpacksEventHelper {
                 }
             }
         }
-        if (shouldSave) container.onContainerClosed(event.getEntityPlayer());
+        if (shouldSave) {
+            playItemPickupSound(event);
+            container.onContainerClosed(event.getEntityPlayer());
+        }
     }
 
     /**
@@ -713,7 +725,10 @@ public class IronBackpacksEventHelper {
                 }
             }
         }
-        if (shouldSave) container.onContainerClosed(event.getEntityPlayer());
+        if (shouldSave) {
+            playItemPickupSound(event);
+            container.onContainerClosed(event.getEntityPlayer());
+        }
     }
 
     /**
@@ -734,7 +749,10 @@ public class IronBackpacksEventHelper {
                 }
             }
         }
-        if (shouldSave) container.onContainerClosed(event.getEntityPlayer());
+        if (shouldSave) {
+            playItemPickupSound(event);
+            container.onContainerClosed(event.getEntityPlayer());
+        }
     }
 
     /**
@@ -772,6 +790,16 @@ public class IronBackpacksEventHelper {
             }
         }
         return retList.isEmpty() ? null : retList;
+    }
+
+    /**
+     * Play the item pickup sound
+     * @param event - the item pick up event
+     */
+    private static void playItemPickupSound(EntityItemPickupEvent event){
+        Random random = new Random();
+        EntityPlayerMP playerMP = ((EntityPlayerMP)event.getEntityPlayer());
+        playerMP.connection.sendPacket(new SPacketCustomSound("minecraft:entity.item.pickup", SoundCategory.PLAYERS, playerMP.getPositionVector().xCoord, playerMP.getPositionVector().yCoord, playerMP.getPositionVector().zCoord, 0.3F, ((random.nextFloat() - random.nextFloat()) * 0.7F + 1.0F) * 2.0F));
     }
 
 }
