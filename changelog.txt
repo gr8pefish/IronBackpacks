@@ -7,10 +7,10 @@ Additions
 
 Changes
 - Improved mining filter's item checking for what it should pick up.
-- Default time for a tooltip to appear when hovering over it is now shorter (1s as opposed to 1.5s).
+- Default time for a tooltip to appear when hovering over it is now shorter (1.0s as opposed to 1.5s).
 
 Bug Fixes
-- None
+- Fixed item pickup sound playing on every item pickup at the wrong tone and pitch.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.14
 ------------------------------------------------------
