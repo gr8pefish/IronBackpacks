@@ -1,10 +1,10 @@
 package gr8pefish.ironbackpacks.proxies;
 
 import gr8pefish.ironbackpacks.api.Constants;
+import gr8pefish.ironbackpacks.client.ClientEventHandler;
 import gr8pefish.ironbackpacks.client.KeyHandler;
 import gr8pefish.ironbackpacks.client.renderer.LayerBackpack;
 import gr8pefish.ironbackpacks.config.ConfigAdaptor;
-import gr8pefish.ironbackpacks.client.ClientEventHandler;
 import gr8pefish.ironbackpacks.registry.ProxyRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.Logger;

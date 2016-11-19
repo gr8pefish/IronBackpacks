@@ -1,6 +1,5 @@
 package gr8pefish.ironbackpacks.container.backpack;
 
-import codechicken.enderstorage.item.ItemEnderPouch;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.container.slot.AdvancedNestingBackpackSlot;
