@@ -2,7 +2,7 @@
 {
   "modid": "ironbackpacks",
   "name": "Iron Backpacks",
-  "description": "Upgradeable backpacks!",
+  "description": "Adds tiered backpacks and a system of modular upgrades to go with them!",
   "version": "${version}",
   "mcversion": "1.10.2",
   "url": "",
