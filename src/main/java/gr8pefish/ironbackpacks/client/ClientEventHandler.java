@@ -1,8 +1,7 @@
 package gr8pefish.ironbackpacks.client;
 
-import gr8pefish.ironbackpacks.client.KeyHandler;
 import gr8pefish.ironbackpacks.client.gui.inventory.GUIBackpack;
-import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
+import gr8pefish.ironbackpacks.integration.InterModSupport;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.ItemStackMessage;
@@ -19,6 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import scala.Int;
 
 /**
  * Events that occur solely on the client side
@@ -52,7 +52,8 @@ public class ClientEventHandler {
             if (Mouse.getEventButton() == 1) { //right click only
                 if (guiScreen instanceof GuiContainer) { //containers only
                     GuiContainer container = (GuiContainer) guiScreen;
-                    if ( (!(container instanceof IGuiHelper)) && (!(container instanceof GuiContainerCreative)) && (!(container instanceof GUIBackpack)) ) { //exclude JEI and creative inventories //ToDo: Possibly remove compat from clientClickEvent in favor of containerBackpack
+                    if ( (!(container instanceof GuiContainerCreative)) && (!(container instanceof GUIBackpack)) ) { //exclude JEI and creative inventories //ToDo: Possibly remove compat from clientClickEvent in favor of containerBackpack
+                        if (InterModSupport.isJEILoaded && (InterModSupport.isGuiContainerInstanceOfIGuiHelper(container))) return;
                         Slot slot = container.getSlotUnderMouse();
                         if (slot != null && slot.getHasStack()) { //needs an item
                             ItemStack stack = slot.getStack();

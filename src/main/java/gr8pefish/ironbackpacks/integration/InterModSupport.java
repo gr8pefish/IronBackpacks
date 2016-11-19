@@ -2,6 +2,8 @@ package gr8pefish.ironbackpacks.integration;
 
 import codechicken.enderstorage.item.ItemEnderPouch;
 import gr8pefish.ironbackpacks.api.Constants;
+import mezz.jei.api.IGuiHelper;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Loader;
@@ -15,6 +17,7 @@ public class InterModSupport {
 
     //as of writing this, it's basically non-existent
     public static boolean isEnderStorageLoaded = false;
+    public static boolean isJEILoaded = false;
     public static boolean isOpenBlocksLoaded = false;
 
     //Initializes each mod in the pre-init phase
@@ -25,6 +28,7 @@ public class InterModSupport {
     //Initializes each mod in the init phase
     public static void init() {
         initEnderStorage();
+        initJEI();
 //        initOpenBlocks(); //not updated
     }
 
@@ -41,6 +45,18 @@ public class InterModSupport {
             FMLInterModComms.sendRuntimeMessage(Constants.MODID, "VersionChecker", "addCurseCheck", tagCompound);
         }
     }
+
+    public static void initJEI(){
+        if (Loader.isModLoaded("JEI")) {
+            isJEILoaded = true;
+        }
+    }
+
+    @Optional.Method(modid = "JEI")
+    public static boolean isGuiContainerInstanceOfIGuiHelper(GuiContainer container){
+        return container instanceof IGuiHelper;
+    }
+
 
     public static void initEnderStorage(){
         if (Loader.isModLoaded("EnderStorage")) {
