@@ -1,6 +1,7 @@
 To Do:
 
-where the bag can be thrown out of the inventory and then picked back up again without closing the GUI, and the content refresh only happened after clicking on a slot.
+    where the bag can be thrown out of the inventory and then picked back up again without closing the GUI, and the content refresh only happened after clicking on a slot.
+        'q' disabled, but alt-click freezes game indefinitely (invTweaks)
 
     Add support for restocking with wands of equal trade/builder's wands/etc.
         Botania integration as well
@@ -38,6 +39,7 @@ where the bag can be thrown out of the inventory and then picked back up again w
 
     1.11
         Rewrite mod again
+            IExclusiveUpgrade (rename)
             use IItemHandler Cap?
         New UpgradeItem types for all of the IIUpgradeInterfaces to allow scalability
             Multiple items w/ sub-items, not just 1 -> 3
