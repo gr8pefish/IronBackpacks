@@ -5,10 +5,11 @@ Additions
 - None
 
 Changes
-- None
+- Full release (about time :D)
 
 Bug Fixes
 - Fix dupe bug when double clicking an item stack with the configurable inventory open.
+- Fix crash when JEI is not used.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.15
 ------------------------------------------------------

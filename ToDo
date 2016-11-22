@@ -3,6 +3,8 @@ To Do:
     where the bag can be thrown out of the inventory and then picked back up again without closing the GUI, and the content refresh only happened after clicking on a slot.
         'q' disabled, but alt-click freezes game indefinitely (invTweaks)
 
+    tooltips go over jei and the screen edge
+
     Add support for restocking with wands of equal trade/builder's wands/etc.
         Botania integration as well
 
