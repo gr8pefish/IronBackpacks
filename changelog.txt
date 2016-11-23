@@ -8,7 +8,7 @@ Changes
 - None
 
 Bug Fixes
-- None
+- Re-add mod load order to be after JEI to fix random client crash.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.16
 ------------------------------------------------------
