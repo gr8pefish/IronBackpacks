@@ -221,8 +221,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onBlockPlacedEvent(BlockEvent.PlaceEvent event) {
 
-        ItemStack resuppliedStack;
-        if (!event.isCanceled()){ //only do it for main hand clicks
+        if (!event.isCanceled()){ //only do it when I should
 
             //get all the backpacks to restock with
             ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getPlayer());
@@ -235,17 +234,8 @@ public class ForgeEventHandler {
             if (!IronBackpacksHelper.areItemsEqualForStacking(event.getItemInHand(), itemStackPlaced)) { //if item in hand != item placed, if not the same then placed with some other method and have to scan inv
                 //pass that itemstack (along with other things) to a delegating method to deal with restocking for other methods
                 IronBackpacksEventHelper.handleIndirectRestock(event.getPlayer(), backpacks.get(4), itemStackPlaced);
-            } else {
-                resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemPlace(event.getPlayer(), event.getHand(), event.getItemInHand(), backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
-                if (resuppliedStack != null) {
-                    if (event.getHand() == EnumHand.MAIN_HAND) { //if main hand item should be incremented
-                        event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.MAINHAND, resuppliedStack);
-                    } else if (event.getHand() == EnumHand.OFF_HAND) { //offhand replacement
-                        event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.OFFHAND, resuppliedStack);
-                    } else {
-                        Logger.warn("Error with restocking upgrade. Please post a description of the error ina  bug report on Github. Thanks!");
-                    }
-                }
+            } else { //normally placed item
+                IronBackpacksEventHelper.handleDirectRestock(event.getPlayer(), backpacks.get(4), event.getItemInHand(), true);
             }
         }
     }
