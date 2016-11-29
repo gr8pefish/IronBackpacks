@@ -9,7 +9,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
-import portablejim.bbw.core.items.IWandItem;
 
 /**
  * Class for registering all compatibility modules for interacting with other mods
@@ -19,7 +18,6 @@ public class InterModSupport {
     //as of writing this, it's basically non-existent
     public static boolean isEnderStorageLoaded = false;
     public static boolean isJEILoaded = false;
-    public static boolean isBetterBuildersWandsLoaded = false;
     public static boolean isOpenBlocksLoaded = false;
 
     //Initializes each mod in the pre-init phase
@@ -31,7 +29,6 @@ public class InterModSupport {
     public static void init() {
         initEnderStorage();
         initJEI();
-        initBetterBuildersWands();
 //        initOpenBlocks(); //not updated
     }
 
@@ -71,19 +68,5 @@ public class InterModSupport {
     public static boolean isEnderPouch(Item item) {
         return item instanceof ItemEnderPouch;
     }
-
-
-
-    public static void initBetterBuildersWands(){
-        if (Loader.isModLoaded("betterbuilderswands")) {
-            isBetterBuildersWandsLoaded = true;
-        }
-    }
-
-    @Optional.Method(modid = "betterbuilderswands")
-    public static boolean isBetterBuildersWand(Item item) {
-        return item instanceof IWandItem;
-    }
-
 
 }
