@@ -2,7 +2,7 @@
 Version 1.10.2 - 2.2.18
 ------------------------------------------------------
 Additions
-- Changed how the restocking upgrade works internally, allowing for mods like BetterBuildersWands to be compatible.
+- Changed how the restocking upgrade works internally, allowing for mods like BetterBuildersWands and NotEnoughWands to be compatible.
 
 Changes
 - None

@@ -4,6 +4,33 @@ To Do:
         Could just do a generic search of inventory for onBlockPlaced if the item in the hand isn't the block placed
     BetterBuildersWands breaks if >=64 blocks placed at once
 
+    PR for onBlockPlaced.Post
+        gr8pefish> Hey mezz, so the BlockEvent.PlaceEvent's itemInHand variable (the item you use to place a block) has the information of the stack before the block is placed. So, for example, if you are holding 64 cobble and place one, the event will fire and event.getStackInHand() will return a stack of *64* cobble. I think this would be a good candidate to split into .pre and .post (or just add a .post) like other forge events.
+        <gr8pefish> Specifically so I can get access to the stack after it is placed (63 cobble in this example). If I started working on a PR for this, would it have a chance of being accepted? Thanks
+        <mezz> you described what happens, but I don't understand why you need it. can you explain?
+        <gr8pefish> Sure.
+        <Player> in 1.11 you wouldn't pass the stack to start with i guess
+        <gr8pefish> Use case: Iron Backpacks has a restocking upgrade which can refill items that the player uses. One way this happens is when they place a torch, I want it to be restocked and go back up to max stack size if it can be resupplied from a store of torches in the backpacks. Other similar mods handle this via a generic tick handler, but I'm trying to make mine event based to be more resource friendly.
+        * Nedelosk has quit (Quit: Nettalk6 - www.ntalk.de)
+        <mezz> "Other similar mods" heh can you say Forestry
+        <mezz> that makes perfect sense as an event, go for it
+        <gr8pefish> Cool, thanks :) And I know of at least 1 other mod that does it with a tick handler, that's why I didn't just say foresty :P
+        <gr8pefish> Should I do it as .post only, or change the existing one to .pre as well?
+        <mezz> like Player said you should probably make this a breaking change and remove itemInHand, so split it into pre and post while you're at it
+        <gr8pefish> Oh yeah, this is all 1.10 if it wasn't clear
+        <gr8pefish> alright, will do
+        <mezz> ah in 1.10 you're more limited
+        <mezz> I think you should do this in 1.11
+        <gr8pefish> Has forge dropped support for 1.10 yet? I agree that 1.11 would be easier, but I'd ideally like to have this change on 1.10
+        <gr8pefish> and I can port it over to 1.11 later
+        <mezz> they have not dropped support for 1.10. just can't make breaking changes there
+        <mezz> so imo implement it on 1.10 and then add a cleaned up version for 1.11 with breaking changes
+        <gr8pefish> Sure. To be clear: just add a .post for 1.10 that isn't breaking (but messier because of that), and then refactor it in 1.11 to be .pre and .post with the breaking changes?
+        <mezz> adding .post is breaking mods that subscribe to the PlaceEvent
+        <mezz> you'll have to make a new event like PlaceEventPost instead of subclassing PlaceEvent
+        <gr8pefish> Ah, okay yeah.
+        <gr8pefish> Cool, idk when I'll get around to it, but it's definitely now on my list. Thanks for the assistance/clarification! :)
+
     where the bag can be thrown out of the inventory and then picked back up again without closing the GUI, and the content refresh only happened after clicking on a slot.
         'q' disabled, but alt-click freezes game indefinitely (invTweaks)
 
