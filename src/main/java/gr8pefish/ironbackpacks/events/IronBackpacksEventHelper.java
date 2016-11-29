@@ -802,4 +802,110 @@ public class IronBackpacksEventHelper {
         playerMP.connection.sendPacket(new SPacketCustomSound("minecraft:entity.item.pickup", SoundCategory.PLAYERS, playerMP.getPositionVector().xCoord, playerMP.getPositionVector().yCoord, playerMP.getPositionVector().zCoord, 0.3F, ((random.nextFloat() - random.nextFloat()) * 0.7F + 1.0F) * 2.0F));
     }
 
+    /**
+     * Handles any indirect restocking by scanning the inventory of the player for the first matching item rather than restocking the hand directly.
+     * @param player
+     * @param backpackStacks
+     * @param toResupply
+     */
+    public static void handleIndirectRestock(EntityPlayer player, ArrayList<ItemStack> backpackStacks, ItemStack toResupply) {
+
+        //if restockingItem matches toResupply
+            //for each slot in player's inventory (starting with offhand)
+                //if item in slot is equal to toResupply
+                    //save that slot
+            //if have a slot
+                //iterate through backpack's inventory
+                    //if found a slot with same item as toResupply
+                        //join slot items together, update backpack
+                            //if slot is now equal to maxStackSize stop iterating, otherwise continue
+
+        boolean useOffhand;
+        boolean foundSlot;
+        int playerSlotIndexToRestockTo = 0;
+
+        if (!backpackStacks.isEmpty()) {
+            for (ItemStack backpack : backpackStacks) {
+                ItemBackpack itemBackpack = (ItemBackpack) backpack.getItem(); //TODO: hardcoded
+                ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, backpack));
+                if (!(player.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
+                    ArrayList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
+                    for (ItemStack restockerItem : restockerItems) {
+                        foundSlot = false;
+                        useOffhand = false;
+                        if (restockerItem != null && IronBackpacksHelper.areItemsEqualAndStackable(toResupply, restockerItem)) {
+
+                            //for each slot in player's inventory (starting with offhand)
+                            if (sameItemForRestocking(player.inventory.offHandInventory[0], restockerItem)) {
+                                foundSlot = true;
+                                useOffhand = true;
+                            } else {
+                                for (int i = 0; i < player.inventory.mainInventory.length; i++) {
+                                    if (sameItemForRestocking(player.inventory.getStackInSlot(i), restockerItem)) {
+                                        foundSlot = true;
+                                        playerSlotIndexToRestockTo = i;
+                                    }
+                                }
+                            }
+
+                            //if slot exists to resupply to
+                            if (foundSlot) {
+                                for (int i = 0; i < itemBackpack.getSize(backpack); i++) { //check backpack's inv for items
+                                    Slot backpackSlot = (Slot) container.getSlot(i);
+                                    if (backpackSlot != null && backpackSlot.getHasStack()) {
+                                        ItemStack backpackItemStack = backpackSlot.getStack();
+                                        if (IronBackpacksHelper.areItemsEqualAndStackable(useOffhand ? player.inventory.offHandInventory[0] : player.inventory.mainInventory[playerSlotIndexToRestockTo], backpackItemStack)) { //found resupply slot (accounts for stack size at maximum)
+                                            ItemStack stackToResupply = useOffhand ? player.inventory.offHandInventory[0] : player.inventory.mainInventory[playerSlotIndexToRestockTo];
+
+                                            int amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize;
+
+                                            if (backpackItemStack.stackSize >= amountToResupply) {
+                                                backpackSlot.decrStackSize(amountToResupply);
+                                                container.onContainerClosed(player);
+
+                                                if (useOffhand)
+                                                    player.inventory.offHandInventory[0].stackSize = stackToResupply.getMaxStackSize();
+                                                else
+                                                    player.inventory.mainInventory[playerSlotIndexToRestockTo].stackSize = stackToResupply.getMaxStackSize();
+
+                                                player.inventory.markDirty();
+                                                return; //full stack size, no point in continuing to iterate
+
+                                            } else { //ToDo: test
+                                                backpackSlot.decrStackSize(backpackItemStack.stackSize);
+                                                container.onContainerClosed(player);
+
+                                                if (useOffhand)
+                                                    player.inventory.offHandInventory[0].stackSize += backpackItemStack.stackSize;
+                                                else
+                                                    player.inventory.mainInventory[playerSlotIndexToRestockTo].stackSize += backpackItemStack.stackSize;
+
+                                                player.inventory.markDirty();
+
+                                                return; //for testing //ToDo: remove after testing, then test with it removed
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean sameItemForRestocking(Slot slot, ItemStack toCompareStack){
+        if (slot != null && slot.getHasStack()) {
+            return sameItemForRestocking(slot.getStack(), toCompareStack);
+        }
+        return false;
+    }
+
+    private static boolean sameItemForRestocking(ItemStack toFill, ItemStack toSupply){
+        if (toFill != null && toSupply != null) {
+            return IronBackpacksHelper.areItemsEqualAndStackable(toFill, toSupply);
+        }
+        return false;
+    }
 }

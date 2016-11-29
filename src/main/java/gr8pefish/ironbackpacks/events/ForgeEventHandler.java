@@ -5,17 +5,24 @@ import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
+import gr8pefish.ironbackpacks.integration.InterModSupport;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
+import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -213,15 +220,28 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onBlockPlacedEvent(BlockEvent.PlaceEvent event) {
+//        System.out.println("block placed");
+        System.out.printf("Created PlaceEvent - [PlacedBlock: %s ][PlacedAgainst: %s ][ItemStack: %s ][Player: %s ][Hand: %s]\n", event.getPlacedBlock(), event.getPlacedAgainst(), event.getItemInHand(), event.getPlayer(), event.getHand());
         ItemStack resuppliedStack;
         if (!event.isCanceled()){ //only do it for main hand clicks
             ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getPlayer());
-            resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemPlace(event.getPlayer(), event.getHand(), event.getItemInHand(), backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
-            if (resuppliedStack != null) {
-                if (event.getHand() == EnumHand.MAIN_HAND) { //if main hand item should be incremented
-                    event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.MAINHAND, resuppliedStack);
-                } else { //offhand replacement
-                    event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.OFFHAND, resuppliedStack);
+            if (InterModSupport.isBetterBuildersWand(event.getItemInHand().getItem())) { //ToDo: change to any item that isn't the specified one placed
+                //ray trace the block placed
+                RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getPlayer().getPositionVector(), event.getPlayer().getLookVec());
+                //get the block as an itemstack
+                ItemStack itemStack = event.getPlacedBlock().getBlock().getPickBlock(event.getPlacedBlock(), rayTraceResult, event.getWorld(), event.getPos(), event.getPlayer());
+                //pass that itemstack (along with other things) to a delegating method to deal with restocking for other methods
+                IronBackpacksEventHelper.handleIndirectRestock(event.getPlayer(), backpacks.get(4), itemStack);
+            } else {
+                resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemPlace(event.getPlayer(), event.getHand(), event.getItemInHand(), backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
+                if (resuppliedStack != null) {
+                    if (event.getHand() == EnumHand.MAIN_HAND) { //if main hand item should be incremented
+                        event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.MAINHAND, resuppliedStack);
+                    } else if (event.getHand() == EnumHand.OFF_HAND) { //offhand replacement
+                        event.getPlayer().setItemStackToSlot(EntityEquipmentSlot.OFFHAND, resuppliedStack);
+                    } else {
+                        Logger.warn("Error with restocking upgrade. Please post a description of the error ina  bug report on Github. Thanks!");
+                    }
                 }
             }
         }
