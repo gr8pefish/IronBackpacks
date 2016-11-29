@@ -2,6 +2,7 @@ To Do:
 
     Not enough wands integration as well - https://github.com/romelo333/notenoughwands1.8.8/blob/1.10/src/main/java/romelo333/notenoughwands/Items/SwappingWand.java
         Could just do a generic search of inventory for onBlockPlaced if the item in the hand isn't the block placed
+    BetterBuildersWands breaks if >=64 blocks placed at once
 
     where the bag can be thrown out of the inventory and then picked back up again without closing the GUI, and the content refresh only happened after clicking on a slot.
         'q' disabled, but alt-click freezes game indefinitely (invTweaks)

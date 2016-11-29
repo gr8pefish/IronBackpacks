@@ -220,18 +220,21 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onBlockPlacedEvent(BlockEvent.PlaceEvent event) {
-//        System.out.println("block placed");
-        System.out.printf("Created PlaceEvent - [PlacedBlock: %s ][PlacedAgainst: %s ][ItemStack: %s ][Player: %s ][Hand: %s]\n", event.getPlacedBlock(), event.getPlacedAgainst(), event.getItemInHand(), event.getPlayer(), event.getHand());
+
         ItemStack resuppliedStack;
         if (!event.isCanceled()){ //only do it for main hand clicks
+
+            //get all the backpacks to restock with
             ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getPlayer());
-            if (InterModSupport.isBetterBuildersWand(event.getItemInHand().getItem())) { //ToDo: change to any item that isn't the specified one placed
-                //ray trace the block placed
-                RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getPlayer().getPositionVector(), event.getPlayer().getLookVec());
-                //get the block as an itemstack
-                ItemStack itemStack = event.getPlacedBlock().getBlock().getPickBlock(event.getPlacedBlock(), rayTraceResult, event.getWorld(), event.getPos(), event.getPlayer());
+
+            //ray trace the block placed
+            RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getPlayer().getPositionVector(), event.getPlayer().getLookVec());
+            //get the block as an itemstack
+            ItemStack itemStackPlaced = event.getPlacedBlock().getBlock().getPickBlock(event.getPlacedBlock(), rayTraceResult, event.getWorld(), event.getPos(), event.getPlayer());
+
+            if (!IronBackpacksHelper.areItemsEqualForStacking(event.getItemInHand(), itemStackPlaced)) { //if item in hand != item placed, if not the same then placed with some other method and have to scan inv
                 //pass that itemstack (along with other things) to a delegating method to deal with restocking for other methods
-                IronBackpacksEventHelper.handleIndirectRestock(event.getPlayer(), backpacks.get(4), itemStack);
+                IronBackpacksEventHelper.handleIndirectRestock(event.getPlayer(), backpacks.get(4), itemStackPlaced);
             } else {
                 resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemPlace(event.getPlayer(), event.getHand(), event.getItemInHand(), backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
                 if (resuppliedStack != null) {
