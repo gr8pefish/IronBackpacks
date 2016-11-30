@@ -4,6 +4,8 @@ Version 1.10.2 - 2.2.18
 Additions
 - Changed how the restocking upgrade works internally, allowing for mods like BetterBuildersWands and NotEnoughWands to be compatible.
 - Added rendering of the backpacks in multiplayer (you can now see other player's equipped backpacks).
+- Added ability to use the quick deposit upgrades with equipped backpacks.
+    - Just shift right click an inventory with an empty hand, and if you are wearing a backpack with the quick deposit upgrade and it has items to deposit it will do so!
 
 Changes
 - None
