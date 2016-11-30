@@ -14,6 +14,7 @@ import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.sounds.IronBackpacksSounds;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
@@ -234,10 +235,17 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
     @Override
     @SideOnly(Side.CLIENT)
     public String getItemStackDisplayName(ItemStack stack) {
-        if (!Minecraft.getMinecraft().thePlayer.getGameProfile().getId().equals(UUID.fromString("eb21559e-bb22-46f2-897b-71eee2d5c09b")))
+        try {
+            EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
+            if (player != null && player.getGameProfile().getId().equals(UUID.fromString("eb21559e-bb22-46f2-897b-71eee2d5c09b"))) {
+                return super.getItemStackDisplayName(stack).replaceAll("Backpack", "Snail");
+            } else {
+                return super.getItemStackDisplayName(stack);
+            }
+        } catch (RuntimeException e) {
+            Logger.error("Display name errors found. Report to mod author please.");
             return super.getItemStackDisplayName(stack);
-
-        return super.getItemStackDisplayName(stack).replaceAll("Backpack", "Snail");
+        }
     }
 
 }
