@@ -10,9 +10,11 @@ import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
+import gr8pefish.ironbackpacks.network.client.ClientEquippedPackPlayerSensitiveMessage;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.NBTUtils;
+import net.minecraft.entity.EntityTracker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -185,6 +187,10 @@ public class IronBackpacksHelper {
 
                 //update equipped backpack on client side, not ideal but it works
                 NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP)player);
+
+                //update backpacks for multiplayer
+                EntityTracker tracker = ((EntityPlayerMP) player).worldObj.getMinecraftServer().worldServerForDimension(player.dimension).getEntityTracker();
+                tracker.sendToAllTrackingEntity(player, NetworkingHandler.network.getPacketFrom(new ClientEquippedPackPlayerSensitiveMessage(player.getEntityId(), null)));
             }
 
         }
@@ -201,6 +207,10 @@ public class IronBackpacksHelper {
 
             //delete the held items
             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+
+            //update backpacks for multiplayer
+            EntityTracker tracker = ((EntityPlayerMP) player).worldObj.getMinecraftServer().worldServerForDimension(player.dimension).getEntityTracker();
+            tracker.sendToAllTrackingEntity(player, NetworkingHandler.network.getPacketFrom(new ClientEquippedPackPlayerSensitiveMessage(player.getEntityId(), backpackStack)));
         }
     }
 

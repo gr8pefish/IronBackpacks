@@ -5,24 +5,17 @@ import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
-import gr8pefish.ironbackpacks.integration.InterModSupport;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
-import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -276,6 +269,27 @@ public class ForgeEventHandler {
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(Constants.MODID)) {
             ConfigHandler.syncConfig(false);
+        }
+    }
+
+    /**
+     * Update the player to make rendering work for others.
+     * @param event
+     */
+    @SubscribeEvent
+    public void onTrack(net.minecraftforge.event.entity.player.PlayerEvent.StartTracking event) {
+        EntityPlayer tracker = event.getEntityPlayer(); //the tracker
+        Entity targetEntity = event.getTarget(); //the target that is being tracked
+        if (targetEntity instanceof EntityPlayerMP) { //only entityPlayerMP ( MP part is very important :/ )
+            EntityPlayer targetPlayer = (EntityPlayer) targetEntity; //typecast to entityPlayer
+            if (targetPlayer.hasCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null)) { //if have the capability
+                ItemStack backpack = IronBackpacksCapabilities.getWornBackpack(targetPlayer);
+                if (backpack != null) { //if the target is wearing a backpack need to update
+                    NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) tracker); //send a packet to the tracker's client to update their target
+                } else {
+                    NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) tracker);
+                }
+            }
         }
     }
 

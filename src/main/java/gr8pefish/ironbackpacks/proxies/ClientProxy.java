@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
@@ -55,6 +56,10 @@ public class ClientProxy extends CommonProxy {
 
     public String getRemoteUpdatedVersion(){
         return ConfigAdaptor.getLatestFilenameFromCurse(IronBackpacksConstants.Miscellaneous.URL_UPDATED_VERSION);
+    }
+
+    public World getClientWorld(){
+        return Minecraft.getMinecraft().theWorld;
     }
 
     public EntityPlayer getClientPlayer(){
