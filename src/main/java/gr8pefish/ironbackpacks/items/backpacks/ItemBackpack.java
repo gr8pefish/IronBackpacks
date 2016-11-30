@@ -17,6 +17,7 @@ import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -32,6 +33,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBackpackCraftAchievement {
@@ -228,4 +230,14 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
         }
         return null;
     }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public String getItemStackDisplayName(ItemStack stack) {
+        if (!Minecraft.getMinecraft().thePlayer.getGameProfile().getId().equals(UUID.fromString("eb21559e-bb22-46f2-897b-71eee2d5c09b")))
+            return super.getItemStackDisplayName(stack);
+
+        return super.getItemStackDisplayName(stack).replaceAll("Backpack", "Snail");
+    }
+
 }
