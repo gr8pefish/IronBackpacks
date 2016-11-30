@@ -1,7 +1,7 @@
 To Do:
 
-    Not enough wands integration as well - https://github.com/romelo333/notenoughwands1.8.8/blob/1.10/src/main/java/romelo333/notenoughwands/Items/SwappingWand.java
-        Could just do a generic search of inventory for onBlockPlaced if the item in the hand isn't the block placed
+    Switch over to better model and have backpack straps.
+
     BetterBuildersWands breaks if >=64 blocks placed at once
 
     PR for onBlockPlaced.Post
@@ -36,15 +36,13 @@ To Do:
 
     tooltips go over jei and the screen edge
 
-    Add support for restocking with wands of equal trade/builder's wands/etc.
-        Botania integration as well
+    Botania integration as well
 
     Make sure it works with the mods in TPPI
 	    - MouseTweaks, TombManyGraves
     Clean up events (so gross in there)
 
     Make sure texture map is small: https://github.com/mezz/TextureDump
-    Bring over code from glider for rendering layer in MP
     Check out right click lasting too long and picks up a stack of whatever is in the backpack
         http://i.imgur.com/AEY5f0x.png
     Add red text to upgrade disabled tooltip
@@ -54,7 +52,7 @@ To Do:
     retexture different specializations
     put all JEI images on one 256x256 texture sheet? (could be some work)
     Fix JEI IIngredient stuff
-    order categories in JEI to the right order - need PR to be addressed
+    order categories in JEI to the right order - need issue to be addressed
 
     Make additional upgrade points be removable as well? (just spit out an upgrade if in 9th slot or something)
     recipes no longer include records (mc:item.record) :(
@@ -111,15 +109,6 @@ To Do:
 
 
         QoL Changes:
-            Add in TehNut's code to display as snail...
-                @Override
-                @SideOnly(Side.CLIENT)
-                public String getItemStackDisplayName(ItemStack stack) {
-                    if (!Minecraft.getMinecraft().thePlayer.getGameProfile().getId().equals(UUID.fromString("eb21559e-bb22-46f2-897b-71eee2d5c09b")))
-                        return super.getItemStackDisplayName(stack);
-
-                    return super.getItemStackDisplayName(stack).replaceAll("Backpack", "Snail");
-                }
            Check playthrough notes
            Config option for 32x textures (make 16x default)
            Check out Baubles compat again, has a chest slot that could be perfect (and good way to test saving)
