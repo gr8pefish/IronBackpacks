@@ -1,7 +1,7 @@
 # Iron Backpacks [![](http://cf.way2muchnoise.eu/full_227049_downloads.svg)](https://minecraft.curseforge.com/projects/iron-backpacks) [![](http://cf.way2muchnoise.eu/versions/For%20MC_227049_all.svg)](https://minecraft.curseforge.com/projects/iron-backpacks)
 
 [![](https://img.shields.io/badge/1.10.2 status-beta-yellow.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)
-[![](https://img.shields.io/badge/Latest version-2.2.17-blue.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)
+[![](https://img.shields.io/badge/Latest version-2.2.18-blue.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)
 [![](https://img.shields.io/badge/Supported-Fully-brightgreen.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)
 
 [![](https://img.shields.io/badge/1.8.9 status-beta-yellow.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A4&filter-status=1)
