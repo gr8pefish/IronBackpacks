@@ -221,7 +221,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onBlockPlacedEvent(BlockEvent.PlaceEvent event) {
 
-        if (!event.isCanceled()){ //only do it when I should
+        if (!event.isCanceled()) { //only do it when I should
 
             //get all the backpacks to restock with
             ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getPlayer());
@@ -231,11 +231,13 @@ public class ForgeEventHandler {
             //get the block as an itemstack
             ItemStack itemStackPlaced = event.getPlacedBlock().getBlock().getPickBlock(event.getPlacedBlock(), rayTraceResult, event.getWorld(), event.getPos(), event.getPlayer());
 
-            if (!IronBackpacksHelper.areItemsEqualForStacking(event.getItemInHand(), itemStackPlaced)) { //if item in hand != item placed, if not the same then placed with some other method and have to scan inv
-                //pass that itemstack (along with other things) to a delegating method to deal with restocking for other methods
-                IronBackpacksEventHelper.handleIndirectRestock(event.getPlayer(), backpacks.get(4), itemStackPlaced);
-            } else { //normally placed item
-                IronBackpacksEventHelper.handleDirectRestock(event.getPlayer(), backpacks.get(4), event.getItemInHand(), true);
+            if (event.getItemInHand() != null && itemStackPlaced != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
+                if (!IronBackpacksHelper.areItemsEqualForStacking(event.getItemInHand(), itemStackPlaced)) { //if item in hand != item placed, if not the same then placed with some other method and have to scan inv
+                    //pass that itemstack (along with other things) to a delegating method to deal with restocking for other methods
+                    IronBackpacksEventHelper.handleIndirectRestock(event.getPlayer(), backpacks.get(4), itemStackPlaced);
+                } else { //normally placed item
+                    IronBackpacksEventHelper.handleDirectRestock(event.getPlayer(), backpacks.get(4), event.getItemInHand(), true);
+                }
             }
         }
     }
