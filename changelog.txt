@@ -5,10 +5,10 @@ Additions
 - None
 
 Changes
-- None
+- No longer able to right click from any inventory to open backpacks, just from other backpacks or your main 'e' inventory.
 
 Bug Fixes
-- None
+- Fixed error with block placing causing issues.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.18
 ------------------------------------------------------
