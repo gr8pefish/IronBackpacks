@@ -10,6 +10,7 @@ import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
@@ -52,12 +53,14 @@ public class ClientEventHandler {
                     GuiContainer container = (GuiContainer) guiScreen;
                     if ( (!(container instanceof GuiContainerCreative)) && (!(container instanceof GUIBackpack)) ) { //exclude JEI and creative inventories //ToDo: Possibly remove compat from clientClickEvent in favor of containerBackpack
                         if (InterModSupport.isJEILoaded && (InterModSupport.isGuiContainerInstanceOfIGuiHelper(container))) return;
-                        Slot slot = container.getSlotUnderMouse();
-                        if (slot != null && slot.getHasStack()) { //needs an item
-                            ItemStack stack = slot.getStack();
-                            if (stack.getItem() instanceof ItemBackpack) { //needs to be a backpack
-                                NetworkingHandler.network.sendToServer(new ItemStackMessage(stack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? ItemStackMessage.SNEAKING : ItemStackMessage.NOT_SNEAKING)); //open the backpack via pseudo-right click on server
-                                event.setCanceled(true); //cancel pickup/further processing
+                        if (container instanceof GuiInventory) { //ToDo: Right now it's only 'e' inventory allowed
+                            Slot slot = container.getSlotUnderMouse();
+                            if (slot != null && slot.getHasStack()) { //needs an item
+                                ItemStack stack = slot.getStack();
+                                if (stack.getItem() instanceof ItemBackpack) { //needs to be a backpack
+                                    NetworkingHandler.network.sendToServer(new ItemStackMessage(stack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? ItemStackMessage.SNEAKING : ItemStackMessage.NOT_SNEAKING)); //open the backpack via pseudo-right click on server
+                                    event.setCanceled(true); //cancel pickup/further processing
+                                }
                             }
                         }
                     }
