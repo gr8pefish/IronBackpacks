@@ -9,6 +9,7 @@ Changes
 
 Bug Fixes
 - Fixed error with block placing causing issues.
+- Fixed duplication/desync errors when opening backpacks directly from other inventories.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.18
 ------------------------------------------------------
