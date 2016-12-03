@@ -36,6 +36,8 @@ To Do:
 
     tooltips go over jei and the screen edge
 
+    Add HUD for damage bar upgrade when equipped?
+
     Botania integration as well
 
     Make sure it works with the mods in TPPI
@@ -104,6 +106,11 @@ To Do:
             Add right click ability as an upgrade
             Ender backpack
                     iron -> ender or diamond -> ender?
+
+                    Make all backpacks place-able inworld (essentially portable chests).
+                    Then I will just have the ender upgrade link two backpacks' contents together somehow (maybe the upgrade, when created, gives 2 upgrades as an output, both with a unique identifier that can then be applied to 2 separate backpacks). Then you can place one down (pseudo-chest) and walk around with the other backpack in your inventory/equipped. That way I can balance it more, as it's a part of my mod and not just linking to something else (e.g. make it cost a ton of upgrade points).
+                    This is all grand and well, but is definitely not trivial to implement. I need to rewrite a bit of the mod to allow for this level of new abilities, so it's not going to happen super soon (especially with finals coming up).
+
             Tool upgrade, slots in alt gui and then mouse wheel to rotate through them
                 render on pack eventually for extra fancyness?
 
