@@ -260,9 +260,14 @@ public class ForgeEventHandler {
 
             EntityPlayer player = event.getEntityPlayer();
             ItemStack itemstack = IronBackpacksCapabilities.getWornBackpack(event.getEntityPlayer()); //check equipped pack
+            ItemStack heldItemMainhand = player.getHeldItemMainhand();
+            ItemStack heldItemOffhand = player.getHeldItemOffhand();
+//            boolean canDeposit = heldItemMainhand == null && (heldItemOffhand == null || {CHECK_IF_CAN_BE_PLACED_OR_USED});
+            boolean canDeposit = heldItemMainhand == null; // Not checking for offhand is great if you're holding a shield/tool, bad if you're holding a block
+            
             boolean openAltGui = true;
 
-            if (player.isSneaking() && itemstack != null) { //only do it when player is sneaking and has a backpack equipped
+            if (player.isSneaking() && itemstack != null && canDeposit) { //only do it with empty hands when player is sneaking and has a backpack equipped
 
                 World world = event.getWorld();
                 BlockPos pos = event.getPos();
