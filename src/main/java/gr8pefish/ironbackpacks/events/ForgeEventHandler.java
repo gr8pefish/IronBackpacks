@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -35,6 +36,7 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.ArrayList;
@@ -256,13 +258,23 @@ public class ForgeEventHandler {
 
     @SubscribeEvent
     public void onBlockClicked(PlayerInteractEvent.RightClickBlock event){ //ToDo: keep code DRY (see ItemBackpack's deposit code)
-        if (!event.isCanceled() && !event.getWorld().isRemote) { //server side, not canceled
+        if (!event.isCanceled() ) { //runs on both sides
 
             EntityPlayer player = event.getEntityPlayer();
             ItemStack itemstack = IronBackpacksCapabilities.getWornBackpack(event.getEntityPlayer()); //check equipped pack
             boolean openAltGui = true;
 
             if (player.isSneaking() && itemstack != null) { //only do it when player is sneaking and has a backpack equipped
+
+                //deal with shift clicking while holding an item that can be placed (e.g. a hopper on a chest)
+                ItemStack stackHeld = event.getItemStack();
+                //some terrible code to deal with event calling incorrectly on server side, BUT IT WORKS ToDo: Clean this up please
+                if (stackHeld != null && stackHeld.getItem() instanceof ItemBlock) {
+                    ItemBlock itemblock = (ItemBlock)stackHeld.getItem();
+                    if ((event.getSide() == Side.SERVER) || !itemblock.canPlaceBlockOnSide(event.getWorld(), event.getPos(), event.getFace(), player, stackHeld)) { //placable block, return
+                        return;
+                    }
+                }
 
                 World world = event.getWorld();
                 BlockPos pos = event.getPos();
@@ -297,7 +309,6 @@ public class ForgeEventHandler {
                     }
                     if (!openAltGui) event.setCanceled(true);
                 }
-
             }
         }
     }
