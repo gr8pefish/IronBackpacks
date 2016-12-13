@@ -1,5 +1,6 @@
 To Do:
 
+    Add libs required in ReadMe
     PR workflow with ZenHub
     Contact etho
         Make twitter and update it
@@ -13,6 +14,7 @@ To Do:
     Template for features: "I want <some feature> so that <some benefit>"
     Refactor ReadME to include description of product (existing) and new section on issues/issue management/planning
     Monthly update from user perspective (i.e. reddit imgur album/gif)
+    More testing (in general) needed, how to do so...
 
     Tick upgrade
     Make it so that void upgrade works only when full, or keeps a stack or something
@@ -24,6 +26,7 @@ To Do:
     Restocking upgrade doesn't allow placing other items on other ones (as it overrides shift click),
         check if shift click possible before overriding
     InvTweaks not working with nested backpacks?
+    Magnet upgrade
 
 
     ItemStackHelper.isEmpty()
