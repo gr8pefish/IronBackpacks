@@ -8,6 +8,7 @@ Changes
 - None
 
 Bug Fixes
+- Fixed inter-mod incompatibility with TombManyGraves.
 - Fixed item not appearing in world correctly when shift-right clicking an inventory with a placable item conflicting with an equipped backpack with the quick deposit filter.
 - Fixed item disappearance with items not being properly quick deposited into TiCon multiblocks (fix should be good for other modded inventories as well).
 - Fixed dupe where you could get multiple upgrades returned when applying large amounts at once to a backpack.
