@@ -6,7 +6,7 @@ import gr8pefish.ironbackpacks.container.slot.GhostSlot;
 import gr8pefish.ironbackpacks.integration.InterModSupport;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
-import gr8pefish.ironbackpacks.network.server.ItemStackMessage;
+import gr8pefish.ironbackpacks.network.server.PlayerSlotNumberMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.client.gui.GuiScreen;
@@ -60,7 +60,7 @@ public class ClientEventHandler {
                             if (slot != null && slot.getHasStack()) { //needs an item
                                 ItemStack stack = slot.getStack();
                                 if (stack.getItem() instanceof ItemBackpack) { //needs to be a backpack
-                                    NetworkingHandler.network.sendToServer(new ItemStackMessage(stack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? ItemStackMessage.SNEAKING : ItemStackMessage.NOT_SNEAKING)); //open the backpack via pseudo-right click on server
+                                    NetworkingHandler.network.sendToServer(new PlayerSlotNumberMessage(slot.getSlotIndex(), Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? PlayerSlotNumberMessage.SNEAKING : PlayerSlotNumberMessage.NOT_SNEAKING)); //open the backpack via pseudo-right click on server
                                     event.setCanceled(true); //cancel pickup/further processing
                                 }
                             }

@@ -4,7 +4,7 @@ import gr8pefish.ironbackpacks.network.client.ClientCurrentPackMessage;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackPlayerSensitiveMessage;
 import gr8pefish.ironbackpacks.network.server.AdvFilterTypesMessage;
-import gr8pefish.ironbackpacks.network.server.ItemStackMessage;
+import gr8pefish.ironbackpacks.network.server.PlayerSlotNumberMessage;
 import gr8pefish.ironbackpacks.network.server.RenameMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
@@ -25,7 +25,7 @@ public class NetworkingHandler {
         registerMessage(RenameMessage.Handler.class, RenameMessage.class, Side.SERVER);
         registerMessage(AdvFilterTypesMessage.Handler.class, AdvFilterTypesMessage.class, Side.SERVER);
         registerMessage(SingleByteMessage.Handler.class, SingleByteMessage.class, Side.SERVER);
-        registerMessage(ItemStackMessage.Handler.class, ItemStackMessage.class, Side.SERVER);
+        registerMessage(PlayerSlotNumberMessage.Handler.class, PlayerSlotNumberMessage.class, Side.SERVER);
         registerMessage(ClientCurrentPackMessage.Handler.class, ClientCurrentPackMessage.class, Side.CLIENT);
         registerMessage(ClientEquippedPackMessage.Handler.class, ClientEquippedPackMessage.class, Side.CLIENT); //java.lang.RuntimeException: Attempted to load class net/minecraft/client/entity/EntityPlayerSP for invalid side SERVER
         registerMessage(ClientEquippedPackPlayerSensitiveMessage.Handler.class, ClientEquippedPackPlayerSensitiveMessage.class, Side.CLIENT);
