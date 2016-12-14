@@ -143,10 +143,15 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-                if (itemstack != null && itemstack.getItem() != null)
-                    if (itemstack.getItem() instanceof ItemUpgrade)  //hardcoded for ItemIUpgrade
-                        if (ItemIUpgradeRegistry.isInstanceOfAnyUpgrade(itemstack)) //any upgrade is fine here
-                            return itemstack;
+                if (itemstack != null && itemstack.getItem() != null) {
+                    if (itemstack.getItem() instanceof ItemUpgrade) { //hardcoded for ItemIUpgrade
+                        if (ItemIUpgradeRegistry.isInstanceOfAnyUpgrade(itemstack)) { //any upgrade is fine here
+                            ItemStack returnStack = itemstack.copy(); //copy stack
+                            returnStack.stackSize = 1; //only apply 1 upgrade (stack size of 1)
+                            return returnStack;
+                        }
+                    }
+                }
             }
         }
         return null;
