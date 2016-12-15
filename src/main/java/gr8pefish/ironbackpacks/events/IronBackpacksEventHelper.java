@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.events;
 
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
+import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
@@ -16,6 +17,7 @@ import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -25,12 +27,13 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class IronBackpacksEventHelper {
 
@@ -742,6 +745,7 @@ public class IronBackpacksEventHelper {
     private static void transferWithMiningFilter(ArrayList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
         filterItems.add(new ItemStack(Items.COAL, 1, 0)); //add coal to filter
+        addWhitelistEntriesToFilterItems(filterItems); //adds whitelisted items to filter
         transferWithBasicFilter(filterItems, event, container);
         if (itemEntityOre != null) {
             for (String oreName : itemEntityOre) {
@@ -792,6 +796,54 @@ public class IronBackpacksEventHelper {
             }
         }
         return retList.isEmpty() ? null : retList;
+    }
+
+    //ToDo: Not at runtime
+    private static ArrayList<ItemStack> addWhitelistEntriesToFilterItems(ArrayList<ItemStack> filterItems) {
+        String[] whitelistEntries = ConfigHandler.filterMiningUpgradeWhitelist;
+        for (String entry : whitelistEntries) {
+            ItemStack stack = getItemStackFromString(entry);
+            if (stack != null) filterItems.add(stack);
+        }
+        return filterItems;
+    }
+
+    private static Pattern pattern = Pattern.compile("((?<modid>.*?):)?(?<item>[^@]*)(@(?<damage>\\d+|[*])(x(?<size>\\d+))?)?");
+
+    /**
+     * Construct an {@link ItemStack} from a string in the format modid:itemName@damagexstackSize.
+     * Thanks to Ordinaste for the code.
+     *
+     * @param str the str
+     * @return the item
+     */
+    private static ItemStack getItemStackFromString(String str) {
+        Matcher matcher = pattern.matcher(str);
+
+        if (!matcher.find())
+            return null;
+
+        String itemString = matcher.group("item");
+        if (itemString == null)
+            return null;
+
+        String modid = matcher.group("modid");
+        if (modid == null)
+            modid = "minecraft";
+
+        int damage = 0;
+        String strDamage = matcher.group("damage");
+        if (strDamage != null)
+            damage = strDamage.equals("*") ? OreDictionary.WILDCARD_VALUE : Integer.parseInt(matcher.group("damage")); //work on wildcard returns multiple items?
+        int size = matcher.group("size") == null ? 1 : Integer.parseInt(matcher.group("size"));
+        if (size == 0)
+            size = 1;
+
+        Item item = Item.getByNameOrId(modid + ":" + itemString);
+        if (item == null)
+            return null;
+
+        return new ItemStack(item, size, damage);
     }
 
     /**

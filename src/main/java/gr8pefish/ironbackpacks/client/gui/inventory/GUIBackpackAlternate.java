@@ -28,7 +28,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
@@ -119,7 +121,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     }
 
     private GUI type; //The Gui's type (enum above)
-    private ContainerAlternateGui container; //the backpack's container
+    public ContainerAlternateGui container; //the backpack's container
     private EntityPlayer player; //the player opening the backpack
     private ItemStack itemStack;
 
@@ -149,7 +151,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     private boolean hasCraftingUpgrade;
     private boolean hasCraftingSmallUpgrade;
     private boolean hasCraftingTinyUpgrade;
-    private boolean hasFilterAdvancedUpgrade;
+    public boolean hasFilterAdvancedUpgrade;
     private boolean hasFilterMiningUpgrade;
     private boolean hasFilterVoidUpgrade;
 
@@ -223,7 +225,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     /**
      * Draws the required buttons to the GUI.
      */
-    private void drawButtons(){
+    public void drawButtons(){
 
         buttonList.clear();
         tooltipButtons.clear();
@@ -536,36 +538,6 @@ public class GUIBackpackAlternate extends GuiContainer {
     }
 
     /**
-     * Allows you to use the scroll wheel to move through the advanced filter slots.
-     */
-    @Override
-    public void handleMouseInput() throws IOException { //TODO: causes bugs (visual duping of empty items) if you scroll too fast
-        super.handleMouseInput();
-        if (hasFilterAdvancedUpgrade){
-            int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
-            int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
-
-            for (int i = 0; i < 9; i++) {
-                GhostSlot slot = (GhostSlot) container.getSlot(container.getFilterAdvSlotIdStart() + i);
-                if (isMouseOverSlot(slot, x, y)) {
-                    int wheelState = Mouse.getEventDWheel();
-                    if (wheelState != 0) {
-                        if ((wheelState / 120) == 1) {
-                            container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_RIGHT);
-                            NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.MOVE_RIGHT));
-                            drawButtons();
-                        } else {
-                            container.changeAdvFilterSlots(IronBackpacksConstants.Miscellaneous.MOVE_LEFT);
-                            NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.MOVE_LEFT));
-                            drawButtons();
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Allows you to press enter to input a new name for the backpack directly.
      */
     @Override
@@ -585,7 +557,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     }
 
     //Private helper method that accounts for the gui size
-    private boolean isMouseOverSlot(Slot slot, int mPosX, int mPosY) {
+    public boolean isMouseOverSlot(Slot slot, int mPosX, int mPosY) {
         mPosX -= this.guiLeft;
         mPosY -= this.guiTop;
         return mPosX >= slot.xDisplayPosition - 1 && mPosX < slot.xDisplayPosition + 16 + 1 && mPosY >= slot.yDisplayPosition - 1 && mPosY < slot.yDisplayPosition + 16 + 1;

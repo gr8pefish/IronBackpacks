@@ -82,6 +82,7 @@ public class ConfigHandler {
     public static boolean filterMiningUpgradeRecipeDisabled;
     public static int filterMiningUpgradeCost;
     public static int filterMiningUpgradeTier;
+    public static String[] filterMiningUpgradeWhitelist;
     public static boolean nestingAdvancedUpgradeRecipeDisabled;
     public static int nestingAdvancedUpgradeCost;
     public static int nestingAdvancedUpgradeTier;
@@ -306,6 +307,7 @@ public class ConfigHandler {
                 "This upgrade automatically picks up any ores or gems, and has a basic filter for items like cobblestone/granite/etc.");
         filterMiningUpgradeTier = config.getInt("Mining Upgrade Tier", category, 1, 0, 3, "The minimum backpack tier for the mining filter upgrade.");
         filterMiningUpgradeRecipeDisabled = config.getBoolean("Mining Filter Upgrade Disabled", category, false, "If the mining filter upgrade recipe should not exist.");
+        filterMiningUpgradeWhitelist = config.getStringList("Mining Filter Item Whitelist", category, new String[0], "Any additional items that *all* mining filters should pick up. The format is modid:itemName@damagexstackSize, with the damage and/or stacksize optional. Wildcards (*) supported. Each entry should be on a new line. Example: minecraft:stone@* would get all stone");
 
         restockingUpgradeCost = config.getInt("Restocking Upgrade Cost", category, 3, 0, 100, "The cost (in upgrade points) for the restocking upgrade.\n" +
                 "This upgrade automatically restocks the specified items in your inventory from the backpack's inventory.");

@@ -734,64 +734,42 @@ public class UpgradeMethods {
      */
     private static ItemStack putInFirstValidSlot(IItemHandler transferTo, ItemStack stackToTransfer, boolean usePrecise){
         for (int i = 0; i < transferTo.getSlots(); i++) {
-            ItemStack tempStack = transferTo.getStackInSlot(i);
-            if (tempStack == null){
-                if (usePrecise) { //precise, have to check if the items is in the inventory already
-                    if (isStackInInventoryAlready(transferTo, stackToTransfer)) {
-                        if (transferTo instanceof ISidedInventory) {
-                            ISidedInventory sidedInventory = (ISidedInventory) transferTo;
-                            EnumFacing[] enumFacings = EnumFacing.values();
-                            for (int j = 0; j < enumFacings.length; j++) { //try all sides
-                                if (sidedInventory.canInsertItem(i, stackToTransfer, enumFacings[j])) {
-                                    transferTo.insertItem(i, stackToTransfer, false);
-                                    sidedInventory.markDirty();
-                                    return null;
-                                }
-                            }
-                        } else {
-                            if (!IronBackpacksHelper.areItemStacksTheSame(transferTo.insertItem(i, stackToTransfer, true), stackToTransfer)) { //simulate, if can insert and item stack changes, can insert somewhat
-                                transferTo.insertItem(i, stackToTransfer, false);
-                                return null;
-                            }
-                        }
-                    }
-                } else { //just check if the slot can accept the items
-                    if (transferTo instanceof ISidedInventory) {
-                        ISidedInventory sidedInventory = (ISidedInventory) transferTo;
-                        EnumFacing[] enumFacings = EnumFacing.values();
-                        for (int j = 0; j < enumFacings.length; j++) { //try all sides
-                            if (sidedInventory.canInsertItem(i, stackToTransfer, enumFacings[j])) {
-                                transferTo.insertItem(i, stackToTransfer, false);
-                                sidedInventory.markDirty();
-                                return null;
-                            }
-                        }
-                    } else {
-                        if (!IronBackpacksHelper.areItemStacksTheSame(transferTo.insertItem(i, stackToTransfer, true), stackToTransfer)) {
-                            transferTo.insertItem(i, stackToTransfer, false);
-                            return null;
-                        }
-                    }
+            if (stackToTransfer == null) return null; //short circuit to return quickly
+            if (usePrecise) { //precise, have to check if the items is in the inventory already
+                if (isStackInInventoryAlready(transferTo, stackToTransfer)) {
+                    stackToTransfer = transferToInv(transferTo, stackToTransfer, i);
                 }
-            }else if (tempStack.stackSize <= 0){//leave it alone
-            }else { //stack present, check if merge possible
-                if (tempStack.isItemEqual(stackToTransfer) && tempStack.stackSize < tempStack.getMaxStackSize() && ItemStack.areItemStackTagsEqual(tempStack, stackToTransfer)) { //can merge
-                    int amountToResupply = tempStack.getMaxStackSize() - tempStack.stackSize;
-                    if (stackToTransfer.stackSize >= amountToResupply) { //stackToTransfer will leave a remainder if merged
-                        //merge what you can and set stackToTransfer to the remainder
-                        transferTo.insertItem(i, new ItemStack(tempStack.getItem(), tempStack.getMaxStackSize(), tempStack.getItemDamage()), false);
-                        int oldStackSize = stackToTransfer.stackSize;
-                        stackToTransfer.stackSize = oldStackSize - amountToResupply;
-                        //don't return, try to use up the stack completely by continuing to iterate
-                        if (stackToTransfer.stackSize == 0) return null;
-                        //unless the stack size is 0, then you need to get rid of it
-                    } else {
-                        //use up the stackToTransfer
-                        transferTo.insertItem(i, stackToTransfer, false);
-                        return null;
-                    }
+            } else { //just check if the slot can accept the items
+                stackToTransfer = transferToInv(transferTo, stackToTransfer, i);
+            }
+        }
+        return stackToTransfer;
+    }
 
+    /**
+     * Deals with the actual transferring of items.
+     * @param transferTo - the IItemHandler to transfer to
+     * @param stackToTransfer - the stack to transfer over
+     * @param transferToSlotNumber - the slot number of the IItemHandler to transfer items to
+     * @return whatever wasn't transferred
+     */
+    private static ItemStack transferToInv(IItemHandler transferTo, ItemStack stackToTransfer, int transferToSlotNumber) {
+        if (transferTo instanceof ISidedInventory) {
+            ISidedInventory sidedInventory = (ISidedInventory) transferTo;
+            EnumFacing[] enumFacings = EnumFacing.values();
+            for (int j = 0; j < enumFacings.length; j++) { //try all sides
+                if (sidedInventory.canInsertItem(transferToSlotNumber, stackToTransfer, enumFacings[j])) {
+                    ItemStack simulated = transferTo.insertItem(transferToSlotNumber, stackToTransfer, false);
+                    sidedInventory.markDirty();
+                    return (simulated == null) ? null : simulated.copy(); //important!
                 }
+            }
+        } else {
+            ItemStack originalTransferStack = stackToTransfer.copy();
+            ItemStack simulated = transferTo.insertItem(transferToSlotNumber, stackToTransfer, true);
+            if (!IronBackpacksHelper.areItemStacksTheSame(simulated, originalTransferStack)) { //simulate, if can insert and item stack changes, can insert somewhat
+                transferTo.insertItem(transferToSlotNumber, stackToTransfer, false);
+                return (simulated == null) ? null : simulated.copy();  //important!
             }
         }
         return stackToTransfer;
