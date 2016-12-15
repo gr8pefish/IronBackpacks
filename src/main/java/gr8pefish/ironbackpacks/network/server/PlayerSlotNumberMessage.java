@@ -15,43 +15,43 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class ItemStackMessage implements IMessage {
+public class PlayerSlotNumberMessage implements IMessage {
 
     //the data sent
-    private ItemStack stack;
+    private int slotNumber;
     private int isSneaking;
 
     //for sneaking or not, sending as an integer rather than a bool
     public static int SNEAKING = 0;
     public static int NOT_SNEAKING = 1;
 
-    public ItemStackMessage() {} //default constructor is necessary
+    public PlayerSlotNumberMessage() {} //default constructor is necessary
 
-    public ItemStackMessage(ItemStack stack, int isSneaking) {
-        this.stack = stack;
+    public PlayerSlotNumberMessage(int slotNumber, int isSneaking) {
+        this.slotNumber = slotNumber;
         this.isSneaking = isSneaking;
     }
 
     @Override
     public void fromBytes(ByteBuf buf){
-        stack = ByteBufUtils.readItemStack(buf);
+        slotNumber = ByteBufUtils.readVarShort(buf);
         isSneaking = ByteBufUtils.readVarShort(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf){
-        ByteBufUtils.writeItemStack(buf, stack);
+        ByteBufUtils.writeVarShort(buf, slotNumber);
         ByteBufUtils.writeVarShort(buf, isSneaking);
     }
 
-    public static class Handler implements IMessageHandler<ItemStackMessage, IMessage> {
+    public static class Handler implements IMessageHandler<PlayerSlotNumberMessage, IMessage> {
 
         @Override
-        public IMessage onMessage(ItemStackMessage message, MessageContext ctx) {
+        public IMessage onMessage(PlayerSlotNumberMessage message, MessageContext ctx) {
 
             //set current backpack and right click it
             EntityPlayer player = ctx.getServerHandler().playerEntity;
-            ItemStack backpackStack = message.stack;
+            ItemStack backpackStack = player.inventory.getStackInSlot(message.slotNumber);
             if (backpackStack != null) {
                 NBTUtils.setUUID(backpackStack);
                 PlayerWearingBackpackCapabilities.setCurrentBackpack(player, backpackStack);

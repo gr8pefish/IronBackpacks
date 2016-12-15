@@ -20,6 +20,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 
@@ -343,7 +344,7 @@ public class IronBackpacksHelper {
      * @return - boolean true if they are equal enough, false if they are not
      */
     public static boolean areItemsEqualForStacking(ItemStack itemStack1, ItemStack itemStack2){
-        return (itemStack1.getItem().equals(itemStack2.getItem())) && (ItemStack.areItemStackTagsEqual(itemStack1, itemStack2) && (itemStack1.getItemDamage() == itemStack2.getItemDamage()));
+        return (itemStack1.getItem().equals(itemStack2.getItem())) && (ItemStack.areItemStackTagsEqual(itemStack1, itemStack2) && (itemStack1.getItemDamage() == OreDictionary.WILDCARD_VALUE || itemStack2.getItemDamage() == OreDictionary.WILDCARD_VALUE || itemStack1.getItemDamage() == itemStack2.getItemDamage()));
     }
 
     /**
