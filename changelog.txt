@@ -2,17 +2,18 @@
 Version 1.10.2 - 2.2.20
 ------------------------------------------------------
 Additions
-- Added configurable whitelist of extra items to add to the mining filter by default.
+- Added configurable whitelist of additional items to add to the mining filter.
 
 Changes
-- None
+- Changed 'right-click to open directly' to be a much smaller message/packet of information.
+    - This fixes a crash with packet being too large (e.g. right clicking a bag full of bees).
 
 Bug Fixes
 - Fixed inter-mod incompatibility with TombManyGraves.
-- Fixed item not appearing in world correctly when shift-right clicking an inventory with a placable item conflicting with an equipped backpack with the quick deposit filter.
-- Fixed item disappearance with items not being properly quick deposited into TiCon multiblocks (fix should be good for other modded inventories as well).
-- Fixed dupe where you could get multiple upgrades returned when applying large amounts at once to a backpack.
-- Fixed item loss when using Inventory Sorter to move items to and from ghost/filter slots by disabling scroll wheel entirely in that GUI.
+- Fixed item not appearing in world correctly when shift-right clicking an inventory with a placable item conflicting with an equipped backpack with the quick deposit upgrade.
+- Fixed item deletion with items not being properly quick deposited into TiCon multiblocks (fix should be good for other modded inventories as well).
+- Fixed dupe where you could get multiple upgrades returned when adding multiple upgrades (stack size > 1) at once to a backpack and then removing one.
+- Fixed item loss when using Inventory Sorter to move items to and from ghost/filter slots.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.19
 ------------------------------------------------------

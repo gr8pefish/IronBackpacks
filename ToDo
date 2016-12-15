@@ -17,6 +17,9 @@ To Do:
     More testing (in general) needed, how to do so...
 
     Dependent on me: TombManyGraves
+        Add to CF page
+
+    Increment version only dependent on pushing to cf
 
     Tick upgrade
     Make it so that void upgrade works only when full, or keeps a stack or something
