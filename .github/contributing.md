@@ -4,15 +4,15 @@ Hey there. Looks like you want to contribute with an issue. **Great!** Here's wh
 
 * As a general overview:
  * Before posting anything, please check if the issue has already been posted/resolved.
- * If it has not, please include the following:
+ * If it has not, please follow the template provided:
   * Minecraft and Iron Backpacks versions
   * Steps to reproduce. _Be as detailed as possible_.
   * Versions of any mods potentially related to the issue.
-  * Any relevant screenshots/videos are greatly appreciated.
-  * For crashes the crash report (please put it in a link to pastebin/puu.sh/etc. so it doesn't clog up the bug report).
+  * Any relevant screenshots/videos are *greatly* appreciated.
+  * For crashes: the crash report (please put it in a link to pastebin or similar so it doesn't clog up the bug report).
 
 * Note the following points:
-  * Issues regarding outdated versions of the mod are **not accepted**;
+  * Issues regarding outdated versions of the mod are **not accepted**. Try updating, and if the error persists then please post it!
   * If you have an issue with a modpack, make sure it is this mod that is causing the error before posting it, and that you have the updated versions of all the relevant mods.;
   * Duplicate issues or issues that have been solved already (use the search feature!) will be closed without asking.
   * Do not tag your issues' names. "Something Broke" is preferred to "[Bug] Something Broke"  because there's a proper label system in place.

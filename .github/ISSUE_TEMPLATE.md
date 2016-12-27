@@ -1,5 +1,9 @@
+Note: Delete the following 2 lines when you submit the issue. 
+* If this bug occurs in a modpack, please try first reporting it to the modpack author. Barring that, please narrow down exactly what other mod(s) are responsible for the issue. 
+* If this is a feature request, this template does not apply to you. Just delete everything and write what you need.
+
 #### Issue Description:
-Note: If this bug occurs in a modpack, please report this to the modpack author. Otherwise, delete this line and add your description here. If this is a feature request, this template does not apply to you. Just delete everything.
+
 
 
 #### What happens:
@@ -23,3 +27,4 @@ ____
 - IronBackpacks: 
 - Minecraft: 
 - Forge: 
+- Other Conflicting Mods (may be irrelevant to your issue):
