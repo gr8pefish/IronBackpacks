@@ -28,15 +28,11 @@ To Do:
         Didn't work for Soaryn
     JEI-book on first backpack crafted, just nice formatting
         Or point to JEI resource tab on first backpack opened
-    Restocking upgrade doesn't allow placing other items on other ones (as it overrides shift click),
-        check if shift click possible before overriding
     InvTweaks not working with nested backpacks?
     Magnet upgrade
 
 
     ItemStackHelper.isEmpty()
-
-    Check out bug with voiding items in tinker's furnace
 
     Switch over to better model and have backpack straps.
 
