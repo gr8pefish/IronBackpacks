@@ -5,7 +5,9 @@ Additions
 - None
 
 Changes
-- Removed ability to shift right click with an equipped backpack to deposit immediately. (Hard to do, and it is easy enough to unequip and deposit, then reequip)
+- Unequipping a backpack is more intelligent.
+    - See the link for details on how it works: https://github.com/gr8pefish/IronBackpacks/blob/6c84f630e829bba0553768e1d45a56f0386b5ade/src/main/java/gr8pefish/ironbackpacks/util/helpers/IronBackpacksHelper.java#L179-L189
+- Removed ability to shift right click with an equipped backpack to deposit immediately. (Hard to do code-wise, and it is now very easy to unequip and deposit, then reequip)
 
 Bug Fixes
 - Fixed right click to open backpacks directly persisting and causing you to pick up a half stack of an item occasionally.
