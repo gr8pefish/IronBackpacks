@@ -47,7 +47,7 @@ public class ClientEventHandler {
      * @param event - mouse event (filtered for right click)
      */
     @SubscribeEvent
-    public void onGuiMouse(GuiScreenEvent.MouseInputEvent.Pre event){
+    public void onGuiMouse(GuiScreenEvent.MouseInputEvent.Post event){
         GuiScreen guiScreen = event.getGui();
         if (Mouse.getEventButtonState()) { //mouse clicked (i.e. not released)
             if (Mouse.getEventButton() == 1) { //right click only
