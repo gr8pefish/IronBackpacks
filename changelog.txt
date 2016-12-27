@@ -10,8 +10,9 @@ Changes
 - Removed ability to shift right click with an equipped backpack to deposit immediately. (Hard to do code-wise, and it is now very easy to unequip and deposit, then reequip)
 
 Bug Fixes
+- Fixed recipe mirroring conflict making decompression upgrade uncraftable.
 - Fixed right click to open backpacks directly persisting and causing you to pick up a half stack of an item occasionally.
-- Fixed item pickup sound constantly playing when it shouldn't (e.g. backpack was full)
+- Fixed item pickup sound constantly playing when it shouldn't (e.g. backpack was full).
 ------------------------------------------------------
 Version 1.10.2 - 2.2.20
 ------------------------------------------------------

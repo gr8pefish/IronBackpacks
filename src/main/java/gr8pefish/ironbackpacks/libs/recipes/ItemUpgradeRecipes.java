@@ -89,10 +89,9 @@ public class ItemUpgradeRecipes {
             "rpb",
             "tct",
             "ttt",
-//            'r', "dustRedstone", 'b', "blockRedstone",
             'r', "dyeWhite", 'b', Blocks.BONE_BLOCK,
             'p', Blocks.PISTON, 't', "workbench", //could do bone meal -> bone block
-            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore))).setMirrored(false);
 
     public static ShapedOreRecipe craftingSmallUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.craftingSmallUpgrade)),
             "spn",
@@ -105,10 +104,9 @@ public class ItemUpgradeRecipes {
             "bpr",
             "tct",
             "ttt",
-//            'b', "blockRedstone", 'r', "dustRedstone",
-            'r', "dyeWhite", 'b', Blocks.BONE_BLOCK,
+            'b', Blocks.BONE_BLOCK, 'r', "dyeWhite",
             'p', Blocks.PISTON, 't', "workbench",
-            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
+            'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore))).setMirrored(false); //no mirror so it crafts correctly vs normal crafting upgrade
 
     public static ShapedOreRecipe filterBasicUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterBasicUpgrade)),
             " p ",
