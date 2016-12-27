@@ -652,8 +652,8 @@ public class IronBackpacksEventHelper {
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
                 if (IronBackpacksHelper.areItemsEqualForStacking(event.getItem().getEntityItem(), filterItem)) {
-                    container.transferStackInSlot(event.getItem().getEntityItem());
-                    shouldSave = true;
+                    ItemStack returned = container.transferStackInSlot(event.getItem().getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                    if (returned != null) shouldSave = true;
                 }
             }
         }
@@ -674,8 +674,8 @@ public class IronBackpacksEventHelper {
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
                 if (event.getItem().getEntityItem().getItem() == filterItem.getItem()) {
-                    container.transferStackInSlot(event.getItem().getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
-                    shouldSave = true;
+                    ItemStack returned = container.transferStackInSlot(event.getItem().getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                    if (returned != null) shouldSave = true;
                 }
             }
         }
@@ -700,8 +700,8 @@ public class IronBackpacksEventHelper {
                 if (itemEntityOre != null && filterItemOre != null) {
                     for (String oreName : itemEntityOre) {
                         if (oreName != null && filterItemOre.contains(oreName)) {
-                            container.transferStackInSlot(event.getItem().getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
-                            shouldSave = true;
+                            ItemStack returned = container.transferStackInSlot(event.getItem().getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                            if (returned != null) shouldSave = true;
                         }
                     }
                 }
@@ -725,8 +725,8 @@ public class IronBackpacksEventHelper {
             if (filterItem != null) {
                 //if modId1 == modId2 same mod so transfer
                 if ((event.getItem().getEntityItem().getItem()).getRegistryName().getResourceDomain().equals(((filterItem.getItem()).getRegistryName().getResourceDomain()))){
-                    container.transferStackInSlot(event.getItem().getEntityItem());
-                    shouldSave = true;
+                    ItemStack returned = container.transferStackInSlot(event.getItem().getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                    if (returned != null) shouldSave = true;
                 }
             }
         }
@@ -750,8 +750,8 @@ public class IronBackpacksEventHelper {
         if (itemEntityOre != null) {
             for (String oreName : itemEntityOre) {
                 if (oreName != null && (oreName.startsWith("ore") || oreName.startsWith("gem") || oreName.startsWith("dust"))) {
-                    container.transferStackInSlot(event.getItem().getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
-                    shouldSave = true;
+                    ItemStack returned = container.transferStackInSlot(event.getItem().getEntityItem()); //custom method to put itemEntity's itemStack into the backpack
+                    if (returned != null) shouldSave = true;
                 }
             }
         }
