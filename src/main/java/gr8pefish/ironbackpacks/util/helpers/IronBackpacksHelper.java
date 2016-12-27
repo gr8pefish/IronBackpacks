@@ -17,9 +17,11 @@ import gr8pefish.ironbackpacks.util.NBTUtils;
 import net.minecraft.entity.EntityTracker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -174,14 +176,58 @@ public class IronBackpacksHelper {
 
         if (backpack != null) { //need to unequip backpack
 
-            boolean hasEmptySlot = false;
-            for (int i = 0; i < player.inventory.getSizeInventory() - 5; i++){ //don't care about armor slots or offhand
-                if (player.inventory.getStackInSlot(i) == null) hasEmptySlot = true; //can only take it off if there is a place to put it
+            //if hotbar isn't full
+                //if currently selected slot is empty
+                    //put backpack there
+                //else
+                    //put backpack in first available empty slot
+            //else if hotbar is full
+                //if offhand is empty
+                    //put item in offhand, put backpack in mainhand
+                //otherwise
+                    //if have other empty slot in inventory
+                        //move currently selected item to somewhere in inventory, put backpack in main hand
+
+            boolean hasEmptyHotbarSlot = false;
+            boolean hasEmptyOffhand = false;
+            boolean hasEmptyInventorySlot = false;
+
+            for (int i = 0; i < 9; i++) {
+                if (player.inventory.getStackInSlot(i) == null) hasEmptyHotbarSlot = true;
             }
 
-            if (hasEmptySlot) {
-                //take off backpack and put in player's inventory
-                player.inventory.addItemStackToInventory(backpack);
+            if (hasEmptyHotbarSlot) {
+                if (player.getHeldItemMainhand() == null) {
+                    player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, backpack);
+                } else {
+                    //take off backpack and put in player's inventory
+                    player.inventory.addItemStackToInventory(backpack);
+                }
+            } else {
+                if (player.getHeldItemOffhand() == null) hasEmptyOffhand = true;
+
+                if (hasEmptyOffhand) {
+                    ItemStack selected = player.getHeldItem(EnumHand.MAIN_HAND);
+                    //put item in offhand
+                    player.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, selected);
+                    //put backpack in mainhand
+                    player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, backpack);
+                } else {
+
+                    for (int i = 9; i < player.inventory.getSizeInventory() - 5; i++) { //don't care about armor slots or offhand
+                        if (player.inventory.getStackInSlot(i) == null) hasEmptyInventorySlot = true;
+                    }
+                    if (hasEmptyInventorySlot) {
+                        ItemStack selected = player.getHeldItem(EnumHand.MAIN_HAND).copy();
+                        //put backpack in mainhand
+                        player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, backpack);
+                        //put item in offhand
+                        player.inventory.addItemStackToInventory(selected);
+                    }
+                }
+            }
+
+            if (hasEmptyHotbarSlot || hasEmptyOffhand || hasEmptyInventorySlot) { //backpack was unequipped, need to "save"
 
                 //update equipped backpack to null
                 PlayerWearingBackpackCapabilities.setEquippedBackpack(player, null);
