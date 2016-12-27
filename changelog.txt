@@ -5,10 +5,9 @@ Additions
 - None
 
 Changes
-- When depositing items from a backpack to an inventory, you must have both hands empty.
+- Removed ability to shift right click with an equipped backpack to deposit immediately. (Hard to do, and it is easy enough to unequip and deposit, then reequip)
 
 Bug Fixes
-- Fixed desync when quick depositing items with a placable item in-hand.
 - Fixed right click to open backpacks directly persisting and causing you to pick up a half stack of an item occasionally.
 - Fixed item pickup sound constantly playing when it shouldn't (e.g. backpack was full)
 ------------------------------------------------------

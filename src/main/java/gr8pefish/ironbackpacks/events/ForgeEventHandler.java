@@ -1,15 +1,11 @@
 package gr8pefish.ironbackpacks.events;
 
 import gr8pefish.ironbackpacks.api.Constants;
-import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
-import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
-import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
-import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
@@ -18,11 +14,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -254,66 +247,77 @@ public class ForgeEventHandler {
         }
     }
 
-    @SubscribeEvent
-    public void onBlockClicked(PlayerInteractEvent.RightClickBlock event){ //ToDo: keep code DRY (see ItemBackpack's deposit code)
-
-        if (!event.isCanceled()) { //runs on both sides
-
-            EntityPlayer player = event.getEntityPlayer();
-            ItemStack itemstack = IronBackpacksCapabilities.getWornBackpack(event.getEntityPlayer()); //check equipped pack
-            boolean openAltGui = true;
-
-            if (player.isSneaking() && itemstack != null) { //only do it when player is sneaking and has a backpack equipped
-
-                //deal with shift clicking while holding an item that can be placed (e.g. a hopper on a chest)
-                ItemStack stackHeld = event.getItemStack();
-                ItemStack offhandHeld = event.getEntityPlayer().getHeldItemOffhand();
-
-                if (stackHeld != null || offhandHeld != null) return; //enforce that it only works with an empty hand on both main and offhand
-                //some terrible code to deal with event calling incorrectly on server side, BUT IT WORKS ToDo: Clean this up or delete if it won't work
-//                if (stackHeld != null && stackHeld.getItem() instanceof ItemBlock) {
-//                    ItemBlock itemblock = (ItemBlock)stackHeld.getItem();
-//                    if ((event.getSide() == Side.SERVER) || !itemblock.canPlaceBlockOnSide(event.getWorld(), event.getPos(), event.getFace(), player, stackHeld)) { //placable block, return
-//                        return;
-//                    }
+    //ToDo: Decide to include or not
+    //The issue is that the client needs to send the message, but also needs to know to cancel or not. The server event also needs to know to cancel itself or not.
+//    @SubscribeEvent
+//    public void onBlockClicked(PlayerInteractEvent.RightClickBlock event){ //ToDo: keep code DRY (see ItemBackpack's deposit code)
+//
+//        if (!event.isCanceled()) { //runs on both sides
+//
+//            EntityPlayer player = event.getEntityPlayer();
+//            ItemStack itemstack = IronBackpacksCapabilities.getWornBackpack(event.getEntityPlayer()); //check equipped pack
+//            boolean openAltGui = true;
+//
+////            if (event.getWorld().isRemote) { //client side
+////                if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //left control
+////                    NetworkingHandler.network.sendToServer(new SingleByteMessage(IronBackpacksConstants.Messages.SingleByte.DEPOSIT_FROM_EQUIPPED_BACKPACK_KEYBINDING)); //send message to server to deal with logic
+////                    setCanceledOrNotSomehow
+////                }
+////            } else {
+////                setCanceledOrNotSomehow
+////            }
+//
+//            if (player.isSneaking() && itemstack != null) { //only do it when player is sneaking and has a backpack equipped
+//
+//                //deal with shift clicking while holding an item that can be placed (e.g. a hopper on a chest)
+//                ItemStack stackHeld = event.getItemStack();
+//                ItemStack offhandHeld = event.getEntityPlayer().getHeldItemOffhand();
+//
+//                if (stackHeld != null || offhandHeld != null) return; //enforce that it only works with an empty hand on both main and offhand
+//                //some terrible code to deal with event calling incorrectly on server side, BUT IT WORKS ToDo: Clean this up or delete if it won't work
+////                if (stackHeld != null && stackHeld.getItem() instanceof ItemBlock) {
+////                    ItemBlock itemblock = (ItemBlock)stackHeld.getItem();
+////                    if ((event.getSide() == Side.SERVER) || !itemblock.canPlaceBlockOnSide(event.getWorld(), event.getPos(), event.getFace(), player, stackHeld)) { //placable block, return
+////                        return;
+////                    }
+////                }
+//
+//                World world = event.getWorld();
+//                BlockPos pos = event.getPos();
+//                EnumFacing side = event.getFace();
+//
+//                ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
+//                boolean hasDepthUpgrade = UpgradeMethods.hasDepthUpgrade(upgrades);
+//                if (UpgradeMethods.hasQuickDepositUpgrade(upgrades)) {
+//                    openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, side, false);
+//                    if (!hasDepthUpgrade)
+//                        if (!openAltGui) event.setCanceled(true);
+//                } else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(upgrades)) {
+//                    openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, side, true);
+//                    if (!hasDepthUpgrade)
+//                        if (!openAltGui) event.setCanceled(true);
 //                }
-
-                World world = event.getWorld();
-                BlockPos pos = event.getPos();
-                EnumFacing side = event.getFace();
-
-                ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
-                boolean hasDepthUpgrade = UpgradeMethods.hasDepthUpgrade(upgrades);
-                if (UpgradeMethods.hasQuickDepositUpgrade(upgrades)) {
-                    openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, side, false);
-                    if (!hasDepthUpgrade)
-                        if (!openAltGui) event.setCanceled(true);
-                } else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(upgrades)) {
-                    openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, side, true);
-                    if (!hasDepthUpgrade)
-                        if (!openAltGui) event.setCanceled(true);
-                }
-                boolean openAltGuiDepth;
-                if (hasDepthUpgrade) {
-                    ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, itemstack));
-                    for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
-                        ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
-                        if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
-                            ArrayList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
-                            if (UpgradeMethods.hasQuickDepositUpgrade(nestedUpgrades)) {
-                                openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, side, false);
-                                if (!openAltGuiDepth) openAltGui = false;
-                            } else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(nestedUpgrades)) {
-                                openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, side, true);
-                                if (!openAltGuiDepth) openAltGui = false;
-                            }
-                        }
-                    }
-                    if (!openAltGui) event.setCanceled(true);
-                }
-            }
-        }
-    }
+//                boolean openAltGuiDepth;
+//                if (hasDepthUpgrade) {
+//                    ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, itemstack));
+//                    for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
+//                        ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
+//                        if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
+//                            ArrayList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
+//                            if (UpgradeMethods.hasQuickDepositUpgrade(nestedUpgrades)) {
+//                                openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, side, false);
+//                                if (!openAltGuiDepth) openAltGui = false;
+//                            } else if (UpgradeMethods.hasQuickDepositPreciseUpgrade(nestedUpgrades)) {
+//                                openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, side, true);
+//                                if (!openAltGuiDepth) openAltGui = false;
+//                            }
+//                        }
+//                    }
+//                    if (!openAltGui) event.setCanceled(true);
+//                }
+//            }
+//        }
+//    }
 
     //====================================================================== Misc. Events =======================================================================
 
