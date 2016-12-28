@@ -13,6 +13,7 @@ Bug Fixes
 - Fixed recipe mirroring conflict making decompression upgrade uncraftable.
 - Fixed right click to open backpacks directly persisting and causing you to pick up a half stack of an item occasionally.
 - Fixed item pickup sound constantly playing when it shouldn't (e.g. backpack was full).
+- Fixed Extra Utils 2's Builders wand removing too many blocks from a backpack with the restocking upgrade by disabling compat explicitly.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.20
 ------------------------------------------------------

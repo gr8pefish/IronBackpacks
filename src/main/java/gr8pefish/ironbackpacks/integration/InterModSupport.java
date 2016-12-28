@@ -1,10 +1,12 @@
 package gr8pefish.ironbackpacks.integration;
 
 import codechicken.enderstorage.item.ItemEnderPouch;
+import com.rwtema.extrautils2.items.ItemBuildersWand;
 import gr8pefish.ironbackpacks.api.Constants;
 import mezz.jei.api.IGuiHelper;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
@@ -18,6 +20,7 @@ public class InterModSupport {
     //as of writing this, it's basically non-existent
     public static boolean isEnderStorageLoaded = false;
     public static boolean isJEILoaded = false;
+    public static boolean isExtraUtilsLoaded = false;
     public static boolean isOpenBlocksLoaded = false;
 
     //Initializes each mod in the pre-init phase
@@ -29,6 +32,7 @@ public class InterModSupport {
     public static void init() {
         initEnderStorage();
         initJEI();
+        initExUtils();
 //        initOpenBlocks(); //not updated
     }
 
@@ -69,4 +73,14 @@ public class InterModSupport {
         return item instanceof ItemEnderPouch;
     }
 
+    public static void initExUtils(){
+        if (Loader.isModLoaded("ExtraUtils2")) {
+            isExtraUtilsLoaded = true;
+        }
+    }
+
+    @Optional.Method(modid = "ExtraUtils2")
+    public static boolean isExUtilsBuildersWand(Item item) {
+        return item instanceof ItemBuildersWand;
+    }
 }

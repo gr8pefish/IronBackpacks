@@ -898,6 +898,7 @@ public class IronBackpacksEventHelper {
                                     if (sameItemForRestocking(player.inventory.getStackInSlot(i), restockerItem)) {
                                         foundSlot = true;
                                         playerSlotIndexToRestockTo = i;
+                                        break;
                                     }
                                 }
                             }
