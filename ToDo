@@ -1,5 +1,7 @@
 To Do:
 
+    sound for equipping/unequipping
+
     Add libs required in ReadMe
     PR workflow with ZenHub
     Contact etho
@@ -23,7 +25,6 @@ To Do:
 
     Tick upgrade
     Make it so that void upgrade works only when full, or keeps a stack or something
-    sound plays when it can't be picked up even
     GUI scales with JEI
         Didn't work for Soaryn
     JEI-book on first backpack crafted, just nice formatting
@@ -81,6 +82,8 @@ To Do:
     Fix ReadMe badge updating with beta/release and colors from gradle.properties (if statements/replacement needed, so gradle fancyness required)
 
     Add check to not allow nesting more than 1 deep (possible)?
+
+    Add special compat for ExUtils2 Builders wands restocking
 
     Make sure texture map is small: https://github.com/mezz/TextureDump
     Check out right click lasting too long and picks up a stack of whatever is in the backpack
