@@ -8,6 +8,7 @@ import gr8pefish.ironbackpacks.api.items.craftingItems.ItemICrafting;
 import gr8pefish.ironbackpacks.api.items.upgrades.ItemIConfigurableUpgrade;
 import gr8pefish.ironbackpacks.api.items.upgrades.ItemIConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.items.upgrades.ItemIUpgrade;
+import gr8pefish.ironbackpacks.api.items.upgrades.interfaces.IUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemIBackpackRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemICraftingRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
@@ -369,6 +370,35 @@ public class ItemRegistry {
         nestingAdvancedUpgrade.setConflictingUpgrades(null, Collections.singletonList(nestingUpgrade));
         quickDepositUpgrade.setConflictingUpgrades(null, Collections.singletonList(quickDepositPreciseUpgrade));
         quickDepositPreciseUpgrade.setConflictingUpgrades(null, Collections.singletonList(quickDepositUpgrade));
+    }
+
+    public static ArrayList<IUpgrade> getAllUpgrades() {
+        ArrayList<IUpgrade> upgrades = new ArrayList<>();
+        //normal
+        upgrades.add(additionalUpgradePointsUpgrade);
+        upgrades.add(buttonUpgrade);
+        upgrades.add(damageBarUpgrade);
+        upgrades.add(depthUpgrade);
+        upgrades.add(eternityUpgrade);
+        upgrades.add(renamingUpgrade);
+        //conflicting
+        upgrades.add(nestingUpgrade);
+        upgrades.add(nestingAdvancedUpgrade);
+        upgrades.add(quickDepositUpgrade);
+        upgrades.add(quickDepositPreciseUpgrade);
+        //alt gui
+        upgrades.add(craftingUpgrade);
+        upgrades.add(craftingSmallUpgrade);
+        upgrades.add(craftingTinyUpgrade);
+        upgrades.add(filterBasicUpgrade);
+        upgrades.add(filterFuzzyUpgrade);
+        upgrades.add(filterOreDictUpgrade);
+        upgrades.add(filterModSpecificUpgrade);
+        upgrades.add(filterAdvancedUpgrade);
+        upgrades.add(filterMiningUpgrade);
+        upgrades.add(filterVoidUpgrade);
+        upgrades.add(restockingUpgrade);
+        return upgrades;
     }
 
 }
