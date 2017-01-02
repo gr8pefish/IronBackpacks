@@ -1,6 +1,13 @@
 To Do:
 
+    JEI grossness on small Guis
+
     sound for equipping/unequipping
+    open backpack keybinding always opens equipped, unless there isn't one, in which case it opens the first backpack in your inventory
+        also opens equipped always, so it can jump from a selected item one to the equipped one directly
+
+    ENUM for types of upgrades (NORMAL, CONFLICTING, CONFIGURABLE)
+        then helper method to iterate through list to pull all of type x
 
     Add libs required in ReadMe
     PR workflow with ZenHub

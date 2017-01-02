@@ -11,6 +11,8 @@ import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import mezz.jei.api.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nonnull;
 
@@ -71,11 +73,9 @@ public class JEIIronBackpacksPlugin extends BlankModPlugin {
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.filterMiningUpgrade)), "jei.description.upgrade.filter.generic", "jei.description.upgrade.filter.mining", "jei.description.upgrade.configurable");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.restockingUpgrade)), "jei.description.upgrade.restocking", "jei.description.upgrade.configurable");
 
-    }
 
-    @Override
-    public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime) {
-
+//        IItemBlacklist itemBlacklist = registry.getJeiHelpers().getItemBlacklist();
+//        itemBlacklist.addItemToBlacklist(); //ToDo
     }
 
 }
