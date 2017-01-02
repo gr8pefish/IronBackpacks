@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -49,13 +50,13 @@ public class IncreaseTierRecipeWrapper implements IRecipeWrapper {
     @Nonnull
     @Override
     public List<FluidStack> getFluidInputs() {
-        return null;
+        return new ArrayList<>();  //none
     }
 
     @Nonnull
     @Override
     public List<FluidStack> getFluidOutputs() {
-        return null;
+        return new ArrayList<>();  //none
     }
 
     @Override
