@@ -63,11 +63,11 @@ public class IncreaseTierRecipeWrapper implements IRecipeWrapper {
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 
         //add the recipes type necessary at the top of the screen
-        minecraft.fontRendererObj.drawString(craftingType, 43, -8, Color.darkGray.getRGB());
+        minecraft.fontRendererObj.drawString(craftingType, 43, 0, Color.darkGray.getRGB());
 
         //add the description below the images
         for (int i = 0; i < description.length; i++)
-            minecraft.fontRendererObj.drawString(description[i], 10, 64 + (i*8), Color.black.getRGB());
+            minecraft.fontRendererObj.drawString(description[i], 10, 69 + (i*8), Color.black.getRGB());
 
     }
 
@@ -80,7 +80,7 @@ public class IncreaseTierRecipeWrapper implements IRecipeWrapper {
     @Override
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
         //if mouse is over the word to have a tooltip (hardcoded for english 'crafting recipe')
-        if (mouseX >= 52 && mouseX <= 130 && mouseY >= 80 && mouseY <= 86)
+        if (mouseX >= 52 && mouseX <= 130 && mouseY >= 85 && mouseY <= 91)
             return Arrays.asList(TextUtils.cutLongString(TextUtils.localize("jei.description.increaseTier.tooltip")));
         return null;
     }

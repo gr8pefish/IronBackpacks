@@ -23,7 +23,7 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory {
     public AddUpgradeRecipeCategory(IGuiHelper guiHelper) {
         title = TextUtils.localize("jei.ironbackpacks.addUpgradeRecipe.name");
         ResourceLocation RL = new ResourceLocation("ironbackpacks", "textures/jei/addUpgradeRecipeJEI.png");
-        background = guiHelper.createDrawable(RL, 0, 0, 166, 108);
+        background = guiHelper.createDrawable(RL, 0, 0, 166, 130);
         icon = guiHelper.createDrawable(RL, 168, 0, 16, 16);
     }
 

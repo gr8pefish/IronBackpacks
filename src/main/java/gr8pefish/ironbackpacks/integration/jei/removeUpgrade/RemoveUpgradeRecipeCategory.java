@@ -23,7 +23,7 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
     public RemoveUpgradeRecipeCategory(IGuiHelper guiHelper) {
         title = TextUtils.localize("jei.ironbackpacks.removeUpgradeRecipe.name");
         ResourceLocation RL = new ResourceLocation("ironbackpacks", "textures/jei/removeUpgradeRecipeJEI.png");
-        background = guiHelper.createDrawable(RL, 0, 0, 166, 108);
+        background = guiHelper.createDrawable(RL, 0, 0, 166, 130);
         icon = guiHelper.createDrawable(RL, 168, 0, 16, 16);
     }
 

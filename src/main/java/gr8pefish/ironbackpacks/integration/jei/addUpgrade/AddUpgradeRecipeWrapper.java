@@ -66,7 +66,7 @@ public class AddUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 
         //add the recipes type necessary at the top of the screen
-        minecraft.fontRendererObj.drawString(craftingType, 29, -4, Color.darkGray.getRGB());
+        minecraft.fontRendererObj.drawString(craftingType, 29, 0, Color.darkGray.getRGB());
 
         //add the descriptions below the images (hardcoded for english length)
         for (int i = 0; i < description.length; i++)

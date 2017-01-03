@@ -72,7 +72,7 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallb
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 
         //draw the type of recipes
-        minecraft.fontRendererObj.drawString(craftingType, 43, -4, Color.darkGray.getRGB());
+        minecraft.fontRendererObj.drawString(craftingType, 43, 0, Color.darkGray.getRGB());
 
         //draw the special text so the user knows it is location dependent
         minecraft.fontRendererObj.drawString(removeSlot1, 8, 15, Color.darkGray.getRGB()); //Location
@@ -94,7 +94,7 @@ public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallb
     @Override
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
         //if mouse is over the 'Location Dependent' string, display this tooltip
-        if (mouseX >= 4 && mouseX <= 50 && mouseY <= 31 && mouseY >= 15)
+        if (mouseX >= 4 && mouseX <= 53 && mouseY <= 31 && mouseY >= 15)
             return Arrays.asList(TextUtils.cutLongString(TextUtils.localize("jei.description.removeUpgrade.locationDependent")));
         return null;
     }
