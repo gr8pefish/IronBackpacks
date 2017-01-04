@@ -5,10 +5,11 @@ Additions
 - None
 
 Changes
-- None
+- Added back in the tiny bug where right clicking sometimes 'persists' through packs, picking up the underlying stack. Deemed minor enough, as re-enabling right click to open directly is much better.
 
 Bug Fixes
-- None
+- Fixed not being able to right click from 'e' inventory.
+- Fixed improper scaling of JEI pages for higher resolutions/small GUI sizes.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.21
 ------------------------------------------------------
