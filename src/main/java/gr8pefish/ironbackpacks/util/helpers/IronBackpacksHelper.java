@@ -283,7 +283,7 @@ public class IronBackpacksHelper {
             if (gameruleKeepInv || UpgradeMethods.hasEternityUpgrade(getUpgradesAppliedFromNBT(equippedPack))) {
                 ItemStack updatedEquippedPack = equippedPack;
                 if (!gameruleKeepInv) {
-                     updatedEquippedPack = removeEternityUpgrade(getUpgradesAppliedFromNBT(equippedPack), equippedPack); //remove upgrade
+                    updatedEquippedPack = removeEternityUpgrade(getUpgradesAppliedFromNBT(equippedPack), equippedPack); //remove upgrade
                 }
                 PlayerDeathBackpackCapabilities.setEquippedBackpack(player, updatedEquippedPack);
             } else {

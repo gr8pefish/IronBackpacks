@@ -1,6 +1,19 @@
 To Do:
 
-    JEI grossness on small Guis
+    Recolor models to match items
+
+    bug for on death not doing the right things
+        check nbt tags
+
+        So, I have a capability to store a backpack on the player, that works through death, but doesn't seem to work in the case where a player dies and then exits to the main screen with gamerule keepInventory true. Here's what the playerdata looks like right after dying and exiting to the main screen (data is saved right): http://i.imgur.com/C4lleKj.png  However, when loading the world back in (even without respawning) the data is gone: http://i.imgur.com/KNaG1jl.png
+
+        Do I need to write this to a file or something to account for the rage-quit edge case?
+
+        (on a side note, I think you borked the NBT serialization names. shouldn't it be "ironbackpacks:..."?. seems to be prefixed with "minecraft:")(edited)
+
+
+    sync for MP on visual equip broken?
+        double check with Optifine, but probably fine
 
     sound for equipping/unequipping
     open backpack keybinding always opens equipped, unless there isn't one, in which case it opens the first backpack in your inventory
@@ -29,6 +42,7 @@ To Do:
         Add to CF page
 
     Increment version only dependent on pushing to cf
+        BuildInternal gradle task, runs DecrementVersion after
 
     Tick upgrade
     Make it so that void upgrade works only when full, or keeps a stack or something
