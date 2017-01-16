@@ -233,7 +233,7 @@ For example, if you have an ores chest and you use this upgrade, only the ores a
 
 #IConfigurableUpgrades
 jei.description.upgrade.configurable=This upgrade is one that adds to the configurable inventory (accessed by shift-right clicking), and it adds a variable number of slots for items to be placed in. \
-The items in this inventory of ghost items, they are not consumed and they cannot be used for anything else. Simply right click with an item over the slot to add it to the desired slot. \
+The items in this inventory are ghost items; they are not consumed and they cannot be used for anything else. Simply right click with an item over the slot to add it to the desired slot. \
 Whenever you pick up an item this item (and any on the same row of slots, i.e. the same upgrade) will then be checked and the unique upgrade's effects will occur for items like the ones specified.
 jei.description.upgrade.crafting=This upgrade adds the effect that each item in its slots will try to crafted into a new resulting item (which will be placed in the backpack). \
 This upgrade specifically simulates the item(s) specified being placed 3x3 in a crafting grid, so completely full, and looking for the result. \
