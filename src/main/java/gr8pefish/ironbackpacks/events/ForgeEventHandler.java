@@ -93,7 +93,7 @@ public class ForgeEventHandler {
      * When a player dies, check if player has any backpacks with keepOnDeathUpgrade so then they are saved for when they spawn
      * @param event - the event
      */
-    @SubscribeEvent(priority = EventPriority.HIGH)
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onDeath(LivingDeathEvent event){
         if (!event.getEntity().worldObj.isRemote && event.getEntity() instanceof EntityPlayer){ //server side
             IronBackpacksHelper.saveBackpackOnDeath((EntityPlayer) event.getEntity());
