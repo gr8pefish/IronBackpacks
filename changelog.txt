@@ -8,7 +8,7 @@ Changes
 - Much improved the Chinese translation file (thanks CNife).
 
 Bug Fixes
-- Fix odd error of backpack sometimes being lost on death (gravestones or gameruleKeepInventory).
+- Verified the backpack stays with the player through death/gravestones when it should.
 - Fix typo in lang file.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.22
