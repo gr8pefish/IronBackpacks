@@ -11,6 +11,8 @@ To Do:
 
         (on a side note, I think you borked the NBT serialization names. shouldn't it be "ironbackpacks:..."?. seems to be prefixed with "minecraft:")(edited)
 
+    bug on visual sync of tracked players equipped?
+
 
     sync for MP on visual equip broken?
         double check with Optifine, but probably fine

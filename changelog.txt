@@ -5,10 +5,11 @@ Additions
 - None
 
 Changes
-- None
+- Much improved the Chinese translation file (thanks CNife).
 
 Bug Fixes
-- None
+- Fix odd error of backpack sometimes being lost on death (gravestones or gameruleKeepInventory).
+- Fix typo in lang file.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.22
 ------------------------------------------------------
