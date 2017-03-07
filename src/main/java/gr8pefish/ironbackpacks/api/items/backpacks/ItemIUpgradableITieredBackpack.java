@@ -2,18 +2,21 @@ package gr8pefish.ironbackpacks.api.items.backpacks;
 
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
+import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IColorable;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ISpecializedBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableBackpack, ITieredBackpack, ISpecializedBackpack {
+public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableBackpack, ITieredBackpack, ISpecializedBackpack, IColorable {
 
     private final String name; //display name
     private final int rowLength; //length of each row
@@ -22,6 +25,8 @@ public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableB
     private final int upgradePoints; //number of upgradePoints
     private final int additionalPoints; //the number of additional upgrade points
     private String specialty; //unlocalized string to show if the backpack has a specialty, could be null if none
+    private boolean isColored; //if the backpack is colored or not
+    private Color color; //the color of the backpack
 
     private final ResourceLocation guiResourceLocation; //the resource location of the gui to display
     private final int guiXSize; //the width of the gui
@@ -51,6 +56,8 @@ public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableB
         this.upgradePoints = upgradePoints;
         this.additionalPoints = additionalPoints;
         this.specialty = specialty;
+        this.isColored = false; //default no special colors
+        this.color = null; //default no special colors
 
         this.guiResourceLocation = guiResourceLocation;
         this.guiXSize = guiXSize;
@@ -187,6 +194,33 @@ public class ItemIUpgradableITieredBackpack extends Item implements IUpgradableB
     @Override
     public void setSpecialty(ItemStack backpack, String specialty){
         this.specialty = specialty;
+    }
+
+    //====================================================Color=====================================================
+
+
+    @Override
+    public boolean isColored() {
+        return this.isColored;
+    }
+
+    @Override
+    public Color getColor() {
+        return this.color;
+    }
+
+    @Override
+    public void applyColor(Color color) {
+        this.color = color;
+        this.isColored = true;
+    }
+
+    @Override
+    public void removeColor() {
+        if (this.isColored) {
+            this.isColored = false;
+            this.color = null;
+        }
     }
 
     //====================================================Helper=====================================================
