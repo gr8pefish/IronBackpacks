@@ -5,10 +5,10 @@ Additions
 - None
 
 Changes
-- None
+- Update chinese translation file (thanks CNife)
 
 Bug Fixes
-- None
+- ExUtils compat fixed (RWTema changed to a lowercase modID, so I had to fix that in my code)
 ------------------------------------------------------
 Version 1.10.2 - 2.2.23
 ------------------------------------------------------
