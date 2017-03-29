@@ -96,7 +96,6 @@ public class ForgeEventHandler {
         if (!event.getEntity().worldObj.isRemote) { //server
             EntityItem drop = IronBackpacksHelper.savePlayerDeathDrops(event.getEntityPlayer()); //get equipped backpack, if it exists, and add it to drop
             if (drop != null) {
-                event.getEntityPlayer().captureDrops = true;
                 event.getDrops().add(drop);
             }
         }
