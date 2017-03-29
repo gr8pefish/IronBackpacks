@@ -9,6 +9,7 @@ Changes
 
 Bug Fixes
 - ExUtils compat fixed (RWTema changed to a lowercase modID, so I had to fix that in my code)
+- Cleaned up death saving code to hopefully remove any issues with dying/spawning/etc.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.23
 ------------------------------------------------------
