@@ -95,7 +95,7 @@ tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s.
 tooltip.ironbackpacks.upgrade.minimumTier=Minimum tier: %s.
 
 # Tier names (for upgrade tooltip minimum tier)
-tooltip.ironbackpacks.backpack.tier=Tier:
+tooltip.ironbackpacks.backpack.tier=Tier: %d
 tooltip.ironbackpacks.backpack.tier.basicBackpack.name=Basic Backpack
 tooltip.ironbackpacks.backpack.tier.ironBackpack.name=Iron Backpack
 tooltip.ironbackpacks.backpack.tier.goldBackpack.name=Gold Backpack

@@ -38,7 +38,7 @@ public class IronBackpacksCapabilities {
         PlayerWearingBackpackCapabilities cap = getWearingBackpackCapability(player);
         if (cap != null)
             return cap.getEquippedBackpack();
-        return null;
+        return ItemStack.EMPTY;
     }
 
 }
