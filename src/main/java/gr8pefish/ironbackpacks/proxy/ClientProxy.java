@@ -7,8 +7,6 @@ import gr8pefish.ironbackpacks.api.BackpackType;
 import gr8pefish.ironbackpacks.api.IBackpack;
 import gr8pefish.ironbackpacks.api.IronBackpacksHelper;
 import gr8pefish.ironbackpacks.core.ModObjects;
-import gr8pefish.ironbackpacks.stolenfromnut.model.IModeled;
-import gr8pefish.ironbackpacks.stolenfromnut.model.MeshDefinitionWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -42,48 +40,48 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void handleInventoryModel(Item item) {
-        if (!(item instanceof IModeled))
-            return;
-
-        List<String> variants = Lists.newArrayList();
-        ((IModeled) item).getVariants(variants);
-        ResourceLocation stateLoc = item.getRegistryName();
-
-        if (item instanceof IModeled.Advanced) {
-            for (String variant : variants)
-                ModelLoader.registerItemVariants(item, new ModelResourceLocation(stateLoc, variant));
-
-            ModelLoader.setCustomMeshDefinition(item, new MeshDefinitionWrapper((IModeled.Advanced) item));
-            return;
-        }
-
-        for (int i = 0; i < variants.size(); i++)
-            ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(stateLoc, variants.get(i)));
+//        if (!(item instanceof IModeled))
+//            return;
+//
+//        List<String> variants = Lists.newArrayList();
+//        ((IModeled) item).getVariants(variants);
+//        ResourceLocation stateLoc = item.getRegistryName();
+//
+//        if (item instanceof IModeled.Advanced) {
+//            for (String variant : variants)
+//                ModelLoader.registerItemVariants(item, new ModelResourceLocation(stateLoc, variant));
+//
+//            ModelLoader.setCustomMeshDefinition(item, new MeshDefinitionWrapper((IModeled.Advanced) item));
+//            return;
+//        }
+//
+//        for (int i = 0; i < variants.size(); i++)
+//            ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(stateLoc, variants.get(i)));
     }
 
     @Override
     public void handleInventoryModel(Block block) {
-        Item itemBlock = Item.getItemFromBlock(block);
-
-        if (!(block instanceof IModeled)) {
-            if (itemBlock instanceof IModeled)
-                handleInventoryModel(itemBlock);
-
-            return;
-        }
-
-        List<String> variants = Lists.newArrayList();
-        ((IModeled) block).getVariants(variants);
-
-        if (block instanceof IModeled.Advanced) {
-            for (String variant : variants)
-                ModelLoader.registerItemVariants(Item.getItemFromBlock(block), new ModelResourceLocation(block.getRegistryName(), variant));
-
-            ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(block), new MeshDefinitionWrapper((IModeled.Advanced) block));
-            return;
-        }
-
-        for (int i = 0; i < variants.size(); i++)
-            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), i, new ModelResourceLocation(block.getRegistryName(), variants.get(i)));
+//        Item itemBlock = Item.getItemFromBlock(block);
+//
+//        if (!(block instanceof IModeled)) {
+//            if (itemBlock instanceof IModeled)
+//                handleInventoryModel(itemBlock);
+//
+//            return;
+//        }
+//
+//        List<String> variants = Lists.newArrayList();
+//        ((IModeled) block).getVariants(variants);
+//
+//        if (block instanceof IModeled.Advanced) {
+//            for (String variant : variants)
+//                ModelLoader.registerItemVariants(Item.getItemFromBlock(block), new ModelResourceLocation(block.getRegistryName(), variant));
+//
+//            ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(block), new MeshDefinitionWrapper((IModeled.Advanced) block));
+//            return;
+//        }
+//
+//        for (int i = 0; i < variants.size(); i++)
+//            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), i, new ModelResourceLocation(block.getRegistryName(), variants.get(i)));
     }
 }

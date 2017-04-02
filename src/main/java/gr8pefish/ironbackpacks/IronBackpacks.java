@@ -1,8 +1,10 @@
 package gr8pefish.ironbackpacks;
 
+import gr8pefish.ironbackpacks.api.BackpackSpecialty;
+import gr8pefish.ironbackpacks.api.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.core.ModObjects;
 import gr8pefish.ironbackpacks.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -10,6 +12,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = IronBackpacks.MODID, name = IronBackpacks.NAME, version = IronBackpacks.VERSION, dependencies = IronBackpacks.DEPEND)
 public class IronBackpacks {
@@ -18,10 +22,11 @@ public class IronBackpacks {
     public static final String NAME = "Iron Backpacks";
     public static final String VERSION = "@VERSION@";
     public static final String DEPEND = "";
+    public static final Logger LOGGER = LogManager.getLogger(NAME);
 	public static final CreativeTabs TAB_IB = new CreativeTabs(MODID) {
 		@Override
 		public ItemStack getTabIconItem() {
-			return new ItemStack(Blocks.CHEST);
+			return IronBackpacksHelper.getStack(ModObjects.IRON_PACK, BackpackSpecialty.STORAGE);
 		}
 	};
 

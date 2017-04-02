@@ -3,7 +3,13 @@ package gr8pefish.ironbackpacks.api;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,6 +22,11 @@ public class IronBackpacksHelper {
 
     private static final Map<ResourceLocation, BackpackType> BACKPACK_TYPE_REGISTRY = Maps.newHashMap();
     private static final Map<ResourceLocation, BackpackUpgrade> UPGRADE_REGISTRY = Maps.newHashMap();
+
+    @GameRegistry.ObjectHolder("ironbackpacks:backpack")
+    public static Item BACKPACK_ITEM;
+    @GameRegistry.ObjectHolder("ironbackpacks:upgrade")
+    public static Item UPGRADE_ITEM;
 
     static {
         registerBackpackType(new BackpackType(NULL, 0, 0, false));
@@ -42,6 +53,15 @@ public class IronBackpacksHelper {
         return ImmutableSet.copyOf(BACKPACK_TYPE_REGISTRY.values());
     }
 
+    @Nonnull
+    public static ItemStack getStack(@Nonnull BackpackType backpackType, @Nonnull BackpackSpecialty backpackSpecialty) {
+        ItemStack stack = new ItemStack(BACKPACK_ITEM);
+        BackpackInfo backpackInfo = new BackpackInfo(backpackType, backpackSpecialty, new ItemStackHandler());
+        stack.setTagCompound(new NBTTagCompound());
+        stack.getTagCompound().setTag("backpackInfo", backpackInfo.serializeNBT());
+        return stack;
+    }
+
     // Upgrades
 
     public static void registerUpgrade(@Nonnull BackpackUpgrade backpackUpgrade) {
@@ -61,5 +81,13 @@ public class IronBackpacksHelper {
     @Nonnull
     public static Set<BackpackUpgrade> getUpgrades() {
         return ImmutableSet.copyOf(UPGRADE_REGISTRY.values());
+    }
+
+    @Nonnull
+    public static ItemStack getStack(@Nonnull BackpackUpgrade backpackUpgrade) {
+        ItemStack stack = new ItemStack(UPGRADE_ITEM);
+        stack.setTagCompound(new NBTTagCompound());
+        stack.getTagCompound().setString("upgrade", backpackUpgrade.getIdentifier().toString());
+        return stack;
     }
 }

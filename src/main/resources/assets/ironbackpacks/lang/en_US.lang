@@ -1,5 +1,28 @@
 #PARSE_ESCAPES
 
+# Creative Tab
+itemGroup.ironbackpacks=Iron Backpacks
+
+# Items
+
+item.ironbackpacks.backpack.name=Torn Backpack
+item.ironbackpacks.backpack.ironbackpacks.backpack_basic.name=Basic Backpack
+item.ironbackpacks.backpack.ironbackpacks.backpack_iron.name=Iron Backpack
+item.ironbackpacks.backpack.ironbackpacks.backpack_gold.name=Gold Backpack
+item.ironbackpacks.backpack.ironbackpacks.backpack_diamond.name=Diamond Backpack
+item.ironbackpacks.upgrade.name=Blank Upgrade
+
+# Tooltips
+tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point(s)
+
+# Upgrades
+upgrade.ironbackpacks.upgrade_damage_bar.name=Damage Bar Upgrade
+upgrade.ironbackpacks.upgrade_damage_bar.desc=Adds a damage bar to visually represent how full the backpack is at a glance.
+
+#######################################
+################ OLD ##################
+#######################################
+
 # Items
 item.ironbackpacks.backpack.basicBackpack.name=Basic Backpack
 item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=Iron Backpack (Storage Emphasis)
@@ -32,10 +55,6 @@ item.ironbackpacks.upgrade.filterVoid.name=Void Filter Upgrade
 item.ironbackpacks.upgrade.depth.name=Depth Upgrade
 
 item.ironbackpacks.crafting.upgradeCore.name=Upgrade Core
-
-
-# Creative Tab
-itemGroup.ironbackpacks=Iron Backpacks
 
 # Commands
 chat.ironbackpacks.command.deletedEquippedPack=Deleted the equipped backpack for
@@ -91,7 +110,6 @@ tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints=%d/%d additional up
 tooltip.ironbackpacks.backpack.upgrade.rename=(The %dth upgrade must include the renaming upgrade)
 tooltip.ironbackpacks.backpack.emphasis.storage=Storage Emphasis
 tooltip.ironbackpacks.backpack.emphasis.upgrade=Upgrade Emphasis
-tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point%s.
 tooltip.ironbackpacks.upgrade.minimumTier=Minimum tier: %s.
 
 # Tier names (for upgrade tooltip minimum tier)

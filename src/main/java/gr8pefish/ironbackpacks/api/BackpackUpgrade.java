@@ -36,8 +36,9 @@ public class BackpackUpgrade {
      * @param method - How the inventory was modified
      * @param stack - The stack that was modified
      * @param player - The player who's inventory was modified
+     * @param backpackInfo - All data relevant to the active backpack
      */
-    public void onInventory(@Nonnull ModifyMethod method, @Nonnull ItemStack stack, @Nonnull EntityPlayer player) {
+    public void onInventory(@Nonnull ModifyMethod method, @Nonnull ItemStack stack, @Nonnull EntityPlayer player, @Nonnull BackpackInfo backpackInfo) {
         // No-op
     }
 
