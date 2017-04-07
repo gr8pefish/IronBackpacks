@@ -220,6 +220,6 @@ jei.description.upgrade.filter.fuzzy=拾取的物品可以与过滤器中标记�
 jei.description.upgrade.filter.oreDict=拾取的物品如果与过滤器中标记的物品注册了相同的矿物辞典，也会被放进背包中。 例如，在过滤器中标记了橡木，那么任何类型的木头都会被放进背包中。
 jei.description.upgrade.filter.modSpecific=拾取的物品如果与过滤器中标记的物品是同一MOD的物品，也会被放进背包中。 例如，在过滤器中标记了植物魔法的小黄花，那么所有捡起的植物魔法物品都会被放进背包中。
 jei.description.upgrade.filter.void=拾起标记的物品会直接删除掉，因为使用模糊匹配，所以会忽略耐久度。
-jei.description.upgrade.filter.advanced=标记的物品，可以选择精确、模糊、矿物辞典、特定MOD和虚空王种匹配模式。 只需单击标记物品下面的按钮即可在五种模式中切换。 该升级插件有18个过滤格子，其他过滤器仅有9个。可通过按钮和鼠标滚轮切换。
+jei.description.upgrade.filter.advanced=标记的物品，可以选择精确、模糊、矿物辞典、特定MOD和虚空五种匹配模式。 只需单击标记物品下面的按钮即可在五种模式中切换。 该升级插件有18个过滤格子，其他过滤器仅有9个。可通过按钮和鼠标滚轮切换。
 jei.description.upgrade.filter.mining=该升级插件会将矿石、宝石和颗粒放入背包。 它同基础过滤器一样，也有9个过滤格子，所以可以在采矿时，将圆石、沙砾什么的也添加到过滤列表里。
 jei.description.upgrade.restocking=该升级插件会将背包内的物品自动补充到物品栏中。 例如，在背包中放进一些牛排，吃一个牛排，背包就会自动把物品栏中的牛排补充到64个（有就行）。
