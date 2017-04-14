@@ -15,6 +15,7 @@ import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.NBTUtils;
 import net.minecraft.entity.EntityTracker;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -265,58 +266,117 @@ public class IronBackpacksHelper {
     //==================================================== Handles the backpack persisting through death ==============================================================
 
     /**
-     * Saves the backpack to the player so that it isn't lost.
-     * @param player - the player who died with the backpack
+     * Saves the equipped backpacks when the player dies. Does a bunch of logic, outlined below.
+     *
+     * Equipped backpacks:
+     *  !Eternity
+     *     !KeepInvTrue
+     *          Add to drops
+     *
+     * @param player - the dying player
+     * @return null if no drop, the backpack as an itemstack otherwise
      */
-    public static void saveBackpackOnDeath(EntityPlayer player) {
+    public static EntityItem savePlayerDeathDrops(EntityPlayer player) {
+
+        EntityItem entityItem = null; //the equipped backpack to drop
+
+        boolean gameruleKeepInv = player.worldObj.getGameRules().getBoolean("keepInventory");
         ArrayList<ItemStack> backpacks = new ArrayList<>(); //the backpacks to save
 
         boolean shouldStorePack = false; //to store the pack in the inventory for a "normal death"
         boolean stored = false; //the act of storing it
         ItemStack packToStore = null;
 
-        boolean gameruleKeepInv = player.worldObj.getGameRules().getBoolean("keepInventory");
+        //ToDo: Try with gravestone mods and get it working
+        //test with full inventories as well
 
-        //deal with storing the equipped pack
+        //deal with dropping the equipped pack
         ItemStack equippedPack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
-        if (equippedPack != null){
-            if (gameruleKeepInv || UpgradeMethods.hasEternityUpgrade(getUpgradesAppliedFromNBT(equippedPack))) {
-                ItemStack updatedEquippedPack = equippedPack;
+        if (equippedPack != null) {
+            if (!UpgradeMethods.hasEternityUpgrade(getUpgradesAppliedFromNBT(equippedPack))) {
                 if (!gameruleKeepInv) {
-                    updatedEquippedPack = removeEternityUpgrade(getUpgradesAppliedFromNBT(equippedPack), equippedPack); //remove upgrade
+                    ItemStack deathEquipped = PlayerDeathBackpackCapabilities.getEquippedBackpack(player);
+                    if (deathEquipped == null || (!deathEquipped.equals(equippedPack))) { //for when an eternity backpack recently lost its upgrade and then this fires right after
+                        entityItem = new EntityItem(player.worldObj, player.posX, player.posY, player.posZ, equippedPack); //works
+                        PlayerDeathBackpackCapabilities.setEquippedBackpack(player, null); //removes backpack if it was present before
+                    }
                 }
-                PlayerDeathBackpackCapabilities.setEquippedBackpack(player, updatedEquippedPack);
-            } else {
-                shouldStorePack = true;
-                packToStore = equippedPack;
-                PlayerDeathBackpackCapabilities.setEquippedBackpack(player, null); //removes backpack
             }
         }
 
+        return entityItem;
+    }
+
+
+    /**
+     * Saves the inventory eternity backpack(s) to the player so that they aren't lost.
+     * Used because it fires before everything is dropped, which is necessary for iterating through inventory.
+     *
+     * Equipped backpacks:
+     *  Eternity
+     *      KeepInvTrue
+     *          Save capEquipped
+     *     !KeepInvTrue
+     *          Remove Eternity upgrade
+     *          Save capEquipped
+     *  !Eternity
+     *      KeepInvTrue
+     *          Save capEquipped
+     *
+     * Normal backpacks:
+     *  Eternity
+     *      KeepInvTrue
+     *          Nothing
+     *     !KeepInvTrue
+     *          Remove Eternity upgrade
+     *          Save capDeath
+     *  !Eternity
+     *      KeepInvTrue
+     *          Nothing
+     *     !KeepInvTrue
+     *          Nothing
+     *
+     * @param player - the player who died with the backpack
+     */
+    public static void saveEternityBackpacksOnDeath(EntityPlayer player) {
+
+        ArrayList<ItemStack> backpacks = new ArrayList<>(); //the backpacks to save
+
+        boolean gameruleKeepInv = player.worldObj.getGameRules().getBoolean("keepInventory");
+
+        //deal with equipped packs (if you keep them through death)
+        ItemStack equippedPack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
+        if (equippedPack != null) {
+            if (UpgradeMethods.hasEternityUpgrade(getUpgradesAppliedFromNBT(equippedPack))) {
+                if (gameruleKeepInv) { //works
+                    PlayerDeathBackpackCapabilities.setEquippedBackpack(player, equippedPack.copy());
+                } else { //works
+                    ItemStack updatedEquippedPack = removeEternityUpgrade(getUpgradesAppliedFromNBT(equippedPack), equippedPack); //remove upgrade
+                    PlayerDeathBackpackCapabilities.setEquippedBackpack(player, updatedEquippedPack);
+                }
+            } else {
+                if (gameruleKeepInv) { //works
+                    PlayerDeathBackpackCapabilities.setEquippedBackpack(player, equippedPack.copy());
+                }
+            }
+        }
+
+        //deal with storing other packs (only care if they have the eternity upgrade)
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack tempStack = player.inventory.getStackInSlot(i);
             if (tempStack != null) {
                 if (tempStack.getItem() instanceof IBackpack) {
-                    if (gameruleKeepInv || UpgradeMethods.hasEternityUpgrade(getUpgradesAppliedFromNBT(tempStack))) {
-                        ItemStack stackToAdd = tempStack;
+                    if (UpgradeMethods.hasEternityUpgrade(getUpgradesAppliedFromNBT(tempStack))) {
                         if (!gameruleKeepInv) {
-                            stackToAdd = removeEternityUpgrade(getUpgradesAppliedFromNBT(tempStack), tempStack); //removes upgrade
+                            ItemStack stackToAdd = removeEternityUpgrade(getUpgradesAppliedFromNBT(tempStack), tempStack); //removes upgrade
+                            backpacks.add(stackToAdd); //works
+                            player.inventory.setInventorySlotContents(i, null); //set to null so it doesn't drop
                         }
-                        backpacks.add(stackToAdd);
-                        player.inventory.setInventorySlotContents(i, null); //set to null so it doesn't drop
                     }
-                }
-            } else { //empty slot
-                if (shouldStorePack && !stored) {
-                    player.inventory.setInventorySlotContents(i, packToStore);
-                    stored = true;
                 }
             }
         }
 
-        if (shouldStorePack && !stored){ //no open inventory slots (and has to be gameruleKeepInventory false)
-            player.dropItem(packToStore, true, false); //drop it in world
-        }
         PlayerDeathBackpackCapabilities.setEternityBackpacks(player, backpacks);
 
     }
@@ -330,17 +390,18 @@ public class IronBackpacksHelper {
         ItemStack equipped = PlayerDeathBackpackCapabilities.getEquippedBackpack(player);
         //respawn it
         if (equipped != null) {
-
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(equipped), (EntityPlayerMP) player); //update client on correct pack
             PlayerWearingBackpackCapabilities.setEquippedBackpack(player, equipped); //update server on correct pack
-
         }
 
         //get eternity packs and add them to inventory
         ArrayList<ItemStack> packs = PlayerDeathBackpackCapabilities.getEternityBackpacks(player);
         if (packs != null && !packs.isEmpty()) {
             for (ItemStack stack : packs) {
-                player.inventory.addItemStackToInventory(stack);
+                boolean added = player.inventory.addItemStackToInventory(stack);
+                if (!added) { //if can't add to inventory
+                    player.dropItem(stack, false); //just drop in world at that player's location
+                }
             }
         }
 

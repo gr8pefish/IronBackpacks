@@ -74,12 +74,12 @@ public class InterModSupport {
     }
 
     public static void initExUtils(){
-        if (Loader.isModLoaded("ExtraUtils2")) {
+        if (Loader.isModLoaded("extrautils2")) {
             isExtraUtilsLoaded = true;
         }
     }
 
-    @Optional.Method(modid = "ExtraUtils2")
+    @Optional.Method(modid = "extrautils2")
     public static boolean isExUtilsBuildersWand(Item item) {
         return item instanceof ItemBuildersWand;
     }

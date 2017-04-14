@@ -11,6 +11,7 @@ import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Slot;
@@ -23,6 +24,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -89,14 +91,24 @@ public class ForgeEventHandler {
         }
     }
 
+    @SubscribeEvent
+    public void onPlayerDrops(PlayerDropsEvent event) {
+        if (!event.getEntity().worldObj.isRemote) { //server
+            EntityItem drop = IronBackpacksHelper.savePlayerDeathDrops(event.getEntityPlayer()); //get equipped backpack, if it exists, and add it to drop
+            if (drop != null) {
+                event.getDrops().add(drop);
+            }
+        }
+    }
+
     /**
      * When a player dies, check if player has any backpacks with keepOnDeathUpgrade so then they are saved for when they spawn
      * @param event - the event
      */
-    @SubscribeEvent(priority = EventPriority.NORMAL)
+    @SubscribeEvent(priority = EventPriority.NORMAL) //ToDo: Change to PlayerDropsEvent
     public void onDeath(LivingDeathEvent event){
         if (!event.getEntity().worldObj.isRemote && event.getEntity() instanceof EntityPlayer){ //server side
-            IronBackpacksHelper.saveBackpackOnDeath((EntityPlayer) event.getEntity());
+            IronBackpacksHelper.saveEternityBackpacksOnDeath((EntityPlayer) event.getEntity());
         }
     }
 

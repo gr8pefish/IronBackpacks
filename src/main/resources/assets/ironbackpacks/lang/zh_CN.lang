@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #PARSE_ESCAPES
 
 # Items
@@ -223,3 +224,230 @@ jei.description.upgrade.filter.void=拾起标记的物品会直接删除掉，�
 jei.description.upgrade.filter.advanced=标记的物品，可以选择精确、模糊、矿物辞典、特定MOD和虚空五种匹配模式。 只需单击标记物品下面的按钮即可在五种模式中切换。 该升级插件有18个过滤格子，其他过滤器仅有9个。可通过按钮和鼠标滚轮切换。
 jei.description.upgrade.filter.mining=该升级插件会将矿石、宝石和颗粒放入背包。 它同基础过滤器一样，也有9个过滤格子，所以可以在采矿时，将圆石、沙砾什么的也添加到过滤列表里。
 jei.description.upgrade.restocking=该升级插件会将背包内的物品自动补充到物品栏中。 例如，在背包中放进一些牛排，吃一个牛排，背包就会自动把物品栏中的牛排补充到64个（有就行）。
+=======
+#PARSE_ESCAPES
+
+# Items
+item.ironbackpacks.backpack.basicBackpack.name=基础背包
+item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=铁质背包（注重存储）
+item.ironbackpacks.backpack.ironBackpackUpgradeEmphasis.name=铁质背包（注重升级）
+item.ironbackpacks.backpack.goldBackpackStorageEmphasis.name=金质背包（注重存储）
+item.ironbackpacks.backpack.goldBackpackUpgradeEmphasis.name=金质背包（注重升级）
+item.ironbackpacks.backpack.diamondBackpackStorageEmphasis.name=钻石背包（注重存储）
+item.ironbackpacks.backpack.diamondBackpackUpgradeEmphasis.name=钻石背包（注重升级）
+
+item.ironbackpacks.upgrade.button.name=按钮升级
+item.ironbackpacks.upgrade.nesting.name=嵌套升级
+item.ironbackpacks.upgrade.nestingAdvanced.name=高级嵌套升级
+item.ironbackpacks.upgrade.damageBar.name=储存空间显示
+item.ironbackpacks.upgrade.filterBasic.name=基本过滤升级
+item.ironbackpacks.upgrade.filterFuzzy.name=模糊过滤升级
+item.ironbackpacks.upgrade.filterOreDict.name=矿物词典过滤升级
+item.ironbackpacks.upgrade.filterModSpecific.name=特定MOD过滤升级
+item.ironbackpacks.upgrade.filterAdvanced.name=高级过滤升级
+item.ironbackpacks.upgrade.restocking.name=补给升级
+item.ironbackpacks.upgrade.crafting.name=压缩升级
+item.ironbackpacks.upgrade.craftingSmall.name=小型压缩升级
+item.ironbackpacks.upgrade.craftingTiny.name=分解升级
+item.ironbackpacks.upgrade.renaming.name=重命名升级
+item.ironbackpacks.upgrade.eternity.name=永生升级
+item.ironbackpacks.upgrade.additionalUpgradePoints.name=额外升级点数升级
+item.ironbackpacks.upgrade.quickDeposit.name=快速储存升级
+item.ironbackpacks.upgrade.quickDepositPrecise.name=精确快速储存升级
+item.ironbackpacks.upgrade.filterMining.name=矿石过滤升级
+item.ironbackpacks.upgrade.filterVoid.name=虚空过滤升级
+item.ironbackpacks.upgrade.depth.name=深度升级
+
+
+item.ironbackpacks.crafting.upgradeCore.name=升级核心
+
+
+# Creative Tab
+itemGroup.ironbackpacks=特殊背包
+# Commands
+chat.ironbackpacks.command.deletedEquippedPack=已删除装备的背包
+chat.ironbackpacks.command.deletedYourEquippedPack=已删除你装备的背包
+chat.ironbackpacks.command.removedEquippedPack=已将装备的背包移动到副手上
+chat.ironbackpacks.command.removedYourEquippedPack=已将装备的背包移动到你的副手上
+
+# Keybindings
+key.ironbackpacks.open=打开背包
+key.ironbackpacks.equip=装备/卸下背包
+
+
+# GUI
+gui.ironbackpacks.emptyUpgradeSlot=无升级插槽
+gui.ironbackpacks.noValidUpgradesFound=没有找到有效的升级！
+gui.ironbackpacks.uuidError=正常地打开一次背包！
+
+
+# Button
+button.ironbackpacks.rename.tooltip=重命名的背包.你也可以按'Enter'
+button.ironbackpacks.exact.tooltip=准确匹配
+button.ironbackpacks.fuzzy.tooltip=模糊匹配
+button.ironbackpacks.oreDict.tooltip=矿物词典匹配
+button.ironbackpacks.modSpecific.tooltip=特定MOD匹配
+button.ironbackpacks.void.tooltip=虚空匹配(删除物品)
+button.ironbackpacks.packToInv.tooltip=将物品从背包中转移到物品栏
+button.ironbackpacks.invToPack.tooltip=将物品从物品栏转移到背包中
+button.ironbackpacks.barToPack.tooltip=将物品从快捷栏转移到背包中
+button.ironbackpacks.sort.tooltip.alphabetical=将物品合成块，按字母排列(右键改变模式)
+button.ironbackpacks.sort.tooltip.id=将物品合成块，按物品ID排列(右键改变模式)
+button.ironbackpacks.left.tooltip=向左移动.
+button.ironbackpacks.right.tooltip=向右边移动.
+button.ironbackpacks.info.tooltip=在这里查看背包的信息
+button.ironbackpacks.clear.basicFilter.tooltip=清除基本过滤
+button.ironbackpacks.clear.fuzzyFilter.tooltip=清除模糊过滤
+button.ironbackpacks.clear.oreDictFilter.tooltip=清除矿物词典过滤
+button.ironbackpacks.clear.modSpecificFilter.tooltip=清除特定MOD过滤
+button.ironbackpacks.clear.miningFilter.tooltip=清除矿石过滤
+button.ironbackpacks.clear.voidFilter.tooltip=清除虚空过滤
+button.ironbackpacks.clear.advancedFilter.tooltip=重置高级过滤 (清除物品和过滤模式)
+button.ironbackpacks.clear.hopper.tooltip=清除自动补给的物品
+button.ironbackpacks.clear.condenser.tooltip=清除要压缩的物品
+button.ironbackpacks.clear.condenser.small.tooltip=清除要压缩的物品
+button.ironbackpacks.clear.condenser.tiny.tooltip清除要分解的物品
+
+
+# Tooltip
+tooltip.ironbackpacks.shift=按住Shift显示更多信息
+tooltip.ironbackpacks.uuid=UUID: %s
+tooltip.ironbackpacks.backpack.upgrade.used=已使用 %d/%d 升级点数
+tooltip.ironbackpacks.backpack.upgrade.used.alt=已使用 %d/%d 有界面插件升级点数
+tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints=已增加 %d/%d 额外升级点数
+tooltip.ironbackpacks.backpack.upgrade.rename=(第 %d 次升级必须包括重命名升级)
+tooltip.ironbackpacks.backpack.emphasis.storage=注重存储
+tooltip.ironbackpacks.backpack.emphasis.upgrade=注重升级
+tooltip.ironbackpacks.upgrade.cost=花费 %d 升级点数
+tooltip.ironbackpacks.upgrade.minimumTier=最低等级： %s
+
+# Tier names (for upgrade tooltip minimum tier)
+tooltip.ironbackpacks.backpack.tier=等级：
+tooltip.ironbackpacks.backpack.tier.basicBackpack.name=基础背包
+tooltip.ironbackpacks.backpack.tier.ironBackpack.name=铁质背包
+tooltip.ironbackpacks.backpack.tier.goldBackpack.name=金质背包
+tooltip.ironbackpacks.backpack.tier.diamondBackpack.name=钻石背包
+
+tooltip.ironbackpacks.upgrade.recipeDisabled=合成配方已被删除！
+tooltip.ironbackpacks.upgrade.button.desc=在背包中添加按钮，方便存取物品和整理背包
+tooltip.ironbackpacks.upgrade.nesting.desc=可将低等级背包放入高等级背包中
+tooltip.ironbackpacks.upgrade.bar.desc=给背包添加耐久进度条来显示背包已用空间
+tooltip.ironbackpacks.upgrade.soulbound.desc=可以让你在死亡重生之后保留背包（只可使用一次，重生后需再次添加）
+tooltip.ironbackpacks.upgrade.quickDeposit.desc=当Shift+右键某个容器时，装有此升级的背包会尝试把存储的物品放入容器中
+tooltip.ironbackpacks.upgrade.quickDepositPrecise.desc=类似快速存储升级，但只会将容器中已有的物品放入容器中
+tooltip.ironbackpacks.upgrade.advNesting.desc=可将任意等级的背包放入背包中
+tooltip.ironbackpacks.upgrade.depth.desc=允许嵌套的背包拥有完整的功能（如过滤、补给和压缩升级），只适用于嵌套一层的背包（不适用于多层嵌套）
+tooltip.ironbackpacks.upgrade.naming.desc=可重命名背包
+
+tooltip.ironbackpacks.upgrade.basicFilter.desc=添加过滤物品的界面，背包会自动拾取设置的物品
+tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=类似基本过滤，但背包只会拾取同一MOD的物品
+tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=类似基本过滤，但背包会忽略物品的耐久度。
+tooltip.ironbackpacks.upgrade.oreDictFilter.desc=类似基本过滤，但背包只会拾取注册了同一矿物辞典名称的物品
+tooltip.ironbackpacks.upgrade.hopperFilter.desc=可设定一个物品，背包会自动将该物品补充到物品栏或快捷栏中
+tooltip.ironbackpacks.upgrade.condenser.desc=可设定一些物品，背包将自动拾取物品并将其以3x3的方式压缩成块（如红石->红石块）
+tooltip.ironbackpacks.upgrade.advFilter.desc=类似基本过滤，但有18个可选择过滤模式的过滤槽
+tooltip.ironbackpacks.upgrade.miningFilter.desc=自动拾取所有矿石、宝石、颗粒，附加基本过滤功能（如圆石）
+tooltip.ironbackpacks.upgrade.voidFilter.desc=自动拾取并删除设定的物品，忽略耐久度
+tooltip.ironbackpacks.upgrade.condenser.small.desc=可设定一些物品，背包将自动拾取物品并将其以2x2的方式压缩成块（如沙子->沙石）
+tooltip.ironbackpacks.upgrade.condenser.tiny.desc=可设定一些物品，背包将自动拾取物品并将其分解（如红石块->红石）
+tooltip.ironbackpacks.upgrade.addUpgrades.desc=给背包添加额外的 %s
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.single=升级点数
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d 升级点数
+
+
+# Miscellaneous
+misc.ironbackpacks.default.equipped.backpack.name=已装备的背包
+
+
+#Achievements
+achievement.ironbackpacks.basicBackpackCrafted=从基础开始
+achievement.ironbackpacks.basicBackpackCrafted.desc=制作一个基础背包
+achievement.ironbackpacks.ironBackpackCrafted=解决难题(Ironing Things Out)
+achievement.ironbackpacks.ironBackpackCrafted.desc=制作任意一种铁质背包
+achievement.ironbackpacks.goldBackpackCrafted=镀金时代
+achievement.ironbackpacks.goldBackpackCrafted.desc=制作任意一种金质背包
+achievement.ironbackpacks.diamondBackpackCrafted=顶级奢华(Tier-y Eyed)
+achievement.ironbackpacks.diamondBackpackCrafted.desc=制作任意一种钻石背包
+
+
+########################################
+# JEI Localizations
+########################################
+
+# Recipe Localizations (Miscellaneous)
+jei.description.shapelessCrafting=无序合成
+jei.description.shapedCrafting=有序合成
+
+# Recipe Localizations (Add Upgrade)
+jei.ironbackpacks.addUpgradeRecipe.name=添加升级
+jei.description.addUpgrade=要添加升级，只需将要升级的背包/cut与升级插件放在工作台里合成
+jei.description.addUpgrade.additional=要想升级背包，需要达到足够的等级， 拥有足够的升级点数，§2满足一定的要求§r
+jei.description.addUpgrade.specialConditions=如果升级插件有界面，背包必须有足够的界面插件点数。 此外，插件不能与已安装的界面插件有冲突
+
+# Recipe Localizations (Remove Upgrade)
+jei.ironbackpacks.removeUpgradeRecipe.name=移除升级插件
+jei.description.removeUpgrade.slot1=§2特定
+jei.description.removeUpgrade.slot2=§2 位置
+jei.description.removeUpgrade=要移除升级插件，需要把背包放在 工作台的特定位置上（鼠标移到绿色字上）
+jei.description.removeUpgrade.locationDependent=背包放的位置与要移除的插件位置相同。 例如，如果背包放在第一个格子里，将移除第一个插件；放在第二个格子里会移除第二个插件……
+jei.description.removeUpgrade.additional=移除插件后，插件将返还到工作台中
+
+# Recipe Localizations (Increase Tier)
+jei.ironbackpacks.increaseTierRecipe.name=升级背包
+jei.description.increaseTier=要升级背包，只需按照§2下面的方法合成§r。 在两种类型的背包中做出选择， 请三思而后行！
+jei.description.increaseTier.tooltip=注意，背包升级后将保留原有的物品和设置！
+
+###############################
+# Backpack Descriptions for JEI
+###############################
+
+jei.description.backpack.generic=\
+将背包拿在手上右击，即可打开背包。类似重命名的内置功能，都可以自由定制。 
+把背包拿在手上，Shift+右击即可打开配置界面。 
+按“装备背包”的快捷键，即可将背包穿在身上（默认为V键）。 
+按“打开背包”的快捷键，即可打开穿着的背包（默认为C键），对配置界面也有效。 
+每次修改背包数据（如添加或移除升级插件、升级背包等），背包数据都会完全保留（如背包中的物品、其他升级等）。 
+最后，再告诉你一个有意思的功能：当打开一个背包时，右击另一个背包，即可打开这个背包！
+
+jei.description.backpack.storage=注重存储的背包拥有相当大的存储空间，但升级点数比较少。这种背包最适合存储物品（而不是管理物品）。
+jei.description.backpack.upgrade=注重升级的背包拥有很多的升级点数，但存储空间有点小。这种背包最适合管理物品（而不是存储物品）。
+
+jei.description.backpack.basic=最基础的背包，存储空间小，升级点数少。 升级时得考虑是注重存储还是注重升级。
+jei.description.backpack.iron=背包的主要等级，可以使用许多（并非所有）升级插件，同时有更大的空间存储物品。
+jei.description.backpack.gold=离最高等级只差一步，拥有更多的存储空间和升级点数。
+jei.description.backpack.diamond=最高等级的背包，可以使用所有的升级插件（要是升级点数够用就好了）。
+
+##############################
+# Upgrade Descriptions for JEI
+##############################
+
+#IUpgrades
+jei.description.upgrade.additionalUpgradePoints=该升级插件可增加背包的升级点数，让它能够安装更多插件。在背包上Shift+右击的信息中包含该插件可使用的次数。
+jei.description.upgrade.button=该升级会在背包界面下添加4个按钮，并在配置界面中为各配置项分别添加按钮： 把背包中的物品全部转移到物品栏中； 把不在快捷栏中的物品全部转移到背包中； 把快捷栏中的物品全部转移到背包中； 整理背包物品（合并相同物品，按物品ID排序）； 在配置界面中为每个配置项添加一个按钮，可快速清除该配置项。
+jei.description.upgrade.damageBar=该升级插件会给背包添加一个耐久度，用以显示它已用的存储空间（耐久度越高，已用空间越多），让你只需瞥一眼物品栏，就可以直观看到背包的可用空间。 耐久度的多少代表总存储空间有多少，而不是用了多少个格子。比如，每个格子都只放上一个物品（一组64个），背包是不会傻B到把耐久度调到满的。 
+jei.description.upgrade.depth=安装这个升级插件后，嵌套在其他背包中的背包依然可以使用自己安装的升级插件的功能。 比如，你把一个装有矿石过滤升级的铁质背包放进一个装有嵌套升级的金质背包内，然后装备上金质背包。于是，当你捡起一个矿石时，矿石会被自动放到铁质背包里，虽然此时铁质背包嵌套在金质背包里。 这个功能只对一层嵌套起作用，（比如，再把另一个背包放进铁质背包里，这个背包的功能就没法用了）。此外，快速存储和自动补给升级也能用。
+jei.description.upgrade.eternity=该升级插件能在你死亡重生后将背包保留在物品栏里，但这个升级是一次性用品，要是再想死亡保留，就得重新添加升级插件。
+jei.description.upgrade.renaming=该升级插件会在配置界面中添加一个文本框，用来重命名背包（与铁砧类似）。（译者注：现在不需要安装这个升级插件，也可以重命名背包）
+
+#IConflictingUpgrades
+jei.description.upgrade.conflicting=该升级插件不能与其他插件同时安装，因此安装前请三思。如不能同时安装嵌套升级和高级嵌套升级。
+jei.description.upgrade.nesting=该升级插件可让低于这个背包等级的背包嵌套其中。试想，你可以在打开任何一个背包里，右击另一个背包，即可快速打开这个背包。
+jei.description.upgrade.nestingAdvanced=该升级插件可让任何等级的背包嵌套其中。试想，你可以在打开任何一个背包里，右击另一个背包，即可快速打开这个背包。
+jei.description.upgrade.quickDeposit=该升级插件可在拿着背包Shift+右击容器时，将背包中的物品转移到容器中。 例如，挖完矿满载回家时，不需要手动把把物品拿出背包再放进箱子，只需拿着背包右击箱子，即可把东西快速放进箱子。
+jei.description.upgrade.quickDepositPrecise=升级插件可在拿着背包Shift+右击容器时，将背包中的物品转移到容器中，但只有容器中存在的物品才会被放到容器里。 比如，当你对着一个装有矿石的箱子Shift+右击时，只有箱子里有的矿石才会被背包放进箱子里，快速完成这样一个简单重复的动作。
+
+#IConfigurableUpgrades
+jei.description.upgrade.configurable=该升级插件添加了配置界面（拿着背包Shift+右击），在配置界面中有格子用于标记物品。 这些格子中的物品都只是标记，不会消耗物品，也取不出来。 只需把物品放到格子上右击即可标记。 当捡起一个物品时，如果这个物品在标记的物品之列，就会触发不同插件相应的过滤功能。
+jei.description.upgrade.crafting=该升级插件会尝试将拾取的标记物品合成为另一种物品。（合成后放入背包） 该升级插件会模拟物品在工作台3x3放置的合成表，并尝试合成。例如，在配置界面标记了红石，背包里有一组红石，拾取起一个物品后，背包中会出现7个红石块和1个红石。 该升级插件会在合成后重新排列背包物品。 因为该升级插件需要在物品进入背包后才会进行合成，所以需要配合过滤升级来先把物品收进背包。配合自动补给升级食用风味更佳。
+jei.description.upgrade.craftingSmall=该升级插件会尝试将拾取的标记物品合成为另一种物品。（合成后放入背包） 该升级插件会模拟物品在工作台2x2放置的合成表，并尝试合成。例如，在配置界面标记了沙子，背包里有一组沙子，拾取起一个物品后，背包中会出现16个沙石。 该升级插件会在合成后重新排列背包物品。 因为该升级插件需要在物品进入背包后才会进行合成，所以需要配合过滤升级来先把物品收进背包。配合自动补给升级食用风味更佳。
+jei.description.upgrade.craftingTiny=该升级插件会尝试将拾取的标记物品合成为另一种物品。（合成后放入背包） 该升级插件会模拟物品在工作台1x1放置的合成表，即只有一个物品的合成表，并尝试合成。例如，在配置界面标记了橡木，背包里有16个橡木，拾取起一个物品后，背包中会出现一组橡木木板。 该升级插件会在合成后重新排列背包物品。 因为该升级插件需要在物品进入背包后才会进行合成，所以需要配合过滤升级来先把物品收进背包。配合自动补给升级食用风味更佳。
+jei.description.upgrade.filter.generic=这是一个过滤升级插件，能够在配置了过滤物品后自动将拾取的物品放进背包中（而非物品栏中）。不同的过滤器有不同的功能。
+jei.description.upgrade.filter.basic=拾取的物品必须与过滤器中标记的物品完全相同。
+jei.description.upgrade.filter.fuzzy=拾取的物品可以与过滤器中标记的物品有不同的耐久度。比如，如果标记了任意耐久度的铁剑，那么所有拾取的铁剑都会被放进背包中。
+jei.description.upgrade.filter.oreDict=拾取的物品如果与过滤器中标记的物品注册了相同的矿物辞典，也会被放进背包中。 例如，在过滤器中标记了橡木，那么任何类型的木头都会被放进背包中。
+jei.description.upgrade.filter.modSpecific=拾取的物品如果与过滤器中标记的物品是同一MOD的物品，也会被放进背包中。 例如，在过滤器中标记了植物魔法的小黄花，那么所有捡起的植物魔法物品都会被放进背包中。
+jei.description.upgrade.filter.void=拾起标记的物品会直接删除掉，因为使用模糊匹配，所以会忽略耐久度。
+jei.description.upgrade.filter.advanced=标记的物品，可以选择精确、模糊、矿物辞典、特定MOD和虚空王种匹配模式。 只需单击标记物品下面的按钮即可在五种模式中切换。 该升级插件有18个过滤格子，其他过滤器仅有9个。可通过按钮和鼠标滚轮切换。
+jei.description.upgrade.filter.mining=该升级插件会将矿石、宝石和颗粒放入背包。 它同基础过滤器一样，也有9个过滤格子，所以可以在采矿时，将圆石、沙砾什么的也添加到过滤列表里。
+jei.description.upgrade.restocking=该升级插件会将背包内的物品自动补充到物品栏中。 例如，在背包中放进一些牛排，吃一个牛排，背包就会自动把物品栏中的牛排补充到64个（有就行）。
+>>>>>>> 8892c6ea3755a1c81a8a4b67ec4f450bd3aa2d1c

@@ -1,5 +1,5 @@
 ------------------------------------------------------
-Version 1.10.2 - 2.2.24
+Version 1.10.2 - 2.2.26
 ------------------------------------------------------
 Additions
 - None
@@ -9,6 +9,29 @@ Changes
 
 Bug Fixes
 - None
+------------------------------------------------------
+Version 1.10.2 - 2.2.25
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- None
+
+Bug Fixes
+- Hotfix for inadvertently setting drop collection in my code
+------------------------------------------------------
+Version 1.10.2 - 2.2.24
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- Update chinese translation file (thanks CNife)
+
+Bug Fixes
+- ExUtils compat fixed (RWTema changed to a lowercase modID, so I had to fix that in my code)
+- Cleaned up death saving code to hopefully remove any issues with dying/spawning/etc.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.23
 ------------------------------------------------------
