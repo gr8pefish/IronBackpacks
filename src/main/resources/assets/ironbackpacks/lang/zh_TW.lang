@@ -1,0 +1,219 @@
+#PARSE_ESCAPES
+
+# Items
+item.ironbackpacks.backpack.basicBackpack.name=基礎背包
+item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=鐵背包(額外空間)
+item.ironbackpacks.backpack.ironBackpackUpgradeEmphasis.name=鐵背包(額外點數)
+item.ironbackpacks.backpack.goldBackpackStorageEmphasis.name=金背包(額外空間)
+item.ironbackpacks.backpack.goldBackpackUpgradeEmphasis.name=金背包(額外點數)
+item.ironbackpacks.backpack.diamondBackpackStorageEmphasis.name=鑽石背包(額外空間)
+item.ironbackpacks.backpack.diamondBackpackUpgradeEmphasis.name=鑽石背包(額外點數)
+
+item.ironbackpacks.upgrade.button.name=按鈕升級
+item.ironbackpacks.upgrade.nesting.name=巢狀升級
+item.ironbackpacks.upgrade.nestingAdvanced.name=高級巢狀升級
+item.ironbackpacks.upgrade.damageBar.name=空間顯示
+item.ironbackpacks.upgrade.filterBasic.name=基本過濾升級
+item.ironbackpacks.upgrade.filterFuzzy.name=模糊過濾升級
+item.ironbackpacks.upgrade.filterOreDict.name=礦物詞典過濾升級
+item.ironbackpacks.upgrade.filterModSpecific.name=MOD過濾升級
+item.ironbackpacks.upgrade.filterAdvanced.name=高級過濾升級
+item.ironbackpacks.upgrade.restocking.name=補給升級
+item.ironbackpacks.upgrade.crafting.name=壓縮升級
+item.ironbackpacks.upgrade.craftingSmall.name=小型壓縮升級
+item.ironbackpacks.upgrade.craftingTiny.name=分解升級
+item.ironbackpacks.upgrade.renaming.name=更名升級
+item.ironbackpacks.upgrade.eternity.name=靈魂綁定升級
+item.ironbackpacks.upgrade.additionalUpgradePoints.name=額外點數升級
+item.ironbackpacks.upgrade.quickDeposit.name=快速儲存升級
+item.ironbackpacks.upgrade.quickDepositPrecise.name=精確快速儲存升級
+item.ironbackpacks.upgrade.filterMining.name=礦石過濾升級
+item.ironbackpacks.upgrade.filterVoid.name=虛空過濾升級
+item.ironbackpacks.upgrade.depth.name=巢狀強化升級
+
+item.ironbackpacks.crafting.upgradeCore.name=升級核心
+
+
+# Creative Tab
+itemGroup.ironbackpacks=潮包
+
+# Commands
+chat.ironbackpacks.command.deletedEquippedPack=已刪除裝備的背包
+chat.ironbackpacks.command.deletedYourEquippedPack=已刪除你裝備的背包
+chat.ironbackpacks.command.removedEquippedPack=已將裝備的背包移動到副手上
+chat.ironbackpacks.command.removedYourEquippedPack=已將裝備的背包移動到你的副手上
+
+# Keybindings
+key.ironbackpacks.open=打開背包
+key.ironbackpacks.equip=裝備/卸下背包
+
+
+# GUI
+gui.ironbackpacks.emptyUpgradeSlot=無升級插槽
+gui.ironbackpacks.noValidUpgradesFound=沒有找到有效的升級！
+gui.ironbackpacks.uuidError=正常地打開一次背包！
+
+
+# Button
+button.ironbackpacks.rename.tooltip=重新命名背包。您也可以直接按'Enter'。
+button.ironbackpacks.exact.tooltip=準確匹配
+button.ironbackpacks.fuzzy.tooltip=模糊匹配
+button.ironbackpacks.oreDict.tooltip=礦物詞典匹配
+button.ironbackpacks.modSpecific.tooltip=MOD 匹配
+button.ironbackpacks.void.tooltip=虛空匹配(刪除物品)
+button.ironbackpacks.packToInv.tooltip=將物品從背包中移動到物品欄。
+button.ironbackpacks.invToPack.tooltip=將物品從物品欄移動到背包中
+button.ironbackpacks.barToPack.tooltip=將物品從快捷欄移動到背包中。
+button.ironbackpacks.sort.tooltip.alphabetical=將物品依照名稱，以字母順序排列(右鍵改變模式)。
+button.ironbackpacks.sort.tooltip.id=將物品依照 ID 排列(右鍵改變模式)。
+button.ironbackpacks.left.tooltip=向左移動。
+button.ironbackpacks.right.tooltip=向右移動。
+button.ironbackpacks.info.tooltip=在這裡檢視背包資訊。
+button.ironbackpacks.clear.basicFilter.tooltip=清除基本過濾。
+button.ironbackpacks.clear.fuzzyFilter.tooltip=清除模糊過濾。
+button.ironbackpacks.clear.oreDictFilter.tooltip=清除礦物詞典過濾。
+button.ironbackpacks.clear.modSpecificFilter.tooltip=清除 MOD 過濾。
+button.ironbackpacks.clear.miningFilter.tooltip=清除礦石過濾。
+button.ironbackpacks.clear.voidFilter.tooltip=清除虛空過濾。
+button.ironbackpacks.clear.advancedFilter.tooltip=重設高級過濾(清除物品和過濾模式)。
+button.ironbackpacks.clear.hopper.tooltip=清除自動補給的物品。
+button.ironbackpacks.clear.condenser.tooltip=清除要壓縮的物品。
+button.ironbackpacks.clear.condenser.small.tooltip=清除要壓縮的物品。
+button.ironbackpacks.clear.condenser.tiny.tooltip清除要分解的物品。
+
+
+# Tooltip
+tooltip.ironbackpacks.shift=按住 Shift 顯示更多資訊。
+tooltip.ironbackpacks.uuid=UUID：%s
+tooltip.ironbackpacks.backpack.upgrade.used=已使用 %d/%d 點數。
+tooltip.ironbackpacks.backpack.upgrade.used.alt=已使用 %d/%d 設定點數。
+tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints=已增加 %d/%d 額外點數。
+tooltip.ironbackpacks.backpack.upgrade.rename=(第 %d 次升級必須包括更名升級)
+tooltip.ironbackpacks.backpack.emphasis.storage=額外空間
+tooltip.ironbackpacks.backpack.emphasis.upgrade=額外點數
+tooltip.ironbackpacks.upgrade.cost=花費 %d 點數
+tooltip.ironbackpacks.upgrade.minimumTier=最低等級：%s
+
+# Tier names (for upgrade tooltip minimum tier)
+tooltip.ironbackpacks.backpack.tier=等級：
+tooltip.ironbackpacks.backpack.tier.basicBackpack.name=基礎背包
+tooltip.ironbackpacks.backpack.tier.ironBackpack.name=鐵背包
+tooltip.ironbackpacks.backpack.tier.goldBackpack.name=金背包
+tooltip.ironbackpacks.backpack.tier.diamondBackpack.name=鑽石背包
+
+tooltip.ironbackpacks.upgrade.recipeDisabled=合成配方已停用！
+tooltip.ironbackpacks.upgrade.button.desc=在背包中增加按鈕，方便移動物品進出，與整理背包。
+tooltip.ironbackpacks.upgrade.nesting.desc=可將較低等背包放入背包中。
+tooltip.ironbackpacks.upgrade.bar.desc=給背包增加耐久條來顯示背包已用空間。
+tooltip.ironbackpacks.upgrade.soulbound.desc=可以讓你在死亡重生之後保有背包。此升級將會在重生後消失(如果要再次保有，您需要重新升級一次)。
+tooltip.ironbackpacks.upgrade.quickDeposit.desc=當 shift 右鍵某個容器時，裝有此升級的背包會將其中的物品放入箱子。
+tooltip.ironbackpacks.upgrade.quickDepositPrecise.desc=類似快速儲存升級，但只會放入箱子中已有的物品。
+tooltip.ironbackpacks.upgrade.advNesting.desc=可將任意等級的背包放入背包中。
+tooltip.ironbackpacks.upgrade.depth.desc=允許嵌套的背包擁有完整的功能(如過濾、補給和壓縮升級)，只適用於嵌套一層的背包(不適用於多層嵌套)。
+tooltip.ironbackpacks.upgrade.naming.desc=可重新命名背包。
+
+tooltip.ironbackpacks.upgrade.basicFilter.desc=增加過濾物品的界面，背包會自動收集設定的物品。
+tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=類似基本過濾，但背包只會收集同一 MOD 的物品。
+tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=類似基本過濾，但背包會忽略物品的耐久度。
+tooltip.ironbackpacks.upgrade.oreDictFilter.desc=類似基本過濾，但背包只會收集註冊了同一礦物辭典名稱的物品。
+tooltip.ironbackpacks.upgrade.hopperFilter.desc=可設定一個物品，背包會自動將該物品補充到物品欄或快捷欄中。
+tooltip.ironbackpacks.upgrade.condenser.desc=可設定一些物品，背包將自動收集物品並將其以3x3的方式壓縮成塊(如：紅石->紅石塊)。
+tooltip.ironbackpacks.upgrade.advFilter.desc=類似基本過濾，但有18個可選擇過濾模式的過濾槽。
+tooltip.ironbackpacks.upgrade.miningFilter.desc=自動收集所有礦石、寶石、顆粒，附加基本過濾功能(如鵝卵石)。
+tooltip.ironbackpacks.upgrade.voidFilter.desc=自動收集並刪除設定的物品，忽略耐久度。
+tooltip.ironbackpacks.upgrade.condenser.small.desc=可設定一些物品，背包將自動收集物品並將其以2x2的方式壓縮成塊(如沙子->沙石)。
+tooltip.ironbackpacks.upgrade.condenser.tiny.desc=可設定一些物品，背包將自動收集物品並將其分解(如紅石塊->紅石)。
+tooltip.ironbackpacks.upgrade.addUpgrades.desc=給背包增加額外的%s。
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.single=點升級點數
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d點升級點數
+
+
+# Miscellaneous
+misc.ironbackpacks.default.equipped.backpack.name=已裝備的背包
+
+
+#Achievements
+achievement.ironbackpacks.basicBackpackCrafted=基礎
+achievement.ironbackpacks.basicBackpackCrafted.desc=製作一個基礎背包
+achievement.ironbackpacks.ironBackpackCrafted=哈燒包
+achievement.ironbackpacks.ironBackpackCrafted.desc=製作任意一種鐵背包
+achievement.ironbackpacks.goldBackpackCrafted=鍍金時代
+achievement.ironbackpacks.goldBackpackCrafted.desc=製作任意一種金質背包
+achievement.ironbackpacks.diamondBackpackCrafted=鑽人熱淚
+achievement.ironbackpacks.diamondBackpackCrafted.desc=製作任意一種鑽石背包
+
+
+########################################
+# JEI Localizations
+########################################
+
+# Recipe Localizations (Miscellaneous)
+jei.description.shapelessCrafting=無序合成
+jei.description.shapedCrafting=有序合成
+
+# Recipe Localizations (Add Upgrade)
+jei.ironbackpacks.addUpgradeRecipe.name=增加升級插件
+jei.description.addUpgrade=要增加升級插件，只需將背包與升級插件放在工作台裡合成。
+jei.description.addUpgrade.additional=要想升級背包，需要達到足夠的等級，擁有足夠的升級點數，並且§2滿足一定的條件§r。
+jei.description.addUpgrade.specialConditions=如果升級插件可設定，背包必須有足夠的設定點數。此外，插件不能與已安裝的插件有衝突。
+
+# Recipe Localizations (Remove Upgrade)
+jei.ironbackpacks.removeUpgradeRecipe.name=移除升級插件
+jei.description.removeUpgrade.slot1=§2特定
+jei.description.removeUpgrade.slot2=§2位置
+jei.description.removeUpgrade=要移除升級插件，需要把背包放在工作台的特定位置上。
+jei.description.removeUpgrade.locationDependent=背包放的位置與要移除的插件位置相同。例如，如果背包放在第一個格子裡，將移除第一個插件；放在第二個格子裡會移除第二個插件，以此類推。
+jei.description.removeUpgrade.additional=移除插件後，插件將返還到工作台中。
+
+# Recipe Localizations (Increase Tier)
+jei.ironbackpacks.increaseTierRecipe.name=提昇背包等級
+jei.description.increaseTier=要提昇背包等級，只需按照§2下面的方法合成§r。您可以在兩種類型的背包中做出選擇。請三思而後行！
+jei.description.increaseTier.tooltip=注意，背包升級後將保留原有的物品和設定！
+
+###############################
+# Backpack Descriptions for JEI
+###############################
+
+jei.description.backpack.generic=將背包拿在手上右鍵，即可打開背包。其中部份的升級功能，包含更名功能，都可以自由設定。把背包拿在手上，Shift+右鍵即可打開設定界面。\n按下「裝備背包」的快捷鍵(預設為V鍵)，即可將背包裝備在身上。按下「打開背包」的快捷鍵(預設為C鍵)，即可打開穿著的背包，對設定界面也有效。\n每次修改背包(如增加或移除升級插件、升級背包等)，背包內容都會完全保留(如背包中的物品、其他升級等)。\n\n最後，再告訴你一個好用的功能：當打開一個背包時，右鍵另一個背包，即可打開這個背包！
+
+jei.description.backpack.storage=額外空間的背包擁有較大的空間，但點數比較少。這種背包最適合儲存物品(而不是管理物品)。\n \n
+jei.description.backpack.upgrade=額外點數的背包擁有較多的點數，但空間比較小。這種背包最適合管理物品(而不是儲存物品)。\n \n
+
+jei.description.backpack.basic=最基礎的背包，空間小，點數少。升級時得考慮是額外空間還是額外點數。
+jei.description.backpack.iron=背包的主要等級，可以使用許多(而非全部)的升級插件，同時有更大的空間儲存物品。\n \n \n \n \n
+jei.description.backpack.gold=離最高等級只差一步，擁有更多的空間和點數。\n \n \n \n \n \n
+jei.description.backpack.diamond=最高等級的背包，可以使用任何的升級插件(假設點數夠用)。\n \n \n \n \n \n
+
+##############################
+# Upgrade Descriptions for JEI
+##############################
+
+#IUpgrades
+jei.description.upgrade.additionalUpgradePoints=該升級插件可增加背包的點數，讓它能夠安裝更多插件。在背包上Shift+右鍵的信息中包含該插件可使用的次數。
+jei.description.upgrade.button=該升級會在背包界面下增加四個按鈕，並在設定界面中為每個項目增加一個按鈕：\n \n \n \n把背包中的物品全部取出到物品欄中。\n \n把不在快捷欄中的物品全部放入背包中。\n \n把快捷欄中的物品全部放入背包中。\n \n整理背包物品(合併相同物品，按物品ID排序)。\n \n在設定界面中為每個項目增加一個按鈕，可快速清空該項目的設定。
+jei.description.upgrade.damageBar=該升級插件會給背包增加耐久度條，用以顯示其空間使用情形(相對於總容量)，讓你只需瞥一眼物品欄，就可以直觀看到背包的剩餘可用空間。耐久度的多少代表總儲存空間有多少，而不是用了多少個儲存格。(所以，如果每個格子都只放上一個物品(而其一組為64個)，耐久度條將不會誤認為背包已滿。)
+jei.description.upgrade.depth=這個升級插件能讓此背包中的其他背包依然可以使用該背包安裝的升級插件的功能。比如，你把一個裝有礦石過濾升級的鐵背包放進一個裝有巢狀升級的金背包內，然後裝備該金背包。於是，當你撿起一個礦石時，礦石會被自動放到鐵背包裡，雖然此時鐵背包放在金質背包裡。這個功能只對一層嵌套起作用，(比如，再把另一個背包放進鐵質背包裡，這個背包的功能就無法使用了)。此外，快速儲存和自動補給升級也能適用。
+jei.description.upgrade.eternity=該升級插件能在你死亡重生後將背包保留在物品欄裡，但這個升級是一次性用品。要是想再度死亡保留，就得重新增加升級插件。
+jei.description.upgrade.renaming=該升級插件會在設定界面中增加一個文字框，用來重新命名背包(與鐵砧類似)。
+
+#IConflictingUpgrades
+jei.description.upgrade.conflicting=該升級插件不能與其他插件同時安裝，因此安裝前請三思。例如，您無法同時安裝嵌套升級和高級嵌套升級。
+jei.description.upgrade.nesting=該升級插件可讓低於這個背包等級的背包嵌套其中。試想，你可以在打開任何一個背包裡，右鍵另一個背包，即可快速打開這個背包。
+jei.description.upgrade.nestingAdvanced=該升級插件可讓任何等級的背包嵌套其中。\n試想，你可以在打開任何一個背包裡，右鍵另一個背包，即可快速打開這個背包。
+jei.description.upgrade.quickDeposit=該升級插件可在拿着背包Shift+右鍵容器時，將背包中的物品轉移到容器中。例如，挖完礦滿載回家時，不需要手動把把物品拿出背包再放進箱子，只需拿着背包右鍵箱子，即可把東西快速放進箱子。\n \n \n \n \n \n
+jei.description.upgrade.quickDepositPrecise=升級插件可在拿着背包Shift+右鍵容器時，將背包中的物品轉移到容器中，但只有容器中存在的物品才會被放到容器裡。比如，當你對著一個裝有礦石的箱子Shift+右鍵時，只有箱子裡有的礦石才會被背包放進箱子裡，快速完成這樣一個簡單重複的動作。\n \n \n \n
+
+#IConfigurableUpgrades
+jei.description.upgrade.configurable=該升級插件增加了設定界面(拿着背包Shift+右鍵)，在設定界面中有格子用於標記物品。這些格子中的物品都只是標記，不會消耗物品，也取不出來。只需把物品放到格子上右鍵即可標記。當撿起一個物品時，如果這個物品在標記的物品之列，就會觸發不同插件相應的過濾功能。
+jei.description.upgrade.crafting=該升級插件會嘗試將拾取的標記物品合成為另一種物品(合成後放入背包)。該升級插件會模擬物品在工作台3x3放置的合成表，並嘗試合成。例如，在設定界面標記了紅石，背包裡有一組紅石，拾取起一個物品後，背包中會出現7個紅石塊和1個紅石。該升級插件會在合成後重新排列背包物品。因為該升級插件需要在物品進入背包後才會進行合成，所以需要配合過濾升級來先把物品收進背包。配合自動補給升級食用風味更佳。
+jei.description.upgrade.craftingSmall=該升級插件會嘗試將拾取的標記物品合成為另一種物品(合成後放入背包)。該升級插件會模擬物品在工作台2x2放置的合成表，並嘗試合成。例如，在設定界面標記了沙子，背包裡有一組沙子，拾取起一個物品後，背包中會出現16個沙石。該升級插件會在合成後重新排列背包物品。因為該升級插件需要在物品進入背包後才會進行合成，所以需要配合過濾升級來先把物品收進背包。配合自動補給升級食用風味更佳。
+jei.description.upgrade.craftingTiny=該升級插件會嘗試將拾取的標記物品合成為另一種物品(合成後放入背包)。該升級插件會模擬物品在工作台1x1放置的合成表，即只有一個物品的合成表，並嘗試合成。例如，在設定界面標記了橡木，背包裡有16個橡木，拾取起一個物品後，背包中會出現一組橡木木板。該升級插件會在合成後重新排列背包物品。因為該升級插件需要在物品進入背包後才會進行合成，所以需要配合過濾升級來先把物品收進背包。配合自動補給升級食用風味更佳。
+jei.description.upgrade.filter.generic=這是一個過濾升級插件，能夠在設定了過濾物品後自動將拾取的物品放進背包中(而非物品欄中)。不同的過濾器有不同的功能。
+jei.description.upgrade.filter.basic=\n拾取的物品必須與過濾器中標記的物品完全相同。\n \n
+jei.description.upgrade.filter.fuzzy=\n拾取的物品可以與過濾器中標記的物品有不同的耐久度。比如，如果標記了任意耐久度的鐵劍，那麼所有拾取的鐵劍都會被放進背包中。\n
+jei.description.upgrade.filter.oreDict=\n拾取的物品如果與過濾器中標記的物品註冊了相同的礦物辭典，也會被放進背包中。例如，在過濾器中標記了橡木，那麼任何類型的木頭都會被放進背包中。\n \n
+jei.description.upgrade.filter.modSpecific=\n拾取的物品如果與過濾器中標記的物品是同一MOD的物品，也會被放進背包中。例如，在過濾器中標記了 Botania 的小黃花，那麼所有撿起的 Botania 物品都會被放進背包中。\n \n
+jei.description.upgrade.filter.void=\n拾起標記的物品會直接刪除掉，因為使用模糊匹配，所以會忽略耐久度。\n \n
+jei.description.upgrade.filter.advanced=\n標記的物品，可以選擇精確、模糊、礦物辭典、特定MOD和虛空王種匹配模式。只需單擊標記物品下面的按鈕即可在五種模式中切換。該升級插件有18個過濾格子，其他過濾器僅有9個。可通過按鈕和滑鼠滾輪切換。\n \n
+jei.description.upgrade.filter.mining=\n該升級插件會將礦石、寶石和顆粒放入背包。它同基礎過濾器一樣，也有9個過濾格子，所以可以在採礦時，將鵝卵石、礫石什麼的也增加到過濾列表裡。\n \n
+jei.description.upgrade.restocking=該升級插件會將背包內的物品自動補充到物品欄中。例如，在背包中放進一些牛排，吃一個牛排，背包就會自動把物品欄中的牛排補充到64個(有就行)。\n \n
