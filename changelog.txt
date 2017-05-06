@@ -5,10 +5,11 @@ Additions
 - None
 
 Changes
-- None
+- Compress images to reduce overall file size (Thanks ibmibmibm)
+- Add Chinese (zh_TW) translation files (Thanks ibmibmibm)
 
 Bug Fixes
-- None
+- Fix Chinese (zh_CN) translation errors (Thanks CNife)
 ------------------------------------------------------
 Version 1.10.2 - 2.2.25
 ------------------------------------------------------
