@@ -36,7 +36,7 @@ public class IronBackpacksHelper {
     // Backpacks
 
     public static void registerBackpackType(@Nonnull BackpackType backpackType) {
-        Preconditions.checkNotNull(backpackType);
+        Preconditions.checkNotNull(backpackType, "Backpack type cannot be null");
 
         BACKPACK_TYPE_REGISTRY.put(backpackType.getIdentifier(), backpackType);
     }
@@ -72,7 +72,7 @@ public class IronBackpacksHelper {
     // Upgrades
 
     public static void registerUpgrade(@Nonnull BackpackUpgrade backpackUpgrade) {
-        Preconditions.checkNotNull(backpackUpgrade);
+        Preconditions.checkNotNull(backpackUpgrade, "Upgrade cannot be null");
 
         UPGRADE_REGISTRY.put(backpackUpgrade.getIdentifier(), backpackUpgrade);
     }

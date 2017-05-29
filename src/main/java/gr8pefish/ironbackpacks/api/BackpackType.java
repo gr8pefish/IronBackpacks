@@ -18,9 +18,9 @@ public class BackpackType {
     private final boolean hasSpecialties;
 
     public BackpackType(@Nonnull ResourceLocation identifier, @Nonnegative int tier, @Nonnegative int maxPoints, boolean hasSpecialties) {
-        Preconditions.checkNotNull(identifier);
-        Preconditions.checkArgument(tier >= 0);
-        Preconditions.checkArgument(maxPoints >= 0);
+        Preconditions.checkNotNull(identifier, "Identifier cannot be null");
+        Preconditions.checkArgument(tier >= 0, "Tier cannot be negative");
+        Preconditions.checkArgument(maxPoints >= 0, "Max points cannot be negative");
 
         this.identifier = identifier;
         this.tier = tier;

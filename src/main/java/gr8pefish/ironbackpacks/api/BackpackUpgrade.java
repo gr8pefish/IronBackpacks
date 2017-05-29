@@ -20,7 +20,7 @@ public class BackpackUpgrade {
     private final Set<BackpackUpgrade> conflicting;
 
     public BackpackUpgrade(@Nonnull ResourceLocation identifier, int applicationCost, @Nonnegative int minimumTier) {
-        Preconditions.checkNotNull(identifier);
+        Preconditions.checkNotNull(identifier, "Identifier cannot be null");
         Preconditions.checkArgument(minimumTier >= 0, "Minimum tier cannot be negative");
 
         this.applicationCost = applicationCost;

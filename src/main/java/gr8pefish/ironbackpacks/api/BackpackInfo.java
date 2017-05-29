@@ -31,9 +31,9 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     private UUID owner;
 
     private BackpackInfo(@Nonnull BackpackType backpackType, @Nonnull List<BackpackUpgrade> upgrades, @Nonnull BackpackSpecialty specialty, @Nonnull ItemStackHandler stackHandler) {
-        Preconditions.checkNotNull(backpackType);
-        Preconditions.checkNotNull(upgrades);
-        Preconditions.checkNotNull(specialty);
+        Preconditions.checkNotNull(backpackType, "Backpack type cannot be null");
+        Preconditions.checkNotNull(upgrades, "Upgrade list cannot be null");
+        Preconditions.checkNotNull(specialty, "Specialty type cannot be null");
 
         this.backpackType = backpackType;
         this.upgrades = upgrades;
