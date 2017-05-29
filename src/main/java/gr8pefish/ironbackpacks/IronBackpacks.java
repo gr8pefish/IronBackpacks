@@ -26,7 +26,7 @@ public class IronBackpacks {
 	public static final CreativeTabs TAB_IB = new CreativeTabs(MODID) {
 		@Override
 		public ItemStack getTabIconItem() {
-			return IronBackpacksHelper.getStack(ModObjects.IRON_PACK, BackpackSpecialty.STORAGE);
+			return IronBackpacksHelper.getStack(ModObjects.PACK_IRON, BackpackSpecialty.STORAGE);
 		}
 	};
 

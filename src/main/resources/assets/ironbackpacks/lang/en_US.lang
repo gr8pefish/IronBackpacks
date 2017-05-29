@@ -6,10 +6,10 @@ itemGroup.ironbackpacks=Iron Backpacks
 # Items
 
 item.ironbackpacks.backpack.name=Torn Backpack
-item.ironbackpacks.backpack.ironbackpacks.backpack_basic.name=Basic Backpack
-item.ironbackpacks.backpack.ironbackpacks.backpack_iron.name=Iron Backpack
-item.ironbackpacks.backpack.ironbackpacks.backpack_gold.name=Gold Backpack
-item.ironbackpacks.backpack.ironbackpacks.backpack_diamond.name=Diamond Backpack
+item.ironbackpacks.backpack.ironbackpacks.basic.name=Basic Backpack
+item.ironbackpacks.backpack.ironbackpacks.iron.name=Iron Backpack
+item.ironbackpacks.backpack.ironbackpacks.gold.name=Gold Backpack
+item.ironbackpacks.backpack.ironbackpacks.diamond.name=Diamond Backpack
 item.ironbackpacks.upgrade.name=Blank Upgrade
 
 # Tooltips
@@ -18,8 +18,10 @@ tooltip.ironbackpacks.upgrade.minimum_tier=Minimum tier: %d
 tooltip.ironbackpacks.backpack.upgrade.list=Installed upgrades:
 
 # Upgrades
-upgrade.ironbackpacks.upgrade_damage_bar.name=Damage Bar Upgrade
-upgrade.ironbackpacks.upgrade_damage_bar.desc=Adds a damage bar to visually represent how full the backpack is at a glance.
+upgrade.ironbackpacks.damage_bar.name=Damage Bar Upgrade
+upgrade.ironbackpacks.damage_bar.desc=Adds a damage bar to visually represent how full the backpack is at a glance.
+upgrade.ironbackpacks.lock.name=Latch Upgrade
+upgrade.ironbackpacks.lock.desc=Locks everybody but the owner out of the pack.
 
 #######################################
 ################ OLD ##################
