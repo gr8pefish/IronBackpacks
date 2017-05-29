@@ -20,6 +20,7 @@ public class EventHandler {
         if (!upgraded.isEmpty()) {
             event.setOutput(upgraded);
             event.setCost(1);
+            event.setMaterialCost(1);
             return;
         }
 

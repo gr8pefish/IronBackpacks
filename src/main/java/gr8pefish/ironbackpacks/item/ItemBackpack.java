@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
@@ -36,10 +37,20 @@ public class ItemBackpack extends Item implements IBackpack {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-        ItemStack held = playerIn.getHeldItem(handIn);
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack held = player.getHeldItem(hand);
+
+        BackpackInfo info = getBackpackInfo(held);
+        if (info.getOwner() == null) {
+            info.setOwner(player.getGameProfile().getId());
+            updateBackpack(held, info);
+        }
+
+        if (info.hasUpgrade(ModObjects.UPGRADE_LOCK) && !player.getGameProfile().getId().equals(info.getOwner()))
+            return ActionResult.newResult(EnumActionResult.FAIL, held);
+
         IronBackpacks.LOGGER.info("Item tag: " + held.getTagCompound());
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.onItemRightClick(world, player, hand);
     }
 
     @SideOnly(Side.CLIENT)
@@ -67,7 +78,7 @@ public class ItemBackpack extends Item implements IBackpack {
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-        return getBackpackInfo(stack).hasUpgrade(ModObjects.DAMAGE_BAR_UPGADE);
+        return getBackpackInfo(stack).hasUpgrade(ModObjects.UPGRADE_DAMAGE_BAR);
     }
 
     @Override

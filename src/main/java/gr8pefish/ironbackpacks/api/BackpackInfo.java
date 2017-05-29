@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
@@ -14,6 +15,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.UUID;
 
 public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
@@ -25,6 +27,8 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     private BackpackSpecialty specialty;
     @Nonnull
     private ItemStackHandler stackHandler;
+    @Nullable
+    private UUID owner;
 
     private BackpackInfo(@Nonnull BackpackType backpackType, @Nonnull List<BackpackUpgrade> upgrades, @Nonnull BackpackSpecialty specialty, @Nonnull ItemStackHandler stackHandler) {
         Preconditions.checkNotNull(backpackType);
@@ -54,6 +58,16 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     @Nonnull
     public ItemStackHandler getStackHandler() {
         return stackHandler;
+    }
+
+    @Nullable
+    public UUID getOwner() {
+        return owner;
+    }
+
+    public BackpackInfo setOwner(@Nullable UUID owner) {
+        this.owner = owner;
+        return this;
     }
 
     public boolean hasUpgrade(@Nullable BackpackUpgrade backpackUpgrade) {
@@ -111,17 +125,19 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         NBTTagCompound tag = new NBTTagCompound();
 
         // Serialize backpack info
-        tag.setString("backpackType", backpackType.getIdentifier().toString());
-        tag.setString("specialty", specialty.name());
+        tag.setString("type", backpackType.getIdentifier().toString());
+        tag.setString("spec", specialty.name());
+        if (owner != null)
+            tag.setTag("own", NBTUtil.createUUIDTag(owner));
 
         // Serialize upgrades
         NBTTagList installedUpgrades = new NBTTagList();
         for (BackpackUpgrade backpackUpgrade : upgrades)
             installedUpgrades.appendTag(new NBTTagString(backpackUpgrade.getIdentifier().toString()));
-        tag.setTag("installedUpgrades", installedUpgrades);
+        tag.setTag("upgrades", installedUpgrades);
 
         // Serialize inventory
-        tag.setTag("inventory", stackHandler.serializeNBT());
+        tag.setTag("inv", stackHandler.serializeNBT());
 
         return tag;
     }
@@ -129,11 +145,13 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
         // Deserialize backpack info
-        backpackType = IronBackpacksHelper.getBackpackType(new ResourceLocation(nbt.getString("backpackType")));
-        specialty = BackpackSpecialty.getSpecialty(nbt.getString("specialty"));
+        backpackType = IronBackpacksHelper.getBackpackType(new ResourceLocation(nbt.getString("type")));
+        specialty = BackpackSpecialty.getSpecialty(nbt.getString("spec"));
+        if (nbt.hasKey("own"))
+            owner = NBTUtil.getUUIDFromTag(nbt.getCompoundTag("own"));
 
         // Deserialize upgrades
-        NBTTagList installedUpgrades = nbt.getTagList("installedUpgrades", 8);
+        NBTTagList installedUpgrades = nbt.getTagList("upgrades", 8);
         for (int i = 0; i < installedUpgrades.tagCount(); i++) {
             ResourceLocation identifier = new ResourceLocation(installedUpgrades.getStringTagAt(i));
             BackpackUpgrade backpackUpgrade = IronBackpacksHelper.getUpgrade(identifier);
@@ -142,7 +160,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         }
 
         // Deserialize inventory
-        stackHandler.deserializeNBT(nbt.getCompoundTag("inventory"));
+        stackHandler.deserializeNBT(nbt.getCompoundTag("inv"));
     }
 
     @Nonnull
