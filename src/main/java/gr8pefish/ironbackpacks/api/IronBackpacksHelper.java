@@ -57,7 +57,14 @@ public class IronBackpacksHelper {
     public static ItemStack getStack(@Nonnull BackpackType backpackType, @Nonnull BackpackSpecialty backpackSpecialty) {
         ItemStack stack = new ItemStack(BACKPACK_ITEM);
         BackpackInfo backpackInfo = new BackpackInfo(backpackType, backpackSpecialty, new ItemStackHandler());
-        stack.setTagCompound(new NBTTagCompound());
+        return applyPackInfo(stack, backpackInfo);
+    }
+
+    @Nonnull
+    public static ItemStack applyPackInfo(@Nonnull ItemStack stack, @Nonnull BackpackInfo backpackInfo) {
+        if (!stack.hasTagCompound())
+            stack.setTagCompound(new NBTTagCompound());
+
         stack.getTagCompound().setTag("backpackInfo", backpackInfo.serializeNBT());
         return stack;
     }

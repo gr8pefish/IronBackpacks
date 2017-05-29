@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.api;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -97,6 +98,10 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
     public int getMaxPoints() {
         return backpackType.getMaxPoints() + (specialty == BackpackSpecialty.UPGRADE ? 5 : 0);
+    }
+
+    public List<BackpackUpgrade> getApplied() {
+        return ImmutableList.copyOf(upgrades);
     }
 
     // INBTSerializable

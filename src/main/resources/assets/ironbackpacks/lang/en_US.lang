@@ -14,6 +14,8 @@ item.ironbackpacks.upgrade.name=Blank Upgrade
 
 # Tooltips
 tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point(s)
+tooltip.ironbackpacks.upgrade.minimum_tier=Minimum tier: %d
+tooltip.ironbackpacks.backpack.upgrade.list=Installed upgrades:
 
 # Upgrades
 upgrade.ironbackpacks.upgrade_damage_bar.name=Damage Bar Upgrade

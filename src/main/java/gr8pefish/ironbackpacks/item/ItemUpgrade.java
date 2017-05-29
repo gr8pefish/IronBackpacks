@@ -4,6 +4,8 @@ import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.IUpgrade;
 import gr8pefish.ironbackpacks.api.IronBackpacksHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -50,7 +52,12 @@ public class ItemUpgrade extends Item implements IUpgrade {
             return;
 
         tooltip.add(I18n.format("tooltip.ironbackpacks.upgrade.cost", backpackUpgrade.getApplicationCost()));
-        tooltip.add(I18n.format("upgrade.ironbackpacks." + backpackUpgrade.getIdentifier().getResourcePath() + ".desc")); // TODO - cut when too long
+        tooltip.add(I18n.format("tooltip.ironbackpacks.upgrade.minimum_tier", backpackUpgrade.getMinimumTier() + 1));
+        tooltip.add("");
+        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+        List<String> cutDesc = fontRenderer.listFormattedStringToWidth(I18n.format("upgrade.ironbackpacks." + backpackUpgrade.getIdentifier().getResourcePath() + ".desc"), 200);
+        for (String line : cutDesc)
+            tooltip.add(line);
 
         super.addInformation(stack, playerIn, tooltip, advanced);
     }

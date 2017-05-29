@@ -7,5 +7,11 @@ import javax.annotation.Nonnull;
 public interface IBackpack {
 
     @Nonnull
-    BackpackInfo getBackpackInfo(ItemStack stack);
+    default BackpackInfo getBackpackInfo(ItemStack stack) {
+        return BackpackInfo.fromStack(stack);
+    }
+
+    default void updateBackpack(ItemStack stack, BackpackInfo backpackInfo) {
+        IronBackpacksHelper.applyPackInfo(stack, backpackInfo);
+    }
 }

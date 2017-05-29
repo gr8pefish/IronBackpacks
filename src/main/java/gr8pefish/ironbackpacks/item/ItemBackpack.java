@@ -15,8 +15,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
 
-import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.List;
 
@@ -72,7 +72,21 @@ public class ItemBackpack extends Item implements IBackpack {
 
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
-        return 0.5D; // TODO - Reimplement fullness calculation
+        int total = 0;
+        int full = 0;
+
+        BackpackInfo backpackInfo = getBackpackInfo(stack);
+        for (int i = 0; i < backpackInfo.getStackHandler().getSlots(); i++) {
+            ItemStack invStack = backpackInfo.getStackHandler().getStackInSlot(i);
+            if (!invStack.isEmpty()) {
+                full += invStack.getCount();
+                total += invStack.getMaxStackSize();
+            } else {
+                total += 64;
+            }
+        }
+
+        return 1.0D - ((double) full / (double) total);
     }
 
     @SideOnly(Side.CLIENT)
@@ -81,15 +95,15 @@ public class ItemBackpack extends Item implements IBackpack {
         BackpackInfo backpackInfo = getBackpackInfo(stack);
         if (backpackInfo.getBackpackType().hasSpecialties())
             tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.emphasis." + backpackInfo.getSpecialty().getName()));
-        tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.tier", backpackInfo.getBackpackType().getTier()));
+        tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.tier", backpackInfo.getBackpackType().getTier() + 1));
         tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.upgrade.used", backpackInfo.getPointsUsed(), backpackInfo.getMaxPoints()));
-    }
-
-    // IBackpack
-
-    @Nonnull
-    @Override
-    public BackpackInfo getBackpackInfo(ItemStack stack) {
-        return BackpackInfo.fromStack(stack);
+        if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !backpackInfo.getApplied().isEmpty()) {
+         tooltip.add(I18n.format("tooltip.ironbackpacks.shift"));
+        } else if (!backpackInfo.getApplied().isEmpty()){
+            tooltip.add("");
+            tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.upgrade.list", backpackInfo.getPointsUsed(), backpackInfo.getMaxPoints()));
+            for (BackpackUpgrade upgrade : backpackInfo.getApplied())
+                tooltip.add("  - " + I18n.format("upgrade.ironbackpacks." + upgrade.getIdentifier().getResourcePath() + ".name"));
+        }
     }
 }
