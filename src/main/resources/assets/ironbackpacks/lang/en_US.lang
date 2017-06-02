@@ -24,6 +24,12 @@ upgrade.ironbackpacks.damage_bar.desc=Adds a damage bar to visually represent ho
 upgrade.ironbackpacks.lock.name=Latch Upgrade
 upgrade.ironbackpacks.lock.desc=Locks everybody but the owner out of the pack.
 
+# JEI
+# Increase Tier
+jei.ironbackpacks.increaseTier.name=Increase Backpack Tier
+jei.ironbackpacks.increaseTier.desc=To increase the tier of a backpack, simply follow the desired §2crafting recipe§r. You may have to choose between different types of backpacks when upgrading. Choose wisely!
+jei.ironbackpacks.increaseTier.desc2=Note that when upgrading to a new tier you automatically keep all items, upgrades, configurations, etc. present in the previous backpack!
+
 #######################################
 ################ OLD ##################
 #######################################

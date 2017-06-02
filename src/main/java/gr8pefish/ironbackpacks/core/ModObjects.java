@@ -6,6 +6,7 @@ import gr8pefish.ironbackpacks.api.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.BackpackType;
 import gr8pefish.ironbackpacks.api.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.core.recipe.BackpackTierRecipe;
 import gr8pefish.ironbackpacks.item.ItemBackpack;
 import gr8pefish.ironbackpacks.item.ItemUpgrade;
 import net.minecraft.init.Blocks;
@@ -15,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ModObjects {
@@ -34,6 +36,8 @@ public class ModObjects {
     public static final BackpackUpgrade UPGRADE_LOCK = new BackpackUpgrade(new ResourceLocation(IronBackpacks.MODID, "lock"), 1, 0); // TODO - Add texture
 
     public static void preInit() {
+        RecipeSorter.register(IronBackpacks.MODID + ":upgrade", BackpackTierRecipe.class, RecipeSorter.Category.SHAPED, "");
+
         register(BACKPACK_OPEN, "open_backpack");
         register(BACKPACK_CLOSE, "close_backpack");
 
@@ -53,16 +57,16 @@ public class ModObjects {
 
     public static void init() {
         // Backpacks
-        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_BASIC, BackpackSpecialty.NONE), "WLW", "LCL", "WLW", 'W', Blocks.WOOL, 'L', "leather", 'C', "chestWood"));
+        GameRegistry.addRecipe(new BackpackTierRecipe(PACK_BASIC, BackpackSpecialty.NONE, "WLW", "LCL", "WLW", 'W', Blocks.WOOL, 'L', "leather", 'C', "chestWood"));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_IRON, BackpackSpecialty.STORAGE), "ICI", "IBI", "III", 'I', "ingotIron", 'B', IronBackpacksHelper.getStack(PACK_BASIC, BackpackSpecialty.NONE), 'C', "chestWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_IRON, BackpackSpecialty.UPGRADE), "ICI", "IBI", "III", 'I', "ingotIron", 'B', IronBackpacksHelper.getStack(PACK_BASIC, BackpackSpecialty.NONE), 'C', new ItemStack(UPGRADE)));
+        GameRegistry.addRecipe(new BackpackTierRecipe(PACK_IRON, BackpackSpecialty.STORAGE, "ICI", "IBI", "III", 'I', "ingotIron", 'B', IronBackpacksHelper.getStack(PACK_BASIC, BackpackSpecialty.NONE), 'C', "chestWood"));
+        GameRegistry.addRecipe(new BackpackTierRecipe(PACK_IRON, BackpackSpecialty.UPGRADE, "ICI", "IBI", "III", 'I', "ingotIron", 'B', IronBackpacksHelper.getStack(PACK_BASIC, BackpackSpecialty.NONE), 'C', new ItemStack(UPGRADE)));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_GOLD, BackpackSpecialty.STORAGE), "ICI", "IBI", "III", 'I', "ingotGold", 'B', IronBackpacksHelper.getStack(PACK_IRON, BackpackSpecialty.STORAGE), 'C', "chestWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_GOLD, BackpackSpecialty.UPGRADE), "ICI", "IBI", "III", 'I', "ingotGold", 'B', IronBackpacksHelper.getStack(PACK_IRON, BackpackSpecialty.UPGRADE), 'C', new ItemStack(UPGRADE)));
+        GameRegistry.addRecipe(new BackpackTierRecipe(PACK_GOLD, BackpackSpecialty.STORAGE, "ICI", "IBI", "III", 'I', "ingotGold", 'B', IronBackpacksHelper.getStack(PACK_IRON, BackpackSpecialty.STORAGE), 'C', "chestWood"));
+        GameRegistry.addRecipe(new BackpackTierRecipe(PACK_GOLD, BackpackSpecialty.UPGRADE, "ICI", "IBI", "III", 'I', "ingotGold", 'B', IronBackpacksHelper.getStack(PACK_IRON, BackpackSpecialty.UPGRADE), 'C', new ItemStack(UPGRADE)));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_DIAMOND, BackpackSpecialty.STORAGE), "DDD", "CBC", "DDD", 'D', "gemDiamond", 'B', IronBackpacksHelper.getStack(PACK_GOLD, BackpackSpecialty.STORAGE), 'C', "chestWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_DIAMOND, BackpackSpecialty.UPGRADE), "DDD", "CBC", "DDD", 'D', "gemDiamond", 'B', IronBackpacksHelper.getStack(PACK_GOLD, BackpackSpecialty.UPGRADE), 'C', new ItemStack(UPGRADE)));
+        GameRegistry.addRecipe(new BackpackTierRecipe(PACK_DIAMOND, BackpackSpecialty.STORAGE, "DDD", "CBC", "DDD", 'D', "gemDiamond", 'B', IronBackpacksHelper.getStack(PACK_GOLD, BackpackSpecialty.STORAGE), 'C', "chestWood"));
+        GameRegistry.addRecipe(new BackpackTierRecipe(PACK_DIAMOND, BackpackSpecialty.UPGRADE, "DDD", "CBC", "DDD", 'D', "gemDiamond", 'B', IronBackpacksHelper.getStack(PACK_GOLD, BackpackSpecialty.UPGRADE), 'C', new ItemStack(UPGRADE)));
 
         // Upgrades
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(UPGRADE), "SPS", "PWP", "SPS", 'S', "string", 'W', "stickWood", 'P', "paper"));
