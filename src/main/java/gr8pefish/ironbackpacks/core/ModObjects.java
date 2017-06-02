@@ -1,17 +1,21 @@
 package gr8pefish.ironbackpacks.core;
 
+import gr8pefish.ironbackpacks.ConfigHandler;
 import gr8pefish.ironbackpacks.IronBackpacks;
+import gr8pefish.ironbackpacks.api.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.BackpackType;
 import gr8pefish.ironbackpacks.api.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.IronBackpacksHelper;
 import gr8pefish.ironbackpacks.item.ItemBackpack;
 import gr8pefish.ironbackpacks.item.ItemUpgrade;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ModObjects {
 
@@ -41,20 +45,37 @@ public class ModObjects {
         IronBackpacksHelper.registerBackpackType(PACK_GOLD);
         IronBackpacksHelper.registerBackpackType(PACK_DIAMOND);
 
-        IronBackpacksHelper.registerUpgrade(UPGRADE_DAMAGE_BAR);
-        IronBackpacksHelper.registerUpgrade(UPGRADE_LOCK);
+        if (ConfigHandler.upgrades.enableDamageBar)
+            IronBackpacksHelper.registerUpgrade(UPGRADE_DAMAGE_BAR);
+        if (ConfigHandler.upgrades.enablePackLatch)
+            IronBackpacksHelper.registerUpgrade(UPGRADE_LOCK);
+    }
+
+    public static void init() {
+        // Backpacks
+        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_BASIC, BackpackSpecialty.NONE), "WLW", "LCL", "WLW", 'W', Blocks.WOOL, 'L', "leather", 'C', "chestWood"));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_IRON, BackpackSpecialty.STORAGE), "ICI", "IBI", "III", 'I', "ingotIron", 'B', IronBackpacksHelper.getStack(PACK_BASIC, BackpackSpecialty.NONE), 'C', "chestWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_IRON, BackpackSpecialty.UPGRADE), "ICI", "IBI", "III", 'I', "ingotIron", 'B', IronBackpacksHelper.getStack(PACK_BASIC, BackpackSpecialty.NONE), 'C', new ItemStack(UPGRADE)));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_GOLD, BackpackSpecialty.STORAGE), "ICI", "IBI", "III", 'I', "ingotGold", 'B', IronBackpacksHelper.getStack(PACK_IRON, BackpackSpecialty.STORAGE), 'C', "chestWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_GOLD, BackpackSpecialty.UPGRADE), "ICI", "IBI", "III", 'I', "ingotGold", 'B', IronBackpacksHelper.getStack(PACK_IRON, BackpackSpecialty.UPGRADE), 'C', new ItemStack(UPGRADE)));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_DIAMOND, BackpackSpecialty.STORAGE), "DDD", "CBC", "DDD", 'D', "gemDiamond", 'B', IronBackpacksHelper.getStack(PACK_GOLD, BackpackSpecialty.STORAGE), 'C', "chestWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(PACK_DIAMOND, BackpackSpecialty.UPGRADE), "DDD", "CBC", "DDD", 'D', "gemDiamond", 'B', IronBackpacksHelper.getStack(PACK_GOLD, BackpackSpecialty.UPGRADE), 'C', new ItemStack(UPGRADE)));
+
+        // Upgrades
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(UPGRADE), "SPS", "PWP", "SPS", 'S', "string", 'W', "stickWood", 'P', "paper"));
+
+        if (ConfigHandler.upgrades.enableDamageBar)
+            GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(UPGRADE_DAMAGE_BAR), "MSM", "SCS", "MSM", 'M', Items.BOWL, 'S', "string", 'C', new ItemStack(UPGRADE)));
+        if (ConfigHandler.upgrades.enablePackLatch)
+            GameRegistry.addRecipe(new ShapedOreRecipe(IronBackpacksHelper.getStack(UPGRADE_LOCK), "MSM", "SCS", "MSM", 'M', "ingotGold", 'S', "string", 'C', new ItemStack(UPGRADE)));
     }
 
     public static <T extends IForgeRegistryEntry<T>> T register(T type, String name) {
         type.setRegistryName(new ResourceLocation(IronBackpacks.MODID, name));
         GameRegistry.register(type);
-
-        if (type instanceof Item)
-            IronBackpacks.PROXY.handleInventoryModel((Item) type);
-
-        if (type instanceof Block)
-            IronBackpacks.PROXY.handleInventoryModel((Block) type);
-
         return type;
     }
 }

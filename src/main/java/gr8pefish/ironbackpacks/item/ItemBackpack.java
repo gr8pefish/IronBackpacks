@@ -9,10 +9,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.*;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -50,6 +48,7 @@ public class ItemBackpack extends Item implements IBackpack {
             return ActionResult.newResult(EnumActionResult.FAIL, held);
 
         IronBackpacks.LOGGER.info("Item tag: " + held.getTagCompound());
+        world.playSound(player.posX, player.posY, player.posZ, ModObjects.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
         return super.onItemRightClick(world, player, hand);
     }
 
@@ -109,7 +108,7 @@ public class ItemBackpack extends Item implements IBackpack {
         tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.tier", backpackInfo.getBackpackType().getTier() + 1));
         tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.upgrade.used", backpackInfo.getPointsUsed(), backpackInfo.getMaxPoints()));
         if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !backpackInfo.getApplied().isEmpty()) {
-         tooltip.add(I18n.format("tooltip.ironbackpacks.shift"));
+            tooltip.add(TextFormatting.ITALIC + I18n.format("tooltip.ironbackpacks.shift"));
         } else if (!backpackInfo.getApplied().isEmpty()){
             tooltip.add("");
             tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.upgrade.list", backpackInfo.getPointsUsed(), backpackInfo.getMaxPoints()));

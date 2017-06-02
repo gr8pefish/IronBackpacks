@@ -3,9 +3,7 @@ package gr8pefish.ironbackpacks.proxy;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.*;
 import gr8pefish.ironbackpacks.core.ModObjects;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -42,6 +40,8 @@ public class ClientProxy extends CommonProxy {
                 IUpgrade upgrade = (IUpgrade) stack.getItem();
                 BackpackUpgrade backpackUpgrade = upgrade.getUpgrade(stack);
                 ResourceLocation location = new ResourceLocation(backpackUpgrade.getIdentifier().getResourceDomain(), "upgrade/" + backpackUpgrade.getIdentifier().getResourcePath());
+                if (backpackUpgrade.isNull())
+                    location = new ResourceLocation(IronBackpacks.MODID, "upgrade/null");
                 return new ModelResourceLocation(location, "inventory");
             }
             return new ModelResourceLocation(new ResourceLocation(IronBackpacks.MODID, "upgrade/null"), "inventory");
@@ -55,52 +55,5 @@ public class ClientProxy extends CommonProxy {
         }
 
         ModelLoader.registerItemVariants(ModObjects.UPGRADE, new ModelResourceLocation(new ResourceLocation(IronBackpacks.MODID, "upgrade/null"), "inventory"));
-    }
-
-    @Override
-    public void handleInventoryModel(Item item) {
-//        if (!(item instanceof IModeled))
-//            return;
-//
-//        List<String> variants = Lists.newArrayList();
-//        ((IModeled) item).getVariants(variants);
-//        ResourceLocation stateLoc = item.getRegistryName();
-//
-//        if (item instanceof IModeled.Advanced) {
-//            for (String variant : variants)
-//                ModelLoader.registerItemVariants(item, new ModelResourceLocation(stateLoc, variant));
-//
-//            ModelLoader.setCustomMeshDefinition(item, new MeshDefinitionWrapper((IModeled.Advanced) item));
-//            return;
-//        }
-//
-//        for (int i = 0; i < variants.size(); i++)
-//            ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(stateLoc, variants.get(i)));
-    }
-
-    @Override
-    public void handleInventoryModel(Block block) {
-//        Item itemBlock = Item.getItemFromBlock(block);
-//
-//        if (!(block instanceof IModeled)) {
-//            if (itemBlock instanceof IModeled)
-//                handleInventoryModel(itemBlock);
-//
-//            return;
-//        }
-//
-//        List<String> variants = Lists.newArrayList();
-//        ((IModeled) block).getVariants(variants);
-//
-//        if (block instanceof IModeled.Advanced) {
-//            for (String variant : variants)
-//                ModelLoader.registerItemVariants(Item.getItemFromBlock(block), new ModelResourceLocation(block.getRegistryName(), variant));
-//
-//            ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(block), new MeshDefinitionWrapper((IModeled.Advanced) block));
-//            return;
-//        }
-//
-//        for (int i = 0; i < variants.size(); i++)
-//            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), i, new ModelResourceLocation(block.getRegistryName(), variants.get(i)));
     }
 }

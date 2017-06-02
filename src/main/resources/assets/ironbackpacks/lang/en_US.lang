@@ -16,6 +16,7 @@ item.ironbackpacks.upgrade.name=Blank Upgrade
 tooltip.ironbackpacks.upgrade.cost=Costs %d upgrade point(s)
 tooltip.ironbackpacks.upgrade.minimum_tier=Minimum tier: %d
 tooltip.ironbackpacks.backpack.upgrade.list=Installed upgrades:
+tooltip.ironbackpacks.shift=Hold shift for more information
 
 # Upgrades
 upgrade.ironbackpacks.damage_bar.name=Damage Bar Upgrade
@@ -106,7 +107,6 @@ button.ironbackpacks.clear.condenser.tiny.tooltip=Clears the crafting items.
 
 
 # Tooltip
-tooltip.ironbackpacks.shift=Hold shift for more info.
 tooltip.ironbackpacks.uuid=UUID: %s
 tooltip.ironbackpacks.backpack.upgrade.used=%d/%d upgrade points used.
 tooltip.ironbackpacks.backpack.upgrade.used.alt=%d/%d configurable upgrades used.
