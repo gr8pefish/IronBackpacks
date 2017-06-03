@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Set;
 
-public class IronBackpacksHelper {
+public class IronBackpacksAPI {
 
     public static final ResourceLocation NULL = new ResourceLocation("null", "null");
 
@@ -55,6 +55,9 @@ public class IronBackpacksHelper {
 
     @Nonnull
     public static ItemStack getStack(@Nonnull BackpackType backpackType, @Nonnull BackpackSpecialty backpackSpecialty) {
+        Preconditions.checkNotNull(backpackType, "BackpackType cannot be null");
+        Preconditions.checkNotNull(backpackSpecialty, "BackpackSpecialty cannot be null");
+
         ItemStack stack = new ItemStack(BACKPACK_ITEM);
         BackpackInfo backpackInfo = new BackpackInfo(backpackType, backpackSpecialty, new ItemStackHandler());
         return applyPackInfo(stack, backpackInfo);
@@ -62,6 +65,9 @@ public class IronBackpacksHelper {
 
     @Nonnull
     public static ItemStack applyPackInfo(@Nonnull ItemStack stack, @Nonnull BackpackInfo backpackInfo) {
+        Preconditions.checkNotNull(stack, "ItemStack cannot be null");
+        Preconditions.checkNotNull(backpackInfo, "BackpackInfo cannot be null");
+
         if (!stack.hasTagCompound())
             stack.setTagCompound(new NBTTagCompound());
 
@@ -92,6 +98,8 @@ public class IronBackpacksHelper {
 
     @Nonnull
     public static ItemStack getStack(@Nonnull BackpackUpgrade backpackUpgrade) {
+        Preconditions.checkNotNull(backpackUpgrade, "BackpackUpgrade cannot be null");
+
         ItemStack stack = new ItemStack(UPGRADE_ITEM);
         stack.setTagCompound(new NBTTagCompound());
         stack.getTagCompound().setString("upgrade", backpackUpgrade.getIdentifier().toString());

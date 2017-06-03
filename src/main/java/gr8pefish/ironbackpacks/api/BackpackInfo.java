@@ -47,7 +47,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
     private BackpackInfo() {
         //noinspection ConstantConditions - null/null is automatically registered, so we know it's always there.
-        this(IronBackpacksHelper.getBackpackType(IronBackpacksHelper.NULL), Lists.newArrayList(), BackpackSpecialty.NONE, new ItemStackHandler());
+        this(IronBackpacksAPI.getBackpackType(IronBackpacksAPI.NULL), Lists.newArrayList(), BackpackSpecialty.NONE, new ItemStackHandler());
     }
 
     @Nonnull
@@ -145,7 +145,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
         // Deserialize backpack info
-        backpackType = IronBackpacksHelper.getBackpackType(new ResourceLocation(nbt.getString("type")));
+        backpackType = IronBackpacksAPI.getBackpackType(new ResourceLocation(nbt.getString("type")));
         specialty = BackpackSpecialty.getSpecialty(nbt.getString("spec"));
         if (nbt.hasKey("own"))
             owner = NBTUtil.getUUIDFromTag(nbt.getCompoundTag("own"));
@@ -154,7 +154,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         NBTTagList installedUpgrades = nbt.getTagList("upgrades", 8);
         for (int i = 0; i < installedUpgrades.tagCount(); i++) {
             ResourceLocation identifier = new ResourceLocation(installedUpgrades.getStringTagAt(i));
-            BackpackUpgrade backpackUpgrade = IronBackpacksHelper.getUpgrade(identifier);
+            BackpackUpgrade backpackUpgrade = IronBackpacksAPI.getUpgrade(identifier);
             if (!backpackUpgrade.isNull())
                 upgrades.add(backpackUpgrade);
         }
@@ -165,6 +165,8 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
     @Nonnull
     public static BackpackInfo fromStack(@Nonnull ItemStack stack) {
+        Preconditions.checkNotNull(stack, "ItemStack cannot be null");
+
         if (stack.isEmpty() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey("backpackInfo"))
             return new BackpackInfo();
 

@@ -25,7 +25,7 @@ public class ClientProxy extends CommonProxy {
             return new ModelResourceLocation(new ResourceLocation(IronBackpacks.MODID, "backpack/null"), "inventory");
         });
 
-        for (BackpackType backpackType : IronBackpacksHelper.getBackpackTypes()) {
+        for (BackpackType backpackType : IronBackpacksAPI.getBackpackTypes()) {
             if (!backpackType.isNull()) {
                 ResourceLocation location = new ResourceLocation(backpackType.getIdentifier().getResourceDomain(), "backpack/" + backpackType.getIdentifier().getResourcePath());
                 ModelLoader.registerItemVariants(ModObjects.BACKPACK, new ModelResourceLocation(location, "inventory"));
@@ -47,7 +47,7 @@ public class ClientProxy extends CommonProxy {
             return new ModelResourceLocation(new ResourceLocation(IronBackpacks.MODID, "upgrade/null"), "inventory");
         });
 
-        for (BackpackUpgrade backpackUpgrade : IronBackpacksHelper.getUpgrades()) {
+        for (BackpackUpgrade backpackUpgrade : IronBackpacksAPI.getUpgrades()) {
             if (!backpackUpgrade.isNull()) {
                 ResourceLocation location = new ResourceLocation(backpackUpgrade.getIdentifier().getResourceDomain(), "upgrade/" + backpackUpgrade.getIdentifier().getResourcePath());
                 ModelLoader.registerItemVariants(ModObjects.UPGRADE, new ModelResourceLocation(location, "inventory"));

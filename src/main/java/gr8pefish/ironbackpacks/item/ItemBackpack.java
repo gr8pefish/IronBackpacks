@@ -55,21 +55,21 @@ public class ItemBackpack extends Item implements IBackpack {
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-        List<BackpackType> sortedTypes = Lists.newArrayList(IronBackpacksHelper.getBackpackTypes());
+        List<BackpackType> sortedTypes = Lists.newArrayList(IronBackpacksAPI.getBackpackTypes());
         sortedTypes.sort(Comparator.comparingInt(BackpackType::getTier));
 
         for (BackpackType backpackType : sortedTypes) {
-            if (backpackType.getIdentifier().equals(IronBackpacksHelper.NULL))
+            if (backpackType.getIdentifier().equals(IronBackpacksAPI.NULL))
                 continue;
 
             if (!backpackType.hasSpecialties()) {
-                subItems.add(IronBackpacksHelper.getStack(backpackType, BackpackSpecialty.NONE));
+                subItems.add(IronBackpacksAPI.getStack(backpackType, BackpackSpecialty.NONE));
             } else {
                 for (BackpackSpecialty specialty : BackpackSpecialty.values()) {
                     if (specialty == BackpackSpecialty.NONE)
                         continue;
 
-                    subItems.add(IronBackpacksHelper.getStack(backpackType, specialty));
+                    subItems.add(IronBackpacksAPI.getStack(backpackType, specialty));
                 }
             }
         }

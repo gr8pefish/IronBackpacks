@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks;
 
 import gr8pefish.ironbackpacks.api.BackpackSpecialty;
-import gr8pefish.ironbackpacks.api.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.core.ModObjects;
 import gr8pefish.ironbackpacks.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
@@ -26,7 +26,7 @@ public class IronBackpacks {
 	public static final CreativeTabs TAB_IB = new CreativeTabs(MODID) {
 		@Override
 		public ItemStack getTabIconItem() {
-			return IronBackpacksHelper.getStack(ModObjects.PACK_IRON, BackpackSpecialty.STORAGE);
+			return IronBackpacksAPI.getStack(ModObjects.PACK_IRON, BackpackSpecialty.STORAGE);
 		}
 	};
 

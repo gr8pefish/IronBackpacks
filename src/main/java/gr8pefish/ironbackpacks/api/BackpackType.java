@@ -48,7 +48,7 @@ public class BackpackType {
     }
 
     public boolean isNull() {
-        return getIdentifier().equals(IronBackpacksHelper.NULL);
+        return getIdentifier().equals(IronBackpacksAPI.NULL);
     }
 
     @Override

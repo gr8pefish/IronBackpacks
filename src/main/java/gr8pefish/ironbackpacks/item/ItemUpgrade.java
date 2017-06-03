@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.IUpgrade;
-import gr8pefish.ironbackpacks.api.IronBackpacksHelper;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
@@ -45,12 +45,12 @@ public class ItemUpgrade extends Item implements IUpgrade {
     public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
         subItems.add(new ItemStack(itemIn));
 
-        List<BackpackUpgrade> sortedUpgrades = Lists.newArrayList(IronBackpacksHelper.getUpgrades());
+        List<BackpackUpgrade> sortedUpgrades = Lists.newArrayList(IronBackpacksAPI.getUpgrades());
         sortedUpgrades.sort(Comparator.comparingInt(BackpackUpgrade::getMinimumTier));
 
         for (BackpackUpgrade upgrade : sortedUpgrades)
             if (!upgrade.isNull())
-                subItems.add(IronBackpacksHelper.getStack(upgrade));
+                subItems.add(IronBackpacksAPI.getStack(upgrade));
     }
 
     @SideOnly(Side.CLIENT)
@@ -82,8 +82,8 @@ public class ItemUpgrade extends Item implements IUpgrade {
     @Override
     public BackpackUpgrade getUpgrade(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("upgrade"))
-            return IronBackpacksHelper.getUpgrade(new ResourceLocation(stack.getTagCompound().getString("upgrade")));
+            return IronBackpacksAPI.getUpgrade(new ResourceLocation(stack.getTagCompound().getString("upgrade")));
 
-        return IronBackpacksHelper.getUpgrade(IronBackpacksHelper.NULL);
+        return IronBackpacksAPI.getUpgrade(IronBackpacksAPI.NULL);
     }
 }

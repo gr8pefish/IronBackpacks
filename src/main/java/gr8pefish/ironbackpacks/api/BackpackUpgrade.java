@@ -57,17 +57,19 @@ public class BackpackUpgrade {
     }
 
     public boolean isConflicting(@Nullable BackpackUpgrade backpackUpgrade) {
-        return conflicting.contains(backpackUpgrade);
+        return backpackUpgrade == null || !conflicting.contains(backpackUpgrade);
     }
 
     @Nonnull
     public BackpackUpgrade addConflicting(@Nonnull BackpackUpgrade backpackUpgrade) {
+        Preconditions.checkNotNull(backpackUpgrade, "BackpackUpgrade cannot be null");
+
         conflicting.add(backpackUpgrade);
         return this;
     }
 
     public boolean isNull() {
-        return getIdentifier().equals(IronBackpacksHelper.NULL);
+        return getIdentifier().equals(IronBackpacksAPI.NULL);
     }
 
     @Override
