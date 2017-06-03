@@ -1,7 +1,6 @@
 package gr8pefish.ironbackpacks.util;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
+import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.api.IBackpack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -12,6 +11,8 @@ import net.minecraftforge.items.IItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.function.Predicate;
 
 // Because I don't know where else to put things
 public class Utils {
@@ -33,13 +34,14 @@ public class Utils {
      */
     // TODO - Look for equipped backpack when implemented
     @Nonnull
-    public static ActionResult<ItemStack> getBackpack(@Nonnull EntityPlayer player, Predicate<Pair<ItemStack, IBackpack>> requirements) {
+    public static ActionResult<ItemStack> getBackpack(@Nonnull EntityPlayer player, @Nonnull Predicate<Pair<ItemStack, IBackpack>> requirements) {
         IItemHandler itemHandler = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        assert itemHandler != null;
+        if (itemHandler == null)
+            throw new IllegalArgumentException("Player inventory should never be null.");
 
         for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
             ItemStack foundStack = itemHandler.getStackInSlot(slot);
-            if (!foundStack.isEmpty() && foundStack.getItem() instanceof IBackpack && requirements.apply(Pair.of(foundStack, (IBackpack) foundStack.getItem()))) {
+            if (!foundStack.isEmpty() && foundStack.getItem() instanceof IBackpack && requirements.test(Pair.of(foundStack, (IBackpack) foundStack.getItem()))) {
                 EnumActionResult result = slot >= 0 && slot < 9 ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
                 return ActionResult.newResult(result, foundStack);
             }
@@ -56,5 +58,28 @@ public class Utils {
     @Nonnull
     public static ActionResult<ItemStack> getBackpack(@Nonnull EntityPlayer player) {
         return getBackpack(player, Predicates.alwaysTrue());
+    }
+
+    @Nonnull
+    public static List<ActionResult<ItemStack>> getAllBackpacks(@Nonnull EntityPlayer player, @Nonnull Predicate<Pair<ItemStack, IBackpack>> requirements) {
+        IItemHandler itemHandler = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (itemHandler == null)
+            throw new IllegalArgumentException("Player inventory should never be null.");
+
+        List<ActionResult<ItemStack>> backpacks = Lists.newArrayList();
+        for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
+            ItemStack foundStack = itemHandler.getStackInSlot(slot);
+            if (!foundStack.isEmpty() && foundStack.getItem() instanceof IBackpack && requirements.test(Pair.of(foundStack, (IBackpack) foundStack.getItem()))) {
+                EnumActionResult result = slot >= 0 && slot < 9 ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
+                backpacks.add(ActionResult.newResult(result, foundStack));
+            }
+        }
+
+        return backpacks;
+    }
+
+    @Nonnull
+    public static List<ActionResult<ItemStack>> getAllBackpacks(@Nonnull EntityPlayer player) {
+        return getAllBackpacks(player, Predicates.alwaysTrue());
     }
 }
