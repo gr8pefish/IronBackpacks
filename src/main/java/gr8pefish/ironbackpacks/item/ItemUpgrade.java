@@ -13,13 +13,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
-import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.List;
 
@@ -74,16 +72,5 @@ public class ItemUpgrade extends Item implements IUpgrade {
             tooltip.add(line);
 
         super.addInformation(stack, playerIn, tooltip, advanced);
-    }
-
-    // IUpgrade
-
-    @Nonnull
-    @Override
-    public BackpackUpgrade getUpgrade(ItemStack stack) {
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("upgrade"))
-            return IronBackpacksAPI.getUpgrade(new ResourceLocation(stack.getTagCompound().getString("upgrade")));
-
-        return IronBackpacksAPI.getUpgrade(IronBackpacksAPI.NULL);
     }
 }
