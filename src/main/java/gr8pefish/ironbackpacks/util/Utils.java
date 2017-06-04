@@ -25,7 +25,7 @@ public class Utils {
      * <ul>
      *     <li>{@link EnumActionResult#FAIL} - No backpack was found for the player.</li>
      *     <li>{@link EnumActionResult#SUCCESS} - A backpack was found and it was on the hotbar.</li>
-     *     <li>{@link EnumActionResult#PASS} - A backpack was found and it was not on the hotbar..</li>
+     *     <li>{@link EnumActionResult#PASS} - A backpack was found and it was not on the hotbar.</li>
      * </ul>
      *
      * @param player - The player to find a backpack for

@@ -44,6 +44,9 @@ public class EventHandler {
         if (upgrade.isNull() || packInfo.getBackpackType().isNull())
             return ItemStack.EMPTY;
 
+        if (packInfo.conflicts(upgrade))
+            return ItemStack.EMPTY;
+
         if (packInfo.getMaxPoints() - packInfo.getPointsUsed() < upgrade.getApplicationCost())
             return ItemStack.EMPTY;
 

@@ -38,16 +38,22 @@ public class ModObjects {
     public static void preInit() {
         RecipeSorter.register(IronBackpacks.MODID + ":upgrade", BackpackTierRecipe.class, RecipeSorter.Category.SHAPED, "");
 
+        // Game data
+
         register(BACKPACK_OPEN, "open_backpack");
         register(BACKPACK_CLOSE, "close_backpack");
 
         register(BACKPACK, "backpack");
         register(UPGRADE, "upgrade");
 
+        // Backpacks
+
         IronBackpacksAPI.registerBackpackType(PACK_BASIC);
         IronBackpacksAPI.registerBackpackType(PACK_IRON);
         IronBackpacksAPI.registerBackpackType(PACK_GOLD);
         IronBackpacksAPI.registerBackpackType(PACK_DIAMOND);
+
+        // Upgrades
 
         if (ConfigHandler.upgrades.enableDamageBar)
             IronBackpacksAPI.registerUpgrade(UPGRADE_DAMAGE_BAR);

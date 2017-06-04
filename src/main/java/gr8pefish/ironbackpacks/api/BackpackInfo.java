@@ -70,6 +70,17 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         return this;
     }
 
+    public boolean conflicts(@Nullable BackpackUpgrade upgrade) {
+        if (upgrade == null)
+            return false;
+
+        for (BackpackUpgrade installed : upgrades)
+            if (upgrade.isConflicting(installed))
+                return true;
+
+        return false;
+    }
+
     public boolean hasUpgrade(@Nullable BackpackUpgrade backpackUpgrade) {
         return upgrades.contains(backpackUpgrade);
     }
