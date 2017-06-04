@@ -57,7 +57,7 @@ public class BackpackUpgrade {
     }
 
     public boolean isConflicting(@Nullable BackpackUpgrade backpackUpgrade) {
-        return backpackUpgrade == null || !conflicting.contains(backpackUpgrade);
+        return backpackUpgrade == null || conflicting.contains(backpackUpgrade);
     }
 
     @Nonnull
