@@ -218,8 +218,11 @@ public class ContainerBackpack extends Container {
     public void inventoryToBackpack(){
         int start = totalSize;
         int end = start + player.inventory.getSizeInventory() - InventoryPlayer.getHotbarSize() - 5; //(4 for armor, 1 for offhand)
-        for (int i = start; i < end; i++){
-            transferStackInSlot(player, i);
+
+        ItemStack openedPack = IronBackpacksHelper.getBackpack(player); //access once here instead of in the loop
+
+        for (int slot = start; slot < end; slot++){
+            transferSafely(slot, openedPack);
         }
     }
 
@@ -234,15 +237,28 @@ public class ContainerBackpack extends Container {
 
         for (int slot = start; slot < end; slot++){ //for each slot in hotbar
             if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack()) { //non-empty slot
+
                 if (!(getSlot(slot).getStack().getItem() instanceof IBackpack)) { //not a backpack
                     transferStackInSlot(player, slot); //transfer it
                 } else {
-                    ItemStack stack = getSlot(slot).getStack();
-                    if (!ItemStack.areItemStackTagsEqual(stack, openedPack)) { //can't move the same backpack you have open
-                        transferStackInSlot(player, slot);
-                    }
+                    transferSafely(slot, openedPack);
                 }
 
+            }
+        }
+    }
+
+    /**
+     * Helper method to move an item in the player's inventory that doesn't move the currently opened pack.
+     *
+     * @param slot - the slot number to transfer
+     * @param openedPack - the open pack to not move
+     */
+    private void transferSafely(int slot, ItemStack openedPack) {
+        if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack()) { //non-empty slot
+            ItemStack stack = getSlot(slot).getStack();
+            if (!ItemStack.areItemStackTagsEqual(stack, openedPack)) { //can't move the same backpack you have open
+                transferStackInSlot(player, slot);
             }
         }
     }
