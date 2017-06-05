@@ -5,7 +5,7 @@ Additions
 - None
 
 Changes
-- None
+- Darkened border of iron backpack sprite.
 
 Bug Fixes
 - Fix backpack disappearing into itself.
