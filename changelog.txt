@@ -5,6 +5,7 @@ Additions
 - None
 
 Changes
+- Changed default names of backpacks so they fit in gui.
 - Darkened border of iron backpack sprite.
 
 Bug Fixes

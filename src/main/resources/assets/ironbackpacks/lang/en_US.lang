@@ -2,12 +2,12 @@
 
 # Items
 item.ironbackpacks.backpack.basicBackpack.name=Basic Backpack
-item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=Iron Backpack (Storage Emphasis)
-item.ironbackpacks.backpack.ironBackpackUpgradeEmphasis.name=Iron Backpack (Upgrade Emphasis)
-item.ironbackpacks.backpack.goldBackpackStorageEmphasis.name=Gold Backpack (Storage Emphasis)
-item.ironbackpacks.backpack.goldBackpackUpgradeEmphasis.name=Gold Backpack (Upgrade Emphasis)
-item.ironbackpacks.backpack.diamondBackpackStorageEmphasis.name=Diamond Backpack (Storage Emphasis)
-item.ironbackpacks.backpack.diamondBackpackUpgradeEmphasis.name=Diamond Backpack (Upgrade Emphasis)
+item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=Iron Backpack (+Storage)
+item.ironbackpacks.backpack.ironBackpackUpgradeEmphasis.name=Iron Backpack (+Upgrades)
+item.ironbackpacks.backpack.goldBackpackStorageEmphasis.name=Gold Backpack (+Storage)
+item.ironbackpacks.backpack.goldBackpackUpgradeEmphasis.name=Gold Backpack (+Upgrades)
+item.ironbackpacks.backpack.diamondBackpackStorageEmphasis.name=Diamond Backpack (+Storage)
+item.ironbackpacks.backpack.diamondBackpackUpgradeEmphasis.name=Diamond Backpack (+Upgrades)
 
 item.ironbackpacks.upgrade.button.name=Button Upgrade
 item.ironbackpacks.upgrade.nesting.name=Nesting Upgrade
