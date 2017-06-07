@@ -5,6 +5,7 @@ import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabili
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.NBTUtils;
+import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -154,7 +155,8 @@ public class InventoryBackpack implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
-        return true; //handled by BackpackSlot //TODO: fix this?
+        return (IronBackpacksHelper.areItemStacksTheSame(itemStack, backpackStack));
+//        return true; //handled by BackpackSlot //TODO: fix this?
     }
 
     @Override

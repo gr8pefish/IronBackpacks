@@ -30,7 +30,7 @@ import java.util.Collections;
 @SideOnly(Side.CLIENT)
 public class GUIBackpack extends GuiContainer {
 
-    private ContainerBackpack container; //the container
+    public ContainerBackpack container; //the container
     private ItemStack itemStack; //the itemstack backpack
     private ItemBackpack itemBackpack; //the backpack as an items
 

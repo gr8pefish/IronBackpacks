@@ -9,10 +9,14 @@ import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.PlayerSlotNumberMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
@@ -73,6 +77,7 @@ public class ClientEventHandler {
 
     /**
      * Cancel scroll wheel when ghost slot inventory open to deal with InventorySorter.
+     * Also cancel scrolling open backpack into itself
      *
      * @param event - the mouse input event
      */
@@ -108,6 +113,29 @@ public class ClientEventHandler {
                 }
             }
             event.setCanceled(canceled);
+
+        // Cancel if trying to scroll wheel move the open backpack into itself
+        } else if (event.getGui() instanceof GUIBackpack) {
+            int wheelState = Mouse.getEventDWheel();
+            if (wheelState != 0) { //if mouse wheel value here isn't 0, then the mouse wheel was scrolled (-120 for down and 120 for up for me)
+                GUIBackpack gui = (GUIBackpack) event.getGui();
+                if (wheelState != 0) {
+                    int x = Mouse.getEventX() * gui.width / gui.mc.displayWidth;
+                    int y = gui.height - Mouse.getEventY() * gui.height / gui.mc.displayHeight - 1;
+
+                    for (int i = 0; i < 27; i++) {
+                        Slot slot = gui.getSlotUnderMouse();
+                        if (slot != null) {
+                            if ((wheelState / 120) == 1) { //scroll up
+                                if (slot.getHasStack() && IronBackpacksHelper.areItemStacksTheSame(slot.getStack(), gui.container.getInventoryBackpack().getBackpackStack())) { //if moving open backpack
+                                    event.setCanceled(true); //cancel the move
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

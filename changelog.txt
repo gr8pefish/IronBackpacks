@@ -9,6 +9,8 @@ Changes
 
 Bug Fixes
 - Fix backpack disappearing into itself.
+    - Fix via moving from button upgrade via opening via right click
+    - Fix via mouse wheel scrolling
 ------------------------------------------------------
 Version 1.10.2 - 2.2.26
 ------------------------------------------------------
