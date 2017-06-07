@@ -193,10 +193,12 @@ public class ForgeEventHandler {
     public void onItemPickupEvent(EntityItemPickupEvent event) {
         if (!event.isCanceled()) {
             ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
-            boolean doFilter = IronBackpacksEventHelper.checkRestockingUpgradeItemPickup(event, backpacks.get(4)); //doFilter is false if the itemEntity is in the restockerUpgrade's slots and the itemEntity's stackSize < refillSize
-            if (doFilter) {
-                IronBackpacksEventHelper.checkFilterUpgrade(event, backpacks.get(0)); //beware creative testing takes the itemstack still
-            }
+
+            //Any instance in which you need to restock onPickup? I don't think so, but leaving this here just in case I find a case I missed.
+//            boolean doFilter = IronBackpacksEventHelper.checkRestockingUpgradeItemPickup(event, backpacks.get(4)); //doFilter is false if the itemEntity is in the restockerUpgrade's slots and the itemEntity's stackSize < refillSize
+
+            IronBackpacksEventHelper.checkFilterUpgrade(event, backpacks.get(0)); //beware creative testing takes the itemstack still
+
             for (int i = 1; i < 4; i++) {
                 IronBackpacksEventHelper.checkCrafterUpgrade(event, backpacks.get(i), i);//1x1, 2x2, and 3x3 crafters/crafters
             }

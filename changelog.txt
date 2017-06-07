@@ -5,14 +5,15 @@ Additions
 - None
 
 Changes
-- Changed default names of backpacks so they fit in gui.
-- Darkened border of iron backpack sprite.
+- Change default names of backpacks so they fit in gui.
+- Darken border of iron backpack sprite.
 
 Bug Fixes
 - Fix backpack disappearing into itself.
     - Fix via moving from button upgrade via opening via right click
     - Fix via mouse wheel scrolling
     - Fix via using number keys to swap hotbar slots
+- Fix restock triggering onItemPickup causing multiple stack restocks.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.26
 ------------------------------------------------------
