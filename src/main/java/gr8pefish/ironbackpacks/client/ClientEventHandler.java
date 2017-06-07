@@ -76,6 +76,30 @@ public class ClientEventHandler {
     }
 
     /**
+     * Cancel number keys moving a backpack into itself
+     *
+     * @param event - keyboard gui event
+     */
+    @SubscribeEvent
+    public void onGuiKeyboard(GuiScreenEvent.KeyboardInputEvent.Pre event) {
+
+        //fix key numbers to swap ruining things
+        if (event.getGui() instanceof GUIBackpack) {
+            KeyBinding[] hotbarBindings = Minecraft.getMinecraft().gameSettings.keyBindsHotbar;
+            ItemStack openedPack = ((GUIBackpack) event.getGui()).container.getInventoryBackpack().getBackpackStack(); //access once here instead of in the loop
+            for (int i = 0; i < hotbarBindings.length; i++) {
+                if (Keyboard.isKeyDown(hotbarBindings[i].getKeyCode())) { //have to use Keyboard directly, instead of .isPressed()
+                    if (IronBackpacksHelper.areItemStacksTheSame(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i), openedPack)) { //can't move the same backpack you have open
+                        event.setCanceled(true);
+                        return;
+                    }
+                }
+            }
+        }
+
+    }
+
+    /**
      * Cancel scroll wheel when ghost slot inventory open to deal with InventorySorter.
      * Also cancel scrolling open backpack into itself
      *
