@@ -139,7 +139,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         tag.setString("type", backpackType.getIdentifier().toString());
         tag.setString("spec", specialty.name());
         if (owner != null)
-            tag.setTag("own", NBTUtil.createUUIDTag(owner));
+            tag.setString("own", owner.toString());
 
         // Serialize upgrades
         NBTTagList installedUpgrades = new NBTTagList();
@@ -159,7 +159,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         backpackType = IronBackpacksAPI.getBackpackType(new ResourceLocation(nbt.getString("type")));
         specialty = BackpackSpecialty.getSpecialty(nbt.getString("spec"));
         if (nbt.hasKey("own"))
-            owner = NBTUtil.getUUIDFromTag(nbt.getCompoundTag("own"));
+            owner = UUID.fromString(nbt.getString("own"));
 
         // Deserialize upgrades
         NBTTagList installedUpgrades = nbt.getTagList("upgrades", 8);
@@ -178,11 +178,19 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     public static BackpackInfo fromStack(@Nonnull ItemStack stack) {
         Preconditions.checkNotNull(stack, "ItemStack cannot be null");
 
-        if (stack.isEmpty() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey("backpackInfo"))
+        if (stack.isEmpty() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey("packInfo"))
             return new BackpackInfo();
 
+        return fromTag(stack.getTagCompound().getCompoundTag("packInfo"));
+    }
+
+    @Nonnull
+    public static BackpackInfo fromTag(@Nullable NBTTagCompound tag) {
         BackpackInfo backpackInfo = new BackpackInfo();
-        backpackInfo.deserializeNBT(stack.getTagCompound().getCompoundTag("backpackInfo"));
+        if (tag == null || tag.hasNoTags())
+            return backpackInfo;
+
+        backpackInfo.deserializeNBT(tag);
         return backpackInfo;
     }
 }

@@ -71,7 +71,7 @@ public class IronBackpacksAPI {
         if (!stack.hasTagCompound())
             stack.setTagCompound(new NBTTagCompound());
 
-        stack.getTagCompound().setTag("backpackInfo", backpackInfo.serializeNBT());
+        stack.getTagCompound().setTag("packInfo", backpackInfo.serializeNBT());
         return stack;
     }
 

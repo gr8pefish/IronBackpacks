@@ -47,7 +47,10 @@ public class ItemBackpack extends Item implements IBackpack {
         if (info.hasUpgrade(ModObjects.UPGRADE_LOCK) && !player.getGameProfile().getId().equals(info.getOwner()))
             return ActionResult.newResult(EnumActionResult.FAIL, held);
 
-        IronBackpacks.LOGGER.info("Item tag: " + held.getTagCompound());
+        if (held.hasTagCompound()) {
+            String tagString = held.getTagCompound().toString();
+            IronBackpacks.LOGGER.info("Item tag: (" + tagString.getBytes().length + " bytes) " + held.getTagCompound());
+        }
         world.playSound(player.posX, player.posY, player.posZ, ModObjects.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
         return super.onItemRightClick(world, player, hand);
     }
