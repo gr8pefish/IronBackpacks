@@ -2,7 +2,7 @@ package gr8pefish.ironbackpacks;
 
 import gr8pefish.ironbackpacks.api.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.core.ModObjects;
+import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -26,8 +26,8 @@ public class IronBackpacks {
 	public static final CreativeTabs TAB_IB = new CreativeTabs(MODID) {
 		@Override
 		public ItemStack getTabIconItem() {
-			return IronBackpacksAPI.getStack(ModObjects.PACK_IRON, BackpackSpecialty.STORAGE);
-		}
+            return IronBackpacksAPI.getStack(RegistrarIronBackpacks.PACK_IRON, BackpackSpecialty.STORAGE);
+        }
 	};
 
 	@SidedProxy(clientSide = "gr8pefish.ironbackpacks.proxy.ClientProxy", serverSide = "gr8pefish.ironbackpacks.proxy.CommonProxy")

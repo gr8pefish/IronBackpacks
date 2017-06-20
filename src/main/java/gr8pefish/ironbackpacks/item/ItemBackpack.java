@@ -3,7 +3,7 @@ package gr8pefish.ironbackpacks.item;
 import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.*;
-import gr8pefish.ironbackpacks.core.ModObjects;
+import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,14 +44,14 @@ public class ItemBackpack extends Item implements IBackpack {
             updateBackpack(held, info);
         }
 
-        if (info.hasUpgrade(ModObjects.UPGRADE_LOCK) && !player.getGameProfile().getId().equals(info.getOwner()))
+        if (info.hasUpgrade(RegistrarIronBackpacks.UPGRADE_LOCK) && !player.getGameProfile().getId().equals(info.getOwner()))
             return ActionResult.newResult(EnumActionResult.FAIL, held);
 
         if (held.hasTagCompound()) {
             String tagString = held.getTagCompound().toString();
             IronBackpacks.LOGGER.info("Item tag: (" + tagString.getBytes().length + " bytes) " + held.getTagCompound());
         }
-        world.playSound(player.posX, player.posY, player.posZ, ModObjects.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
+        world.playSound(player.posX, player.posY, player.posZ, RegistrarIronBackpacks.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
         return super.onItemRightClick(world, player, hand);
     }
 
@@ -80,7 +80,7 @@ public class ItemBackpack extends Item implements IBackpack {
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-        return getBackpackInfo(stack).hasUpgrade(ModObjects.UPGRADE_DAMAGE_BAR);
+        return getBackpackInfo(stack).hasUpgrade(RegistrarIronBackpacks.UPGRADE_DAMAGE_BAR);
     }
 
     @Override

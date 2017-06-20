@@ -1,6 +1,6 @@
 package gr8pefish.ironbackpacks.integration.jei;
 
-import gr8pefish.ironbackpacks.core.ModObjects;
+import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.integration.jei.recipe.upgrade.RecipeCategoryTier;
 import gr8pefish.ironbackpacks.integration.jei.recipe.upgrade.RecipeHandlerTier;
 import mezz.jei.api.*;
@@ -34,8 +34,8 @@ public class IronBackpacksJEIPlugin extends BlankModPlugin {
     @Override
     public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
         subtypeRegistry.useNbtForSubtypes(
-                ModObjects.BACKPACK,
-                ModObjects.UPGRADE
+                RegistrarIronBackpacks.BACKPACK,
+                RegistrarIronBackpacks.UPGRADE
         );
     }
 

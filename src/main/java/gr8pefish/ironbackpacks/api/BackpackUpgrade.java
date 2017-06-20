@@ -6,13 +6,14 @@ import com.google.common.collect.Sets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Set;
 
-public class BackpackUpgrade {
+public class BackpackUpgrade extends IForgeRegistryEntry.Impl<BackpackUpgrade> {
 
     private final ResourceLocation identifier;
     private final int applicationCost;
@@ -27,6 +28,8 @@ public class BackpackUpgrade {
         this.minimumTier = minimumTier;
         this.identifier = identifier;
         this.conflicting = Sets.newHashSet();
+
+        setRegistryName(identifier);
     }
 
     /**

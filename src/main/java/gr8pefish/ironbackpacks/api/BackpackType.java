@@ -3,11 +3,12 @@ package gr8pefish.ironbackpacks.api;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-public class BackpackType {
+public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
 
     @Nonnull
     private final ResourceLocation identifier;
@@ -26,6 +27,8 @@ public class BackpackType {
         this.tier = tier;
         this.maxPoints = maxPoints;
         this.hasSpecialties = hasSpecialties;
+
+        setRegistryName(identifier);
     }
 
     @Nonnull
