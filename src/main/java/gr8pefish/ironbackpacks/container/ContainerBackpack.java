@@ -16,8 +16,6 @@ public class ContainerBackpack extends Container {
 
     //The backpack's inventory (ToDo: Need IBackpack for BackpackInfo too maybe?)
     private final InventoryBackpack inventoryBackpack;
-    //Temporary variable for total size of the backpack for shift clicking (ToDo: get dynamically)
-    private final int totalSize = 18;
 
     public ContainerBackpack(InventoryPlayer playerInv, InventoryBackpack inventoryBackpack) {
         int i;
@@ -53,26 +51,26 @@ public class ContainerBackpack extends Container {
     //Mostly copied from IronChests
     @Nonnull
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer p, int i){
-        ItemStack itemstack = null;
-        Slot slot = (Slot) inventorySlots.get(i);
-        if (slot != null && slot.getHasStack()){
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
-            if (i < totalSize) { //if clicking from backpack to player
-                if (!mergeItemStack(itemstack1, totalSize, inventorySlots.size(), true))
-                    return null;
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
+        ItemStack stack = ItemStack.EMPTY;
+        Slot slot = inventorySlots.get(slotIndex);
+        if (slot != null && slot.getHasStack()) {
+            ItemStack slotStack = slot.getStack();
+            stack = slotStack.copy();
+            if (slotIndex < inventoryBackpack.getSlots()) { //if clicking from backpack to player
+                if (!mergeItemStack(slotStack, inventoryBackpack.getSlots(), inventorySlots.size(), true))
+                    return ItemStack.EMPTY;
             }
-//            else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemstack1)) //ToDo: Fix
+//            else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(slotStack)) //ToDo: Fix
 //                return null;
-            else if (!mergeItemStack(itemstack1, 0, totalSize, false))
-                return null;
-            if (itemstack1.getCount() == 0)
+            else if (!mergeItemStack(slotStack, 0, inventoryBackpack.getSlots(), false))
+                return ItemStack.EMPTY;
+            if (slotStack.isEmpty())
                 slot.putStack(ItemStack.EMPTY);
             else
                 slot.onSlotChanged();
         }
-        return itemstack;
+        return stack;
     }
 
     @Override
