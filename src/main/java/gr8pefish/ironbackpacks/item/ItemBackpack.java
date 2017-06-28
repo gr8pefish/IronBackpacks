@@ -7,19 +7,34 @@ import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.*;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import org.lwjgl.input.Keyboard;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
 
 public class ItemBackpack extends Item implements IBackpack {
+
+    public static final int GUI_ID = 0; //ToDo: Where to move this?
 
     public ItemBackpack() {
         setUnlocalizedName(IronBackpacks.MODID + ".backpack");
@@ -32,6 +47,39 @@ public class ItemBackpack extends Item implements IBackpack {
     public String getUnlocalizedName(ItemStack stack) {
         BackpackInfo backpackInfo = getBackpackInfo(stack);
         return super.getUnlocalizedName(stack) + "." + backpackInfo.getBackpackType().getIdentifier().toString().replace(":", ".");
+    }
+
+    @Nonnull
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound oldCapNbt) {
+        return new InvProvider();
+    }
+
+    private static class InvProvider implements ICapabilitySerializable<NBTBase> {
+
+        private final IItemHandler inv = new ItemStackHandler(18); //ToDo: Hardcoded size here, definitely needs to change
+
+        @Override
+        public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+            return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
+        }
+
+        @Override
+        public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+            if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+                return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inv);
+            else return null;
+        }
+
+        @Override
+        public NBTBase serializeNBT() {
+            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.writeNBT(inv, null);
+        }
+
+        @Override
+        public void deserializeNBT(NBTBase nbt) {
+            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(inv, null, nbt);
+        }
     }
 
     @Override
@@ -52,6 +100,9 @@ public class ItemBackpack extends Item implements IBackpack {
             IronBackpacks.LOGGER.info("Item tag: (" + tagString.getBytes().length + " bytes) " + held.getTagCompound());
         }
         world.playSound(player.posX, player.posY, player.posZ, RegistrarIronBackpacks.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
+
+        player.openGui(IronBackpacks.INSTANCE, GUI_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
+
         return super.onItemRightClick(world, player, hand);
     }
 
