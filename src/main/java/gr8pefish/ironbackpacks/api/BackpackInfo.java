@@ -7,9 +7,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -30,7 +30,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     @Nullable
     private UUID owner;
 
-    private BackpackInfo(@Nonnull BackpackType backpackType, @Nonnull List<BackpackUpgrade> upgrades, @Nonnull BackpackSpecialty specialty, @Nonnull ItemStackHandler stackHandler) {
+    private BackpackInfo(@Nonnull BackpackType backpackType, @Nonnull List<BackpackUpgrade> upgrades, @Nonnull BackpackSpecialty specialty) {
         Preconditions.checkNotNull(backpackType, "Backpack type cannot be null");
         Preconditions.checkNotNull(upgrades, "Upgrade list cannot be null");
         Preconditions.checkNotNull(specialty, "Specialty type cannot be null");
@@ -38,16 +38,15 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         this.backpackType = backpackType;
         this.upgrades = upgrades;
         this.specialty = specialty;
-        this.stackHandler = stackHandler;
     }
 
-    public BackpackInfo(@Nonnull BackpackType backpackType, @Nonnull BackpackSpecialty specialty, @Nonnull ItemStackHandler stackHandler) {
-        this(backpackType, Lists.newArrayList(), specialty, stackHandler);
+    public BackpackInfo(@Nonnull BackpackType backpackType, @Nonnull BackpackSpecialty specialty) {
+        this(backpackType, Lists.newArrayList(), specialty);
     }
 
     private BackpackInfo() {
         //noinspection ConstantConditions - null/null is automatically registered, so we know it's always there.
-        this(IronBackpacksAPI.getBackpackType(IronBackpacksAPI.NULL), Lists.newArrayList(), BackpackSpecialty.NONE, new ItemStackHandler());
+        this(IronBackpacksAPI.getBackpackType(IronBackpacksAPI.NULL), Lists.newArrayList(), BackpackSpecialty.NONE);
     }
 
     @Nonnull
@@ -58,6 +57,11 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     @Nonnull
     public ItemStackHandler getStackHandler() {
         return stackHandler;
+    }
+
+    public BackpackInfo setStackHandler(@Nonnull ItemStackHandler stackHandler) {
+        this.stackHandler = stackHandler;
+        return this;
     }
 
     @Nullable
@@ -147,9 +151,6 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
             installedUpgrades.appendTag(new NBTTagString(backpackUpgrade.getIdentifier().toString()));
         tag.setTag("upgrades", installedUpgrades);
 
-        // Serialize inventory
-        tag.setTag("inv", stackHandler.serializeNBT());
-
         return tag;
     }
 
@@ -169,9 +170,6 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
             if (!backpackUpgrade.isNull())
                 upgrades.add(backpackUpgrade);
         }
-
-        // Deserialize inventory
-        stackHandler.deserializeNBT(nbt.getCompoundTag("inv"));
     }
 
     @Nonnull
@@ -181,7 +179,8 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         if (stack.isEmpty() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey("packInfo"))
             return new BackpackInfo();
 
-        return fromTag(stack.getTagCompound().getCompoundTag("packInfo"));
+        BackpackInfo tagged = fromTag(stack.getTagCompound().getCompoundTag("packInfo"));
+        return tagged.setStackHandler((ItemStackHandler) stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
     }
 
     @Nonnull

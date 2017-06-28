@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
-import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,7 +47,7 @@ public class IronBackpacksAPI {
         Preconditions.checkNotNull(backpackSpecialty, "BackpackSpecialty cannot be null");
 
         ItemStack stack = new ItemStack(BACKPACK_ITEM);
-        BackpackInfo backpackInfo = new BackpackInfo(backpackType, backpackSpecialty, new ItemStackHandler());
+        BackpackInfo backpackInfo = new BackpackInfo(backpackType, backpackSpecialty);
         return applyPackInfo(stack, backpackInfo);
     }
 
