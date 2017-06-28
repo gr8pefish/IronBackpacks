@@ -46,7 +46,6 @@ public class IronBackpacks {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 	    PROXY.init(event);
-		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler()); //ToDo: Move somewhere else?
 	}
 
 	@Mod.EventHandler

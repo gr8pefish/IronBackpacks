@@ -22,9 +22,8 @@ public class GuiBackpack extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRenderer;
-        fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
-        fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 96 - 14, 4210752);
+        this.fontRenderer.drawString(name, xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);
+        this.fontRenderer.drawString(I18n.format("container.inventory"), 8, ySize - 96 - 14, 4210752);
     }
 
     @Override

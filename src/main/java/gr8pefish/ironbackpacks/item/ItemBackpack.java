@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.*;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
+import gr8pefish.ironbackpacks.network.GuiHandler;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,8 +34,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ItemBackpack extends Item implements IBackpack {
-
-    public static final int GUI_ID = 0; //ToDo: Where to move this?
 
     public ItemBackpack() {
         setUnlocalizedName(IronBackpacks.MODID + ".backpack");
@@ -101,7 +100,7 @@ public class ItemBackpack extends Item implements IBackpack {
         }
         world.playSound(player.posX, player.posY, player.posZ, RegistrarIronBackpacks.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
 
-        player.openGui(IronBackpacks.INSTANCE, GUI_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
+        player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_BACKPACK_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
 
         return super.onItemRightClick(world, player, hand);
     }
