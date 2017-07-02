@@ -54,41 +54,7 @@ public class ItemBackpack extends Item implements IBackpack {
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound oldCapNbt) {
         return new BackpackInvImpl.Provider();
     }
-//
-//    public static class InvProvider implements ICapabilitySerializable<NBTBase> {
-//
-//        private IItemHandler inv; //Use IItemHandlerModifiiable?
-//
-//        public InvProvider(ItemStack stack) {
-//            BackpackInfo info = BackpackInfo.fromStack(stack); //ToDo: Need to register variants earlier, or access them differently
-//            System.out.println(info); //filled with useless data (type and stack handler are NULL, and specialty is NONE)
-//            inv = new ItemStackHandler(info.getMaxPoints());
-//        }
-//
-////        private final IItemHandler inv = new ItemStackHandler(18); //ToDo: Hardcoded size here, definitely needs to change
-//
-//        @Override
-//        public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-//            return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
-//        }
-//
-//        @Override
-//        public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-//            if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-//                return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inv);
-//            else return null;
-//        }
-//
-//        @Override
-//        public NBTBase serializeNBT() {
-//            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.writeNBT(inv, null);
-//        }
-//
-//        @Override
-//        public void deserializeNBT(NBTBase nbt) {
-//            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(inv, null, nbt);
-//        }
-//    }
+
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {

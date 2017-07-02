@@ -55,7 +55,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
     @Nonnull
     public IItemHandler getStackHandler() {
-        return stackHandler.getInventory(specialty);
+        return stackHandler.getInventory(BackpackVariant.getVariant(specialty, backpackType));
     }
 
     public BackpackInfo setStackHandler(@Nonnull IBackpackProvider stackHandler) {
@@ -132,6 +132,11 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         return ImmutableList.copyOf(upgrades);
     }
 
+    @Nonnull
+    public BackpackVariant getVariant() {
+        return BackpackVariant.getVariant(this);
+    }
+
     // INBTSerializable
 
     @Override
@@ -195,9 +200,9 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
     @Override
     public String toString() {
-        String strType = backpackType.isNull() ? "NULL" : backpackType.toString();
-        String specType = specialty == null ? "NULL" : specialty.toString();
-        String stackType = stackHandler == null ? "NULL" : stackHandler.toString();
+        String strType = backpackType.isNull() ? "NONE" : backpackType.toString();
+        String specType = specialty == null ? "NONE" : specialty.toString();
+        String stackType = stackHandler == null ? "NONE" : stackHandler.toString();
         return "TYPE: " + strType + " --- SPECIALTY: " + specType + " --- STACK HANDLER: " + stackType;
     }
 

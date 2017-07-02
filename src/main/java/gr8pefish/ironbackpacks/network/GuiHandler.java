@@ -26,7 +26,7 @@ public class GuiHandler implements IGuiHandler {
 //                return new AlchBagContainer(player.inventory, hand, inventory);
 //            }
                 ItemStack stack = player.getHeldItem(hand);
-                IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getSpecialty());
+                IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
                 return new BackpackContainer(player.inventory, hand, inventory); //ToDo: Helper method (not necessarily held item)
         }
 
@@ -44,7 +44,7 @@ public class GuiHandler implements IGuiHandler {
 //                return new GUIAlchChest(player.inventory, hand, inventory);
 //            }
                 ItemStack stack = player.getHeldItem(hand);
-                IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getSpecialty());
+                IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
                 return new GuiBackpack(player.inventory, hand, inventory); //ToDo: Helper method (not necessarily held item)
 //                return new GuiBackpack(player.inventory, new InventoryBackpack(player.getHeldItem(hand)));
         }

@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.capabilities;
 
 import gr8pefish.ironbackpacks.api.BackpackSpecialty;
+import gr8pefish.ironbackpacks.api.BackpackVariant;
 import gr8pefish.ironbackpacks.api.IBackpackProvider;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.nbt.NBTBase;
@@ -43,18 +44,18 @@ public final class BackpackInvImpl
 
     private static class DefaultImpl implements IBackpackProvider
     {
-        private final Map<BackpackSpecialty, IItemHandler> inventories = new EnumMap<>(BackpackSpecialty.class);
+        private final Map<BackpackVariant, IItemHandler> inventories = new EnumMap<>(BackpackVariant.class);
 
         @Nonnull
         @Override
-        public IItemHandler getInventory(@Nonnull BackpackSpecialty specialty)
+        public IItemHandler getInventory(@Nonnull BackpackVariant variant)
         {
-            if (!inventories.containsKey(specialty))
+            if (!inventories.containsKey(variant))
             {
-                inventories.put(specialty, new ItemStackHandler(BackpackSpecialty.getSize(specialty)));
+                inventories.put(variant, new ItemStackHandler(BackpackVariant.getSize(variant)));
             }
 
-            return inventories.get(specialty);
+            return inventories.get(variant);
         }
 
 //        @Override
@@ -63,11 +64,11 @@ public final class BackpackInvImpl
 //            PacketHandler.sendTo(new SyncBagDataPKT(writeNBT(color)), player);
 //        }
 
-        private NBTTagCompound writeNBT(BackpackSpecialty color)
+        private NBTTagCompound writeNBT(BackpackVariant color)
         {
             NBTTagCompound ret = new NBTTagCompound();
-            BackpackSpecialty[] colors = color == null ? BackpackSpecialty.values() : new BackpackSpecialty[] { color };
-            for (BackpackSpecialty c : colors)
+            BackpackVariant[] colors = color == null ? BackpackVariant.values() : new BackpackVariant[] { color };
+            for (BackpackVariant c : colors)
             {
                 if (inventories.containsKey(c))
                 {
@@ -88,11 +89,11 @@ public final class BackpackInvImpl
         @Override
         public void deserializeNBT(NBTTagCompound nbt)
         {
-            for (BackpackSpecialty e : BackpackSpecialty.values())
+            for (BackpackVariant e : BackpackVariant.values())
             {
                 if (nbt.hasKey(e.getName()))
                 {
-                    IItemHandler inv = new ItemStackHandler(BackpackSpecialty.getSize(e));
+                    IItemHandler inv = new ItemStackHandler(BackpackVariant.getSize(e));
                     CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage()
                             .readNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv, null, nbt.getTag(e.getName()));
                     inventories.put(e, inv);

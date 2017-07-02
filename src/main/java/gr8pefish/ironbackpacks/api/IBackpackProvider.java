@@ -13,11 +13,11 @@ public interface IBackpackProvider extends INBTSerializable<NBTTagCompound> {
 
     /**
      * Note: modifying this clientside is not advised
-     * @param stack The stack of the backpack //TODO: Change to BackpackInfo?
+     * @param variant The backpack variant, can use helpers to access
      * @return The inventory representing this backpack
      */
     @Nonnull
-    IItemHandler getInventory(@Nonnull BackpackSpecialty specialty);
+    IItemHandler getInventory(@Nonnull BackpackVariant variant);
 
 //    /**
 //     * Syncs the bag inventory associated with this color to the player provided (usually the owner of this capability instance)

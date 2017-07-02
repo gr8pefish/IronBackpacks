@@ -17,8 +17,18 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
     @Nonnegative
     private final int maxPoints;
     private final boolean hasSpecialties;
+    @Nonnull
+    private final BackpackTypesEnum type;
 
-    public BackpackType(@Nonnull ResourceLocation identifier, @Nonnegative int tier, @Nonnegative int maxPoints, boolean hasSpecialties) {
+    public enum BackpackTypesEnum {
+        NONE,
+        BASIC,
+        IRON,
+        GOLD,
+        DIAMOND
+    }
+
+    public BackpackType(@Nonnull ResourceLocation identifier, @Nonnegative int tier, @Nonnegative int maxPoints, boolean hasSpecialties, BackpackTypesEnum type) {
         Preconditions.checkNotNull(identifier, "Identifier cannot be null");
         Preconditions.checkArgument(tier >= 0, "Tier cannot be negative");
         Preconditions.checkArgument(maxPoints >= 0, "Max points cannot be negative");
@@ -27,6 +37,7 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
         this.tier = tier;
         this.maxPoints = maxPoints;
         this.hasSpecialties = hasSpecialties;
+        this.type = type;
 
         setRegistryName(identifier);
     }
@@ -48,6 +59,11 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
 
     public boolean hasSpecialties() {
         return hasSpecialties;
+    }
+
+    @Nonnull
+    public BackpackTypesEnum getTypeEnum() {
+        return type;
     }
 
     public boolean isNull() {

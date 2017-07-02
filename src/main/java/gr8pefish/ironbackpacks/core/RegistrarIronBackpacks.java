@@ -72,12 +72,12 @@ public class RegistrarIronBackpacks {
 
     @SubscribeEvent
     public static void registerBackpacks(RegistryEvent.Register<BackpackType> event) {
-        event.getRegistry().register(new BackpackType(IronBackpacksAPI.NULL, 0, 0, false));
+        event.getRegistry().register(new BackpackType(IronBackpacksAPI.NULL, 0, 0, false, BackpackType.BackpackTypesEnum.NONE));
 
-        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "basic"), 0, 4, false));
-        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "iron"), 1, 7, true));
-        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "gold"), 2, 12, true));
-        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "diamond"), 3, 18, true));
+        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "basic"), 0, 4, false, BackpackType.BackpackTypesEnum.BASIC));
+        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "iron"), 1, 7, true, BackpackType.BackpackTypesEnum.IRON));
+        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "gold"), 2, 12, true, BackpackType.BackpackTypesEnum.GOLD));
+        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "diamond"), 3, 18, true, BackpackType.BackpackTypesEnum.DIAMOND));
     }
 
     @SubscribeEvent
