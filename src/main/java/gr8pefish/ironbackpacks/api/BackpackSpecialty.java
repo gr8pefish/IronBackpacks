@@ -22,4 +22,17 @@ public enum BackpackSpecialty implements IStringSerializable {
 
         return NONE;
     }
+
+    public static int getSize(BackpackSpecialty specialty) {
+        if (specialty == BackpackSpecialty.NONE) {
+            return 9;
+        } else if (specialty == BackpackSpecialty.UPGRADE) {
+            return 18;
+        } else if (specialty == BackpackSpecialty.STORAGE) {
+            return 27;
+        } else {
+            return -1;
+        }
+    }
+
 }

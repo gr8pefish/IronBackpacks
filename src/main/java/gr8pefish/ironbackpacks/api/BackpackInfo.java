@@ -9,8 +9,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,7 +25,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     @Nonnull
     private BackpackSpecialty specialty;
     @Nonnull
-    private ItemStackHandler stackHandler;
+    private IBackpackProvider stackHandler;
     @Nullable
     private UUID owner;
 
@@ -55,11 +54,11 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     }
 
     @Nonnull
-    public ItemStackHandler getStackHandler() {
-        return stackHandler;
+    public IItemHandler getStackHandler() {
+        return stackHandler.getInventory(specialty);
     }
 
-    public BackpackInfo setStackHandler(@Nonnull ItemStackHandler stackHandler) {
+    public BackpackInfo setStackHandler(@Nonnull IBackpackProvider stackHandler) {
         this.stackHandler = stackHandler;
         return this;
     }
@@ -180,7 +179,8 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
             return new BackpackInfo();
 
         BackpackInfo tagged = fromTag(stack.getTagCompound().getCompoundTag("packInfo"));
-        return tagged.setStackHandler((ItemStackHandler) stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
+//        System.out.println("HAS CAP:" + stack.hasCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null));
+        return tagged.setStackHandler(stack.getCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null));
     }
 
     @Nonnull

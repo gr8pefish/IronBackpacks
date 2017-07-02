@@ -6,6 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 
@@ -14,6 +16,13 @@ import javax.annotation.Nullable;
 import java.util.Set;
 
 public class IronBackpacksAPI {
+
+
+    /**
+     * The capability object for IBackpackProvider
+     */
+    @CapabilityInject(IBackpackProvider.class)
+    public static final Capability<IBackpackProvider> BACKPACK_INV_CAPABILITY = null;
 
     public static final ResourceLocation NULL = new ResourceLocation("ironbackpacks", "null");
 

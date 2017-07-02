@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.item;
 import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.*;
+import gr8pefish.ironbackpacks.capabilities.BackpackInvImpl;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.network.GuiHandler;
 import net.minecraft.client.resources.I18n;
@@ -51,43 +52,43 @@ public class ItemBackpack extends Item implements IBackpack {
     @Nonnull
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound oldCapNbt) {
-        return new InvProvider(stack);
+        return new BackpackInvImpl.Provider();
     }
-
-    public static class InvProvider implements ICapabilitySerializable<NBTBase> {
-
-        private IItemHandler inv; //Use IItemHandlerModifiiable?
-
-        public InvProvider(ItemStack stack) {
-            BackpackInfo info = BackpackInfo.fromStack(stack); //ToDo: Need to register variants earlier, or access them differently
-            System.out.println(info); //filled with useless data (type and stack handler are NULL, and specialty is NONE)
-            inv = new ItemStackHandler(info.getMaxPoints());
-        }
-
-//        private final IItemHandler inv = new ItemStackHandler(18); //ToDo: Hardcoded size here, definitely needs to change
-
-        @Override
-        public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-            return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
-        }
-
-        @Override
-        public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-            if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-                return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inv);
-            else return null;
-        }
-
-        @Override
-        public NBTBase serializeNBT() {
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.writeNBT(inv, null);
-        }
-
-        @Override
-        public void deserializeNBT(NBTBase nbt) {
-            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(inv, null, nbt);
-        }
-    }
+//
+//    public static class InvProvider implements ICapabilitySerializable<NBTBase> {
+//
+//        private IItemHandler inv; //Use IItemHandlerModifiiable?
+//
+//        public InvProvider(ItemStack stack) {
+//            BackpackInfo info = BackpackInfo.fromStack(stack); //ToDo: Need to register variants earlier, or access them differently
+//            System.out.println(info); //filled with useless data (type and stack handler are NULL, and specialty is NONE)
+//            inv = new ItemStackHandler(info.getMaxPoints());
+//        }
+//
+////        private final IItemHandler inv = new ItemStackHandler(18); //ToDo: Hardcoded size here, definitely needs to change
+//
+//        @Override
+//        public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+//            return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
+//        }
+//
+//        @Override
+//        public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+//            if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+//                return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inv);
+//            else return null;
+//        }
+//
+//        @Override
+//        public NBTBase serializeNBT() {
+//            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.writeNBT(inv, null);
+//        }
+//
+//        @Override
+//        public void deserializeNBT(NBTBase nbt) {
+//            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(inv, null, nbt);
+//        }
+//    }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
@@ -108,7 +109,8 @@ public class ItemBackpack extends Item implements IBackpack {
         }
         world.playSound(player.posX, player.posY, player.posZ, RegistrarIronBackpacks.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
 
-        player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_BACKPACK_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
+        if (!world.isRemote)
+            player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_BACKPACK_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
 
         return super.onItemRightClick(world, player, hand);
     }

@@ -7,7 +7,10 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 //*WIP* Class for normal GUI of backpack inventories (lots of hardcoding)
 public class GuiBackpack extends GuiContainer {
@@ -15,9 +18,9 @@ public class GuiBackpack extends GuiContainer {
     private static final ResourceLocation texture = new ResourceLocation(IronBackpacks.MODID, "textures/guis/backpacks/2RowsOf9.png"); //ToDo: Hardcoded
     public static String name;
 
-    public GuiBackpack(InventoryPlayer playerInv, InventoryBackpack inventoryBackpack) {
-        super(new ContainerBackpack(playerInv, inventoryBackpack));
-        name = inventoryBackpack.getBackpackStack().getDisplayName();
+    public GuiBackpack(InventoryPlayer playerInv, EnumHand hand, IItemHandlerModifiable inventoryBackpack) {
+        super(new BackpackContainer(playerInv, hand, inventoryBackpack));
+        name = playerInv.getCurrentItem().getDisplayName(); //TODO; Will break
     }
 
     @Override

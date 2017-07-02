@@ -60,5 +60,12 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
         return columns * rows;
     }
 
+    public enum SIZE {
+        BASIC,
+        IRON,
+        GOLD,
+        DIAMOND;
+    }
+
 
 }
