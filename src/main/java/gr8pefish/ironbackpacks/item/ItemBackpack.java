@@ -51,12 +51,20 @@ public class ItemBackpack extends Item implements IBackpack {
     @Nonnull
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound oldCapNbt) {
-        return new InvProvider();
+        return new InvProvider(stack);
     }
 
-    private static class InvProvider implements ICapabilitySerializable<NBTBase> {
+    public static class InvProvider implements ICapabilitySerializable<NBTBase> {
 
-        private final IItemHandler inv = new ItemStackHandler(18); //ToDo: Hardcoded size here, definitely needs to change
+        private IItemHandler inv; //Use IItemHandlerModifiiable?
+
+        public InvProvider(ItemStack stack) {
+            BackpackInfo info = BackpackInfo.fromStack(stack); //ToDo: Need to register variants earlier, or access them differently
+            System.out.println(info); //filled with useless data (type and stack handler are NULL, and specialty is NONE)
+            inv = new ItemStackHandler(info.getMaxPoints());
+        }
+
+//        private final IItemHandler inv = new ItemStackHandler(18); //ToDo: Hardcoded size here, definitely needs to change
 
         @Override
         public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {

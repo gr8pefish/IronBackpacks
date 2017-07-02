@@ -192,4 +192,13 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         backpackInfo.deserializeNBT(tag);
         return backpackInfo;
     }
+
+    @Override
+    public String toString() {
+        String strType = backpackType.isNull() ? "NULL" : backpackType.toString();
+        String specType = specialty == null ? "NULL" : specialty.toString();
+        String stackType = stackHandler == null ? "NULL" : stackHandler.toString();
+        return "TYPE: " + strType + " --- SPECIALTY: " + specType + " --- STACK HANDLER: " + stackType;
+    }
+
 }
