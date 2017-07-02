@@ -48,7 +48,7 @@ public final class BackpackInvImpl {
         @Override
         public IItemHandler getInventory(@Nonnull BackpackVariant variant) {
             if (!inventories.containsKey(variant)) {
-                inventories.put(variant, new ItemStackHandler(BackpackVariant.getSize(variant)));
+                inventories.put(variant, new ItemStackHandler(BackpackVariant.getSize(variant))); //ToDo: Custom wrapped one?
             }
             return inventories.get(variant);
         }
