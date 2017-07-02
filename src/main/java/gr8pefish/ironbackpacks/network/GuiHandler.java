@@ -21,13 +21,9 @@ public class GuiHandler implements IGuiHandler {
 
         switch(ID) {
             case OPEN_GUI_BACKPACK_ID:
-//                EnumDyeColor color = EnumDyeColor.byMetadata(player.getHeldItem(hand).getItemDamage());
-//                IItemHandlerModifiable inventory = (IItemHandlerModifiable) player.getCapability(ProjectEAPI.ALCH_BAG_CAPABILITY, null).getBag(color);
-//                return new AlchBagContainer(player.inventory, hand, inventory);
-//            }
-                ItemStack stack = player.getHeldItem(hand);
+                ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
                 IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
-                return new BackpackContainer(player.inventory, hand, inventory); //ToDo: Helper method (not necessarily held item)
+                return new BackpackContainer(player.inventory, hand, inventory);
         }
 
         return null;
@@ -39,14 +35,10 @@ public class GuiHandler implements IGuiHandler {
 
         switch(ID) {
             case OPEN_GUI_BACKPACK_ID:
-//                EnumDyeColor color = EnumDyeColor.byMetadata(player.getHeldItem(hand).getItemDamage());
-//                IItemHandlerModifiable inventory = (IItemHandlerModifiable) player.getCapability(ProjectEAPI.ALCH_BAG_CAPABILITY, null).getBag(color);
-//                return new GUIAlchChest(player.inventory, hand, inventory);
-//            }
-                ItemStack stack = player.getHeldItem(hand);
+                ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
                 IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
-                return new GuiBackpack(player.inventory, hand, inventory); //ToDo: Helper method (not necessarily held item)
-//                return new GuiBackpack(player.inventory, new InventoryBackpack(player.getHeldItem(hand)));
+                return new GuiBackpack(player.inventory, hand, inventory);
+
         }
 
         return null;

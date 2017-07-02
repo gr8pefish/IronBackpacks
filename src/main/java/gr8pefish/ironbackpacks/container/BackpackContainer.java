@@ -12,15 +12,13 @@ import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class BackpackContainer extends Container
-{
-    public final EnumHand hand;
+public class BackpackContainer extends Container {
+
     private final int blocked;
     private final int size;
 
-    public BackpackContainer(InventoryPlayer invPlayer, EnumHand hand, IItemHandlerModifiable invBag)
-    {
-        this.hand = hand;
+    public BackpackContainer(InventoryPlayer invPlayer, EnumHand hand, IItemHandlerModifiable invBag) {
+
         this.size = invBag.getSlots();
 
         System.out.println("Inventory size: "+ size);
@@ -61,34 +59,28 @@ public class BackpackContainer extends Container
 
     @Nonnull
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex)
-    {
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
         Slot slot = this.getSlot(slotIndex);
 
-        if (slot == null || !slot.getHasStack())
-        {
+        if (slot == null || !slot.getHasStack()) {
             return ItemStack.EMPTY;
         }
 
         ItemStack stack = slot.getStack();
         ItemStack newStack = stack.copy();
 
-        if (slotIndex < size)
-        {
+        if (slotIndex < size) {
             if (!this.mergeItemStack(stack, size, this.inventorySlots.size(), true))
                 return ItemStack.EMPTY;
             slot.onSlotChanged();
         }
-        else if (!this.mergeItemStack(stack, 0, size, false))
-        {
+        else if (!this.mergeItemStack(stack, 0, size, false)) {
             return ItemStack.EMPTY;
         }
-        if (stack.isEmpty())
-        {
+        if (stack.isEmpty()) {
             slot.putStack(ItemStack.EMPTY);
         }
-        else
-        {
+        else {
             slot.onSlotChanged();
         }
 
@@ -97,10 +89,8 @@ public class BackpackContainer extends Container
 
     @Nonnull
     @Override
-    public ItemStack slotClick(int slot, int button, ClickType flag, EntityPlayer player)
-    {
-        if (slot == blocked)
-        {
+    public ItemStack slotClick(int slot, int button, ClickType flag, EntityPlayer player) {
+        if (slot == blocked) {
             return ItemStack.EMPTY;
         }
 

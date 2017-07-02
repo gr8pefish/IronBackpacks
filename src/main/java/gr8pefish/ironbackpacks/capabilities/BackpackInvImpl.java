@@ -1,13 +1,11 @@
 package gr8pefish.ironbackpacks.capabilities;
 
-import gr8pefish.ironbackpacks.api.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.BackpackVariant;
 import gr8pefish.ironbackpacks.api.IBackpackProvider;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -19,18 +17,18 @@ import javax.annotation.Nonnull;
 import java.util.EnumMap;
 import java.util.Map;
 
-import static gr8pefish.ironbackpacks.IronBackpacks.MODID;
+/**
+ * An implementation of the capability for a backpack's inventory.
+ * Lots of credit to williewillus for this code's inspiration.
+ */
+public final class BackpackInvImpl {
 
-public final class BackpackInvImpl
-{
+    public static void init() {
 
-    public static void init()
-    {
-        CapabilityManager.INSTANCE.register(IBackpackProvider.class, new Capability.IStorage<IBackpackProvider>()
-        {
+        CapabilityManager.INSTANCE.register(IBackpackProvider.class, new Capability.IStorage<IBackpackProvider>() {
+
             @Override
-            public NBTTagCompound writeNBT(Capability<IBackpackProvider> capability, IBackpackProvider instance, EnumFacing side)
-            {
+            public NBTTagCompound writeNBT(Capability<IBackpackProvider> capability, IBackpackProvider instance, EnumFacing side) {
                 return instance.serializeNBT();
             }
 
@@ -42,84 +40,61 @@ public final class BackpackInvImpl
         }, DefaultImpl.class);
     }
 
-    private static class DefaultImpl implements IBackpackProvider
-    {
+    private static class DefaultImpl implements IBackpackProvider {
+
         private final Map<BackpackVariant, IItemHandler> inventories = new EnumMap<>(BackpackVariant.class);
 
         @Nonnull
         @Override
-        public IItemHandler getInventory(@Nonnull BackpackVariant variant)
-        {
-            if (!inventories.containsKey(variant))
-            {
+        public IItemHandler getInventory(@Nonnull BackpackVariant variant) {
+            if (!inventories.containsKey(variant)) {
                 inventories.put(variant, new ItemStackHandler(BackpackVariant.getSize(variant)));
             }
-
             return inventories.get(variant);
         }
 
-//        @Override
-//        public void sync(@Nonnull EnumDyeColor color, @Nonnull EntityPlayerMP player)
-//        {
-//            PacketHandler.sendTo(new SyncBagDataPKT(writeNBT(color)), player);
-//        }
-
-        private NBTTagCompound writeNBT(BackpackVariant color)
-        {
+        //ToDO: Analyze, essentially just copied code that works
+        private NBTTagCompound writeNBT(BackpackVariant variant) {
             NBTTagCompound ret = new NBTTagCompound();
-            BackpackVariant[] colors = color == null ? BackpackVariant.values() : new BackpackVariant[] { color };
-            for (BackpackVariant c : colors)
-            {
-                if (inventories.containsKey(c))
-                {
-                    NBTBase inv = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage()
-                            .writeNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventories.get(c), null);
-                    ret.setTag(c.getName(), inv);
+            BackpackVariant[] variants = variant == null ? BackpackVariant.values() : new BackpackVariant[] { variant };
+            for (BackpackVariant v : variants) {
+                if (inventories.containsKey(v)) {
+                    NBTBase inv = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage().writeNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventories.get(v), null);
+                    ret.setTag(v.getName(), inv);
                 }
             }
             return ret;
         }
 
         @Override
-        public NBTTagCompound serializeNBT()
-        {
+        public NBTTagCompound serializeNBT() {
             return writeNBT(null);
         }
 
         @Override
-        public void deserializeNBT(NBTTagCompound nbt)
-        {
-            for (BackpackVariant e : BackpackVariant.values())
-            {
-                if (nbt.hasKey(e.getName()))
-                {
+        public void deserializeNBT(NBTTagCompound nbt) {
+            for (BackpackVariant e : BackpackVariant.values()) {
+                if (nbt.hasKey(e.getName())) {
                     IItemHandler inv = new ItemStackHandler(BackpackVariant.getSize(e));
-                    CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage()
-                            .readNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv, null, nbt.getTag(e.getName()));
+                    CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage().readNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv, null, nbt.getTag(e.getName()));
                     inventories.put(e, inv);
                 }
             }
         }
     }
 
-    public static class Provider implements ICapabilitySerializable<NBTTagCompound>
-    {
-
-        public static final ResourceLocation NAME = new ResourceLocation(MODID, "testing_cap_inv");
+    public static class Provider implements ICapabilitySerializable<NBTTagCompound> {
 
         private final IBackpackProvider cap = new DefaultImpl();
 
         @Override
-        public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing)
-        {
+        public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing) {
             return capability == IronBackpacksAPI.BACKPACK_INV_CAPABILITY;
         }
 
         @Override
-        public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing)
-        {
-            if (capability == IronBackpacksAPI.BACKPACK_INV_CAPABILITY)
-            {
+        public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
+            if (capability == IronBackpacksAPI.BACKPACK_INV_CAPABILITY) {
                 return IronBackpacksAPI.BACKPACK_INV_CAPABILITY.cast(cap);
             }
 
@@ -127,14 +102,12 @@ public final class BackpackInvImpl
         }
 
         @Override
-        public NBTTagCompound serializeNBT()
-        {
+        public NBTTagCompound serializeNBT() {
             return cap.serializeNBT();
         }
 
         @Override
-        public void deserializeNBT(NBTTagCompound nbt)
-        {
+        public void deserializeNBT(NBTTagCompound nbt) {
             cap.deserializeNBT(nbt);
         }
     }

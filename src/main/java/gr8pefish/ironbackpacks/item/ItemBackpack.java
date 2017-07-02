@@ -49,6 +49,12 @@ public class ItemBackpack extends Item implements IBackpack {
         return super.getUnlocalizedName(stack) + "." + backpackInfo.getBackpackType().getIdentifier().toString().replace(":", ".");
     }
 
+    /**
+     * Initialize the capability for the custom IItemHandler which acts as the inventory for the backpack.
+     * @param stack - the stack to set it for
+     * @param oldCapNbt - the old capability in NBT
+     * @return aAnew implementation of the capability's provider
+     */
     @Nonnull
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound oldCapNbt) {

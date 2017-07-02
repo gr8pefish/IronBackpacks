@@ -6,6 +6,11 @@ import net.minecraft.util.IStringSerializable;
 import javax.annotation.Nonnull;
 import java.util.Locale;
 
+//ToDo: Need to have a GUI for each, and a size of that gui. Put it in here or in BackpackInfo?
+
+//TODO: TehNut, feel free to refactor this code to be better/move it around;
+// I just wanted to limit my own complexity with the inventory stuff, so I added this.
+
 public enum BackpackVariant implements IStringSerializable {
 
     NONE,
