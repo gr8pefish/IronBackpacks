@@ -5,10 +5,11 @@ Additions
 - None
 
 Changes
-- None
+- Now respects TEs and other blocks when restocking (e.g. restocking works with sieves now)
 
 Bug Fixes
-- None
+- Fix dupe bug when opening and dropping a backpack simultaneously
+- Fix crash with unique keybindings
 ------------------------------------------------------
 Version 1.10.2 - 2.2.27
 ------------------------------------------------------
