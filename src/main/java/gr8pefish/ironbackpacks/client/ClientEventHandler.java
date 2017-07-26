@@ -9,6 +9,7 @@ import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.PlayerSlotNumberMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -87,13 +88,18 @@ public class ClientEventHandler {
         if (event.getGui() instanceof GUIBackpack) {
             KeyBinding[] hotbarBindings = Minecraft.getMinecraft().gameSettings.keyBindsHotbar;
             ItemStack openedPack = ((GUIBackpack) event.getGui()).container.getInventoryBackpack().getBackpackStack(); //access once here instead of in the loop
-            for (int i = 0; i < hotbarBindings.length; i++) {
-                if (Keyboard.isKeyDown(hotbarBindings[i].getKeyCode())) { //have to use Keyboard directly, instead of .isPressed()
-                    if (IronBackpacksHelper.areItemStacksTheSame(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i), openedPack)) { //can't move the same backpack you have open
-                        event.setCanceled(true);
-                        return;
+            if (!(hotbarBindings != null && hotbarBindings.length > 0)) return;
+            try { //try catch because some setups can result in the IndexOOB crash
+                for (int i = 0; i < hotbarBindings.length - 1; i++) { //-1 for more safety
+                    if (Keyboard.isKeyDown(hotbarBindings[i].getKeyCode())) { //have to use Keyboard directly, instead of .isPressed()
+                        if (IronBackpacksHelper.areItemStacksTheSame(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i), openedPack)) { //can't move the same backpack you have open
+                            event.setCanceled(true);
+                            return;
+                        }
                     }
                 }
+            } catch (IndexOutOfBoundsException exception) {
+                Logger.error("Keybinds for hotbar not playing nicely with Iron Backpacks (disabled direct swapping of open bag to prevent a bug). Shouldn't be a big deal though.");
             }
         }
 
