@@ -234,16 +234,15 @@ public class IronBackpacksEventHelper {
      *          resupply itemUsed
      *              get rid of backpackStack
      *              return new size of itemUsed stack
-     * @param event - PlayerUseItemEvent.Finish
      * @param backpackStacks - the backpacks with this upgrade
      */
-    protected static ItemStack checkRestockerUpgradeItemUse(PlayerInteractEvent.RightClickItem event, ArrayList<ItemStack> backpackStacks){
+    protected static ItemStack checkRestockerUpgradeItemUse(EntityPlayer player, ItemStack stack, ArrayList<ItemStack> backpackStacks){
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
 //                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
                 ItemBackpack itemBackpack = (ItemBackpack)backpack.getItem(); //TODO: hardcoded
-                ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(event.getEntityPlayer(), backpack));
-                if (!(event.getEntityPlayer().openContainer instanceof ContainerBackpack)) { //can't have the backpack open
+                ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, backpack));
+                if (!(player.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     container.sort(); //TODO: test with this removed
                     ArrayList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
@@ -257,7 +256,7 @@ public class IronBackpacksEventHelper {
                                 Slot tempSlot = (Slot) container.getSlot(i);
                                 if (tempSlot!= null && tempSlot.getHasStack()){
                                     ItemStack tempItem = tempSlot.getStack();
-                                    if (IronBackpacksHelper.areItemsEqualForStacking(event.getItemStack(), restockerItem) //has to be same items as what was used in the event
+                                    if (IronBackpacksHelper.areItemsEqualForStacking(stack, restockerItem) //has to be same items as what was used in the event
                                             && IronBackpacksHelper.areItemsEqualAndStackable(tempItem, restockerItem)){ //found and less than max stack size
                                         foundSlot = true;
                                         slotToResupply = tempSlot;
@@ -279,13 +278,13 @@ public class IronBackpacksEventHelper {
                                             if (backpackItemStack.stackSize >= amountToResupply) {
                                                 backpackSlot.decrStackSize(amountToResupply);
                                                 container.sort();
-                                                container.onContainerClosed(event.getEntityPlayer());
+                                                container.onContainerClosed(player);
                                                 return (new ItemStack(stackToResupply.getItem(), stackToResupply.getMaxStackSize(), stackToResupply.getItemDamage()));
 
                                             } else {
                                                 backpackSlot.decrStackSize(backpackItemStack.stackSize);
                                                 container.sort();
-                                                container.onContainerClosed(event.getEntityPlayer());
+                                                container.onContainerClosed(player);
                                                 return (new ItemStack(stackToResupply.getItem(), stackToResupply.stackSize + backpackItemStack.stackSize, stackToResupply.getItemDamage()));
                                                 //don't have to iterate
                                                 //b/c once sorted you have as big of a stack as you will ever have so it can only refill that much

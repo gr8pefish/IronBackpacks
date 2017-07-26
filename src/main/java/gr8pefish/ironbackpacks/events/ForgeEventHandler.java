@@ -206,18 +206,53 @@ public class ForgeEventHandler {
     }
 
     /**
-     * Called whenever the player uses an items. Used for the restocking(hopper) upgrade.
+     * Called whenever the player right clicks an item. Used for the restocking(hopper) upgrade.
      * @param event - the event fired
      */
     //ToDo: Make this functional for offhand restocking
     @SubscribeEvent
     public void onPlayerItemUseEvent(PlayerInteractEvent.RightClickItem event){
-        ItemStack resuppliedStack;
-        if (!event.isCanceled()){ //only do it for main hand clicks
+        if (!event.isCanceled()) { //only do it for main hand clicks
+            doRestock(event.getEntityPlayer(), event.getItemStack());
+        }
+    }
+
+
+    /**
+     * Called whenever the player right clicks a block. Used for the restocking(hopper) upgrade.
+     * @param event - the event fired
+     */
+    //ToDo: Make this functional for offhand restocking
+    @SubscribeEvent
+    public void onPlayerItemUseEvent(PlayerInteractEvent.RightClickBlock event){
+        if (!event.isCanceled()) { //only do it for main hand clicks
+
+            //ray trace the block placed
+            RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getEntityPlayer().getPositionVector(), event.getEntityPlayer().getLookVec());
+            //get the block targeted as an itemstack
+            ItemStack itemStack = event.getWorld().getBlockState(event.getPos()).getBlock().getPickBlock(event.getWorld().getBlockState(event.getPos()), rayTraceResult, event.getWorld(), event.getPos(), event.getEntityPlayer());
+
+            //get backpack
             ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
-            resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemUse(event, backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
+
+            //do restock if valid
+            if (event.getEntityPlayer().getHeldItem(event.getHand()) != null && itemStack != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
+                if (!IronBackpacksHelper.areItemsEqualForStacking(event.getEntityPlayer().getHeldItem(event.getHand()), itemStack)) { //if item in hand != item placed then interacting with something else and try to restock
+                    doRestock(event.getEntityPlayer(), event.getItemStack());
+                }
+            }
+
+
+        }
+    }
+
+    private static void doRestock(EntityPlayer player, ItemStack stack) {
+        ItemStack resuppliedStack;
+        ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(player);
+        if (player != null && stack != null) {
+            resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemUse(player, stack, backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
             if (resuppliedStack != null) {
-                event.getItemStack().stackSize = resuppliedStack.stackSize; //set the new stack size (as you can't/don't need to directly replace the stack)
+                stack.stackSize = resuppliedStack.stackSize; //set the new stack size (as you can't/don't need to directly replace the stack)
             }
         }
     }
