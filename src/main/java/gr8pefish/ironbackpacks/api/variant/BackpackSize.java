@@ -60,11 +60,12 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
         return columns * rows;
     }
 
-    public enum SIZE {
-        BASIC,
-        IRON,
-        GOLD,
-        DIAMOND;
+    public BackpackSize applySizeSpecialtyModifier(BackpackSpecialty specialty) {
+        if (specialty.equals(BackpackSpecialty.STORAGE)) {
+            return new BackpackSize(this.getColumns(), this.getRows() + 1); //add a row
+        } else {
+            return this;
+        }
     }
 
 

@@ -29,6 +29,8 @@
 
 * IBackpack
     * interface to mark item as backpack and expose BackpackInfo
+    
+## VARIANTS
 
 * BackpackVariant
     * holds BackpackType and BackpackSpecialty

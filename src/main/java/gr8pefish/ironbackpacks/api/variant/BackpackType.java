@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 
 import javax.annotation.Nonnegative;
@@ -18,27 +19,25 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
     @Nonnegative
     private final int maxPoints;
     private final boolean hasSpecialties;
-    @Nonnull
-    private final BackpackTypesEnum type;
+    @Nonnegative
+    private final int sizeCols;
+    @Nonnegative
+    private final int sizeRows;
 
-    public enum BackpackTypesEnum {
-        NONE,
-        BASIC,
-        IRON,
-        GOLD,
-        DIAMOND
-    }
 
-    public BackpackType(@Nonnull ResourceLocation identifier, @Nonnegative int tier, @Nonnegative int maxPoints, boolean hasSpecialties, BackpackTypesEnum type) {
+    public BackpackType(@Nonnull ResourceLocation identifier, @Nonnegative int tier, @Nonnegative int maxPoints, boolean hasSpecialties, @Nonnegative int sizeCols, @Nonnegative int sizeRows) {
         Preconditions.checkNotNull(identifier, "Identifier cannot be null");
         Preconditions.checkArgument(tier >= 0, "Tier cannot be negative");
         Preconditions.checkArgument(maxPoints >= 0, "Max points cannot be negative");
+        Preconditions.checkArgument(sizeCols > 0, "Column count must be greater than 0" );
+        Preconditions.checkArgument(sizeRows > 0, "Row count must be greater than 0" );
 
         this.identifier = identifier;
         this.tier = tier;
         this.maxPoints = maxPoints;
         this.hasSpecialties = hasSpecialties;
-        this.type = type;
+        this.sizeCols = sizeCols;
+        this.sizeRows = sizeRows;
 
         setRegistryName(identifier);
     }
@@ -62,9 +61,14 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
         return hasSpecialties;
     }
 
-    @Nonnull
-    public BackpackTypesEnum getTypeEnum() {
-        return type;
+    @Nonnegative
+    public int getSizeCols() {
+        return sizeCols;
+    }
+
+    @Nonnegative
+    public int getSizeRows() {
+        return sizeRows;
     }
 
     public boolean isNull() {
