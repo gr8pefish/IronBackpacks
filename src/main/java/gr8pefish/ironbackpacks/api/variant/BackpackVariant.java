@@ -1,6 +1,7 @@
-package gr8pefish.ironbackpacks.api;
+package gr8pefish.ironbackpacks.api.variant;
 
 import gr8pefish.ironbackpacks.ConfigHandler;
+import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import net.minecraft.util.IStringSerializable;
 
 import javax.annotation.Nonnull;
@@ -48,7 +49,7 @@ public enum BackpackVariant implements IStringSerializable {
 
     @Nonnull
     public static BackpackVariant getVariant(BackpackInfo info) {
-        return getVariant(info.getSpecialty(), info.getBackpackType());
+        return getVariant(info.getSpecialty(), info.getBackpackVariant());
     }
 
     public static int getSize(BackpackVariant variant) {
@@ -76,7 +77,7 @@ public enum BackpackVariant implements IStringSerializable {
     }
 
     public static int getSize(BackpackInfo info) {
-        return getSize(info.getSpecialty(), info.getBackpackType());
+        return getSize(info.getSpecialty(), info.getBackpackVariant());
     }
 
 }

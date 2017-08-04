@@ -1,6 +1,6 @@
 package gr8pefish.ironbackpacks.network;
 
-import gr8pefish.ironbackpacks.api.BackpackInfo;
+import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.container.BackpackContainer;
 import gr8pefish.ironbackpacks.container.GuiBackpack;

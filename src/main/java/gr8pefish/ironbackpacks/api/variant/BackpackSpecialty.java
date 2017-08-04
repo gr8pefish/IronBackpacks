@@ -1,4 +1,4 @@
-package gr8pefish.ironbackpacks.api;
+package gr8pefish.ironbackpacks.api.variant;
 
 import net.minecraft.util.IStringSerializable;
 
@@ -22,6 +22,14 @@ public enum BackpackSpecialty implements IStringSerializable {
 
         return NONE;
     }
+
+    //TODO
+//    public static ? getEffect() {
+//        case STORAGE:
+//            return storageSize + 9;
+//        case UPGRADE:
+//            return upgradePoints + 5;
+//    }
 
     public static int getSize(BackpackSpecialty specialty) {
         if (specialty == BackpackSpecialty.NONE) {

@@ -1,4 +1,4 @@
-package gr8pefish.ironbackpacks.api;
+package gr8pefish.ironbackpacks.api.variant;
 
 import net.minecraft.nbt.NBTTagByteArray;
 import net.minecraftforge.common.util.INBTSerializable;

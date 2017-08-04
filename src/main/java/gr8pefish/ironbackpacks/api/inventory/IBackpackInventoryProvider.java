@@ -1,8 +1,6 @@
-package gr8pefish.ironbackpacks.api;
+package gr8pefish.ironbackpacks.api.inventory;
 
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemStack;
+import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -15,7 +13,7 @@ import javax.annotation.Nonnull;
  * Provides an interface for the capability which exposes the internal inventory of a backpack.
  * Acquire an instance of this using {@link net.minecraft.item.ItemStack#getCapability(Capability, EnumFacing)}.
  */
-public interface IBackpackProvider extends INBTSerializable<NBTTagCompound> {
+public interface IBackpackInventoryProvider extends INBTSerializable<NBTTagCompound> {
 
     /**
      * Note: modifying this clientside is not advised

@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.util;
 
 import com.google.common.collect.Lists;
-import gr8pefish.ironbackpacks.api.IBackpack;
+import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;

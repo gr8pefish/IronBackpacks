@@ -2,6 +2,11 @@ package gr8pefish.ironbackpacks.api;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
+import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
+import gr8pefish.ironbackpacks.api.inventory.IBackpackInventoryProvider;
+import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
+import gr8pefish.ironbackpacks.api.variant.BackpackSpecialty;
+import gr8pefish.ironbackpacks.api.variant.BackpackType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,10 +24,10 @@ public class IronBackpacksAPI {
 
 
     /**
-     * The capability object for IBackpackProvider
+     * The capability object for IBackpackInventoryProvider
      */
-    @CapabilityInject(IBackpackProvider.class)
-    public static final Capability<IBackpackProvider> BACKPACK_INV_CAPABILITY = null;
+    @CapabilityInject(IBackpackInventoryProvider.class)
+    public static final Capability<IBackpackInventoryProvider> BACKPACK_INV_CAPABILITY = null;
 
     public static final ResourceLocation NULL = new ResourceLocation("ironbackpacks", "null");
 

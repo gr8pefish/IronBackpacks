@@ -1,9 +1,8 @@
 package gr8pefish.ironbackpacks;
 
-import gr8pefish.ironbackpacks.api.BackpackSpecialty;
+import gr8pefish.ironbackpacks.api.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
-import gr8pefish.ironbackpacks.network.GuiHandler;
 import gr8pefish.ironbackpacks.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -13,7 +12,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,7 +1,8 @@
-package gr8pefish.ironbackpacks.api;
+package gr8pefish.ironbackpacks.api.variant;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 

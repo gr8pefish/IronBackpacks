@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.capabilities;
 
-import gr8pefish.ironbackpacks.api.BackpackVariant;
-import gr8pefish.ironbackpacks.api.IBackpackProvider;
+import gr8pefish.ironbackpacks.api.inventory.IBackpackInventoryProvider;
+import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,22 +25,22 @@ public final class BackpackInvImpl {
 
     public static void init() {
 
-        CapabilityManager.INSTANCE.register(IBackpackProvider.class, new Capability.IStorage<IBackpackProvider>() {
+        CapabilityManager.INSTANCE.register(IBackpackInventoryProvider.class, new Capability.IStorage<IBackpackInventoryProvider>() {
 
             @Override
-            public NBTTagCompound writeNBT(Capability<IBackpackProvider> capability, IBackpackProvider instance, EnumFacing side) {
+            public NBTTagCompound writeNBT(Capability<IBackpackInventoryProvider> capability, IBackpackInventoryProvider instance, EnumFacing side) {
                 return instance.serializeNBT();
             }
 
             @Override
-            public void readNBT(Capability<IBackpackProvider> capability, IBackpackProvider instance, EnumFacing side, NBTBase nbt) {
+            public void readNBT(Capability<IBackpackInventoryProvider> capability, IBackpackInventoryProvider instance, EnumFacing side, NBTBase nbt) {
                 if (nbt instanceof NBTTagCompound)
                     instance.deserializeNBT(((NBTTagCompound) nbt));
             }
         }, DefaultImpl.class);
     }
 
-    private static class DefaultImpl implements IBackpackProvider {
+    private static class DefaultImpl implements IBackpackInventoryProvider {
 
         private final Map<BackpackVariant, IItemHandler> inventories = new EnumMap<>(BackpackVariant.class);
 
@@ -85,7 +85,7 @@ public final class BackpackInvImpl {
 
     public static class Provider implements ICapabilitySerializable<NBTTagCompound> {
 
-        private final IBackpackProvider cap = new DefaultImpl();
+        private final IBackpackInventoryProvider cap = new DefaultImpl();
 
         @Override
         public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing) {

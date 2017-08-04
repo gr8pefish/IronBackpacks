@@ -3,34 +3,29 @@ package gr8pefish.ironbackpacks.item;
 import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.*;
+import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
+import gr8pefish.ironbackpacks.api.backpack.IBackpack;
+import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
+import gr8pefish.ironbackpacks.api.variant.BackpackSpecialty;
+import gr8pefish.ironbackpacks.api.variant.BackpackType;
 import gr8pefish.ironbackpacks.capabilities.BackpackInvImpl;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.network.GuiHandler;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.InvWrapper;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
 
@@ -46,7 +41,7 @@ public class ItemBackpack extends Item implements IBackpack {
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         BackpackInfo backpackInfo = getBackpackInfo(stack);
-        return super.getUnlocalizedName(stack) + "." + backpackInfo.getBackpackType().getIdentifier().toString().replace(":", ".");
+        return super.getUnlocalizedName(stack) + "." + backpackInfo.getBackpackVariant().getIdentifier().toString().replace(":", ".");
     }
 
     /**
@@ -138,9 +133,9 @@ public class ItemBackpack extends Item implements IBackpack {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
         BackpackInfo backpackInfo = getBackpackInfo(stack);
-        if (backpackInfo.getBackpackType().hasSpecialties())
+        if (backpackInfo.getBackpackVariant().hasSpecialties())
             tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.emphasis." + backpackInfo.getSpecialty().getName()));
-        tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.tier", backpackInfo.getBackpackType().getTier() + 1));
+        tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.tier", backpackInfo.getBackpackVariant().getTier() + 1));
         tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.upgrade.used", backpackInfo.getPointsUsed(), backpackInfo.getMaxPoints()));
         if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !backpackInfo.getApplied().isEmpty()) {
             tooltip.add(TextFormatting.ITALIC + I18n.format("tooltip.ironbackpacks.shift"));
