@@ -9,6 +9,7 @@ import gr8pefish.ironbackpacks.integration.InterModSupport;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
+import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -224,19 +225,25 @@ public class ForgeEventHandler {
      */
     //ToDo: Make this functional for offhand restocking
     @SubscribeEvent
-    public void onPlayerItemUseEvent(PlayerInteractEvent.RightClickBlock event){
+    public void onPlayerRightClickBlockEvent(PlayerInteractEvent.RightClickBlock event){
         if (!event.isCanceled()) { //only do it for main hand clicks
 
-            //ray trace the block placed
-            RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getEntityPlayer().getPositionVector(), event.getEntityPlayer().getLookVec());
-            //get the block targeted as an itemstack
-            ItemStack itemStack = event.getWorld().getBlockState(event.getPos()).getBlock().getPickBlock(event.getWorld().getBlockState(event.getPos()), rayTraceResult, event.getWorld(), event.getPos(), event.getEntityPlayer());
+            ItemStack itemStack = null;
+            ArrayList<ArrayList<ItemStack>> backpacks = null;
 
-            //get backpack
-            ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
+            try {
+                //ray trace the block placed
+                RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getEntityPlayer().getPositionVector(), event.getEntityPlayer().getLookVec());
+                //get the block targeted as an itemstack (can result in NPE on occasion)
+                itemStack = event.getWorld().getBlockState(event.getPos()).getBlock().getPickBlock(event.getWorld().getBlockState(event.getPos()), rayTraceResult, event.getWorld(), event.getPos(), event.getEntityPlayer());
+                //get backpack
+                backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
+            } catch (NullPointerException e) {
+                Logger.error(e + "=> NPE trying to raycast the block selected for Iron Backpacks restocking");
+            }
 
             //do restock if valid
-            if (event.getEntityPlayer().getHeldItem(event.getHand()) != null && itemStack != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
+            if (event.getEntityPlayer().getHeldItem(event.getHand()) != null && itemStack != null && backpacks != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
                 if (!IronBackpacksHelper.areItemsEqualForStacking(event.getEntityPlayer().getHeldItem(event.getHand()), itemStack)) { //if item in hand != item placed then interacting with something else and try to restock
                     doRestock(event.getEntityPlayer(), event.getItemStack());
                 }
