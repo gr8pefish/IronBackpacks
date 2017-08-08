@@ -231,16 +231,14 @@ public class ForgeEventHandler {
             ItemStack itemStack = null;
             ArrayList<ArrayList<ItemStack>> backpacks = null;
 
-            try {
-                //ray trace the block placed
-                RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getEntityPlayer().getPositionVector(), event.getEntityPlayer().getLookVec());
-                //get the block targeted as an itemstack (can result in NPE on occasion)
-                itemStack = event.getWorld().getBlockState(event.getPos()).getBlock().getPickBlock(event.getWorld().getBlockState(event.getPos()), rayTraceResult, event.getWorld(), event.getPos(), event.getEntityPlayer());
-                //get backpack
-                backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
-            } catch (NullPointerException e) {
-                Logger.error(e + "=> NPE trying to raycast the block selected for Iron Backpacks restocking");
-            }
+            //ray trace the block placed
+            RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getEntityPlayer().getPositionVector(), event.getEntityPlayer().getLookVec());
+            if (rayTraceResult == null) return; //didn't raytrace correctly, return
+            //get the block targeted as an itemstack
+            itemStack = event.getWorld().getBlockState(event.getPos()).getBlock().getPickBlock(event.getWorld().getBlockState(event.getPos()), rayTraceResult, event.getWorld(), event.getPos(), event.getEntityPlayer());
+            //get backpack
+            backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
+
 
             //do restock if valid
             if (event.getEntityPlayer().getHeldItem(event.getHand()) != null && itemStack != null && backpacks != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
