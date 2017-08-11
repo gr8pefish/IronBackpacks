@@ -1,23 +1,33 @@
 package gr8pefish.ironbackpacks.api;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.inventory.IBackpackInventoryProvider;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.variant.BackpackType;
+import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
+import jdk.nashorn.internal.ir.annotations.Immutable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
+import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 public class IronBackpacksAPI {
@@ -28,6 +38,9 @@ public class IronBackpacksAPI {
      */
     @CapabilityInject(IBackpackInventoryProvider.class)
     public static final Capability<IBackpackInventoryProvider> BACKPACK_INV_CAPABILITY = null;
+
+
+    private static ArrayList<BackpackVariant> variantList = new ArrayList<>(); //change to HashMap<RLIdentifier, BackpackVariant> ?
 
     public static final ResourceLocation NULL = new ResourceLocation("ironbackpacks", "null");
 
@@ -61,7 +74,7 @@ public class IronBackpacksAPI {
         Preconditions.checkNotNull(backpackSpecialty, "BackpackSpecialty cannot be null");
 
         ItemStack stack = new ItemStack(BACKPACK_ITEM);
-        BackpackInfo backpackInfo = new BackpackInfo(backpackType, backpackSpecialty);
+        BackpackInfo backpackInfo = new BackpackInfo(new BackpackVariant(backpackType, backpackSpecialty));
         return applyPackInfo(stack, backpackInfo);
     }
 
@@ -103,4 +116,40 @@ public class IronBackpacksAPI {
         stack.getTagCompound().setString("upgrade", backpackUpgrade.getIdentifier().toString());
         return stack;
     }
+
+    //Populated in init()
+    public static void initVariantList() {
+
+        List<BackpackType> sortedTypes = Lists.newArrayList(IronBackpacksAPI.getBackpackTypes());
+        sortedTypes.sort(Comparator.comparingInt(BackpackType::getTier));
+
+        for (BackpackType backpackType : sortedTypes) {
+            if (backpackType.getIdentifier().equals(IronBackpacksAPI.NULL))
+                continue;
+
+            if (!backpackType.hasSpecialties()) {
+                variantList.add(new BackpackVariant(backpackType, BackpackSpecialty.NONE));
+            } else {
+                for (BackpackSpecialty specialty : BackpackSpecialty.values()) {
+                    if (specialty == BackpackSpecialty.NONE)
+                        continue;
+
+                    variantList.add(new BackpackVariant(backpackType, specialty));
+                }
+            }
+        }
+
+        //TESTING //works just fine: http://i.imgur.com/wNaWIpz.png
+        System.out.println("TESTING VARIANT LIST");
+        for (BackpackVariant v : variantList) {
+            System.out.println(v);
+        }
+
+    }
+
+    public static List<BackpackVariant> getVariantList() {
+        return ImmutableList.copyOf(variantList);
+    }
+
+
 }

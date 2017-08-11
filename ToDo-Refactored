@@ -1,5 +1,10 @@
 Place to hold notes for 1.11+ changes
 
+JSON/Config to add new tiers of backpacks via user?
+
+addon mods would use a new registry event to simply register their own, simple as that
+
+look at OpenBlocks for save/restore to file
 
 sizes of 1.10:
     basic - 9x2 = 18

@@ -2,6 +2,8 @@ package gr8pefish.ironbackpacks.api.variant;
 
 import net.minecraft.util.IStringSerializable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 public enum BackpackSpecialty implements IStringSerializable {
@@ -15,7 +17,8 @@ public enum BackpackSpecialty implements IStringSerializable {
         return name().toLowerCase(Locale.ENGLISH);
     }
 
-    public static BackpackSpecialty getSpecialty(String name) {
+    @Nonnull
+    public static BackpackSpecialty getSpecialty(@Nullable String name) {
         for (BackpackSpecialty backpackSpecialty : BackpackSpecialty.values())
             if (backpackSpecialty.getName().equalsIgnoreCase(name))
                 return backpackSpecialty;

@@ -8,7 +8,9 @@ import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.upgrade.IUpgrade;
+import gr8pefish.ironbackpacks.api.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.variant.BackpackType;
+import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
 import gr8pefish.ironbackpacks.item.ItemBackpack;
 import gr8pefish.ironbackpacks.item.ItemUpgrade;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -22,6 +24,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
+import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 import net.minecraftforge.fml.common.registry.RegistryBuilder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -77,12 +80,12 @@ public class RegistrarIronBackpacks {
 
     @SubscribeEvent
     public static void registerBackpacks(RegistryEvent.Register<BackpackType> event) {
-        event.getRegistry().register(new BackpackType(IronBackpacksAPI.NULL, 0, 0, false, BackpackType.BackpackTypesEnum.NONE));
+        event.getRegistry().register(new BackpackType(IronBackpacksAPI.NULL, 0, 0, false, 1, 1));
 
-        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "basic"), 0, 4, false, BackpackType.BackpackTypesEnum.BASIC));
-        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "iron"), 1, 7, true, BackpackType.BackpackTypesEnum.IRON));
-        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "gold"), 2, 12, true, BackpackType.BackpackTypesEnum.GOLD));
-        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "diamond"), 3, 18, true, BackpackType.BackpackTypesEnum.DIAMOND));
+        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "basic"), 0, 4, false, 9, 2));
+        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "iron"), 1, 7, true, 9, 4));
+        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "gold"), 2, 12, true, 9, 6));
+        event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "diamond"), 3, 18, true, 9, 7));
     }
 
     @SubscribeEvent
@@ -103,7 +106,7 @@ public class RegistrarIronBackpacks {
             if (stack.getItem() instanceof IBackpack) {
                 IBackpack backpack = (IBackpack) stack.getItem();
                 BackpackInfo backpackInfo = backpack.getBackpackInfo(stack);
-                ResourceLocation location = new ResourceLocation(backpackInfo.getBackpackVariant().getIdentifier().getResourceDomain(), "backpack/" + backpackInfo.getBackpackVariant().getIdentifier().getResourcePath());
+                ResourceLocation location = new ResourceLocation(backpackInfo.getVariant().getType().getIdentifier().getResourceDomain(), "backpack/" + backpackInfo.getVariant().getType().getIdentifier().getResourcePath());
                 return new ModelResourceLocation(location, "inventory");
             }
             return new ModelResourceLocation(new ResourceLocation(IronBackpacks.MODID, "backpack/null"), "inventory");

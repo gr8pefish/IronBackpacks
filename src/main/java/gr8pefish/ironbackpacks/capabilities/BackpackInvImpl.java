@@ -14,8 +14,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * An implementation of the capability for a backpack's inventory.
@@ -42,13 +41,14 @@ public final class BackpackInvImpl {
 
     private static class DefaultImpl implements IBackpackInventoryProvider {
 
-        private final Map<BackpackVariant, IItemHandler> inventories = new EnumMap<>(BackpackVariant.class);
+        //hashmap to store mapping of variants and IItemHandlers, initialized to size of the number of variants //TODO: Error here??
+        private final Map<BackpackVariant, IItemHandler> inventories = new HashMap<>(IronBackpacksAPI.getVariantList().size());
 
         @Nonnull
         @Override
         public IItemHandler getInventory(@Nonnull BackpackVariant variant) {
             if (!inventories.containsKey(variant)) {
-                inventories.put(variant, new ItemStackHandler(BackpackVariant.getSize(variant))); //ToDo: Custom wrapped one?
+                inventories.put(variant, new ItemStackHandler(variant.getBackpackSize().getTotalSize())); //ToDo: Custom wrapped ItemStackHandler?
             }
             return inventories.get(variant);
         }
@@ -56,11 +56,18 @@ public final class BackpackInvImpl {
         //ToDO: Analyze, essentially just copied code that works
         private NBTTagCompound writeNBT(BackpackVariant variant) {
             NBTTagCompound ret = new NBTTagCompound();
-            BackpackVariant[] variants = variant == null ? BackpackVariant.values() : new BackpackVariant[] { variant };
+
+            List<BackpackVariant> variants; // = variant == null ? IronBackpacksAPI.getVariantList() : Collections.singletonList(variant);
+            if (variant == null) {
+                variants = IronBackpacksAPI.getVariantList();
+            } else {
+                variants = Collections.singletonList(variant);
+            }
+
             for (BackpackVariant v : variants) {
                 if (inventories.containsKey(v)) {
                     NBTBase inv = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage().writeNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventories.get(v), null);
-                    ret.setTag(v.getName(), inv);
+                    ret.setTag(v.getIdentifier().toString(), inv);
                 }
             }
             return ret;
@@ -73,11 +80,11 @@ public final class BackpackInvImpl {
 
         @Override
         public void deserializeNBT(NBTTagCompound nbt) {
-            for (BackpackVariant e : BackpackVariant.values()) {
-                if (nbt.hasKey(e.getName())) {
-                    IItemHandler inv = new ItemStackHandler(BackpackVariant.getSize(e));
-                    CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage().readNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv, null, nbt.getTag(e.getName()));
-                    inventories.put(e, inv);
+            for (BackpackVariant variant : IronBackpacksAPI.getVariantList()) {
+                if (nbt.hasKey(variant.getIdentifier().toString())) {
+                    IItemHandler inv = new ItemStackHandler(variant.getBackpackSize().getTotalSize());
+                    CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage().readNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv, null, nbt.getTag(variant.getName()));
+                    inventories.put(variant, inv);
                 }
             }
         }

@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.proxy;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.capabilities.BackpackInvImpl;
 import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.core.RecipesIronBackpacks;
@@ -19,7 +20,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         RecipesIronBackpacks.init();
-
+        IronBackpacksAPI.initVariantList();
         NetworkRegistry.INSTANCE.registerGuiHandler(IronBackpacks.INSTANCE, new GuiHandler());
     }
 

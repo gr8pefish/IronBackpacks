@@ -41,7 +41,7 @@ public class ItemBackpack extends Item implements IBackpack {
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         BackpackInfo backpackInfo = getBackpackInfo(stack);
-        return super.getUnlocalizedName(stack) + "." + backpackInfo.getBackpackVariant().getIdentifier().toString().replace(":", ".");
+        return super.getUnlocalizedName(stack) + "." + backpackInfo.getVariant().getType().getIdentifier().toString().replace(":", ".");
     }
 
     /**
@@ -133,16 +133,16 @@ public class ItemBackpack extends Item implements IBackpack {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
         BackpackInfo backpackInfo = getBackpackInfo(stack);
-        if (backpackInfo.getBackpackVariant().hasSpecialties())
-            tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.emphasis." + backpackInfo.getSpecialty().getName()));
-        tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.tier", backpackInfo.getBackpackVariant().getTier() + 1));
+        if (backpackInfo.getVariant().getType().hasSpecialties())
+            tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.emphasis." + backpackInfo.getVariant().getSpecialty().getName()));
+        tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.tier", backpackInfo.getVariant().getType().getTier() + 1));
         tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.upgrade.used", backpackInfo.getPointsUsed(), backpackInfo.getMaxPoints()));
-        if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !backpackInfo.getApplied().isEmpty()) {
+        if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !backpackInfo.getUpgrades().isEmpty()) {
             tooltip.add(TextFormatting.ITALIC + I18n.format("tooltip.ironbackpacks.shift"));
-        } else if (!backpackInfo.getApplied().isEmpty()){
+        } else if (!backpackInfo.getUpgrades().isEmpty()){
             tooltip.add("");
             tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.upgrade.list", backpackInfo.getPointsUsed(), backpackInfo.getMaxPoints()));
-            for (BackpackUpgrade upgrade : backpackInfo.getApplied())
+            for (BackpackUpgrade upgrade : backpackInfo.getUpgrades())
                 tooltip.add("  - " + I18n.format("upgrade.ironbackpacks." + upgrade.getIdentifier().getResourcePath() + ".name"));
         }
     }

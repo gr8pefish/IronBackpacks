@@ -4,7 +4,6 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 
 import javax.annotation.Nonnegative;
@@ -17,29 +16,28 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
     @Nonnegative
     private final int tier;
     @Nonnegative
-    private final int maxPoints;
+    private final int baseMaxUpgradePoints;
     private final boolean hasSpecialties;
-    @Nonnegative
-    private final int sizeCols;
-    @Nonnegative
-    private final int sizeRows;
+    @Nonnull
+    private final BackpackSize baseSize;
 
 
-    public BackpackType(@Nonnull ResourceLocation identifier, @Nonnegative int tier, @Nonnegative int maxPoints, boolean hasSpecialties, @Nonnegative int sizeCols, @Nonnegative int sizeRows) {
+    public BackpackType(@Nonnull ResourceLocation identifier, @Nonnegative int tier, @Nonnegative int maxPoints, boolean hasSpecialties, @Nonnull BackpackSize baseSize) {
         Preconditions.checkNotNull(identifier, "Identifier cannot be null");
         Preconditions.checkArgument(tier >= 0, "Tier cannot be negative");
         Preconditions.checkArgument(maxPoints >= 0, "Max points cannot be negative");
-        Preconditions.checkArgument(sizeCols > 0, "Column count must be greater than 0" );
-        Preconditions.checkArgument(sizeRows > 0, "Row count must be greater than 0" );
 
         this.identifier = identifier;
         this.tier = tier;
-        this.maxPoints = maxPoints;
+        this.baseMaxUpgradePoints = maxPoints;
         this.hasSpecialties = hasSpecialties;
-        this.sizeCols = sizeCols;
-        this.sizeRows = sizeRows;
+        this.baseSize = baseSize;
 
         setRegistryName(identifier);
+    }
+
+    public BackpackType(@Nonnull ResourceLocation identifier, @Nonnegative int tier, @Nonnegative int maxPoints, boolean hasSpecialties, @Nonnegative int baseSizeCols, @Nonnegative int baseSizeRows) {
+        this(identifier, tier, maxPoints, hasSpecialties, new BackpackSize(baseSizeCols, baseSizeRows));
     }
 
     @Nonnull
@@ -53,22 +51,17 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
     }
 
     @Nonnegative
-    public int getMaxPoints() {
-        return maxPoints;
+    public int getBaseMaxUpgradePoints() {
+        return baseMaxUpgradePoints;
     }
 
     public boolean hasSpecialties() {
         return hasSpecialties;
     }
 
-    @Nonnegative
-    public int getSizeCols() {
-        return sizeCols;
-    }
-
-    @Nonnegative
-    public int getSizeRows() {
-        return sizeRows;
+    @Nonnull
+    public BackpackSize getBaseSize() {
+        return baseSize;
     }
 
     public boolean isNull() {
@@ -95,5 +88,13 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
     @Override
     public int hashCode() {
         return identifier.hashCode();
+    }
+
+    @Nonnegative
+    public int applyUpgradePointsSpecialtyModifier(@Nonnull BackpackSpecialty specialty) {
+        if (specialty == BackpackSpecialty.UPGRADE) {
+            return baseMaxUpgradePoints + 5; //TODO: Hardcoded, more configurable (/complex?)
+        }
+        return baseMaxUpgradePoints;
     }
 }
