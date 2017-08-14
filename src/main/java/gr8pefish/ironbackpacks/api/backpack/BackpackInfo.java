@@ -8,7 +8,6 @@ import gr8pefish.ironbackpacks.api.inventory.IBackpackInventoryProvider;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
-import gr8pefish.ironbackpacks.api.variant.BackpackVariantEnum;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -73,10 +72,6 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     @Nonnull
     public BackpackVariant getVariant() {
         return backpackVariant;
-    }
-
-    public BackpackVariantEnum getVariantEnum() {
-        return BackpackVariantEnum.getVariant(backpackVariant);
     }
 
     /**
@@ -148,7 +143,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
      */
     @Nonnull
     public IItemHandler getStackHandler() {
-        return inventoryProvider.getInventory(BackpackVariantEnum.getVariant(backpackVariant));
+        return inventoryProvider.getInventory(backpackVariant);
     }
 
     /**

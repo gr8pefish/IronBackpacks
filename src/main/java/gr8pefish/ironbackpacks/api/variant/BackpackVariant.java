@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class BackpackVariant {
 
@@ -34,6 +35,19 @@ public class BackpackVariant {
 
     }
 
+    //Override for HashMap in BackpackInvImpl so that changing the inventory (and therefore the nbt value of the key/this) doesn't make map.containsKey() fail
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BackpackVariant that = (BackpackVariant) o;
+        return Objects.equals(identifier, that.identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(identifier);
+    }
 
     @Nonnull
     public BackpackType getType() {
@@ -58,7 +72,7 @@ public class BackpackVariant {
     }
 
     public String getName() {
-        return type + ":" +specialty;
+        return type + "_" +specialty;
     }
 
     @Override

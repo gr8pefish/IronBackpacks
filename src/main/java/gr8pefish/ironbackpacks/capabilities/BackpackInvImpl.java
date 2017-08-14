@@ -3,7 +3,6 @@ package gr8pefish.ironbackpacks.capabilities;
 import gr8pefish.ironbackpacks.api.inventory.IBackpackInventoryProvider;
 import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.api.variant.BackpackVariantEnum;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -42,45 +41,28 @@ public final class BackpackInvImpl {
 
     private static class DefaultImpl implements IBackpackInventoryProvider {
 
-        //Error could be in:
-        //HashMap -> Nope
-        //VariantList -> Nope
-
-        //hashmap to store mapping of variants and IItemHandlers, initialized to size of the number of variants //TODO: Error here??
-//        private final Map<BackpackVariant, IItemHandler> inventories = new HashMap<>(IronBackpacksAPI.getVariantList().size());
-
-//        private final Map<BackpackVariantEnum, IItemHandler> inventories = new EnumMap<>(BackpackVariantEnum.class);
-        private final Map<BackpackVariantEnum, IItemHandler> inventories = new HashMap<>();
+        //hashmap to store mapping of variants and IItemHandlers
+        private final Map<BackpackVariant, IItemHandler> inventories = new HashMap<>();
 
         @Nonnull
         @Override
-//        public IItemHandler getInventory(@Nonnull BackpackVariant variant) {
-        public IItemHandler getInventory(@Nonnull BackpackVariantEnum variant) {
-            if (!inventories.containsKey(variant)) {
-//                inventories.put(variant, new ItemStackHandler(variant.getBackpackSize().getTotalSize())); //ToDo: Custom wrapped ItemStackHandler?
-                inventories.put(variant, new ItemStackHandler(BackpackVariantEnum.getSize(variant))); //ToDo: Custom wrapped ItemStackHandler?
+        public IItemHandler getInventory(@Nonnull BackpackVariant variant) {
+            if (!inventories.containsKey(variant)) { //Note that .equals() and .hash() on BackpackVariant are overridden to make this work
+                inventories.put(variant, new ItemStackHandler(variant.getBackpackSize().getTotalSize())); //ToDo: Custom wrapped ItemStackHandler?
             }
             return inventories.get(variant);
         }
 
         //ToDO: Analyze, essentially just copied code that works
-//        private NBTTagCompound writeNBT(BackpackVariant variant) {
-        private NBTTagCompound writeNBT(BackpackVariantEnum variant) {
+        private NBTTagCompound writeNBT(BackpackVariant variant) {
             NBTTagCompound ret = new NBTTagCompound();
 
-            List<BackpackVariantEnum> variants; // = variant == null ? IronBackpacksAPI.getVariantList() : Collections.singletonList(variant);
-//            BackpackVariantEnum[] variants;
-            if (variant == null) {
-                variants = IronBackpacksAPI.getVariantEnumList(); //BackpackVariantEnum.values(); //IronBackpacksAPI.getVariantList();
-            } else {
-                variants = Collections.singletonList(variant); //new BackpackVariantEnum[] { variant }; //Collections.singletonList(variant);
-            }
+            List<BackpackVariant> variants = variant == null ? IronBackpacksAPI.getVariantList() : Collections.singletonList(variant);
 
-//            for (BackpackVariant v : variants) {
-            for (BackpackVariantEnum v : variants) {
+            for (BackpackVariant v : variants) {
                 if (inventories.containsKey(v)) {
                     NBTBase inv = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage().writeNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventories.get(v), null);
-                    ret.setTag(v.getIdentifier().toString(), inv);
+                    ret.setTag(v.getName(), inv);
                 }
             }
             return ret;
@@ -93,12 +75,9 @@ public final class BackpackInvImpl {
 
         @Override
         public void deserializeNBT(NBTTagCompound nbt) {
-//            for (BackpackVariant variant : IronBackpacksAPI.getVariantList()) {
-//            for (BackpackVariantEnum variant : BackpackVariantEnum.values()) {
-            for (BackpackVariantEnum variant : IronBackpacksAPI.getVariantEnumList()) {
-                if (nbt.hasKey(variant.getIdentifier().toString())) {
-//                    IItemHandler inv = new ItemStackHandler(variant.getBackpackSize().getTotalSize());
-                    IItemHandler inv = new ItemStackHandler(BackpackVariantEnum.getSize(variant));
+            for (BackpackVariant variant : IronBackpacksAPI.getVariantList()) {
+                if (nbt.hasKey(variant.getName())) {
+                    IItemHandler inv = new ItemStackHandler(variant.getBackpackSize().getTotalSize());
                     CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage().readNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv, null, nbt.getTag(variant.getName()));
                     inventories.put(variant, inv);
                 }
