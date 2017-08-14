@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.capabilities;
 import gr8pefish.ironbackpacks.api.inventory.IBackpackInventoryProvider;
 import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
+import gr8pefish.ironbackpacks.api.variant.BackpackVariantEnum;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -42,29 +43,36 @@ public final class BackpackInvImpl {
     private static class DefaultImpl implements IBackpackInventoryProvider {
 
         //hashmap to store mapping of variants and IItemHandlers, initialized to size of the number of variants //TODO: Error here??
-        private final Map<BackpackVariant, IItemHandler> inventories = new HashMap<>(IronBackpacksAPI.getVariantList().size());
+//        private final Map<BackpackVariant, IItemHandler> inventories = new HashMap<>(IronBackpacksAPI.getVariantList().size());
+
+        private final Map<BackpackVariantEnum, IItemHandler> inventories = new EnumMap<>(BackpackVariantEnum.class);
 
         @Nonnull
         @Override
-        public IItemHandler getInventory(@Nonnull BackpackVariant variant) {
+//        public IItemHandler getInventory(@Nonnull BackpackVariant variant) {
+        public IItemHandler getInventory(@Nonnull BackpackVariantEnum variant) {
             if (!inventories.containsKey(variant)) {
-                inventories.put(variant, new ItemStackHandler(variant.getBackpackSize().getTotalSize())); //ToDo: Custom wrapped ItemStackHandler?
+//                inventories.put(variant, new ItemStackHandler(variant.getBackpackSize().getTotalSize())); //ToDo: Custom wrapped ItemStackHandler?
+                inventories.put(variant, new ItemStackHandler(BackpackVariantEnum.getSize(variant))); //ToDo: Custom wrapped ItemStackHandler?
             }
             return inventories.get(variant);
         }
 
         //ToDO: Analyze, essentially just copied code that works
-        private NBTTagCompound writeNBT(BackpackVariant variant) {
+//        private NBTTagCompound writeNBT(BackpackVariant variant) {
+        private NBTTagCompound writeNBT(BackpackVariantEnum variant) {
             NBTTagCompound ret = new NBTTagCompound();
 
-            List<BackpackVariant> variants; // = variant == null ? IronBackpacksAPI.getVariantList() : Collections.singletonList(variant);
+//            List<BackpackVariant> variants; // = variant == null ? IronBackpacksAPI.getVariantList() : Collections.singletonList(variant);
+            BackpackVariantEnum[] variants;
             if (variant == null) {
-                variants = IronBackpacksAPI.getVariantList();
+                variants = BackpackVariantEnum.values(); //IronBackpacksAPI.getVariantList();
             } else {
-                variants = Collections.singletonList(variant);
+                variants = new BackpackVariantEnum[] { variant }; //Collections.singletonList(variant);
             }
 
-            for (BackpackVariant v : variants) {
+//            for (BackpackVariant v : variants) {
+            for (BackpackVariantEnum v : variants) {
                 if (inventories.containsKey(v)) {
                     NBTBase inv = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage().writeNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventories.get(v), null);
                     ret.setTag(v.getIdentifier().toString(), inv);
@@ -80,9 +88,11 @@ public final class BackpackInvImpl {
 
         @Override
         public void deserializeNBT(NBTTagCompound nbt) {
-            for (BackpackVariant variant : IronBackpacksAPI.getVariantList()) {
+//            for (BackpackVariant variant : IronBackpacksAPI.getVariantList()) {
+            for (BackpackVariantEnum variant : BackpackVariantEnum.values()) {
                 if (nbt.hasKey(variant.getIdentifier().toString())) {
-                    IItemHandler inv = new ItemStackHandler(variant.getBackpackSize().getTotalSize());
+//                    IItemHandler inv = new ItemStackHandler(variant.getBackpackSize().getTotalSize());
+                    IItemHandler inv = new ItemStackHandler(BackpackVariantEnum.getSize(variant));
                     CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage().readNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv, null, nbt.getTag(variant.getName()));
                     inventories.put(variant, inv);
                 }

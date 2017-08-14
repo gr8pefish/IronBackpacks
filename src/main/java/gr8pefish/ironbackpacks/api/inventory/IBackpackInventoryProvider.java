@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.api.inventory;
 
 import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
+import gr8pefish.ironbackpacks.api.variant.BackpackVariantEnum;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -21,6 +22,7 @@ public interface IBackpackInventoryProvider extends INBTSerializable<NBTTagCompo
      * @return The inventory representing this backpack
      */
     @Nonnull
-    IItemHandler getInventory(@Nonnull BackpackVariant variant);
+//    IItemHandler getInventory(@Nonnull BackpackVariant variant);
+    IItemHandler getInventory(@Nonnull BackpackVariantEnum variant);
 
 }
