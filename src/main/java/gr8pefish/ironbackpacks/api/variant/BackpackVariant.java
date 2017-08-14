@@ -45,7 +45,7 @@ public class BackpackVariant {
         return specialty;
     }
 
-    @Nullable
+    @Nonnull
     public BackpackSize getBackpackSize() {
         return size;
     }
