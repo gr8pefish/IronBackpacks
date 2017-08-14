@@ -113,7 +113,11 @@ public class IronBackpacksAPI {
         return stack;
     }
 
-    //Populated in init()
+    /**
+     * Creates a list of each {@link BackpackVariant} possible.
+     *
+     * Populated in init.
+     */
     public static void initVariantList() {
 
         List<BackpackType> sortedTypes = Lists.newArrayList(IronBackpacksAPI.getBackpackTypes());
@@ -135,14 +139,13 @@ public class IronBackpacksAPI {
             }
         }
 
-        //TESTING //works just fine: http://i.imgur.com/wNaWIpz.png
-        System.out.println("TESTING VARIANT LIST");
-        for (BackpackVariant v : variantList) {
-            System.out.println(v);
-        }
-
     }
 
+    /**
+     * Gets the list of all possible {@link BackpackVariant}s.
+     *
+     * @return - An immutable copy of the list of variants
+     */
     public static List<BackpackVariant> getVariantList() {
         return ImmutableList.copyOf(variantList);
     }

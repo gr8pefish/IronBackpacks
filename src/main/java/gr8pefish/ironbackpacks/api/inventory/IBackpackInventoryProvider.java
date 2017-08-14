@@ -16,7 +16,9 @@ import javax.annotation.Nonnull;
 public interface IBackpackInventoryProvider extends INBTSerializable<NBTTagCompound> {
 
     /**
-     * Note: modifying this clientside is not advised
+     * Gets the inventory of the backpack given the variant.
+     * Note: Modifying this Client Side is not advised
+     *
      * @param variant The backpack variant, can use helpers to access this
      * @return The inventory representing this backpack
      */
