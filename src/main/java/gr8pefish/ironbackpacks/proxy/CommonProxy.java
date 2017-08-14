@@ -21,6 +21,7 @@ public class CommonProxy {
     public void init(FMLInitializationEvent event) {
         RecipesIronBackpacks.init();
         IronBackpacksAPI.initVariantList();
+        IronBackpacksAPI.initVariantEnumList();
         NetworkRegistry.INSTANCE.registerGuiHandler(IronBackpacks.INSTANCE, new GuiHandler());
     }
 

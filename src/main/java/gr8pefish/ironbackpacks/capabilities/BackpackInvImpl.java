@@ -42,10 +42,15 @@ public final class BackpackInvImpl {
 
     private static class DefaultImpl implements IBackpackInventoryProvider {
 
+        //Error could be in:
+        //HashMap -> Nope
+        //VariantList -> Nope
+
         //hashmap to store mapping of variants and IItemHandlers, initialized to size of the number of variants //TODO: Error here??
 //        private final Map<BackpackVariant, IItemHandler> inventories = new HashMap<>(IronBackpacksAPI.getVariantList().size());
 
-        private final Map<BackpackVariantEnum, IItemHandler> inventories = new EnumMap<>(BackpackVariantEnum.class);
+//        private final Map<BackpackVariantEnum, IItemHandler> inventories = new EnumMap<>(BackpackVariantEnum.class);
+        private final Map<BackpackVariantEnum, IItemHandler> inventories = new HashMap<>();
 
         @Nonnull
         @Override
@@ -63,12 +68,12 @@ public final class BackpackInvImpl {
         private NBTTagCompound writeNBT(BackpackVariantEnum variant) {
             NBTTagCompound ret = new NBTTagCompound();
 
-//            List<BackpackVariant> variants; // = variant == null ? IronBackpacksAPI.getVariantList() : Collections.singletonList(variant);
-            BackpackVariantEnum[] variants;
+            List<BackpackVariantEnum> variants; // = variant == null ? IronBackpacksAPI.getVariantList() : Collections.singletonList(variant);
+//            BackpackVariantEnum[] variants;
             if (variant == null) {
-                variants = BackpackVariantEnum.values(); //IronBackpacksAPI.getVariantList();
+                variants = IronBackpacksAPI.getVariantEnumList(); //BackpackVariantEnum.values(); //IronBackpacksAPI.getVariantList();
             } else {
-                variants = new BackpackVariantEnum[] { variant }; //Collections.singletonList(variant);
+                variants = Collections.singletonList(variant); //new BackpackVariantEnum[] { variant }; //Collections.singletonList(variant);
             }
 
 //            for (BackpackVariant v : variants) {
@@ -89,7 +94,8 @@ public final class BackpackInvImpl {
         @Override
         public void deserializeNBT(NBTTagCompound nbt) {
 //            for (BackpackVariant variant : IronBackpacksAPI.getVariantList()) {
-            for (BackpackVariantEnum variant : BackpackVariantEnum.values()) {
+//            for (BackpackVariantEnum variant : BackpackVariantEnum.values()) {
+            for (BackpackVariantEnum variant : IronBackpacksAPI.getVariantEnumList()) {
                 if (nbt.hasKey(variant.getIdentifier().toString())) {
 //                    IItemHandler inv = new ItemStackHandler(variant.getBackpackSize().getTotalSize());
                     IItemHandler inv = new ItemStackHandler(BackpackVariantEnum.getSize(variant));

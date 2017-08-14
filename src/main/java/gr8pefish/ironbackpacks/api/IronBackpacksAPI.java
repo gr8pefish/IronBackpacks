@@ -10,6 +10,7 @@ import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.variant.BackpackType;
 import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
+import gr8pefish.ironbackpacks.api.variant.BackpackVariantEnum;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -151,5 +152,32 @@ public class IronBackpacksAPI {
         return ImmutableList.copyOf(variantList);
     }
 
+
+    private static ArrayList<BackpackVariantEnum> variantEnumList = new ArrayList<>();
+
+    public static void initVariantEnumList() {
+        List<BackpackType> sortedTypes = Lists.newArrayList(IronBackpacksAPI.getBackpackTypes());
+        sortedTypes.sort(Comparator.comparingInt(BackpackType::getTier));
+
+        for (BackpackType backpackType : sortedTypes) {
+            if (backpackType.getIdentifier().equals(IronBackpacksAPI.NULL))
+                continue;
+
+            if (!backpackType.hasSpecialties()) {
+                variantEnumList.add(BackpackVariantEnum.getVariant(new BackpackVariant(backpackType, BackpackSpecialty.NONE)));
+            } else {
+                for (BackpackSpecialty specialty : BackpackSpecialty.values()) {
+                    if (specialty == BackpackSpecialty.NONE)
+                        continue;
+
+                    variantEnumList.add(BackpackVariantEnum.getVariant(new BackpackVariant(backpackType, specialty)));
+                }
+            }
+        }
+    }
+
+    public static List<BackpackVariantEnum> getVariantEnumList() {
+        return ImmutableList.copyOf(variantEnumList);
+    }
 
 }
