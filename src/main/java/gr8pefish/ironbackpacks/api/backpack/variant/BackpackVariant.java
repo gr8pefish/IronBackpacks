@@ -1,4 +1,4 @@
-package gr8pefish.ironbackpacks.api.variant;
+package gr8pefish.ironbackpacks.api.backpack.variant;
 
 import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.IronBackpacks;
@@ -6,7 +6,6 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
@@ -18,31 +17,36 @@ import java.util.Objects;
  */
 public class BackpackVariant {
 
+    // Fields
+
     @Nonnull
     private final BackpackType type;
     @Nonnull
     private final BackpackSpecialty specialty;
     @Nonnull
-    private BackpackSize size; //not final to allow for configurable sizes on the fly (TODO: determine if necessary)
+    private final BackpackSize size; //This is with the specialty modifying it
     @Nonnegative
-    private final int maxUpgradePoints;
+    private final int maxUpgradePoints; //This is with the specialty modifying it
     @Nonnull
     private final ResourceLocation identifier; //TODO: will be used for serialization once implemented
+
+    // Constructor
 
     public BackpackVariant(@Nonnull BackpackType type, @Nonnull BackpackSpecialty specialty) {
         Preconditions.checkNotNull(type, "Type cannot be null");
         Preconditions.checkNotNull(specialty, "Specialty cannot be null");
 
         this.type = type;
-        this.maxUpgradePoints = type.applyUpgradePointsSpecialtyModifier(specialty);
+        this.maxUpgradePoints = type.applyDefaultUpgradePointsSpecialtyModifier(specialty);
         this.specialty = specialty;
-        this.size = type.getBaseSize().applySizeSpecialtyModifier(specialty);
+        this.size = type.getBaseSize().applyDefaultSizeSpecialtyModifier(specialty);
 
+        //Generate a unique identifier from the type and specialty, ends up looking like: "ironbackpacks:variant_iron_storage"
         this.identifier = new ResourceLocation(IronBackpacks.MODID,"variant_" + type.getIdentifier().getResourcePath() + "_" + specialty.getName());
 
     }
 
-    //Getters (and BackpackSize setter)
+    // Getters (No setters as all the fields are final)
 
     @Nonnull
     public BackpackType getType() {
@@ -59,13 +63,6 @@ public class BackpackVariant {
         return size;
     }
 
-    /** Update the BackpackSize and return the modified Variant */
-    @Nonnull
-    public BackpackVariant setBackpackSize(@Nonnull BackpackSize size) {
-        this.size = size;
-        return this;
-    }
-
     @Nonnegative
     public int getMaxUpgradePoints() {
         return maxUpgradePoints;
@@ -76,7 +73,7 @@ public class BackpackVariant {
         return identifier;
     }
 
-    //Native method overrides
+    // Overrides
 
     //Override for HashMap in BackpackInvImpl so that changing the inventory (and therefore the nbt value of the key/this) doesn't make map.containsKey() fail
     @Override
@@ -87,16 +84,15 @@ public class BackpackVariant {
         return Objects.equals(identifier, that.identifier);
     }
 
+    //Only care about the identifier for uniqueness, so just hash that
     @Override
     public int hashCode() {
         return Objects.hash(identifier);
     }
 
-    //Convenience string method
     @Override
     public String toString() {
         return "TYPE: " + type + " --- SPECIALTY: " + specialty + " --- UPGRADE POINTS: " + maxUpgradePoints + " --- SIZE: " + size + " --- IDENTIFIER: " + identifier.toString();
     }
-
 
 }

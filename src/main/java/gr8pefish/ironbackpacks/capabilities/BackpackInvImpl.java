@@ -1,7 +1,8 @@
 package gr8pefish.ironbackpacks.capabilities;
 
-import gr8pefish.ironbackpacks.api.inventory.IBackpackInventoryProvider;
-import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
+import gr8pefish.ironbackpacks.api.backpack.inventory.IBackpackInventoryProvider;
+import gr8pefish.ironbackpacks.api.backpack.inventory.IronBackpacksInventoryHelper;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackVariant;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -90,13 +91,13 @@ public final class BackpackInvImpl {
 
         @Override
         public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing) {
-            return capability == IronBackpacksAPI.BACKPACK_INV_CAPABILITY;
+            return capability == IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY;
         }
 
         @Override
         public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
-            if (capability == IronBackpacksAPI.BACKPACK_INV_CAPABILITY) {
-                return IronBackpacksAPI.BACKPACK_INV_CAPABILITY.cast(cap);
+            if (capability == IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY) {
+                return IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY.cast(cap);
             }
 
             return null;

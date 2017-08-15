@@ -1,5 +1,7 @@
 Place to hold notes for 1.11+ changes
 
+Go through everything and add Preconditions checks where needed
+
 JSON/Config to add new tiers of backpacks via user?
 
 addon mods would use a new registry event to simply register their own, simple as that

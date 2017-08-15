@@ -1,6 +1,6 @@
-package gr8pefish.ironbackpacks.api.inventory;
+package gr8pefish.ironbackpacks.api.backpack.inventory;
 
-import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackVariant;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;

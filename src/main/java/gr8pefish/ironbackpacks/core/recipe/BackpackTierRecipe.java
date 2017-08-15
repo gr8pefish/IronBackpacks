@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.core.recipe;
 
-import gr8pefish.ironbackpacks.api.variant.BackpackSpecialty;
-import gr8pefish.ironbackpacks.api.variant.BackpackType;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 

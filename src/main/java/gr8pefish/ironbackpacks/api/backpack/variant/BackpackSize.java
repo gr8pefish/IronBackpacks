@@ -1,4 +1,4 @@
-package gr8pefish.ironbackpacks.api.variant;
+package gr8pefish.ironbackpacks.api.backpack.variant;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.nbt.NBTTagByteArray;
@@ -6,21 +6,26 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
- * The size of the backpack in terms of number of rows and columns.
+ * The size of the backpack.
+ *
+ * Defined by the number of rows and columns.
+ * Includes methods to change these internal values, as well as other miscellaneous helper methods.
  */
 public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
 
-    //Size determined from cols x rows
+    // Fields
+
     @Nonnegative
-    private int columns;
+    private int columns; //not final to allow for configurable sizes on the fly
     @Nonnegative
-    private int rows;
+    private int rows; //not final to allow for configurable sizes on the fly
+
+    // Constructors
 
     public BackpackSize() {
-        //Empty constructor
+        //No-op
     }
 
     public BackpackSize(@Nonnegative int columns, @Nonnegative int rows) {
@@ -31,15 +36,17 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
         this.rows = rows;
     }
 
-    //Getters and Setters
+    // Getters and Setters
 
     @Nonnegative
     public int getColumns() {
         return columns;
     }
 
-    public void setColumns(@Nonnegative int columns) {
+    @Nonnull
+    public BackpackSize setColumns(@Nonnegative int columns) {
         this.columns = columns;
+        return this;
     }
 
     @Nonnegative
@@ -47,11 +54,13 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
         return rows;
     }
 
-    public void setRows(@Nonnegative int rows) {
+    @Nonnull
+    public BackpackSize setRows(@Nonnegative int rows) {
         this.rows = rows;
+        return this;
     }
 
-    //Overrides for NBT
+    // Overrides for NBT
 
     @Override
     @Nonnull
@@ -65,7 +74,7 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
         rows = nbt.getByteArray()[1];
     }
 
-    //Overrides
+    // Overrides
 
     @Override
     public boolean equals(@Nonnull Object obj) {
@@ -80,20 +89,37 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
         return columns + "x" + rows + " => " + getTotalSize();
     }
 
-    //Helper methods
+    // Helper methods
 
     @Nonnegative
     public int getTotalSize() {
         return columns * rows;
     }
 
+    /**
+     * Alters the size of the backpack depending on the {@link BackpackSpecialty}.
+     *
+     * Currently only modifies with the {@link BackpackSpecialty#STORAGE} specialty.
+     *
+     * @param specialty - the {@link BackpackSpecialty} to modify the size with.
+     * @param rowIncreaseAmount - the number of rows to increase the size by.
+     * @param colIncreaseAmount - the number of columns to increase the size by.
+     * @return - the updated BackpackSize
+     */
     @Nonnull
-    public BackpackSize applySizeSpecialtyModifier(@Nonnull BackpackSpecialty specialty) {
+    public BackpackSize applySizeSpecialtyModifier(@Nonnull BackpackSpecialty specialty, @Nonnegative int rowIncreaseAmount, @Nonnegative int colIncreaseAmount) {
         if (specialty.equals(BackpackSpecialty.STORAGE)) {
-            return new BackpackSize(this.getColumns(), this.getRows() + 1); //add a row //TODO: More configurable(/complex?)
+            return this.setRows(this.getRows() + rowIncreaseAmount).setColumns(this.getColumns() + colIncreaseAmount);
         } else {
             return this;
         }
+
+    }
+
+    /** Helper method to apply the default size specialty modifier, an increase of 1 row. */
+    @Nonnull
+    public BackpackSize applyDefaultSizeSpecialtyModifier(@Nonnull BackpackSpecialty specialty) {
+        return applySizeSpecialtyModifier(specialty, 1, 0); //default increase by 1 row
     }
 
 

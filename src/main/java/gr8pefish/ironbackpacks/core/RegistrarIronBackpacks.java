@@ -8,9 +8,7 @@ import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.upgrade.IUpgrade;
-import gr8pefish.ironbackpacks.api.variant.BackpackSpecialty;
-import gr8pefish.ironbackpacks.api.variant.BackpackType;
-import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.item.ItemBackpack;
 import gr8pefish.ironbackpacks.item.ItemUpgrade;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -24,7 +22,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 import net.minecraftforge.fml.common.registry.RegistryBuilder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -134,7 +131,7 @@ public class RegistrarIronBackpacks {
             return new ModelResourceLocation(new ResourceLocation(IronBackpacks.MODID, "upgrade/null"), "inventory");
         });
 
-        for (BackpackUpgrade backpackUpgrade : IronBackpacksAPI.getUpgrades()) {
+        for (BackpackUpgrade backpackUpgrade : IronBackpacksAPI.getBackpackUpgrades()) {
             if (!backpackUpgrade.isNull()) {
                 ResourceLocation location = new ResourceLocation(backpackUpgrade.getIdentifier().getResourceDomain(), "upgrade/" + backpackUpgrade.getIdentifier().getResourcePath());
                 ModelLoader.registerItemVariants(UPGRADE, new ModelResourceLocation(location, "inventory"));

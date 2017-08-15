@@ -4,10 +4,11 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.api.inventory.IBackpackInventoryProvider;
+import gr8pefish.ironbackpacks.api.backpack.inventory.IBackpackInventoryProvider;
+import gr8pefish.ironbackpacks.api.backpack.inventory.IronBackpacksInventoryHelper;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
-import gr8pefish.ironbackpacks.api.variant.BackpackSpecialty;
-import gr8pefish.ironbackpacks.api.variant.BackpackVariant;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackVariant;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -33,6 +34,8 @@ import java.util.UUID;
  */
 public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
+    // Fields
+
     @Nonnull
     private BackpackVariant backpackVariant;
     @Nonnull
@@ -42,7 +45,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     @Nullable
     private UUID owner;
 
-    //Constructors
+    // Constructors
 
     private BackpackInfo(@Nonnull BackpackVariant backpackVariant, @Nonnull List<BackpackUpgrade> upgrades) {
         Preconditions.checkNotNull(backpackVariant, "Backpack variant cannot be null");
@@ -62,7 +65,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     }
 
 
-    //Getters/Setters
+    // Getters/Setters
 
     /**
      * Gets the variant of the backpack.
@@ -182,38 +185,6 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         return this;
     }
 
-
-    //TODO: Move/Edit/Cleanup all below here
-
-    //Helper methods (move to another class)
-
-    public boolean conflicts(@Nullable BackpackUpgrade upgrade) {
-        if (upgrade == null)
-            return false;
-
-        for (BackpackUpgrade installed : upgrades)
-            if (upgrade.isConflicting(installed))
-                return true;
-
-        return false;
-    }
-
-    public boolean hasUpgrade(@Nullable BackpackUpgrade backpackUpgrade) {
-        return upgrades.contains(backpackUpgrade);
-    }
-
-    public int getPointsUsed() {
-        int used = 0;
-        for (BackpackUpgrade backpackUpgrade : upgrades)
-            used += backpackUpgrade.getApplicationCost();
-
-        return used;
-    }
-
-    public int getMaxPoints() {
-        return backpackVariant.getType().getBaseMaxUpgradePoints() + (backpackVariant.getSpecialty() == BackpackSpecialty.UPGRADE ? 5 : 0);
-    }
-
     // INBTSerializable
 
     @Override
@@ -253,6 +224,19 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         }
     }
 
+    // Overrides
+
+    @Override
+    public String toString() {
+        String strType = backpackVariant.getType().isNull() ? "NONE" : backpackVariant.getType().toString();
+        String specType = backpackVariant.getSpecialty() == null ? "NONE" : backpackVariant.getSpecialty().toString();
+        String stackType = inventoryProvider == null ? "NONE" : inventoryProvider.toString();
+        return "TYPE: " + strType + " --- SPECIALTY: " + specType + " --- STACK HANDLER: " + stackType;
+    }
+
+    // Helper methods
+    //TODO: Move/Edit/Cleanup all below here
+
     @Nonnull
     public static BackpackInfo fromStack(@Nonnull ItemStack stack) {
         Preconditions.checkNotNull(stack, "ItemStack cannot be null");
@@ -261,7 +245,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
             return new BackpackInfo();
 
         BackpackInfo tagged = fromTag(stack.getTagCompound().getCompoundTag("packInfo"));
-        return tagged.setInventoryProvider(stack.getCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null));
+        return tagged.setInventoryProvider(stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null));
     }
 
     @Nonnull
@@ -274,12 +258,31 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         return backpackInfo;
     }
 
-    @Override
-    public String toString() {
-        String strType = backpackVariant.getType().isNull() ? "NONE" : backpackVariant.getType().toString();
-        String specType = backpackVariant.getSpecialty() == null ? "NONE" : backpackVariant.getSpecialty().toString();
-        String stackType = inventoryProvider == null ? "NONE" : inventoryProvider.toString();
-        return "TYPE: " + strType + " --- SPECIALTY: " + specType + " --- STACK HANDLER: " + stackType;
+    public boolean conflicts(@Nullable BackpackUpgrade upgrade) {
+        if (upgrade == null)
+            return false;
+
+        for (BackpackUpgrade installed : upgrades)
+            if (upgrade.isConflicting(installed))
+                return true;
+
+        return false;
+    }
+
+    public boolean hasUpgrade(@Nullable BackpackUpgrade backpackUpgrade) {
+        return upgrades.contains(backpackUpgrade);
+    }
+
+    public int getPointsUsed() {
+        int used = 0;
+        for (BackpackUpgrade backpackUpgrade : upgrades)
+            used += backpackUpgrade.getApplicationCost();
+
+        return used;
+    }
+
+    public int getMaxPoints() {
+        return backpackVariant.getType().getBaseMaxUpgradePoints() + (backpackVariant.getSpecialty() == BackpackSpecialty.UPGRADE ? 5 : 0);
     }
 
 }
