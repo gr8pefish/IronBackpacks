@@ -35,7 +35,7 @@ public enum BackpackSpecialty implements IStringSerializable {
      * @return - the specialty if found, NONE otherwise.
      */
     @Nonnull
-    public static BackpackSpecialty getSpecialty(@Nullable String name) {
+    public static BackpackSpecialty getBackpackSpecialty(@Nullable String name) {
         for (BackpackSpecialty backpackSpecialty : BackpackSpecialty.values())
             if (backpackSpecialty.getName().equalsIgnoreCase(name))
                 return backpackSpecialty;

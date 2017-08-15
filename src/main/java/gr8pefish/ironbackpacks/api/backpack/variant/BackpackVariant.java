@@ -11,8 +11,8 @@ import java.util.Objects;
 /**
  * Class to hold the variant of a backpack.
  *
- * Each variant is determined by the type and specialty.
- * Using this data, the maxUpgradePoints, size, and identifier are constructed.
+ * Each variant is determined by the backpackType and backpackSpecialty.
+ * Using this data, the maxUpgradePoints, backpackSize, and identifier are constructed.
  * There is only one of each variant (e.g. IRON_STORAGE).
  */
 public class BackpackVariant {
@@ -20,47 +20,47 @@ public class BackpackVariant {
     // Fields
 
     @Nonnull
-    private final BackpackType type;
+    private final BackpackType backpackType;
     @Nonnull
-    private final BackpackSpecialty specialty;
+    private final BackpackSpecialty backpackSpecialty;
     @Nonnull
-    private final BackpackSize size; //This is with the specialty modifying it
+    private final BackpackSize backpackSize; //This is with the backpackSpecialty modifying it
     @Nonnegative
-    private final int maxUpgradePoints; //This is with the specialty modifying it
+    private final int maxUpgradePoints; //This is with the backpackSpecialty modifying it
     @Nonnull
     private final ResourceLocation identifier; //TODO: will be used for serialization once implemented
 
     // Constructor
 
-    public BackpackVariant(@Nonnull BackpackType type, @Nonnull BackpackSpecialty specialty) {
+    public BackpackVariant(@Nonnull BackpackType type, @Nonnull BackpackSpecialty backpackSpecialty) {
         Preconditions.checkNotNull(type, "Type cannot be null");
-        Preconditions.checkNotNull(specialty, "Specialty cannot be null");
+        Preconditions.checkNotNull(backpackSpecialty, "Specialty cannot be null");
 
-        this.type = type;
-        this.maxUpgradePoints = type.applyDefaultUpgradePointsSpecialtyModifier(specialty);
-        this.specialty = specialty;
-        this.size = type.getBaseSize().applyDefaultSizeSpecialtyModifier(specialty);
+        this.backpackType = type;
+        this.maxUpgradePoints = type.applyDefaultUpgradePointModifierFromBackpackSpecialty(backpackSpecialty);
+        this.backpackSpecialty = backpackSpecialty;
+        this.backpackSize = type.getBaseBackpackSize().applyDefaultSizeModifierFromBackpackSpecialty(backpackSpecialty);
 
-        //Generate a unique identifier from the type and specialty, ends up looking like: "ironbackpacks:variant_iron_storage"
-        this.identifier = new ResourceLocation(IronBackpacks.MODID,"variant_" + type.getIdentifier().getResourcePath() + "_" + specialty.getName());
+        //Generate a unique identifier from the backpackType and backpackSpecialty, ends up looking like: "ironbackpacks:variant_iron_storage"
+        this.identifier = new ResourceLocation(IronBackpacks.MODID,"variant_" + type.getIdentifier().getResourcePath() + "_" + backpackSpecialty.getName());
 
     }
 
     // Getters (No setters as all the fields are final)
 
     @Nonnull
-    public BackpackType getType() {
-        return type;
+    public BackpackType getBackpackType() {
+        return backpackType;
     }
 
     @Nonnull
-    public BackpackSpecialty getSpecialty() {
-        return specialty;
+    public BackpackSpecialty getBackpackSpecialty() {
+        return backpackSpecialty;
     }
 
     @Nonnull
     public BackpackSize getBackpackSize() {
-        return size;
+        return backpackSize;
     }
 
     @Nonnegative
@@ -92,7 +92,7 @@ public class BackpackVariant {
 
     @Override
     public String toString() {
-        return "TYPE: " + type + " --- SPECIALTY: " + specialty + " --- UPGRADE POINTS: " + maxUpgradePoints + " --- SIZE: " + size + " --- IDENTIFIER: " + identifier.toString();
+        return "TYPE: " + backpackType + " --- SPECIALTY: " + backpackSpecialty + " --- UPGRADE POINTS: " + maxUpgradePoints + " --- SIZE: " + backpackSize + " --- IDENTIFIER: " + identifier.toString();
     }
 
 }

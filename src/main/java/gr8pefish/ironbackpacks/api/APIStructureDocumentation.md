@@ -37,7 +37,7 @@
         * Calculates BackpackSize from that (cached in a field)
 
 * BackpackSize
-    * simple class to calculate the size of the backpack given a type and specialty 
+    * simple class to calculate the size of the backpack given a type and backpackSpecialty 
     * useful as a separate class so that custom dynamic sizes can be done easier
 
 * BackpackSpecialty

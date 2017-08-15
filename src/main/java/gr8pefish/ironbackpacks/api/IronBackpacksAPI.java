@@ -33,21 +33,21 @@ public class IronBackpacksAPI {
     public static Item UPGRADE_ITEM = null;
 
     /** Private registries for internal use (can be accessed publicly via methods below). */
-    private static IForgeRegistry<BackpackType> typeRegistry = null;
+    private static IForgeRegistry<BackpackType> backpackTypeRegistry = null;
     private static IForgeRegistry<BackpackUpgrade> upgradeRegistry = null;
 
     /** Public {@link ResourceLocation} for NULL identifiers. */
     public static final ResourceLocation NULL = new ResourceLocation("ironbackpacks", "null");
 
     /** Private list containing all {@link BackpackVariant} possibilities. See {@link IronBackpacksAPI#initBackpackVariantList()} below for initialization. */
-    private static ArrayList<BackpackVariant> variantList = new ArrayList<>();
+    private static ArrayList<BackpackVariant> backpackVariantList = new ArrayList<>();
 
     // Types
 
     /** Public facing method for getting the {@link BackpackType} registry. */
     @Nonnull
-    public static IForgeRegistry<BackpackType> getTypeRegistry() {
-        return typeRegistry == null ? typeRegistry = GameRegistry.findRegistry(BackpackType.class) : typeRegistry;
+    public static IForgeRegistry<BackpackType> getBackpackTypeRegistry() {
+        return backpackTypeRegistry == null ? backpackTypeRegistry = GameRegistry.findRegistry(BackpackType.class) : backpackTypeRegistry;
     }
 
     /**
@@ -58,17 +58,17 @@ public class IronBackpacksAPI {
      */
     @Nonnull
     public static BackpackType getBackpackType(@Nonnull ResourceLocation identifier) {
-        return getTypeRegistry().getValue(identifier);
+        return getBackpackTypeRegistry().getValue(identifier);
     }
 
     /**
-     * Gets an immutable Set of the BackpackTypes present in the {@link IronBackpacksAPI#getTypeRegistry()}.
+     * Gets an immutable Set of the BackpackTypes present in the {@link IronBackpacksAPI#getBackpackTypeRegistry()}.
      *
      * @return - An ImmutableSet filled with all the {@link BackpackType}s.
      */
     @Nonnull
     public static Set<BackpackType> getBackpackTypes() {
-        return ImmutableSet.copyOf(getTypeRegistry().getValues());
+        return ImmutableSet.copyOf(getBackpackTypeRegistry().getValues());
     }
 
     // Upgrades
@@ -186,13 +186,13 @@ public class IronBackpacksAPI {
                 continue;
 
             if (!backpackType.hasSpecialties()) {
-                variantList.add(new BackpackVariant(backpackType, BackpackSpecialty.NONE));
+                backpackVariantList.add(new BackpackVariant(backpackType, BackpackSpecialty.NONE));
             } else {
                 for (BackpackSpecialty specialty : BackpackSpecialty.values()) {
                     if (specialty == BackpackSpecialty.NONE)
                         continue;
 
-                    variantList.add(new BackpackVariant(backpackType, specialty));
+                    backpackVariantList.add(new BackpackVariant(backpackType, specialty));
                 }
             }
         }
@@ -205,7 +205,7 @@ public class IronBackpacksAPI {
      * @return - An immutable copy of the list of variants
      */
     public static List<BackpackVariant> getBackpackVariantList() {
-        return ImmutableList.copyOf(variantList);
+        return ImmutableList.copyOf(backpackVariantList);
     }
 
 }

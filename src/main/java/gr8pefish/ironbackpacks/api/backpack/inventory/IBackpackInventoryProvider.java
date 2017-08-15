@@ -20,7 +20,7 @@ public interface IBackpackInventoryProvider extends INBTSerializable<NBTTagCompo
      * Note: Modifying this Client Side is not advised
      *
      * @param variant The backpack variant, can use helpers to access this
-     * @return The inventory representing this backpack
+     * @return The inventory representing this backpack, as an {@link IItemHandler}
      */
     @Nonnull
     IItemHandler getInventory(@Nonnull BackpackVariant variant);

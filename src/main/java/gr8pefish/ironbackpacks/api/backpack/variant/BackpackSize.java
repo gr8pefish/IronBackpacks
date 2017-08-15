@@ -107,7 +107,7 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
      * @return - the updated BackpackSize
      */
     @Nonnull
-    public BackpackSize applySizeSpecialtyModifier(@Nonnull BackpackSpecialty specialty, @Nonnegative int rowIncreaseAmount, @Nonnegative int colIncreaseAmount) {
+    public BackpackSize applySizeModifierFromBackpackSpecialty(@Nonnull BackpackSpecialty specialty, @Nonnegative int rowIncreaseAmount, @Nonnegative int colIncreaseAmount) {
         if (specialty.equals(BackpackSpecialty.STORAGE)) {
             return new BackpackSize(this.getRows() + rowIncreaseAmount, this.getColumns() + colIncreaseAmount);
         } else {
@@ -118,8 +118,8 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
 
     /** Helper method to apply the default size specialty modifier, an increase of 1 row. */
     @Nonnull
-    public BackpackSize applyDefaultSizeSpecialtyModifier(@Nonnull BackpackSpecialty specialty) {
-        return applySizeSpecialtyModifier(specialty, 1, 0); //default increase by 1 row
+    public BackpackSize applyDefaultSizeModifierFromBackpackSpecialty(@Nonnull BackpackSpecialty specialty) {
+        return applySizeModifierFromBackpackSpecialty(specialty, 1, 0); //default increase by 1 row
     }
 
 

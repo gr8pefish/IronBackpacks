@@ -41,7 +41,7 @@ public class EventHandler {
         BackpackInfo packInfo = ((IBackpack) output.getItem()).getBackpackInfo(output);
         BackpackUpgrade upgrade = ((IUpgrade) right.getItem()).getUpgrade(right);
 
-        if (upgrade.isNull() || packInfo.getVariant().getType().isNull())
+        if (upgrade.isNull() || packInfo.getVariant().getBackpackType().isNull())
             return ItemStack.EMPTY;
 
         if (packInfo.conflicts(upgrade))
@@ -53,7 +53,7 @@ public class EventHandler {
         if (packInfo.hasUpgrade(upgrade))
             return ItemStack.EMPTY;
 
-        if (packInfo.getVariant().getType().getTier() < upgrade.getMinimumTier())
+        if (packInfo.getVariant().getBackpackType().getTier() < upgrade.getMinimumTier())
             return ItemStack.EMPTY;
 
         packInfo.addUpgrade(upgrade);

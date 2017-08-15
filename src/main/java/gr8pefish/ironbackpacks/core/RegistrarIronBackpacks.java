@@ -103,7 +103,7 @@ public class RegistrarIronBackpacks {
             if (stack.getItem() instanceof IBackpack) {
                 IBackpack backpack = (IBackpack) stack.getItem();
                 BackpackInfo backpackInfo = backpack.getBackpackInfo(stack);
-                ResourceLocation location = new ResourceLocation(backpackInfo.getVariant().getType().getIdentifier().getResourceDomain(), "backpack/" + backpackInfo.getVariant().getType().getIdentifier().getResourcePath());
+                ResourceLocation location = new ResourceLocation(backpackInfo.getVariant().getBackpackType().getIdentifier().getResourceDomain(), "backpack/" + backpackInfo.getVariant().getBackpackType().getIdentifier().getResourcePath());
                 return new ModelResourceLocation(location, "inventory");
             }
             return new ModelResourceLocation(new ResourceLocation(IronBackpacks.MODID, "backpack/null"), "inventory");

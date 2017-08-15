@@ -26,7 +26,7 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
     private final int baseMaxUpgradePoints;
     private final boolean hasSpecialties;
     @Nonnull
-    private final BackpackSize baseSize;
+    private final BackpackSize baseBackpackSize;
 
     // Constructors
 
@@ -37,9 +37,9 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
      * @param tier - The tier of the backpack. Starts at 0 for BASIC backpacks, and then goes up by 1, ending with DIAMOND at tier 3.
      * @param baseMaxUpgradePoints - The maximum number of upgrade points that can be applied to this type of backpack, before specialties.
      * @param hasSpecialties - If the backpack has specialties. True for all types except BASIC.
-     * @param baseSize - The size of this type of backpack, before specialties.
+     * @param baseBackpackSize - The size of this type of backpack, before specialties.
      */
-    public BackpackType(@Nonnull ResourceLocation identifier, @Nonnegative int tier, @Nonnegative int baseMaxUpgradePoints, boolean hasSpecialties, @Nonnull BackpackSize baseSize) {
+    public BackpackType(@Nonnull ResourceLocation identifier, @Nonnegative int tier, @Nonnegative int baseMaxUpgradePoints, boolean hasSpecialties, @Nonnull BackpackSize baseBackpackSize) {
         Preconditions.checkNotNull(identifier, "Identifier cannot be null");
         Preconditions.checkArgument(tier >= 0, "Tier cannot be negative");
         Preconditions.checkArgument(baseMaxUpgradePoints >= 0, "Max points cannot be negative");
@@ -48,7 +48,7 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
         this.tier = tier;
         this.baseMaxUpgradePoints = baseMaxUpgradePoints;
         this.hasSpecialties = hasSpecialties;
-        this.baseSize = baseSize;
+        this.baseBackpackSize = baseBackpackSize;
 
         setRegistryName(identifier);
     }
@@ -80,8 +80,8 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
     }
 
     @Nonnull
-    public BackpackSize getBaseSize() {
-        return baseSize;
+    public BackpackSize getBaseBackpackSize() {
+        return baseBackpackSize;
     }
 
     // Overrides
@@ -129,7 +129,7 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
      * @return - The updated maximumUpgradePoints
      */
     @Nonnegative
-    public int applyUpgradePointsSpecialtyModifier(@Nonnull BackpackSpecialty specialty, @Nonnegative int pointIncrease) {
+    public int applyUpgradePointModifierFromBackpackSpecialty(@Nonnull BackpackSpecialty specialty, @Nonnegative int pointIncrease) {
         if (specialty == BackpackSpecialty.UPGRADE) {
             return baseMaxUpgradePoints + pointIncrease; //TODO: Use this method?
         }
@@ -138,8 +138,8 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
 
     /** Helper method to alter the upgrade points by the default amount, which is an increase by 5. */
     @Nonnegative
-    public int applyDefaultUpgradePointsSpecialtyModifier(@Nonnull BackpackSpecialty specialty) {
-        return applyUpgradePointsSpecialtyModifier(specialty, 5); //default 5
+    public int applyDefaultUpgradePointModifierFromBackpackSpecialty(@Nonnull BackpackSpecialty specialty) {
+        return applyUpgradePointModifierFromBackpackSpecialty(specialty, 5); //default 5
     }
 
 }

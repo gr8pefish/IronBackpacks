@@ -192,8 +192,8 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         NBTTagCompound tag = new NBTTagCompound();
 
         // Serialize backpack info //TODO: Serialize variant directly
-        tag.setString("type", backpackVariant.getType().getIdentifier().toString());
-        tag.setString("spec", backpackVariant.getSpecialty().name());
+        tag.setString("type", backpackVariant.getBackpackType().getIdentifier().toString());
+        tag.setString("spec", backpackVariant.getBackpackSpecialty().name());
         if (owner != null)
             tag.setString("own", owner.toString());
 
@@ -210,7 +210,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     public void deserializeNBT(NBTTagCompound nbt) {
         // Deserialize backpack info
         //TODO: Deserialize from variant directly
-        backpackVariant = new BackpackVariant(IronBackpacksAPI.getBackpackType(new ResourceLocation(nbt.getString("type"))), BackpackSpecialty.getSpecialty(nbt.getString("spec")));
+        backpackVariant = new BackpackVariant(IronBackpacksAPI.getBackpackType(new ResourceLocation(nbt.getString("type"))), BackpackSpecialty.getBackpackSpecialty(nbt.getString("spec")));
         if (nbt.hasKey("own"))
             owner = UUID.fromString(nbt.getString("own"));
 
@@ -228,8 +228,8 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
     @Override
     public String toString() {
-        String strType = backpackVariant.getType().isNull() ? "NONE" : backpackVariant.getType().toString();
-        String specType = backpackVariant.getSpecialty() == null ? "NONE" : backpackVariant.getSpecialty().toString();
+        String strType = backpackVariant.getBackpackType().isNull() ? "NONE" : backpackVariant.getBackpackType().toString();
+        String specType = backpackVariant.getBackpackSpecialty() == null ? "NONE" : backpackVariant.getBackpackSpecialty().toString();
         String stackType = inventoryProvider == null ? "NONE" : inventoryProvider.toString();
         return "TYPE: " + strType + " --- SPECIALTY: " + specType + " --- STACK HANDLER: " + stackType;
     }
@@ -282,7 +282,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     }
 
     public int getMaxPoints() {
-        return backpackVariant.getType().getBaseMaxUpgradePoints() + (backpackVariant.getSpecialty() == BackpackSpecialty.UPGRADE ? 5 : 0);
+        return backpackVariant.getBackpackType().getBaseMaxUpgradePoints() + (backpackVariant.getBackpackSpecialty() == BackpackSpecialty.UPGRADE ? 5 : 0);
     }
 
 }
