@@ -12,9 +12,9 @@ import java.util.Locale;
  * These are assumed to be mutually exclusive, at least when the backpack has a specialty (i.e. not NONE).
  */
 public enum BackpackSpecialty implements IStringSerializable {
-    NONE, //No specialty ont he backpack (e.g. Basic/Leather backpack)
-    STORAGE, //Storage specialty, increases raw storage capacity
-    UPGRADE //Upgrade specialty, increases max upgrade points
+    NONE, //No specialty on the backpack (e.g. Basic backpack)
+    STORAGE, //Increases raw storage capacity
+    UPGRADE //Increases max upgrade points
     ;
 
     /**

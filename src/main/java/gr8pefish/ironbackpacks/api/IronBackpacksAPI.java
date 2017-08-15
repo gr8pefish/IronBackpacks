@@ -5,23 +5,18 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
-import gr8pefish.ironbackpacks.api.backpack.inventory.IBackpackInventoryProvider;
-import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackVariant;
+import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
-import net.minecraftforge.items.IItemHandlerModifiable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -44,7 +39,7 @@ public class IronBackpacksAPI {
     /** Public {@link ResourceLocation} for NULL identifiers. */
     public static final ResourceLocation NULL = new ResourceLocation("ironbackpacks", "null");
 
-    /** Private list containing all {@link BackpackVariant} possibilities. See {@link IronBackpacksAPI#initVariantList()} below for initialization. */
+    /** Private list containing all {@link BackpackVariant} possibilities. See {@link IronBackpacksAPI#initBackpackVariantList()} below for initialization. */
     private static ArrayList<BackpackVariant> variantList = new ArrayList<>();
 
     // Types
@@ -101,7 +96,7 @@ public class IronBackpacksAPI {
      * @return - An ImmutableSet filled with all the {@link BackpackUpgrade}s.
      */
     @Nonnull
-    public static Set<BackpackUpgrade> getBackpackUpgrades() {
+    public static Set<BackpackUpgrade> getUpgrades() {
         return ImmutableSet.copyOf(getUpgradeRegistry().getValues());
     }
 
@@ -181,7 +176,7 @@ public class IronBackpacksAPI {
      *
      * NOTE: Populated in init.
      */
-    public static void initVariantList() {
+    public static void initBackpackVariantList() {
 
         List<BackpackType> sortedTypes = Lists.newArrayList(IronBackpacksAPI.getBackpackTypes());
         sortedTypes.sort(Comparator.comparingInt(BackpackType::getTier));
@@ -209,7 +204,7 @@ public class IronBackpacksAPI {
      *
      * @return - An immutable copy of the list of variants
      */
-    public static List<BackpackVariant> getVariantList() {
+    public static List<BackpackVariant> getBackpackVariantList() {
         return ImmutableList.copyOf(variantList);
     }
 

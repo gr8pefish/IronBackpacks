@@ -2,7 +2,6 @@ package gr8pefish.ironbackpacks.api.backpack;
 
 import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;

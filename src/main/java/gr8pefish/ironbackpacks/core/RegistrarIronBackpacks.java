@@ -131,7 +131,7 @@ public class RegistrarIronBackpacks {
             return new ModelResourceLocation(new ResourceLocation(IronBackpacks.MODID, "upgrade/null"), "inventory");
         });
 
-        for (BackpackUpgrade backpackUpgrade : IronBackpacksAPI.getBackpackUpgrades()) {
+        for (BackpackUpgrade backpackUpgrade : IronBackpacksAPI.getUpgrades()) {
             if (!backpackUpgrade.isNull()) {
                 ResourceLocation location = new ResourceLocation(backpackUpgrade.getIdentifier().getResourceDomain(), "upgrade/" + backpackUpgrade.getIdentifier().getResourcePath());
                 ModelLoader.registerItemVariants(UPGRADE, new ModelResourceLocation(location, "inventory"));

@@ -43,7 +43,7 @@ public class ItemUpgrade extends Item implements IUpgrade {
     public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
         subItems.add(new ItemStack(itemIn));
 
-        List<BackpackUpgrade> sortedUpgrades = Lists.newArrayList(IronBackpacksAPI.getBackpackUpgrades());
+        List<BackpackUpgrade> sortedUpgrades = Lists.newArrayList(IronBackpacksAPI.getUpgrades());
         sortedUpgrades.sort(Comparator.comparingInt(BackpackUpgrade::getMinimumTier));
 
         for (BackpackUpgrade upgrade : sortedUpgrades)

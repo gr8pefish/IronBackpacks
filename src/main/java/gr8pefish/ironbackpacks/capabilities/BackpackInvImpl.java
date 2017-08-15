@@ -57,7 +57,7 @@ public final class BackpackInvImpl {
         private NBTTagCompound writeNBT(BackpackVariant variant) {
             NBTTagCompound ret = new NBTTagCompound();
 
-            List<BackpackVariant> variants = variant == null ? IronBackpacksAPI.getVariantList() : Collections.singletonList(variant);
+            List<BackpackVariant> variants = variant == null ? IronBackpacksAPI.getBackpackVariantList() : Collections.singletonList(variant);
 
             for (BackpackVariant v : variants) {
                 if (inventories.containsKey(v)) {
@@ -75,7 +75,7 @@ public final class BackpackInvImpl {
 
         @Override
         public void deserializeNBT(NBTTagCompound nbt) {
-            for (BackpackVariant variant : IronBackpacksAPI.getVariantList()) {
+            for (BackpackVariant variant : IronBackpacksAPI.getBackpackVariantList()) {
                 if (nbt.hasKey(variant.getIdentifier().toString())) {
                     IItemHandler inv = new ItemStackHandler(variant.getBackpackSize().getTotalSize());
                     CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.getStorage().readNBT(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv, null, nbt.getTag(variant.getIdentifier().toString()));
