@@ -109,7 +109,7 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
     @Nonnull
     public BackpackSize applySizeSpecialtyModifier(@Nonnull BackpackSpecialty specialty, @Nonnegative int rowIncreaseAmount, @Nonnegative int colIncreaseAmount) {
         if (specialty.equals(BackpackSpecialty.STORAGE)) {
-            return this.setRows(this.getRows() + rowIncreaseAmount).setColumns(this.getColumns() + colIncreaseAmount);
+            return new BackpackSize(this.getRows() + rowIncreaseAmount, this.getColumns() + colIncreaseAmount);
         } else {
             return this;
         }

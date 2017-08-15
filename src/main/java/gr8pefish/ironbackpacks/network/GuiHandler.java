@@ -2,6 +2,7 @@ package gr8pefish.ironbackpacks.network;
 
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
+import gr8pefish.ironbackpacks.api.backpack.inventory.IronBackpacksInventoryHelper;
 import gr8pefish.ironbackpacks.container.BackpackContainer;
 import gr8pefish.ironbackpacks.container.GuiBackpack;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +23,7 @@ public class GuiHandler implements IGuiHandler {
         switch(ID) {
             case OPEN_GUI_BACKPACK_ID:
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
-                IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
+                IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
                 return new BackpackContainer(player.inventory, hand, inventory);
         }
 
@@ -36,7 +37,7 @@ public class GuiHandler implements IGuiHandler {
         switch(ID) {
             case OPEN_GUI_BACKPACK_ID:
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
-                IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksAPI.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
+                IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
                 return new GuiBackpack(player.inventory, hand, inventory);
 
         }
