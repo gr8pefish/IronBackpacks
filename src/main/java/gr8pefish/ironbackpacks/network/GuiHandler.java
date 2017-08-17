@@ -1,16 +1,12 @@
 package gr8pefish.ironbackpacks.network;
 
-import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
-import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
-import gr8pefish.ironbackpacks.api.backpack.inventory.IronBackpacksInventoryHelper;
-import gr8pefish.ironbackpacks.container.BackpackContainer;
-import gr8pefish.ironbackpacks.container.GuiBackpack;
+import gr8pefish.ironbackpacks.client.gui.GuiBackpack;
+import gr8pefish.ironbackpacks.container.ContainerBackpack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
 
 public class GuiHandler implements IGuiHandler {
 
@@ -23,8 +19,7 @@ public class GuiHandler implements IGuiHandler {
         switch(ID) {
             case OPEN_GUI_BACKPACK_ID:
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
-                IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
-                return new BackpackContainer(player.inventory, hand, inventory, BackpackInfo.fromStack(stack).getVariant().getBackpackSize());
+                return new ContainerBackpack(stack, player.inventory, hand);
         }
 
         return null;
@@ -37,8 +32,7 @@ public class GuiHandler implements IGuiHandler {
         switch(ID) {
             case OPEN_GUI_BACKPACK_ID:
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
-                IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
-                return new GuiBackpack(player.inventory, hand, inventory, BackpackInfo.fromStack(stack).getVariant().getBackpackSize());
+                return new GuiBackpack(new ContainerBackpack(stack, player.inventory, hand));
 
         }
 

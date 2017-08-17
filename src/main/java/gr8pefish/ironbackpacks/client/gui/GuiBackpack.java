@@ -1,41 +1,46 @@
-package gr8pefish.ironbackpacks.container;
+package gr8pefish.ironbackpacks.client.gui;
 
-import gr8pefish.ironbackpacks.IronBackpacks;
-import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSize;
+import gr8pefish.ironbackpacks.container.ContainerBackpack;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.items.IItemHandlerModifiable;
 
-/** All hail copygirl, code essentially copied verbatim from @see <a = https://github.com/copygirl/WearableBackpacks/blob/feature/gui-rewrite/src/main/java/net/mcft/copy/backpacks/client/GuiBackpack.java>here</a> with permission. */
+/**
+ * Class to generate the normal GUI of a backpack.
+ *
+ * All hail copygirl, code copied nearly verbatim (with permission) from @see <a = https://github.com/copygirl/WearableBackpacks/blob/feature/gui-rewrite/src/main/java/net/mcft/copy/backpacks/client/GuiBackpack.java>here</a>.
+ */
 public class GuiBackpack extends GuiContainer {
 
+    /** The texture of the container for the backpack. */
     private static final GuiTextureResource CONTAINER_TEX = new GuiTextureResource("backpack_gui", 512, 512);
 
-    private static final ResourceLocation texture = new ResourceLocation(IronBackpacks.MODID, "textures/gui/backpacks/2RowsOf9.png"); //ToDo: Hardcoded
-    public static String name;
+    /** The container of the backpack. */
+    private ContainerBackpack container;
 
-    private BackpackContainer container;
-
-    public GuiBackpack(InventoryPlayer playerInv, EnumHand hand, IItemHandlerModifiable inventoryBackpack, BackpackSize backpackSize) {
-        super(new BackpackContainer(playerInv, hand, inventoryBackpack, backpackSize));
-        container = new BackpackContainer(playerInv, hand, inventoryBackpack, backpackSize); //TODO: 2 calls? not ideal, pass in container as param to constructor
-        name = playerInv.getCurrentItem().getDisplayName(); //TODO; Will break
+    /**
+     * Creates the GUI of the backpack.
+     *
+     * @param containerBackpack - The container to initialize with.
+     */
+    public GuiBackpack(ContainerBackpack containerBackpack) {
+        super(containerBackpack);
+        container = containerBackpack;
         xSize = container.getWidth();
         ySize = container.getHeight();
     }
 
+    /** Draw the strings(backpack name, and "Inventory") on the GUI. */
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        fontRenderer.drawString(name, container.getBorderSide() + 1, 6, 0x404040);
+        fontRenderer.drawString(container.getName(), container.getBorderSide() + 1, 6, 0x404040);
         int invTitleX = container.getPlayerInvXOffset() + 1;
         int invTitleY = container.getBorderTop() + container.getContainerInvHeight() + 3;
         fontRenderer.drawString(I18n.format("container.inventory"), invTitleX, invTitleY, 0x404040);
     }
 
+    /** Draw the entire GUI background, slots and everything.
+     * TODO: Make bottom area sides "full" when >9 columns wide */
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

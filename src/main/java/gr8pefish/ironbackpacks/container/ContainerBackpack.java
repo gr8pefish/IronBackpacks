@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.container;
 
+import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
+import gr8pefish.ironbackpacks.api.backpack.inventory.IronBackpacksInventoryHelper;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSize;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -8,27 +10,33 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class BackpackContainer extends Container {
+public class ContainerBackpack extends Container {
 
     private final int blocked;
-    private final int size;
     private final BackpackSize backpackSize;
+    private final ItemStack backpackStack;
 
-    public BackpackContainer(InventoryPlayer invPlayer, EnumHand hand, IItemHandlerModifiable invBag, BackpackSize backpackSize) {
+    public ContainerBackpack(ItemStack backpackStack, InventoryPlayer inventoryPlayer, EnumHand hand) {
 
-        this.size = invBag.getSlots();
-        this.backpackSize = backpackSize;
+        BackpackInfo backpackInfo = BackpackInfo.fromStack(backpackStack);
+        IItemHandler itemHandler = backpackStack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(backpackInfo.getVariant());
 
-        System.out.println("Inventory size: "+ backpackSize);
+        this.backpackStack = backpackStack;
+        this.backpackSize = backpackInfo.getVariant().getBackpackSize();
+        this.blocked = hand == EnumHand.MAIN_HAND ? (inventorySlots.size() - 1) - (8 - inventoryPlayer.currentItem) : -1;
 
-        setupSlots(invPlayer, invBag);
+        setupSlots(inventoryPlayer, itemHandler);
 
-        blocked = hand == EnumHand.MAIN_HAND ? (inventorySlots.size() - 1) - (8 - invPlayer.currentItem) : -1;
+    }
+
+    @Nonnull
+    public String getName() {
+        return backpackStack.getDisplayName();
     }
 
     @Override
@@ -49,12 +57,12 @@ public class BackpackContainer extends Container {
         ItemStack stack = slot.getStack();
         ItemStack newStack = stack.copy();
 
-        if (slotIndex < size) {
-            if (!this.mergeItemStack(stack, size, this.inventorySlots.size(), true))
+        if (slotIndex < backpackSize.getTotalSize()) {
+            if (!this.mergeItemStack(stack, backpackSize.getTotalSize(), this.inventorySlots.size(), true))
                 return ItemStack.EMPTY;
             slot.onSlotChanged();
         }
-        else if (!this.mergeItemStack(stack, 0, size, false)) {
+        else if (!this.mergeItemStack(stack, 0, backpackSize.getTotalSize(), false)) {
             return ItemStack.EMPTY;
         }
         if (stack.isEmpty()) {
@@ -109,12 +117,12 @@ public class BackpackContainer extends Container {
     public int getPlayerInvXOffset() { return getBorderSide() +
             Math.max(0, (getContainerInvWidth() - getPlayerInvWidth()) / 2); }
 
-    protected void setupSlots(InventoryPlayer inventoryPlayer, IItemHandlerModifiable itemHandler) {
+    protected void setupSlots(InventoryPlayer inventoryPlayer, IItemHandler itemHandler) {
         setupBackpackSlots(itemHandler);
         setupPlayerSlots(inventoryPlayer);
     }
 
-    protected void setupBackpackSlots(IItemHandlerModifiable itemHandler) {
+    protected void setupBackpackSlots(IItemHandler itemHandler) {
         int xOffset = 1 + getContainerInvXOffset();
         int yOffset = 1 + getBorderTop();
         for (int y = 0; y < backpackSize.getRows(); y++, yOffset += 18)
@@ -141,7 +149,5 @@ public class BackpackContainer extends Container {
                     inventoryPlayer, x,
                     xOffset + x * 18, yOffset));
     }
-
-
 
 }

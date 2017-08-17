@@ -1,4 +1,4 @@
-package gr8pefish.ironbackpacks.container;
+package gr8pefish.ironbackpacks.client.gui;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
 import net.minecraft.client.Minecraft;
@@ -9,6 +9,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * Class used as a helper to facilitate building the backpacks' GUIs
+ * Credit goes to copygirl for this code, copied with permission.
+ */
 @SideOnly(Side.CLIENT)
 public class GuiTextureResource extends ResourceLocation {
 
