@@ -35,7 +35,7 @@ sizes of 1.10:
 
 my own event: onBackpackContentsChanged
 
-//On Inv Changed via paulfulham on mmd
+//On Inv Changed via paulfulham on mmd (beware: may call onUpdate, so every tick, need to look into that)
 private void macgyverTheInventoryChangedHook() {
     InventoryChangeTrigger delegate = CriteriaTriggers.INVENTORY_CHANGED;
     InventoryChangeTrigger forwarding = new InventoryChangeTrigger() {

@@ -24,7 +24,7 @@ public class GuiHandler implements IGuiHandler {
             case OPEN_GUI_BACKPACK_ID:
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
                 IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
-                return new BackpackContainer(player.inventory, hand, inventory);
+                return new BackpackContainer(player.inventory, hand, inventory, BackpackInfo.fromStack(stack).getVariant().getBackpackSize());
         }
 
         return null;
@@ -38,7 +38,7 @@ public class GuiHandler implements IGuiHandler {
             case OPEN_GUI_BACKPACK_ID:
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
                 IItemHandlerModifiable inventory = (IItemHandlerModifiable) stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
-                return new GuiBackpack(player.inventory, hand, inventory);
+                return new GuiBackpack(player.inventory, hand, inventory, BackpackInfo.fromStack(stack).getVariant().getBackpackSize());
 
         }
 
