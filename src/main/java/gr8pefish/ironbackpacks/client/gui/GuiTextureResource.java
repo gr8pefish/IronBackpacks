@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.client.gui;
 
+import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
@@ -9,6 +10,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+
 /**
  * Class used as a helper to facilitate building the backpacks' GUIs
  * Credit goes to copygirl for this code, copied with permission.
@@ -16,11 +20,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiTextureResource extends ResourceLocation {
 
+    @Nonnegative
     public final int defaultWidth;
+    @Nonnegative
     public final int defaultHeight;
 
-    public GuiTextureResource(String location, int defaultWidth, int defaultHeight) {
+    public GuiTextureResource(@Nonnull String location, @Nonnegative int defaultWidth, @Nonnegative int defaultHeight) {
         super(IronBackpacks.MODID, "textures/gui/" + location + ".png");
+
+        Preconditions.checkNotNull(location, "Location cannot be null");
+        Preconditions.checkArgument(defaultWidth >= 0, "defaultWidth cannot be negative");
+        Preconditions.checkArgument(defaultHeight >= 0, "defaultHeight cannot be negative");
+
         this.defaultWidth = defaultWidth;
         this.defaultHeight = defaultHeight;
     }

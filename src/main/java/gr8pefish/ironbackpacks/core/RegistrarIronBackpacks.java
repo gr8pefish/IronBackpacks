@@ -6,6 +6,7 @@ import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.*;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSize;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.upgrade.IUpgrade;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
@@ -77,7 +78,7 @@ public class RegistrarIronBackpacks {
 
     @SubscribeEvent
     public static void registerBackpacks(RegistryEvent.Register<BackpackType> event) {
-        event.getRegistry().register(new BackpackType(IronBackpacksAPI.NULL, 0, 0, false, 1, 1));
+        event.getRegistry().register(new BackpackType(IronBackpacksAPI.NULL, 0, 0, false, BackpackSize.MIN));
 
         event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "basic"), 0, 4, false, 9, 2));
         event.getRegistry().register(new BackpackType(new ResourceLocation(IronBackpacks.MODID, "iron"), 1, 7, true, 9, 3));

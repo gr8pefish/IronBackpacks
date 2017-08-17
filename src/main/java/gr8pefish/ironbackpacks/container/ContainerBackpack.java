@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.container;
 
+import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.inventory.IronBackpacksInventoryHelper;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSize;
@@ -15,16 +16,33 @@ import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
+/**
+ * The backpack's container class, holding all the slots of the backpack.
+ */
 public class ContainerBackpack extends Container {
 
+    // Fields
+
+    /** Offhand used or not. */
     private final int blocked;
+    @Nonnull
     private final BackpackSize backpackSize;
+    @Nonnull
     private final ItemStack backpackStack;
 
-    public ContainerBackpack(ItemStack backpackStack, InventoryPlayer inventoryPlayer, EnumHand hand) {
+    // Constructor
+
+    public ContainerBackpack(@Nonnull ItemStack backpackStack, @Nonnull InventoryPlayer inventoryPlayer, @Nonnull EnumHand hand) {
+
+        Preconditions.checkNotNull(backpackStack, "backpackStack cannot be null");
+        Preconditions.checkNotNull(inventoryPlayer, "inventoryPlayer cannot be null");
+        Preconditions.checkNotNull(hand, "EnumHand cannot be null");
 
         BackpackInfo backpackInfo = BackpackInfo.fromStack(backpackStack);
         IItemHandler itemHandler = backpackStack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(backpackInfo.getVariant());
+
+        Preconditions.checkNotNull(backpackInfo, "backpackInfo cannot be null");
+        Preconditions.checkNotNull(itemHandler, "itemHandler cannot be null");
 
         this.backpackStack = backpackStack;
         this.backpackSize = backpackInfo.getVariant().getBackpackSize();
@@ -34,14 +52,10 @@ public class ContainerBackpack extends Container {
 
     }
 
-    @Nonnull
-    public String getName() {
-        return backpackStack.getDisplayName();
-    }
+    // Override
 
     @Override
-    public boolean canInteractWith(@Nonnull EntityPlayer player)
-    {
+    public boolean canInteractWith(@Nonnull EntityPlayer player) {
         return true;
     }
 
@@ -85,44 +99,52 @@ public class ContainerBackpack extends Container {
         return super.slotClick(slot, button, flag, player);
     }
 
+    // Helper
+
+    /**
+     * The localized display name of the backpack.
+     *
+     * @return - The name as a String
+     */
+    @Nonnull
+    public String getName() {
+        return backpackStack.getDisplayName();
+    }
+
+    /**
+     * Gets the {@link BackpackSize} of the backpack.
+     *
+     * @return - The BackpackSize
+     */
     public BackpackSize getBackpackSize() {
         return backpackSize;
     }
 
-    public int getBorderTop() { return 17; }
-    public int getBorderSide() { return 7; }
-    public int getBorderBottom() { return 7; }
+    // Setup slots
+    // All credit for code below here goes to copygirl (comments/javadocs/precondition checks mine though)
 
-    /** Returns the space between container and player inventory in pixels. */
-    public int getBufferInventory() { return 13; }
-    /** Returns the space between player inventory and hotbar in pixels. */
-    public int getBufferHotbar() { return 4; }
+    /**
+     * Sets up the backpack's slots, delegating where necessary.
+     *
+     * @param inventoryPlayer - The player's inventory
+     * @param itemHandler - The IItemHandler of the backpack
+     */
+    private void setupSlots(@Nonnull InventoryPlayer inventoryPlayer, @Nonnull IItemHandler itemHandler) {
+        Preconditions.checkNotNull(inventoryPlayer, "inventoryPlayer cannot be null");
+        Preconditions.checkNotNull(itemHandler, "itemHandler cannot be null");
 
-    public int getMaxColumns() { return BackpackSize.MAX.getColumns(); }
-    public int getMaxRows() { return BackpackSize.MAX.getRows(); }
-
-
-    public int getWidth() { return Math.max(backpackSize.getColumns(), 9) * 18 + getBorderSide() * 2; }
-    public int getHeight() { return getBorderTop() + (backpackSize.getRows() * 18) +
-            getBufferInventory() + (4 * 18) +
-            getBufferHotbar() + getBorderBottom(); }
-
-    public int getContainerInvWidth() { return backpackSize.getColumns() * 18; }
-    public int getContainerInvHeight() { return backpackSize.getRows() * 18; }
-    public int getContainerInvXOffset() { return getBorderSide() +
-            Math.max(0, (getPlayerInvWidth() - getContainerInvWidth()) / 2); }
-
-    public int getPlayerInvWidth() { return 9 * 18; }
-    public int getPlayerInvHeight() { return 4 * 18 + getBufferHotbar(); }
-    public int getPlayerInvXOffset() { return getBorderSide() +
-            Math.max(0, (getContainerInvWidth() - getPlayerInvWidth()) / 2); }
-
-    protected void setupSlots(InventoryPlayer inventoryPlayer, IItemHandler itemHandler) {
         setupBackpackSlots(itemHandler);
         setupPlayerSlots(inventoryPlayer);
     }
 
-    protected void setupBackpackSlots(IItemHandler itemHandler) {
+    /**
+     * Sets up the slots for the backpack specifically.
+     *
+     * @param itemHandler - The {@link IItemHandler} for the backpack.
+     */
+    private void setupBackpackSlots(@Nonnull IItemHandler itemHandler) {
+        Preconditions.checkNotNull(itemHandler, "itemHandler cannot be null");
+
         int xOffset = 1 + getContainerInvXOffset();
         int yOffset = 1 + getBorderTop();
         for (int y = 0; y < backpackSize.getRows(); y++, yOffset += 18)
@@ -131,23 +153,109 @@ public class ContainerBackpack extends Container {
                         xOffset + x * 18, yOffset));
     }
 
-    protected void setupPlayerSlots(InventoryPlayer inventoryPlayer) {
+    /**
+     * Sets up the slots for the player specifically.
+     *
+     * @param inventoryPlayer - the {@link InventoryPlayer} for the player.
+     */
+    private void setupPlayerSlots(@Nonnull InventoryPlayer inventoryPlayer) {
+        Preconditions.checkNotNull(inventoryPlayer, "inventoryPlayer cannot be null");
+
         int xOffset = 1 + getPlayerInvXOffset();
         int yOffset = 1 + getBorderTop() + getContainerInvHeight() + getBufferInventory();
 
-        // Inventory
+        //Inventory
         for (int y = 0; y < 3; y++, yOffset += 18)
             for (int x = 0; x < 9; x++)
                 addSlotToContainer(new Slot(
                         inventoryPlayer, x + y * 9 + 9,
                         xOffset + x * 18, yOffset));
 
-        // Hotbar
+        //Hotbar
         yOffset += getBufferHotbar();
         for (int x = 0; x < 9; x++)
             addSlotToContainer(new Slot(
                     inventoryPlayer, x,
                     xOffset + x * 18, yOffset));
+    }
+
+    // GUI/slot setup helpers
+
+    /** Returns the size of the top border in pixels. */
+    public int getBorderTop() {
+        return 17;
+    }
+
+    /** Returns the size of the side border in pixels. */
+    public int getBorderSide() {
+        return 7;
+    }
+
+    /** Returns the size of the bottom border in pixels. */
+    public int getBorderBottom() {
+        return 7;
+    }
+
+    /** Returns the space between container and player inventory in pixels. */
+    public int getBufferInventory() {
+        return 13;
+    }
+
+    /** Returns the space between player inventory and hotbar in pixels. */
+    public int getBufferHotbar() {
+        return 4;
+    }
+
+    /** Returns the size of the maximum number of columns possible. */
+    public int getMaxColumns() {
+        return BackpackSize.MAX.getColumns();
+    }
+
+    /** Returns the size of the maximum number of rows possible. */
+    public int getMaxRows() {
+        return BackpackSize.MAX.getRows();
+    }
+
+    /** Returns the total width of the container in pixels. */
+    public int getWidth() {
+        return Math.max(backpackSize.getColumns(), 9) * 18 + getBorderSide() * 2;
+    }
+
+    /** Returns the total height of the container in pixels. */
+    public int getHeight() {
+        return getBorderTop() + (backpackSize.getRows() * 18) +
+            getBufferInventory() + (4 * 18) +
+            getBufferHotbar() + getBorderBottom();
+    }
+
+    /** Returns the size of the container's width, only the inventory/slots, not the border, in pixels. */
+    public int getContainerInvWidth() {
+        return backpackSize.getColumns() * 18;
+    }
+
+    /** Returns the size of the container's height, only the inventory/slots, not the border, in pixels. */
+    public int getContainerInvHeight() {
+        return backpackSize.getRows() * 18;
+    }
+
+    /** Returns the size of the x offset for the backpack container in pixels. */
+    public int getContainerInvXOffset() {
+        return getBorderSide() + Math.max(0, (getPlayerInvWidth() - getContainerInvWidth()) / 2);
+    }
+
+    /** Returns the size of the x offset for the player's inventory in pixels. */
+    public int getPlayerInvXOffset() {
+        return getBorderSide() + Math.max(0, (getContainerInvWidth() - getPlayerInvWidth()) / 2);
+    }
+
+    /** Returns the size of the player's inventory width, not including the borders, in pixels. */
+    public int getPlayerInvWidth() {
+        return 9 * 18;
+    }
+
+    /** Returns the size of the player's inventory height, including the hotbar, in pixels. */
+    public int getPlayerInvHeight() {
+        return 4 * 18 + getBufferHotbar();
     }
 
 }

@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.api.backpack.variant;
 
+import com.google.common.base.Preconditions;
 import net.minecraft.util.IStringSerializable;
 
 import javax.annotation.Nonnull;
@@ -35,11 +36,17 @@ public enum BackpackSpecialty implements IStringSerializable {
      * @return - the specialty if found, NONE otherwise.
      */
     @Nonnull
-    public static BackpackSpecialty getBackpackSpecialty(@Nullable String name) {
+    public static BackpackSpecialty getBackpackSpecialty(@Nonnull String name) {
+        Preconditions.checkNotNull(name, "Name cannot be null");
+
+        //Loop through possible specialties
         for (BackpackSpecialty backpackSpecialty : BackpackSpecialty.values())
+            //Check if it is the one we want
             if (backpackSpecialty.getName().equalsIgnoreCase(name))
+                //if so, return it
                 return backpackSpecialty;
 
+        //No specialty found, return NONE (should be unreachable)
         return NONE;
     }
 

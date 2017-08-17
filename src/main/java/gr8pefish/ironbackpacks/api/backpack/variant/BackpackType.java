@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 /**
  * A class to represent the type of backpacks. These are "BASIC, IRON, GOLD, DIAMOND" by default.
  *
- * For more information, check out the comments in the constructor explaining what each field represents.
+ * For more information, check out the comment in the constructor explaining what each field represents.
  */
 public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
 
@@ -130,16 +130,24 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
      */
     @Nonnegative
     public int applyUpgradePointModifierFromBackpackSpecialty(@Nonnull BackpackSpecialty specialty, @Nonnegative int pointIncrease) {
+        Preconditions.checkNotNull(specialty, "specialty cannot be null");
+        Preconditions.checkArgument(pointIncrease >= 0, "pointIncrease cannot be negative");
+
+        //Only increase with UPGRADE specialty
         if (specialty == BackpackSpecialty.UPGRADE) {
-            return baseMaxUpgradePoints + pointIncrease; //TODO: Use this method?
+            return baseMaxUpgradePoints + pointIncrease;
         }
+        //Return point amount
         return baseMaxUpgradePoints;
+
     }
 
     /** Helper method to alter the upgrade points by the default amount, which is an increase by 5. */
+    //TODO: More complex/configurable
     @Nonnegative
     public int applyDefaultUpgradePointModifierFromBackpackSpecialty(@Nonnull BackpackSpecialty specialty) {
-        return applyUpgradePointModifierFromBackpackSpecialty(specialty, 5); //default 5
+        Preconditions.checkNotNull(specialty, "Specialty cannot be null.");
+        return applyUpgradePointModifierFromBackpackSpecialty(specialty, 5); //Default add 5 points
     }
 
 }

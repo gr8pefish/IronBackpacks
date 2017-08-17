@@ -18,24 +18,39 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
     // Fields
 
     @Nonnegative
-    private int columns; //not final to allow for configurable sizes on the fly
+    private int columns; //not final to allow for configurable sizes on the fly //TODO: configurable sizes
     @Nonnegative
     private int rows; //not final to allow for configurable sizes on the fly
 
-
-    public static final BackpackSize MIN = new BackpackSize(1, 1);
-    public static final BackpackSize MAX = new BackpackSize(17, 7);
-
+    //Static instances to define valid bounds
+    //Private/internal
+    private static final int MIN_COL = 1;
+    private static final int MIN_ROW = 1;
+    private static final int MAX_COL = 17;
+    private static final int MAX_ROW = 7;
+    //Public/external
+    public static final BackpackSize MIN = new BackpackSize(MIN_COL, MIN_ROW, true);
+    public static final BackpackSize MAX = new BackpackSize(MAX_COL, MAX_ROW, true);
 
     // Constructors
 
-    public BackpackSize() {
-        //No-op
+    /** Normal constructor. */
+    public BackpackSize(@Nonnegative int columns, @Nonnegative int rows) {
+        Preconditions.checkArgument(columns >= BackpackSize.MIN.columns, "Column count must be greater than the minimum" );
+        Preconditions.checkArgument(columns <= BackpackSize.MAX.columns, "Column count must be less than the maximum");
+        Preconditions.checkArgument(rows >= BackpackSize.MIN.rows, "Row count must be greater than the minimum" );
+        Preconditions.checkArgument(rows <= BackpackSize.MAX.rows, "Row count must be less than the maximum");
+
+        this.columns = columns;
+        this.rows = rows;
     }
 
-    public BackpackSize(@Nonnegative int columns, @Nonnegative int rows) {
-        Preconditions.checkArgument(columns > 0, "Column count must be greater than 0" );
-        Preconditions.checkArgument(rows > 0, "Row count must be greater than 0" );
+    /** Special constructor to avoid recursive dependency on preconditions check. */
+    public BackpackSize(@Nonnegative int columns, @Nonnegative int rows, boolean useBoundingConstructor) {
+        Preconditions.checkArgument(columns >= 0, "Column count must be non negative" );
+        Preconditions.checkArgument(columns <= MAX_COL, "Column count must be less than the maximum");
+        Preconditions.checkArgument(rows >= 0, "Row count must be non negative" );
+        Preconditions.checkArgument(rows <= MAX_ROW, "Row count must be less than the maximum");
 
         this.columns = columns;
         this.rows = rows;
@@ -50,6 +65,8 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
 
     @Nonnull
     public BackpackSize setColumns(@Nonnegative int columns) {
+        Preconditions.checkArgument(columns >= BackpackSize.MIN.columns, "Column count must be greater than the minimum" );
+        Preconditions.checkArgument(columns <= BackpackSize.MAX.columns, "Column count must be less than the maximum");
         this.columns = columns;
         return this;
     }
@@ -61,6 +78,8 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
 
     @Nonnull
     public BackpackSize setRows(@Nonnegative int rows) {
+        Preconditions.checkArgument(rows >= BackpackSize.MIN.rows, "Row count must be greater than the minimum" );
+        Preconditions.checkArgument(rows <= BackpackSize.MAX.rows, "Row count must be less than the maximum");
         this.rows = rows;
         return this;
     }
@@ -113,6 +132,11 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
      */
     @Nonnull
     public BackpackSize applySizeModifierFromBackpackSpecialty(@Nonnull BackpackSpecialty specialty, @Nonnegative int colIncreaseAmount, @Nonnegative int rowIncreaseAmount) {
+
+        Preconditions.checkNotNull(specialty, "Specialty cannot be null");
+        Preconditions.checkArgument(colIncreaseAmount >= 0, "ColIncreaseAmount cannot be negative");
+        Preconditions.checkArgument(rowIncreaseAmount >= 0, "RowIncreaseAmount cannot be negative");
+
         if (specialty.equals(BackpackSpecialty.STORAGE)) {
             return new BackpackSize(this.getColumns() + colIncreaseAmount, this.getRows() + rowIncreaseAmount);
         } else {
@@ -121,13 +145,16 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
 
     }
 
-    /** Helper method to apply the default size specialty modifier, an increase of 1 row. */
+    /** Helper method to apply the default size specialty modifier, an increase of 1 row if it can, otherwise increases width. */
+    //TODO: More complex/configurable
     @Nonnull
     public BackpackSize applyDefaultSizeModifierFromBackpackSpecialty(@Nonnull BackpackSpecialty specialty) {
+        Preconditions.checkNotNull(specialty, "Specialty cannot be null");
+
         if (this.getRows() == MAX.getRows()) {
-            return applySizeModifierFromBackpackSpecialty(specialty, 2, 0); //have to increase width (cols)
+            return applySizeModifierFromBackpackSpecialty(specialty, 2, 0); //have to increase width (columns += 2)
         } else {
-            return applySizeModifierFromBackpackSpecialty(specialty, 0, 1); //default increase by 1 row
+            return applySizeModifierFromBackpackSpecialty(specialty, 0, 1); //default increase height (rows += 1)
         }
     }
 

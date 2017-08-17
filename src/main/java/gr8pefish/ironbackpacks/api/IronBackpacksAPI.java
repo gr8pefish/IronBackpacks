@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -58,6 +59,7 @@ public class IronBackpacksAPI {
      */
     @Nonnull
     public static BackpackType getBackpackType(@Nonnull ResourceLocation identifier) {
+        Preconditions.checkNotNull(identifier, "Identifier cannot be null");
         return getBackpackTypeRegistry().getValue(identifier);
     }
 
@@ -87,6 +89,7 @@ public class IronBackpacksAPI {
      */
     @Nonnull
     public static BackpackUpgrade getUpgrade(@Nonnull ResourceLocation identifier) {
+        Preconditions.checkNotNull(identifier, "Identifier cannot be null");
         return getUpgradeRegistry().getValue(identifier);
     }
 
@@ -174,6 +177,7 @@ public class IronBackpacksAPI {
     /**
      * Creates a list of each {@link BackpackVariant} possible.
      *
+     * NOTE: Does *NOT* include the [Type.NULL, Specialty.NONE] variant, only "valid" variants
      * NOTE: Populated in init.
      */
     public static void initBackpackVariantList() {
@@ -204,8 +208,31 @@ public class IronBackpacksAPI {
      *
      * @return - An immutable copy of the list of variants
      */
+    @Nonnull
     public static List<BackpackVariant> getBackpackVariantList() {
         return ImmutableList.copyOf(backpackVariantList);
+    }
+
+    /**
+     * Get the {@link BackpackVariant} from the variant list.
+     * TODO: Unused, remove?
+     * @param type - The {@link BackpackType}
+     * @param specialty - The {@link BackpackSpecialty}
+     * @return - The BackpackVariant if found, null otherwise (should almost never realistically return null)
+     */
+    @Nullable
+    public static BackpackVariant getBackpackVariantFromList(@Nonnull BackpackType type, @Nonnull BackpackSpecialty specialty) {
+
+        Preconditions.checkNotNull(specialty, "Specialty cannot be null");
+        Preconditions.checkNotNull(type, "Type cannot be null");
+
+        List<BackpackVariant> list = getBackpackVariantList();
+        for (BackpackVariant backpackVariant : list) {
+            if (backpackVariant.getBackpackType() == type && backpackVariant.getBackpackSpecialty() == specialty) {
+                return backpackVariant;
+            }
+        }
+        return null;
     }
 
 }

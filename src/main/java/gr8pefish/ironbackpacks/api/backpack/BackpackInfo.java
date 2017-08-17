@@ -61,7 +61,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
     private BackpackInfo() {
         //noinspection ConstantConditions - null/null is automatically registered, so we know it's always there.
-        this(new BackpackVariant(IronBackpacksAPI.getBackpackType(IronBackpacksAPI.NULL), BackpackSpecialty.NONE), Lists.newArrayList()); //TODO: shouldn't do "new", get from registry?
+        this(new BackpackVariant(IronBackpacksAPI.getBackpackType(IronBackpacksAPI.NULL), BackpackSpecialty.NONE), Lists.newArrayList());
     }
 
 
@@ -157,6 +157,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
      */
     @Nonnull
     public BackpackInfo setInventoryProvider(@Nonnull IBackpackInventoryProvider inventoryProvider) {
+        Preconditions.checkNotNull(inventoryProvider, "inventoryProvider cannot be null");
         this.inventoryProvider = inventoryProvider;
         return this;
     }

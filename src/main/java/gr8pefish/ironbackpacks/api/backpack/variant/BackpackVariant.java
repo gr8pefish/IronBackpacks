@@ -90,6 +90,7 @@ public class BackpackVariant {
         return Objects.hash(identifier);
     }
 
+    //Convenience method for printing
     @Override
     public String toString() {
         return "TYPE: " + backpackType + " --- SPECIALTY: " + backpackSpecialty + " --- UPGRADE POINTS: " + maxUpgradePoints + " --- SIZE: " + backpackSize + " --- IDENTIFIER: " + identifier.toString();

@@ -1,11 +1,14 @@
 package gr8pefish.ironbackpacks.api.backpack.inventory;
 
+import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackVariant;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.items.IItemHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class IronBackpacksInventoryHelper {
@@ -25,11 +28,18 @@ public class IronBackpacksInventoryHelper {
      * @return - The inventory if it has one (as an {@link IItemHandler}, null otherwise
      */
     @Nullable
-    public static IItemHandler getBackpackInventory(ItemStack stack) {
+    private static IItemHandler getBackpackInventory(@Nonnull ItemStack stack) { //TODO: Use this or remove it
+        Preconditions.checkNotNull(stack, "ItemStack cannot be null.");
+        //Check has capability
         if (stack.hasCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null)) {
-            IItemHandler inventory = stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(BackpackInfo.fromStack(stack).getVariant());
-            return inventory;
+            //Get backpackInfo
+            BackpackInfo backpackInfo = BackpackInfo.fromStack(stack);
+            //Get backpackVariant
+            BackpackVariant backpackVariant = backpackInfo.getVariant();
+            //Get IItemHandler via capability, passing in variant
+            return stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(backpackVariant);
         }
+        //Doesn't have the correct capability, return null
         return null;
     }
 

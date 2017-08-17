@@ -1,9 +1,12 @@
 package gr8pefish.ironbackpacks.client.gui;
 
+import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.container.ContainerBackpack;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
+
+import javax.annotation.Nonnull;
 
 /**
  * Class to generate the normal GUI of a backpack.
@@ -16,6 +19,7 @@ public class GuiBackpack extends GuiContainer {
     private static final GuiTextureResource CONTAINER_TEX = new GuiTextureResource("backpack_gui", 512, 512);
 
     /** The container of the backpack. */
+    @Nonnull
     private ContainerBackpack container;
 
     /**
@@ -23,8 +27,11 @@ public class GuiBackpack extends GuiContainer {
      *
      * @param containerBackpack - The container to initialize with.
      */
-    public GuiBackpack(ContainerBackpack containerBackpack) {
+    public GuiBackpack(@Nonnull ContainerBackpack containerBackpack) {
         super(containerBackpack);
+
+        Preconditions.checkNotNull(containerBackpack, "ContainerBackpack cannot be null");
+
         container = containerBackpack;
         xSize = container.getWidth();
         ySize = container.getHeight();
@@ -40,6 +47,7 @@ public class GuiBackpack extends GuiContainer {
     }
 
     /** Draw the entire GUI background, slots and everything.
+     * This code is all copygirl's, minus one small change I made to allow it to be 7 rows.
      * TODO: Make bottom area sides "full" when >9 columns wide */
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
@@ -84,7 +92,7 @@ public class GuiBackpack extends GuiContainer {
         CONTAINER_TEX.drawQuad(x2, y, tx2, ty, w, h);
         CONTAINER_TEX.drawQuad(x3, y, tx3, ty, b, h);
         // Container slots
-        CONTAINER_TEX.drawQuad(x + container.getContainerInvXOffset(), y, tx2, 274,
+        CONTAINER_TEX.drawQuad(x + container.getContainerInvXOffset(), y, tx2, 274, //Changed v to allow for 7 rows, as the texture location changed with my additions.
                 container.getContainerInvWidth(), h);
         y += h; ty += maxh + 2;
 
