@@ -24,7 +24,7 @@ public class BackpackSize implements INBTSerializable<NBTTagByteArray> {
 
 
     public static final BackpackSize MIN = new BackpackSize(1, 1);
-    public static final BackpackSize MAX = new BackpackSize(17, 6);
+    public static final BackpackSize MAX = new BackpackSize(17, 7);
 
 
     // Constructors

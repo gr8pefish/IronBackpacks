@@ -13,7 +13,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 /** All hail copygirl, code essentially copied verbatim from @see <a = https://github.com/copygirl/WearableBackpacks/blob/feature/gui-rewrite/src/main/java/net/mcft/copy/backpacks/client/GuiBackpack.java>here</a> with permission. */
 public class GuiBackpack extends GuiContainer {
 
-    private static final GuiTextureResource CONTAINER_TEX = new GuiTextureResource("backpack", 512, 512);
+    private static final GuiTextureResource CONTAINER_TEX = new GuiTextureResource("backpack_gui", 512, 512);
 
     private static final ResourceLocation texture = new ResourceLocation(IronBackpacks.MODID, "textures/gui/backpacks/2RowsOf9.png"); //ToDo: Hardcoded
     public static String name;
@@ -28,13 +28,6 @@ public class GuiBackpack extends GuiContainer {
         ySize = container.getHeight();
     }
 
-//    @Override
-//    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-//        this.fontRenderer.drawString(name, xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);
-//        this.fontRenderer.drawString(I18n.format("container.inventory"), 8, ySize - 96 - 14, 4210752);
-//    }
-
-
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         fontRenderer.drawString(name, container.getBorderSide() + 1, 6, 0x404040);
@@ -42,15 +35,6 @@ public class GuiBackpack extends GuiContainer {
         int invTitleY = container.getBorderTop() + container.getContainerInvHeight() + 3;
         fontRenderer.drawString(I18n.format("container.inventory"), invTitleX, invTitleY, 0x404040);
     }
-
-//    @Override
-//    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-//        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-//        mc.getTextureManager().bindTexture(texture);
-//        int k = (width - xSize) / 2;
-//        int l = (height - ySize) / 2;
-//        drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
-//    }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
@@ -95,7 +79,7 @@ public class GuiBackpack extends GuiContainer {
         CONTAINER_TEX.drawQuad(x2, y, tx2, ty, w, h);
         CONTAINER_TEX.drawQuad(x3, y, tx3, ty, b, h);
         // Container slots
-        CONTAINER_TEX.drawQuad(x + container.getContainerInvXOffset(), y, tx2, 256,
+        CONTAINER_TEX.drawQuad(x + container.getContainerInvXOffset(), y, tx2, 274,
                 container.getContainerInvWidth(), h);
         y += h; ty += maxh + 2;
 
