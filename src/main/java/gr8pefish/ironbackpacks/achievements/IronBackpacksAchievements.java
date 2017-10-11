@@ -1,5 +1,5 @@
 package gr8pefish.ironbackpacks.achievements;
-
+/*
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
@@ -40,3 +40,4 @@ public final class IronBackpacksAchievements {
     }
 
 }
+*/
