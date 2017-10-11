@@ -22,7 +22,6 @@
 
 package invtweaks.api;
 
-@SuppressWarnings("unused")
 public enum SortingMethod {
     /**
      * Standard 'r' sorting for generic inventories
