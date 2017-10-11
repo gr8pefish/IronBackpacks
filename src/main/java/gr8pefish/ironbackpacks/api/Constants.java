@@ -9,4 +9,5 @@ public class Constants {
 	public static final String DOMAIN = MODID + ":"; //For resources
 	public static final String VERSION = "@VERSION@";
 	public static final String DEPEND = "required-after:Forge@[10.18.2.2120,); after:JEI;"; //ToDo: Move Forge, caps, and version out. keep modid, mod name, and domain.
+	public static int j = 0;
 }

@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.recipes.IIncreaseBackpackTierRecipe;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
@@ -19,8 +20,9 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncr
     private final ItemStack recipeOutput;
 
     public BackpackIncreaseTierRecipe(ItemStack recipeOutput, Object... items){
-        super(recipeOutput, items);
+        super(null, recipeOutput, items);
         this.recipeOutput = recipeOutput;
+        this.setRegistryName(Constants.MODID, "recipe"+Constants.j++);
     }
 
     /**

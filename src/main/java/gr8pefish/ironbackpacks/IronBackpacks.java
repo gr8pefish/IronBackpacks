@@ -2,6 +2,8 @@ package gr8pefish.ironbackpacks;
 
 import java.io.File;
 
+import org.apache.logging.log4j.Logger;
+
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.client.gui.GuiHandler;
@@ -45,10 +47,13 @@ public class IronBackpacks {
 	//The instance of this mod
 	@Mod.Instance
 	public static IronBackpacks instance;
+	
+	public static Logger log;
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-
+		log = event.getModLog();
+		
 		//register capabilities
 		IronBackpacksCapabilities.registerAllCapabilities();
 

@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.items.upgrades.ItemIConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.recipes.IAddUpgradeRecipe;
@@ -29,8 +30,9 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
     private final ItemStack recipeOutput; //The outputted items after recipes
 
     public BackpackAddUpgradeRecipe(ItemStack recipeOutput, Object... items){
-        super(recipeOutput, items);
+        super(null, recipeOutput, items);
         this.recipeOutput = recipeOutput;
+        this.setRegistryName(Constants.MODID, "recipe"+Constants.j++);
     }
 
     /**
@@ -147,7 +149,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
                     if (itemstack.getItem() instanceof ItemUpgrade) { //hardcoded for ItemIUpgrade
                         if (ItemIUpgradeRegistry.isInstanceOfAnyUpgrade(itemstack)) { //any upgrade is fine here
                             ItemStack returnStack = itemstack.copy(); //copy stack
-                            returnStack.stackSize = 1; //only apply 1 upgrade (stack size of 1)
+                            returnStack.setCount(1); //only apply 1 upgrade (stack size of 1)
                             return returnStack;
                         }
                     }

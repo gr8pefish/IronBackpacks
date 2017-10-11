@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.recipes.IRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
@@ -14,6 +15,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -32,8 +34,9 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
     private ItemStack upgradeRemovedStack;
 
     public BackpackRemoveUpgradeRecipe(ItemStack recipeOutput, Object... items) {
-        super(recipeOutput, items);
+        super(null, recipeOutput, items);
         this.recipeOutput = recipeOutput;
+        this.setRegistryName(Constants.MODID, "recipe"+Constants.j++);
     }
 
     /**
@@ -139,10 +142,10 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
                     }
                     else if (next instanceof List)
                     {
-                        Iterator<ItemStack> itr = ((List<ItemStack>)next).iterator();
+                        Iterator<?> itr = ((List<?>) next).iterator();
                         while (itr.hasNext() && !match)
                         {
-                            match = OreDictionary.itemMatches(itr.next(), slot, false);
+                            match = OreDictionary.itemMatches((ItemStack) itr.next(), slot, false);
                         }
                     }
 
@@ -169,14 +172,14 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
     }
 
     @Override
-    public ItemStack[] getRemainingItems(InventoryCrafting inv){ //needs matches overridden due to (Forge?) bug
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv){ //needs matches overridden due to (Forge?) bug
         if (upgradeRemovedStack != null){
             ItemStack[] ret = new ItemStack[inv.getSizeInventory()];
             ret[0] = upgradeRemovedStack.copy();
             for (int i = 1; i < ret.length; i++) {
                 ret[i] = null; //remove everything else (i.e can't leave backpack)
             }
-            return ret;
+            return NonNullList.from(ItemStack.EMPTY, ret);
         }else{
             return super.getRemainingItems(inv);
         }
