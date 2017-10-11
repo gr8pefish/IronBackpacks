@@ -1,6 +1,13 @@
 package gr8pefish.ironbackpacks.events;
 
 
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
@@ -26,14 +33,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class IronBackpacksEventHelper {
 
@@ -339,7 +339,6 @@ public class IronBackpacksEventHelper {
                                         if (IronBackpacksHelper.areItemsEqualForStacking(toResupply, restockerItem) //has to be same items as what was used in the event
                                                 && IronBackpacksHelper.areItemsEqualAndStackable(tempItem, restockerItem)) { //found and less than max stack size
                                             foundSlot = true;
-                                            slotToResupply = tempSlot;
                                             stackToResupply = tempItem;
                                             break;
                                         }
@@ -904,30 +903,30 @@ public class IronBackpacksEventHelper {
                                     if (backpackSlot != null && backpackSlot.getHasStack()) {
                                         ItemStack backpackItemStack = backpackSlot.getStack();
                                         if (IronBackpacksHelper.areItemsEqualAndStackable(useOffhand ? player.inventory.offHandInventory.get(0) : player.inventory.mainInventory.get(playerSlotIndexToRestockTo), backpackItemStack)) { //found resupply slot (accounts for stack size at maximum)
-                                            ItemStack stackToResupply = useOffhand ? player.inventory.offHandInventory[0] : player.inventory.mainInventory[playerSlotIndexToRestockTo];
+                                            ItemStack stackToResupply = useOffhand ? player.inventory.offHandInventory.get(0) : player.inventory.mainInventory.get(playerSlotIndexToRestockTo);
 
-                                            int amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.stackSize;
+                                            int amountToResupply = stackToResupply.getMaxStackSize() - stackToResupply.getCount();
 
-                                            if (backpackItemStack.stackSize >= amountToResupply) {
+                                            if (backpackItemStack.getCount() >= amountToResupply) {
                                                 backpackSlot.decrStackSize(amountToResupply);
                                                 container.onContainerClosed(player);
 
                                                 if (useOffhand)
-                                                    player.inventory.offHandInventory[0].stackSize = stackToResupply.getMaxStackSize();
+                                                    player.inventory.offHandInventory.get(0).setCount(stackToResupply.getMaxStackSize());
                                                 else
-                                                    player.inventory.mainInventory[playerSlotIndexToRestockTo].stackSize = stackToResupply.getMaxStackSize();
+                                                    player.inventory.mainInventory.get(playerSlotIndexToRestockTo).setCount(stackToResupply.getMaxStackSize());
 
                                                 player.inventory.markDirty();
                                                 return; //full stack size, no point in continuing to iterate
 
                                             } else {
-                                                backpackSlot.decrStackSize(backpackItemStack.stackSize);
+                                                backpackSlot.decrStackSize(backpackItemStack.getCount());
                                                 container.onContainerClosed(player);
 
                                                 if (useOffhand)
-                                                    player.inventory.offHandInventory[0].stackSize += backpackItemStack.stackSize;
+                                                    player.inventory.offHandInventory.get(0).grow(backpackItemStack.getCount());
                                                 else
-                                                    player.inventory.mainInventory[playerSlotIndexToRestockTo].stackSize += backpackItemStack.stackSize;
+                                                    player.inventory.mainInventory.get(playerSlotIndexToRestockTo).grow(backpackItemStack.getCount());
 
                                                 player.inventory.markDirty();
 
@@ -989,13 +988,13 @@ public class IronBackpacksEventHelper {
 
                                             ItemStack stackToResupply = useOffhand ? player.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND) : player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
 
-                                            if (stackToResupply.stackSize + backpackItemStack.stackSize >= stackToResupply.getMaxStackSize()) { //if can refill stack completely
+                                            if (stackToResupply.getCount() + backpackItemStack.getCount() >= stackToResupply.getMaxStackSize()) { //if can refill stack completely
 
-                                                backpackSlot.decrStackSize(stackToResupply.getMaxStackSize() - stackToResupply.stackSize + extraCost);
+                                                backpackSlot.decrStackSize(stackToResupply.getMaxStackSize() - stackToResupply.getCount() + extraCost);
                                                 container.onContainerClosed(player);
 
                                                 ItemStack copy = stackToResupply.copy();
-                                                copy.stackSize = copy.getMaxStackSize(); //max stack size
+                                                copy.setCount(copy.getMaxStackSize()); //max stack size
                                                 if (useOffhand)
                                                     player.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, copy);
                                                 else
@@ -1005,12 +1004,12 @@ public class IronBackpacksEventHelper {
                                                 return; //full stack size, no point in continuing to iterate
 
                                             } else { //can't fully refill with this stack
-                                                backpackSlot.decrStackSize(backpackItemStack.stackSize);
+                                                backpackSlot.decrStackSize(backpackItemStack.getCount());
                                                 container.onContainerClosed(player);
 
                                                 ItemStack copy = stackToResupply.copy();
-                                                copy.stackSize += backpackItemStack.stackSize;
-                                                if (firstRestock) copy.stackSize -= extraCost; //deal with placing block
+                                                copy.grow(backpackItemStack.getCount());
+                                                if (firstRestock) copy.shrink(extraCost); //deal with placing block
 
                                                 if (useOffhand)
                                                     player.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, copy);

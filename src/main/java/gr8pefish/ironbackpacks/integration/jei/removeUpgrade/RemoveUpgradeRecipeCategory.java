@@ -1,20 +1,19 @@
 package gr8pefish.ironbackpacks.integration.jei.removeUpgrade;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
+public class RemoveUpgradeRecipeCategory implements IRecipeCategory<RemoveUpgradeRecipeWrapper> {
 
     private final String title;
     private final IDrawable background;
@@ -57,27 +56,23 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void drawAnimations(@Nonnull Minecraft minecraft) {
-
-    }
-
-    @Override
-    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
-        //deprecated
-    }
-
-    @Override
-    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
+    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RemoveUpgradeRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 
         //add custom tooltips
         recipeLayout.getItemStacks().addTooltipCallback((RemoveUpgradeRecipeWrapper)recipeWrapper);
 
         //backpack input
         recipeLayout.getItemStacks().init(0, true, 59, 14);
-        recipeLayout.getItemStacks().set(0, (ItemStack)recipeWrapper.getInputs().get(0));
+        recipeLayout.getItemStacks().set(0, ingredients.getInputs(ItemStack.class).get(0));
 
         //backpack output
         recipeLayout.getItemStacks().init(1, false, 119, 14);
-        recipeLayout.getItemStacks().set(1, (ItemStack)recipeWrapper.getOutputs().get(0));
+        recipeLayout.getItemStacks().set(1, ingredients.getOutputs(ItemStack.class).get(0));
     }
+
+	@Override
+	public String getModName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -1,5 +1,9 @@
 package gr8pefish.ironbackpacks.integration.jei.increaseTier;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.ICraftingGridHelper;
@@ -8,14 +12,11 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-public class IncreaseTierRecipeCategory implements IRecipeCategory {
+public class IncreaseTierRecipeCategory implements IRecipeCategory<IncreaseTierRecipeWrapper> {
 
     private final String title;
     private final IDrawable background;
@@ -59,19 +60,9 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory {
     public void drawExtras(@Nonnull Minecraft minecraft) {
 
     }
-
+    
     @Override
-    public void drawAnimations(@Nonnull Minecraft minecraft) {
-
-    }
-
-    @Override
-    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
-        //deprecated
-    }
-
-    @Override
-    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
+    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IncreaseTierRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
         //get the items to display
         IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
@@ -88,7 +79,12 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory {
         }
 
         //set the slots with the correct items
-        craftingGridHelper.setInput(guiItemStacks, recipeWrapper.getInputs());
-        craftingGridHelper.setOutput(guiItemStacks, recipeWrapper.getOutputs());
+        craftingGridHelper.setInputs(guiItemStacks, ingredients.getInputs(ItemStack.class));
+        guiItemStacks.set(0, ingredients.getOutputs(ItemStack.class).get(0));
     }
+
+	@Override
+	public String getModName() {
+		return Constants.MODID;
+	}
 }
