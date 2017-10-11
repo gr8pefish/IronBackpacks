@@ -139,7 +139,7 @@ public class ContainerAlternateGui extends Container {
 //        Logger.error("Closed container alt gui");
         if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades))
             saveSlots();
-        if (!player.worldObj.isRemote)
+        if (!player.world.isRemote)
             this.inventory.onGuiSaved(player); //only save on server side
 
     }
@@ -152,9 +152,9 @@ public class ContainerAlternateGui extends Container {
             return null;
         // otherwise they may be clicking on a ghostSlot
         }else if (slot >= 0 && slot < inventory.getSizeInventory()) {
-            if (player.inventory.getItemStack() != null) { //clicking on slot with an itemStack
+            if (!player.inventory.getItemStack().isEmpty()) { //clicking on slot with an itemStack
                 ItemStack usedStack = player.inventory.getItemStack().copy(); //exact item copied
-                usedStack.stackSize = 1; //stack size of 1
+                usedStack.setCount(1); //stack size of 1
                 inventory.setInventorySlotContents(slot, usedStack);
                 return null;
             }else{ //clicking with an empty hand

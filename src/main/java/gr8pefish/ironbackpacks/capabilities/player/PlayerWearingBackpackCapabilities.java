@@ -34,7 +34,7 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY != null && capability == IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY ? (T)this : null;
+        return IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY != null && capability == IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY ? IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY.cast(this) : null;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
         //get the equipped backpack without crashing
         if (!tagList.getCompoundTagAt(0).hasKey("noEquipped")){ //if the key doesn't exist
             try {
-                setEquippedBackpack(ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(0)));
+                setEquippedBackpack(new ItemStack(tagList.getCompoundTagAt(0)));
             } catch (NullPointerException e) { //might as well keep this catch statement
                 setEquippedBackpack(null);
             }
@@ -90,7 +90,7 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
         //get the current backpack without crashing
         if (!tagList.getCompoundTagAt(1).hasKey("noCurrent")) {
             try {
-                setCurrentBackpack(ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(1)));
+                setCurrentBackpack(new ItemStack(tagList.getCompoundTagAt(1)));
             } catch (NullPointerException e) {
                 setCurrentBackpack(null);
             }

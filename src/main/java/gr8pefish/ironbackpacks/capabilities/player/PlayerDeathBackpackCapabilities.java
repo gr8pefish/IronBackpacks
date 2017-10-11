@@ -35,7 +35,7 @@ public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY != null && capability == IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY ? (T) this : null;
+        return IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY != null && capability == IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY ? IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY.cast(this) : null;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<
         //get the equipped pack without crashing
         if (!tagList.getCompoundTagAt(0).hasKey("noEquipped")) { //if the key doesn't exist
             try {
-                equippedBackpack = ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(0));
+                equippedBackpack = new ItemStack(tagList.getCompoundTagAt(0));
             } catch (NullPointerException e) { //might as well keep this catch statement
                 equippedBackpack = null;
             }
@@ -90,7 +90,7 @@ public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<
         if (tagList.tagCount() >= 1) {
             for (int i = 1; i < tagList.tagCount(); i++) {
                 if (tagList.getCompoundTagAt(i) != null)
-                    eternityPacks.add(ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(i)));
+                    eternityPacks.add(new ItemStack(tagList.getCompoundTagAt(i)));
             }
         }
 

@@ -23,14 +23,15 @@ import java.util.Map;
 /**
  * A class to manage changed config with versions
  */
+@SuppressWarnings({"unchecked", "unused", "rawtypes"})
 public class ConfigAdaptor {
 
     private boolean enabled;
     private int lastBuild;
     private int currentBuild;
 
-    private Map<String, List<AdaptableValue>> adaptableValues = new HashMap();
-    private List<String> changes = new ArrayList();
+    private Map<String, List<AdaptableValue>> adaptableValues = new HashMap<>();
+    private List<String> changes = new ArrayList<>();
 
     public ConfigAdaptor(boolean enabled) {
         this.enabled = enabled;
@@ -49,7 +50,7 @@ public class ConfigAdaptor {
         }
     }
 
-    public <T> void adaptProperty(Property prop, T val) {
+	public <T> void adaptProperty(Property prop, T val) {
         if(!enabled)
             return;
 
@@ -59,7 +60,7 @@ public class ConfigAdaptor {
             return;
 
         AdaptableValue<T> bestValue = null;
-        for(AdaptableValue<T> value : adaptableValues.get(name)) {
+        for(AdaptableValue value : adaptableValues.get(name)) {
             if(value.version >= lastBuild) // If version is newer than what we last used we don't care about it
                 continue;
 
@@ -84,7 +85,7 @@ public class ConfigAdaptor {
 
         AdaptableValue<T> adapt = new AdaptableValue<T>(version, val);
         if(!adaptableValues.containsKey(key)) {
-            ArrayList list = new ArrayList();
+            ArrayList<AdaptableValue> list = new ArrayList<>();
             adaptableValues.put(key, list);
         }
 
@@ -108,9 +109,9 @@ public class ConfigAdaptor {
         if(changes.size() == 0)
             return;
 
-        player.addChatComponentMessage(new TextComponentTranslation("botaniamisc.adaptativeConfigChanges").setStyle(new Style().setColor(TextFormatting.GOLD)));
+        player.sendMessage(new TextComponentTranslation("botaniamisc.adaptativeConfigChanges").setStyle(new Style().setColor(TextFormatting.GOLD)));
         for(String change : changes)
-            player.addChatMessage(new TextComponentString(change).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+            player.sendMessage(new TextComponentString(change).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
     }
 
     public void addMappingInt(int version, String key, int val) {
@@ -143,7 +144,7 @@ public class ConfigAdaptor {
         public final T value;
         public final Class<? extends T> valueType;
 
-        public AdaptableValue(int version, T value) {
+		public AdaptableValue(int version, T value) {
             this.version = version;
             this.value = value;
             valueType = (Class<? extends T>) value.getClass();

@@ -36,7 +36,7 @@ public class LayerBackpack implements LayerRenderer<AbstractClientPlayer> {
             if (pack != null) { //if there is one
 
                 final Minecraft minecraft = Minecraft.getMinecraft();
-                final boolean isLocalPlayer = entitylivingbaseIn == minecraft.thePlayer;
+                final boolean isLocalPlayer = entitylivingbaseIn == minecraft.player;
                 final boolean isFpp = minecraft.gameSettings.thirdPersonView == 0;
 
                 if (isLocalPlayer && isFpp) {

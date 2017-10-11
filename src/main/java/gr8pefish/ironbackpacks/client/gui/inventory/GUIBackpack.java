@@ -46,8 +46,6 @@ public class GUIBackpack extends GuiContainer {
     private long prevSystemTime;
     private int hoverTime;
 
-    private EntityPlayer player; //TODO remove
-
     private GUIBackpack(EntityPlayer player, InventoryBackpack inventoryBackpack) {
         super(new ContainerBackpack(inventoryBackpack, ((ItemBackpack)inventoryBackpack.getBackpackStack().getItem()).getGuiXSize(inventoryBackpack.getBackpackStack()), ((ItemBackpack)inventoryBackpack.getBackpackStack().getItem()).getGuiYSize(inventoryBackpack.getBackpackStack()))); //holy grossness batman
 
@@ -116,11 +114,11 @@ public class GUIBackpack extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 
         if (itemStack != null)
-            this.fontRendererObj.drawString(TextUtils.localize(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
+            this.fontRenderer.drawString(TextUtils.localize(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
         else
-            this.fontRendererObj.drawString(TextUtils.localize("misc.ironbackpacks.default.equipped.backpack.name"), 20, 6, 4210752); //default name, should ideally never be used
+            this.fontRenderer.drawString(TextUtils.localize("misc.ironbackpacks.default.equipped.backpack.name"), 20, 6, 4210752); //default name, should ideally never be used
 
-        this.fontRendererObj.drawString(TextUtils.localize("container.inventory"), 20, this.ySize - 96 + 2, 4210752);
+        this.fontRenderer.drawString(TextUtils.localize("container.inventory"), 20, this.ySize - 96 + 2, 4210752);
 
         int k = (this.width - this.xSize) / 2; //X axis on GUI
         int l = (this.height - this.ySize) / 2; //Y axis on GUI
@@ -140,7 +138,7 @@ public class GUIBackpack extends GuiContainer {
             }
             prevSystemTime = systemTime;
             if(hoverTime > curr.getHoverTime()) {
-                this.drawHoveringText(curr.getTooltip(), (int) mouseX - k, (int) mouseY - l, fontRendererObj);
+                this.drawHoveringText(curr.getTooltip(), (int) mouseX - k, (int) mouseY - l, fontRenderer);
             }
         }else{
             hoverTime = 0;

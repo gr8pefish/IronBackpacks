@@ -105,11 +105,8 @@ public class ConfigHandler {
 
     //========================initialization====================================
 
-    private static File theFile;
-
     public static void init(File file) {
         config = new Configuration(file);
-        theFile = file;
         syncConfig(true);
     }
 

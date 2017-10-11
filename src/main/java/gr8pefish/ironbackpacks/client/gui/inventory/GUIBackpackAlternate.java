@@ -1,5 +1,12 @@
 package gr8pefish.ironbackpacks.client.gui.inventory;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
+
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
@@ -7,7 +14,6 @@ import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
 import gr8pefish.ironbackpacks.container.alternateGui.ContainerAlternateGui;
 import gr8pefish.ironbackpacks.container.alternateGui.InventoryAlternateGui;
-import gr8pefish.ironbackpacks.container.slot.GhostSlot;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
@@ -28,18 +34,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.fml.client.config.GuiUtils;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Called when the backpack is shift-right clicked to open the alternate gui.
@@ -122,7 +119,6 @@ public class GUIBackpackAlternate extends GuiContainer {
 
     private GUI type; //The Gui's type (enum above)
     public ContainerAlternateGui container; //the backpack's container
-    private EntityPlayer player; //the player opening the backpack
     private ItemStack itemStack;
 
     //The buttons
@@ -157,7 +153,6 @@ public class GUIBackpackAlternate extends GuiContainer {
 
     private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, ArrayList<ItemStack> upgrades, ItemStack backpack) {
         super(type.makeContainer(inv));
-        this.player = player;
         this.container = (ContainerAlternateGui) type.makeContainer(inv);
         this.type = type;
 
@@ -193,7 +188,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         if (this.hasRenamingUpgrade){ //add text field to rename
             this.allowUserInput = true;
 
-            this.textField = new GuiTextField(0, this.fontRendererObj, xStart + 20, yStart + 21, 103, 12);  //fontRenderer,x,y,width,height
+            this.textField = new GuiTextField(0, this.fontRenderer, xStart + 20, yStart + 21, 103, 12);  //fontRenderer,x,y,width,height
 
             this.textField.setTextColor(-1); //TODO - play around with colors? - set background color
             this.textField.setDisabledTextColour(-1);
@@ -378,56 +373,56 @@ public class GUIBackpackAlternate extends GuiContainer {
 
         String displayName = (itemStack == null) ? TextUtils.localize("gui.ironbackpacks.uuidError") : itemStack.getDisplayName();
 
-        fontRendererObj.drawString(TextUtils.localize(displayName), 20, 6, 4210752);
+        fontRenderer.drawString(TextUtils.localize(displayName), 20, 6, 4210752);
         int counter = (hasFilterAdvancedUpgrade && !hasFilterMiningUpgrade && !hasRestockingUpgrade) ? 5 : 4;
-        fontRendererObj.drawString(TextUtils.localize("container.inventory"), 20, ySize - 96 + counter, 4210752);
+        fontRenderer.drawString(TextUtils.localize("container.inventory"), 20, ySize - 96 + counter, 4210752);
 
         //draw the titles of all the upgrades in their correct positions
         if (hasNoUpgrades)
-            fontRendererObj.drawString(TextUtils.localize("gui.ironbackpacks.noValidUpgradesFound"), 20, 22, 4210752);
+            fontRenderer.drawString(TextUtils.localize("gui.ironbackpacks.noValidUpgradesFound"), 20, 22, 4210752);
         int yStart = hasRenamingUpgrade ? 44 : 25;
         if (hasCraftingUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.crafting.name"),20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.crafting.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasCraftingSmallUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.craftingSmall.name"),20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.craftingSmall.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasCraftingTinyUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.craftingTiny.name"),20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.craftingTiny.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterBasicUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterBasic.name"), 20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterBasic.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterFuzzyUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterFuzzy.name"), 20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterFuzzy.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterOreDictUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterOreDict.name"), 20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterOreDict.name"), 20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterModSpecificUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterModSpecific.name"),20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterModSpecific.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterVoidUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterVoid.name"),20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterVoid.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterAdvancedUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterAdvanced.name"),20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterAdvanced.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasFilterMiningUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterMining.name"),20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.filterMining.name"),20, yStart, 4210752);
             yStart += 36;
         }
         if (hasRestockingUpgrade) {
-            fontRendererObj.drawString(TextUtils.localize("item.ironbackpacks.upgrade.restocking.name"),20, yStart, 4210752);
+            fontRenderer.drawString(TextUtils.localize("item.ironbackpacks.upgrade.restocking.name"),20, yStart, 4210752);
         }
 
     }
@@ -451,7 +446,7 @@ public class GUIBackpackAlternate extends GuiContainer {
         }
         if (curr != null){
             if (curr.getHoverTime() == 0)
-                GuiUtils.drawHoveringText(curr.getTooltip(), mouseX - w, mouseY - h, scaledResolution.getScaledWidth() - w, scaledResolution.getScaledHeight() - h, -1, fontRendererObj);
+                GuiUtils.drawHoveringText(curr.getTooltip(), mouseX - w, mouseY - h, scaledResolution.getScaledWidth() - w, scaledResolution.getScaledHeight() - h, -1, fontRenderer);
             else {
                 long systemTime = System.currentTimeMillis();
                 if (prevSystemTime != 0)
@@ -459,7 +454,7 @@ public class GUIBackpackAlternate extends GuiContainer {
                 prevSystemTime = systemTime;
 
                 if (hoverTime > curr.getHoverTime())
-                    GuiUtils.drawHoveringText(curr.getTooltip(), mouseX - w, mouseY - h, scaledResolution.getScaledWidth() - w, scaledResolution.getScaledHeight() - h, -1, fontRendererObj);
+                    GuiUtils.drawHoveringText(curr.getTooltip(), mouseX - w, mouseY - h, scaledResolution.getScaledWidth() - w, scaledResolution.getScaledHeight() - h, -1, fontRenderer);
             }
         }else{
             hoverTime = 0;
@@ -560,7 +555,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     public boolean isMouseOverSlot(Slot slot, int mPosX, int mPosY) {
         mPosX -= this.guiLeft;
         mPosY -= this.guiTop;
-        return mPosX >= slot.xDisplayPosition - 1 && mPosX < slot.xDisplayPosition + 16 + 1 && mPosY >= slot.yDisplayPosition - 1 && mPosY < slot.yDisplayPosition + 16 + 1;
+        return mPosX >= slot.xPos - 1 && mPosX < slot.xPos + 16 + 1 && mPosY >= slot.yPos - 1 && mPosY < slot.yPos + 16 + 1;
     }
 
     //Gets the string to put in the tooltip for the backpack information

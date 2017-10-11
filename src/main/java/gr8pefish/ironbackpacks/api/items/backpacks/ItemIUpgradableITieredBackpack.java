@@ -6,7 +6,6 @@ import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IColorable;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ISpecializedBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;

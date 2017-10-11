@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.container.backpack;
 
+import java.util.UUID;
+
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
@@ -13,11 +15,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.util.Constants;
-
-import java.util.UUID;
 
 /**
  * The inventory used when opening the backpack normally.
@@ -26,14 +27,14 @@ public class InventoryBackpack implements IInventory {
 
     private ItemStack backpackStack; //the itemstack instance of the backpack
     private EntityPlayer player; //the player
-    private ItemStack[] inventory; //the stored items
+    private NonNullList<ItemStack> inventory; //the stored items
     private String sortType; //the sort option (id/alphabetical)
 
     //Instantiated from GuiHandler
     public InventoryBackpack(EntityPlayer player, ItemStack backpackStack){
         this.backpackStack = backpackStack;
         this.player = player;
-        this.inventory = new ItemStack[this.getSizeInventory()];
+        this.inventory = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         this.sortType = "id";
         readFromNBT(backpackStack.getTagCompound());
     }
@@ -42,7 +43,7 @@ public class InventoryBackpack implements IInventory {
     public InventoryBackpack(ItemStack backpackStack, boolean noPlayer){
         this.backpackStack = backpackStack;
         this.player = null;
-        this.inventory = new ItemStack[this.getSizeInventory()];
+        this.inventory = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         this.sortType = "id";
         readFromNBT(backpackStack.getTagCompound(), noPlayer);
     }

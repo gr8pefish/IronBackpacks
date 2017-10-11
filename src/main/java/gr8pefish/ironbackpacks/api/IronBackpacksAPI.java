@@ -1,7 +1,8 @@
 package gr8pefish.ironbackpacks.api;
 
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class IronBackpacksAPI {
 
@@ -17,6 +18,6 @@ public class IronBackpacksAPI {
      * @return - The requested Item
      */
     public static Item getItem(String name) {
-        return GameRegistry.findItem(Constants.MODID, name);
+        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(Constants.MODID, name));
     }
 }
