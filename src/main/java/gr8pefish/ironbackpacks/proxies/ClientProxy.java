@@ -11,9 +11,10 @@ import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 /**
@@ -39,13 +40,17 @@ public class ClientProxy extends CommonProxy {
     public void postInit(){
         ProxyRegistry.postInitClient();
     }
+    
+    public String translate(String langkey, Object... pars) {
+    	return I18n.format(langkey, pars);
+    }
 
     //============================================================Helper Methods===================================================================
 
     //helper init methods
 
     private void initClientEventHandlers(){
-        FMLCommonHandler.instance().bus().register(new ClientEventHandler());
+        MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
     }
 
     //random helper methods
@@ -59,11 +64,11 @@ public class ClientProxy extends CommonProxy {
     }
 
     public World getClientWorld(){
-        return Minecraft.getMinecraft().theWorld;
+        return Minecraft.getMinecraft().world;
     }
 
     public EntityPlayer getClientPlayer(){
-        return Minecraft.getMinecraft().thePlayer;
+        return Minecraft.getMinecraft().player;
     }
 
     /**

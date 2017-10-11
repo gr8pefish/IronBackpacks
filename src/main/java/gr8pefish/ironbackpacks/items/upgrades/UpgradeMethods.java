@@ -353,7 +353,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_BASIC, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                    returnArray.add(new ItemStack(stackTag));
                 }
             }
         }
@@ -368,7 +368,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_FUZZY, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                    returnArray.add(new ItemStack(stackTag));
                 }
             }
         }
@@ -383,7 +383,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_ORE_DICT, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                    returnArray.add(new ItemStack(stackTag));
                 }
             }
         }
@@ -398,7 +398,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_MOD_SPECIFIC, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                    returnArray.add(new ItemStack(stackTag));
                 }
             }
         }
@@ -413,7 +413,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_VOID, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                    returnArray.add(new ItemStack(stackTag));
                 }
             }
         }
@@ -428,7 +428,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_MINING, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                    returnArray.add(new ItemStack(stackTag));
                 }
             }
         }
@@ -451,7 +451,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_ADV_ALL_SLOTS, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    advFilterStacks[stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT)] = ItemStack.loadItemStackFromNBT(stackTag);
+                    advFilterStacks[stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT)] = new ItemStack(stackTag);
                 }
             }
         }
@@ -584,7 +584,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.RESTOCKING, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                    returnArray.add(new ItemStack(stackTag));
                 }
             }
         }
@@ -604,7 +604,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CRAFTING, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                    returnArray.add(new ItemStack(stackTag));
                 }
             }
         }
@@ -624,7 +624,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CRAFTING_SMALL, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                    returnArray.add(new ItemStack(stackTag));
                 }
             }
         }
@@ -644,7 +644,7 @@ public class UpgradeMethods {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.CRAFTING_TINY, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    returnArray.add(ItemStack.loadItemStackFromNBT(stackTag));
+                    returnArray.add(new ItemStack(stackTag));
                 }
             }
         }
@@ -714,7 +714,7 @@ public class UpgradeMethods {
         if (transferTo.getSlots() > 0 && !(inventoryBackpack.isEmpty())){ //if have a valid inventory to transfer to and have items to transfer
             for (int i = 0; i < inventoryBackpack.getSizeInventory(); i++){
                 ItemStack stackToMove = inventoryBackpack.getStackInSlot(i);
-                if (stackToMove != null && stackToMove.stackSize > 0){
+                if (stackToMove != null && stackToMove.getCount() > 0){
                     ItemStack remainder = putInFirstValidSlot(transferTo, stackToMove, usePrecise);
                     inventoryBackpack.setInventorySlotContents(i, remainder);
                     inventoryBackpack.onGuiSaved(player);
@@ -784,7 +784,7 @@ public class UpgradeMethods {
     private static boolean isStackInInventoryAlready(IItemHandler transferTo, ItemStack stackToTransfer){
         for (int i = 0; i < transferTo.getSlots(); i++) {
             ItemStack tempStack = transferTo.getStackInSlot(i);
-            if (tempStack != null && tempStack.stackSize > 0
+            if (tempStack != null && tempStack.getCount() > 0
                     && stackToTransfer.isItemEqual(tempStack)
                     && ItemStack.areItemStackTagsEqual(tempStack, stackToTransfer)) {
                 return true;

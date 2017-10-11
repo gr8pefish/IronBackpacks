@@ -1,11 +1,12 @@
 package gr8pefish.ironbackpacks.integration.jei.addUpgrade;
 
+import javax.annotation.Nonnull;
+
 import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 
-import javax.annotation.Nonnull;
-
+@SuppressWarnings("deprecation")
 public class AddUpgradeRecipeHandler implements IRecipeHandler<BackpackAddUpgradeRecipe> {
 
     @Nonnull
@@ -13,13 +14,7 @@ public class AddUpgradeRecipeHandler implements IRecipeHandler<BackpackAddUpgrad
     public Class<BackpackAddUpgradeRecipe> getRecipeClass() {
         return BackpackAddUpgradeRecipe.class;
     }
-
-    @Nonnull
-    @Override
-    public String getRecipeCategoryUid() {
-        return "ironbackpacks.addUpgrade";
-    }
-
+    
     @Nonnull
     @Override
     public String getRecipeCategoryUid(@Nonnull BackpackAddUpgradeRecipe recipe) {

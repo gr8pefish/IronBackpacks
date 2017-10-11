@@ -34,7 +34,7 @@ public class RenameMessage implements IMessage {
 
         @Override
         public IMessage onMessage(RenameMessage message, MessageContext ctx) {
-            ContainerAlternateGui containerAlternate = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
+            ContainerAlternateGui containerAlternate = (ContainerAlternateGui) ctx.getServerHandler().player.openContainer;
             containerAlternate.renameBackpack(message.newName);
             return null; //no return message necessary
         }

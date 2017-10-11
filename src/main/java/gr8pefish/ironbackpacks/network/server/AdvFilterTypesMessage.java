@@ -38,7 +38,7 @@ public class AdvFilterTypesMessage implements IMessage {
 
         @Override
         public IMessage onMessage(AdvFilterTypesMessage message, MessageContext ctx) {
-            ContainerAlternateGui altContainer = (ContainerAlternateGui) ctx.getServerHandler().playerEntity.openContainer;
+            ContainerAlternateGui altContainer = (ContainerAlternateGui) ctx.getServerHandler().player.openContainer;
             altContainer.setAdvFilterButtonType(message.slot, message.changeTo);
             return null; //no return message necessary
         }

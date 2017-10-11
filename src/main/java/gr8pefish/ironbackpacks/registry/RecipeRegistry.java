@@ -1,5 +1,9 @@
 package gr8pefish.ironbackpacks.registry;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
@@ -15,11 +19,8 @@ import gr8pefish.ironbackpacks.libs.recipes.ItemBackpackRecipes;
 import gr8pefish.ironbackpacks.libs.recipes.ItemCraftingRecipes;
 import gr8pefish.ironbackpacks.libs.recipes.ItemUpgradeRecipes;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.RecipeSorter;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 /**
  * Register all the recipes here.
@@ -35,13 +36,6 @@ public class RecipeRegistry {
         ItemCraftingRecipes.registerItemCraftingRecipes(); //register the recipes to get the recipes items
         ItemUpgradeRecipes.registerItemUpgradeRecipes(); //register the recipes to get the the upgrades as items
 		ItemBackpackRecipes.registerItemBackpackRecipes(); //register all the recipes to get the backpacks directly
-
-        //=============Fancy Iron Backpacks Recipes===========
-
-        //Register as special recipes
-        RecipeSorter.register("RemoveUpgrade", BackpackRemoveUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
-        RecipeSorter.register("AddUpgrade", BackpackAddUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, ""); //register my special recipe
-        RecipeSorter.register("IncreaseBackpackTier", BackpackIncreaseTierRecipe.class, RecipeSorter.Category.SHAPED, ""); //register my special recipe
 
         //Register the recipes themselves
         registerBackpackTierRecipes(); //register the recipes to upgrade a backpack to the next tier
@@ -121,7 +115,9 @@ public class RecipeRegistry {
             IBackpack backpack = ItemIBackpackRegistry.getBackpackAtIndex(i);
             if (backpack instanceof IUpgradableBackpack) {
                 BackpackRemoveUpgradeRecipe recipe = new BackpackRemoveUpgradeRecipe(new ItemStack((ItemBackpack)backpack), new ItemStack((ItemBackpack)backpack)); //Hardcoded to ItemBackpack
-                GameRegistry.addRecipe(recipe);
+                if(recipe.getRegistryName() == null)
+                	recipe.setRegistryName(new ResourceLocation(Constants.MODID, "recipe"+Constants.j++));
+                ForgeRegistries.RECIPES.register(recipe);
                 IAllRecipesRegistry.registerUpgradeRemovalRecipe(recipe);
             }
         }
@@ -145,13 +141,17 @@ public class RecipeRegistry {
                         int backpackTier = ((ITieredBackpack) backpack).getTier(null);
                         if (upgradeTier <= backpackTier) {
                             BackpackAddUpgradeRecipe recipe = new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack) backpack), upgrade, new ItemStack((ItemBackpack) backpack)); //Hardcoded to ItemBackpack
-                            GameRegistry.addRecipe(recipe);
+                            if(recipe.getRegistryName() == null)
+                            	recipe.setRegistryName(new ResourceLocation(Constants.MODID, "recipe"+Constants.j++));
+                            ForgeRegistries.RECIPES.register(recipe);
                             IAllRecipesRegistry.registerUpgradeAdditionRecipe(recipe);
                         }
                     } else {
                         //TODO: remove casting for other backpacks (and in above for non-tiered ones)
                         BackpackAddUpgradeRecipe recipe = new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack) backpack), upgrade, new ItemStack((ItemBackpack) backpack)); //Hardcoded to ItemBackpack
-                        GameRegistry.addRecipe(recipe);
+                        if(recipe.getRegistryName() == null)
+                        	recipe.setRegistryName(new ResourceLocation(Constants.MODID, "recipe"+Constants.j++));
+                        ForgeRegistries.RECIPES.register(recipe);
                         IAllRecipesRegistry.registerUpgradeAdditionRecipe(recipe);
                     }
                 }
@@ -173,7 +173,9 @@ public class RecipeRegistry {
                 if (!recipes.isEmpty() && upgradedPacks != null && upgradedPacks.size() == recipes.size()) {
                     for (int j = 0; j < recipes.size(); j++) {
                         BackpackIncreaseTierRecipe tierRecipe = new BackpackIncreaseTierRecipe(new ItemStack((ItemBackpack)upgradedPacks.get(j)), recipes.get(j)); //hardcoded to ItemBackpack
-                        GameRegistry.addRecipe(tierRecipe);
+                        if(tierRecipe.getRegistryName() == null)
+                        	tierRecipe.setRegistryName(new ResourceLocation(Constants.MODID, "recipe"+Constants.j++));
+                        ForgeRegistries.RECIPES.register(tierRecipe);
                         IAllRecipesRegistry.registerTierIncreaseRecipe(tierRecipe);
                     }
                 }

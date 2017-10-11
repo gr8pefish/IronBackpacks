@@ -1,5 +1,8 @@
 package gr8pefish.ironbackpacks.registry;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
@@ -22,10 +25,7 @@ import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.InventoryRenderHelper;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import java.util.ArrayList;
-import java.util.Collections;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 /**
  * Registers all the items in this mod.
@@ -328,7 +328,7 @@ public class ItemRegistry {
         //Set the registry name and register it
         //unlocalized name taken care of in item creation
         item.setRegistryName(name);
-        GameRegistry.register(item);
+        ForgeRegistries.ITEMS.register(item);
 
         //Deprecated code
         //GameRegistry.registerItem(item, name);
@@ -337,7 +337,7 @@ public class ItemRegistry {
     }
 
     private static void setTieringAndTierRecipesOfBackpacks(){
-        ArrayList basicBackpacksAbove = new ArrayList<ITieredBackpack>();
+        ArrayList<ITieredBackpack> basicBackpacksAbove = new ArrayList<>();
         basicBackpacksAbove.add(ironBackpackStorageEmphasis);
         basicBackpacksAbove.add(ironBackpackUpgradeEmphasis);
         basicBackpack.setBackpacksAbove(null, basicBackpacksAbove); //first parameter is (in my case, unused) itemstack, so I use null

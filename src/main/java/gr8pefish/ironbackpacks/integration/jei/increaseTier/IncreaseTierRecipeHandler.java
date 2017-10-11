@@ -6,6 +6,7 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("deprecation")
 public class IncreaseTierRecipeHandler implements IRecipeHandler<BackpackIncreaseTierRecipe> {
 
     @Nonnull

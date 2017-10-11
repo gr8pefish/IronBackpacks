@@ -322,8 +322,7 @@ public class IronBackpacksEventHelper {
                         if (restockerItem != null) {
 
                             boolean foundSlot = false;
-                            ItemStack stackToResupply = null;
-                            Slot slotToResupply = null;
+                            ItemStack stackToResupply = ItemStack.EMPTY;
 
                             if (hand == EnumHand.OFF_HAND) {
                                 if (IronBackpacksHelper.areItemsEqualForStacking(toResupply, restockerItem) && IronBackpacksHelper.areItemsEqualAndStackable(toResupply, restockerItem) ) {

@@ -6,18 +6,13 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("deprecation")
 public class RemoveUpgradeRecipeHandler implements IRecipeHandler<BackpackRemoveUpgradeRecipe>{
 
     @Nonnull
     @Override
     public Class<BackpackRemoveUpgradeRecipe> getRecipeClass() {
         return BackpackRemoveUpgradeRecipe.class;
-    }
-
-    @Nonnull
-    @Override
-    public String getRecipeCategoryUid() {
-        return "ironbackpacks.removeUpgrade";
     }
 
     @Nonnull

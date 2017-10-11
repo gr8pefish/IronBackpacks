@@ -1,5 +1,13 @@
 package gr8pefish.ironbackpacks.integration.jei.addUpgrade;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.gui.ITooltipCallback;
@@ -7,15 +15,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import net.minecraft.item.crafting.Ingredient;
 
 public class AddUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack> {
 
@@ -33,51 +33,24 @@ public class AddUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback
 
     @Override
     public void getIngredients(@Nonnull IIngredients ingredients) {
-        //ToDo
-    }
-
-    @Nonnull
-    @Override
-    public List getInputs() {
-        //ToDo: move to ingredients
-        return addUpgradeRecipe.getInput();
-    }
-
-    @Nonnull
-    @Override
-    public List getOutputs() {
-        //ToDo: move to ingredients
-        return Collections.singletonList(addUpgradeRecipe.getRecipeOutput());
-    }
-
-    @Nonnull
-    @Override
-    public List<FluidStack> getFluidInputs() {
-        return new ArrayList<>(); //none
-    }
-
-    @Nonnull
-    @Override
-    public List<FluidStack> getFluidOutputs() {
-        return new ArrayList<>(); //none
+        ingredients.setOutput(ItemStack.class, addUpgradeRecipe.getRecipeOutput());
+        List<List<ItemStack>> l = new ArrayList<>();
+        for(Ingredient i : addUpgradeRecipe.getIngredients())l.add(Arrays.asList(i.getMatchingStacks()));
+        
+        ingredients.setInputLists(ItemStack.class, l);
     }
 
     @Override
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 
         //add the recipes type necessary at the top of the screen
-        minecraft.fontRendererObj.drawString(craftingType, 29, 0, Color.darkGray.getRGB());
+        minecraft.fontRenderer.drawString(craftingType, 29, 0, Color.darkGray.getRGB());
 
         //add the descriptions below the images (hardcoded for english length)
         for (int i = 0; i < description.length; i++)
-            minecraft.fontRendererObj.drawString(description[i], 11, 40 + (i*8), Color.black.getRGB());
+            minecraft.fontRenderer.drawString(description[i], 11, 40 + (i*8), Color.black.getRGB());
         for (int i = 0; i < descriptionAdditional.length; i++)
-            minecraft.fontRendererObj.drawString(descriptionAdditional[i], 11, 72 + (i*8), Color.black.getRGB());
-    }
-
-    @Override
-    public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
-
+            minecraft.fontRenderer.drawString(descriptionAdditional[i], 11, 72 + (i*8), Color.black.getRGB());
     }
 
     @Nullable

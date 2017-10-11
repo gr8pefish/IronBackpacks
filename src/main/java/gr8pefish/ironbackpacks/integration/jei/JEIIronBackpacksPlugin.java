@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.integration.jei;
 
+import javax.annotation.Nonnull;
+
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.integration.jei.addUpgrade.AddUpgradeRecipeCategory;
 import gr8pefish.ironbackpacks.integration.jei.addUpgrade.AddUpgradeRecipeHandler;
@@ -8,16 +10,17 @@ import gr8pefish.ironbackpacks.integration.jei.increaseTier.IncreaseTierRecipeHa
 import gr8pefish.ironbackpacks.integration.jei.removeUpgrade.RemoveUpgradeRecipeCategory;
 import gr8pefish.ironbackpacks.integration.jei.removeUpgrade.RemoveUpgradeRecipeHandler;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
-import mezz.jei.api.*;
+import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.IModPlugin;
+import mezz.jei.api.IModRegistry;
+import mezz.jei.api.JEIPlugin;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import javax.annotation.Nonnull;
-
-@mezz.jei.api.JEIPlugin
-public class JEIIronBackpacksPlugin extends BlankModPlugin {
+@JEIPlugin
+@SuppressWarnings("deprecation")
+public class JEIIronBackpacksPlugin implements IModPlugin {
 
     @Override
     public void register(@Nonnull IModRegistry registry) {

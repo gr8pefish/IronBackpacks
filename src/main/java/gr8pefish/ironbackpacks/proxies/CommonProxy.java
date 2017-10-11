@@ -20,6 +20,11 @@ public class CommonProxy {
     public void postInit(){
         ProxyRegistry.postInitServer();
     }
+    
+    @SuppressWarnings("deprecation")
+    public String translate(String langkey, Object... pars) {
+    	return net.minecraft.util.text.translation.I18n.translateToLocalFormatted(langkey, pars);
+    }
 
     //Helper methods
 
