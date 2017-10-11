@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import java.util.List;
+
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.items.upgrades.ItemIConflictingUpgrade;
@@ -17,10 +19,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Deals with the cases when a backpack is shapelessly crafted with an upgrade.
@@ -38,7 +38,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
     /**
      * Crafts the backpack with the upgrade, with some special cases recognized.
      * First it checks if the backpack has enough upgrade points available to apply said upgrade to the backpack.
-     * If it has enough points available it progresses, otherwise it returns null;
+     * If it has enough points available it progresses, otherwise it returns ItemStack.EMPTY;
      *
      * Then it checks for special cases, listed below:
      * You can't have more than the config amount of 'additional upgrade points' upgrades applied.
@@ -52,10 +52,10 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
     public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
 
         ItemStack backpack = getFirstUpgradableBackpack(inventoryCrafting); //get the upgradable backpack in the recipes grid
-        if (backpack == null) return null; //if no valid backpack return nothing
+        if (backpack.isEmpty()) return ItemStack.EMPTY; //if no valid backpack return nothing
         ItemStack result = backpack.copy(); //the resulting backpack, copied so it's data can be more easily manipulated
 
-        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result); //get the upgrades
+        NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result); //get the upgrades
         int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(result); //get the total upgrade points available to the backpack
 
         ItemStack upgradeToApply = getFirstUpgrade(inventoryCrafting); //get the upgrade the player is attempting to apply to the backpack
@@ -71,7 +71,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
         boolean upgradeFound = false; //too determine if you need to return a new backpack in the output slot
         NBTTagList tagList = new NBTTagList(); //the upgrade data base tag
 
-        if (totalUpgradePoints != 0 && upgradeToApply != null) { //if have more than zero upgrade slots
+        if (totalUpgradePoints != 0 && !upgradeToApply.isEmpty()) { //if have more than zero upgrade slots
             if (upgrades.size() == 0){ //if no upgrades applied
                 if (ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade)){ //if the upgrade is an additional upgrade points upgrade
                     upgradeFound = applyAdditional(nbtTagCompound, result); //if you can apply more upgrade points, do it
@@ -99,7 +99,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
                     }
                 }
             }
-        } else if (upgradeToApply != null && ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade)){ //if no upgrade points you could apply to get more upgrade points (corner case)
+        } else if (!upgradeToApply.isEmpty() && ItemUpgrade.areUpgradesEqual(upgradeToApply, ItemRegistry.additionalUpgradePointsUpgrade)){ //if no upgrade points you could apply to get more upgrade points (corner case)
             upgradeFound = applyAdditional(nbtTagCompound, result); //if you can apply more upgrade points, do it
         }
 
@@ -107,7 +107,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
         if (upgradeFound) { //if you applied an upgrade
             return result; //return the new backpack
         } else { //otherwise
-            return null; //return nothing
+            return ItemStack.EMPTY; //return nothing
         }
 
     }
@@ -128,12 +128,12 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-                if (itemstack != null && (itemstack.getItem() instanceof IUpgradableBackpack)) {
+                if (!itemstack.isEmpty() && (itemstack.getItem() instanceof IUpgradableBackpack)) {
                     return itemstack;
                 }
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
     /**
@@ -145,7 +145,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-                if (itemstack != null && itemstack.getItem() != null) {
+                if (!itemstack.isEmpty()) {
                     if (itemstack.getItem() instanceof ItemUpgrade) { //hardcoded for ItemIUpgrade
                         if (ItemIUpgradeRegistry.isInstanceOfAnyUpgrade(itemstack)) { //any upgrade is fine here
                             ItemStack returnStack = itemstack.copy(); //copy stack
@@ -156,7 +156,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
                 }
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
     /**
@@ -166,7 +166,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
      * @param upgradeToApply - the upgradeToApply as an itemstack
      * @return - true if it can be applied, false otherwise
      */
-    private boolean canApplyUpgrade(ArrayList<ItemStack> upgrades, int totalUpgradePoints, ItemStack upgradeToApply){
+    private boolean canApplyUpgrade(NonNullList<ItemStack> upgrades, int totalUpgradePoints, ItemStack upgradeToApply){
         if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(upgradeToApply) || ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(upgradeToApply)){
 
             for (ItemStack upgrade : upgrades) { //check for duplicate
@@ -204,7 +204,7 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
      * @param upgrades - the current upgrades on the pack
      * @return - true if it has a conflicting upgrade, false otherwise
      */
-    private boolean hasConflictingUpgradeInUpgrades(ItemStack upgradeToApply, ArrayList<ItemStack> upgrades) {
+    private boolean hasConflictingUpgradeInUpgrades(ItemStack upgradeToApply, NonNullList<ItemStack> upgrades) {
         List<ItemIConflictingUpgrade> conflictingUpgrades = ItemIUpgradeRegistry.getItemIConflictingUpgrade(upgradeToApply).getConflictingUpgrades(upgradeToApply);
         for (ItemStack stack : upgrades){ //for every upgrade
             if (ItemIUpgradeRegistry.isInstanceOfIConflictingUpgrade(stack)){ //if it is an instance of a conflicting upgrade

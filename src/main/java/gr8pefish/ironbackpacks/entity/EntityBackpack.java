@@ -94,7 +94,7 @@ public class EntityBackpack extends Entity implements IEntityAdditionalSpawnData
     public static void updateBackpacks(Minecraft mc, World worldObj) {
         EntityPlayer player = mc.player;
         ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
-        if (backpack != null){
+        if (!backpack.isEmpty()){
             EntityBackpack pack = backpacksSpawnedMap.get(backpack);
             if (pack != null) {
                 if (isBackpackValid(player, pack)) pack.fixPositions(player, true);

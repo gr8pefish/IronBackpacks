@@ -35,7 +35,7 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncr
 
         ItemStack result;
         ItemStack backpack = getFirstTieredBackpack(inventoryCrafting);
-        if (backpack == null) return null;
+        if (backpack.isEmpty()) return ItemStack.EMPTY;
 
         NBTTagCompound nbtTagCompound = backpack.getTagCompound();
         if (nbtTagCompound == null){
@@ -55,7 +55,7 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncr
             result.setTagCompound(backpack.getTagCompound());
             return result;
         } else {
-            return null;
+            return ItemStack.EMPTY;
         }
 
     }
@@ -74,10 +74,10 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncr
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 ItemStack itemstack = inventoryCrafting.getStackInRowAndColumn(j, i);
-                if (itemstack != null && (itemstack.getItem() instanceof ITieredBackpack))
+                if (!itemstack.isEmpty() && (itemstack.getItem() instanceof ITieredBackpack))
                     return itemstack;
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 }

@@ -74,8 +74,8 @@ public class IronBackpacksCommands extends CommandBase {
                         PlayerDeathBackpackCapabilities.reset(playerMP);
 
                         //send to client
-                        NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), playerMP);
-                        NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(null), playerMP);
+                        NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(ItemStack.EMPTY), playerMP);
+                        NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(ItemStack.EMPTY), playerMP);
 
                         //notify with message
                         sender.sendMessage(new TextComponentString(TextUtils.localizeEffect("chat.ironbackpacks.command.removedEquippedPack")+" "+playerMP.getName()+"."));
@@ -107,8 +107,8 @@ public class IronBackpacksCommands extends CommandBase {
                         PlayerDeathBackpackCapabilities.reset(player);
 
                         //send to client
-                        NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP) sender.getCommandSenderEntity());
-                        NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(null), (EntityPlayerMP) sender.getCommandSenderEntity());
+                        NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(ItemStack.EMPTY), (EntityPlayerMP) sender.getCommandSenderEntity());
+                        NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(ItemStack.EMPTY), (EntityPlayerMP) sender.getCommandSenderEntity());
 
                         //notify with message
                         sender.sendMessage(new TextComponentTranslation("chat.ironbackpacks.command.removedYourEquippedPack"));

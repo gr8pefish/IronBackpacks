@@ -1,5 +1,8 @@
 package gr8pefish.ironbackpacks.container.alternateGui;
 
+import java.util.Arrays;
+import java.util.UUID;
+
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.items.upgrades.ItemIConfigurableUpgrade;
@@ -27,10 +30,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.util.Constants;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
-
 /**
  * The inventory used when in the alternate gui of the backpack
  */
@@ -39,7 +38,7 @@ public class InventoryAlternateGui implements IInventory {
     private ItemStack backpackStack; //the itemstack of the backpack
     private EntityPlayer player; //the player
     private NonNullList<ItemStack> inventory; //the items in the backpack
-    private ArrayList<ItemStack> upgrades; //the upgrades applied
+    private NonNullList<ItemStack> upgrades; //the upgrades applied
     private int invSize; //the size of the inventory
 
     protected ItemStack[] advFilterStacks; //the items in the advanced filter

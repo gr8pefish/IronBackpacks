@@ -1,7 +1,6 @@
 package gr8pefish.ironbackpacks.client.gui.inventory;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.lwjgl.input.Keyboard;
@@ -33,6 +32,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
@@ -97,7 +97,7 @@ public class GUIBackpackAlternate extends GuiContainer {
          * @return - the GUI built
          */
         public static GUIBackpackAlternate buildGUIAlternate(InventoryAlternateGui inv) {
-            ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(inv.getBackpackStack());
+            NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(inv.getBackpackStack());
             GUI gui;
             if (ConfigHandler.renamingUpgradeRequired)
                 gui = UpgradeMethods.hasRenamingUpgrade(upgrades) ? values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades) + 3] : values()[UpgradeMethods.getAltGuiUpgradesApplied(upgrades)]; //shifts to correct index if renaming
@@ -127,8 +127,8 @@ public class GUIBackpackAlternate extends GuiContainer {
     private TooltipButton infoButton;
     private TooltipButton moveLeft;
     private TooltipButton moveRight;
-    private ArrayList<TooltipButton> advFilters = new ArrayList<TooltipButton>(); //the advanced filter buttons
-    private ArrayList<TooltipButton> tooltipButtons = new ArrayList<TooltipButton>(); //buttons with a tooltip
+    private NonNullList<TooltipButton> advFilters = NonNullList.create(); //the advanced filter buttons
+    private NonNullList<TooltipButton> tooltipButtons = NonNullList.create(); //buttons with a tooltip
     private TooltipButton[] rowIndeces = new TooltipButton[4]; //for use on the dynamic clear buttons
 
     //the tooltip data
@@ -151,7 +151,7 @@ public class GUIBackpackAlternate extends GuiContainer {
     private boolean hasFilterMiningUpgrade;
     private boolean hasFilterVoidUpgrade;
 
-    private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, ArrayList<ItemStack> upgrades, ItemStack backpack) {
+    private GUIBackpackAlternate(GUI type, EntityPlayer player, InventoryAlternateGui inv, NonNullList<ItemStack> upgrades, ItemStack backpack) {
         super(type.makeContainer(inv));
         this.container = (ContainerAlternateGui) type.makeContainer(inv);
         this.type = type;
@@ -371,7 +371,7 @@ public class GUIBackpackAlternate extends GuiContainer {
      */
     private void drawInfoStrings(){
 
-        String displayName = (itemStack == null) ? TextUtils.localize("gui.ironbackpacks.uuidError") : itemStack.getDisplayName();
+        String displayName = (itemStack.isEmpty()) ? TextUtils.localize("gui.ironbackpacks.uuidError") : itemStack.getDisplayName();
 
         fontRenderer.drawString(TextUtils.localize(displayName), 20, 6, 4210752);
         int counter = (hasFilterAdvancedUpgrade && !hasFilterMiningUpgrade && !hasRestockingUpgrade) ? 5 : 4;
@@ -561,9 +561,9 @@ public class GUIBackpackAlternate extends GuiContainer {
     //Gets the string to put in the tooltip for the backpack information
     private String[] getInfoTooltip(){
 
-        ArrayList<String> list = new ArrayList<>();
+        NonNullList<String> list = NonNullList.create();
 
-        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack);
+        NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemStack);
         int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(itemStack);
 
         int upgradesUsed = 0;
@@ -590,7 +590,7 @@ public class GUIBackpackAlternate extends GuiContainer {
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.rename", IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
 
 
-        int additionalPossiblePoints = ((ItemBackpack)itemStack.getItem()).getAdditionalUpgradePoints(null);
+        int additionalPossiblePoints = ((ItemBackpack)itemStack.getItem()).getAdditionalUpgradePoints(ItemStack.EMPTY);
 
         if (additionalPossiblePoints > 0) {
             int used = IronBackpacksHelper.getAdditionalUpgradesTimesApplied(itemStack) * ConfigHandler.additionalUpgradePointsIncrease;

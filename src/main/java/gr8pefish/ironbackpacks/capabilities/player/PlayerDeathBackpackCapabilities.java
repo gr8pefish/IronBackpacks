@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.capabilities.player;
 
+import java.util.concurrent.Callable;
+
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,23 +11,21 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-
-import java.util.ArrayList;
-import java.util.concurrent.Callable;
 
 public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<NBTTagCompound> {
 
     public static final String CAP_DEATH_PACK_TAG = Constants.MODID + ".death";
 
-    private ArrayList<ItemStack> eternityPacks;
-    private ItemStack equippedBackpack;
+    private NonNullList<ItemStack> eternityPacks;
+    private ItemStack equippedBackpack = ItemStack.EMPTY;
 
     public PlayerDeathBackpackCapabilities() {
-        this.eternityPacks = new ArrayList<>();
-        this.equippedBackpack = null;
+        this.eternityPacks = NonNullList.create();
+        this.equippedBackpack = ItemStack.EMPTY;
     }
 
     @Override
@@ -46,14 +46,14 @@ public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<
 
         //save the equipped pack
         NBTTagCompound equipped = new NBTTagCompound();
-        if (equippedBackpack != null)
+        if (!equippedBackpack.isEmpty())
             equippedBackpack.writeToNBT(equipped);
         else
             equipped.setBoolean("noEquipped", false);
         tagList.appendTag(equipped);
 
         //save all the eternity packs
-        if (eternityPacks != null && eternityPacks.size() > 0) {
+        if (!eternityPacks.isEmpty()) {
             for (ItemStack pack : eternityPacks) {
                 NBTTagCompound saved = new NBTTagCompound();
                 pack.writeToNBT(saved);
@@ -80,10 +80,10 @@ public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<
             try {
                 equippedBackpack = new ItemStack(tagList.getCompoundTagAt(0));
             } catch (NullPointerException e) { //might as well keep this catch statement
-                equippedBackpack = null;
+                equippedBackpack = ItemStack.EMPTY;
             }
         } else {
-            equippedBackpack = null;
+        	equippedBackpack = ItemStack.EMPTY;
         }
 
         //get all the eternity packs
@@ -129,11 +129,11 @@ public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<
         this.equippedBackpack = stack;
     }
 
-    public ArrayList<ItemStack> getEternityBackpacks() {
+    public NonNullList<ItemStack> getEternityBackpacks() {
         return eternityPacks;
     }
 
-    public void setEternityBackpacks(ArrayList<ItemStack> packs) {
+    public void setEternityBackpacks(NonNullList<ItemStack> packs) {
         this.eternityPacks = packs;
     }
 
@@ -150,7 +150,7 @@ public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<
         if (cap != null) //can this ever be null?
             return cap.getEquippedBackpack();
         else
-            return null;
+            return ItemStack.EMPTY;
     }
 
     public static void setEquippedBackpack(EntityLivingBase livingBase, ItemStack stack) {
@@ -159,7 +159,7 @@ public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<
             cap.setEquippedBackpack(stack);
     }
 
-    public static ArrayList<ItemStack> getEternityBackpacks(EntityLivingBase livingBase) {
+    public static NonNullList<ItemStack> getEternityBackpacks(EntityLivingBase livingBase) {
         PlayerDeathBackpackCapabilities cap = IronBackpacksCapabilities.getDeathBackpackCapability((EntityPlayer) livingBase);
         if (cap != null)
             return cap.getEternityBackpacks();
@@ -167,15 +167,15 @@ public class PlayerDeathBackpackCapabilities implements ICapabilitySerializable<
             return null;
     }
 
-    public static void setEternityBackpacks(EntityLivingBase livingBase, ArrayList<ItemStack> stacks) {
+    public static void setEternityBackpacks(EntityLivingBase livingBase, NonNullList<ItemStack> stacks) {
         PlayerDeathBackpackCapabilities cap = IronBackpacksCapabilities.getDeathBackpackCapability((EntityPlayer) livingBase);
         if (cap != null)
             cap.setEternityBackpacks(stacks);
     }
 
     public static void reset(EntityLivingBase livingBase) {
-        setEquippedBackpack(livingBase, null);
-        setEternityBackpacks(livingBase, new ArrayList<>()); //empty list
+        setEquippedBackpack(livingBase, ItemStack.EMPTY);
+        setEternityBackpacks(livingBase, NonNullList.create()); //empty list
     }
 
 }

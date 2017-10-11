@@ -4,6 +4,7 @@ import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import io.netty.buffer.ByteBuf;
+import jline.internal.Preconditions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,7 @@ public class ClientEquippedPackMessage implements IMessage {
     public ClientEquippedPackMessage() {} //default constructor is necessary
 
     public ClientEquippedPackMessage(ItemStack stack) {
+    	Preconditions.checkNotNull(stack);
         this.stack = stack;
     }
 

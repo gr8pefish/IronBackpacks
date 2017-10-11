@@ -1,6 +1,5 @@
 package gr8pefish.ironbackpacks.items.backpacks;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +30,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -73,7 +73,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IB
             if (!(player.isSneaking())) { //only do it when player is sneaking
                 return EnumActionResult.PASS;
             }
-            ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
+            NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
             boolean hasDepthUpgrade = UpgradeMethods.hasDepthUpgrade(upgrades);
             if (UpgradeMethods.hasQuickDepositUpgrade(upgrades)) {
                 openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, side, false);
@@ -90,7 +90,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IB
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
                     if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
-                        ArrayList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
+                        NonNullList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
                         if (UpgradeMethods.hasQuickDepositUpgrade(nestedUpgrades)) {
                             openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, side, false);
                             if (!openAltGuiDepth) openAltGui = false;
@@ -116,7 +116,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IB
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, World player, List<String> list, ITooltipFlag advanced) {
-        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
+        NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
         int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(stack);
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {

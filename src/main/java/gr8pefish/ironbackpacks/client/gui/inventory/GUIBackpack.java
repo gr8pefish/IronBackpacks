@@ -31,7 +31,7 @@ import java.util.Collections;
 public class GUIBackpack extends GuiContainer {
 
     public ContainerBackpack container; //the container
-    private ItemStack itemStack; //the itemstack backpack
+    private ItemStack itemStack = ItemStack.EMPTY; //the itemstack backpack
     private ItemBackpack itemBackpack; //the backpack as an items
 
     //the buttons in this GUI
@@ -113,7 +113,7 @@ public class GUIBackpack extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 
-        if (itemStack != null)
+        if (!itemStack.isEmpty())
             this.fontRenderer.drawString(TextUtils.localize(itemStack.getDisplayName()), 20, 6, 4210752); //respects renamed backpacks this way
         else
             this.fontRenderer.drawString(TextUtils.localize("misc.ironbackpacks.default.equipped.backpack.name"), 20, 6, 4210752); //default name, should ideally never be used

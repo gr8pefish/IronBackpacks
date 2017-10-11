@@ -23,9 +23,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
 
 /**
  * Houses helper methods used throughout the mod
@@ -91,8 +90,8 @@ public class IronBackpacksHelper {
 //     * @param stack - the backpack to check
      * @return - an int[] of the upgrades applied (only contains what is applied, no empty values)
      */
-    public static ArrayList<ItemStack> getUpgradesAppliedFromNBT(ItemStack backpack) {
-        ArrayList<ItemStack> upgradesArrayList = new ArrayList<>();
+    public static NonNullList<ItemStack> getUpgradesAppliedFromNBT(ItemStack backpack) {
+        NonNullList<ItemStack> upgradesNonNullList = NonNullList.create();
         if (backpack != null) {
             NBTTagCompound nbtTagCompound = backpack.getTagCompound();
             if (nbtTagCompound != null) {
@@ -102,12 +101,12 @@ public class IronBackpacksHelper {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         ItemStack upgrade = new ItemStack(stackTag);
                         if (upgrade != null)
-                            upgradesArrayList.add(upgrade);
+                            upgradesNonNullList.add(upgrade);
                     }
                 }
             }
         }
-        return upgradesArrayList;
+        return upgradesNonNullList;
     }
 
     /**
@@ -115,7 +114,7 @@ public class IronBackpacksHelper {
      * @param upgrades - the upgrades to check
      * @return - integer value
      */
-    public static int getUpgradePointsUsed(ArrayList<ItemStack> upgrades){
+    public static int getUpgradePointsUsed(NonNullList<ItemStack> upgrades){
         int counter = 0;
         for (ItemStack stack : upgrades){
             counter += ItemIUpgradeRegistry.getItemUpgrade(stack).getUpgradeCost(stack);
@@ -335,7 +334,7 @@ public class IronBackpacksHelper {
      */
     public static void saveEternityBackpacksOnDeath(EntityPlayer player) {
 
-        ArrayList<ItemStack> backpacks = new ArrayList<>(); //the backpacks to save
+        NonNullList<ItemStack> backpacks = NonNullList.create(); //the backpacks to save
 
         boolean gameruleKeepInv = player.world.getGameRules().getBoolean("keepInventory");
 
@@ -390,7 +389,7 @@ public class IronBackpacksHelper {
         }
 
         //get eternity packs and add them to inventory
-        ArrayList<ItemStack> packs = PlayerDeathBackpackCapabilities.getEternityBackpacks(player);
+        NonNullList<ItemStack> packs = PlayerDeathBackpackCapabilities.getEternityBackpacks(player);
         if (packs != null && !packs.isEmpty()) {
             for (ItemStack stack : packs) {
                 boolean added = player.inventory.addItemStackToInventory(stack);
@@ -410,7 +409,7 @@ public class IronBackpacksHelper {
      * @param stack - the backpack to check
      * @return - the itemstack with the 'keepOnDeath' upgrade removed (if valid/applicable)
      */
-    private static ItemStack removeEternityUpgrade(ArrayList<ItemStack> upgrades, ItemStack stack){
+    private static ItemStack removeEternityUpgrade(NonNullList<ItemStack> upgrades, ItemStack stack){
         if (stack != null) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             NBTTagList tagList = new NBTTagList();

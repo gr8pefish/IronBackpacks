@@ -30,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.network.play.server.SPacketCustomSound;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -44,13 +45,13 @@ public class IronBackpacksEventHelper {
      * @param player - the player to check
      * @return - a nested array list of the array lists of each type of backpack that has each filter type
      */
-    protected static ArrayList<ArrayList<ItemStack>> getFilterCrafterAndRestockerBackpacks(EntityPlayer player){
-        ArrayList<ItemStack> filterBackpacks = new ArrayList<ItemStack>();
-        ArrayList<ItemStack> crafterTinyBackpacks = new ArrayList<ItemStack>();
-        ArrayList<ItemStack> crafterSmallBackpacks = new ArrayList<ItemStack>();
-        ArrayList<ItemStack> crafterBackpacks = new ArrayList<ItemStack>();
-        ArrayList<ItemStack> restockerBackpacks = new ArrayList<ItemStack>();
-        ArrayList<ArrayList<ItemStack>> returnArray = new ArrayList<ArrayList<ItemStack>>();
+    protected static NonNullList<NonNullList<ItemStack>> getFilterCrafterAndRestockerBackpacks(EntityPlayer player){
+    	NonNullList<ItemStack> filterBackpacks = NonNullList.create();
+        NonNullList<ItemStack> crafterTinyBackpacks = NonNullList.create();;
+        NonNullList<ItemStack> crafterSmallBackpacks = NonNullList.create();
+        NonNullList<ItemStack> crafterBackpacks = NonNullList.create();
+        NonNullList<ItemStack> restockerBackpacks = NonNullList.create();
+        NonNullList<NonNullList<ItemStack>> returnArray = NonNullList.create();
 
         //get the equipped pack
         getEventBackpacks(PlayerWearingBackpackCapabilities.getEquippedBackpack(player), filterBackpacks, crafterTinyBackpacks, crafterSmallBackpacks, crafterBackpacks, restockerBackpacks, player);
@@ -70,10 +71,10 @@ public class IronBackpacksEventHelper {
         return returnArray;
     }
 
-    protected static void getEventBackpacks(ItemStack backpack, ArrayList<ItemStack> filterBackpacks, ArrayList<ItemStack> crafterTinyBackpacks, ArrayList<ItemStack> crafterSmallBackpacks, ArrayList<ItemStack> crafterBackpacks, ArrayList<ItemStack> restockerBackpacks, EntityPlayer player){
+    protected static void getEventBackpacks(ItemStack backpack, NonNullList<ItemStack> filterBackpacks, NonNullList<ItemStack> crafterTinyBackpacks, NonNullList<ItemStack> crafterSmallBackpacks, NonNullList<ItemStack> crafterBackpacks, NonNullList<ItemStack> restockerBackpacks, EntityPlayer player){
         if (backpack != null && backpack.getItem() != null && backpack.getItem() instanceof IBackpack) {
 
-            ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
+            NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
             addToLists(backpack, filterBackpacks, crafterTinyBackpacks, crafterSmallBackpacks, crafterBackpacks, restockerBackpacks, upgrades);
 
             if (UpgradeMethods.hasDepthUpgrade(upgrades)) {
@@ -88,7 +89,7 @@ public class IronBackpacksEventHelper {
         }
     }
 
-    protected static void addToLists(ItemStack stack, ArrayList<ItemStack> filterBackpacks, ArrayList<ItemStack> crafterTinyBackpacks, ArrayList<ItemStack> crafterSmallBackpacks, ArrayList<ItemStack> crafterBackpacks, ArrayList<ItemStack> restockerBackpacks, ArrayList<ItemStack> upgrades){
+    protected static void addToLists(ItemStack stack, NonNullList<ItemStack> filterBackpacks, NonNullList<ItemStack> crafterTinyBackpacks, NonNullList<ItemStack> crafterSmallBackpacks, NonNullList<ItemStack> crafterBackpacks, NonNullList<ItemStack> restockerBackpacks, NonNullList<ItemStack> upgrades){
         if (UpgradeMethods.hasFilterBasicUpgrade(upgrades) || UpgradeMethods.hasFilterModSpecificUpgrade(upgrades) ||
                 UpgradeMethods.hasFilterFuzzyUpgrade(upgrades) || UpgradeMethods.hasFilterOreDictUpgrade(upgrades) ||
                 UpgradeMethods.hasFilterVoidUpgrade(upgrades) || UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) ||
@@ -118,7 +119,7 @@ public class IronBackpacksEventHelper {
      * @param backpackStacks - the backpacks with this upgrade
      * @return - boolean successful
      */
-    protected static boolean checkRestockingUpgradeItemPickup(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){
+    protected static boolean checkRestockingUpgradeItemPickup(EntityItemPickupEvent event, NonNullList<ItemStack> backpackStacks){
         boolean doFilter = true;
         boolean shouldSave;
         if (!backpackStacks.isEmpty()){
@@ -129,7 +130,7 @@ public class IronBackpacksEventHelper {
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(event.getEntityPlayer(), backpack)); //TODO: remove additional itemstack parameter
                 if (!(event.getEntityPlayer().openContainer instanceof ContainerBackpack)) { //can't have the backpack open
 
-                    ArrayList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
+                    NonNullList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
                         if (restockerItem != null) {
 
@@ -235,7 +236,7 @@ public class IronBackpacksEventHelper {
      *              return new size of itemUsed stack
      * @param backpackStacks - the backpacks with this upgrade
      */
-    protected static ItemStack checkRestockerUpgradeItemUse(EntityPlayer player, ItemStack stack, ArrayList<ItemStack> backpackStacks){
+    protected static ItemStack checkRestockerUpgradeItemUse(EntityPlayer player, ItemStack stack, NonNullList<ItemStack> backpackStacks){
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
 //                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
@@ -243,7 +244,7 @@ public class IronBackpacksEventHelper {
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, backpack));
                 if (!(player.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     container.sort(); //TODO: test with this removed
-                    ArrayList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
+                    NonNullList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
                         if (restockerItem != null) {
 
@@ -308,7 +309,7 @@ public class IronBackpacksEventHelper {
      *              return new size of itemUsed stack
      * @param backpackStacks - the backpacks with this upgrade
      */
-    protected static ItemStack checkRestockerUpgradeItemPlace(EntityPlayer player, EnumHand hand, ItemStack toResupply, ArrayList<ItemStack> backpackStacks){
+    protected static ItemStack checkRestockerUpgradeItemPlace(EntityPlayer player, EnumHand hand, ItemStack toResupply, NonNullList<ItemStack> backpackStacks){
         if (!backpackStacks.isEmpty()){
 
             for (ItemStack backpack : backpackStacks) {
@@ -317,7 +318,7 @@ public class IronBackpacksEventHelper {
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, backpack));
                 if (!(player.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     container.sort(); //TODO: test with this removed
-                    ArrayList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
+                    NonNullList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
                         if (restockerItem != null) {
 
@@ -393,7 +394,7 @@ public class IronBackpacksEventHelper {
      * @param backpackStacks - the backpacks with this upgrade
      */
     //ToDo: Need to fix it for derivative arrows, works for normal arrows only.
-    protected static ImmutablePair<ItemStack, Slot> checkRestockerUpgradeArrowLoose(EntityPlayer player, ArrayList<ItemStack> backpackStacks){
+    protected static ImmutablePair<ItemStack, Slot> checkRestockerUpgradeArrowLoose(EntityPlayer player, NonNullList<ItemStack> backpackStacks){
         if (!backpackStacks.isEmpty()){
 
             for (ItemStack backpack : backpackStacks) {
@@ -402,7 +403,7 @@ public class IronBackpacksEventHelper {
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, backpack));
                 if (!(player.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
                     container.sort(); //TODO: test with this removed
-                    ArrayList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
+                    NonNullList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
                         if ((restockerItem != null) && (restockerItem.getItem() instanceof ItemArrow || restockerItem.getItem().getClass().isAssignableFrom(ItemArrow.class))) { //only restock arrows
                             boolean foundSlot = false;
@@ -470,7 +471,7 @@ public class IronBackpacksEventHelper {
      * @param backpackStacks - the backpacks with the crafter upgrade
      * @param craftingGridDiameterToFill - The size of the recipes grid to try filling with (1x1 or 2x2 or 3x3)
      */
-    protected static void checkCrafterUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks, int craftingGridDiameterToFill){
+    protected static void checkCrafterUpgrade(EntityItemPickupEvent event, NonNullList<ItemStack> backpackStacks, int craftingGridDiameterToFill){
         boolean shouldSave = false;
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
@@ -490,7 +491,7 @@ public class IronBackpacksEventHelper {
                     ContainerWorkbench containerWorkbench = new ContainerWorkbench(event.getEntityPlayer().inventory, event.getItem().world, new BlockPos(0, 0, 0));
                     InventoryCrafting inventoryCrafting = new InventoryCrafting(containerWorkbench, 3, 3); //fake workbench/inventory for checking matching recipe
 
-                    ArrayList<ItemStack> crafterItems;
+                    NonNullList<ItemStack> crafterItems;
                     switch (craftingGridDiameterToFill){
                         case 1:
                             crafterItems = UpgradeMethods.getCrafterTinyItems(backpack);
@@ -592,13 +593,13 @@ public class IronBackpacksEventHelper {
      * @param event - EntityItemPickupEvent
      * @param backpackStacks - the backpacks with a filter
      */
-    protected static void checkFilterUpgrade(EntityItemPickupEvent event, ArrayList<ItemStack> backpackStacks){
+    protected static void checkFilterUpgrade(EntityItemPickupEvent event, NonNullList<ItemStack> backpackStacks){
         if (!backpackStacks.isEmpty()){
             for (ItemStack backpack : backpackStacks) {
 //                BackpackTypes type = BackpackTypes.values()[((ItemBackpackSubItems) backpack.getItem()).getGuiId()];
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(event.getEntityPlayer(), backpack));
                 if (!(event.getEntityPlayer().openContainer instanceof ContainerBackpack)) { //can't have the backpack open
-                    ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
+                    NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
 
                     if (UpgradeMethods.hasFilterBasicUpgrade(upgrades))
                         transferWithBasicFilter(UpgradeMethods.getBasicFilterItems(backpack), event, container);
@@ -640,7 +641,7 @@ public class IronBackpacksEventHelper {
      * @param event - EntityItemPickupEvent
      * @param container - the backpack to transfer items into
      */
-    private static void transferWithBasicFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
+    private static void transferWithBasicFilter(NonNullList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
@@ -662,7 +663,7 @@ public class IronBackpacksEventHelper {
      * @param event - EntityItemPickupEvent
      * @param container - the backpack to transfer items into
      */
-    private static void transferWithFuzzyFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
+    private static void transferWithFuzzyFilter(NonNullList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
@@ -685,7 +686,7 @@ public class IronBackpacksEventHelper {
      * @param event - EntityItemPickupEvent
      * @param container - the backpack to move items into
      */
-    private static void transferWithOreDictFilter(ArrayList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
+    private static void transferWithOreDictFilter(NonNullList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
@@ -712,7 +713,7 @@ public class IronBackpacksEventHelper {
      * @param event - EntityItemPickupEvent
      * @param container - the backpack to move the items into
      */
-    private static void transferWithModSpecificFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
+    private static void transferWithModSpecificFilter(NonNullList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
             if (filterItem != null) {
@@ -735,7 +736,7 @@ public class IronBackpacksEventHelper {
      * @param event - EntityItemPickupEvent
      * @param container - the backpack to move the items into
      */
-    private static void transferWithMiningFilter(ArrayList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
+    private static void transferWithMiningFilter(NonNullList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
         filterItems.add(new ItemStack(Items.COAL, 1, 0)); //add coal to filter
         addWhitelistEntriesToFilterItems(filterItems); //adds whitelisted items to filter
@@ -759,7 +760,7 @@ public class IronBackpacksEventHelper {
      * @param filterItems - the items to delete
      * @param event - EntityItemPickupEvent
      */
-    private static void deleteWithVoidFilter(ArrayList<ItemStack> filterItems, EntityItemPickupEvent event){
+    private static void deleteWithVoidFilter(NonNullList<ItemStack> filterItems, EntityItemPickupEvent event){
         for (ItemStack stack : filterItems) {
             if (stack != null) {
                 if (event.getItem().getItem().getItem() == stack.getItem()){ //if same items (but different damage value)
@@ -792,7 +793,7 @@ public class IronBackpacksEventHelper {
     }
 
     //ToDo: Not at runtime
-    private static ArrayList<ItemStack> addWhitelistEntriesToFilterItems(ArrayList<ItemStack> filterItems) {
+    private static NonNullList<ItemStack> addWhitelistEntriesToFilterItems(NonNullList<ItemStack> filterItems) {
         String[] whitelistEntries = ConfigHandler.filterMiningUpgradeWhitelist;
         for (String entry : whitelistEntries) {
             ItemStack stack = getItemStackFromString(entry);
@@ -855,7 +856,7 @@ public class IronBackpacksEventHelper {
      * @param backpackStacks
      * @param toResupply
      */
-    public static void handleIndirectRestock(EntityPlayer player, ArrayList<ItemStack> backpackStacks, ItemStack toResupply) {
+    public static void handleIndirectRestock(EntityPlayer player, NonNullList<ItemStack> backpackStacks, ItemStack toResupply) {
 
         //if restockingItem matches toResupply
             //for each slot in player's inventory (starting with offhand)
@@ -876,7 +877,7 @@ public class IronBackpacksEventHelper {
                 ItemBackpack itemBackpack = (ItemBackpack) backpack.getItem(); //TODO: hardcoded
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, backpack));
                 if (!(player.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
-                    ArrayList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
+                    NonNullList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
                         foundSlot = false;
                         useOffhand = false;
@@ -948,7 +949,7 @@ public class IronBackpacksEventHelper {
      * @param backpackStacks
      * @param toResupply
      */
-    public static void handleDirectRestock(EntityPlayer player, ArrayList<ItemStack> backpackStacks, ItemStack toResupply, boolean preEvent) {
+    public static void handleDirectRestock(EntityPlayer player, NonNullList<ItemStack> backpackStacks, ItemStack toResupply, boolean preEvent) {
 
         boolean useOffhand;
         boolean foundSlot;
@@ -960,7 +961,7 @@ public class IronBackpacksEventHelper {
                 ItemBackpack itemBackpack = (ItemBackpack) backpack.getItem(); //TODO: hardcoded
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, backpack));
                 if (!(player.openContainer instanceof ContainerBackpack)) { //can't have the backpack open
-                    ArrayList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
+                    NonNullList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
                         foundSlot = false;
                         useOffhand = false;

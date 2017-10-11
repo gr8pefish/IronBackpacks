@@ -1,5 +1,9 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.recipes.IRemoveUpgradeRecipe;
@@ -20,10 +24,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * Deals with the cases when a backpack is shapelessly crafted alone to remove an upgrade.
  */
@@ -42,7 +42,7 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
     /**
      * Crafts the backpack by itself to remove an upgrade;
      * First it checks if the backpack has any upgrades.
-     * If it does it progresses, otherwise it returns null;
+     * If it does it progresses, otherwise it returns ItemStack.EMPTY;
      * <p/>
      * Then it checks for where the backpack is located in the recipes grid.
      * It then removes the upgrade in said slot. So if it is in the 2nd slot then it removes the 2nd upgrade on the backpack.
@@ -55,16 +55,16 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
 
         int slotOfBackpack = getFirstUpgradableBackpackSlotNumber(inventoryCrafting);
         if (slotOfBackpack == -1) //if no backpack
-            return null; //return no output
+            return ItemStack.EMPTY; //return no output
 
         //get the backpack
         ItemStack backpack = inventoryCrafting.getStackInSlot(slotOfBackpack);
         ItemStack result = backpack.copy();
 
         //get the upgrades
-        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result);
+        NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result);
         if (upgrades.isEmpty()) //no upgrades
-            return null; //no output itemStack, i.e. no recipes result
+            return ItemStack.EMPTY; //no output itemStack, i.e. no recipes result
 
         //get the old tag compound
         NBTTagCompound nbtTagCompound = result.getTagCompound();
@@ -76,14 +76,14 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
 
         //make sure that we can check for an upgrade to remove
         boolean nullChecksPassed = false;
-        ItemStack upgradeInQuestion = null;
-        if ((slotOfBackpack <= (upgrades.size() - 1)) && (slotOfBackpack >= 0) && (upgrades.get(slotOfBackpack) != null)) {
+        ItemStack upgradeInQuestion = ItemStack.EMPTY;
+        if ((slotOfBackpack <= (upgrades.size() - 1)) && (slotOfBackpack >= 0) && !upgrades.get(slotOfBackpack).isEmpty()) {
             upgradeInQuestion = upgrades.get(slotOfBackpack);
 
             //can't remove it if is a nesting upgrade and there are nested backpacks inside
             //ToDo: Give descriptive error message to player
             if (!canRemoveNestingUpgrade(backpack, upgradeInQuestion)) {
-                upgradeInQuestion = null;
+                upgradeInQuestion = ItemStack.EMPTY;
             } else {
                 nullChecksPassed = true;
             }
@@ -111,8 +111,8 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
             upgradeRemovedStack = upgradeInQuestion;
             return result;
         } else {
-            upgradeRemovedStack = null;
-            return null;
+            upgradeRemovedStack = ItemStack.EMPTY;
+            return ItemStack.EMPTY;
         }
     }
 
@@ -125,7 +125,7 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
         {
             ItemStack slot = var1.getStackInSlot(x);
 
-            if (slot != null)
+            if (!slot.isEmpty())
             {
                 boolean inRecipe = false;
                 Iterator<Object> req = required.iterator();
@@ -173,11 +173,11 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
 
     @Override
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv){ //needs matches overridden due to (Forge?) bug
-        if (upgradeRemovedStack != null){
+        if (!upgradeRemovedStack.isEmpty()){
             ItemStack[] ret = new ItemStack[inv.getSizeInventory()];
             ret[0] = upgradeRemovedStack.copy();
             for (int i = 1; i < ret.length; i++) {
-                ret[i] = null; //remove everything else (i.e can't leave backpack)
+                ret[i] = ItemStack.EMPTY; //remove everything else (i.e can't leave backpack)
             }
             return NonNullList.from(ItemStack.EMPTY, ret);
         }else{
@@ -195,7 +195,7 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
     private int getFirstUpgradableBackpackSlotNumber(InventoryCrafting inventoryCrafting) {
         for (int i = 0; i < 9; ++i) {
             ItemStack itemstack = inventoryCrafting.getStackInSlot(i);
-            if (itemstack != null && (itemstack.getItem() instanceof IUpgradableBackpack))
+            if (!itemstack.isEmpty() && (itemstack.getItem() instanceof IUpgradableBackpack))
                 return i;
         }
         return -1;
@@ -209,7 +209,7 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
     public static int findEmptySlot(IInventory inventoryCrafting) {
         for (int i = 0; i < 9; i++) {
             ItemStack itemstack = inventoryCrafting.getStackInSlot(i);
-            if (itemstack == null)
+            if (itemstack.isEmpty())
                 return i;
         }
         return -1;
@@ -227,7 +227,7 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
                 //check if has backpack of any tier inside
                 InventoryBackpack inventoryBackpack = new InventoryBackpack(backpack, true);
                 for (int i = 0; i < inventoryBackpack.getSizeInventory(); i++){
-                    if (inventoryBackpack.getStackInSlot(i) != null && inventoryBackpack.getStackInSlot(i).getItem() instanceof ItemBackpack) {
+                    if (!inventoryBackpack.getStackInSlot(i).isEmpty() && inventoryBackpack.getStackInSlot(i).getItem() instanceof ItemBackpack) {
                         return false;
                     }
                 }
