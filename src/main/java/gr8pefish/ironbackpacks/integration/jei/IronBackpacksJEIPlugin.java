@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.integration.jei;
 
+import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
+import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.core.recipe.BackpackTierRecipe;
 import gr8pefish.ironbackpacks.integration.jei.recipe.upgrade.RecipeCategoryTier;
@@ -9,8 +11,9 @@ import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
+// TODO - Figure out why recipes are merged with normal crafting category
 @JEIPlugin
-public class IronBackpacksJEIPlugin extends BlankModPlugin {
+public class IronBackpacksJEIPlugin implements IModPlugin {
 
     public static IJeiRuntime runtime;
     public static IJeiHelpers helpers;
@@ -30,10 +33,14 @@ public class IronBackpacksJEIPlugin extends BlankModPlugin {
 
     @Override
     public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
-        subtypeRegistry.useNbtForSubtypes(
-                RegistrarIronBackpacks.BACKPACK,
-                RegistrarIronBackpacks.UPGRADE
-        );
+        subtypeRegistry.useNbtForSubtypes(RegistrarIronBackpacks.UPGRADE);
+        subtypeRegistry.registerSubtypeInterpreter(RegistrarIronBackpacks.BACKPACK, s -> {
+            if (!(s.getItem() instanceof IBackpack))
+                return ISubtypeRegistry.ISubtypeInterpreter.NONE;
+
+            BackpackInfo backpackInfo = ((IBackpack) s.getItem()).getBackpackInfo(s);
+            return backpackInfo.getVariant().getBackpackType().getIdentifier().toString() + "|" + backpackInfo.getVariant().getBackpackSpecialty();
+        });
     }
 
     @Override
