@@ -1,6 +1,0 @@
-{
-  "parent":"ironbackpacks:item/baseModelJson",
-  "textures": {
-    "layer0":"ironbackpacks:items/ItemUpgradeFilterOreDict"
-  }
-}

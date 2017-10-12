@@ -1,16 +1,17 @@
 package gr8pefish.ironbackpacks.util;
 
-import net.minecraft.util.text.translation.I18n;
-import org.apache.commons.lang3.text.WordUtils;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.text.WordUtils;
+
+import gr8pefish.ironbackpacks.IronBackpacks;
 
 public class TextUtils {
 
     //ToDo: Make this work with client side only
     public static String localize(String input, Object ... format) {
-        return I18n.translateToLocalFormatted(input, format);
+        return IronBackpacks.proxy.translate(input, format);
     }
 
 //    public static String localizeColor

@@ -1,6 +1,5 @@
 package gr8pefish.ironbackpacks.proxies;
 
-import gr8pefish.ironbackpacks.registry.ProxyRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -10,15 +9,20 @@ import net.minecraft.world.World;
 public class CommonProxy {
 
     public void preInit(){
-        ProxyRegistry.preInitServer();
+
     }
 
     public void init(){
-        ProxyRegistry.initServer();
+
     }
 
     public void postInit(){
-        ProxyRegistry.postInitServer();
+
+    }
+    
+    @SuppressWarnings("deprecation")
+    public String translate(String langkey, Object... pars) {
+    	return net.minecraft.util.text.translation.I18n.translateToLocalFormatted(langkey, pars);
     }
 
     //Helper methods

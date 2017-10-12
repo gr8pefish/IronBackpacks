@@ -1,0 +1,6 @@
+{
+  "parent":"ironbackpacks:item/basemodeljson",
+  "textures": {
+    "layer0":"ironbackpacks:items/itemupgradenesting"
+  }
+}

@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.events;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
@@ -9,7 +11,6 @@ import gr8pefish.ironbackpacks.integration.InterModSupport;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientEquippedPackMessage;
-import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -17,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.event.AnvilUpdateEvent;
@@ -26,15 +28,13 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
-import java.util.ArrayList;
 
 /**
  * All the events used that fire on the Forge Event bus
@@ -49,12 +49,12 @@ public class ForgeEventHandler {
      * @param event - attach capability event
      */
     @SubscribeEvent
-    public void onAttachCapability(AttachCapabilitiesEvent.Entity event) {
-        if (event.getEntity() instanceof EntityPlayer) {
-            if (!event.getEntity().hasCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null)) {
+    public void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject() instanceof EntityPlayer) {
+            if (!event.getObject().hasCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null)) {
                 event.addCapability(new ResourceLocation(Constants.MODID + "." + Constants.WEARING_BACKPACK_CAPABILITY_STRING), new PlayerWearingBackpackCapabilities());
             }
-            if (!event.getEntity().hasCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null)) {
+            if (!event.getObject().hasCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null)) {
                 event.addCapability(new ResourceLocation(Constants.MODID + "." + Constants.DEATH_BACKPACK_CAPABILITY_STRING), new PlayerDeathBackpackCapabilities());
             }
         }
@@ -66,7 +66,7 @@ public class ForgeEventHandler {
      * @param event - the clone event
      */
     @SubscribeEvent
-    public void onPlayerCloning(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
+    public void onPlayerCloning(PlayerEvent.Clone event) {
         if (event.isWasDeath()) { //deal with dumb returning from the end code, have to only clone data when the player actually dies
             if (event.getOriginal().hasCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null)) {
                 PlayerDeathBackpackCapabilities oldCap = event.getOriginal().getCapability(IronBackpacksCapabilities.DEATH_BACKPACK_CAPABILITY, null);
@@ -94,7 +94,7 @@ public class ForgeEventHandler {
 
     @SubscribeEvent
     public void onPlayerDrops(PlayerDropsEvent event) {
-        if (!event.getEntity().worldObj.isRemote) { //server
+        if (!event.getEntity().world.isRemote) { //server
             EntityItem drop = IronBackpacksHelper.savePlayerDeathDrops(event.getEntityPlayer()); //get equipped backpack, if it exists, and add it to drop
             if (drop != null) {
                 event.getDrops().add(drop);
@@ -108,7 +108,7 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent(priority = EventPriority.NORMAL) //ToDo: Change to PlayerDropsEvent
     public void onDeath(LivingDeathEvent event){
-        if (!event.getEntity().worldObj.isRemote && event.getEntity() instanceof EntityPlayer){ //server side
+        if (!event.getEntity().world.isRemote && event.getEntity() instanceof EntityPlayer){ //server side
             IronBackpacksHelper.saveEternityBackpacksOnDeath((EntityPlayer) event.getEntity());
         }
     }
@@ -119,7 +119,7 @@ public class ForgeEventHandler {
      */
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event){
-        if (!event.getEntity().worldObj.isRemote && event.getEntity() instanceof EntityPlayer){ //server side
+        if (!event.getEntity().world.isRemote && event.getEntity() instanceof EntityPlayer){ //server side
             IronBackpacksHelper.loadBackpackOnDeath((EntityPlayer) event.getEntity());
         }
     }
@@ -134,7 +134,7 @@ public class ForgeEventHandler {
 
         ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(event.player);
 
-        if (backpack != null) { //ToDo: even update if null?
+        if (!backpack.isEmpty()) {
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack //TODO: unnecessary?
@@ -153,7 +153,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onPlayerRespawn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent event){
         ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(event.player);
-        if (backpack != null) {
+        if (!backpack.isEmpty()) {
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //update server on correct pack
@@ -170,7 +170,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onPlayerDimChange(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent event){
         ItemStack backpack = PlayerWearingBackpackCapabilities.getEquippedBackpack(event.player);
-        if (backpack != null) {
+        if (!backpack.isEmpty()) {
 
             NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) event.player); //update client on correct pack
 //            PlayerBackpackProperties.setEquippedBackpack(event.player, backpack); //TODO: test with these removed
@@ -178,8 +178,8 @@ public class ForgeEventHandler {
 //            if (!ConfigHandler.disableRendering)
 //                IronBackpacksHelper.spawnEntityBackpack(backpack, event.player); //spawn new pack
         } else {
-            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP) event.player); //update client on correct pack
-//            PlayerBackpackProperties.setEquippedBackpack(event.player, null);
+            NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(ItemStack.EMPTY), (EntityPlayerMP) event.player); //update client on correct pack
+//            PlayerBackpackProperties.setEquippedBackpack(event.player, ItemStack.EMPTY);
         }
     }
 
@@ -193,7 +193,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onItemPickupEvent(EntityItemPickupEvent event) {
         if (!event.isCanceled()) {
-            ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
+            NonNullList<NonNullList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
 
             //Any instance in which you need to restock onPickup? I don't think so, but leaving this here just in case I find a case I missed.
 //            boolean doFilter = IronBackpacksEventHelper.checkRestockingUpgradeItemPickup(event, backpacks.get(4)); //doFilter is false if the itemEntity is in the restockerUpgrade's slots and the itemEntity's stackSize < refillSize
@@ -228,8 +228,8 @@ public class ForgeEventHandler {
     public void onPlayerRightClickBlockEvent(PlayerInteractEvent.RightClickBlock event){
         if (!event.isCanceled()) { //only do it for main hand clicks
 
-            ItemStack itemStack = null;
-            ArrayList<ArrayList<ItemStack>> backpacks = null;
+            ItemStack itemStack = ItemStack.EMPTY;
+            NonNullList<NonNullList<ItemStack>> backpacks = null;
 
             //ray trace the block placed
             RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getEntityPlayer().getPositionVector(), event.getEntityPlayer().getLookVec());
@@ -241,7 +241,7 @@ public class ForgeEventHandler {
 
 
             //do restock if valid
-            if (event.getEntityPlayer().getHeldItem(event.getHand()) != null && itemStack != null && backpacks != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
+            if (!event.getEntityPlayer().getHeldItem(event.getHand()).isEmpty() && !itemStack.isEmpty() && backpacks != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
                 if (!IronBackpacksHelper.areItemsEqualForStacking(event.getEntityPlayer().getHeldItem(event.getHand()), itemStack)) { //if item in hand != item placed then interacting with something else and try to restock
                     doRestock(event.getEntityPlayer(), event.getItemStack());
                 }
@@ -253,11 +253,11 @@ public class ForgeEventHandler {
 
     private static void doRestock(EntityPlayer player, ItemStack stack) {
         ItemStack resuppliedStack;
-        ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(player);
-        if (player != null && stack != null) {
+        NonNullList<NonNullList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(player);
+        if (player != null && !stack.isEmpty()) {
             resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemUse(player, stack, backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
-            if (resuppliedStack != null) {
-                stack.stackSize = resuppliedStack.stackSize; //set the new stack size (as you can't/don't need to directly replace the stack)
+            if (!resuppliedStack.isEmpty()) {
+                stack.setCount(resuppliedStack.getCount()); //set the new stack size (as you can't/don't need to directly replace the stack)
             }
         }
     }
@@ -272,23 +272,23 @@ public class ForgeEventHandler {
         if (!event.isCanceled()) { //only do it when I should
 
             //ExUtils builders wands broken b/c RWTema does weird things, disabled compat
-            if (event.getItemInHand() != null && InterModSupport.isExtraUtilsLoaded && InterModSupport.isExUtilsBuildersWand(event.getItemInHand().getItem())) return;
+            if (!event.getPlayer().getHeldItem(event.getHand()).isEmpty() && InterModSupport.isExtraUtilsLoaded && InterModSupport.isExUtilsBuildersWand(event.getPlayer().getHeldItem(event.getHand()).getItem())) return;
             //ToDo To Fix: instead of return directly, set a static class-level bool updateRestockNextTick true first, and make a main tick handler which updates if true and sets the bool back to false, so that it updates *after* the event and works
 
             //get all the backpacks to restock with
-            ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getPlayer());
+            NonNullList<NonNullList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getPlayer());
 
             //ray trace the block placed
             RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getPlayer().getPositionVector(), event.getPlayer().getLookVec());
             //get the block as an itemstack
             ItemStack itemStackPlaced = event.getPlacedBlock().getBlock().getPickBlock(event.getPlacedBlock(), rayTraceResult, event.getWorld(), event.getPos(), event.getPlayer());
 
-            if (event.getItemInHand() != null && itemStackPlaced != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
-                if (!IronBackpacksHelper.areItemsEqualForStacking(event.getItemInHand(), itemStackPlaced)) { //if item in hand != item placed, if not the same then placed with some other method and have to scan inv
+            if (!event.getPlayer().getHeldItem(event.getHand()).isEmpty() && !itemStackPlaced.isEmpty() && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
+                if (!IronBackpacksHelper.areItemsEqualForStacking(event.getPlayer().getHeldItem(event.getHand()), itemStackPlaced)) { //if item in hand != item placed, if not the same then placed with some other method and have to scan inv
                     //pass that itemstack (along with other things) to a delegating method to deal with restocking for other methods
                     IronBackpacksEventHelper.handleIndirectRestock(event.getPlayer(), backpacks.get(4), itemStackPlaced);
                 } else { //normally placed item
-                    IronBackpacksEventHelper.handleDirectRestock(event.getPlayer(), backpacks.get(4), event.getItemInHand(), true);
+                    IronBackpacksEventHelper.handleDirectRestock(event.getPlayer(), backpacks.get(4), event.getPlayer().getHeldItem(event.getHand()), true);
                 }
             }
         }
@@ -297,7 +297,7 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onArrowLoose(ArrowLooseEvent event) {
         if (!event.isCanceled()){ //only do it for main hand clicks
-            ArrayList<ArrayList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
+            NonNullList<NonNullList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(event.getEntityPlayer());
             ImmutablePair<ItemStack, Slot> pair = IronBackpacksEventHelper.checkRestockerUpgradeArrowLoose(event.getEntityPlayer(), backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
             if (pair != null) {
                 event.getEntityPlayer().inventory.setInventorySlotContents(pair.getRight().getSlotIndex(), pair.getLeft());
@@ -345,7 +345,7 @@ public class ForgeEventHandler {
 //                BlockPos pos = event.getPos();
 //                EnumFacing side = event.getFace();
 //
-//                ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
+//                NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
 //                boolean hasDepthUpgrade = UpgradeMethods.hasDepthUpgrade(upgrades);
 //                if (UpgradeMethods.hasQuickDepositUpgrade(upgrades)) {
 //                    openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, side, false);
@@ -362,7 +362,7 @@ public class ForgeEventHandler {
 //                    for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
 //                        ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
 //                        if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
-//                            ArrayList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
+//                            NonNullList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
 //                            if (UpgradeMethods.hasQuickDepositUpgrade(nestedUpgrades)) {
 //                                openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, side, false);
 //                                if (!openAltGuiDepth) openAltGui = false;
@@ -388,7 +388,7 @@ public class ForgeEventHandler {
     public void onAnvilUpdate(AnvilUpdateEvent event) {
         if ((event.getLeft().getItem() instanceof ItemBackpack) || (event.getRight().getItem() instanceof ItemBackpack)) { //if a backpack in an anvil slot
             //probably overkill, but making sure it can't process
-            event.setOutput(null);
+            event.setOutput(ItemStack.EMPTY);
             event.setResult(Event.Result.DENY);
             event.setCanceled(true);
         }
@@ -417,7 +417,7 @@ public class ForgeEventHandler {
             EntityPlayer targetPlayer = (EntityPlayer) targetEntity; //typecast to entityPlayer
             if (targetPlayer.hasCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null)) { //if have the capability
                 ItemStack backpack = IronBackpacksCapabilities.getWornBackpack(targetPlayer);
-                if (backpack != null) { //if the target is wearing a backpack need to update
+                if (!backpack.isEmpty()) { //if the target is wearing a backpack need to update
                     NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) tracker); //send a packet to the tracker's client to update their target
                 } else {
                     NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) tracker);

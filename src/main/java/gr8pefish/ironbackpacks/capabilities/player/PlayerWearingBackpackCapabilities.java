@@ -19,13 +19,8 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
 
     public static final String CAP_PACK_TAG = Constants.MODID;
 
-    private ItemStack equippedBackpack;
-    private ItemStack currentBackpack;
-
-    public PlayerWearingBackpackCapabilities() {
-        this.equippedBackpack = null;
-        this.currentBackpack = null;
-    }
+    private ItemStack equippedBackpack = ItemStack.EMPTY;
+    private ItemStack currentBackpack = ItemStack.EMPTY;
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -34,7 +29,7 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY != null && capability == IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY ? (T)this : null;
+        return IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY != null && capability == IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY ? IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY.cast(this) : null;
     }
 
     @Override
@@ -56,7 +51,7 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
         //make another for the saved one
         NBTTagCompound current = new NBTTagCompound();
         ItemStack currentBackpack = getCurrentBackpack();
-        if (currentBackpack != null) {
+        if (!currentBackpack.isEmpty()) {
             currentBackpack.writeToNBT(current);
         }else{
             current.setBoolean("noCurrent", false);
@@ -79,23 +74,23 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
         //get the equipped backpack without crashing
         if (!tagList.getCompoundTagAt(0).hasKey("noEquipped")){ //if the key doesn't exist
             try {
-                setEquippedBackpack(ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(0)));
+                setEquippedBackpack(new ItemStack(tagList.getCompoundTagAt(0)));
             } catch (NullPointerException e) { //might as well keep this catch statement
-                setEquippedBackpack(null);
+                setEquippedBackpack(ItemStack.EMPTY);
             }
         } else {
-            setEquippedBackpack(null);
+            setEquippedBackpack(ItemStack.EMPTY);
         }
 
         //get the current backpack without crashing
         if (!tagList.getCompoundTagAt(1).hasKey("noCurrent")) {
             try {
-                setCurrentBackpack(ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(1)));
+                setCurrentBackpack(new ItemStack(tagList.getCompoundTagAt(1)));
             } catch (NullPointerException e) {
-                setCurrentBackpack(null);
+                setCurrentBackpack(ItemStack.EMPTY);
             }
         } else {
-            setCurrentBackpack(null);
+            setCurrentBackpack(ItemStack.EMPTY);
         }
 
     }
@@ -155,7 +150,7 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
         if (cap != null) //can this ever be null?
             return cap.getEquippedBackpack();
         else
-            return null;
+            return ItemStack.EMPTY;
     }
 
     public static void setEquippedBackpack(EntityLivingBase livingBase, ItemStack stack) {
@@ -169,7 +164,7 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
         if (cap != null)
             return cap.getCurrentBackpack();
         else
-            return null;
+            return ItemStack.EMPTY;
     }
 
     public static void setCurrentBackpack(EntityLivingBase livingBase, ItemStack stack) {
@@ -179,7 +174,7 @@ public class PlayerWearingBackpackCapabilities implements ICapabilitySerializabl
     }
 
     public static void reset(EntityLivingBase livingBase) {
-        setCurrentBackpack(livingBase, null);
-        setEquippedBackpack(livingBase, null);
+        setCurrentBackpack(livingBase, ItemStack.EMPTY);
+        setEquippedBackpack(livingBase, ItemStack.EMPTY);
     }
 }

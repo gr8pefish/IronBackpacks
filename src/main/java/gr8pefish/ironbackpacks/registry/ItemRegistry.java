@@ -1,5 +1,8 @@
 package gr8pefish.ironbackpacks.registry;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
@@ -22,10 +25,6 @@ import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.InventoryRenderHelper;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Registers all the items in this mod.
@@ -268,7 +267,7 @@ public class ItemRegistry {
         //init the render helper
         InventoryRenderHelper renderHelper = new InventoryRenderHelper(Constants.DOMAIN);
 
-        //render the backpack items (tiered orderd)
+        //render the backpack items (tiered ordered)
         renderHelper.itemRender(basicBackpack, "ItemBackpackBasic");
         renderHelper.itemRender(ironBackpackStorageEmphasis, "ItemBackpackIronStorage");
         renderHelper.itemRender(ironBackpackUpgradeEmphasis, "ItemBackpackIronUpgrade");
@@ -325,19 +324,14 @@ public class ItemRegistry {
         if (item instanceof IBackpack){
             ItemIBackpackRegistry.registerItemBackpack((IBackpack)item);
         }
-        //Set the registry name and register it
-        //unlocalized name taken care of in item creation
         item.setRegistryName(name);
-        GameRegistry.register(item);
-
-        //Deprecated code
-        //GameRegistry.registerItem(item, name);
+        RegistryEvents.ITEMS.add(item);
 
         return item;
     }
 
     private static void setTieringAndTierRecipesOfBackpacks(){
-        ArrayList basicBackpacksAbove = new ArrayList<ITieredBackpack>();
+        ArrayList<ITieredBackpack> basicBackpacksAbove = new ArrayList<>();
         basicBackpacksAbove.add(ironBackpackStorageEmphasis);
         basicBackpacksAbove.add(ironBackpackUpgradeEmphasis);
         basicBackpack.setBackpacksAbove(null, basicBackpacksAbove); //first parameter is (in my case, unused) itemstack, so I use null

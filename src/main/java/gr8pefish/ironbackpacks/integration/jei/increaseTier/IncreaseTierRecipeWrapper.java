@@ -1,78 +1,51 @@
 package gr8pefish.ironbackpacks.integration.jei.increaseTier;
 
-import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import gr8pefish.ironbackpacks.api.recipes.IIncreaseBackpackTierRecipe;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.fluids.FluidStack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 
 public class IncreaseTierRecipeWrapper implements IRecipeWrapper {
 
-    private BackpackIncreaseTierRecipe increaseTierRecipe;
+    private IIncreaseBackpackTierRecipe recipe;
     private final String[] description;
     private final String craftingType;
 
-    public IncreaseTierRecipeWrapper(BackpackIncreaseTierRecipe recipe){
+    public IncreaseTierRecipeWrapper(IIncreaseBackpackTierRecipe recipe){
         this.craftingType = TextUtils.localize("jei.description.shapedCrafting"); //type of recipes
         this.description = TextUtils.cutLongString(TextUtils.localize("jei.description.increaseTier")); //description
-        increaseTierRecipe = recipe;
+        this.recipe = recipe;
 
     }
 
     @Override
     public void getIngredients(@Nonnull IIngredients ingredients) {
-        //ToDo
-    }
-
-    @Nonnull
-    @Override
-    public List getInputs() {
-        //ToDo: move to ingredients
-        return Arrays.asList(increaseTierRecipe.getInput());
-    }
-
-    @Nonnull
-    @Override
-    public List getOutputs() {
-        //ToDo: move to ingredients
-        return Collections.singletonList(increaseTierRecipe.getRecipeOutput());
-    }
-
-    @Nonnull
-    @Override
-    public List<FluidStack> getFluidInputs() {
-        return new ArrayList<>();  //none
-    }
-
-    @Nonnull
-    @Override
-    public List<FluidStack> getFluidOutputs() {
-        return new ArrayList<>();  //none
+        ingredients.setOutput(ItemStack.class, recipe.getRecipeOutput());
+        List<List<ItemStack>> l = new ArrayList<>();
+        for(Ingredient i : recipe.getIngredients())l.add(Arrays.asList(i.getMatchingStacks()));
+        ingredients.setInputLists(ItemStack.class, l);
     }
 
     @Override
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 
         //add the recipes type necessary at the top of the screen
-        minecraft.fontRendererObj.drawString(craftingType, 43, 0, Color.darkGray.getRGB());
+        minecraft.fontRenderer.drawString(craftingType, 43, 0, Color.darkGray.getRGB());
 
         //add the description below the images
         for (int i = 0; i < description.length; i++)
-            minecraft.fontRendererObj.drawString(description[i], 10, 69 + (i*8), Color.black.getRGB());
-
-    }
-
-    @Override
-    public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
+            minecraft.fontRenderer.drawString(description[i], 10, 69 + (i*8), Color.black.getRGB());
 
     }
 

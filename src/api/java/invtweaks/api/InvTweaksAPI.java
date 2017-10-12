@@ -33,7 +33,6 @@ import net.minecraft.item.ItemStack;
  * <p>
  * All of these functions currently have no effect if called on a dedicated server.
  */
-@SuppressWarnings("unused")
 public interface InvTweaksAPI {
     /**
      * Add a listener for ItemTree load events

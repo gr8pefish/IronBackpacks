@@ -1,5 +1,11 @@
 package gr8pefish.ironbackpacks.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
@@ -17,11 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraft.util.text.TextComponentTranslation;
 
 public class IronBackpacksCommands extends CommandBase {
 
@@ -29,13 +31,13 @@ public class IronBackpacksCommands extends CommandBase {
 
     @Nonnull
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "ib";
     }
 
     @Nonnull
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         return "/ib "+FORCE_REMOVE_EQUIPPED+" [player]"; //ToDo: Add backup and restore commands eventually
     }
 
@@ -55,9 +57,9 @@ public class IronBackpacksCommands extends CommandBase {
                         ItemStack stack = PlayerWearingBackpackCapabilities.getEquippedBackpack(playerMP);
 
                         //check for empty stack and fix it if needed
-                        if (stack.stackSize == 0)  {
+                        if (stack.isEmpty())  {
                             ItemStack newStack = stack.copy();
-                            newStack.stackSize += 1;
+                            newStack.grow(1);
                             PlayerWearingBackpackCapabilities.setEquippedBackpack(playerMP, newStack);
                             stack = newStack;
                         }
@@ -72,11 +74,11 @@ public class IronBackpacksCommands extends CommandBase {
                         PlayerDeathBackpackCapabilities.reset(playerMP);
 
                         //send to client
-                        NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), playerMP);
-                        NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(null), playerMP);
+                        NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(ItemStack.EMPTY), playerMP);
+                        NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(ItemStack.EMPTY), playerMP);
 
                         //notify with message
-                        sender.addChatMessage(new TextComponentString(TextUtils.localizeEffect("chat.ironbackpacks.command.removedEquippedPack")+" "+playerMP.getName()+"."));
+                        sender.sendMessage(new TextComponentString(TextUtils.localizeEffect("chat.ironbackpacks.command.removedEquippedPack")+" "+playerMP.getName()+"."));
 
                     } catch (Exception e) {
                         Logger.warn("Couldn't process Iron Backpacks command to delete the user's backpack!");
@@ -88,9 +90,9 @@ public class IronBackpacksCommands extends CommandBase {
                         ItemStack stack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
 
                         //check for empty stack and fix it if needed
-                        if (stack.stackSize == 0)  {
+                        if (stack.isEmpty())  {
                             ItemStack newStack = stack.copy();
-                            newStack.stackSize += 1;
+                            newStack.grow(1);
                             PlayerWearingBackpackCapabilities.setEquippedBackpack(player, newStack);
                             stack = newStack;
                         }
@@ -105,11 +107,11 @@ public class IronBackpacksCommands extends CommandBase {
                         PlayerDeathBackpackCapabilities.reset(player);
 
                         //send to client
-                        NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(null), (EntityPlayerMP) sender.getCommandSenderEntity());
-                        NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(null), (EntityPlayerMP) sender.getCommandSenderEntity());
+                        NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(ItemStack.EMPTY), (EntityPlayerMP) sender.getCommandSenderEntity());
+                        NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(ItemStack.EMPTY), (EntityPlayerMP) sender.getCommandSenderEntity());
 
                         //notify with message
-                        sender.addChatMessage(new TextComponentString(TextUtils.localizeEffect("chat.ironbackpacks.command.removedYourEquippedPack")));
+                        sender.sendMessage(new TextComponentTranslation("chat.ironbackpacks.command.removedYourEquippedPack"));
 
                     } catch (Exception e) {
                         Logger.warn("Couldn't process Iron Backpacks command to remove this user's backpack!");
@@ -117,18 +119,18 @@ public class IronBackpacksCommands extends CommandBase {
                 }
             }
         } else {
-            throw new CommandException(getCommandUsage(sender));
+            throw new CommandException(getUsage(sender));
         }
     }
 
     @Nonnull
     @Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
         List<String> tabCompletion = new ArrayList<String>();
         if (args.length <= 1) //no name, match string
             tabCompletion.addAll(getListOfStringsMatchingLastWord(args, FORCE_REMOVE_EQUIPPED));
         else //match name
-            tabCompletion.addAll(getListOfStringsMatchingLastWord(args, server.getAllUsernames()));
+            tabCompletion.addAll(getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()));
         return tabCompletion;
     }
 }

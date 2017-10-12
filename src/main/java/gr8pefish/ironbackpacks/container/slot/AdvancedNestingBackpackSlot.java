@@ -8,11 +8,8 @@ import net.minecraft.item.ItemStack;
  */
 public class AdvancedNestingBackpackSlot extends NestingBackpackSlot{
 
-    private ItemStack backpackStack; //The backpack type
-
     public AdvancedNestingBackpackSlot(IInventory iInventory, int index, int x, int y, ItemStack backpackStack) {
         super(iInventory, index, x, y, backpackStack);
-        this.backpackStack = backpackStack;
     }
 
     @Override

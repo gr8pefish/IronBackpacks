@@ -5,16 +5,19 @@ import gr8pefish.ironbackpacks.client.ClientEventHandler;
 import gr8pefish.ironbackpacks.client.KeyHandler;
 import gr8pefish.ironbackpacks.client.renderer.LayerBackpack;
 import gr8pefish.ironbackpacks.config.ConfigAdaptor;
-import gr8pefish.ironbackpacks.registry.ProxyRegistry;
+import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.Logger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * All the specifics that need to be called on the client side
@@ -24,20 +27,25 @@ public class ClientProxy extends CommonProxy {
     public void preInit(){
         KeyHandler.init();
         initClientEventHandlers();
-
-        ProxyRegistry.preInitClient();
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+    
+    @SubscribeEvent
+    public void models(ModelRegistryEvent e) {
+    	ItemRegistry.registerItemRenders();
     }
 
     public void init(){
-
         //initialize extra layer for rendering the backpack on the player
         addBackpackModelLayer();
-
-        ProxyRegistry.initClient();
     }
 
     public void postInit(){
-        ProxyRegistry.postInitClient();
+
+    }
+    
+    public String translate(String langkey, Object... pars) {
+    	return I18n.format(langkey, pars);
     }
 
     //============================================================Helper Methods===================================================================
@@ -45,7 +53,7 @@ public class ClientProxy extends CommonProxy {
     //helper init methods
 
     private void initClientEventHandlers(){
-        FMLCommonHandler.instance().bus().register(new ClientEventHandler());
+        MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
     }
 
     //random helper methods
@@ -59,11 +67,11 @@ public class ClientProxy extends CommonProxy {
     }
 
     public World getClientWorld(){
-        return Minecraft.getMinecraft().theWorld;
+        return Minecraft.getMinecraft().world;
     }
 
     public EntityPlayer getClientPlayer(){
-        return Minecraft.getMinecraft().thePlayer;
+        return Minecraft.getMinecraft().player;
     }
 
     /**

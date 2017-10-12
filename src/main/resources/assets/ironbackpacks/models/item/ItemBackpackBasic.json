@@ -1,7 +1,0 @@
-{
-  "parent":"ironbackpacks:item/baseModelJson",
-  "textures": {
-    "layer0":"ironbackpacks:items/backpack_basic_base",
-    "layer1":"ironbackpacks:items/backpack_basic_border"
-  }
-}

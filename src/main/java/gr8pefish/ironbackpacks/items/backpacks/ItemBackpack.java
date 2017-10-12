@@ -1,8 +1,11 @@
 package gr8pefish.ironbackpacks.items.backpacks;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.lwjgl.input.Keyboard;
+
 import gr8pefish.ironbackpacks.IronBackpacks;
-import gr8pefish.ironbackpacks.achievements.IBackpackCraftAchievement;
-import gr8pefish.ironbackpacks.achievements.IronBackpacksAchievements;
 import gr8pefish.ironbackpacks.api.items.backpacks.ItemIUpgradableITieredBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.register.ItemIBackpackRegistry;
@@ -18,26 +21,24 @@ import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.stats.Achievement;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 
-public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBackpackCraftAchievement {
+public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IBackpackCraftAchievement*/ {
 
     private boolean openAltGui = true; //to track which gui to open
 
@@ -62,7 +63,8 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
     //returning true=success will stop the alt. gui from opening
     //returning false=pass will let it continue as normal (i.e. it can open)
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    	ItemStack itemstack = player.getHeldItem(hand);
         //ToDo: Add specific hand opening only?
 //        if (!hand.equals(EnumHand.MAIN_HAND)) {
 //            return EnumActionResult.PASS;
@@ -71,7 +73,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
             if (!(player.isSneaking())) { //only do it when player is sneaking
                 return EnumActionResult.PASS;
             }
-            ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
+            NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(itemstack);
             boolean hasDepthUpgrade = UpgradeMethods.hasDepthUpgrade(upgrades);
             if (UpgradeMethods.hasQuickDepositUpgrade(upgrades)) {
                 openAltGui = !UpgradeMethods.transferFromBackpackToInventory(player, itemstack, world, pos, side, false);
@@ -87,8 +89,8 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, itemstack));
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
-                    if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
-                        ArrayList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
+                    if (!nestedBackpack.isEmpty() && nestedBackpack.getItem() instanceof IBackpack) {
+                        NonNullList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
                         if (UpgradeMethods.hasQuickDepositUpgrade(nestedUpgrades)) {
                             openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, side, false);
                             if (!openAltGuiDepth) openAltGui = false;
@@ -106,16 +108,15 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
 
     //to open the guis
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand) {
-        return handleBackpackOpening(itemStack, world, player, hand, false);
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        return handleBackpackOpening(player.getHeldItem(hand), world, player, hand, false);
     }
 
     //adds a fancy tooltip
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
-        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
+    public void addInformation(ItemStack stack, World player, List<String> list, ITooltipFlag advanced) {
+        NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(stack);
         int totalUpgradePoints = IronBackpacksHelper.getTotalUpgradePointsFromNBT(stack);
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
@@ -130,8 +131,8 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
             if (upgrades.size() > 0)
                 list.add("");
 
-            if (this.getSpecialty(null) != null)
-                list.add(TextUtils.localizeEffect(this.getSpecialty(null)));
+            if (this.getSpecialty(ItemStack.EMPTY) != null)
+                list.add(TextUtils.localizeEffect(this.getSpecialty(ItemStack.EMPTY)));
 
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used", upgradesUsed, totalUpgradePoints));
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.alt", UpgradeMethods.getAltGuiUpgradesApplied(upgrades), IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
@@ -140,7 +141,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
                 list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.rename", IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
 
 
-            int additionalPossiblePoints = this.getAdditionalUpgradePoints(null);
+            int additionalPossiblePoints = this.getAdditionalUpgradePoints(ItemStack.EMPTY);
 
             if (additionalPossiblePoints > 0) {
                 int used = IronBackpacksHelper.getAdditionalUpgradesTimesApplied(stack) * ConfigHandler.additionalUpgradePointsIncrease;
@@ -151,7 +152,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
                 list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
         }
 
-        if (advanced && NBTUtils.hasUUID(stack))
+        if (advanced.isAdvanced() && NBTUtils.hasUUID(stack))
             list.add(TextUtils.localize("tooltip.ironbackpacks.uuid", NBTUtils.getUUID(stack)));
     }
 
@@ -186,25 +187,25 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
     }
 
     private double getFullness(ItemStack stack) {
-        ItemStack[] inventory;
+        NonNullList<ItemStack> inventory;
         int total = 0;
         int full = 0;
 
-        if (stack != null) {
+        if (!stack.isEmpty()) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
                 if (nbtTagCompound.hasKey("Items")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Items", net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
-                    inventory = new ItemStack[((ItemIUpgradableITieredBackpack)stack.getItem()).getSize(stack)];
+                    inventory = NonNullList.withSize(((ItemIUpgradableITieredBackpack)stack.getItem()).getSize(stack), ItemStack.EMPTY);
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int slot = stackTag.getByte("Slot");
-                        if (i >= 0 && i <= inventory.length)
-                            inventory[slot] = ItemStack.loadItemStackFromNBT(stackTag);
+                        if (i >= 0 && i <= inventory.size())
+                            inventory.set(slot, new ItemStack(stackTag));
                     }
                     for (ItemStack tempStack : inventory) {
-                        if (tempStack != null) {
-                            full += tempStack.stackSize;
+                        if (!tempStack.isEmpty()) {
+                            full += tempStack.getCount();
                             total += tempStack.getMaxStackSize();
                         } else {
                             total += 64;
@@ -216,7 +217,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
 
         return 1 - ((double) full / total);
     }
-
+/*
     @Override
     public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
         if (stack.getItem() instanceof ItemBackpack) {
@@ -234,7 +235,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
         }
         return null;
     }
-
+*/
     @Override
     @SideOnly(Side.CLIENT)
     public String getItemStackDisplayName(ItemStack stack) {

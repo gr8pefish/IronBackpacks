@@ -26,7 +26,6 @@ package invtweaks.api.container;
  * Names for specific parts of containers. For unknown container types (such as mod containers), only INVENTORY and
  * CHEST sections are available.
  */
-@SuppressWarnings("unused")
 public enum ContainerSection {
     /**
      * The player's inventory

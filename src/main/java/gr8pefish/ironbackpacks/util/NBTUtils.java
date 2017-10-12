@@ -65,7 +65,7 @@ public class NBTUtils {
      * @return - boolean
      */
     private static boolean hasTag(ItemStack itemStack, String tag){
-        return itemStack != null && itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey(tag);
+        return !itemStack.isEmpty() && itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey(tag);
     }
 
     /**

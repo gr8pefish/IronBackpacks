@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.container.alternateGui;
 
+import java.util.Arrays;
+
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.config.ConfigHandler;
@@ -16,9 +18,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import net.minecraft.util.NonNullList;
 
 /**
  * The container used when the backpack is opened to the alternate gui.
@@ -30,10 +30,10 @@ public class ContainerAlternateGui extends Container {
     private InventoryAlternateGui inventory; //the inventory
     private int xSize = 0; //the x-size
     private int ySize = 0; //the y-size
-    private ItemStack stack; //the itemstack backpack
+    private ItemStack stack = ItemStack.EMPTY; //the itemstack backpack
 
     private int filterAdvSlotIdStart; //the advanced filter's start
-    private ArrayList<ItemStack> upgrades; //the upgrades applied
+    private NonNullList<ItemStack> upgrades; //the upgrades applied
 
     public ContainerAlternateGui(InventoryAlternateGui inventoryAlternateGui, int xSize, int ySize){
         this.player = inventoryAlternateGui.getPlayer();
@@ -81,9 +81,9 @@ public class ContainerAlternateGui extends Container {
      * @param ySize - the height
      */
     private void layoutContainer(IInventory playerInventory, IInventory customInv, int xSize, int ySize){
-
+	
         ItemStack baseBackpack = IronBackpacksHelper.getBackpack(player); //TODO: remove these 2 lines?
-        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(baseBackpack);
+        NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(baseBackpack);
 
         //Need to calculate which row the advanced filter will be on to place the buttons correctly
         int advFilterRow = UpgradeMethods.hasFilterAdvancedUpgrade(upgrades) ? 0 : -1;
@@ -125,7 +125,7 @@ public class ContainerAlternateGui extends Container {
 
     @Override //disables shift-clicking (because ghost slots)
     public ItemStack transferStackInSlot(EntityPlayer p, int i){
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -139,7 +139,7 @@ public class ContainerAlternateGui extends Container {
 //        Logger.error("Closed container alt gui");
         if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades))
             saveSlots();
-        if (!player.worldObj.isRemote)
+        if (!player.world.isRemote)
             this.inventory.onGuiSaved(player); //only save on server side
 
     }
@@ -148,18 +148,18 @@ public class ContainerAlternateGui extends Container {
     @Override
     public ItemStack slotClick(int slot, int dragType, ClickType clickTypeIn, EntityPlayer player) {
         // this will prevent the player from interacting with the items that opened the inventory:
-        if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && player.getHeldItemMainhand() != null && getSlot(slot).getStack().isItemEqual(player.getHeldItemMainhand())) {
-            return null;
+        if (slot >= 0 && getSlot(slot) != null && getSlot(slot).getHasStack() && !player.getHeldItemMainhand().isEmpty()  && getSlot(slot).getStack().isItemEqual(player.getHeldItemMainhand())) {
+            return ItemStack.EMPTY;
         // otherwise they may be clicking on a ghostSlot
         }else if (slot >= 0 && slot < inventory.getSizeInventory()) {
-            if (player.inventory.getItemStack() != null) { //clicking on slot with an itemStack
+            if (!player.inventory.getItemStack().isEmpty()) { //clicking on slot with an itemStack
                 ItemStack usedStack = player.inventory.getItemStack().copy(); //exact item copied
-                usedStack.stackSize = 1; //stack size of 1
+                usedStack.setCount(1); //stack size of 1
                 inventory.setInventorySlotContents(slot, usedStack);
-                return null;
+                return ItemStack.EMPTY;
             }else{ //clicking with an empty hand
-                inventory.setInventorySlotContents(slot, null);
-                return null;
+                inventory.setInventorySlotContents(slot, ItemStack.EMPTY);
+                return ItemStack.EMPTY;
             }
         }
         //otherwise it is a normal slot
@@ -168,7 +168,7 @@ public class ContainerAlternateGui extends Container {
         } catch (Exception e) {
             //Horrible work around for a bug when double clicking on a stack in inventory which matches a filter items
             //This does stop double clicking to fill a stack from working with this GUI open.
-            return null;
+            return ItemStack.EMPTY;
         }
     }
 
@@ -184,9 +184,9 @@ public class ContainerAlternateGui extends Container {
         stack.setStackDisplayName(ConfigHandler.makeRenamedBackpacksNamesItalic ? toName : "\u00A7r" + toName); //client
 
         ItemStack itemStack = PlayerWearingBackpackCapabilities.getCurrentBackpack(player);
-        if (itemStack == null)
+        if (itemStack.isEmpty())
             itemStack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
-        if (itemStack != null)
+        else
             itemStack.setStackDisplayName(ConfigHandler.makeRenamedBackpacksNamesItalic ? toName : "\u00A7r" + toName); //server (not really, but this way works...)
 
     }
@@ -197,13 +197,13 @@ public class ContainerAlternateGui extends Container {
      */
     public void removeSlotsInRow(int row){
         if (row == (filterAdvSlotIdStart/9)+1){
-            Arrays.fill(inventory.advFilterStacks, null);
+            Arrays.fill(inventory.advFilterStacks, ItemStack.EMPTY);
             Arrays.fill(inventory.advFilterButtonStates, (byte) GuiButtonRegistry.getButton(ButtonNames.EXACT).getId());
             inventory.advFilterButtonStartPoint = 0;
             initFilterSlots();
         }else {
             for (int i = (row - 1) * 9; i < row * 9; i++) {
-                inventory.setInventorySlotContents(i, null);
+                inventory.setInventorySlotContents(i, ItemStack.EMPTY);
             }
         }
     }

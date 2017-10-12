@@ -7,10 +7,7 @@ import gr8pefish.ironbackpacks.api.register.ItemICraftingRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
+import net.minecraft.util.NonNullList;
 
 /**
  * This class is for all the items that have no special properties, they are simply used in recipes recipes to make other items in the mod.
@@ -24,10 +21,9 @@ public class ItemCrafting extends Item {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item id, CreativeTabs creativeTab, List<ItemStack> list) {
-        for (int i = 0; i < ItemICraftingRegistry.getSize(); i++)
-            list.add(new ItemStack(id, 1, i));
+    public void getSubItems(CreativeTabs creativeTab, NonNullList<ItemStack> list) {
+        if(isInCreativeTab(creativeTab)) for (int i = 0; i < ItemICraftingRegistry.getSize(); i++)
+            list.add(new ItemStack(this, 1, i));
     }
 
     @Override

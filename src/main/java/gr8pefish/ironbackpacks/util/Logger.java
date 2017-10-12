@@ -1,16 +1,16 @@
 package gr8pefish.ironbackpacks.util;
 
-import gr8pefish.ironbackpacks.api.Constants;
-import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
+import gr8pefish.ironbackpacks.IronBackpacks;
+
 /**
- * A logger class ot output information to the FML log nicely
+ * A logger class to output information to the FML log nicely
  */
 public class Logger{
 
     public static void log(Level logLevel, Object object){
-        FMLLog.log(Constants.MOD_NAME, logLevel, String.valueOf(object));
+        IronBackpacks.log.log(logLevel, String.valueOf(object));
     }
 
     public static void all(Object object){

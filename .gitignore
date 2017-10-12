@@ -46,3 +46,4 @@ classes/
 art/Logov4.2.xcf
 libs/
 *.hprof
+*.launch

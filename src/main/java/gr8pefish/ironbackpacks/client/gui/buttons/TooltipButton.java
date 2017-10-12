@@ -60,7 +60,7 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
 
 
     @Override
-    public void drawButton(Minecraft minecraft, int mPosX, int mPosY) {
+    public void drawButton(Minecraft minecraft, int mPosX, int mPosY, float partialTicks) {
         if (this.visible) {
             minecraft.getTextureManager().bindTexture(widgetTextures);
 
@@ -69,13 +69,13 @@ public class TooltipButton extends GuiButton implements ITooltipButton {
             int h = getHoverState(hover);
             int fromLeft = iconOffsetX + (h - 1) * (this.width + 1);
 
-            this.drawTexturedModalRect(this.xPosition, this.yPosition, fromLeft, iconOffsetY, this.width, this.height);
+            this.drawTexturedModalRect(this.x, this.y, fromLeft, iconOffsetY, this.width, this.height);
         }
     }
 
     @Override
     public boolean mouseInButton(int mPosX, int mPosY) {
-        return (mPosX >= this.xPosition && mPosY >= this.yPosition && mPosX < this.xPosition + this.width && mPosY < this.yPosition + this.height);
+        return (mPosX >= this.x && mPosY >= this.y && mPosX < this.x + this.width && mPosY < this.y + this.height);
     }
 
     @Override

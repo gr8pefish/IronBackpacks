@@ -2,7 +2,6 @@ package gr8pefish.ironbackpacks.container.slot;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -24,17 +23,17 @@ public class GhostSlot extends BackpackSlot {
 
     @Override
     public ItemStack decrStackSize(int par1){
-        return null;
+        return ItemStack.EMPTY;
     }
 
     //Always sets the stack size to 1
     @Override
     public void putStack(ItemStack itemStack){
-        if(itemStack != null) {
-            itemStack.stackSize = 1;
+        if(!itemStack.isEmpty()) {
+            itemStack.setCount(1);
             inventory.setInventorySlotContents(index, itemStack.copy());
         } else {
-            inventory.setInventorySlotContents(index, null);
+            inventory.setInventorySlotContents(index, ItemStack.EMPTY);
         }
         onSlotChanged();
     }

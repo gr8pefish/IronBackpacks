@@ -9,6 +9,8 @@ import gr8pefish.ironbackpacks.network.server.RenameMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -35,9 +37,7 @@ public class NetworkingHandler {
 
     private static int nextPacketId = 0;
 
-    @SuppressWarnings({"unchecked"})
-    private static void registerMessage(Class packet, Class message, Side side) {
-        network.registerMessage(packet, message, nextPacketId, side);
-        nextPacketId++;
+    private static <M extends IMessage, MH extends IMessageHandler<M, IMessage>> void registerMessage(Class<MH> packet, Class<M> message, Side side) {
+        network.registerMessage(packet, message, nextPacketId++, side);
     }
 }

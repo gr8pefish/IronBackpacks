@@ -50,16 +50,16 @@ public class PlayerSlotNumberMessage implements IMessage {
         public IMessage onMessage(PlayerSlotNumberMessage message, MessageContext ctx) {
 
             //set current backpack and right click it
-            EntityPlayer player = ctx.getServerHandler().playerEntity;
+            EntityPlayer player = ctx.getServerHandler().player;
             ItemStack backpackStack = player.inventory.getStackInSlot(message.slotNumber);
-            if (backpackStack != null) {
+            if (!backpackStack.isEmpty()) {
                 NBTUtils.setUUID(backpackStack);
                 PlayerWearingBackpackCapabilities.setCurrentBackpack(player, backpackStack);
                 NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);
                 if (message.isSneaking == NOT_SNEAKING)
-                    backpackStack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND); //normal right click open
+                    backpackStack.useItemRightClick(player.world, player, EnumHand.MAIN_HAND); //normal right click open
                 else
-                    ((ItemBackpack)backpackStack.getItem()).handleBackpackOpening(backpackStack, ((EntityPlayerMP) player).worldObj, player, EnumHand.MAIN_HAND, true); //special sneak right click open
+                    ((ItemBackpack)backpackStack.getItem()).handleBackpackOpening(backpackStack, ((EntityPlayerMP) player).world, player, EnumHand.MAIN_HAND, true); //special sneak right click open
             }
 
             return null; //no return message

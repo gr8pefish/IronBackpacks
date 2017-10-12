@@ -67,8 +67,8 @@ public class ModelBackpack extends ModelBase {
         GlStateManager.scale(1.6f, 1.4f, 1.6f); //scale slightly larger
         GlStateManager.translate(0, .225, -.14); //move it into the correct location
 
-        if (player.inventory.armorInventory[2] != null) //if has chest armor slot
-            if (player.inventory.armorInventory[2].getItem() == Items.ELYTRA) //if elytra
+        if (!player.inventory.armorInventory.get(2).isEmpty()) //if has chest armor slot
+            if (player.inventory.armorInventory.get(2).getItem() == Items.ELYTRA) //if elytra
                 GlStateManager.translate(0, 0, .0175); //move it forwards a little
             else
                 GlStateManager.translate(0, 0, -.04); //move it backwards a little

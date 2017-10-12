@@ -1,5 +1,8 @@
 package gr8pefish.ironbackpacks.client;
 
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+
 import gr8pefish.ironbackpacks.client.gui.inventory.GUIBackpack;
 import gr8pefish.ironbackpacks.client.gui.inventory.GUIBackpackAlternate;
 import gr8pefish.ironbackpacks.container.slot.GhostSlot;
@@ -16,15 +19,12 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 
 /**
  * Events that occur solely on the client side
@@ -92,7 +92,7 @@ public class ClientEventHandler {
             try { //try catch because some setups can result in the IndexOOB crash
                 for (int i = 0; i < hotbarBindings.length - 1; i++) { //-1 for more safety
                     if (Keyboard.isKeyDown(hotbarBindings[i].getKeyCode())) { //have to use Keyboard directly, instead of .isPressed()
-                        if (IronBackpacksHelper.areItemStacksTheSame(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i), openedPack)) { //can't move the same backpack you have open
+                        if (IronBackpacksHelper.areItemStacksTheSame(Minecraft.getMinecraft().player.inventory.getStackInSlot(i), openedPack)) { //can't move the same backpack you have open
                             event.setCanceled(true);
                             return;
                         }
@@ -150,9 +150,6 @@ public class ClientEventHandler {
             if (wheelState != 0) { //if mouse wheel value here isn't 0, then the mouse wheel was scrolled (-120 for down and 120 for up for me)
                 GUIBackpack gui = (GUIBackpack) event.getGui();
                 if (wheelState != 0) {
-                    int x = Mouse.getEventX() * gui.width / gui.mc.displayWidth;
-                    int y = gui.height - Mouse.getEventY() * gui.height / gui.mc.displayHeight - 1;
-
                     for (int i = 0; i < 27; i++) {
                         Slot slot = gui.getSlotUnderMouse();
                         if (slot != null) {

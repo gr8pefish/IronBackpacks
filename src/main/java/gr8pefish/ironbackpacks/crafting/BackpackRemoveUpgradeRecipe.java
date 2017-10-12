@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.recipes.IRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
@@ -7,39 +8,43 @@ import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
+import gr8pefish.ironbackpacks.registry.RecipeRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 /**
  * Deals with the cases when a backpack is shapelessly crafted alone to remove an upgrade.
  */
-public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements IRemoveUpgradeRecipe {
+public class BackpackRemoveUpgradeRecipe extends Impl<IRecipe> implements IRemoveUpgradeRecipe {
 
-    private ItemStack recipeOutput; //The outputted items after recipes
+	private final ShapelessOreRecipe internal;
+	
+    private ItemStack recipeOutput = ItemStack.EMPTY; //The outputted items after recipes
 
-    private ItemStack upgradeRemovedStack;
+    private ItemStack upgradeRemovedStack = ItemStack.EMPTY;
 
     public BackpackRemoveUpgradeRecipe(ItemStack recipeOutput, Object... items) {
-        super(recipeOutput, items);
+        internal = new ShapelessOreRecipe(null, recipeOutput, items);
         this.recipeOutput = recipeOutput;
+        this.setRegistryName(Constants.MODID, "recipe"+Constants.j++);
+        RecipeRegistry.UPGRADE_REMOVE.add(this);
     }
 
     /**
      * Crafts the backpack by itself to remove an upgrade;
      * First it checks if the backpack has any upgrades.
-     * If it does it progresses, otherwise it returns null;
+     * If it does it progresses, otherwise it returns ItemStack.EMPTY;
      * <p/>
      * Then it checks for where the backpack is located in the recipes grid.
      * It then removes the upgrade in said slot. So if it is in the 2nd slot then it removes the 2nd upgrade on the backpack.
@@ -52,16 +57,16 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
 
         int slotOfBackpack = getFirstUpgradableBackpackSlotNumber(inventoryCrafting);
         if (slotOfBackpack == -1) //if no backpack
-            return null; //return no output
+            return ItemStack.EMPTY; //return no output
 
         //get the backpack
         ItemStack backpack = inventoryCrafting.getStackInSlot(slotOfBackpack);
         ItemStack result = backpack.copy();
 
         //get the upgrades
-        ArrayList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result);
+        NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(result);
         if (upgrades.isEmpty()) //no upgrades
-            return null; //no output itemStack, i.e. no recipes result
+            return ItemStack.EMPTY; //no output itemStack, i.e. no recipes result
 
         //get the old tag compound
         NBTTagCompound nbtTagCompound = result.getTagCompound();
@@ -73,14 +78,14 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
 
         //make sure that we can check for an upgrade to remove
         boolean nullChecksPassed = false;
-        ItemStack upgradeInQuestion = null;
-        if ((slotOfBackpack <= (upgrades.size() - 1)) && (slotOfBackpack >= 0) && (upgrades.get(slotOfBackpack) != null)) {
+        ItemStack upgradeInQuestion = ItemStack.EMPTY;
+        if ((slotOfBackpack <= (upgrades.size() - 1)) && (slotOfBackpack >= 0) && !upgrades.get(slotOfBackpack).isEmpty()) {
             upgradeInQuestion = upgrades.get(slotOfBackpack);
 
             //can't remove it if is a nesting upgrade and there are nested backpacks inside
             //ToDo: Give descriptive error message to player
             if (!canRemoveNestingUpgrade(backpack, upgradeInQuestion)) {
-                upgradeInQuestion = null;
+                upgradeInQuestion = ItemStack.EMPTY;
             } else {
                 nullChecksPassed = true;
             }
@@ -108,59 +113,15 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
             upgradeRemovedStack = upgradeInQuestion;
             return result;
         } else {
-            upgradeRemovedStack = null;
-            return null;
+            upgradeRemovedStack = ItemStack.EMPTY;
+            return ItemStack.EMPTY;
         }
     }
 
     @Override //copied directly from ShapelessOreRecipe
     public boolean matches(InventoryCrafting var1, World world)
     {
-        ArrayList<Object> required = new ArrayList<Object>(input);
-
-        for (int x = 0; x < var1.getSizeInventory(); x++)
-        {
-            ItemStack slot = var1.getStackInSlot(x);
-
-            if (slot != null)
-            {
-                boolean inRecipe = false;
-                Iterator<Object> req = required.iterator();
-
-                while (req.hasNext())
-                {
-                    boolean match = false;
-
-                    Object next = req.next();
-
-                    if (next instanceof ItemStack)
-                    {
-                        match = OreDictionary.itemMatches((ItemStack)next, slot, false);
-                    }
-                    else if (next instanceof List)
-                    {
-                        Iterator<ItemStack> itr = ((List<ItemStack>)next).iterator();
-                        while (itr.hasNext() && !match)
-                        {
-                            match = OreDictionary.itemMatches(itr.next(), slot, false);
-                        }
-                    }
-
-                    if (match)
-                    {
-                        inRecipe = true;
-                        required.remove(next);
-                        break;
-                    }
-                }
-
-                if (!inRecipe)
-                {
-                    return false;
-                }
-            }
-        }
-        return required.isEmpty();
+    	return internal.matches(var1, world);
     }
 
     @Override
@@ -169,17 +130,22 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
     }
 
     @Override
-    public ItemStack[] getRemainingItems(InventoryCrafting inv){ //needs matches overridden due to (Forge?) bug
-        if (upgradeRemovedStack != null){
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv){ //needs matches overridden due to (Forge?) bug
+        if (!upgradeRemovedStack.isEmpty()){
             ItemStack[] ret = new ItemStack[inv.getSizeInventory()];
             ret[0] = upgradeRemovedStack.copy();
             for (int i = 1; i < ret.length; i++) {
-                ret[i] = null; //remove everything else (i.e can't leave backpack)
+                ret[i] = ItemStack.EMPTY; //remove everything else (i.e can't leave backpack)
             }
-            return ret;
+            return NonNullList.from(ItemStack.EMPTY, ret);
         }else{
-            return super.getRemainingItems(inv);
+            return internal.getRemainingItems(inv);
         }
+    }
+    
+	@Override
+	public NonNullList<Ingredient> getIngredients(){
+        return internal.getIngredients();
     }
 
     //=============================================================================Helper Methods====================================================================
@@ -192,7 +158,7 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
     private int getFirstUpgradableBackpackSlotNumber(InventoryCrafting inventoryCrafting) {
         for (int i = 0; i < 9; ++i) {
             ItemStack itemstack = inventoryCrafting.getStackInSlot(i);
-            if (itemstack != null && (itemstack.getItem() instanceof IUpgradableBackpack))
+            if (!itemstack.isEmpty() && (itemstack.getItem() instanceof IUpgradableBackpack))
                 return i;
         }
         return -1;
@@ -206,7 +172,7 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
     public static int findEmptySlot(IInventory inventoryCrafting) {
         for (int i = 0; i < 9; i++) {
             ItemStack itemstack = inventoryCrafting.getStackInSlot(i);
-            if (itemstack == null)
+            if (itemstack.isEmpty())
                 return i;
         }
         return -1;
@@ -224,7 +190,7 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
                 //check if has backpack of any tier inside
                 InventoryBackpack inventoryBackpack = new InventoryBackpack(backpack, true);
                 for (int i = 0; i < inventoryBackpack.getSizeInventory(); i++){
-                    if (inventoryBackpack.getStackInSlot(i) != null && inventoryBackpack.getStackInSlot(i).getItem() instanceof ItemBackpack) {
+                    if (!inventoryBackpack.getStackInSlot(i).isEmpty() && inventoryBackpack.getStackInSlot(i).getItem() instanceof ItemBackpack) {
                         return false;
                     }
                 }
@@ -232,5 +198,10 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
         }
         return true;
     }
+
+	@Override
+	public boolean canFit(int width, int height) {
+		return internal.canFit(width, height);
+	}
 
 }

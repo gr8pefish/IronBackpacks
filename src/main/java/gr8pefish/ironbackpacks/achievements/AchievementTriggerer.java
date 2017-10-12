@@ -1,5 +1,5 @@
 package gr8pefish.ironbackpacks.achievements;
-
+/*
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -19,3 +19,4 @@ public final class AchievementTriggerer {
     }
 
 }
+*/
