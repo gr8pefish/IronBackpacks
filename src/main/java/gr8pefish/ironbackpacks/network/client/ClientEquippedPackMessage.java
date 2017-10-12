@@ -45,7 +45,7 @@ public class ClientEquippedPackMessage implements IMessage {
                 EntityPlayer player = IronBackpacks.proxy.getClientPlayer();
                 if (player != null) {
                     PlayerWearingBackpackCapabilities.setEquippedBackpack(player, message.stack); //update the backpack
-                    PlayerDeathBackpackCapabilities.setEquippedBackpack(player, null); //update death equipped to null in case too
+                    PlayerDeathBackpackCapabilities.setEquippedBackpack(player, ItemStack.EMPTY); //update death equipped to null in case too
                 }
             });
 

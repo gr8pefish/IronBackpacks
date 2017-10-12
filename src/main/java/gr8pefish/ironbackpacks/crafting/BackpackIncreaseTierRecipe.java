@@ -1,28 +1,36 @@
 package gr8pefish.ironbackpacks.crafting;
 
+import java.util.List;
+
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.recipes.IIncreaseBackpackTierRecipe;
+import gr8pefish.ironbackpacks.registry.RecipeRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
-import java.util.List;
+import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 /**
  * The recipe to upgrade a backpack to it's next tier (ex: iron -&gt; gold)
  */
-public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncreaseBackpackTierRecipe {
+public class BackpackIncreaseTierRecipe extends Impl<IRecipe> implements IIncreaseBackpackTierRecipe {
 
     private final ItemStack recipeOutput;
+    private final ShapedOreRecipe internal;
 
     public BackpackIncreaseTierRecipe(ItemStack recipeOutput, Object... items){
-        super(null, recipeOutput, items);
+        internal = new ShapedOreRecipe(null, recipeOutput, items);
         this.recipeOutput = recipeOutput;
         this.setRegistryName(Constants.MODID, "recipe"+Constants.j++);
+        RecipeRegistry.INCREASE.add(this);
     }
 
     /**
@@ -79,5 +87,20 @@ public class BackpackIncreaseTierRecipe extends ShapedOreRecipe implements IIncr
             }
         }
         return ItemStack.EMPTY;
+    }
+
+	@Override
+	public boolean matches(InventoryCrafting inv, World world) {
+		return internal.matches(inv, world);
+	}
+
+	@Override
+	public boolean canFit(int width, int height) {
+		return internal.canFit(width, height);
+	}
+	
+	@Override
+	public NonNullList<Ingredient> getIngredients(){
+        return internal.getIngredients();
     }
 }

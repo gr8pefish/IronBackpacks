@@ -8,7 +8,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import gr8pefish.ironbackpacks.crafting.BackpackRemoveUpgradeRecipe;
+import gr8pefish.ironbackpacks.api.recipes.IRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.gui.ITooltipCallback;
 import mezz.jei.api.ingredients.IIngredients;
@@ -19,14 +19,14 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class RemoveUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack> {
 
-    private BackpackRemoveUpgradeRecipe recipe;
+    private IRemoveUpgradeRecipe recipe;
     private final String[] description;
     private final String[] descriptionAdditional;
     private final String craftingType;
     private final String removeSlot1;
     private final String removeSlot2;
 
-    public RemoveUpgradeRecipeWrapper(BackpackRemoveUpgradeRecipe recipe){
+    public RemoveUpgradeRecipeWrapper(IRemoveUpgradeRecipe recipe){
         this.craftingType = TextUtils.localize("jei.description.shapedCrafting");
         this.removeSlot1 = TextUtils.localize("jei.description.removeUpgrade.slot1");
         this.removeSlot2 = TextUtils.localize("jei.description.removeUpgrade.slot2");

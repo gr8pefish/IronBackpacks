@@ -52,7 +52,7 @@ public class PlayerSlotNumberMessage implements IMessage {
             //set current backpack and right click it
             EntityPlayer player = ctx.getServerHandler().player;
             ItemStack backpackStack = player.inventory.getStackInSlot(message.slotNumber);
-            if (backpackStack != null) {
+            if (!backpackStack.isEmpty()) {
                 NBTUtils.setUUID(backpackStack);
                 PlayerWearingBackpackCapabilities.setCurrentBackpack(player, backpackStack);
                 NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);

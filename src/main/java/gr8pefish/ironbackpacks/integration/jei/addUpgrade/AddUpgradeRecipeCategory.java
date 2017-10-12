@@ -18,13 +18,15 @@ import net.minecraft.util.ResourceLocation;
 
 public class AddUpgradeRecipeCategory implements IRecipeCategory<AddUpgradeRecipeWrapper> {
 
+	public static final String NAME = Constants.MODID + ".upgrade";
+	
     private final String title;
     private final IDrawable background;
     private final IDrawable icon;
 
     public AddUpgradeRecipeCategory(IGuiHelper guiHelper) {
         title = TextUtils.localize("jei.ironbackpacks.addUpgradeRecipe.name");
-        ResourceLocation RL = new ResourceLocation("ironbackpacks", "textures/jei/addUpgradeRecipeJEI.png");
+        ResourceLocation RL = new ResourceLocation("ironbackpacks", "textures/jei/addupgraderecipejei.png");
         background = guiHelper.createDrawable(RL, 0, 0, 166, 130);
         icon = guiHelper.createDrawable(RL, 168, 0, 16, 16);
     }
@@ -32,7 +34,7 @@ public class AddUpgradeRecipeCategory implements IRecipeCategory<AddUpgradeRecip
     @Nonnull
     @Override
     public String getUid() {
-        return "ironbackpacks.addUpgrade";
+        return NAME;
     }
 
     @Nonnull

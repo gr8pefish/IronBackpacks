@@ -3,6 +3,7 @@ package gr8pefish.ironbackpacks.integration.jei.removeUpgrade;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -15,7 +16,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class RemoveUpgradeRecipeCategory implements IRecipeCategory<RemoveUpgradeRecipeWrapper> {
 
-    private final String title;
+    public static final String NAME = Constants.MODID + ".remove";
+	private final String title;
     private final IDrawable background;
     private final IDrawable icon;
 
@@ -29,7 +31,7 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory<RemoveUpgrad
     @Nonnull
     @Override
     public String getUid() {
-        return "ironbackpacks.removeUpgrade";
+        return NAME;
     }
 
     @Nonnull
@@ -72,7 +74,6 @@ public class RemoveUpgradeRecipeCategory implements IRecipeCategory<RemoveUpgrad
 
 	@Override
 	public String getModName() {
-		// TODO Auto-generated method stub
-		return null;
+		return Constants.MODID;
 	}
 }

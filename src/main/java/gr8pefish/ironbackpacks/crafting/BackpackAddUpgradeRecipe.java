@@ -12,27 +12,34 @@ import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.ItemUpgrade;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
+import gr8pefish.ironbackpacks.registry.RecipeRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 /**
  * Deals with the cases when a backpack is shapelessly crafted with an upgrade.
  */
-public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAddUpgradeRecipe{
+public class BackpackAddUpgradeRecipe extends Impl<IRecipe> implements IAddUpgradeRecipe{
 
     private final ItemStack recipeOutput; //The outputted items after recipes
+    private final ShapelessOreRecipe internal;
 
     public BackpackAddUpgradeRecipe(ItemStack recipeOutput, Object... items){
-        super(null, recipeOutput, items);
+        internal = new ShapelessOreRecipe(null, recipeOutput, items);
         this.recipeOutput = recipeOutput;
         this.setRegistryName(Constants.MODID, "recipe"+Constants.j++);
+        RecipeRegistry.UPGRADE_ADD.add(this);
     }
 
     /**
@@ -115,6 +122,21 @@ public class BackpackAddUpgradeRecipe extends ShapelessOreRecipe implements IAdd
     @Override
     public ItemStack getRecipeOutput() {
         return recipeOutput;
+    }
+    
+	@Override
+	public boolean matches(InventoryCrafting inv, World world) {
+		return internal.matches(inv, world);
+	}
+
+	@Override
+	public boolean canFit(int width, int height) {
+		return internal.canFit(width, height);
+	}
+	
+	@Override
+	public NonNullList<Ingredient> getIngredients(){
+        return internal.getIngredients();
     }
 
     //=============================================================================Helper Methods====================================================================

@@ -72,7 +72,7 @@ public class IronBackpacksEventHelper {
     }
 
     protected static void getEventBackpacks(ItemStack backpack, NonNullList<ItemStack> filterBackpacks, NonNullList<ItemStack> crafterTinyBackpacks, NonNullList<ItemStack> crafterSmallBackpacks, NonNullList<ItemStack> crafterBackpacks, NonNullList<ItemStack> restockerBackpacks, EntityPlayer player){
-        if (backpack != null && backpack.getItem() != null && backpack.getItem() instanceof IBackpack) {
+        if (!backpack.isEmpty() && backpack.getItem() instanceof IBackpack) {
 
             NonNullList<ItemStack> upgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(backpack);
             addToLists(backpack, filterBackpacks, crafterTinyBackpacks, crafterSmallBackpacks, crafterBackpacks, restockerBackpacks, upgrades);
@@ -81,7 +81,7 @@ public class IronBackpacksEventHelper {
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, backpack));
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
-                    if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
+                    if (!nestedBackpack.isEmpty() && nestedBackpack.getItem() instanceof IBackpack) {
                         addToLists(nestedBackpack, filterBackpacks, crafterTinyBackpacks, crafterSmallBackpacks, crafterBackpacks, restockerBackpacks, IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack));
                     }
                 }
@@ -132,15 +132,15 @@ public class IronBackpacksEventHelper {
 
                     NonNullList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
-                        if (restockerItem != null) {
+                        if (!restockerItem.isEmpty()) {
 
                             boolean foundSlot = false;
-                            ItemStack stackToResupply = null;
+                            ItemStack stackToResupply = ItemStack.EMPTY;
                             Slot slotToResupply = null;
 
                             for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for items
                                 Slot tempSlot = container.getSlot(i);
-                                if (tempSlot!= null && tempSlot.getHasStack()){
+                                if (tempSlot != null && tempSlot.getHasStack()){
                                     ItemStack tempItem = tempSlot.getStack();
                                     if (IronBackpacksHelper.areItemsEqualAndStackable(tempItem, restockerItem)){ //found and less than max stack size
                                         foundSlot = true;
@@ -246,14 +246,14 @@ public class IronBackpacksEventHelper {
                     container.sort(); //TODO: test with this removed
                     NonNullList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
-                        if (restockerItem != null) {
+                        if (!restockerItem.isEmpty()) {
 
                             boolean foundSlot = false;
                             ItemStack stackToResupply = ItemStack.EMPTY;
 
                             for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for items (backpack size + 36 for player inv)
                                 Slot tempSlot = (Slot) container.getSlot(i);
-                                if (tempSlot!= null && tempSlot.getHasStack()){
+                                if (tempSlot != null && tempSlot.getHasStack()){
                                     ItemStack tempItem = tempSlot.getStack();
                                     if (IronBackpacksHelper.areItemsEqualForStacking(stack, restockerItem) //has to be same items as what was used in the event
                                             && IronBackpacksHelper.areItemsEqualAndStackable(tempItem, restockerItem)){ //found and less than max stack size
@@ -296,7 +296,7 @@ public class IronBackpacksEventHelper {
                 } //no save b/c returns and saves if it does anything
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
     /**
@@ -320,7 +320,7 @@ public class IronBackpacksEventHelper {
                     container.sort(); //TODO: test with this removed
                     NonNullList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
-                        if (restockerItem != null) {
+                        if (!restockerItem.isEmpty()) {
 
                             boolean foundSlot = false;
                             ItemStack stackToResupply = ItemStack.EMPTY;
@@ -379,7 +379,7 @@ public class IronBackpacksEventHelper {
                 } //no save b/c returns and saves if it does anything
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
 
@@ -405,9 +405,9 @@ public class IronBackpacksEventHelper {
                     container.sort(); //TODO: test with this removed
                     NonNullList<ItemStack> restockerItems = UpgradeMethods.getRestockingItems(backpack);
                     for (ItemStack restockerItem : restockerItems) {
-                        if ((restockerItem != null) && (restockerItem.getItem() instanceof ItemArrow || restockerItem.getItem().getClass().isAssignableFrom(ItemArrow.class))) { //only restock arrows
+                        if ((!restockerItem.isEmpty()) && (restockerItem.getItem() instanceof ItemArrow || restockerItem.getItem().getClass().isAssignableFrom(ItemArrow.class))) { //only restock arrows
                             boolean foundSlot = false;
-                            ItemStack stackToResupply = null;
+                            ItemStack stackToResupply = ItemStack.EMPTY;
                             Slot slotToResupply = null;
 
                             for (int i = itemBackpack.getSize(backpack); i < itemBackpack.getSize(backpack) + 36; i++){ //check player's inv for items (backpack size + 36 for player inv)
@@ -483,8 +483,8 @@ public class IronBackpacksEventHelper {
                     ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(event.getEntityPlayer(), backpack));
 
                     container.sort(); //sort to make sure all items are in their smallest slot numbers possible
-                    if (container.getInventoryBackpack().getStackInSlot( //if the last slot has an items
-                            container.getInventoryBackpack().getSizeInventory()) != null){ //assume the backpack is full and stop trying to craft
+                    if (!container.getInventoryBackpack().getStackInSlot( //if the last slot has an items
+                            container.getInventoryBackpack().getSizeInventory()).isEmpty()){ //assume the backpack is full and stop trying to craft
                         break; //TODO: test
                     }
 
@@ -508,12 +508,12 @@ public class IronBackpacksEventHelper {
                     }
 
                     for (ItemStack crafterItem : crafterItems) {
-                        if (crafterItem != null) {
+                        if (!crafterItem.isEmpty()) {
                             for (int index = 0; index < itemBackpack.getSize(backpack); index++) {
                                 Slot theSlot = (Slot) container.getSlot(index);
                                 if (theSlot!=null && theSlot.getHasStack()) {
                                     ItemStack theStack = theSlot.getStack();
-                                    if (theStack != null && theStack.getCount() >= (craftingGridDiameterToFill*craftingGridDiameterToFill) && IronBackpacksHelper.areItemsEqualForStacking(theStack, crafterItem)) {
+                                    if (!theStack.isEmpty() && theStack.getCount() >= (craftingGridDiameterToFill*craftingGridDiameterToFill) && IronBackpacksHelper.areItemsEqualForStacking(theStack, crafterItem)) {
                                         ItemStack myStack = new ItemStack(theStack.getItem(), 1, theStack.getItemDamage()); //stackSize of 1
                                         if (craftingGridDiameterToFill == 2){//special handling needed to make it a square
                                             inventoryCrafting.setInventorySlotContents(0, myStack);
@@ -552,7 +552,7 @@ public class IronBackpacksEventHelper {
                                                 for (int i = 0; i < numberOfIterations; i++){ //for every possible recipes operation
                                                     ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), recipeOutput.getCount(), recipeOutput.getItemDamage()); //get the output
                                                     ItemStack stack = container.transferStackInSlot(myRecipeOutput); //try to put that output into the backpack
-                                                    if (stack == null){ //can't put it anywhere
+                                                    if (stack.isEmpty()){ //can't put it anywhere
                                                         break;
                                                     }else if (stack.getCount() != 0){ //remainder present, stack couldn't be fully transferred, undo the last operation
                                                         Slot slot = container.getSlot(itemBackpack.getSize(backpack)-1); //last slot in pack
@@ -564,7 +564,7 @@ public class IronBackpacksEventHelper {
                                                 }
                                             }else {
                                                 ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), numberOfItems, recipeOutput.getItemDamage());
-                                                if (container.transferStackInSlot(myRecipeOutput) != null) {
+                                                if (!container.transferStackInSlot(myRecipeOutput).isEmpty()) {
                                                     theSlot.decrStackSize(theStack.getCount() - (theStack.getCount() % (craftingGridDiameterToFill * craftingGridDiameterToFill)));
                                                 }
                                                 container.save(event.getEntityPlayer());
@@ -644,10 +644,10 @@ public class IronBackpacksEventHelper {
     private static void transferWithBasicFilter(NonNullList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
-            if (filterItem != null) {
+            if (!filterItem.isEmpty()) {
                 if (IronBackpacksHelper.areItemsEqualForStacking(event.getItem().getItem(), filterItem)) {
                     ItemStack returned = container.transferStackInSlot(event.getItem().getItem()); //custom method to put itemEntity's itemStack into the backpack
-                    if (returned != null) shouldSave = true;
+                    if (!returned.isEmpty()) shouldSave = true;
                 }
             }
         }
@@ -666,10 +666,10 @@ public class IronBackpacksEventHelper {
     private static void transferWithFuzzyFilter(NonNullList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
-            if (filterItem != null) {
+            if (!filterItem.isEmpty()) {
                 if (event.getItem().getItem().getItem() == filterItem.getItem()) {
                     ItemStack returned = container.transferStackInSlot(event.getItem().getItem()); //custom method to put itemEntity's itemStack into the backpack
-                    if (returned != null) shouldSave = true;
+                    if (!returned.isEmpty()) shouldSave = true;
                 }
             }
         }
@@ -689,13 +689,13 @@ public class IronBackpacksEventHelper {
     private static void transferWithOreDictFilter(NonNullList<ItemStack> filterItems, ArrayList<String> itemEntityOre, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
-            if (filterItem != null) {
+            if (!filterItem.isEmpty()) {
                 ArrayList<String> filterItemOre = getOreDict(filterItem);
                 if (itemEntityOre != null && filterItemOre != null) {
                     for (String oreName : itemEntityOre) {
                         if (oreName != null && filterItemOre.contains(oreName)) {
                             ItemStack returned = container.transferStackInSlot(event.getItem().getItem()); //custom method to put itemEntity's itemStack into the backpack
-                            if (returned != null) shouldSave = true;
+                            if (returned.isEmpty()) shouldSave = true;
                         }
                     }
                 }
@@ -716,11 +716,11 @@ public class IronBackpacksEventHelper {
     private static void transferWithModSpecificFilter(NonNullList<ItemStack> filterItems, EntityItemPickupEvent event, ContainerBackpack container){
         boolean shouldSave = false;
         for (ItemStack filterItem : filterItems) {
-            if (filterItem != null) {
+            if (!filterItem.isEmpty()) {
                 //if modId1 == modId2 same mod so transfer
                 if ((event.getItem().getItem().getItem()).getRegistryName().getResourceDomain().equals(((filterItem.getItem()).getRegistryName().getResourceDomain()))){
                     ItemStack returned = container.transferStackInSlot(event.getItem().getItem()); //custom method to put itemEntity's itemStack into the backpack
-                    if (returned != null) shouldSave = true;
+                    if (!returned.isEmpty()) shouldSave = true;
                 }
             }
         }
@@ -745,7 +745,7 @@ public class IronBackpacksEventHelper {
             for (String oreName : itemEntityOre) {
                 if (oreName != null && (oreName.startsWith("ore") || oreName.startsWith("gem") || oreName.startsWith("dust"))) {
                     ItemStack returned = container.transferStackInSlot(event.getItem().getItem()); //custom method to put itemEntity's itemStack into the backpack
-                    if (returned != null) shouldSave = true;
+                    if (!returned.isEmpty()) shouldSave = true;
                 }
             }
         }
@@ -762,7 +762,7 @@ public class IronBackpacksEventHelper {
      */
     private static void deleteWithVoidFilter(NonNullList<ItemStack> filterItems, EntityItemPickupEvent event){
         for (ItemStack stack : filterItems) {
-            if (stack != null) {
+            if (!stack.isEmpty()) {
                 if (event.getItem().getItem().getItem() == stack.getItem()){ //if same items (but different damage value)
                     event.getItem().setDead(); //delete it
                     event.getItem().onUpdate(); //update to make sure it's gone
@@ -797,7 +797,7 @@ public class IronBackpacksEventHelper {
         String[] whitelistEntries = ConfigHandler.filterMiningUpgradeWhitelist;
         for (String entry : whitelistEntries) {
             ItemStack stack = getItemStackFromString(entry);
-            if (stack != null) filterItems.add(stack);
+            if (!stack.isEmpty()) filterItems.add(stack);
         }
         return filterItems;
     }
@@ -815,11 +815,11 @@ public class IronBackpacksEventHelper {
         Matcher matcher = pattern.matcher(str);
 
         if (!matcher.find())
-            return null;
+            return ItemStack.EMPTY;
 
         String itemString = matcher.group("item");
         if (itemString == null)
-            return null;
+            return ItemStack.EMPTY;
 
         String modid = matcher.group("modid");
         if (modid == null)
@@ -835,7 +835,7 @@ public class IronBackpacksEventHelper {
 
         Item item = Item.getByNameOrId(modid + ":" + itemString);
         if (item == null)
-            return null;
+            return ItemStack.EMPTY;
 
         return new ItemStack(item, size, damage);
     }
@@ -881,7 +881,7 @@ public class IronBackpacksEventHelper {
                     for (ItemStack restockerItem : restockerItems) {
                         foundSlot = false;
                         useOffhand = false;
-                        if (restockerItem != null && IronBackpacksHelper.areItemsEqualAndStackable(toResupply, restockerItem)) {
+                        if (!restockerItem.isEmpty() && IronBackpacksHelper.areItemsEqualAndStackable(toResupply, restockerItem)) {
 
                             //for each slot in player's inventory (starting with offhand)
                             if (sameItemForRestocking(player.inventory.offHandInventory.get(0), restockerItem)) {
@@ -965,7 +965,7 @@ public class IronBackpacksEventHelper {
                     for (ItemStack restockerItem : restockerItems) {
                         foundSlot = false;
                         useOffhand = false;
-                        if (restockerItem != null && IronBackpacksHelper.areItemsEqualAndStackable(toResupply, restockerItem)) {
+                        if (!restockerItem.isEmpty() && IronBackpacksHelper.areItemsEqualAndStackable(toResupply, restockerItem)) {
 
                             //for each slot in player's inventory (starting with offhand)
                             if (sameItemForRestocking(player.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND), restockerItem)) {
@@ -1034,7 +1034,7 @@ public class IronBackpacksEventHelper {
     }
 
     private static boolean sameItemForRestocking(ItemStack toFill, ItemStack toSupply){
-        if (toFill != null && toSupply != null) {
+        if (!toFill.isEmpty() && !toSupply.isEmpty()) {
             return IronBackpacksHelper.areItemsEqualAndStackable(toFill, toSupply);
         }
         return false;

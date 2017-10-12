@@ -99,7 +99,7 @@ public class SingleByteMessage implements IMessage {
                 case IronBackpacksConstants.Messages.SingleByte.OPEN_BACKPACK_KEYBINDING:
                     player = ctx.getServerHandler().player;
                     ItemStack backpackStack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
-                    if (backpackStack != null) {
+                    if (!backpackStack.isEmpty()) {
                         NBTUtils.setUUID(backpackStack);
                         PlayerWearingBackpackCapabilities.setCurrentBackpack(player, backpackStack);
                         NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);

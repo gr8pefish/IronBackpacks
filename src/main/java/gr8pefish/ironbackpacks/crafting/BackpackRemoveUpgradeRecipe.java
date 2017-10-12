@@ -1,9 +1,5 @@
 package gr8pefish.ironbackpacks.crafting;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
 import gr8pefish.ironbackpacks.api.recipes.IRemoveUpgradeRecipe;
@@ -12,31 +8,37 @@ import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
+import gr8pefish.ironbackpacks.registry.RecipeRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 /**
  * Deals with the cases when a backpack is shapelessly crafted alone to remove an upgrade.
  */
-public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements IRemoveUpgradeRecipe {
+public class BackpackRemoveUpgradeRecipe extends Impl<IRecipe> implements IRemoveUpgradeRecipe {
 
+	private final ShapelessOreRecipe internal;
+	
     private ItemStack recipeOutput; //The outputted items after recipes
 
     private ItemStack upgradeRemovedStack;
 
     public BackpackRemoveUpgradeRecipe(ItemStack recipeOutput, Object... items) {
-        super(null, recipeOutput, items);
+        internal = new ShapelessOreRecipe(null, recipeOutput, items);
         this.recipeOutput = recipeOutput;
         this.setRegistryName(Constants.MODID, "recipe"+Constants.j++);
+        RecipeRegistry.UPGRADE_REMOVE.add(this);
     }
 
     /**
@@ -119,51 +121,7 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
     @Override //copied directly from ShapelessOreRecipe
     public boolean matches(InventoryCrafting var1, World world)
     {
-        ArrayList<Object> required = new ArrayList<Object>(input);
-
-        for (int x = 0; x < var1.getSizeInventory(); x++)
-        {
-            ItemStack slot = var1.getStackInSlot(x);
-
-            if (!slot.isEmpty())
-            {
-                boolean inRecipe = false;
-                Iterator<Object> req = required.iterator();
-
-                while (req.hasNext())
-                {
-                    boolean match = false;
-
-                    Object next = req.next();
-
-                    if (next instanceof ItemStack)
-                    {
-                        match = OreDictionary.itemMatches((ItemStack)next, slot, false);
-                    }
-                    else if (next instanceof List)
-                    {
-                        Iterator<?> itr = ((List<?>) next).iterator();
-                        while (itr.hasNext() && !match)
-                        {
-                            match = OreDictionary.itemMatches((ItemStack) itr.next(), slot, false);
-                        }
-                    }
-
-                    if (match)
-                    {
-                        inRecipe = true;
-                        required.remove(next);
-                        break;
-                    }
-                }
-
-                if (!inRecipe)
-                {
-                    return false;
-                }
-            }
-        }
-        return required.isEmpty();
+    	return internal.matches(var1, world);
     }
 
     @Override
@@ -181,8 +139,13 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
             }
             return NonNullList.from(ItemStack.EMPTY, ret);
         }else{
-            return super.getRemainingItems(inv);
+            return internal.getRemainingItems(inv);
         }
+    }
+    
+	@Override
+	public NonNullList<Ingredient> getIngredients(){
+        return internal.getIngredients();
     }
 
     //=============================================================================Helper Methods====================================================================
@@ -235,5 +198,10 @@ public class BackpackRemoveUpgradeRecipe extends ShapelessOreRecipe implements I
         }
         return true;
     }
+
+	@Override
+	public boolean canFit(int width, int height) {
+		return internal.canFit(width, height);
+	}
 
 }

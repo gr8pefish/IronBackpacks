@@ -7,6 +7,9 @@ import gr8pefish.ironbackpacks.api.Constants;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.ITieredBackpack;
 import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IUpgradableBackpack;
+import gr8pefish.ironbackpacks.api.recipes.IAddUpgradeRecipe;
+import gr8pefish.ironbackpacks.api.recipes.IIncreaseBackpackTierRecipe;
+import gr8pefish.ironbackpacks.api.recipes.IRemoveUpgradeRecipe;
 import gr8pefish.ironbackpacks.api.register.IAllRecipesRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemIBackpackRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
@@ -26,7 +29,11 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
  * Register all the recipes here.
  */
 public class RecipeRegistry {
-
+	
+	public static final List<IAddUpgradeRecipe> UPGRADE_ADD = new ArrayList<>();
+	public static final List<IRemoveUpgradeRecipe> UPGRADE_REMOVE = new ArrayList<>();
+	public static final List<IIncreaseBackpackTierRecipe> INCREASE = new ArrayList<>();
+	
 	/**
 	 * Main method that registers all the recipes
 	 */

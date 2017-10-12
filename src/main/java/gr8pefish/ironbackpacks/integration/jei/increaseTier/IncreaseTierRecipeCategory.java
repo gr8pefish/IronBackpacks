@@ -18,7 +18,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class IncreaseTierRecipeCategory implements IRecipeCategory<IncreaseTierRecipeWrapper> {
 
-    private final String title;
+    public static final String NAME = Constants.MODID + ".increase";
+	private final String title;
     private final IDrawable background;
     private final IDrawable icon;
 
@@ -26,7 +27,7 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory<IncreaseTierR
 
     public IncreaseTierRecipeCategory(IGuiHelper guiHelper) {
         title = TextUtils.localize("jei.ironbackpacks.increaseTierRecipe.name");
-        ResourceLocation RL = new ResourceLocation("ironbackpacks", "textures/jei/craftingGridRecipeJEI.png");
+        ResourceLocation RL = new ResourceLocation("ironbackpacks", "textures/jei/craftinggridrecipejei.png");
         background = guiHelper.createDrawable(RL, 0, 0, 166, 130);
         icon = guiHelper.createDrawable(RL, 168, 0, 16, 16);
         craftingGridHelper = guiHelper.createCraftingGridHelper(1, 0);
@@ -35,7 +36,7 @@ public class IncreaseTierRecipeCategory implements IRecipeCategory<IncreaseTierR
     @Nonnull
     @Override
     public String getUid() {
-        return "ironbackpacks.increaseTier";
+        return NAME;
     }
 
     @Nonnull

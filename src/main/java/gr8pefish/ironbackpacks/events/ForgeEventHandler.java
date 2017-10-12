@@ -241,7 +241,7 @@ public class ForgeEventHandler {
 
 
             //do restock if valid
-            if (event.getEntityPlayer().getHeldItem(event.getHand()) != null && itemStack != null && backpacks != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
+            if (!event.getEntityPlayer().getHeldItem(event.getHand()).isEmpty() && !itemStack.isEmpty() && backpacks != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
                 if (!IronBackpacksHelper.areItemsEqualForStacking(event.getEntityPlayer().getHeldItem(event.getHand()), itemStack)) { //if item in hand != item placed then interacting with something else and try to restock
                     doRestock(event.getEntityPlayer(), event.getItemStack());
                 }
@@ -254,9 +254,9 @@ public class ForgeEventHandler {
     private static void doRestock(EntityPlayer player, ItemStack stack) {
         ItemStack resuppliedStack;
         NonNullList<NonNullList<ItemStack>> backpacks = IronBackpacksEventHelper.getFilterCrafterAndRestockerBackpacks(player);
-        if (player != null && stack != null) {
+        if (player != null && !stack.isEmpty()) {
             resuppliedStack = IronBackpacksEventHelper.checkRestockerUpgradeItemUse(player, stack, backpacks.get(4)); //reduce the stack in the backpack if you can refill and send back the refilled itemStack
-            if (resuppliedStack != null) {
+            if (!resuppliedStack.isEmpty()) {
                 stack.setCount(resuppliedStack.getCount()); //set the new stack size (as you can't/don't need to directly replace the stack)
             }
         }
@@ -272,7 +272,7 @@ public class ForgeEventHandler {
         if (!event.isCanceled()) { //only do it when I should
 
             //ExUtils builders wands broken b/c RWTema does weird things, disabled compat
-            if (event.getPlayer().getHeldItem(event.getHand()) != null && InterModSupport.isExtraUtilsLoaded && InterModSupport.isExUtilsBuildersWand(event.getPlayer().getHeldItem(event.getHand()).getItem())) return;
+            if (!event.getPlayer().getHeldItem(event.getHand()).isEmpty() && InterModSupport.isExtraUtilsLoaded && InterModSupport.isExUtilsBuildersWand(event.getPlayer().getHeldItem(event.getHand()).getItem())) return;
             //ToDo To Fix: instead of return directly, set a static class-level bool updateRestockNextTick true first, and make a main tick handler which updates if true and sets the bool back to false, so that it updates *after* the event and works
 
             //get all the backpacks to restock with
@@ -283,7 +283,7 @@ public class ForgeEventHandler {
             //get the block as an itemstack
             ItemStack itemStackPlaced = event.getPlacedBlock().getBlock().getPickBlock(event.getPlacedBlock(), rayTraceResult, event.getWorld(), event.getPos(), event.getPlayer());
 
-            if (event.getPlayer().getHeldItem(event.getHand()) != null && itemStackPlaced != null && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
+            if (!event.getPlayer().getHeldItem(event.getHand()).isEmpty() && !itemStackPlaced.isEmpty() && !backpacks.get(4).isEmpty()) { //null checks and has a backpack to restock from
                 if (!IronBackpacksHelper.areItemsEqualForStacking(event.getPlayer().getHeldItem(event.getHand()), itemStackPlaced)) { //if item in hand != item placed, if not the same then placed with some other method and have to scan inv
                     //pass that itemstack (along with other things) to a delegating method to deal with restocking for other methods
                     IronBackpacksEventHelper.handleIndirectRestock(event.getPlayer(), backpacks.get(4), itemStackPlaced);
@@ -388,7 +388,7 @@ public class ForgeEventHandler {
     public void onAnvilUpdate(AnvilUpdateEvent event) {
         if ((event.getLeft().getItem() instanceof ItemBackpack) || (event.getRight().getItem() instanceof ItemBackpack)) { //if a backpack in an anvil slot
             //probably overkill, but making sure it can't process
-            event.setOutput(null);
+            event.setOutput(ItemStack.EMPTY);
             event.setResult(Event.Result.DENY);
             event.setCanceled(true);
         }
@@ -417,7 +417,7 @@ public class ForgeEventHandler {
             EntityPlayer targetPlayer = (EntityPlayer) targetEntity; //typecast to entityPlayer
             if (targetPlayer.hasCapability(IronBackpacksCapabilities.WEARING_BACKPACK_CAPABILITY, null)) { //if have the capability
                 ItemStack backpack = IronBackpacksCapabilities.getWornBackpack(targetPlayer);
-                if (backpack != null) { //if the target is wearing a backpack need to update
+                if (!backpack.isEmpty()) { //if the target is wearing a backpack need to update
                     NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) tracker); //send a packet to the tracker's client to update their target
                 } else {
                     NetworkingHandler.network.sendTo(new ClientEquippedPackMessage(backpack), (EntityPlayerMP) tracker);

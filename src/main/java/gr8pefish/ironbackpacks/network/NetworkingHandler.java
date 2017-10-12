@@ -38,7 +38,6 @@ public class NetworkingHandler {
     private static int nextPacketId = 0;
 
     private static <M extends IMessage, MH extends IMessageHandler<M, IMessage>> void registerMessage(Class<MH> packet, Class<M> message, Side side) {
-        network.registerMessage(packet, message, nextPacketId, side);
-        nextPacketId++;
+        network.registerMessage(packet, message, nextPacketId++, side);
     }
 }

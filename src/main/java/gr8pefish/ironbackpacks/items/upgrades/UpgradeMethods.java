@@ -486,7 +486,7 @@ public class UpgradeMethods {
     public static NonNullList<ItemStack> getAdvFilterBasicItems(ItemStack[] itemStacks, byte[] buttonStates){
         NonNullList<ItemStack> returnArray = NonNullList.create();
         for (int i = 0; i < itemStacks.length; i++){
-            if (itemStacks[i] != null){
+            if (!itemStacks[i].isEmpty()){
                 if (buttonStates[i] == (byte) GuiButtonRegistry.getButton(ButtonNames.EXACT).getId()){
                     returnArray.add(itemStacks[i]);
                 }
@@ -504,7 +504,7 @@ public class UpgradeMethods {
     public static NonNullList<ItemStack> getAdvFilterFuzzyItems(ItemStack[] itemStacks, byte[] buttonStates){
         NonNullList<ItemStack> returnArray = NonNullList.create();
         for (int i = 0; i < itemStacks.length; i++){
-            if (itemStacks[i] != null){
+            if (!itemStacks[i].isEmpty()){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.FUZZY).getId()){
                     returnArray.add(itemStacks[i]);
                 }
@@ -522,7 +522,7 @@ public class UpgradeMethods {
     public static NonNullList<ItemStack> getAdvFilterModSpecificItems(ItemStack[] itemStacks, byte[] buttonStates){
         NonNullList<ItemStack> returnArray = NonNullList.create();
         for (int i = 0; i < itemStacks.length; i++){
-            if (itemStacks[i] != null){
+            if (!itemStacks[i].isEmpty()){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.MOD_SPECIFIC).getId()){
                     returnArray.add(itemStacks[i]);
                 }
@@ -540,7 +540,7 @@ public class UpgradeMethods {
     public static NonNullList<ItemStack> getAdvFilterOreDictItems(ItemStack[] itemStacks, byte[] buttonStates){
         NonNullList<ItemStack> returnArray = NonNullList.create();
         for (int i = 0; i < itemStacks.length; i++){
-            if (itemStacks[i] != null){
+            if (!itemStacks[i].isEmpty()){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.ORE_DICT).getId()){
                     returnArray.add(itemStacks[i]);
                 }
@@ -558,7 +558,7 @@ public class UpgradeMethods {
     public static NonNullList<ItemStack> getAdvFilterVoidItems(ItemStack[] itemStacks, byte[] buttonStates){
         NonNullList<ItemStack> returnArray = NonNullList.create();
         for (int i = 0; i < itemStacks.length; i++){
-            if (itemStacks[i] != null){
+            if (!itemStacks[i].isEmpty()){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.VOID).getId()){
                     returnArray.add(itemStacks[i]);
                 }
@@ -713,7 +713,7 @@ public class UpgradeMethods {
         if (transferTo.getSlots() > 0 && !(inventoryBackpack.isEmpty())){ //if have a valid inventory to transfer to and have items to transfer
             for (int i = 0; i < inventoryBackpack.getSizeInventory(); i++){
                 ItemStack stackToMove = inventoryBackpack.getStackInSlot(i);
-                if (stackToMove != null && stackToMove.getCount() > 0){
+                if (!stackToMove.isEmpty()){
                     ItemStack remainder = putInFirstValidSlot(transferTo, stackToMove, usePrecise);
                     inventoryBackpack.setInventorySlotContents(i, remainder);
                     inventoryBackpack.onGuiSaved(player);
@@ -733,7 +733,7 @@ public class UpgradeMethods {
      */
     private static ItemStack putInFirstValidSlot(IItemHandler transferTo, ItemStack stackToTransfer, boolean usePrecise){
         for (int i = 0; i < transferTo.getSlots(); i++) {
-            if (stackToTransfer == null) return null; //short circuit to return quickly
+            if (stackToTransfer.isEmpty()) return ItemStack.EMPTY; //short circuit to return quickly
             if (usePrecise) { //precise, have to check if the items is in the inventory already
                 if (isStackInInventoryAlready(transferTo, stackToTransfer)) {
                     stackToTransfer = transferToInv(transferTo, stackToTransfer, i);
@@ -760,7 +760,7 @@ public class UpgradeMethods {
                 if (sidedInventory.canInsertItem(transferToSlotNumber, stackToTransfer, enumFacings[j])) {
                     ItemStack simulated = transferTo.insertItem(transferToSlotNumber, stackToTransfer, false);
                     sidedInventory.markDirty();
-                    return (simulated == null) ? null : simulated.copy(); //important!
+                    return (simulated.isEmpty()) ? ItemStack.EMPTY : simulated.copy(); //important!
                 }
             }
         } else {
@@ -768,7 +768,7 @@ public class UpgradeMethods {
             ItemStack simulated = transferTo.insertItem(transferToSlotNumber, stackToTransfer, true);
             if (!IronBackpacksHelper.areItemStacksTheSame(simulated, originalTransferStack)) { //simulate, if can insert and item stack changes, can insert somewhat
                 transferTo.insertItem(transferToSlotNumber, stackToTransfer, false);
-                return (simulated == null) ? null : simulated.copy();  //important!
+                return (simulated.isEmpty()) ? ItemStack.EMPTY : simulated.copy();  //important!
             }
         }
         return stackToTransfer;
@@ -783,7 +783,7 @@ public class UpgradeMethods {
     private static boolean isStackInInventoryAlready(IItemHandler transferTo, ItemStack stackToTransfer){
         for (int i = 0; i < transferTo.getSlots(); i++) {
             ItemStack tempStack = transferTo.getStackInSlot(i);
-            if (tempStack != null && tempStack.getCount() > 0
+            if (!tempStack.isEmpty()
                     && stackToTransfer.isItemEqual(tempStack)
                     && ItemStack.areItemStackTagsEqual(tempStack, stackToTransfer)) {
                 return true;

@@ -1,5 +1,7 @@
 package gr8pefish.ironbackpacks.network.client;
 
+import com.google.common.base.Preconditions;
+
 import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerDeathBackpackCapabilities;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
@@ -22,6 +24,7 @@ public class ClientEquippedPackPlayerSensitiveMessage implements IMessage {
     public ClientEquippedPackPlayerSensitiveMessage() {} //default constructor is necessary
 
     public ClientEquippedPackPlayerSensitiveMessage(int entityID, ItemStack stack) {
+    	Preconditions.checkNotNull(stack);
         this.stack = stack;
         this.entityID = entityID;
     }
@@ -49,7 +52,7 @@ public class ClientEquippedPackPlayerSensitiveMessage implements IMessage {
                 EntityPlayer targetEntity = (EntityPlayer) world.getEntityByID(message.entityID);
                 if (targetEntity != null) {
                     PlayerWearingBackpackCapabilities.setEquippedBackpack(targetEntity, message.stack); //update the backpack
-                    PlayerDeathBackpackCapabilities.setEquippedBackpack(targetEntity, null); //update death equipped to null in case too
+                    PlayerDeathBackpackCapabilities.setEquippedBackpack(targetEntity, ItemStack.EMPTY); //update death equipped to null in case too
                 }
             });
 

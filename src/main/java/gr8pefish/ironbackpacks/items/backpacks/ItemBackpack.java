@@ -89,7 +89,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IB
                 ContainerBackpack container = new ContainerBackpack(new InventoryBackpack(player, itemstack));
                 for (int j = 0; j < container.getInventoryBackpack().getSizeInventory(); j++) {
                     ItemStack nestedBackpack = container.getInventoryBackpack().getStackInSlot(j);
-                    if (nestedBackpack != null && nestedBackpack.getItem() != null && nestedBackpack.getItem() instanceof IBackpack) {
+                    if (!nestedBackpack.isEmpty() && nestedBackpack.getItem() instanceof IBackpack) {
                         NonNullList<ItemStack> nestedUpgrades = IronBackpacksHelper.getUpgradesAppliedFromNBT(nestedBackpack);
                         if (UpgradeMethods.hasQuickDepositUpgrade(nestedUpgrades)) {
                             openAltGuiDepth = !UpgradeMethods.transferFromBackpackToInventory(player, nestedBackpack, world, pos, side, false);
@@ -131,8 +131,8 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IB
             if (upgrades.size() > 0)
                 list.add("");
 
-            if (this.getSpecialty(null) != null)
-                list.add(TextUtils.localizeEffect(this.getSpecialty(null)));
+            if (this.getSpecialty(ItemStack.EMPTY) != null)
+                list.add(TextUtils.localizeEffect(this.getSpecialty(ItemStack.EMPTY)));
 
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used", upgradesUsed, totalUpgradePoints));
             list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.used.alt", UpgradeMethods.getAltGuiUpgradesApplied(upgrades), IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
@@ -141,7 +141,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IB
                 list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.backpack.upgrade.rename", IronBackpacksConstants.Upgrades.ALT_GUI_UPGRADES_ALLOWED));
 
 
-            int additionalPossiblePoints = this.getAdditionalUpgradePoints(null);
+            int additionalPossiblePoints = this.getAdditionalUpgradePoints(ItemStack.EMPTY);
 
             if (additionalPossiblePoints > 0) {
                 int used = IronBackpacksHelper.getAdditionalUpgradesTimesApplied(stack) * ConfigHandler.additionalUpgradePointsIncrease;
@@ -191,7 +191,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IB
         int total = 0;
         int full = 0;
 
-        if (stack != null) {
+        if (!stack.isEmpty()) {
             NBTTagCompound nbtTagCompound = stack.getTagCompound();
             if (nbtTagCompound != null) {
                 if (nbtTagCompound.hasKey("Items")) {
@@ -204,7 +204,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IB
                             inventory[slot] = new ItemStack(stackTag);
                     }
                     for (ItemStack tempStack : inventory) {
-                        if (tempStack != null) {
+                        if (!tempStack.isEmpty()) {
                             full += tempStack.getCount();
                             total += tempStack.getMaxStackSize();
                         } else {

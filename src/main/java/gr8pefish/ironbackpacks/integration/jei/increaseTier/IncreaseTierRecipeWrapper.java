@@ -8,7 +8,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import gr8pefish.ironbackpacks.crafting.BackpackIncreaseTierRecipe;
+import gr8pefish.ironbackpacks.api.recipes.IIncreaseBackpackTierRecipe;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -18,11 +18,11 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class IncreaseTierRecipeWrapper implements IRecipeWrapper {
 
-    private BackpackIncreaseTierRecipe recipe;
+    private IIncreaseBackpackTierRecipe recipe;
     private final String[] description;
     private final String craftingType;
 
-    public IncreaseTierRecipeWrapper(BackpackIncreaseTierRecipe recipe){
+    public IncreaseTierRecipeWrapper(IIncreaseBackpackTierRecipe recipe){
         this.craftingType = TextUtils.localize("jei.description.shapedCrafting"); //type of recipes
         this.description = TextUtils.cutLongString(TextUtils.localize("jei.description.increaseTier")); //description
         this.recipe = recipe;

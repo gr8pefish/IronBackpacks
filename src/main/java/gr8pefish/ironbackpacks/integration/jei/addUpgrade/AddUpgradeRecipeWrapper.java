@@ -8,7 +8,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import gr8pefish.ironbackpacks.crafting.BackpackAddUpgradeRecipe;
+import gr8pefish.ironbackpacks.api.recipes.IAddUpgradeRecipe;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import mezz.jei.api.gui.ITooltipCallback;
 import mezz.jei.api.ingredients.IIngredients;
@@ -19,12 +19,12 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class AddUpgradeRecipeWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack> {
 
-    private BackpackAddUpgradeRecipe addUpgradeRecipe;
+    private IAddUpgradeRecipe addUpgradeRecipe;
     private final String[] description;
     private final String[] descriptionAdditional;
     private final String craftingType;
 
-    public AddUpgradeRecipeWrapper(BackpackAddUpgradeRecipe recipe){
+    public AddUpgradeRecipeWrapper(IAddUpgradeRecipe recipe){
         this.craftingType = TextUtils.localize("jei.description.shapelessCrafting"); //to indicate the recipes style
         this.description = TextUtils.cutLongString(TextUtils.localize("jei.description.addUpgrade")); //the main description
         this.descriptionAdditional = TextUtils.cutLongString(TextUtils.localize("jei.description.addUpgrade.additional")); //the secondary description
