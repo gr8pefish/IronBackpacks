@@ -24,19 +24,18 @@ public class ContainerBackpack extends Container {
 
     // Fields
 
-    /** Offhand used or not. */
-    private final int blocked;
     @Nonnull
     private final BackpackInfo backpackInfo;
     @Nonnull
     private final BackpackSize backpackSize;
     @Nonnull
     private final ItemStack backpackStack;
+    /** Offhand used or not. */
+    private int blocked = -1;
 
     // Constructor
 
     public ContainerBackpack(@Nonnull ItemStack backpackStack, @Nonnull InventoryPlayer inventoryPlayer, @Nonnull EnumHand hand) {
-
         Preconditions.checkNotNull(backpackStack, "backpackStack cannot be null");
         Preconditions.checkNotNull(inventoryPlayer, "inventoryPlayer cannot be null");
         Preconditions.checkNotNull(hand, "EnumHand cannot be null");
@@ -50,7 +49,6 @@ public class ContainerBackpack extends Container {
         this.backpackInfo = backpackInfo;
         this.backpackStack = backpackStack;
         this.backpackSize = backpackInfo.getVariant().getBackpackSize();
-        this.blocked = hand == EnumHand.MAIN_HAND ? (inventorySlots.size() - 1) - (8 - inventoryPlayer.currentItem) : -1;
 
         setupSlots(inventoryPlayer, itemHandler);
     }
@@ -62,14 +60,24 @@ public class ContainerBackpack extends Container {
         return true;
     }
 
+    @Override
+    public void putStackInSlot(int slotID, ItemStack stack) {
+        super.putStackInSlot(slotID, stack);
+    }
+
     @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
         Slot slot = this.getSlot(slotIndex);
 
-        if (slot == null || !slot.getHasStack()) {
+        if (!slot.canTakeStack(player))
+            return slot.getStack();
+
+        if (slotIndex == blocked)
             return ItemStack.EMPTY;
-        }
+
+        if (!slot.getHasStack())
+            return ItemStack.EMPTY;
 
         ItemStack stack = slot.getStack();
         ItemStack newStack = stack.copy();
@@ -78,28 +86,30 @@ public class ContainerBackpack extends Container {
             if (!this.mergeItemStack(stack, backpackSize.getTotalSize(), this.inventorySlots.size(), true))
                 return ItemStack.EMPTY;
             slot.onSlotChanged();
-        }
-        else if (!this.mergeItemStack(stack, 0, backpackSize.getTotalSize(), false)) {
+        } else if (!this.mergeItemStack(stack, 0, backpackSize.getTotalSize(), false))
             return ItemStack.EMPTY;
-        }
-        if (stack.isEmpty()) {
+
+        if (stack.isEmpty())
             slot.putStack(ItemStack.EMPTY);
-        }
-        else {
+        else
             slot.onSlotChanged();
-        }
 
         return slot.onTake(player, newStack);
     }
 
     @Nonnull
     @Override
-    public ItemStack slotClick(int slot, int button, ClickType flag, EntityPlayer player) {
-        if (slot == blocked) {
-            return ItemStack.EMPTY;
-        }
+    public ItemStack slotClick(int slotId, int button, ClickType flag, EntityPlayer player) {
+        if (slotId < 0 || slotId > inventorySlots.size())
+            return super.slotClick(slotId, button, flag, player);
 
-        return super.slotClick(slot, button, flag, player);
+        Slot slot = inventorySlots.get(slotId);
+        if (slotId == blocked)
+            return slot.getStack();
+
+        // TODO - Check for nesting upgrades and properly handle
+
+        return super.slotClick(slotId, button, flag, player);
     }
 
     @Override
@@ -158,8 +168,7 @@ public class ContainerBackpack extends Container {
         int yOffset = 1 + getBorderTop();
         for (int y = 0; y < backpackSize.getRows(); y++, yOffset += 18)
             for (int x = 0; x < backpackSize.getColumns(); x++)
-                addSlotToContainer(new SlotItemHandler(itemHandler, x + y * backpackSize.getColumns(),
-                        xOffset + x * 18, yOffset));
+                addSlotToContainer(new SlotItemHandler(itemHandler, x + y * backpackSize.getColumns(), xOffset + x * 18, yOffset));
     }
 
     /**
@@ -176,16 +185,15 @@ public class ContainerBackpack extends Container {
         //Inventory
         for (int y = 0; y < 3; y++, yOffset += 18)
             for (int x = 0; x < 9; x++)
-                addSlotToContainer(new Slot(
-                        inventoryPlayer, x + y * 9 + 9,
-                        xOffset + x * 18, yOffset));
+                addSlotToContainer(new Slot(inventoryPlayer, x + y * 9 + 9, xOffset + x * 18, yOffset));
 
         //Hotbar
         yOffset += getBufferHotbar();
-        for (int x = 0; x < 9; x++)
-            addSlotToContainer(new Slot(
-                    inventoryPlayer, x,
-                    xOffset + x * 18, yOffset));
+        for (int x = 0; x < 9; x++) {
+            Slot slot = addSlotToContainer(new Slot(inventoryPlayer, x, xOffset + x * 18, yOffset));
+            if (x == inventoryPlayer.currentItem)
+                blocked = slot.slotNumber;
+        }
     }
 
     // GUI/slot setup helpers
@@ -266,5 +274,4 @@ public class ContainerBackpack extends Container {
     public int getPlayerInvHeight() {
         return 4 * 18 + getBufferHotbar();
     }
-
 }
