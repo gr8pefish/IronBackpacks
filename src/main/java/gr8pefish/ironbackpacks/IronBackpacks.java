@@ -1,6 +1,6 @@
 package gr8pefish.ironbackpacks;
 
-import gr8pefish.ironbackpacks.api.BackpackSpecialty;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.proxy.CommonProxy;

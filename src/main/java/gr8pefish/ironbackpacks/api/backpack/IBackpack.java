@@ -1,6 +1,7 @@
-package gr8pefish.ironbackpacks.api;
+package gr8pefish.ironbackpacks.api.backpack;
 
 import com.google.common.base.Preconditions;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -13,8 +14,8 @@ public interface IBackpack {
     /**
      * Gets the container object for all backpack data from the stack.
      *
-     * @param stack The stack to get the backpack information from
-     * @return the container object for all backpack data
+     * @param stack - The stack to get the backpack information from
+     * @return - The container object for all backpack data
      */
     @Nonnull
     default BackpackInfo getBackpackInfo(@Nonnull ItemStack stack) {
@@ -26,8 +27,8 @@ public interface IBackpack {
     /**
      * Writes the modified backpack data back to the stack. Must be called after any changes are made to the BackpackInfo
      *
-     * @param stack Stack to write backpack data to
-     * @param backpackInfo Modified data to write to stack
+     * @param stack - Stack to write backpack data to
+     * @param backpackInfo - Modified data to write to stack
      */
     default void updateBackpack(@Nonnull ItemStack stack, @Nonnull BackpackInfo backpackInfo) {
         Preconditions.checkNotNull(stack, "ItemStack cannot be null");

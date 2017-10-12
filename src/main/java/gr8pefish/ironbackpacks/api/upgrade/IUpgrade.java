@@ -1,6 +1,7 @@
-package gr8pefish.ironbackpacks.api;
+package gr8pefish.ironbackpacks.api.upgrade;
 
 import com.google.common.base.Preconditions;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 

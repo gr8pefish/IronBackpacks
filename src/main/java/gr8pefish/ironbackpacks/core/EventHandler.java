@@ -1,9 +1,9 @@
 package gr8pefish.ironbackpacks.core;
 
-import gr8pefish.ironbackpacks.api.BackpackInfo;
-import gr8pefish.ironbackpacks.api.BackpackUpgrade;
-import gr8pefish.ironbackpacks.api.IBackpack;
-import gr8pefish.ironbackpacks.api.IUpgrade;
+import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
+import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
+import gr8pefish.ironbackpacks.api.backpack.IBackpack;
+import gr8pefish.ironbackpacks.api.upgrade.IUpgrade;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,7 +24,7 @@ public class EventHandler {
             return;
         }
 
-        // TODO - removing upgrades
+        // TODO - removing upgrade
     }
 
     @Nonnull
@@ -41,7 +41,7 @@ public class EventHandler {
         BackpackInfo packInfo = ((IBackpack) output.getItem()).getBackpackInfo(output);
         BackpackUpgrade upgrade = ((IUpgrade) right.getItem()).getUpgrade(right);
 
-        if (upgrade.isNull() || packInfo.getBackpackType().isNull())
+        if (upgrade.isNull() || packInfo.getVariant().getBackpackType().isNull())
             return ItemStack.EMPTY;
 
         if (packInfo.conflicts(upgrade))
@@ -53,10 +53,10 @@ public class EventHandler {
         if (packInfo.hasUpgrade(upgrade))
             return ItemStack.EMPTY;
 
-        if (packInfo.getBackpackType().getTier() < upgrade.getMinimumTier())
+        if (packInfo.getVariant().getBackpackType().getTier() < upgrade.getMinimumTier())
             return ItemStack.EMPTY;
 
-        packInfo.applyUpgrade(upgrade);
+        packInfo.addUpgrade(upgrade);
         backpack.updateBackpack(output, packInfo);
 
         return output;
