@@ -12,6 +12,7 @@ import gr8pefish.ironbackpacks.capabilities.BackpackHandler;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.network.GuiHandler;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -72,7 +73,10 @@ public class ItemBackpack extends Item implements IBackpack {
     }
 
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+        if (!isInCreativeTab(tab))
+            return;
+
         List<BackpackType> sortedTypes = Lists.newArrayList(IronBackpacksAPI.getBackpackTypes());
         sortedTypes.sort(Comparator.comparingInt(BackpackType::getTier));
 
@@ -119,7 +123,7 @@ public class ItemBackpack extends Item implements IBackpack {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced) {
         BackpackInfo backpackInfo = getBackpackInfo(stack);
         if (backpackInfo.getVariant().getBackpackType().hasSpecialties())
             tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.emphasis." + backpackInfo.getVariant().getBackpackSpecialty().getName()));

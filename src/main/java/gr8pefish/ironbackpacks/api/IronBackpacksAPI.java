@@ -9,13 +9,14 @@ import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackVariant;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,9 +31,9 @@ public class IronBackpacksAPI {
 
     /** Public object holder references to all the items in Iron Backpacks. */
     @GameRegistry.ObjectHolder("ironbackpacks:backpack")
-    public static Item BACKPACK_ITEM = null;
+    public static Item BACKPACK_ITEM = Items.AIR;
     @GameRegistry.ObjectHolder("ironbackpacks:upgrade")
-    public static Item UPGRADE_ITEM = null;
+    public static Item UPGRADE_ITEM = Items.AIR;
 
     /** Private registries for internal use (can be accessed publicly via methods below). */
     private static IForgeRegistry<BackpackType> backpackTypeRegistry = null;
@@ -231,7 +232,6 @@ public class IronBackpacksAPI {
      */
     @Nullable
     public static BackpackVariant getBackpackVariantFromList(@Nonnull BackpackType type, @Nonnull BackpackSpecialty specialty) {
-
         Preconditions.checkNotNull(specialty, "Specialty cannot be null");
         Preconditions.checkNotNull(type, "Type cannot be null");
 

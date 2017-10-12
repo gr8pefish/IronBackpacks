@@ -1,6 +1,5 @@
 package gr8pefish.ironbackpacks.api.upgrade;
 
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
@@ -9,7 +8,8 @@ import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -80,8 +80,8 @@ public class BackpackUpgrade extends IForgeRegistryEntry.Impl<BackpackUpgrade> {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this)
-                .add("identifier", identifier)
+        return new ToStringBuilder(this)
+                .append("identifier", identifier)
                 .toString();
     }
 

@@ -8,13 +8,14 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
+import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
-public class RecipeCategoryTier extends BlankRecipeCategory<RecipeWrapperTier> {
+public class RecipeCategoryTier implements IRecipeCategory<RecipeWrapperTier> {
 
     public static final String ID = IronBackpacks.MODID + ":tier";
 
@@ -30,6 +31,11 @@ public class RecipeCategoryTier extends BlankRecipeCategory<RecipeWrapperTier> {
         background = guiHelper.createDrawable(backgroundLocation, 0, 0, 166, 130);
         icon = guiHelper.createDrawable(backgroundLocation, 168, 0, 16, 16);
         craftingGridHelper = guiHelper.createCraftingGridHelper(1, 0);
+    }
+
+    @Override
+    public String getModName() {
+        return IronBackpacks.NAME;
     }
 
     @Override

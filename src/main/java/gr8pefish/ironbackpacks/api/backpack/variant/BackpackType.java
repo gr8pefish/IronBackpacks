@@ -1,10 +1,10 @@
 package gr8pefish.ironbackpacks.api.backpack.variant;
 
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -86,10 +86,11 @@ public class BackpackType extends IForgeRegistryEntry.Impl<BackpackType> {
 
     // Overrides
 
+
     @Override
     public String toString() {
-        return Objects.toStringHelper(this)
-                .add("identifier", identifier)
+        return new ToStringBuilder(this)
+                .append("identifier", identifier)
                 .toString();
     }
 

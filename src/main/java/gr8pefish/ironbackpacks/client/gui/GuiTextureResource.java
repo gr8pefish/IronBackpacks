@@ -3,8 +3,8 @@ package gr8pefish.ironbackpacks.client.gui;
 import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -47,12 +47,12 @@ public class GuiTextureResource extends ResourceLocation {
         float scaleX = 1.0F / defaultWidth;
         float scaleY = 1.0F / defaultHeight;
         Tessellator tess = Tessellator.getInstance();
-        VertexBuffer vb = tess.getBuffer();
-        vb.begin(7, DefaultVertexFormats.POSITION_TEX);
-        vb.pos(x + 0, y + h, zLevel).tex((u + 0) * scaleX, (v + h) * scaleY).endVertex();
-        vb.pos(x + w, y + h, zLevel).tex((u + w) * scaleX, (v + h) * scaleY).endVertex();
-        vb.pos(x + w, y + 0, zLevel).tex((u + w) * scaleX, (v + 0) * scaleY).endVertex();
-        vb.pos(x + 0, y + 0, zLevel).tex((u + 0) * scaleX, (v + 0) * scaleY).endVertex();
+        BufferBuilder bufferBuilder = tess.getBuffer();
+        bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+        bufferBuilder.pos(x + 0, y + h, zLevel).tex((u + 0) * scaleX, (v + h) * scaleY).endVertex();
+        bufferBuilder.pos(x + w, y + h, zLevel).tex((u + w) * scaleX, (v + h) * scaleY).endVertex();
+        bufferBuilder.pos(x + w, y + 0, zLevel).tex((u + w) * scaleX, (v + 0) * scaleY).endVertex();
+        bufferBuilder.pos(x + 0, y + 0, zLevel).tex((u + 0) * scaleX, (v + 0) * scaleY).endVertex();
         tess.draw();
     }
 

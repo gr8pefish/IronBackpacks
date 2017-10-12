@@ -1,9 +1,11 @@
 package gr8pefish.ironbackpacks.integration.jei;
 
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
+import gr8pefish.ironbackpacks.core.recipe.BackpackTierRecipe;
 import gr8pefish.ironbackpacks.integration.jei.recipe.upgrade.RecipeCategoryTier;
-import gr8pefish.ironbackpacks.integration.jei.recipe.upgrade.RecipeHandlerTier;
+import gr8pefish.ironbackpacks.integration.jei.recipe.upgrade.RecipeWrapperTier;
 import mezz.jei.api.*;
+import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
@@ -17,18 +19,13 @@ public class IronBackpacksJEIPlugin extends BlankModPlugin {
     public void register(IModRegistry registry) {
         helpers = registry.getJeiHelpers();
 
-        registry.addRecipeCategories(
-                new RecipeCategoryTier(helpers.getGuiHelper())
-        );
+        registry.handleRecipes(BackpackTierRecipe.class, RecipeWrapperTier::new, RecipeCategoryTier.ID);
+        registry.addRecipeCatalyst(new ItemStack(Blocks.CRAFTING_TABLE), RecipeCategoryTier.ID);
+    }
 
-        registry.addRecipeHandlers(
-                new RecipeHandlerTier()
-        );
-
-        registry.addRecipeCategoryCraftingItem
-                (new ItemStack(Blocks.CRAFTING_TABLE),
-                RecipeCategoryTier.ID
-        );
+    @Override
+    public void registerCategories(IRecipeCategoryRegistration registry) {
+        registry.addRecipeCategories(new RecipeCategoryTier(registry.getJeiHelpers().getGuiHelper()));
     }
 
     @Override

@@ -4,17 +4,16 @@ import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.core.recipe.BackpackTierRecipe;
 import gr8pefish.ironbackpacks.integration.jei.IronBackpacksJEIPlugin;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IStackHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class RecipeWrapperTier extends BlankRecipeWrapper {
+public class RecipeWrapperTier implements IRecipeWrapper {
 
     private final BackpackTierRecipe backpackTierRecipe;
 
@@ -27,7 +26,7 @@ public class RecipeWrapperTier extends BlankRecipeWrapper {
         IStackHelper stackHelper = IronBackpacksJEIPlugin.helpers.getStackHelper();
         ItemStack recipeOutput = backpackTierRecipe.getRecipeOutput();
 
-        List<List<ItemStack>> inputs = stackHelper.expandRecipeItemStackInputs(Arrays.asList(backpackTierRecipe.getInput()));
+        List<List<ItemStack>> inputs = stackHelper.expandRecipeItemStackInputs(backpackTierRecipe.getIngredients());
         ingredients.setInputLists(ItemStack.class, inputs);
         ingredients.setOutput(ItemStack.class, recipeOutput);
     }
@@ -41,7 +40,6 @@ public class RecipeWrapperTier extends BlankRecipeWrapper {
         List<String> description = minecraft.fontRenderer.listFormattedStringToWidth(I18n.format("jei.ironbackpacks.increaseTier.desc"), 160);
         for (int i = 0; i < description.size(); i++)
             minecraft.fontRenderer.drawString(description.get(i), 10, 69 + (i * 8), 0);
-
     }
 
 

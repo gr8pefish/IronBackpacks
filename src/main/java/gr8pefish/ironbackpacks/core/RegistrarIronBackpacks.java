@@ -13,6 +13,7 @@ import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.item.ItemBackpack;
 import gr8pefish.ironbackpacks.item.ItemUpgrade;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -22,10 +23,10 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
-import net.minecraftforge.fml.common.registry.RegistryBuilder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
 
 @SuppressWarnings("ConstantConditions")
 @Mod.EventBusSubscriber
@@ -33,10 +34,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RegistrarIronBackpacks {
 
     // Items
-    @GameRegistry.ObjectHolder("backpack")
-    public static final ItemBackpack BACKPACK = null;
-    @GameRegistry.ObjectHolder("upgrade")
-    public static final ItemUpgrade UPGRADE = null;
+    public static final Item BACKPACK = Items.AIR;
+    public static final Item UPGRADE = Items.AIR;
 
     // Sounds
     @GameRegistry.ObjectHolder("open_backpack")
@@ -149,7 +148,7 @@ public class RegistrarIronBackpacks {
                 .setDefaultKey(IronBackpacksAPI.NULL)
                 .setType(BackpackType.class)
                 .setIDRange(0, Integer.MAX_VALUE - 1)
-                .addCallback((IForgeRegistry.AddCallback<BackpackType>) (obj, id, slaveset) -> Preconditions.checkNotNull(obj, "Attempted to register null Backpack type"))
+                .addCallback((IForgeRegistry.AddCallback<BackpackType>) (o, s, id, obj, oldObj) -> Preconditions.checkNotNull(obj, "Attempted to register null Backpack type"))
                 .create();
 
         REGISTRY_UPGRADES = new RegistryBuilder<BackpackUpgrade>()
@@ -157,7 +156,7 @@ public class RegistrarIronBackpacks {
                 .setDefaultKey(IronBackpacksAPI.NULL)
                 .setType(BackpackUpgrade.class)
                 .setIDRange(0, Integer.MAX_VALUE - 1)
-                .addCallback((IForgeRegistry.AddCallback<BackpackUpgrade>) (obj, id, slaveset) -> Preconditions.checkNotNull(obj, "Attempted to register null Backpack upgrade"))
+                .addCallback((IForgeRegistry.AddCallback<BackpackUpgrade>) (o, s, id, obj, oldObj) -> Preconditions.checkNotNull(obj, "Attempted to register null Backpack upgrade"))
                 .create();
     }
 }
