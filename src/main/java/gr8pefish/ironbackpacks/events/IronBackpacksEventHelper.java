@@ -530,9 +530,8 @@ public class IronBackpacksEventHelper {
 
                                             shouldSave = true;
 
-                                            int numberOfIterations = (int) Math.floor(theStack.getCount() / (craftingGridDiameterToFill * craftingGridDiameterToFill));
+                                            int numberOfIterations = Math.floorDiv(theStack.getCount(), (craftingGridDiameterToFill * craftingGridDiameterToFill));
                                             int numberOfItems = recipeOutput.getCount() * numberOfIterations;
-
                                             if (numberOfItems > 64){ //multiple stacks, need to make sure there is room
 
                                                 //More efficient code [that doesn't work]
@@ -550,15 +549,16 @@ public class IronBackpacksEventHelper {
 
                                                 //TODO: iterates an excessive amount, make it more efficient by using the basis of the code above
                                                 for (int i = 0; i < numberOfIterations; i++){ //for every possible recipes operation
-                                                    ItemStack myRecipeOutput = new ItemStack(recipeOutput.getItem(), recipeOutput.getCount(), recipeOutput.getItemDamage()); //get the output
+                                                    ItemStack myRecipeOutput = recipeOutput.copy(); //get the output
                                                     ItemStack stack = container.transferStackInSlot(myRecipeOutput); //try to put that output into the backpack
-                                                    if (myRecipeOutput.getCount() == stack.getCount()){ //can't put it anywhere
+                                                    if (recipeOutput.getCount() == stack.getCount()){ //can't put it anywhere
                                                         break;
-                                                    }else if (stack.getCount() != 0){ //remainder present, stack couldn't be fully transferred, undo the last operation
+                                                    }else if (!stack.isEmpty()) { //remainder present, stack couldn't be fully transferred, undo the last operation
                                                         Slot slot = container.getSlot(itemBackpack.getSize(backpack)-1); //last slot in pack
                                                         slot.putStack(new ItemStack(recipeOutput.getItem(), recipeOutput.getMaxStackSize()-(recipeOutput.getCount() - stack.getCount()), recipeOutput.getItemDamage()));
                                                         break;
                                                     } else { //normal condition, stack was fully transferred
+                                                    	System.out.println(theSlot.getStack());
                                                     	theSlot.decrStackSize(1);
                                                     }
                                                 }
