@@ -25,7 +25,6 @@ import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.helpers.InventoryRenderHelper;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 /**
  * Registers all the items in this mod.
@@ -268,7 +267,7 @@ public class ItemRegistry {
         //init the render helper
         InventoryRenderHelper renderHelper = new InventoryRenderHelper(Constants.DOMAIN);
 
-        //render the backpack items (tiered orderd)
+        //render the backpack items (tiered ordered)
         renderHelper.itemRender(basicBackpack, "ItemBackpackBasic");
         renderHelper.itemRender(ironBackpackStorageEmphasis, "ItemBackpackIronStorage");
         renderHelper.itemRender(ironBackpackUpgradeEmphasis, "ItemBackpackIronUpgrade");
@@ -325,13 +324,8 @@ public class ItemRegistry {
         if (item instanceof IBackpack){
             ItemIBackpackRegistry.registerItemBackpack((IBackpack)item);
         }
-        //Set the registry name and register it
-        //unlocalized name taken care of in item creation
         item.setRegistryName(name);
-        ForgeRegistries.ITEMS.register(item);
-
-        //Deprecated code
-        //GameRegistry.registerItem(item, name);
+        RegistryEvents.ITEMS.add(item);
 
         return item;
     }

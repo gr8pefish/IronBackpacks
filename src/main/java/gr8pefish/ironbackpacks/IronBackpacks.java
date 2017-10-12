@@ -15,8 +15,7 @@ import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.proxies.CommonProxy;
 import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
-import gr8pefish.ironbackpacks.registry.RecipeRegistry;
-import gr8pefish.ironbackpacks.sounds.IronBackpacksSounds;
+import gr8pefish.ironbackpacks.registry.RegistryEvents;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -67,21 +66,17 @@ public class IronBackpacks {
 		//networking
 		NetworkingHandler.initPackets();
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-
-        //items
-        ItemRegistry.registerItems();
-
+		
         //Register buttons
         GuiButtonRegistry.registerButtons(); //need it on server side for inventory stuff (i.e. containerAltGui)
 
 		//Achievements (Advancements soon:tm:)
 		//IronBackpacksAchievements.init();
 
-		//Sounds
-		IronBackpacksSounds.registerSounds();
-
 		//Keybindings, Client Event Handler, and Rendering
 		proxy.preInit();
+		
+		MinecraftForge.EVENT_BUS.register(new RegistryEvents());
 
 	}
 
@@ -93,9 +88,6 @@ public class IronBackpacks {
 
 		//event config
 		MinecraftForge.EVENT_BUS.register(new ForgeEventHandler());
-
-		//recipes
-		RecipeRegistry.registerAllRecipes();
 
 		//entity rendering
 		proxy.init();

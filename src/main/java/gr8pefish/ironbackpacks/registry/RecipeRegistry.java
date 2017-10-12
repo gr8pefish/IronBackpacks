@@ -22,8 +22,9 @@ import gr8pefish.ironbackpacks.libs.recipes.ItemBackpackRecipes;
 import gr8pefish.ironbackpacks.libs.recipes.ItemCraftingRecipes;
 import gr8pefish.ironbackpacks.libs.recipes.ItemUpgradeRecipes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 
 /**
  * Register all the recipes here.
@@ -37,7 +38,7 @@ public class RecipeRegistry {
 	/**
 	 * Main method that registers all the recipes
 	 */
-	public static void registerAllRecipes() {
+	public static void registerAllRecipes(IForgeRegistry<IRecipe> reg) {
 
         //Basic Item Recipes
         ItemCraftingRecipes.registerItemCraftingRecipes(); //register the recipes to get the recipes items
@@ -45,9 +46,9 @@ public class RecipeRegistry {
 		ItemBackpackRecipes.registerItemBackpackRecipes(); //register all the recipes to get the backpacks directly
 
         //Register the recipes themselves
-        registerBackpackTierRecipes(); //register the recipes to upgrade a backpack to the next tier
-		registerBackpackUpgradeRemovalRecipes(); //register the recipes to remove upgrades from backpacks
-        registerBackpackUpgradeAdditionRecipes(); //register the recipes to add upgrades from backpacks
+        registerBackpackTierRecipes(reg); //register the recipes to upgrade a backpack to the next tier
+		registerBackpackUpgradeRemovalRecipes(reg); //register the recipes to remove upgrades from backpacks
+        registerBackpackUpgradeAdditionRecipes(reg); //register the recipes to add upgrades from backpacks
 
 
 	}
@@ -117,14 +118,14 @@ public class RecipeRegistry {
     /**
      * Register the upgrade removal recipes for every backpack (if it is an IUpgradableBackpack)
      */
-    private static void registerBackpackUpgradeRemovalRecipes(){
+    private static void registerBackpackUpgradeRemovalRecipes(IForgeRegistry<IRecipe> reg){
         for (int i = 0; i < ItemIBackpackRegistry.getSize(); i++){
             IBackpack backpack = ItemIBackpackRegistry.getBackpackAtIndex(i);
             if (backpack instanceof IUpgradableBackpack) {
                 BackpackRemoveUpgradeRecipe recipe = new BackpackRemoveUpgradeRecipe(new ItemStack((ItemBackpack)backpack), new ItemStack((ItemBackpack)backpack)); //Hardcoded to ItemBackpack
                 if(recipe.getRegistryName() == null)
                 	recipe.setRegistryName(new ResourceLocation(Constants.MODID, "recipe"+Constants.j++));
-                ForgeRegistries.RECIPES.register(recipe);
+                reg.register(recipe);
                 IAllRecipesRegistry.registerUpgradeRemovalRecipe(recipe);
             }
         }
@@ -134,7 +135,7 @@ public class RecipeRegistry {
      * Register the recipe for the addition of upgrades to an IUpgradeableBackpack.
      * If the backpack is also an ITieredBackpack, then the tier of the upgrade must be lower than or equal to the backpack to allow it to be applied.
      */
-    private static void registerBackpackUpgradeAdditionRecipes() {
+    private static void registerBackpackUpgradeAdditionRecipes(IForgeRegistry<IRecipe> reg) {
         ArrayList<ItemStack> upgrades = new ArrayList<>();
         for (int i = 0; i < ItemIUpgradeRegistry.getTotalSize(); i++)
             upgrades.add(new ItemStack(ItemRegistry.upgradeItem, 1, i));
@@ -150,7 +151,7 @@ public class RecipeRegistry {
                             BackpackAddUpgradeRecipe recipe = new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack) backpack), upgrade, new ItemStack((ItemBackpack) backpack)); //Hardcoded to ItemBackpack
                             if(recipe.getRegistryName() == null)
                             	recipe.setRegistryName(new ResourceLocation(Constants.MODID, "recipe"+Constants.j++));
-                            ForgeRegistries.RECIPES.register(recipe);
+                            reg.register(recipe);
                             IAllRecipesRegistry.registerUpgradeAdditionRecipe(recipe);
                         }
                     } else {
@@ -158,7 +159,7 @@ public class RecipeRegistry {
                         BackpackAddUpgradeRecipe recipe = new BackpackAddUpgradeRecipe(new ItemStack((ItemBackpack) backpack), upgrade, new ItemStack((ItemBackpack) backpack)); //Hardcoded to ItemBackpack
                         if(recipe.getRegistryName() == null)
                         	recipe.setRegistryName(new ResourceLocation(Constants.MODID, "recipe"+Constants.j++));
-                        ForgeRegistries.RECIPES.register(recipe);
+                        reg.register(recipe);
                         IAllRecipesRegistry.registerUpgradeAdditionRecipe(recipe);
                     }
                 }
@@ -169,7 +170,7 @@ public class RecipeRegistry {
     /**
      * Register the recipe for the backpack to increase a tier.
      */
-    public static void registerBackpackTierRecipes(){
+    public static void registerBackpackTierRecipes(IForgeRegistry<IRecipe> reg){
         for (int i = 0; i < ItemIBackpackRegistry.getSize(); i++){
             IBackpack backpack = ItemIBackpackRegistry.getBackpackAtIndex(i);
             if (backpack instanceof ITieredBackpack) {
@@ -182,7 +183,7 @@ public class RecipeRegistry {
                         BackpackIncreaseTierRecipe tierRecipe = new BackpackIncreaseTierRecipe(new ItemStack((ItemBackpack)upgradedPacks.get(j)), recipes.get(j)); //hardcoded to ItemBackpack
                         if(tierRecipe.getRegistryName() == null)
                         	tierRecipe.setRegistryName(new ResourceLocation(Constants.MODID, "recipe"+Constants.j++));
-                        ForgeRegistries.RECIPES.register(tierRecipe);
+                        reg.register(tierRecipe);
                         IAllRecipesRegistry.registerTierIncreaseRecipe(tierRecipe);
                     }
                 }
