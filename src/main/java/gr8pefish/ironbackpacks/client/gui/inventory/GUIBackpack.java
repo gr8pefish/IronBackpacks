@@ -1,5 +1,11 @@
 package gr8pefish.ironbackpacks.client.gui.inventory;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import org.lwjgl.opengl.GL11;
+
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
 import gr8pefish.ironbackpacks.client.gui.buttons.TooltipButton;
 import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
@@ -13,22 +19,16 @@ import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * The main gui that holds the backpack's primary inventory
  */
 @SideOnly(Side.CLIENT)
-public class GUIBackpack extends GuiContainer {
+public class GUIBackpack extends GuiOneTwelveSux {
 
     public ContainerBackpack container; //the container
     private ItemStack itemStack = ItemStack.EMPTY; //the itemstack backpack

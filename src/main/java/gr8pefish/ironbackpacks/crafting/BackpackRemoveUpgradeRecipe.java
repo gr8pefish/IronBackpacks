@@ -30,9 +30,9 @@ public class BackpackRemoveUpgradeRecipe extends Impl<IRecipe> implements IRemov
 
 	private final ShapelessOreRecipe internal;
 	
-    private ItemStack recipeOutput; //The outputted items after recipes
+    private ItemStack recipeOutput = ItemStack.EMPTY; //The outputted items after recipes
 
-    private ItemStack upgradeRemovedStack;
+    private ItemStack upgradeRemovedStack = ItemStack.EMPTY;
 
     public BackpackRemoveUpgradeRecipe(ItemStack recipeOutput, Object... items) {
         internal = new ShapelessOreRecipe(null, recipeOutput, items);

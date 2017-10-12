@@ -442,15 +442,15 @@ public class UpgradeMethods {
      * @param stack - the backpack with the filter
      * @return - array of the non-null items
      */
-    public static ItemStack[] getAdvFilterAllItems(ItemStack stack) {
-        ItemStack[] advFilterStacks = new ItemStack[18];
+    public static NonNullList<ItemStack> getAdvFilterAllItems(ItemStack stack) {
+        NonNullList<ItemStack> advFilterStacks = NonNullList.withSize(18, ItemStack.EMPTY);
         NBTTagCompound nbtTagCompound = stack.getTagCompound();
         if (nbtTagCompound != null){
             if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.FILTER_ADV_ALL_SLOTS)) {
                 NBTTagList tagList = nbtTagCompound.getTagList(IronBackpacksConstants.NBTKeys.FILTER_ADV_ALL_SLOTS, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                    advFilterStacks[stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT)] = new ItemStack(stackTag);
+                    advFilterStacks.set(stackTag.getByte(IronBackpacksConstants.NBTKeys.SLOT), new ItemStack(stackTag));
                 }
             }
         }
@@ -483,12 +483,12 @@ public class UpgradeMethods {
      * @param buttonStates - the filter states of each button
      * @return - the items that fit this criteria
      */
-    public static NonNullList<ItemStack> getAdvFilterBasicItems(ItemStack[] itemStacks, byte[] buttonStates){
+    public static NonNullList<ItemStack> getAdvFilterBasicItems(NonNullList<ItemStack> itemStacks, byte[] buttonStates){
         NonNullList<ItemStack> returnArray = NonNullList.create();
-        for (int i = 0; i < itemStacks.length; i++){
-            if (!itemStacks[i].isEmpty()){
+        for (int i = 0; i < itemStacks.size(); i++){
+            if (!itemStacks.get(i).isEmpty()){
                 if (buttonStates[i] == (byte) GuiButtonRegistry.getButton(ButtonNames.EXACT).getId()){
-                    returnArray.add(itemStacks[i]);
+                    returnArray.add(itemStacks.get(i));
                 }
             }
         }
@@ -501,12 +501,12 @@ public class UpgradeMethods {
      * @param buttonStates - the filter states of each button
      * @return - the items that fit this criteria
      */
-    public static NonNullList<ItemStack> getAdvFilterFuzzyItems(ItemStack[] itemStacks, byte[] buttonStates){
+    public static NonNullList<ItemStack> getAdvFilterFuzzyItems(NonNullList<ItemStack> itemStacks, byte[] buttonStates){
         NonNullList<ItemStack> returnArray = NonNullList.create();
-        for (int i = 0; i < itemStacks.length; i++){
-            if (!itemStacks[i].isEmpty()){
+        for (int i = 0; i < itemStacks.size(); i++){
+            if (!itemStacks.get(i).isEmpty()){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.FUZZY).getId()){
-                    returnArray.add(itemStacks[i]);
+                    returnArray.add(itemStacks.get(i));
                 }
             }
         }
@@ -519,12 +519,12 @@ public class UpgradeMethods {
      * @param buttonStates - the filter states of each button
      * @return - the items that fit this criteria
      */
-    public static NonNullList<ItemStack> getAdvFilterModSpecificItems(ItemStack[] itemStacks, byte[] buttonStates){
+    public static NonNullList<ItemStack> getAdvFilterModSpecificItems(NonNullList<ItemStack> itemStacks, byte[] buttonStates){
         NonNullList<ItemStack> returnArray = NonNullList.create();
-        for (int i = 0; i < itemStacks.length; i++){
-            if (!itemStacks[i].isEmpty()){
+        for (int i = 0; i < itemStacks.size(); i++){
+            if (!itemStacks.get(i).isEmpty()){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.MOD_SPECIFIC).getId()){
-                    returnArray.add(itemStacks[i]);
+                    returnArray.add(itemStacks.get(i));
                 }
             }
         }
@@ -537,12 +537,12 @@ public class UpgradeMethods {
      * @param buttonStates - the filter states of each button
      * @return - the items that fit this criteria
      */
-    public static NonNullList<ItemStack> getAdvFilterOreDictItems(ItemStack[] itemStacks, byte[] buttonStates){
+    public static NonNullList<ItemStack> getAdvFilterOreDictItems(NonNullList<ItemStack> itemStacks, byte[] buttonStates){
         NonNullList<ItemStack> returnArray = NonNullList.create();
-        for (int i = 0; i < itemStacks.length; i++){
-            if (!itemStacks[i].isEmpty()){
+        for (int i = 0; i < itemStacks.size(); i++){
+            if (!itemStacks.get(i).isEmpty()){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.ORE_DICT).getId()){
-                    returnArray.add(itemStacks[i]);
+                    returnArray.add(itemStacks.get(i));
                 }
             }
         }
@@ -555,12 +555,12 @@ public class UpgradeMethods {
      * @param buttonStates - the filter states of each button
      * @return - the items that fit this criteria
      */
-    public static NonNullList<ItemStack> getAdvFilterVoidItems(ItemStack[] itemStacks, byte[] buttonStates){
+    public static NonNullList<ItemStack> getAdvFilterVoidItems(NonNullList<ItemStack> itemStacks, byte[] buttonStates){
         NonNullList<ItemStack> returnArray = NonNullList.create();
-        for (int i = 0; i < itemStacks.length; i++){
-            if (!itemStacks[i].isEmpty()){
+        for (int i = 0; i < itemStacks.size(); i++){
+            if (!itemStacks.get(i).isEmpty()){
                 if (buttonStates[i] == (byte)GuiButtonRegistry.getButton(ButtonNames.VOID).getId()){
-                    returnArray.add(itemStacks[i]);
+                    returnArray.add(itemStacks.get(i));
                 }
             }
         }

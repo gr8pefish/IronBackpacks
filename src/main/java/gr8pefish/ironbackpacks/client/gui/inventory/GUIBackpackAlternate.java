@@ -27,7 +27,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
@@ -42,7 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Called when the backpack is shift-right clicked to open the alternate gui.
  */
 @SideOnly(Side.CLIENT)
-public class GUIBackpackAlternate extends GuiContainer {
+public class GUIBackpackAlternate extends GuiOneTwelveSux {
 
     /**
      * The file location of the textures.

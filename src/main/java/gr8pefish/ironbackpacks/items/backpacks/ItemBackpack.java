@@ -187,7 +187,7 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IB
     }
 
     private double getFullness(ItemStack stack) {
-        ItemStack[] inventory;
+        NonNullList<ItemStack> inventory;
         int total = 0;
         int full = 0;
 
@@ -196,12 +196,12 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack /*implements IB
             if (nbtTagCompound != null) {
                 if (nbtTagCompound.hasKey("Items")) {
                     NBTTagList tagList = nbtTagCompound.getTagList("Items", net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND);
-                    inventory = new ItemStack[((ItemIUpgradableITieredBackpack)stack.getItem()).getSize(stack)];
+                    inventory = NonNullList.withSize(((ItemIUpgradableITieredBackpack)stack.getItem()).getSize(stack), ItemStack.EMPTY);
                     for (int i = 0; i < tagList.tagCount(); i++) {
                         NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                         int slot = stackTag.getByte("Slot");
-                        if (i >= 0 && i <= inventory.length)
-                            inventory[slot] = new ItemStack(stackTag);
+                        if (i >= 0 && i <= inventory.size())
+                            inventory.set(slot, new ItemStack(stackTag));
                     }
                     for (ItemStack tempStack : inventory) {
                         if (!tempStack.isEmpty()) {

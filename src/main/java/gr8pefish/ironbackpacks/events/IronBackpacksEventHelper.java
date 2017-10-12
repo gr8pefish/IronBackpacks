@@ -617,7 +617,7 @@ public class IronBackpacksEventHelper {
                         deleteWithVoidFilter(UpgradeMethods.getVoidFilterItems(backpack), event);
 
                     if (UpgradeMethods.hasFilterAdvancedUpgrade(upgrades)) {
-                        ItemStack[] advFilterItems = UpgradeMethods.getAdvFilterAllItems(backpack);
+                        NonNullList<ItemStack> advFilterItems = UpgradeMethods.getAdvFilterAllItems(backpack);
                         byte[] advFilterButtonStates = UpgradeMethods.getAdvFilterButtonStates(backpack);
 
                         transferWithBasicFilter(UpgradeMethods.getAdvFilterBasicItems(advFilterItems, advFilterButtonStates), event, container);

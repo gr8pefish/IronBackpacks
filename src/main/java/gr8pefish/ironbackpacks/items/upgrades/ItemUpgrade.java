@@ -31,7 +31,7 @@ public class ItemUpgrade extends Item {
 
     @Override
     public void getSubItems(CreativeTabs creativeTab, NonNullList<ItemStack> list) {
-        for (int i = 0; i < ItemIUpgradeRegistry.getTotalSize(); i++)
+       if(isInCreativeTab(creativeTab)) for (int i = 0; i < ItemIUpgradeRegistry.getTotalSize(); i++)
             list.add(new ItemStack(this, 1, i));
     }
 
