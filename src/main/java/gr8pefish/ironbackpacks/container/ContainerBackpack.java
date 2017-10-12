@@ -2,6 +2,7 @@ package gr8pefish.ironbackpacks.container;
 
 import com.google.common.base.Preconditions;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
+import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.api.backpack.inventory.IronBackpacksInventoryHelper;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSize;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +27,8 @@ public class ContainerBackpack extends Container {
     /** Offhand used or not. */
     private final int blocked;
     @Nonnull
+    private final BackpackInfo backpackInfo;
+    @Nonnull
     private final BackpackSize backpackSize;
     @Nonnull
     private final ItemStack backpackStack;
@@ -39,17 +42,17 @@ public class ContainerBackpack extends Container {
         Preconditions.checkNotNull(hand, "EnumHand cannot be null");
 
         BackpackInfo backpackInfo = BackpackInfo.fromStack(backpackStack);
-        IItemHandler itemHandler = backpackStack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(backpackInfo.getVariant());
+        IItemHandler itemHandler = backpackInfo.getInventory();
 
         Preconditions.checkNotNull(backpackInfo, "backpackInfo cannot be null");
         Preconditions.checkNotNull(itemHandler, "itemHandler cannot be null");
 
+        this.backpackInfo = backpackInfo;
         this.backpackStack = backpackStack;
         this.backpackSize = backpackInfo.getVariant().getBackpackSize();
         this.blocked = hand == EnumHand.MAIN_HAND ? (inventorySlots.size() - 1) - (8 - inventoryPlayer.currentItem) : -1;
 
         setupSlots(inventoryPlayer, itemHandler);
-
     }
 
     // Override
@@ -97,6 +100,12 @@ public class ContainerBackpack extends Container {
         }
 
         return super.slotClick(slot, button, flag, player);
+    }
+
+    @Override
+    public void onContainerClosed(EntityPlayer playerIn) {
+        super.onContainerClosed(playerIn);
+        ((IBackpack) backpackStack.getItem()).updateBackpack(backpackStack, backpackInfo);
     }
 
     // Helper

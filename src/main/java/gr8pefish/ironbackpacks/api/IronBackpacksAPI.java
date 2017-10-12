@@ -12,6 +12,7 @@ import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
@@ -169,6 +170,14 @@ public class IronBackpacksAPI {
             stack.setTagCompound(new NBTTagCompound());
 
         stack.getTagCompound().setTag("packInfo", backpackInfo.serializeNBT());
+        if (backpackInfo.getInventory() != null) {
+            NBTTagList invTag = new NBTTagList();
+            for (int i = 0; i < backpackInfo.getInventory().getSlots(); i++)
+                invTag.appendTag(backpackInfo.getInventory().getStackInSlot(i).serializeNBT());
+
+            stack.getTagCompound().setTag("packInv", invTag);
+        }
+
         return stack;
     }
 

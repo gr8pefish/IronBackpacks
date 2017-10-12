@@ -8,7 +8,7 @@ import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
-import gr8pefish.ironbackpacks.capabilities.BackpackInvImpl;
+import gr8pefish.ironbackpacks.capabilities.BackpackHandler;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.network.GuiHandler;
 import net.minecraft.client.resources.I18n;
@@ -44,18 +44,11 @@ public class ItemBackpack extends Item implements IBackpack {
         return super.getUnlocalizedName(stack) + "." + backpackInfo.getVariant().getBackpackType().getIdentifier().toString().replace(":", ".");
     }
 
-    /**
-     * Initialize the capability for the custom IItemHandler which acts as the inventory for the backpack.
-     * @param stack - the stack to set it for
-     * @param oldCapNbt - the old capability in NBT
-     * @return aAnew implementation of the capability's provider
-     */
     @Nonnull
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound oldCapNbt) {
-        return new BackpackInvImpl.Provider();
+        return new BackpackHandler(stack);
     }
-
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
@@ -70,11 +63,6 @@ public class ItemBackpack extends Item implements IBackpack {
         if (info.hasUpgrade(RegistrarIronBackpacks.UPGRADE_LOCK) && !player.getGameProfile().getId().equals(info.getOwner()))
             return ActionResult.newResult(EnumActionResult.FAIL, held);
 
-//        if (held.hasTagCompound()) {
-//            String tagString = held.getTagCompound().toString();
-//            IronBackpacks.LOGGER.info("Item tag: (" + tagString.getBytes().length + " bytes) " + held.getTagCompound());
-//        }
-
         world.playSound(player.posX, player.posY, player.posZ, RegistrarIronBackpacks.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
 
         if (!world.isRemote)
@@ -83,7 +71,6 @@ public class ItemBackpack extends Item implements IBackpack {
         return super.onItemRightClick(world, player, hand);
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> subItems) {
         List<BackpackType> sortedTypes = Lists.newArrayList(IronBackpacksAPI.getBackpackTypes());
@@ -117,8 +104,8 @@ public class ItemBackpack extends Item implements IBackpack {
         int full = 0;
 
         BackpackInfo backpackInfo = getBackpackInfo(stack);
-        for (int i = 0; i < backpackInfo.getStackHandler().getSlots(); i++) {
-            ItemStack invStack = backpackInfo.getStackHandler().getStackInSlot(i);
+        for (int i = 0; i < backpackInfo.getInventory().getSlots(); i++) {
+            ItemStack invStack = backpackInfo.getInventory().getStackInSlot(i);
             if (!invStack.isEmpty()) {
                 full += invStack.getCount();
                 total += invStack.getMaxStackSize();

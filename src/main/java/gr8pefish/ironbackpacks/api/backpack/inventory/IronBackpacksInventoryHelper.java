@@ -19,7 +19,7 @@ public class IronBackpacksInventoryHelper {
      * Query this to get the internal inventory. Alternatively use {@link IronBackpacksInventoryHelper#getBackpackInventory(ItemStack)}
      */
     @CapabilityInject(IBackpackInventoryProvider.class)
-    public static final Capability<IBackpackInventoryProvider> BACKPACK_INV_CAPABILITY = null;
+    public static Capability<IBackpackInventoryProvider> BACKPACK_INV_CAPABILITY = null;
 
     /**
      * Gets the inventory from a backpack's ItemStack.
@@ -37,7 +37,7 @@ public class IronBackpacksInventoryHelper {
             //Get backpackVariant
             BackpackVariant backpackVariant = backpackInfo.getVariant();
             //Get IItemHandler via capability, passing in variant
-            return stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory(backpackVariant);
+            return stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null).getInventory();
         }
         //Doesn't have the correct capability, return null
         return null;

@@ -16,6 +16,8 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,8 +42,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     private BackpackVariant backpackVariant;
     @Nonnull
     private final List<BackpackUpgrade> upgrades;
-    @Nonnull
-    private IBackpackInventoryProvider inventoryProvider;
+    private IItemHandlerModifiable inventory;
     @Nullable
     private UUID owner;
 
@@ -128,37 +129,12 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         return this;
     }
 
-    /**
-     * Gets the {@link IBackpackInventoryProvider} for the backpack.
-     *
-     * @return - The inventory provider
-     */
-    @Nonnull
-    public IBackpackInventoryProvider getInventoryProvider() {
-        return inventoryProvider;
+    public IItemHandlerModifiable getInventory() {
+        return inventory;
     }
 
-    /**
-     * Gets the {@link IItemHandler} for the backpack.
-     * Helper method, as the IItemHandler is obtained via the {@link IBackpackInventoryProvider}
-     *
-     * @return - The item handler
-     */
-    @Nonnull
-    public IItemHandler getStackHandler() {
-        return inventoryProvider.getInventory(backpackVariant);
-    }
-
-    /**
-     * Sets the {@link IBackpackInventoryProvider} for the backpack.
-     *
-     * @param inventoryProvider - The inventory provider to set
-     * @return - The updated backpack info
-     */
-    @Nonnull
-    public BackpackInfo setInventoryProvider(@Nonnull IBackpackInventoryProvider inventoryProvider) {
-        Preconditions.checkNotNull(inventoryProvider, "inventoryProvider cannot be null");
-        this.inventoryProvider = inventoryProvider;
+    public BackpackInfo setInventory(@Nonnull IItemHandlerModifiable inventory) {
+        this.inventory = inventory;
         return this;
     }
 
@@ -225,16 +201,6 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         }
     }
 
-    // Overrides
-
-    @Override
-    public String toString() {
-        String strType = backpackVariant.getBackpackType().isNull() ? "NONE" : backpackVariant.getBackpackType().toString();
-        String specType = backpackVariant.getBackpackSpecialty() == null ? "NONE" : backpackVariant.getBackpackSpecialty().toString();
-        String stackType = inventoryProvider == null ? "NONE" : inventoryProvider.toString();
-        return "TYPE: " + strType + " --- SPECIALTY: " + specType + " --- STACK HANDLER: " + stackType;
-    }
-
     // Helper methods
     //TODO: Move/Edit/Cleanup all below here
 
@@ -246,7 +212,13 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
             return new BackpackInfo();
 
         BackpackInfo tagged = fromTag(stack.getTagCompound().getCompoundTag("packInfo"));
-        return tagged.setInventoryProvider(stack.getCapability(IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY, null));
+
+        ItemStackHandler stackHandler = new ItemStackHandler(tagged.backpackVariant.getBackpackSize().getTotalSize());
+        NBTTagList tagList = stack.getTagCompound().getTagList("packInv", 10);
+        for (int i = 0; i < tagList.tagCount(); i++)
+            stackHandler.setStackInSlot(i, new ItemStack(tagList.getCompoundTagAt(i)));
+
+        return tagged.setInventory(stackHandler);
     }
 
     @Nonnull
