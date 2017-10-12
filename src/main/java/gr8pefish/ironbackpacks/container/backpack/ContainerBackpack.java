@@ -135,7 +135,7 @@ public class ContainerBackpack extends Container {
      * @return - the remaining itemstack (ItemStack.EMPTY if it has been put it, the remaining otherwise)
      */
     public ItemStack transferStackInSlot(ItemStack itemToPutInBackpack){
-        if (!mergeItemStack(itemToPutInBackpack, 0, backpackItem.getSize(backpackStack), false)) //stack, startIndex, endIndex, flag
+        if (mergeItemStack(itemToPutInBackpack, 0, backpackItem.getSize(backpackStack), false)) //stack, startIndex, endIndex, flag
             return ItemStack.EMPTY;
         else if (!((BackpackSlot) inventorySlots.get(1)).acceptsStack(itemToPutInBackpack)) //slot 1 is always a backpackSlot
             return ItemStack.EMPTY;
@@ -365,7 +365,7 @@ public class ContainerBackpack extends Container {
         for (int i = 0; i < totalSize; i++){
             Slot tempSlot = (Slot) inventorySlots.get(i);
             if (tempSlot != null && tempSlot.getHasStack()) {
-                itemStacks.add(tempSlot.getStack());
+                itemStacks.set(i, tempSlot.getStack());
             } else {
                 break;
             }
