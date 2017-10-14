@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = IronBackpacks.MODID, name = IronBackpacks.NAME, version = IronBackpacks.VERSION, dependencies = IronBackpacks.DEPEND)
+@Mod(modid = IronBackpacks.MODID, name = IronBackpacks.NAME, version = IronBackpacks.VERSION, dependencies = IronBackpacks.DEPEND, acceptedMinecraftVersions = "[1.12,1.13)")
 public class IronBackpacks {
 
     public static final String MODID = "ironbackpacks";
