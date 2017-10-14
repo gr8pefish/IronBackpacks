@@ -22,6 +22,8 @@ apply plugin: 'maven-publish'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+def username = project.hasProperty("dev_username") ? "{$dev_username}" : "${mod_name}"
+
 group = package_group
 archivesBaseName = mod_name
 version = "${mc_version}-${major_version}.${minor_version}.${patch_number}"
@@ -49,6 +51,8 @@ dependencies {
 minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "run"
+
+    clientRunArgs += "--username={$username}"
 
     replace "@VERSION@", project.version
     replaceIn "Constants.java"

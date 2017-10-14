@@ -41,5 +41,7 @@ public class RecipesIronBackpacks {
             event.getRegistry().register(new ShapedOreRecipe(UPGRADE.getRegistryName(), IronBackpacksAPI.getStack(UPGRADE_DAMAGE_BAR), "MSM", "SCS", "MSM", 'M', Items.BOWL, 'S', "string", 'C', new ItemStack(UPGRADE)).setRegistryName("upgrade_damage_bar"));
         if (ConfigHandler.upgrades.enablePackLatch)
             event.getRegistry().register(new ShapedOreRecipe(UPGRADE.getRegistryName(), IronBackpacksAPI.getStack(UPGRADE_LOCK), "MSM", "SCS", "MSM", 'M', "ingotGold", 'S', "string", 'C', new ItemStack(UPGRADE)).setRegistryName("upgrade_latch"));
+        if (ConfigHandler.upgrades.enableExtraUpgrade)
+            event.getRegistry().register(new ShapedOreRecipe(UPGRADE.getRegistryName(), IronBackpacksAPI.getStack(UPGRADE_EXTRA_UPGRADE), "MSM", "SCS", "MSM", 'M', "leather", 'S', "string", 'C', new ItemStack(UPGRADE)).setRegistryName("upgrade_extra_upgrade"));
     }
 }

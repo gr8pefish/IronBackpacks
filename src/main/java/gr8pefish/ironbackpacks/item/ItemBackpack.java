@@ -69,7 +69,7 @@ public class ItemBackpack extends Item implements IBackpack {
         if (!world.isRemote)
             player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_BACKPACK_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
 
-        return super.onItemRightClick(world, player, hand);
+        return ActionResult.newResult(EnumActionResult.SUCCESS, held);
     }
 
     @Override
@@ -119,6 +119,11 @@ public class ItemBackpack extends Item implements IBackpack {
         }
 
         return 1.0D - ((double) full / (double) total);
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
     }
 
     @SideOnly(Side.CLIENT)

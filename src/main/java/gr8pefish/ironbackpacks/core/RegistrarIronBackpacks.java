@@ -58,6 +58,8 @@ public class RegistrarIronBackpacks {
     public static final BackpackUpgrade UPGRADE_DAMAGE_BAR = null;
     @GameRegistry.ObjectHolder("lock")
     public static final BackpackUpgrade UPGRADE_LOCK = null; // TODO - Add texture
+    @GameRegistry.ObjectHolder("extra_upgrade")
+    public static final BackpackUpgrade UPGRADE_EXTRA_UPGRADE = null;
 
     // Registries
     private static IForgeRegistry<BackpackType> REGISTRY_TYPES = null;
@@ -93,6 +95,8 @@ public class RegistrarIronBackpacks {
             event.getRegistry().register(new BackpackUpgrade(new ResourceLocation(IronBackpacks.MODID, "damage_bar"), 1, 0));
         if (ConfigHandler.upgrades.enablePackLatch)
             event.getRegistry().register(new BackpackUpgrade(new ResourceLocation(IronBackpacks.MODID, "lock"), 1, 0));
+        if (ConfigHandler.upgrades.enableExtraUpgrade)
+            event.getRegistry().register(new BackpackUpgrade(new ResourceLocation(IronBackpacks.MODID, "extra_upgrade"), -1, 0));
     }
 
     @SideOnly(Side.CLIENT)

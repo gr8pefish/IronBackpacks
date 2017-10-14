@@ -21,6 +21,9 @@ public class ConfigHandler {
 
         @Config.Comment({ "Enables the Latch upgrade" })
         public boolean enablePackLatch = true;
+
+        @Config.Comment({ "Enables the Extra Upgrade upgrade" })
+        public boolean enableExtraUpgrade = true;
     }
 
     public static class BackpackSizes {

@@ -22,6 +22,7 @@ public class BackpackUpgrade extends IForgeRegistryEntry.Impl<BackpackUpgrade> {
     private final int applicationCost;
     private final int minimumTier;
     private final Set<BackpackUpgrade> conflicting;
+    private int maxApplications = 1;
 
     public BackpackUpgrade(@Nonnull ResourceLocation identifier, int applicationCost, @Nonnegative int minimumTier) {
         Preconditions.checkNotNull(identifier, "Identifier cannot be null");
@@ -72,6 +73,15 @@ public class BackpackUpgrade extends IForgeRegistryEntry.Impl<BackpackUpgrade> {
 
         conflicting.add(backpackUpgrade);
         return this;
+    }
+
+    public BackpackUpgrade withMaxApplications(int maxApplications) {
+        this.maxApplications = maxApplications;
+        return this;
+    }
+
+    public int getMaxApplications() {
+        return maxApplications;
     }
 
     public boolean isNull() {
