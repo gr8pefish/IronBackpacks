@@ -280,6 +280,7 @@ public class ForgeEventHandler {
 
             //ray trace the block placed
             RayTraceResult rayTraceResult = event.getWorld().rayTraceBlocks(event.getPlayer().getPositionVector(), event.getPlayer().getLookVec());
+            if (rayTraceResult == null) return; //didn't raytrace correctly, return
             //get the block as an itemstack
             ItemStack itemStackPlaced = event.getPlacedBlock().getBlock().getPickBlock(event.getPlacedBlock(), rayTraceResult, event.getWorld(), event.getPos(), event.getPlayer());
 
