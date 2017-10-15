@@ -8,7 +8,7 @@ Changes
 - None
 
 Bug Fixes
-- None
+- Fixed another duplication bug involving raytracing (phantamanta44)
 ------------------------------------------------------
 Version 1.10.2 - 2.2.31
 ------------------------------------------------------
