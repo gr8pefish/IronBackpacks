@@ -4,6 +4,7 @@ import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.capabilities.IronBackpacksCapabilities;
 import gr8pefish.ironbackpacks.network.GuiHandler;
+import gr8pefish.ironbackpacks.util.InventoryBlacklist;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -18,6 +19,7 @@ public class CommonProxy {
     public void init(FMLInitializationEvent event) {
         IronBackpacksAPI.initBackpackVariantList();
         NetworkRegistry.INSTANCE.registerGuiHandler(IronBackpacks.INSTANCE, new GuiHandler());
+        InventoryBlacklist.initBlacklist();
     }
 
     public void postInit(FMLPostInitializationEvent event) {
