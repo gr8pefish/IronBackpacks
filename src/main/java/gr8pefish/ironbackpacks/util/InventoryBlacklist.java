@@ -2,7 +2,6 @@ package gr8pefish.ironbackpacks.util;
 
 import com.google.common.collect.Sets;
 import com.google.gson.*;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.reflect.TypeToken;
 import gr8pefish.ironbackpacks.IronBackpacks;
 import net.minecraft.item.Item;
@@ -79,6 +78,7 @@ public class InventoryBlacklist {
 
     public static void initBlacklist() {
         File jsonConfig = new File(Loader.instance().getConfigDir(), IronBackpacks.MODID + File.separator + "blacklist.json");
+        JsonUtil.setCustomGson(new GsonBuilder().setPrettyPrinting().serializeNulls().disableHtmlEscaping().registerTypeAdapter(Item.class, new ItemPair.Serializer()).create());
         InventoryBlacklist blacklist = JsonUtil.fromJson(new TypeToken<InventoryBlacklist>(){}, jsonConfig, new InventoryBlacklist());
 
         INSTANCE.itemBlacklist.addAll(blacklist.itemBlacklist);
@@ -86,7 +86,6 @@ public class InventoryBlacklist {
     }
 
     public static class ItemPair {
-        @JsonAdapter(Serializer.class)
         private final Item item;
         private final int meta;
 

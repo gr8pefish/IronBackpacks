@@ -13,12 +13,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 /**
- * A simple utility for reading and writing JSON files. To handle custom (de)serialization, use
- * {@link com.google.gson.annotations.JsonAdapter} on your types.
+ * A simple utility for reading and writing JSON files. To handle custom (de)serialization, call
+ * {@link #setCustomGson(Gson)} before using any method.
  */
 public class JsonUtil {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls().create();
+    private static Gson customGson;
 
     /**
      * Reads a {@link T} back from the given file. If the file does not exist, a new file will be generated with the
@@ -61,10 +62,11 @@ public class JsonUtil {
         FileReader reader = null;
         try {
             reader = new FileReader(file);
-            return GSON.fromJson(reader, token.getType());
+            return getGson().fromJson(reader, token.getType());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            customGson = null;
             IOUtils.closeQuietly(reader);
         }
 
@@ -72,7 +74,9 @@ public class JsonUtil {
     }
 
     public static <T> T fromJson(@Nonnull TypeToken<T> token, @Nonnull String json) {
-        return GSON.fromJson(json, token.getType());
+        T ret = getGson().fromJson(json, token.getType());
+        customGson = null;
+        return ret;
     }
 
     /**
@@ -87,7 +91,7 @@ public class JsonUtil {
     public static <T> void toJson(@Nonnull T type, @Nonnull TypeToken<T> token, @Nonnull File file) {
         if (!file.exists()) {
             try {
-                FileUtils.forceMkdirParent(file);
+                FileUtils.forceMkdir(file);
                 file.createNewFile();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -102,11 +106,20 @@ public class JsonUtil {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            customGson = null;
             IOUtils.closeQuietly(writer);
         }
     }
 
     public static <T> String getJson(@Nonnull T type, @Nonnull TypeToken<T> token) {
-        return GSON.toJson(type, token.getType());
+        return getGson().toJson(type, token.getType());
+    }
+
+    public static void setCustomGson(Gson gson) {
+        customGson = gson;
+    }
+
+    private static Gson getGson() {
+        return customGson == null ? GSON : customGson;
     }
 }
