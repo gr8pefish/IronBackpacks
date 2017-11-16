@@ -1,8 +1,22 @@
 ------------------------------------------------------
-Version 1.11.2 - 3.0.0
+Version 1.12 - 3.0.1
 ------------------------------------------------------
 
-ALPHA build for 1.11, first one since the rewrite.
+Additions
+
+- Added data carry-over to the backpack upgrading recipe. No more lost items and upgrades.
+- Added a global blacklist to allow pack makers to stop given items or NBT tags from being inserted into the backpack.
+- Added Inventory Tweaks support.
+- Added additional points upgrade. Super duper useful right now. I swear.
+
+Bug Fixes
+- Fixed an issue where closing the backpack would cause a casting error.
+
+------------------------------------------------------
+Version 1.12 - 3.0.0
+------------------------------------------------------
+
+ALPHA build for 1.12, first one since the rewrite.
 
 Massive changes compared to the 1.10 version occurred that will be
 documented in the future in more depth (mostly just missing features).
