@@ -5,8 +5,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.backpack.inventory.IBackpackInventoryProvider;
-import gr8pefish.ironbackpacks.api.backpack.inventory.IronBackpacksInventoryHelper;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackVariant;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import net.minecraft.item.ItemStack;
@@ -15,7 +15,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -201,8 +200,34 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         }
     }
 
+    public boolean conflicts(@Nullable BackpackUpgrade upgrade) {
+        if (upgrade == null)
+            return false;
+
+        for (BackpackUpgrade installed : upgrades)
+            if (upgrade.isConflicting(installed))
+                return true;
+
+        return false;
+    }
+
+    public boolean hasUpgrade(@Nullable BackpackUpgrade backpackUpgrade) {
+        return upgrades.contains(backpackUpgrade);
+    }
+
+    public int getPointsUsed() {
+        int used = 0;
+        for (BackpackUpgrade backpackUpgrade : upgrades)
+            used += backpackUpgrade.getApplicationCost();
+
+        return used;
+    }
+
+    public int getMaxPoints() {
+        return backpackVariant.getBackpackType().getBaseMaxUpgradePoints() + (backpackVariant.getBackpackSpecialty() == BackpackSpecialty.UPGRADE ? 5 : 0);
+    }
+
     // Helper methods
-    //TODO: Move/Edit/Cleanup all below here
 
     @Nonnull
     public static BackpackInfo fromStack(@Nonnull ItemStack stack) {
@@ -231,31 +256,10 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         return backpackInfo;
     }
 
-    public boolean conflicts(@Nullable BackpackUpgrade upgrade) {
-        if (upgrade == null)
-            return false;
-
-        for (BackpackUpgrade installed : upgrades)
-            if (upgrade.isConflicting(installed))
-                return true;
-
-        return false;
+    @Nonnull
+    public static BackpackInfo upgradeTo(@Nonnull BackpackInfo toUpgrade, @Nonnull BackpackType newType, @Nonnull BackpackSpecialty newSpecialty) {
+        return new BackpackInfo(new BackpackVariant(newType, newSpecialty), toUpgrade.upgrades)
+            .setOwner(toUpgrade.getOwner())
+            .setInventory(toUpgrade.inventory);
     }
-
-    public boolean hasUpgrade(@Nullable BackpackUpgrade backpackUpgrade) {
-        return upgrades.contains(backpackUpgrade);
-    }
-
-    public int getPointsUsed() {
-        int used = 0;
-        for (BackpackUpgrade backpackUpgrade : upgrades)
-            used += backpackUpgrade.getApplicationCost();
-
-        return used;
-    }
-
-    public int getMaxPoints() {
-        return backpackVariant.getBackpackType().getBaseMaxUpgradePoints() + (backpackVariant.getBackpackSpecialty() == BackpackSpecialty.UPGRADE ? 5 : 0);
-    }
-
 }
