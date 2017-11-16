@@ -23,10 +23,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 def username = project.hasProperty("dev_username") ? "{$dev_username}" : "${mod_name}"
+def build_number = System.getenv('BUILD_NUMBER') != null ? System.getenv('BUILD_NUMBER') : "CUSTOM"
 
 group = package_group
 archivesBaseName = mod_name
-version = "${mc_version}-${major_version}.${minor_version}.${patch_number}"
+version = "${mc_version}-${major_version}.${minor_version}.${patch_number}-${build_number}"
 
 // Ignore this error. It'll work just fine when building.
 import org.ajoberstar.grgit.*
@@ -55,7 +56,7 @@ minecraft {
     clientRunArgs += "--username={$username}"
 
     replace "@VERSION@", project.version
-    replaceIn "Constants.java"
+    replaceIn "IronBackpacks.java"
 
     mappings = project.mappings_version
 }
@@ -88,14 +89,13 @@ jar {
     )
 }
 
-// Javadoc jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    from javadoc.destinationDir
-    classifier = 'javadoc'
+// API jar
+task apiJar(type: Jar) {
+    from sourceSets.main.allSource
+    from sourceSets.main.output
+    include 'gr8pefish/ironbackpacks/api/**/*'
+    classifier = 'api'
 }
-
-//Not now not with clean and auto-upload to curse, it just deletes it so there is no point
-//tasks.build.dependsOn sourceJar, javadocJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
@@ -107,7 +107,7 @@ publishing {
         mavenJava(MavenPublication) {
             artifact jar
             artifact sourceJar
-            artifact javadocJar
+            artifact apiJar
         }
     }
     repositories {
@@ -139,24 +139,16 @@ String getChangelogText() {
         }
         done = true // once we go past the first version block, parse no more
     }
-    str += "\n Look here for all 1.10 versions' changelogs: https://github.com/gr8pefish/IronBackpacks/blob/master-1.10/changelog.txt"
     return str
-}
-
-def parseConfig(File config) {
-    config.withReader {
-        def prop = new Properties()
-        prop.load(it)
-        return (new ConfigSlurper().parse(prop))
-    }
 }
 
 def curseRelations = {
     optionalLibrary 'just-enough-items-jei'
+    optionalLibrary 'inventory-tweaks'
 }
 
 curseforge {
-    if (project.hasProperty('curse_key_iron_backpacks'))
+    if (project.hasProperty('curse_key_TehNut'))
         apiKey = project.curse_key_iron_backpacks
 
     project {
@@ -164,45 +156,12 @@ curseforge {
         changelog = getChangelogText()
         releaseType = "${release_type}"
 
-        addGameVersion '1.10.2'
-
         relations curseRelations
     }
 }
 
-task incrementVersionNumber {
-//    ant.replace(file: "gradle.properties", token: "build_number=${build_number}", value: "build_number=${build_number.toString().toInteger() + 1}") //need to make sure it only increments build number
-//    ant.replace(file: "README.md", token: "[![](https://img.shields.io/badge/1.10.2 status-beta-yellow.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)\n" +
-//            "[![](https://img.shields.io/badge/Latest version-${major_version}.${minor_version}.${build_number.toString().toInteger() - 1}", value: "[![](https://img.shields.io/badge/1.10.2 status-beta-yellow.svg)](https://minecraft.curseforge.com/projects/iron-backpacks/files?filter-game-version=1738749986%3A572&filter-status=1)\n" +
-//            "[![](https://img.shields.io/badge/Latest version-${major_version}.${minor_version}.${build_number}") //replace README 1.10 badge version with CURRENT build
-//    file("version/${mc_version}.txt").write(major_version+"."+minor_version+"."+(build_number.toString().toInteger() + 1));
-}
-
-task makeNewChangelog {
-//    def changelogFile = new File('changelog.txt')
-//    String newText = '------------------------------------------------------\n' +
-//            'Version '+mc_version+" - "+major_version+"."+minor_version+"."+(build_number.toString().toInteger() + 1)+"\n" +
-//            '------------------------------------------------------\n' +
-//            'Additions\n' +
-//            '- None\n' +
-//            '\n' +
-//            'Changes\n' +
-//            '- None\n' +
-//            '\n' +
-//            'Bug Fixes\n' +
-//            '- None\n'
-//    String oldText = changelogFile.getText()
-//    changelogFile.setText(newText + oldText)
-}
-
 //enforce correct order
 tasks.build.mustRunAfter clean
-tasks.incrementVersionNumber.mustRunAfter build
-tasks.makeNewChangelog.mustRunAfter incrementVersionNumber
 
 //curseforge uses these tasks
-tasks.curseforge.dependsOn clean, build, incrementVersionNumber, makeNewChangelog
-
-//to make the resources work in idea
-//Update: Seems to cause errors now, could be outdated
-//idea { module { inheritOutputDirs = true  } }
+tasks.curseforge.dependsOn clean, build
