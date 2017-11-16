@@ -5,6 +5,7 @@ import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSize;
+import gr8pefish.ironbackpacks.util.InventoryBlacklist;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
@@ -82,7 +83,9 @@ public class ContainerBackpack extends Container {
         ItemStack stack = slot.getStack();
         ItemStack newStack = stack.copy();
 
-        if (slotIndex < backpackSize.getTotalSize()) {
+        if (InventoryBlacklist.INSTANCE.isBlacklisted(slot.getStack()))
+            return ItemStack.EMPTY;
+        else if (slotIndex < backpackSize.getTotalSize()) {
             if (!this.mergeItemStack(stack, backpackSize.getTotalSize(), this.inventorySlots.size(), true))
                 return ItemStack.EMPTY;
             slot.onSlotChanged();
@@ -105,6 +108,9 @@ public class ContainerBackpack extends Container {
 
         Slot slot = inventorySlots.get(slotId);
         if (slotId == blocked)
+            return slot.getStack();
+
+        if (InventoryBlacklist.INSTANCE.isBlacklisted(player.inventory.getItemStack()) && slotId <= backpackSize.getTotalSize() - 1)
             return slot.getStack();
 
         if (flag == ClickType.SWAP) {

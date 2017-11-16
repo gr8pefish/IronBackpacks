@@ -2,7 +2,7 @@ package gr8pefish.ironbackpacks;
 
 import net.minecraftforge.common.config.Config;
 
-@Config(modid = IronBackpacks.MODID)
+@Config(modid = IronBackpacks.MODID, name = IronBackpacks.MODID + "/" + IronBackpacks.MODID)
 public class ConfigHandler {
 
     public static Upgrades upgrades = new Upgrades();
