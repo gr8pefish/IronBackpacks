@@ -149,7 +149,7 @@ def curseRelations = {
 
 curseforge {
     if (project.hasProperty('curse_key_TehNut'))
-        apiKey = project.curse_key_iron_backpacks
+        apiKey = project.curse_key_TehNut
 
     project {
         id = "${curse_id}"
