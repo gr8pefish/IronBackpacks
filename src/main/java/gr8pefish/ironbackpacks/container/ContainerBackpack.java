@@ -1,9 +1,9 @@
 package gr8pefish.ironbackpacks.container;
 
 import com.google.common.base.Preconditions;
+import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
-import gr8pefish.ironbackpacks.api.backpack.inventory.IronBackpacksInventoryHelper;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSize;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -107,6 +107,12 @@ public class ContainerBackpack extends Container {
         if (slotId == blocked)
             return slot.getStack();
 
+        if (flag == ClickType.SWAP) {
+            int hotbarId = backpackSize.getTotalSize() + 27 + button; // Backpack slots + main inventory + hotbar id
+            if (blocked == hotbarId)
+                return slot.getStack();
+        }
+
         // TODO - Check for nesting upgrades and properly handle
 
         return super.slotClick(slotId, button, flag, player);
@@ -115,6 +121,10 @@ public class ContainerBackpack extends Container {
     @Override
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
+        if (!(backpackStack.getItem() instanceof IBackpack)) {
+            IronBackpacks.LOGGER.debug("Attempted to close backpack on non-IBackpack item {}. Changes will not persist.");
+            return;
+        }
         ((IBackpack) backpackStack.getItem()).updateBackpack(backpackStack, backpackInfo);
     }
 
