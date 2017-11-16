@@ -6,6 +6,7 @@ import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSize;
 import gr8pefish.ironbackpacks.util.InventoryBlacklist;
+import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
@@ -21,6 +22,7 @@ import javax.annotation.Nonnull;
 /**
  * The backpack's container class, holding all the slots of the backpack.
  */
+@ChestContainer
 public class ContainerBackpack extends Container {
 
     // Fields
@@ -289,5 +291,12 @@ public class ContainerBackpack extends Container {
     /** Returns the size of the player's inventory height, including the hotbar, in pixels. */
     public int getPlayerInvHeight() {
         return 4 * 18 + getBufferHotbar();
+    }
+
+    // Inventory Tweaks
+
+    @ChestContainer.RowSizeCallback
+    public int getRowSize() {
+        return Math.max(getBackpackSize().getRows(), 9);
     }
 }
