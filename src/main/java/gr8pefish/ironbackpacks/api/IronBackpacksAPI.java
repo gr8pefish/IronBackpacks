@@ -8,6 +8,7 @@ import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackVariant;
+import gr8pefish.ironbackpacks.api.blacklist.IInventoryBlacklist;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,6 +29,10 @@ public class IronBackpacksAPI {
 
     // Fields
 
+    /** Public {@link ResourceLocation} for NULL identifiers. */
+    public static final ResourceLocation NULL = new ResourceLocation("ironbackpacks", "null");
+    private static final IInventoryBlacklist INVENTORY_BLACKLIST = null;
+
     /** Public object holder references to all the items in Iron Backpacks. */
     @GameRegistry.ObjectHolder("ironbackpacks:backpack")
     public static Item BACKPACK_ITEM = null;
@@ -37,9 +42,6 @@ public class IronBackpacksAPI {
     /** Private registries for internal use (can be accessed publicly via methods below). */
     private static IForgeRegistry<BackpackType> backpackTypeRegistry = null;
     private static IForgeRegistry<BackpackUpgrade> upgradeRegistry = null;
-
-    /** Public {@link ResourceLocation} for NULL identifiers. */
-    public static final ResourceLocation NULL = new ResourceLocation("ironbackpacks", "null");
 
     /** Private list containing all {@link BackpackVariant} possibilities. See {@link IronBackpacksAPI#initBackpackVariantList()} below for initialization. */
     private static ArrayList<BackpackVariant> backpackVariantList = new ArrayList<>();
@@ -244,4 +246,10 @@ public class IronBackpacksAPI {
         return null;
     }
 
+    @SuppressWarnings("ConstantConditions")
+    public static IInventoryBlacklist getInventoryBlacklist() {
+        if (INVENTORY_BLACKLIST == null)
+            throw new RuntimeException("Attempted to access inventory blacklist before it was available. Please do this during FMLPostInitializationEvent to ensure it is ready.");
+        return INVENTORY_BLACKLIST;
+    }
 }

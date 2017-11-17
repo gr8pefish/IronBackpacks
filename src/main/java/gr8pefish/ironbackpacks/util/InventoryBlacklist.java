@@ -4,20 +4,24 @@ import com.google.common.collect.Sets;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import gr8pefish.ironbackpacks.IronBackpacks;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
+import gr8pefish.ironbackpacks.api.blacklist.IInventoryBlacklist;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Set;
 
-public class InventoryBlacklist {
+public class InventoryBlacklist implements IInventoryBlacklist {
 
     public static final InventoryBlacklist INSTANCE = new InventoryBlacklist();
 
@@ -29,27 +33,20 @@ public class InventoryBlacklist {
         this.nbtBlacklist = Sets.newHashSet();
     }
 
-    /**
-     * Blacklists an item based only on it's meta value
-     *
-     * @param stack Item to blacklist
-     */
+    @Override
     public void blacklist(@Nonnull ItemStack stack) {
         ItemPair pair = new ItemPair(stack.getItem(), stack.getItemDamage());
         if (!itemBlacklist.contains(pair))
             itemBlacklist.add(pair);
     }
 
-    /**
-     * Blacklists an NBT key. Any item with this key will be caught.
-     *
-     * @param tagKey NBT key to blacklist
-     */
+    @Override
     public void blacklist(@Nonnull String tagKey) {
         if (!nbtBlacklist.contains(tagKey))
             nbtBlacklist.add(tagKey);
     }
 
+    @Override
     public boolean isBlacklisted(@Nonnull ItemStack stack) {
         for (ItemPair pair : itemBlacklist)
             if (pair.getItem() == stack.getItem())
@@ -83,6 +80,13 @@ public class InventoryBlacklist {
 
         INSTANCE.itemBlacklist.addAll(blacklist.itemBlacklist);
         INSTANCE.nbtBlacklist.addAll(blacklist.nbtBlacklist);
+
+        try {
+            Field inventoryBlacklist = IronBackpacksAPI.class.getDeclaredField("INVENTORY_BLACKLIST");
+            EnumHelper.setFailsafeFieldValue(inventoryBlacklist, null, INSTANCE);
+        } catch (Exception e) {
+            IronBackpacks.LOGGER.error("Error setting blacklist instance for API usage.");
+        }
     }
 
     public static class ItemPair {
