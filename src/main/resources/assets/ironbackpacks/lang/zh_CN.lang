@@ -1,5 +1,43 @@
 #PARSE_ESCAPES
 
+# Creative Tab
+itemGroup.ironbackpacks=特殊背包
+
+# Items
+item.ironbackpacks.backpack.name=破损背包
+item.ironbackpacks.backpack.ironbackpacks.basic.name=基础背包
+item.ironbackpacks.backpack.ironbackpacks.iron.name=铁背包
+item.ironbackpacks.backpack.ironbackpacks.gold.name=金背包
+item.ironbackpacks.backpack.ironbackpacks.diamond.name=钻石背包
+item.ironbackpacks.upgrade.name=空白升级
+
+# Tooltips
+tooltip.ironbackpacks.upgrade.cost=需要消耗 %d 升级点数
+tooltip.ironbackpacks.upgrade.minimum_tier=最低等级：%d
+tooltip.ironbackpacks.backpack.upgrade.list=已安装的升级：
+tooltip.ironbackpacks.shift=按住 Shift 显示更多信息
+
+# Upgrades
+upgrade.ironbackpacks.damage_bar.name=容量显示升级
+upgrade.ironbackpacks.damage_bar.desc=其将统计背包中的物品数量并将其以耐久条的形式反应出来。
+upgrade.ironbackpacks.lock.name=私有升级
+upgrade.ironbackpacks.lock.desc=仅允许所有者打开背包。
+upgrade.ironbackpacks.extra_upgrade.name=附加升级
+upgrade.ironbackpacks.extra_upgrade.desc=添加一个额外的升级点数。
+
+# GUI
+container.ironbackpacks.backpack=打开背包
+
+# JEI
+# Increase Tier
+jei.ironbackpacks.increaseTier.name=升级背包
+jei.ironbackpacks.increaseTier.desc=要升级背包，只需要按照§2下面的方法合成§r。 在两种类型的背包中做出选择， 请三思而后行！
+jei.ironbackpacks.increaseTier.desc2=注意，背包升级后将保留原有的物品和设置！
+
+#######################################
+################ OLD ##################
+#######################################
+
 # Items
 item.ironbackpacks.backpack.basicBackpack.name=基础背包
 item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=铁质背包（注重存储）
@@ -31,12 +69,8 @@ item.ironbackpacks.upgrade.filterMining.name=矿石过滤升级
 item.ironbackpacks.upgrade.filterVoid.name=虚空过滤升级
 item.ironbackpacks.upgrade.depth.name=深度升级
 
-
 item.ironbackpacks.crafting.upgradeCore.name=升级核心
 
-
-# Creative Tab
-itemGroup.ironbackpacks=特殊背包
 # Commands
 chat.ironbackpacks.command.deletedEquippedPack=已删除装备的背包
 chat.ironbackpacks.command.deletedYourEquippedPack=已删除你装备的背包
@@ -55,19 +89,19 @@ gui.ironbackpacks.uuidError=正常地打开一次背包！
 
 
 # Button
-button.ironbackpacks.rename.tooltip=重命名的背包.你也可以按'Enter'
-button.ironbackpacks.exact.tooltip=准确匹配
+button.ironbackpacks.rename.tooltip=重命名的背包，你也可以按'Enter'键。
+button.ironbackpacks.exact.tooltip=精准匹配
 button.ironbackpacks.fuzzy.tooltip=模糊匹配
 button.ironbackpacks.oreDict.tooltip=矿物词典匹配
 button.ironbackpacks.modSpecific.tooltip=特定MOD匹配
-button.ironbackpacks.void.tooltip=虚空匹配(删除物品)
+button.ironbackpacks.void.tooltip=虚空匹配（删除物品）
 button.ironbackpacks.packToInv.tooltip=将物品从背包中转移到物品栏
 button.ironbackpacks.invToPack.tooltip=将物品从物品栏转移到背包中
 button.ironbackpacks.barToPack.tooltip=将物品从快捷栏转移到背包中
-button.ironbackpacks.sort.tooltip.alphabetical=将物品合成块，按字母排列(右键改变模式)
-button.ironbackpacks.sort.tooltip.id=将物品合成块，按物品ID排列(右键改变模式)
-button.ironbackpacks.left.tooltip=向左移动.
-button.ironbackpacks.right.tooltip=向右边移动.
+button.ironbackpacks.sort.tooltip.alphabetical=将物品合成块，按字母排列（右键改变模式）
+button.ironbackpacks.sort.tooltip.id=将物品合成块，按物品ID排列（右键改变模式）
+button.ironbackpacks.left.tooltip=向左移动
+button.ironbackpacks.right.tooltip=向右移动
 button.ironbackpacks.info.tooltip=在这里查看背包的信息
 button.ironbackpacks.clear.basicFilter.tooltip=清除基本过滤
 button.ironbackpacks.clear.fuzzyFilter.tooltip=清除模糊过滤
@@ -75,27 +109,25 @@ button.ironbackpacks.clear.oreDictFilter.tooltip=清除矿物词典过滤
 button.ironbackpacks.clear.modSpecificFilter.tooltip=清除特定MOD过滤
 button.ironbackpacks.clear.miningFilter.tooltip=清除矿石过滤
 button.ironbackpacks.clear.voidFilter.tooltip=清除虚空过滤
-button.ironbackpacks.clear.advancedFilter.tooltip=重置高级过滤 (清除物品和过滤模式)
+button.ironbackpacks.clear.advancedFilter.tooltip=重置高级过滤（清除物品和过滤模式）
 button.ironbackpacks.clear.hopper.tooltip=清除自动补给的物品
 button.ironbackpacks.clear.condenser.tooltip=清除要压缩的物品
 button.ironbackpacks.clear.condenser.small.tooltip=清除要压缩的物品
-button.ironbackpacks.clear.condenser.tiny.tooltip清除要分解的物品
+button.ironbackpacks.clear.condenser.tiny.tooltip=清除要分解的物品
 
 
 # Tooltip
-tooltip.ironbackpacks.shift=按住Shift显示更多信息
-tooltip.ironbackpacks.uuid=UUID: %s
+tooltip.ironbackpacks.uuid=UUID：%s
 tooltip.ironbackpacks.backpack.upgrade.used=已使用 %d/%d 升级点数
 tooltip.ironbackpacks.backpack.upgrade.used.alt=已使用 %d/%d 有界面插件升级点数
 tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints=已增加 %d/%d 额外升级点数
-tooltip.ironbackpacks.backpack.upgrade.rename=(第 %d 次升级必须包括重命名升级)
+tooltip.ironbackpacks.backpack.upgrade.rename=（第 %d 次升级必须包括重命名升级）
 tooltip.ironbackpacks.backpack.emphasis.storage=注重存储
 tooltip.ironbackpacks.backpack.emphasis.upgrade=注重升级
-tooltip.ironbackpacks.upgrade.cost=花费 %d 升级点数
-tooltip.ironbackpacks.upgrade.minimumTier=最低等级： %s
+tooltip.ironbackpacks.upgrade.minimumTier=最低等级：%s
 
 # Tier names (for upgrade tooltip minimum tier)
-tooltip.ironbackpacks.backpack.tier=等级：
+tooltip.ironbackpacks.backpack.tier=等级：%d
 tooltip.ironbackpacks.backpack.tier.basicBackpack.name=基础背包
 tooltip.ironbackpacks.backpack.tier.ironBackpack.name=铁质背包
 tooltip.ironbackpacks.backpack.tier.goldBackpack.name=金质背包
@@ -133,14 +165,14 @@ misc.ironbackpacks.default.equipped.backpack.name=已装备的背包
 
 
 #Achievements
-achievement.ironbackpacks.basicBackpackCrafted=从基础开始
+achievement.ironbackpacks.basicBackpackCrafted=从零开始
 achievement.ironbackpacks.basicBackpackCrafted.desc=制作一个基础背包
-achievement.ironbackpacks.ironBackpackCrafted=解决难题(Ironing Things Out)
-achievement.ironbackpacks.ironBackpackCrafted.desc=制作任意一种铁质背包
+achievement.ironbackpacks.ironBackpackCrafted=解决难题
+achievement.ironbackpacks.ironBackpackCrafted.desc=制作一个铁质背包
 achievement.ironbackpacks.goldBackpackCrafted=镀金时代
-achievement.ironbackpacks.goldBackpackCrafted.desc=制作任意一种金质背包
-achievement.ironbackpacks.diamondBackpackCrafted=顶级奢华(Tier-y Eyed)
-achievement.ironbackpacks.diamondBackpackCrafted.desc=制作任意一种钻石背包
+achievement.ironbackpacks.goldBackpackCrafted.desc=制作一个金质背包
+achievement.ironbackpacks.diamondBackpackCrafted=奢华别致
+achievement.ironbackpacks.diamondBackpackCrafted.desc=制作一个钻石背包
 
 
 ########################################
@@ -150,6 +182,7 @@ achievement.ironbackpacks.diamondBackpackCrafted.desc=制作任意一种钻石�
 # Recipe Localizations (Miscellaneous)
 jei.description.shapelessCrafting=无序合成
 jei.description.shapedCrafting=有序合成
+
 
 # Recipe Localizations (Add Upgrade)
 jei.ironbackpacks.addUpgradeRecipe.name=添加升级
