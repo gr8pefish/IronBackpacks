@@ -40,10 +40,10 @@ jei.ironbackpacks.increaseTier.desc2=注意，背包升级后将保留原有的�
 
 # Items
 item.ironbackpacks.backpack.basicBackpack.name=基础背包
-item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=铁背包（注重存储）
-item.ironbackpacks.backpack.ironBackpackUpgradeEmphasis.name=铁背包（注重升级）
-item.ironbackpacks.backpack.goldBackpackStorageEmphasis.name=金背包（注重存储）
-item.ironbackpacks.backpack.goldBackpackUpgradeEmphasis.name=金背包（注重升级）
+item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=铁质背包（注重存储）
+item.ironbackpacks.backpack.ironBackpackUpgradeEmphasis.name=铁质背包（注重升级）
+item.ironbackpacks.backpack.goldBackpackStorageEmphasis.name=金质背包（注重存储）
+item.ironbackpacks.backpack.goldBackpackUpgradeEmphasis.name=金质背包（注重升级）
 item.ironbackpacks.backpack.diamondBackpackStorageEmphasis.name=钻石背包（注重存储）
 item.ironbackpacks.backpack.diamondBackpackUpgradeEmphasis.name=钻石背包（注重升级）
 
@@ -129,8 +129,8 @@ tooltip.ironbackpacks.upgrade.minimumTier=最低等级：%s
 # Tier names (for upgrade tooltip minimum tier)
 tooltip.ironbackpacks.backpack.tier=等级：%d
 tooltip.ironbackpacks.backpack.tier.basicBackpack.name=基础背包
-tooltip.ironbackpacks.backpack.tier.ironBackpack.name=铁背包
-tooltip.ironbackpacks.backpack.tier.goldBackpack.name=金背包
+tooltip.ironbackpacks.backpack.tier.ironBackpack.name=铁质背包
+tooltip.ironbackpacks.backpack.tier.goldBackpack.name=金质背包
 tooltip.ironbackpacks.backpack.tier.diamondBackpack.name=钻石背包
 
 tooltip.ironbackpacks.upgrade.recipeDisabled=合成配方已被删除！
@@ -144,35 +144,35 @@ tooltip.ironbackpacks.upgrade.advNesting.desc=可将任意等级的背包放入�
 tooltip.ironbackpacks.upgrade.depth.desc=允许嵌套的背包拥有完整的功能（如过滤、补给和压缩升级），只适用于嵌套一层的背包（不适用于多层嵌套）
 tooltip.ironbackpacks.upgrade.naming.desc=可重命名背包
 
-tooltip.ironbackpacks.upgrade.basicFilter.desc=Adds a configurable filter of items that the backpack will automatically collect.
-tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=Similar to the basic filter, except the backpack will pick up any item that is from the same mod as the item(s) in the filter slots.
-tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=Similar to the basic filter, except the backpack will ignore damage values on the items.
-tooltip.ironbackpacks.upgrade.oreDictFilter.desc=Similar to the basic filter, except the backpack will pick up any item that is registered in the ore dictionary as the same as the item(s) in the filter slot.
-tooltip.ironbackpacks.upgrade.hopperFilter.desc=Allows you to specify an item to keep stocked in your inventory/hotbar which is supplied from your backpack.
-tooltip.ironbackpacks.upgrade.condenser.desc=Allows you to specify a set of items to be crafted in a 3x3 grid upon entering your backpack (ex: redstone -> redstone block).
-tooltip.ironbackpacks.upgrade.advFilter.desc=Similar to the basic filter, except the filter has 18 slots and each slots has configurable options.
-tooltip.ironbackpacks.upgrade.miningFilter.desc=Automatically picks up any ores, gems, or dusts and has a basic filter for other items (ex: cobble).
-tooltip.ironbackpacks.upgrade.voidFilter.desc=Automatically deletes any items you pick up that are specified in the filter. It does so by fuzzy detection (ignores damage values).
-tooltip.ironbackpacks.upgrade.condenser.small.desc=Allows you to specify a set of items to be crafted in a 2x2 grid upon entering your backpack (ex: sand -> sandstone).
-tooltip.ironbackpacks.upgrade.condenser.tiny.desc=Allows you to specify a set of items to be crafted by itself upon entering your backpack (ex: redstone block -> redstone).
-tooltip.ironbackpacks.upgrade.addUpgrades.desc=Adds another %s to the backpack.
-tooltip.ironbackpacks.upgrade.addUpgrades.amount.single=upgrade point
-tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d upgrade points
+tooltip.ironbackpacks.upgrade.basicFilter.desc=添加过滤物品的界面，背包会自动拾取设置的物品
+tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=类似基本过滤，但背包只会拾取同一MOD的物品
+tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=类似基本过滤，但背包会忽略物品的耐久度。
+tooltip.ironbackpacks.upgrade.oreDictFilter.desc=类似基本过滤，但背包只会拾取注册了同一矿物辞典名称的物品
+tooltip.ironbackpacks.upgrade.hopperFilter.desc=可设定一个物品，背包会自动将该物品补充到物品栏或快捷栏中
+tooltip.ironbackpacks.upgrade.condenser.desc=可设定一些物品，背包将自动拾取物品并将其以3x3的方式压缩成块（如红石->红石块）
+tooltip.ironbackpacks.upgrade.advFilter.desc=类似基本过滤，但有18个可选择过滤模式的过滤槽
+tooltip.ironbackpacks.upgrade.miningFilter.desc=自动拾取所有矿石、宝石、颗粒，附加基本过滤功能（如圆石）
+tooltip.ironbackpacks.upgrade.voidFilter.desc=自动拾取并删除设定的物品，忽略耐久度
+tooltip.ironbackpacks.upgrade.condenser.small.desc=可设定一些物品，背包将自动拾取物品并将其以2x2的方式压缩成块（如沙子->沙石）
+tooltip.ironbackpacks.upgrade.condenser.tiny.desc=可设定一些物品，背包将自动拾取物品并将其分解（如红石块->红石）
+tooltip.ironbackpacks.upgrade.addUpgrades.desc=给背包添加额外的 %s
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.single=升级点数
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=%d 升级点数
 
 
 # Miscellaneous
-misc.ironbackpacks.default.equipped.backpack.name=Equipped Backpack
+misc.ironbackpacks.default.equipped.backpack.name=已装备的背包
 
 
 #Achievements
-achievement.ironbackpacks.basicBackpackCrafted=The Basics
-achievement.ironbackpacks.basicBackpackCrafted.desc=Craft a basic backpack
-achievement.ironbackpacks.ironBackpackCrafted=Ironing Things Out
-achievement.ironbackpacks.ironBackpackCrafted.desc=Craft an iron backpack (either specialization)
-achievement.ironbackpacks.goldBackpackCrafted=Gilded Age
-achievement.ironbackpacks.goldBackpackCrafted.desc=Craft a gold backpack (either specialization)
-achievement.ironbackpacks.diamondBackpackCrafted=Tier-y Eyed
-achievement.ironbackpacks.diamondBackpackCrafted.desc=Craft a diamond backpack (either specialization)
+achievement.ironbackpacks.basicBackpackCrafted=从零开始
+achievement.ironbackpacks.basicBackpackCrafted.desc=制作一个基础背包
+achievement.ironbackpacks.ironBackpackCrafted=解决难题
+achievement.ironbackpacks.ironBackpackCrafted.desc=制作一个铁质背包
+achievement.ironbackpacks.goldBackpackCrafted=镀金时代
+achievement.ironbackpacks.goldBackpackCrafted.desc=制作一个金质背包
+achievement.ironbackpacks.diamondBackpackCrafted=奢华别致
+achievement.ironbackpacks.diamondBackpackCrafted.desc=制作一个钻石背包
 
 
 ########################################
@@ -180,29 +180,29 @@ achievement.ironbackpacks.diamondBackpackCrafted.desc=Craft a diamond backpack (
 ########################################
 
 # Recipe Localizations (Miscellaneous)
-jei.description.shapelessCrafting=Shapeless Crafting
-jei.description.shapedCrafting=Shaped Crafting
+jei.description.shapelessCrafting=无序合成
+jei.description.shapedCrafting=有序合成
+
 
 # Recipe Localizations (Add Upgrade)
-jei.ironbackpacks.addUpgradeRecipe.name=Add Upgrades
-jei.description.addUpgrade=To add an upgrade, simply craft it with the desired backpack in a crafting grid.
-jei.description.addUpgrade.additional=The backpack must be a high enough tier, have enough upgrade points available, and meet any §2special cases§r to accept the upgrade.
-jei.description.addUpgrade.specialConditions=If the upgrade is configurable, you must have enough space for another configurable upgrade. \
-Also, the upgrade must not conflict with any already applied.
+jei.ironbackpacks.addUpgradeRecipe.name=添加升级
+jei.description.addUpgrade=要添加升级，只需将要升级的背包/cut与升级插件放在工作台里合成
+jei.description.addUpgrade.additional=要想升级背包，需要达到足够的等级， 拥有足够的升级点数，§2满足一定的要求§r
+jei.description.addUpgrade.specialConditions=如果升级插件有界面，背包必须有足够的界面插件点数。 此外，插件不能与已安装的界面插件有冲突
 
 # Recipe Localizations (Remove Upgrade)
-jei.ironbackpacks.removeUpgradeRecipe.name=Remove Upgrades
-jei.description.removeUpgrade.slot1=§2Location
-jei.description.removeUpgrade.slot2=§2Dependent
-jei.description.removeUpgrade=To remove an upgrade, place the desired backpack in the correct slot of the crafting grid.
-jei.description.removeUpgrade.locationDependent=The slot the backpack is in corresponds to the upgrade removed. \
-For example, if it is in the first slot it will remove the first upgrade, the second slot the second upgrade, etc.
-jei.description.removeUpgrade.additional=The upgrade will be returned to you when you pick up the backpack; it will be placed back in the crafting grid.
+jei.ironbackpacks.removeUpgradeRecipe.name=移除升级插件
+jei.description.removeUpgrade.slot1=§2特定
+jei.description.removeUpgrade.slot2=§2 位置
+jei.description.removeUpgrade=要移除升级插件，需要把背包放在 工作台的特定位置上（鼠标移到绿色字上）
+jei.description.removeUpgrade.locationDependent=背包放的位置与要移除的插件位置相同。 例如，如果背包放在第一个格子里，将移除第一个插件；放在第二个格子里会移除第二个插件……
+jei.description.removeUpgrade.additional=移除插件后，插件将返还到工作台中
 
 # Recipe Localizations (Increase Tier)
-jei.ironbackpacks.increaseTierRecipe.name=Increase Backpack Tier
-jei.description.increaseTier=To increase the tier of a backpack, simply follow the desired §2crafting recipe§r. You may have to choose between different types of backpacks when upgrading. Choose wisely!
-jei.description.increaseTier.tooltip=Note that when upgrading to a new tier you automatically keep all items, upgrades, configurations, etc. present in the previous backpack!
+jei.ironbackpacks.increaseTierRecipe.name=升级背包
+jei.description.increaseTier=要升级背包，只需按照§2下面的方法合成§r。 在两种类型的背包中做出选择， 请三思而后行！
+jei.description.increaseTier.tooltip=注意，背包升级后将保留原有的物品和设置！
+
 
 ###############################
 # Backpack Descriptions for JEI
