@@ -31,7 +31,7 @@ container.ironbackpacks.backpack=打开背包
 # JEI
 # Increase Tier
 jei.ironbackpacks.increaseTier.name=升级背包
-jei.ironbackpacks.increaseTier.desc=要升级背包，只需要按照§2下面的方法合成§r。在两种类型的背包中做出选择，请三思而后行！
+jei.ironbackpacks.increaseTier.desc=要升级背包，只需要按照§2下面的方法合成§r。 在两种类型的背包中做出选择， 请三思而后行！
 jei.ironbackpacks.increaseTier.desc2=注意，背包升级后将保留原有的物品和设置！
 
 #######################################
