@@ -208,27 +208,6 @@ jei.description.increaseTier.tooltip=注意，背包升级后将保留原有的�
 ###############################
 
 jei.description.backpack.generic=\
-To access the backpack's inventory, simply right click the item. Some upgrades, including the inbuilt ability of renaming backpacks, can be configured. \
-The way to open up this configurable inventory is to simply shift right click the backpack.\n\
-Every backpack can also be equipped by use of a 'equip backpack' hotkey (default 'v'), and will render a backpack on the player. \
-To open this backpack, use the 'open backpack' hotkey (default 'c'), this also works with the configurable inventory.\n\
-When altering a backpack (either by adding or removing an upgrade or by increasing it's tier), note that all the data of the backpack will be saved (i.e. items in the backpack, other upgrades, etc).\n\n\n\
-Finally, a nifty feature is that when you have the inventory for any backpack open, by simply right clicking on a different backpack in your inventory you can directly open that backpack's inventory!
-
-jei.description.backpack.storage=As you have chosen this backpack to specialize in storage it will have a lot of inventory space, at the cost of less upgrade points. This emphasis is best for storing items (as opposed to manipulating them).\n \n
-jei.description.backpack.upgrade=As you have chosen this backpack to specialize in upgrades it will have a lot of upgrade points, at the cost of less raw inventory space. This emphasis is best for manipulating items (as opposed to storing them).\n \n
-
-jei.description.backpack.basic=The most basic of all the backpacks, it can store a limited number of items and has a small amount of upgrade points. \
-When upgrading this backpack you must make the important decision of deciding to prioritize either upgrade points or raw storage.
-jei.description.backpack.iron=The main tier of backpack, more upgrades (but not all) are now available to be applied. More space is now available to store more items as well.\n \n \n \n \n
-jei.description.backpack.gold=The penultimate tier of backpack, with even more storage space and upgrade points.\n \n \n \n \n \n
-jei.description.backpack.diamond=The highest tier of backpack, able to apply any upgrade (assuming you have the upgrade points for it).\n \n \n \n \n \n
-
-###############################
-# Backpack Descriptions for JEI
-###############################
-
-jei.description.backpack.generic=\
 将背包拿在手上右击，即可打开背包。类似重命名的内置功能，都可以自由定制。 
 把背包拿在手上，Shift+右击即可打开配置界面。 
 按“装备背包”的快捷键，即可将背包穿在身上（默认为V键）。 
