@@ -12,16 +12,16 @@ item.ironbackpacks.backpack.ironbackpacks.diamond.name=钻石背包
 item.ironbackpacks.upgrade.name=空白升级
 
 # Tooltips
-tooltip.ironbackpacks.upgrade.cost=需要消耗%d升级点数（s）
+tooltip.ironbackpacks.upgrade.cost=需要消耗 %d 升级点数
 tooltip.ironbackpacks.upgrade.minimum_tier=最低等级：%d
 tooltip.ironbackpacks.backpack.upgrade.list=已安装的升级：
-tooltip.ironbackpacks.shift=按住Shift显示更多信息
+tooltip.ironbackpacks.shift=按住 Shift 显示更多信息
 
 # Upgrades
-upgrade.ironbackpacks.damage_bar.name=精准升级
-upgrade.ironbackpacks.damage_bar.desc=添加一个统计数据，精准的反应背包内的一切。
+upgrade.ironbackpacks.damage_bar.name=容量显示升级
+upgrade.ironbackpacks.damage_bar.desc=其将统计背包中的物品数量并将其以耐久条的形式反应出来。
 upgrade.ironbackpacks.lock.name=私有升级
-upgrade.ironbackpacks.lock.desc=锁定背包，但不包括所有者。
+upgrade.ironbackpacks.lock.desc=仅允许所有者打开背包。
 upgrade.ironbackpacks.extra_upgrade.name=附加升级
 upgrade.ironbackpacks.extra_upgrade.desc=添加一个额外的升级点数。
 
