@@ -208,7 +208,12 @@ public class ContainerBackpack extends Container {
         //Hotbar
         yOffset += getBufferHotbar();
         for (int x = 0; x < 9; x++) {
-            Slot slot = addSlotToContainer(new Slot(inventoryPlayer, x, xOffset + x * 18, yOffset));
+            Slot slot = addSlotToContainer(new Slot(inventoryPlayer, x, xOffset + x * 18, yOffset) {
+                @Override
+                public boolean canTakeStack(final EntityPlayer playerIn) {
+                    return slotNumber != blocked;
+                }
+            });
             if (x == inventoryPlayer.currentItem)
                 blocked = slot.slotNumber;
         }
