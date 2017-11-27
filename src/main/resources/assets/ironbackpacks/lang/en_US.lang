@@ -24,6 +24,8 @@ upgrade.ironbackpacks.lock.name=Latch Upgrade
 upgrade.ironbackpacks.lock.desc=Locks everybody but the owner out of the pack.
 upgrade.ironbackpacks.extra_upgrade.name=Extra Upgrade Point
 upgrade.ironbackpacks.extra_upgrade.desc=Adds an additional upgrade point.
+upgrade.ironbackpacks.everlasting.name=Everlasting Upgrade
+upgrade.ironbackpacks.everlasting.desc=Keeps backpacks that have been dropped from de-spawning.
 
 # GUI
 container.ironbackpacks.backpack=Open Backpack
