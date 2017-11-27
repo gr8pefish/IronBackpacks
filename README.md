@@ -1,4 +1,4 @@
-# Iron Backpacks [![Downloads](http://cf.way2muchnoise.eu/full_iron-backpacks_downloads.svg) ![Available](http://cf.way2muchnoise.eu/versions/iron-backpacks.svg)](https://minecraft.curseforge.com/projects/ironbackpacks)
+# Iron Backpacks [![Downloads](http://cf.way2muchnoise.eu/full_iron-backpacks_downloads.svg) ![Available](http://cf.way2muchnoise.eu/versions/iron-backpacks.svg)](https://minecraft.curseforge.com/projects/iron-backpacks)
 
 Iron Backpacks deals with portable storage and item manipulation through tiered backpacks and a system of modular upgrades.
 
