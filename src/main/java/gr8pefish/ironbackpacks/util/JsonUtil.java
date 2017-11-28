@@ -91,7 +91,7 @@ public class JsonUtil {
     public static <T> void toJson(@Nonnull T type, @Nonnull TypeToken<T> token, @Nonnull File file) {
         if (!file.exists()) {
             try {
-                FileUtils.forceMkdir(file);
+                FileUtils.forceMkdir(file.getParentFile());
                 file.createNewFile();
             } catch (Exception e) {
                 e.printStackTrace();
