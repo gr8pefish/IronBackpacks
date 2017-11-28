@@ -4,12 +4,12 @@
   "name": "Iron Backpacks",
   "description": "Adds tiered backpacks and a system of modular upgrades to go with them!",
   "version": "${version}",
-  "mcversion": "1.11.2",
+  "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["gr8pefish"],
   "credits": "cpw, sapient, #minecraftforge (especially diesieben07), TehNut, tterrag",
-  "logoFile": "assets/ironbackpacks/textures/items/ItemBackpackIron.png",
+  "logoFile": "assets/ironbackpacks/logo.png",
   "screenshots": [],
   "dependencies": []
 }
