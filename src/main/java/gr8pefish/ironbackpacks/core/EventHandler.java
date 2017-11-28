@@ -1,11 +1,17 @@
 package gr8pefish.ironbackpacks.core;
 
+import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
-import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
+import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.upgrade.IUpgrade;
+import gr8pefish.ironbackpacks.capabilities.PlayerBackpackHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -13,6 +19,14 @@ import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber
 public class EventHandler {
+
+    @SubscribeEvent
+    public static void attachPlayerCaps(AttachCapabilitiesEvent<Entity> event) {
+        if (!(event.getObject() instanceof EntityPlayer))
+            return;
+
+        event.addCapability(new ResourceLocation(IronBackpacks.MODID, "equipped_backpack"), new PlayerBackpackHandler.Default());
+    }
 
     @SubscribeEvent
     public static void onAnvil(AnvilUpdateEvent event) {

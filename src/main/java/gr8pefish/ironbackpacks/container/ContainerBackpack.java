@@ -53,7 +53,7 @@ public class ContainerBackpack extends Container {
         this.backpackStack = backpackStack;
         this.backpackSize = backpackInfo.getVariant().getBackpackSize();
 
-        setupSlots(inventoryPlayer, itemHandler);
+        setupSlots(inventoryPlayer, itemHandler, hand);
     }
 
     // Override
@@ -109,19 +109,8 @@ public class ContainerBackpack extends Container {
             return super.slotClick(slotId, button, flag, player);
 
         Slot slot = inventorySlots.get(slotId);
-        if (slotId == blocked)
+        if (!canTake(slotId, slot, button, player, flag))
             return slot.getStack();
-
-        if (InventoryBlacklist.INSTANCE.isBlacklisted(player.inventory.getItemStack()) && slotId <= backpackSize.getTotalSize() - 1)
-            return slot.getStack();
-
-        if (flag == ClickType.SWAP) {
-            int hotbarId = backpackSize.getTotalSize() + 27 + button; // Backpack slots + main inventory + hotbar id
-            if (blocked == hotbarId)
-                return slot.getStack();
-        }
-
-        // TODO - Check for nesting upgrades and properly handle
 
         return super.slotClick(slotId, button, flag, player);
     }
@@ -137,6 +126,25 @@ public class ContainerBackpack extends Container {
     }
 
     // Helper
+
+    public boolean canTake(int slotId, Slot slot, int button, EntityPlayer player, ClickType clickType) {
+        if (slotId == blocked)
+            return false;
+
+        if (InventoryBlacklist.INSTANCE.isBlacklisted(player.inventory.getItemStack()) && slotId <= backpackSize.getTotalSize() - 1)
+            return false;
+
+        if (clickType == ClickType.SWAP) {
+            int hotbarId = backpackSize.getTotalSize() + 27 + button; // Backpack slots + main inventory + hotbar id
+            if (blocked == hotbarId)
+                return false;
+        }
+
+        if (slot.getStack().getItem() instanceof IBackpack) // TODO - Check for nesting upgrades and properly handle
+            return false;
+
+        return true;
+    }
 
     /**
      * The localized display name of the backpack.
@@ -166,12 +174,12 @@ public class ContainerBackpack extends Container {
      * @param inventoryPlayer - The player's inventory
      * @param itemHandler - The IItemHandler of the backpack
      */
-    private void setupSlots(@Nonnull InventoryPlayer inventoryPlayer, @Nonnull IItemHandler itemHandler) {
+    private void setupSlots(@Nonnull InventoryPlayer inventoryPlayer, @Nonnull IItemHandler itemHandler, @Nonnull EnumHand hand) {
         Preconditions.checkNotNull(inventoryPlayer, "inventoryPlayer cannot be null");
         Preconditions.checkNotNull(itemHandler, "itemHandler cannot be null");
 
         setupBackpackSlots(itemHandler);
-        setupPlayerSlots(inventoryPlayer);
+        setupPlayerSlots(inventoryPlayer, hand);
     }
 
     /**
@@ -194,7 +202,7 @@ public class ContainerBackpack extends Container {
      *
      * @param inventoryPlayer - the {@link InventoryPlayer} for the player.
      */
-    private void setupPlayerSlots(@Nonnull InventoryPlayer inventoryPlayer) {
+    private void setupPlayerSlots(@Nonnull InventoryPlayer inventoryPlayer, @Nonnull EnumHand hand) {
         Preconditions.checkNotNull(inventoryPlayer, "inventoryPlayer cannot be null");
 
         int xOffset = 1 + getPlayerInvXOffset();
@@ -214,7 +222,7 @@ public class ContainerBackpack extends Container {
                     return slotNumber != blocked;
                 }
             });
-            if (x == inventoryPlayer.currentItem)
+            if (x == inventoryPlayer.currentItem && hand == EnumHand.MAIN_HAND)
                 blocked = slot.slotNumber;
         }
     }

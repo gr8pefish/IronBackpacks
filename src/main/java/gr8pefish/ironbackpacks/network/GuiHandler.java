@@ -11,15 +11,25 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public class GuiHandler implements IGuiHandler {
 
     public static final int OPEN_GUI_BACKPACK_ID = 0;
+    public static final int OPEN_GUI_BACKPACK_EQUIPPED_ID = 1;
+
+    static ItemStack equipped = ItemStack.EMPTY;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int handId, int unused1, int unused2) {
         EnumHand hand = handId == 1 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
 
         switch(ID) {
-            case OPEN_GUI_BACKPACK_ID:
+            case OPEN_GUI_BACKPACK_ID: {
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
                 return new ContainerBackpack(stack, player.inventory, hand);
+            }
+            case OPEN_GUI_BACKPACK_EQUIPPED_ID: {
+                if (equipped.isEmpty())
+                    return null;
+
+                return new ContainerBackpack(equipped, player.inventory, hand);
+            }
         }
 
         return null;
@@ -30,10 +40,16 @@ public class GuiHandler implements IGuiHandler {
         EnumHand hand = handId == 1 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
 
         switch(ID) {
-            case OPEN_GUI_BACKPACK_ID:
+            case OPEN_GUI_BACKPACK_ID: {
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
                 return new GuiBackpack(new ContainerBackpack(stack, player.inventory, hand));
+            }
+            case OPEN_GUI_BACKPACK_EQUIPPED_ID: {
+                if (equipped.isEmpty())
+                    return null;
 
+                return new GuiBackpack(new ContainerBackpack(equipped, player.inventory, hand));
+            }
         }
 
         return null;
