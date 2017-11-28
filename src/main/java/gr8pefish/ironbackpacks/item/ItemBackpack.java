@@ -2,13 +2,13 @@ package gr8pefish.ironbackpacks.item;
 
 import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.IronBackpacks;
-import gr8pefish.ironbackpacks.api.*;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
-import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
-import gr8pefish.ironbackpacks.capabilities.BackpackHandler;
+import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
+import gr8pefish.ironbackpacks.capabilities.ItemBackpackHandler;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.network.GuiHandler;
 import net.minecraft.client.resources.I18n;
@@ -47,7 +47,7 @@ public class ItemBackpack extends Item implements IBackpack {
     @Nonnull
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound oldCapNbt) {
-        return new BackpackHandler(stack);
+        return new ItemBackpackHandler(stack);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks;
 
-import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +24,8 @@ public class IronBackpacks {
     public static final String VERSION = "@VERSION@";
     public static final String DEPEND = "";
     public static final Logger LOGGER = LogManager.getLogger(NAME);
-	public static final CreativeTabs TAB_IB = new CreativeTabs(MODID) {
+    public static final SimpleNetworkWrapper NETWORK = new SimpleNetworkWrapper(MODID);
+    public static final CreativeTabs TAB_IB = new CreativeTabs(MODID) {
 		@Override
 		public ItemStack getTabIconItem() {
             return IronBackpacksAPI.getStack(RegistrarIronBackpacks.PACK_IRON /*im not null don't worry*/, BackpackSpecialty.STORAGE);
