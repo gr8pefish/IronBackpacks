@@ -13,6 +13,7 @@ import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.item.ItemBackpack;
 import gr8pefish.ironbackpacks.item.ItemUpgrade;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -33,10 +34,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RegistrarIronBackpacks {
 
     // Items
-    @GameRegistry.ObjectHolder("backpack")
-    public static final ItemBackpack BACKPACK = null;
-    @GameRegistry.ObjectHolder("upgrade")
-    public static final ItemUpgrade UPGRADE = null;
+    public static final Item BACKPACK = Items.AIR;
+    public static final Item UPGRADE = Items.AIR;
 
     // Sounds
     @GameRegistry.ObjectHolder("open_backpack")
@@ -58,7 +57,11 @@ public class RegistrarIronBackpacks {
     @GameRegistry.ObjectHolder("damage_bar")
     public static final BackpackUpgrade UPGRADE_DAMAGE_BAR = null;
     @GameRegistry.ObjectHolder("lock")
-    public static final BackpackUpgrade UPGRADE_LOCK = null; // TODO - Add texture
+    public static final BackpackUpgrade UPGRADE_LOCK = null;
+    @GameRegistry.ObjectHolder("extra_upgrade")
+    public static final BackpackUpgrade UPGRADE_EXTRA_UPGRADE = null;
+    @GameRegistry.ObjectHolder("everlasting")
+    public static final BackpackUpgrade UPGRADE_EVERLASTING = null;
 
     // Registries
     private static IForgeRegistry<BackpackType> REGISTRY_TYPES = null;
@@ -94,6 +97,10 @@ public class RegistrarIronBackpacks {
             event.getRegistry().register(new BackpackUpgrade(new ResourceLocation(IronBackpacks.MODID, "damage_bar"), 1, 0));
         if (ConfigHandler.upgrades.enablePackLatch)
             event.getRegistry().register(new BackpackUpgrade(new ResourceLocation(IronBackpacks.MODID, "lock"), 1, 0));
+        if (ConfigHandler.upgrades.enableExtraUpgrade)
+            event.getRegistry().register(new BackpackUpgrade(new ResourceLocation(IronBackpacks.MODID, "extra_upgrade"), -1, 0));
+        if (ConfigHandler.upgrades.enableEverlasting)
+            event.getRegistry().register(new BackpackUpgrade(new ResourceLocation(IronBackpacks.MODID, "everlasting"), 4, 1));
     }
 
     @SideOnly(Side.CLIENT)
