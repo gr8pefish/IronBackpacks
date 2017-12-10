@@ -25,10 +25,9 @@ public class JsonUtil {
      * provided default and the default will be returned.
      *
      * @param token The token type to use for deserialization.
-     * @param file The file to read the JSON from.
-     * @param def The default value to use if the file does not exist.
-     * @param <T> The object type to give back.
-     *
+     * @param file  The file to read the JSON from.
+     * @param def   The default value to use if the file does not exist.
+     * @param <T>   The object type to give back.
      * @return a {@link T} that was read from the given file or {@code def} if the file did not exist.
      */
     @Nonnull
@@ -47,9 +46,8 @@ public class JsonUtil {
      * is thrown during deserialization, {@code null} is also returned.
      *
      * @param token The token type to use for deserialization.
-     * @param file - The file to read the JSON from.
-     * @param <T> The object type to give back.
-     *
+     * @param file  - The file to read the JSON from.
+     * @param <T>   The object type to give back.
      * @return a {@link T} that was read from the given file, {@code null} if the file does not exist, or {@code null} if
      * an exception was thrown.
      */
@@ -79,10 +77,10 @@ public class JsonUtil {
      * Converts a {@link T} to JSON and writes it to file. If the file does not exist, a new one is created. If the file
      * does exist, the contents are overwritten with the new value.
      *
-     * @param type The object to write to JSON.
+     * @param type  The object to write to JSON.
      * @param token The token type to use for serialization.
-     * @param file The file to write the JSON to.
-     * @param <T> The object type to write.
+     * @param file  The file to write the JSON to.
+     * @param <T>   The object type to write.
      */
     public static <T> void toJson(@Nonnull T type, @Nonnull TypeToken<T> token, @Nonnull File file) {
         if (!file.exists()) {

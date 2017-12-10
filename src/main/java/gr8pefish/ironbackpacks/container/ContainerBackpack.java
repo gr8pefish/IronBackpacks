@@ -33,7 +33,9 @@ public class ContainerBackpack extends Container {
     private final BackpackSize backpackSize;
     @Nonnull
     private final ItemStack backpackStack;
-    /** Offhand used or not. */
+    /**
+     * Offhand used or not.
+     */
     private int blocked = -1;
 
     // Constructor
@@ -172,7 +174,7 @@ public class ContainerBackpack extends Container {
      * Sets up the backpack's slots, delegating where necessary.
      *
      * @param inventoryPlayer - The player's inventory
-     * @param itemHandler - The IItemHandler of the backpack
+     * @param itemHandler     - The IItemHandler of the backpack
      */
     private void setupSlots(@Nonnull InventoryPlayer inventoryPlayer, @Nonnull IItemHandler itemHandler, @Nonnull EnumHand hand) {
         Preconditions.checkNotNull(inventoryPlayer, "inventoryPlayer cannot be null");
@@ -229,79 +231,109 @@ public class ContainerBackpack extends Container {
 
     // GUI/slot setup helpers
 
-    /** Returns the size of the top border in pixels. */
+    /**
+     * Returns the size of the top border in pixels.
+     */
     public int getBorderTop() {
         return 17;
     }
 
-    /** Returns the size of the side border in pixels. */
+    /**
+     * Returns the size of the side border in pixels.
+     */
     public int getBorderSide() {
         return 7;
     }
 
-    /** Returns the size of the bottom border in pixels. */
+    /**
+     * Returns the size of the bottom border in pixels.
+     */
     public int getBorderBottom() {
         return 7;
     }
 
-    /** Returns the space between container and player inventory in pixels. */
+    /**
+     * Returns the space between container and player inventory in pixels.
+     */
     public int getBufferInventory() {
         return 13;
     }
 
-    /** Returns the space between player inventory and hotbar in pixels. */
+    /**
+     * Returns the space between player inventory and hotbar in pixels.
+     */
     public int getBufferHotbar() {
         return 4;
     }
 
-    /** Returns the size of the maximum number of columns possible. */
+    /**
+     * Returns the size of the maximum number of columns possible.
+     */
     public int getMaxColumns() {
         return BackpackSize.MAX.getColumns();
     }
 
-    /** Returns the size of the maximum number of rows possible. */
+    /**
+     * Returns the size of the maximum number of rows possible.
+     */
     public int getMaxRows() {
         return BackpackSize.MAX.getRows();
     }
 
-    /** Returns the total width of the container in pixels. */
+    /**
+     * Returns the total width of the container in pixels.
+     */
     public int getWidth() {
         return Math.max(backpackSize.getColumns(), 9) * 18 + getBorderSide() * 2;
     }
 
-    /** Returns the total height of the container in pixels. */
+    /**
+     * Returns the total height of the container in pixels.
+     */
     public int getHeight() {
         return getBorderTop() + (backpackSize.getRows() * 18) +
-            getBufferInventory() + (4 * 18) +
-            getBufferHotbar() + getBorderBottom();
+                getBufferInventory() + (4 * 18) +
+                getBufferHotbar() + getBorderBottom();
     }
 
-    /** Returns the size of the container's width, only the inventory/slots, not the border, in pixels. */
+    /**
+     * Returns the size of the container's width, only the inventory/slots, not the border, in pixels.
+     */
     public int getContainerInvWidth() {
         return backpackSize.getColumns() * 18;
     }
 
-    /** Returns the size of the container's height, only the inventory/slots, not the border, in pixels. */
+    /**
+     * Returns the size of the container's height, only the inventory/slots, not the border, in pixels.
+     */
     public int getContainerInvHeight() {
         return backpackSize.getRows() * 18;
     }
 
-    /** Returns the size of the x offset for the backpack container in pixels. */
+    /**
+     * Returns the size of the x offset for the backpack container in pixels.
+     */
     public int getContainerInvXOffset() {
         return getBorderSide() + Math.max(0, (getPlayerInvWidth() - getContainerInvWidth()) / 2);
     }
 
-    /** Returns the size of the x offset for the player's inventory in pixels. */
+    /**
+     * Returns the size of the x offset for the player's inventory in pixels.
+     */
     public int getPlayerInvXOffset() {
         return getBorderSide() + Math.max(0, (getContainerInvWidth() - getPlayerInvWidth()) / 2);
     }
 
-    /** Returns the size of the player's inventory width, not including the borders, in pixels. */
+    /**
+     * Returns the size of the player's inventory width, not including the borders, in pixels.
+     */
     public int getPlayerInvWidth() {
         return 9 * 18;
     }
 
-    /** Returns the size of the player's inventory height, including the hotbar, in pixels. */
+    /**
+     * Returns the size of the player's inventory height, including the hotbar, in pixels.
+     */
     public int getPlayerInvHeight() {
         return 4 * 18 + getBufferHotbar();
     }

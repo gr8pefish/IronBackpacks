@@ -42,7 +42,7 @@ public class BackpackVariant {
         this.backpackSize = type.getBaseBackpackSize().applyDefaultSizeModifierFromBackpackSpecialty(backpackSpecialty);
 
         //Generate a unique identifier from the backpackType and backpackSpecialty, ends up looking like: "ironbackpacks:variant_iron_storage"
-        this.identifier = new ResourceLocation(IronBackpacks.MODID,"variant_" + type.getIdentifier().getResourcePath() + "_" + backpackSpecialty.getName());
+        this.identifier = new ResourceLocation(IronBackpacks.MODID, "variant_" + type.getIdentifier().getResourcePath() + "_" + backpackSpecialty.getName());
 
     }
 

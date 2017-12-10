@@ -19,7 +19,7 @@ public class GuiHandler implements IGuiHandler {
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int handId, int unused1, int unused2) {
         EnumHand hand = handId == 1 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
 
-        switch(ID) {
+        switch (ID) {
             case OPEN_GUI_BACKPACK_ID: {
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
                 return new ContainerBackpack(stack, player.inventory, hand);
@@ -39,7 +39,7 @@ public class GuiHandler implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int handId, int unused1, int unused2) {
         EnumHand hand = handId == 1 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
 
-        switch(ID) {
+        switch (ID) {
             case OPEN_GUI_BACKPACK_ID: {
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
                 return new GuiBackpack(new ContainerBackpack(stack, player.inventory, hand));

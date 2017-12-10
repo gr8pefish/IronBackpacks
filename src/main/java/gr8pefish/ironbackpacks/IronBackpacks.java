@@ -26,35 +26,35 @@ public class IronBackpacks {
     public static final Logger LOGGER = LogManager.getLogger(NAME);
     public static final SimpleNetworkWrapper NETWORK = new SimpleNetworkWrapper(MODID);
     public static final CreativeTabs TAB_IB = new CreativeTabs(MODID) {
-		@Override
-		public ItemStack getTabIconItem() {
+        @Override
+        public ItemStack getTabIconItem() {
             return IronBackpacksAPI.getStack(RegistrarIronBackpacks.PACK_IRON /*im not null don't worry*/, BackpackSpecialty.STORAGE);
         }
-	};
+    };
 
-	@SidedProxy(clientSide = "gr8pefish.ironbackpacks.proxy.ClientProxy", serverSide = "gr8pefish.ironbackpacks.proxy.CommonProxy")
-	public static CommonProxy PROXY;
+    @SidedProxy(clientSide = "gr8pefish.ironbackpacks.proxy.ClientProxy", serverSide = "gr8pefish.ironbackpacks.proxy.CommonProxy")
+    public static CommonProxy PROXY;
 
-	@Mod.Instance(MODID)
-	public static IronBackpacks INSTANCE;
+    @Mod.Instance(MODID)
+    public static IronBackpacks INSTANCE;
 
-	@Mod.EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-	    PROXY.preInit(event);
-	}
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        PROXY.preInit(event);
+    }
 
-	@Mod.EventHandler
-	public void init(FMLInitializationEvent event) {
-	    PROXY.init(event);
-	}
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event) {
+        PROXY.init(event);
+    }
 
-	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-	    PROXY.postInit(event);
-	}
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        PROXY.postInit(event);
+    }
 
-	@Mod.EventHandler
-	public void onServerStart(FMLServerStartingEvent event) {
+    @Mod.EventHandler
+    public void onServerStart(FMLServerStartingEvent event) {
 
-	}
+    }
 }

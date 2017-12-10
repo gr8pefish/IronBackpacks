@@ -40,7 +40,7 @@ public class EventHandler {
             event.setOutput(upgraded);
             event.setCost(1);
             event.setMaterialCost(1);
-        } else if (event.getRight().getItem() instanceof ItemShears){
+        } else if (event.getRight().getItem() instanceof ItemShears) {
             ItemStack removed = tryRemoveUpgrade(event.getLeft());
             if (!removed.isEmpty()) {
                 event.setOutput(removed);

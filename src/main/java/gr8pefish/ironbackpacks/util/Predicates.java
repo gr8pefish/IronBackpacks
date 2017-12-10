@@ -1,7 +1,7 @@
 package gr8pefish.ironbackpacks.util;
 
-import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
+import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
 

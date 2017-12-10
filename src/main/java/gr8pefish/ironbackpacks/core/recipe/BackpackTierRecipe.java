@@ -1,11 +1,11 @@
 package gr8pefish.ironbackpacks.core.recipe;
 
 import gr8pefish.ironbackpacks.IronBackpacks;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
-import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

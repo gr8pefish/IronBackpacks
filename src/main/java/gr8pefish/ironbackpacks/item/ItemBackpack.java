@@ -136,7 +136,7 @@ public class ItemBackpack extends Item implements IBackpack {
         tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.upgrade.used", backpackInfo.getPointsUsed(), backpackInfo.getMaxPoints()));
         if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !backpackInfo.getUpgrades().isEmpty()) {
             tooltip.add(TextFormatting.ITALIC + I18n.format("tooltip.ironbackpacks.shift"));
-        } else if (!backpackInfo.getUpgrades().isEmpty()){
+        } else if (!backpackInfo.getUpgrades().isEmpty()) {
             tooltip.add("");
             tooltip.add(I18n.format("tooltip.ironbackpacks.backpack.upgrade.list", backpackInfo.getPointsUsed(), backpackInfo.getMaxPoints()));
             for (BackpackUpgrade upgrade : backpackInfo.getUpgrades())

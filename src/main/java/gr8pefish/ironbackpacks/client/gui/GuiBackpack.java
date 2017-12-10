@@ -15,10 +15,8 @@ import javax.annotation.Nonnull;
  */
 public class GuiBackpack extends GuiContainer {
 
-    /** The texture of the container for the backpack. */
     private static final GuiTextureResource CONTAINER_TEX = new GuiTextureResource("backpack_gui", 512, 512);
 
-    /** The container of the backpack. */
     @Nonnull
     private ContainerBackpack container;
 
@@ -44,7 +42,6 @@ public class GuiBackpack extends GuiContainer {
         this.renderHoveredToolTip(mouseX, mouseY);
     }
 
-    /** Draw the strings(backpack name, and "Inventory") on the GUI. */
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         fontRenderer.drawString(container.getName(), container.getBorderSide() + 1, 6, 0x404040);
@@ -53,9 +50,10 @@ public class GuiBackpack extends GuiContainer {
         fontRenderer.drawString(I18n.format("container.inventory"), invTitleX, invTitleY, 0x404040);
     }
 
-    /** Draw the entire GUI background, slots and everything.
+    /*
      * This code is all copygirl's, minus one small change I made to allow it to be 7 rows.
-     * TODO: Make bottom area sides "full" when >9 columns wide */
+     * TODO: Make bottom area sides "full" when >9 columns wide
+     */
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -92,7 +90,8 @@ public class GuiBackpack extends GuiContainer {
         CONTAINER_TEX.drawQuad(x1, y, tx1, ty, b, bTop);
         CONTAINER_TEX.drawQuad(x2, y, tx2, ty, w, bTop);
         CONTAINER_TEX.drawQuad(x3, y, tx3, ty, b, bTop);
-        y += bTop; ty += bTop + 2;
+        y += bTop;
+        ty += bTop + 2;
 
         // Container background
         CONTAINER_TEX.drawQuad(x1, y, tx1, ty, b, h);
@@ -101,7 +100,8 @@ public class GuiBackpack extends GuiContainer {
         // Container slots
         CONTAINER_TEX.drawQuad(x + container.getContainerInvXOffset(), y, tx2, 274, //Changed v to allow for 7 rows, as the texture location changed with my additions.
                 container.getContainerInvWidth(), h);
-        y += h; ty += maxh + 2;
+        y += h;
+        ty += maxh + 2;
 
         // Space between container and player inventory
         if (container.getBackpackSize().getColumns() > 9) {
@@ -115,7 +115,8 @@ public class GuiBackpack extends GuiContainer {
         ty += bufi + 2;
         if (container.getBackpackSize().getColumns() <= 9)
             CONTAINER_TEX.drawQuad(x, y, tpx, ty, pw + b * 2, bufi);
-        y += bufi; ty += bufi + 2;
+        y += bufi;
+        ty += bufi + 2;
 
         // Player inventory
         CONTAINER_TEX.drawQuad(px - b, y, tpx, ty, pw + b * 2, ph + bBot);

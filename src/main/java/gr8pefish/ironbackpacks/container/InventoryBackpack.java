@@ -1,11 +1,5 @@
 package gr8pefish.ironbackpacks.container;
 
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-
-import javax.annotation.Nonnull;
-
 //ToDo: Currently unused, may implement later if need additional functionality via a wrapper like this
 //public class InventoryBackpack implements IItemHandlerModifiable {
 //

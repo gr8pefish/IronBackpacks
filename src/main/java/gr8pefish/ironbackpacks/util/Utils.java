@@ -28,7 +28,7 @@ public class Utils {
      *     <li>{@link EnumActionResult#PASS} - A backpack was found and it was not on the hotbar.</li>
      * </ul>
      *
-     * @param player - The player to find a backpack for
+     * @param player       - The player to find a backpack for
      * @param requirements - Requirements the backpack must meet, such as having a specific upgrade
      * @return an ActionResult containing information on the discovered stack
      */

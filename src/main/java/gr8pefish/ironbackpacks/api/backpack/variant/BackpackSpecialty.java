@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import net.minecraft.util.IStringSerializable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Locale;
 
 /**

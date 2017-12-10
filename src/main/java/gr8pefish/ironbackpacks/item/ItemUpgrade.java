@@ -2,9 +2,9 @@ package gr8pefish.ironbackpacks.item;
 
 import com.google.common.collect.Lists;
 import gr8pefish.ironbackpacks.IronBackpacks;
+import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.upgrade.IUpgrade;
-import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;

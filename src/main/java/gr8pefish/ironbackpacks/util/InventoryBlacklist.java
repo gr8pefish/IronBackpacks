@@ -76,7 +76,7 @@ public class InventoryBlacklist implements IInventoryBlacklist {
 
     public static void initBlacklist() {
         File jsonConfig = new File(Loader.instance().getConfigDir(), IronBackpacks.MODID + File.separator + "blacklist.json");
-        InventoryBlacklist blacklist = JsonUtil.fromJson(new TypeToken<InventoryBlacklist>(){}, jsonConfig, new InventoryBlacklist());
+        InventoryBlacklist blacklist = JsonUtil.fromJson(TypeToken.get(InventoryBlacklist.class), jsonConfig, new InventoryBlacklist());
 
         INSTANCE.itemBlacklist.addAll(blacklist.itemBlacklist);
         INSTANCE.nbtBlacklist.addAll(blacklist.nbtBlacklist);

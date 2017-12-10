@@ -30,26 +30,36 @@ public class IronBackpacksAPI {
 
     // Fields
 
-    /** Public {@link ResourceLocation} for NULL identifiers. */
+    /**
+     * Public {@link ResourceLocation} for NULL identifiers.
+     */
     public static final ResourceLocation NULL = new ResourceLocation("ironbackpacks", "null");
     private static final IInventoryBlacklist INVENTORY_BLACKLIST = null;
 
-    /** Public object holder references to all the items in Iron Backpacks. */
+    /**
+     * Public object holder references to all the items in Iron Backpacks.
+     */
     @GameRegistry.ObjectHolder("ironbackpacks:backpack")
     public static Item BACKPACK_ITEM = Items.AIR;
     @GameRegistry.ObjectHolder("ironbackpacks:upgrade")
     public static Item UPGRADE_ITEM = Items.AIR;
 
-    /** Private registries for internal use (can be accessed publicly via methods below). */
+    /**
+     * Private registries for internal use (can be accessed publicly via methods below).
+     */
     private static IForgeRegistry<BackpackType> backpackTypeRegistry = null;
     private static IForgeRegistry<BackpackUpgrade> upgradeRegistry = null;
 
-    /** Private list containing all {@link BackpackVariant} possibilities. See {@link IronBackpacksAPI#initBackpackVariantList()} below for initialization. */
+    /**
+     * Private list containing all {@link BackpackVariant} possibilities. See {@link IronBackpacksAPI#initBackpackVariantList()} below for initialization.
+     */
     private static ArrayList<BackpackVariant> backpackVariantList = new ArrayList<>();
 
     // Types
 
-    /** Public facing method for getting the {@link BackpackType} registry. */
+    /**
+     * Public facing method for getting the {@link BackpackType} registry.
+     */
     @Nonnull
     public static IForgeRegistry<BackpackType> getBackpackTypeRegistry() {
         return backpackTypeRegistry == null ? backpackTypeRegistry = GameRegistry.findRegistry(BackpackType.class) : backpackTypeRegistry;
@@ -58,6 +68,7 @@ public class IronBackpacksAPI {
     /**
      * Get the {@link BackpackType} from the {@link GameRegistry} given the BackpackType's identifier.
      * //TODO: Null safety here?
+     *
      * @param identifier - The unique {@link ResourceLocation} of the BackpackType
      * @return - The BackpackType found
      */
@@ -79,7 +90,9 @@ public class IronBackpacksAPI {
 
     // Upgrades
 
-    /** Public facing method for getting the {@link BackpackUpgrade} registry. */
+    /**
+     * Public facing method for getting the {@link BackpackUpgrade} registry.
+     */
     @Nonnull
     public static IForgeRegistry<BackpackUpgrade> getUpgradeRegistry() {
         return upgradeRegistry == null ? upgradeRegistry = GameRegistry.findRegistry(BackpackUpgrade.class) : upgradeRegistry;
@@ -88,6 +101,7 @@ public class IronBackpacksAPI {
     /**
      * Get the {@link BackpackUpgrade} from the {@link GameRegistry} given the BackpackUpgrade's identifier.
      * //TODO: Null safety here?
+     *
      * @param identifier - The unique {@link ResourceLocation} of the BackpackUpgrade
      * @return - The BackpackUpgrade found
      */
@@ -143,7 +157,7 @@ public class IronBackpacksAPI {
     /**
      * Gets the Backpack as an {@link ItemStack} from a {@link BackpackType} and a {@link BackpackSpecialty}.
      *
-     * @param backpackType - The type to construct the itemStack from.
+     * @param backpackType      - The type to construct the itemStack from.
      * @param backpackSpecialty - The specialty to construct the itemStack from.
      * @return - An ItemStack for the backpack.
      */
@@ -160,7 +174,7 @@ public class IronBackpacksAPI {
     /**
      * Applies the {@link BackpackInfo} to an {@link ItemStack} of a backpack, giving it the necessary NBT.
      *
-     * @param stack - The backpack as an ItemStack.
+     * @param stack        - The backpack as an ItemStack.
      * @param backpackInfo - The backpackInfo to apply.
      * @return - The updated itemStack with the info applied.
      */
@@ -228,7 +242,8 @@ public class IronBackpacksAPI {
     /**
      * Get the {@link BackpackVariant} from the variant list.
      * TODO: Unused, remove?
-     * @param type - The {@link BackpackType}
+     *
+     * @param type      - The {@link BackpackType}
      * @param specialty - The {@link BackpackSpecialty}
      * @return - The BackpackVariant if found, null otherwise (should almost never realistically return null)
      */

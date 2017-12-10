@@ -21,7 +21,7 @@ public class IronBackpacksCapabilities {
     public static final Capability<PlayerBackpackHandler> PLAYER_BACKPACK_HANDLER_CAPABILITY = null;
 
     //Registration
-    public static void registerAllCapabilities(){
+    public static void registerAllCapabilities() {
         CapabilityManager.INSTANCE.register(IBackpackInventoryProvider.class, new Capability.IStorage<IBackpackInventoryProvider>() {
             @Nullable
             @Override

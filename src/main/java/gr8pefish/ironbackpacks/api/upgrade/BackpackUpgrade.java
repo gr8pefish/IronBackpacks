@@ -40,9 +40,9 @@ public class BackpackUpgrade extends IForgeRegistryEntry.Impl<BackpackUpgrade> {
      * Called during valid points where the player's inventory has been modified. Adjust your logic according to the
      * ModifyMethod.
      *
-     * @param method - How the inventory was modified
-     * @param stack - The stack that was modified
-     * @param player - The player who's inventory was modified
+     * @param method       - How the inventory was modified
+     * @param stack        - The stack that was modified
+     * @param player       - The player who's inventory was modified
      * @param backpackInfo - All data relevant to the active backpack
      */
     public void onInventory(@Nonnull ModifyMethod method, @Nonnull ItemStack stack, @Nonnull EntityPlayer player, @Nonnull BackpackInfo backpackInfo) {

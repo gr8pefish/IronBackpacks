@@ -27,7 +27,6 @@ public interface IInventoryBlacklist {
      * keys are listed in the compounds.
      *
      * @param stack The stack to check
-     *
      * @return if this item is blacklisted
      */
     boolean isBlacklisted(@Nonnull ItemStack stack);

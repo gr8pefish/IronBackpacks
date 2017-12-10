@@ -38,9 +38,9 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     // Fields
 
     @Nonnull
-    private BackpackVariant backpackVariant;
-    @Nonnull
     private final List<BackpackUpgrade> upgrades;
+    @Nonnull
+    private BackpackVariant backpackVariant;
     private IItemHandlerModifiable inventory;
     @Nullable
     private UUID owner;
@@ -259,7 +259,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     @Nonnull
     public static BackpackInfo upgradeTo(@Nonnull BackpackInfo toUpgrade, @Nonnull BackpackType newType, @Nonnull BackpackSpecialty newSpecialty) {
         return new BackpackInfo(new BackpackVariant(newType, newSpecialty), toUpgrade.upgrades)
-            .setOwner(toUpgrade.getOwner())
-            .setInventory(toUpgrade.inventory);
+                .setOwner(toUpgrade.getOwner())
+                .setInventory(toUpgrade.inventory);
     }
 }

@@ -1,8 +1,8 @@
 package gr8pefish.ironbackpacks.core;
 
 import gr8pefish.ironbackpacks.ConfigHandler;
-import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.core.recipe.BackpackTierRecipe;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

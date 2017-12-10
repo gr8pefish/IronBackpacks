@@ -27,7 +27,7 @@ public interface IBackpack {
     /**
      * Writes the modified backpack data back to the stack. Must be called after any changes are made to the BackpackInfo
      *
-     * @param stack - Stack to write backpack data to
+     * @param stack        - Stack to write backpack data to
      * @param backpackInfo - Modified data to write to stack
      */
     default void updateBackpack(@Nonnull ItemStack stack, @Nonnull BackpackInfo backpackInfo) {
