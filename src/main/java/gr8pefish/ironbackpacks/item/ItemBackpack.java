@@ -65,9 +65,7 @@ public class ItemBackpack extends Item implements IBackpack {
             return ActionResult.newResult(EnumActionResult.FAIL, held);
 
         world.playSound(player.posX, player.posY, player.posZ, RegistrarIronBackpacks.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
-
-        if (!world.isRemote)
-            player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_BACKPACK_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
+        player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_BACKPACK_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
 
         return ActionResult.newResult(EnumActionResult.SUCCESS, held);
     }
