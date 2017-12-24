@@ -34,7 +34,7 @@ public class PlayerBackpackHandler implements ICapabilitySerializable<NBTTagComp
     @Nullable
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        return (T) this;
+        return hasCapability(capability, facing) ? (T) this : null;
     }
 
     @Override
