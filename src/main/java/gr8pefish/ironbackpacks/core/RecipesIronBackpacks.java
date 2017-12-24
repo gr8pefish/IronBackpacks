@@ -4,6 +4,7 @@ import gr8pefish.ironbackpacks.ConfigHandler;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.core.recipe.BackpackTierRecipe;
+import gr8pefish.ironbackpacks.core.recipe.IngredientBackpack;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -25,14 +26,14 @@ public class RecipesIronBackpacks {
         // Backpacks
         event.getRegistry().register(new BackpackTierRecipe(PACK_BASIC, BackpackSpecialty.NONE, "WLW", "LCL", "WLW", 'W', Blocks.WOOL, 'L', "leather", 'C', "chestWood").setRegistryName("pack_basic"));
 
-        event.getRegistry().register(new BackpackTierRecipe(PACK_IRON, BackpackSpecialty.STORAGE, "ICI", "IBI", "III", 'I', "ingotIron", 'B', IronBackpacksAPI.getStack(PACK_BASIC, BackpackSpecialty.NONE), 'C', "chestWood").setRegistryName("pack_iron_storage"));
-        event.getRegistry().register(new BackpackTierRecipe(PACK_IRON, BackpackSpecialty.UPGRADE, "ICI", "IBI", "III", 'I', "ingotIron", 'B', IronBackpacksAPI.getStack(PACK_BASIC, BackpackSpecialty.NONE), 'C', new ItemStack(UPGRADE)).setRegistryName("pack_iron_upgrade"));
+        event.getRegistry().register(new BackpackTierRecipe(PACK_IRON, BackpackSpecialty.STORAGE, "ICI", "IBI", "III", 'I', "ingotIron", 'B', new IngredientBackpack(PACK_BASIC, BackpackSpecialty.NONE), 'C', "chestWood").setRegistryName("pack_iron_storage"));
+        event.getRegistry().register(new BackpackTierRecipe(PACK_IRON, BackpackSpecialty.UPGRADE, "ICI", "IBI", "III", 'I', "ingotIron", 'B', new IngredientBackpack(PACK_BASIC, BackpackSpecialty.NONE), 'C', new ItemStack(UPGRADE)).setRegistryName("pack_iron_upgrade"));
 
-        event.getRegistry().register(new BackpackTierRecipe(PACK_GOLD, BackpackSpecialty.STORAGE, "ICI", "IBI", "III", 'I', "ingotGold", 'B', IronBackpacksAPI.getStack(PACK_IRON, BackpackSpecialty.STORAGE), 'C', "chestWood").setRegistryName("pack_gold_storage"));
-        event.getRegistry().register(new BackpackTierRecipe(PACK_GOLD, BackpackSpecialty.UPGRADE, "ICI", "IBI", "III", 'I', "ingotGold", 'B', IronBackpacksAPI.getStack(PACK_IRON, BackpackSpecialty.UPGRADE), 'C', new ItemStack(UPGRADE)).setRegistryName("pack_gold_upgrade"));
+        event.getRegistry().register(new BackpackTierRecipe(PACK_GOLD, BackpackSpecialty.STORAGE, "ICI", "IBI", "III", 'I', "ingotGold", 'B', new IngredientBackpack(PACK_IRON, BackpackSpecialty.STORAGE), 'C', "chestWood").setRegistryName("pack_gold_storage"));
+        event.getRegistry().register(new BackpackTierRecipe(PACK_GOLD, BackpackSpecialty.UPGRADE, "ICI", "IBI", "III", 'I', "ingotGold", 'B', new IngredientBackpack(PACK_IRON, BackpackSpecialty.UPGRADE), 'C', new ItemStack(UPGRADE)).setRegistryName("pack_gold_upgrade"));
 
-        event.getRegistry().register(new BackpackTierRecipe(PACK_DIAMOND, BackpackSpecialty.STORAGE, "DDD", "CBC", "DDD", 'D', "gemDiamond", 'B', IronBackpacksAPI.getStack(PACK_GOLD, BackpackSpecialty.STORAGE), 'C', "chestWood").setRegistryName("pack_diamond_storage"));
-        event.getRegistry().register(new BackpackTierRecipe(PACK_DIAMOND, BackpackSpecialty.UPGRADE, "DDD", "CBC", "DDD", 'D', "gemDiamond", 'B', IronBackpacksAPI.getStack(PACK_GOLD, BackpackSpecialty.UPGRADE), 'C', new ItemStack(UPGRADE)).setRegistryName("pack_diamond_upgrade"));
+        event.getRegistry().register(new BackpackTierRecipe(PACK_DIAMOND, BackpackSpecialty.STORAGE, "DDD", "CBC", "DDD", 'D', "gemDiamond", 'B', new IngredientBackpack(PACK_GOLD, BackpackSpecialty.STORAGE), 'C', "chestWood").setRegistryName("pack_diamond_storage"));
+        event.getRegistry().register(new BackpackTierRecipe(PACK_DIAMOND, BackpackSpecialty.UPGRADE, "DDD", "CBC", "DDD", 'D', "gemDiamond", 'B', new IngredientBackpack(PACK_GOLD, BackpackSpecialty.UPGRADE), 'C', new ItemStack(UPGRADE)).setRegistryName("pack_diamond_upgrade"));
 
         // Upgrades
         event.getRegistry().register(new ShapedOreRecipe(UPGRADE.getRegistryName(), new ItemStack(UPGRADE), "SPS", "PWP", "SPS", 'S', "string", 'W', "stickWood", 'P', "paper").setRegistryName("upgrade_blank"));
