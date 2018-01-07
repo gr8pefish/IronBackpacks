@@ -2,9 +2,9 @@
 
 Iron Backpacks deals with portable storage and item manipulation through tiered backpacks and a system of modular upgrades.
 
-## Rewrite status
+## Status
 
-Iron Backpacks is currently undergoing a full rewrite. gr8pefish is currently traveling the world, so the majority of the work is being done by TehNut.
+Iron Backpacks is undergoing a full rewrite.
 
 Currently the backpacks themselves have basic functionality and upgrades are being slowly added back.
 
@@ -12,12 +12,14 @@ Currently the backpacks themselves have basic functionality and upgrades are bei
 
 If you wish to contribute to the rewrite, please come and [speak with us on Discord](https://discord.gg/c9afhTh) first so you can get an idea of what we are currently focusing on.
 
+You can also check out the [Trello](https://trello.com/b/yEEXfB4f/iron-backpacks) that is used to organize tasks internally.
+
 ### Pull Requests
 
-* All pull requests will be nitpicked so we can make sure the new codebase stays as clean as possible for as long as possible.
-* Please keep each commit focused on a single feature or fix.
+* All pull requests will be extensively analyzed to ensure that the code quality is consistently high.
+* Please keep each commit atomic (focused on a single feature or fix).
 
-## Support
+## Support/Issues
 
 ### 1.12.2 ![](https://img.shields.io/badge/Status-Fully%20supported-green.svg)
 
