@@ -1,5 +1,5 @@
 ------------------------------------------------------
-Version 1.10.2 - 2.2.32
+Version 1.10.2 - 2.2.33
 ------------------------------------------------------
 Additions
 - None
@@ -9,6 +9,17 @@ Changes
 
 Bug Fixes
 - Fix typo in quick deposit upgrade description
+------------------------------------------------------
+Version 1.10.2 - 2.2.33
+------------------------------------------------------
+Additions
+- None
+
+Changes
+- None
+
+Bug Fixes
+- Fixed another duplication bug involving raytracing (phantamanta44)
 ------------------------------------------------------
 Version 1.10.2 - 2.2.31
 ------------------------------------------------------
