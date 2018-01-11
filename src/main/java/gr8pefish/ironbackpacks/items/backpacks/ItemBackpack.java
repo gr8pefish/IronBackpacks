@@ -18,7 +18,6 @@ import gr8pefish.ironbackpacks.util.Logger;
 import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -155,7 +154,20 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
             list.add(TextUtils.localize("tooltip.ironbackpacks.uuid", NBTUtils.getUUID(stack)));
     }
 
+    //TODO: Implement for 1.12. Ignored here as it would involve too much messing with client/server sync for equipped packs, which is messy code.
+//    //The data that is needed always for the client
+//    //Removes the item data, as it is too much data and causes crashes with things like RS drives
+//    @Nonnull
+//    @Override
+//    public NBTTagCompound getNBTShareTag(ItemStack stack) {
+//        NBTTagCompound compound = stack.getTagCompound();
+//        compound.removeTag(IronBackpacksConstants.NBTKeys.ITEMS);
+//        return compound;
+//    }
+
+
     //=============================================================================Helper Methods===================================================================================
+
 
     public ActionResult<ItemStack> handleBackpackOpening(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand, boolean knownShift){
         if (world.isRemote) {
