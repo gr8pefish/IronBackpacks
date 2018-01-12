@@ -4,8 +4,17 @@ Version 1.12 - 3.0.2
 
 Additions
 - Added the new Blacklist to the API
+- Added a new upgrade, the everlasting upgrade, which makes backpacks never despawn.
+- Added the ability to equip backpacks
+    - NO RENDERING YET
+- Added ability to remove upgrades
+    - Backpack + shears in an anvil
+
+Changes
+- None
 
 Bug Fixes
+- Fixed dupe bug when opening a backpack and tossing it away simultaneously.
 - Fixed odd interactions with inventory sorting mods
 - Fixed null backpack appearing as an ingredient when crafting higher tier ones
 
@@ -14,11 +23,13 @@ Version 1.12 - 3.0.1
 ------------------------------------------------------
 
 Additions
-
 - Added data carry-over to the backpack upgrading recipe. No more lost items and upgrades.
 - Added a global blacklist to allow pack makers to stop given items or NBT tags from being inserted into the backpack.
 - Added Inventory Tweaks support.
 - Added additional points upgrade. Super duper useful right now. I swear.
+
+Changes
+- None
 
 Bug Fixes
 - Fixed an issue where closing the backpack would cause a casting error.
