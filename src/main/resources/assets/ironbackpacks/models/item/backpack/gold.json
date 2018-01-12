@@ -2,6 +2,7 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "ironbackpacks:items/backpack_gold_base",
-    "layer1": "ironbackpacks:items/backpack_gold_border"
+    "layer1": "ironbackpacks:items/backpack_gold_border",
+    "layer2": "ironbackpacks:items/backpack_gold_latch_light"
   }
 }
