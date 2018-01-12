@@ -37,8 +37,7 @@ public class IngredientBackpack extends Ingredient {
                 IronBackpacksAPI.getBackpackType(IronBackpacksAPI.NULL),
                 IronBackpacksAPI.getBackpackTypes()
                         .stream()
-                        .filter(b -> !b.getIdentifier().equals(IronBackpacksAPI.NULL))
-                        .filter(b -> b.getTier() == packTier)
+                        .filter(b -> !b.getIdentifier().equals(IronBackpacksAPI.NULL) && b.getTier() == packTier)
                         .collect(Collectors.toList())
                         .toArray(new BackpackType[0])
         );

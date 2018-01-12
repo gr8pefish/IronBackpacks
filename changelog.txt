@@ -7,6 +7,7 @@ Additions
 
 Bug Fixes
 - Fixed odd interactions with inventory sorting mods
+- Fixed null backpack appearing as an ingredient when crafting higher tier ones
 
 ------------------------------------------------------
 Version 1.12 - 3.0.1
