@@ -7,6 +7,7 @@ import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSize;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.upgrade.IUpgrade;
@@ -111,7 +112,7 @@ public class RegistrarIronBackpacks {
             if (stack.getItem() instanceof IBackpack) {
                 IBackpack backpack = (IBackpack) stack.getItem();
                 BackpackInfo backpackInfo = backpack.getBackpackInfo(stack);
-                ResourceLocation location = new ResourceLocation(backpackInfo.getVariant().getBackpackType().getIdentifier().getResourceDomain(), "backpack/" + backpackInfo.getVariant().getBackpackType().getIdentifier().getResourcePath());
+                ResourceLocation location = new ResourceLocation(backpackInfo.getVariant().getBackpackType().getIdentifier().getResourceDomain(), "backpack/" + backpackInfo.getVariant().getBackpackType().getIdentifier().getResourcePath() + "/" + backpackInfo.getVariant().getBackpackSpecialty().getName());
                 return new ModelResourceLocation(location, "inventory");
             }
             return new ModelResourceLocation(new ResourceLocation(IronBackpacks.MODID, "backpack/null"), "inventory");
@@ -119,8 +120,20 @@ public class RegistrarIronBackpacks {
 
         for (BackpackType backpackType : IronBackpacksAPI.getBackpackTypes()) {
             if (!backpackType.isNull()) {
-                ResourceLocation location = new ResourceLocation(backpackType.getIdentifier().getResourceDomain(), "backpack/" + backpackType.getIdentifier().getResourcePath());
-                ModelLoader.registerItemVariants(BACKPACK, new ModelResourceLocation(location, "inventory"));
+                String resourcePathIn;
+                if (!backpackType.hasSpecialties()) { //No specialties, so use NONE
+                    resourcePathIn = "backpack/" + backpackType.getIdentifier().getResourcePath() + "/" + BackpackSpecialty.NONE.getName();
+                    //None specialty/file-name added, now simply register
+                    ResourceLocation location = new ResourceLocation(backpackType.getIdentifier().getResourceDomain(), resourcePathIn);
+                    ModelLoader.registerItemVariants(BACKPACK, new ModelResourceLocation(location, "inventory"));
+                } else { //Different images for different specialties
+                    for (String backpackSpecialty : BackpackSpecialty.getNonNoneNames()) {
+                        resourcePathIn = "backpack/" + backpackType.getIdentifier().getResourcePath() + "/" + backpackSpecialty;
+                        //Unique specialty/file-name added, now simply register
+                        ResourceLocation location = new ResourceLocation(backpackType.getIdentifier().getResourceDomain(), resourcePathIn);
+                        ModelLoader.registerItemVariants(BACKPACK, new ModelResourceLocation(location, "inventory"));
+                    }
+                }
             }
         }
 

@@ -1,10 +1,12 @@
 package gr8pefish.ironbackpacks.api.backpack.variant;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.util.IStringSerializable;
 
 import javax.annotation.Nonnull;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * An enum to hold the possible specialties of a backpack.
@@ -47,6 +49,16 @@ public enum BackpackSpecialty implements IStringSerializable {
 
         //No specialty found, return NONE (should be unreachable)
         return NONE;
+    }
+
+    /**
+     * Gets the list of specialties that excludes {@link BackpackSpecialty#NONE}
+     *
+     * @return - an immutable set of Strings
+     */
+    @Nonnull
+    public static Set<String> getNonNoneNames() {
+        return ImmutableSet.of(STORAGE.getName(), UPGRADE.getName());
     }
 
 }

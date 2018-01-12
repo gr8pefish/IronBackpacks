@@ -11,7 +11,8 @@ Additions
     - Backpack + shears in an anvil
 
 Changes
-- None
+- Specializations are now visually different (backpack clasp color)
+- Slightly changed preexisting bag colors as well
 
 Bug Fixes
 - Fixed dupe bug when opening a backpack and tossing it away simultaneously.
