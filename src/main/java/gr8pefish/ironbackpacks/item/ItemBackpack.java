@@ -15,6 +15,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -64,10 +65,21 @@ public class ItemBackpack extends Item implements IBackpack {
         if (info.hasUpgrade(RegistrarIronBackpacks.UPGRADE_LOCK) && !player.getGameProfile().getId().equals(info.getOwner()))
             return ActionResult.newResult(EnumActionResult.FAIL, held);
 
+        increaseDamage(held);
+
         world.playSound(player.posX, player.posY, player.posZ, RegistrarIronBackpacks.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
         player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_BACKPACK_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
 
         return ActionResult.newResult(EnumActionResult.SUCCESS, held);
+    }
+
+    //TODO: temp testing helper
+    private void increaseDamage(ItemStack held) {
+        if (held.getItemDamage() >= EnumDyeColor.BLACK.getMetadata()) {
+            held.setItemDamage(0);
+        } else {
+            held.setItemDamage(held.getItemDamage() + 1);
+        }
     }
 
     @Override
