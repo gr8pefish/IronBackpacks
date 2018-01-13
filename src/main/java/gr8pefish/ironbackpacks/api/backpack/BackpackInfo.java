@@ -35,6 +35,12 @@ import java.util.UUID;
  */
 public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
+
+    // Constants
+
+    public static final int NO_COLOR = -1;
+
+
     // Fields
 
     @Nonnull
@@ -44,10 +50,8 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     private IItemHandlerModifiable inventory;
     @Nullable
     private UUID owner;
-
     private int rgbColor;
-    // Public field for no color in plain english (nobody likes "magic numbers")
-    public static final int NO_COLOR = -1;
+
 
     // Constructors
 
