@@ -65,7 +65,7 @@ public class ItemBackpack extends Item implements IBackpack {
         if (info.hasUpgrade(RegistrarIronBackpacks.UPGRADE_LOCK) && !player.getGameProfile().getId().equals(info.getOwner()))
             return ActionResult.newResult(EnumActionResult.FAIL, held);
 
-        increaseDamage(held);
+        toggleColor(held, info);
 
         world.playSound(player.posX, player.posY, player.posZ, RegistrarIronBackpacks.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
         player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_BACKPACK_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
@@ -74,12 +74,8 @@ public class ItemBackpack extends Item implements IBackpack {
     }
 
     //TODO: temp testing helper
-    private void increaseDamage(ItemStack held) {
-        if (held.getItemDamage() >= EnumDyeColor.BLACK.getMetadata()) {
-            held.setItemDamage(0);
-        } else {
-            held.setItemDamage(held.getItemDamage() + 1);
-        }
+    private void toggleColor(ItemStack stack, BackpackInfo backpackInfo) {
+        updateBackpack(stack, backpackInfo.getIsColored() ? backpackInfo.setIsColored(false) : backpackInfo.setRGBColor(EnumDyeColor.GREEN.getColorValue()));
     }
 
     @Override

@@ -23,7 +23,7 @@ public class ClientProxy extends CommonProxy {
         super.init(event);
 
         // Register colors for backpacks
-        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(ColorUtil::getColor, RegistrarIronBackpacks.BACKPACK);
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(ColorUtil::getBackpackColor, RegistrarIronBackpacks.BACKPACK);
     }
 
 }

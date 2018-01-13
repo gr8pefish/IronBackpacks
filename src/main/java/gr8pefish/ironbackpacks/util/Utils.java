@@ -1,6 +1,7 @@
 package gr8pefish.ironbackpacks.util;
 
 import com.google.common.collect.Lists;
+import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -82,4 +83,21 @@ public class Utils {
     public static List<ActionResult<ItemStack>> getAllBackpacks(@Nonnull EntityPlayer player) {
         return getAllBackpacks(player, Predicates.alwaysTrue());
     }
+
+    /**
+     * Gets the {@link BackpackInfo} from a given {@link ItemStack}.
+     * NOTE: The ItemStack *must* be a backpack, or it will (intentionally) crash.
+     *
+     * @param stack - the backpack as an item stack
+     * @return - the backpack info
+     */
+    @Nonnull
+    public static BackpackInfo getBackpackInfoFromStack(@Nonnull ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IBackpack) {
+            return ((IBackpack) stack.getItem()).getBackpackInfo(stack);
+        }
+        throw new RuntimeException("Tried to get backpack info from an ItemStack that isn't an IBackpack. Wrong item: "+stack);
+    }
+
+
 }
