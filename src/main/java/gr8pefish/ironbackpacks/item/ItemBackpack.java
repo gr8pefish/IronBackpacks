@@ -11,6 +11,7 @@ import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.capabilities.ItemBackpackHandler;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.network.GuiHandler;
+import gr8pefish.ironbackpacks.util.ColorUtil;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -75,7 +76,7 @@ public class ItemBackpack extends Item implements IBackpack {
 
     //TODO: temp testing helper
     private void toggleColor(ItemStack stack, BackpackInfo backpackInfo) {
-        updateBackpack(stack, backpackInfo.getIsColored() ? backpackInfo.setIsColored(false) : backpackInfo.setRGBColor(EnumDyeColor.GREEN.getColorValue()));
+        updateBackpack(stack, backpackInfo.getIsColored() ? backpackInfo.setRGBColor(BackpackInfo.NO_COLOR) : backpackInfo.setRGBColor(EnumDyeColor.GREEN.getColorValue()));
     }
 
     @Override

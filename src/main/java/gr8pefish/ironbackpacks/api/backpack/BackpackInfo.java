@@ -45,8 +45,9 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     @Nullable
     private UUID owner;
 
-    private boolean isColored; //false by default
     private int rgbColor;
+    // Public field for no color in plain english (nobody likes "magic numbers")
+    public static final int NO_COLOR = -1;
 
     // Constructors
 
@@ -56,6 +57,8 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
         this.backpackVariant = backpackVariant;
         this.upgrades = upgrades;
+
+        this.rgbColor = NO_COLOR; //uncolored by default
     }
 
     public BackpackInfo(@Nonnull BackpackVariant backpackVariant) {
@@ -165,29 +168,16 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     }
 
     /**
-     * Gets if the backpack is colored or not.
+     * Gets if the backpack is dyed/colored or not.
      *
      * @return - {@link boolean}
      */
     public boolean getIsColored() {
-        return isColored;
+        return rgbColor != NO_COLOR;
     }
 
     /**
-     * Sets if the backpack is colored or not.
-     * Also sets the rgbColor to -1 if isColored is false.
-     *
-     * @param isColored - the {@link boolean} to set
-     * @return - The updated {@link BackpackInfo}
-     */
-    public BackpackInfo setIsColored(boolean isColored) {
-        this.isColored = isColored;
-        if (!isColored) rgbColor = -1;
-        return this;
-    }
-
-    /**
-     * Gets the color of the backpack, as the {@link int} representation of a RGB color value.
+     * Gets the dyed color of the backpack, as the {@link int} representation of a RGB color value.
      *
      * @return - The RGB color
      */
@@ -196,13 +186,13 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     }
 
     /**
-     * Sets the color of the backpack, using a {@link int} representation of a RGB color value.
+     * Sets the dyed color of the backpack, using a {@link int} representation of a RGB color value.
+     * Set to NO_COLOR (-1) to have no additional color.
      *
      * @param rgbColor - the integer representation of a RGB colo value
      * @return - the updated {@link BackpackInfo}
      */
     public BackpackInfo setRGBColor(int rgbColor) {
-        this.isColored = true;
         this.rgbColor = rgbColor;
         return this;
     }
@@ -218,7 +208,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         tag.setString("spec", backpackVariant.getBackpackSpecialty().name());
         if (owner != null)
             tag.setString("own", owner.toString());
-        if (isColored)
+        if (getIsColored())
             tag.setInteger("color", rgbColor);
 
         // Serialize upgrade
@@ -238,7 +228,6 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         if (nbt.hasKey("own"))
             owner = UUID.fromString(nbt.getString("own"));
         if (nbt.hasKey("color")) {
-            isColored = true;
             rgbColor = nbt.getInteger("color");
         }
 
