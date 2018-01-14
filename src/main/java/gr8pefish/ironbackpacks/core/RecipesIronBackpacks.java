@@ -3,8 +3,11 @@ package gr8pefish.ironbackpacks.core;
 import gr8pefish.ironbackpacks.ConfigHandler;
 import gr8pefish.ironbackpacks.api.IronBackpacksAPI;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
+import gr8pefish.ironbackpacks.api.backpack.variant.BackpackVariant;
 import gr8pefish.ironbackpacks.core.recipe.BackpackTierRecipe;
+import gr8pefish.ironbackpacks.core.recipe.ColorBackpackRecipe;
 import gr8pefish.ironbackpacks.core.recipe.IngredientBackpack;
+import gr8pefish.ironbackpacks.core.recipe.IngredientColor;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -44,5 +47,33 @@ public class RecipesIronBackpacks {
             event.getRegistry().register(new ShapedOreRecipe(UPGRADE.getRegistryName(), IronBackpacksAPI.getStack(UPGRADE_LOCK), "MSM", "SCS", "MSM", 'M', "ingotGold", 'S', "string", 'C', new ItemStack(UPGRADE)).setRegistryName("upgrade_latch"));
         if (ConfigHandler.upgrades.enableExtraUpgrade)
             event.getRegistry().register(new ShapedOreRecipe(UPGRADE.getRegistryName(), IronBackpacksAPI.getStack(UPGRADE_EXTRA_UPGRADE), "MSM", "SCS", "MSM", 'M', "leather", 'S', "string", 'C', new ItemStack(UPGRADE)).setRegistryName("upgrade_extra_upgrade"));
+
+        // Misc
+
+
+        //ToDo: Dynamically populate with _all_ backpacks
+        //Difficult as this is called in pre-init and IronBackpacksAPI.getVariantList isn't called until init, so use a custom IRecipe that takes any IBackpack
+
+        // Color and decolor
+        for (int i = 0; i < 2; i++) {
+
+            String operation = (i == 0) ? "color" : "decolor";
+            IngredientColor recipeItem = (i == 0) ? new IngredientColor("dye") : new IngredientColor(Items.WATER_BUCKET);
+
+            event.getRegistry().register(new ColorBackpackRecipe(new BackpackVariant(PACK_BASIC, BackpackSpecialty.NONE), "BD", 'B', new IngredientBackpack(PACK_BASIC, BackpackSpecialty.NONE), 'D', recipeItem.get()).setRegistryName("pack_basic_"+operation));
+
+            event.getRegistry().register(new ColorBackpackRecipe(new BackpackVariant(PACK_IRON, BackpackSpecialty.STORAGE), "BD", 'B', new IngredientBackpack(PACK_IRON, BackpackSpecialty.STORAGE), 'D', recipeItem.get()).setRegistryName("pack_iron_storage_"+operation));
+            event.getRegistry().register(new ColorBackpackRecipe(new BackpackVariant(PACK_IRON, BackpackSpecialty.UPGRADE), "BD", 'B', new IngredientBackpack(PACK_IRON, BackpackSpecialty.UPGRADE), 'D', recipeItem.get()).setRegistryName("pack_iron_upgrade_"+operation));
+
+            event.getRegistry().register(new ColorBackpackRecipe(new BackpackVariant(PACK_BASIC, BackpackSpecialty.STORAGE), "BD", 'B', new IngredientBackpack(PACK_BASIC, BackpackSpecialty.STORAGE), 'D', recipeItem.get()).setRegistryName("pack_gold_storage_"+operation));
+            event.getRegistry().register(new ColorBackpackRecipe(new BackpackVariant(PACK_BASIC, BackpackSpecialty.UPGRADE), "BD", 'B', new IngredientBackpack(PACK_BASIC, BackpackSpecialty.UPGRADE), 'D', recipeItem.get()).setRegistryName("pack_gold_upgrade_"+operation));
+
+            event.getRegistry().register(new ColorBackpackRecipe(new BackpackVariant(PACK_BASIC, BackpackSpecialty.STORAGE), "BD", 'B', new IngredientBackpack(PACK_BASIC, BackpackSpecialty.STORAGE), 'D', recipeItem.get()).setRegistryName("pack_diamond_storage_"+operation));
+            event.getRegistry().register(new ColorBackpackRecipe(new BackpackVariant(PACK_BASIC, BackpackSpecialty.UPGRADE), "BD", 'B', new IngredientBackpack(PACK_BASIC, BackpackSpecialty.UPGRADE), 'D', recipeItem.get()).setRegistryName("pack_diamond_upgrade_"+operation));
+
+        }
+
     }
+
+
 }
