@@ -23,11 +23,10 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 def username = project.hasProperty("dev_username") ? "{$dev_username}" : "${mod_name}"
-def build_number = System.getenv('BUILD_NUMBER') != null ? System.getenv('BUILD_NUMBER') : "CUSTOM"
 
 group = package_group
 archivesBaseName = mod_name
-version = "${mc_version}-${major_version}.${minor_version}.${patch_number}-${build_number}"
+version = "${mc_version}-${major_version}.${minor_version}.${patch_number}"
 
 // Ignore this error. It'll work just fine when building.
 import org.ajoberstar.grgit.*
@@ -143,13 +142,13 @@ String getChangelogText() {
 }
 
 def curseRelations = {
-    optionalLibrary 'just-enough-items-jei'
+    optionalLibrary 'jei'
     optionalLibrary 'inventory-tweaks'
 }
 
 curseforge {
-    if (project.hasProperty('curse_key_TehNut'))
-        apiKey = project.curse_key_TehNut
+    if (project.hasProperty('curse_key_iron_backpacks'))
+        apiKey = project.curse_key_iron_backpacks
 
     project {
         id = "${curse_id}"
