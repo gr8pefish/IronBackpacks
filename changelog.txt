@@ -10,7 +10,7 @@ Changes
 Bug Fixes
 - Fix typo in quick deposit upgrade description
 ------------------------------------------------------
-Version 1.10.2 - 2.2.33
+Version 1.10.2 - 2.2.32
 ------------------------------------------------------
 Additions
 - None
