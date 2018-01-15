@@ -3,15 +3,15 @@ Version 1.12 - 3.0.3
 ------------------------------------------------------
 
 Additions
+- Added the ability to color backpacks
+    - Shapelessly craft with dye, craft with water bucket to remove color
 - Added the "Everlasting Upgrade"
     - It makes backpacks never despawn
 - Added ability to remove upgrades
     - Backpack + shears in an anvil
-- Added the ability to color backpacks
-    - Shapelessly craft with dye, craft with water bucket to remove color
-- Added the ability to equip backpacks
-    - NO RENDERING YET
-- Added a new Blacklist to the API
+- [Internal] Added the code base for the ability to equip backpacks
+    - Disabled though, as it hasn't been tested enough and rendering isn't working yet
+- {Internal] Added a new Blacklist to the API
 
 Changes
 - Specializations are now visually different (backpack clasp color)

@@ -14,8 +14,9 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
 
-        ClientRegistry.registerKeyBinding(ClientEventHandler.KEY_EQUIP);
-        ClientRegistry.registerKeyBinding(ClientEventHandler.KEY_OPEN);
+        //TODO: Enable when equip backpack fully implemented
+//        ClientRegistry.registerKeyBinding(ClientEventHandler.KEY_EQUIP);
+//        ClientRegistry.registerKeyBinding(ClientEventHandler.KEY_OPEN);
     }
 
     @Override
