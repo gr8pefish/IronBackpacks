@@ -155,7 +155,7 @@ def parseConfig(File config) {
 }
 
 def curseRelations = {
-    optionalLibrary 'just-enough-items-jei'
+    optionalLibrary 'jei'
 }
 
 curseforge {
