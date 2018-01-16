@@ -30,6 +30,10 @@ upgrade.ironbackpacks.everlasting.desc=Keeps backpacks that have been dropped fr
 # GUI
 container.ironbackpacks.backpack=Open Backpack
 
+# Keybindings
+key.ironbackpacks.open=Open Backpack (Disabled)
+key.ironbackpacks.equip=Equip/Unequip Backpack (Disabled)
+
 # JEI
 # Increase Tier
 jei.ironbackpacks.increaseTier.name=Increase Backpack Tier
@@ -78,10 +82,6 @@ chat.ironbackpacks.command.deletedEquippedPack=Deleted the equipped backpack for
 chat.ironbackpacks.command.deletedYourEquippedPack=Deleted your equipped backpack.
 chat.ironbackpacks.command.removedEquippedPack=Removed (put in offhand) the equipped backpack for
 chat.ironbackpacks.command.removedYourEquippedPack=Removed (put in offhand) your equipped backpack.
-
-# Keybindings
-key.ironbackpacks.open=Open Backpack
-key.ironbackpacks.equip=Equip/Unequip Backpack
 
 
 # GUI
