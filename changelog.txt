@@ -6,10 +6,10 @@ Additions
 - None
 
 Changes
-- None
+- [Internal] Re-added build number to build script
 
 Bug Fixes
-- None
+- Fixed backpack being stuck when moved via number-keys into open backpack
 
 ------------------------------------------------------
 Version 1.12 - 3.0.4

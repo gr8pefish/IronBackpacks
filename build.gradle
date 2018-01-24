@@ -23,10 +23,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 def username = project.hasProperty("dev_username") ? "{$dev_username}" : "${mod_name}"
+def build_number = System.getenv('BUILD_NUMBER') != null ? System.getenv('BUILD_NUMBER') : "CUSTOM"
 
 group = package_group
 archivesBaseName = mod_name
-version = "${mc_version}-${major_version}.${minor_version}.${patch_number}"
+version = "${mc_version}-${major_version}.${minor_version}.${patch_number}-${build_number}"
 
 // Ignore this error. It'll work just fine when building.
 import org.ajoberstar.grgit.*
