@@ -130,20 +130,36 @@ public class ContainerBackpack extends Container {
     // Helper
 
     public boolean canTake(int slotId, Slot slot, int button, EntityPlayer player, ClickType clickType) {
+        // Block interaction with open backpack slot
         if (slotId == blocked)
             return false;
 
-        if (InventoryBlacklist.INSTANCE.isBlacklisted(player.inventory.getItemStack()) && slotId <= backpackSize.getTotalSize() - 1)
-            return false;
+        // Block placing of backpacks and blacklisted stacks into backpack inventory
+        if (slotId <= backpackSize.getTotalSize() - 1) {
+            if (InventoryBlacklist.INSTANCE.isBlacklisted(player.inventory.getItemStack()))
+                return false;
 
-        if (clickType == ClickType.SWAP) {
-            int hotbarId = backpackSize.getTotalSize() + 27 + button; // Backpack slots + main inventory + hotbar id
-            if (blocked == hotbarId)
+            if (player.inventory.getItemStack().getItem() instanceof IBackpack) // TODO - Check for nesting upgrades and properly handle
                 return false;
         }
 
-        if (slot.getStack().getItem() instanceof IBackpack) // TODO - Check for nesting upgrades and properly handle
-            return false;
+        // Hotbar swapping via number keys
+        if (clickType == ClickType.SWAP) {
+            int hotbarId = backpackSize.getTotalSize() + 27 + button; // Backpack slots + main inventory + hotbar id
+            // Block swapping with open backpack slot
+            if (blocked == hotbarId)
+                return false;
+
+            // Block swapping of backpacks and blacklisted stacks into backpack inventory
+            Slot hotbarSlot = getSlot(hotbarId);
+            if (slotId <= backpackSize.getTotalSize() - 1) {
+                if (InventoryBlacklist.INSTANCE.isBlacklisted(slot.getStack()) || InventoryBlacklist.INSTANCE.isBlacklisted(hotbarSlot.getStack()))
+                    return false;
+
+                if (slot.getStack().getItem() instanceof IBackpack || hotbarSlot.getStack().getItem() instanceof IBackpack) // TODO - Check for nesting upgrades and properly handle
+                    return false;
+            }
+        }
 
         return true;
     }
