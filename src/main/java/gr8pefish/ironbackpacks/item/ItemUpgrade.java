@@ -27,7 +27,7 @@ public class ItemUpgrade extends Item implements IUpgrade {
     public ItemUpgrade() {
         setUnlocalizedName(IronBackpacks.MODID + ".upgrade");
         setHasSubtypes(true);
-        setCreativeTab(IronBackpacks.TAB_IB);
+        setCreativeTab(IronBackpacks.CREATIVE_TAB_IB);
     }
 
     @Override

@@ -8,15 +8,13 @@ import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
-import gr8pefish.ironbackpacks.capabilities.ItemBackpackHandler;
+import gr8pefish.ironbackpacks.capabilities.InventoryBackpackHandler;
 import gr8pefish.ironbackpacks.core.RegistrarIronBackpacks;
 import gr8pefish.ironbackpacks.network.GuiHandler;
-import gr8pefish.ironbackpacks.util.ColorUtil;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -37,7 +35,7 @@ public class ItemBackpack extends Item implements IBackpack {
     public ItemBackpack() {
         setUnlocalizedName(IronBackpacks.MODID + ".backpack");
         setHasSubtypes(true);
-        setCreativeTab(IronBackpacks.TAB_IB);
+        setCreativeTab(IronBackpacks.CREATIVE_TAB_IB);
         setMaxStackSize(1);
     }
 
@@ -50,7 +48,7 @@ public class ItemBackpack extends Item implements IBackpack {
     @Nonnull
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound oldCapNbt) {
-        return new ItemBackpackHandler(stack);
+        return new InventoryBackpackHandler(stack);
     }
 
     @Override

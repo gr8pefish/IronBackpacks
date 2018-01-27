@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -47,7 +48,7 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
     private final List<BackpackUpgrade> upgrades;
     @Nonnull
     private BackpackVariant backpackVariant;
-    private IItemHandlerModifiable inventory;
+    private ItemStackHandler inventory;
     @Nullable
     private UUID owner;
     private int rgbColor;
@@ -138,11 +139,11 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
         return this;
     }
 
-    public IItemHandlerModifiable getInventory() {
+    public ItemStackHandler getInventory() {
         return inventory;
     }
 
-    public BackpackInfo setInventory(@Nonnull IItemHandlerModifiable inventory) {
+    public BackpackInfo setInventory(@Nonnull ItemStackHandler inventory) {
         this.inventory = inventory;
         return this;
     }
@@ -282,11 +283,33 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
             return new BackpackInfo();
 
         BackpackInfo tagged = fromTag(stack.getTagCompound().getCompoundTag("packInfo"));
-
-        ItemStackHandler stackHandler = new ItemStackHandler(tagged.backpackVariant.getBackpackSize().getTotalSize());
         NBTTagList tagList = stack.getTagCompound().getTagList("packInv", 10);
-        for (int i = 0; i < tagList.tagCount(); i++)
-            stackHandler.setStackInSlot(i, new ItemStack(tagList.getCompoundTagAt(i)));
+
+        return setInventory(tagged, tagList);
+
+    }
+
+    //TODO: Test
+    @Nonnull
+    public static BackpackInfo fromTileEntity(@Nonnull TileEntity te) {
+        Preconditions.checkNotNull(te, "TileEntity cannot be null");
+
+        NBTTagCompound compound = te.getTileData();
+        if (compound.hasNoTags())
+            return new BackpackInfo();
+
+        BackpackInfo tagged = fromTag(compound.getCompoundTag("packInfo"));
+        NBTTagList tagList = compound.getTagList("packInv", 10);
+
+        return setInventory(tagged, tagList);
+    }
+
+    //Helper method
+    @Nonnull
+    private static BackpackInfo setInventory(@Nonnull BackpackInfo tagged, @Nonnull NBTTagList inventoryList) {
+        ItemStackHandler stackHandler = new ItemStackHandler(tagged.backpackVariant.getBackpackSize().getTotalSize());
+        for (int i = 0; i < inventoryList.tagCount(); i++)
+            stackHandler.setStackInSlot(i, new ItemStack(inventoryList.getCompoundTagAt(i)));
 
         return tagged.setInventory(stackHandler);
     }

@@ -12,11 +12,11 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ItemBackpackHandler implements IBackpackInventoryProvider, ICapabilityProvider {
+public class InventoryBackpackHandler implements IBackpackInventoryProvider, ICapabilityProvider {
 
     private ItemStack backpack;
 
-    public ItemBackpackHandler(ItemStack stack) {
+    public InventoryBackpackHandler(ItemStack stack) {
         this.backpack = stack;
     }
 
@@ -37,7 +37,7 @@ public class ItemBackpackHandler implements IBackpackInventoryProvider, ICapabil
         return capability == IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY ? (T) this : null;
     }
 
-    public static class Default extends ItemBackpackHandler {
+    public static class Default extends InventoryBackpackHandler {
         public Default() {
             super(ItemStack.EMPTY);
         }
