@@ -6,10 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,7 +20,7 @@ public class TileEntityBackpack extends TileEntity {
     @Nonnull
     private ItemStackHandler inventory; //ToDo: Dynamic
     @Nonnull
-    private BackpackInfo backpackInfo; //ToDo
+    private BackpackInfo backpackInfo; //ToDo: include localized name?
 
     public TileEntityBackpack() {
         //default constructor
@@ -64,22 +61,21 @@ public class TileEntityBackpack extends TileEntity {
 
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY;
+        if (capability == IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY)
+            return true;
+        else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) //May need to alter/test this a little, doesn't exactly have the cap
+            return true;
+        else
+            return super.hasCapability(capability, facing);
     }
 
     @Nullable
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        return capability == IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY ? (T) this : null;
+        return capability == IronBackpacksInventoryHelper.BACKPACK_INV_CAPABILITY ? (T) this : super.getCapability(capability, facing);
     }
 
     // Other
-
-
-    @Override
-    public NBTTagCompound getTileData() {
-        return super.getTileData();
-    }
     
 
     //Still have to (re)figure out how the inventory works
