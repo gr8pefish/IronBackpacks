@@ -289,24 +289,9 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
 
     }
 
-    //TODO: Test
-    @Nonnull
-    public static BackpackInfo fromTileEntity(@Nonnull TileEntity te) {
-        Preconditions.checkNotNull(te, "TileEntity cannot be null");
-
-        NBTTagCompound compound = te.getTileData();
-        if (compound.hasNoTags())
-            return new BackpackInfo();
-
-        BackpackInfo tagged = fromTag(compound.getCompoundTag("packInfo"));
-        NBTTagList tagList = compound.getTagList("packInv", 10);
-
-        return setInventory(tagged, tagList);
-    }
-
     //Helper method
     @Nonnull
-    private static BackpackInfo setInventory(@Nonnull BackpackInfo tagged, @Nonnull NBTTagList inventoryList) {
+    public static BackpackInfo setInventory(@Nonnull BackpackInfo tagged, @Nonnull NBTTagList inventoryList) {
         ItemStackHandler stackHandler = new ItemStackHandler(tagged.backpackVariant.getBackpackSize().getTotalSize());
         for (int i = 0; i < inventoryList.tagCount(); i++)
             stackHandler.setStackInSlot(i, new ItemStack(inventoryList.getCompoundTagAt(i)));

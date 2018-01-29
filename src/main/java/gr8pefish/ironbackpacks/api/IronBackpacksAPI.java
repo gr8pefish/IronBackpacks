@@ -199,35 +199,6 @@ public class IronBackpacksAPI {
         return stack;
     }
 
-    //TODO: Test
-    /**
-     * Applies the {@link BackpackInfo} to an {@link TileEntity} of a backpack, giving it the necessary NBT.
-     *
-     * @param tileEntity        - The backpack as an TileEntity.
-     * @param backpackInfo - The backpackInfo to apply.
-     * @return - The updated tileEntity with the info applied.
-     */
-    @Nonnull
-    public static TileEntity applyPackInfo(@Nonnull TileEntity tileEntity, @Nonnull BackpackInfo backpackInfo) {
-        Preconditions.checkNotNull(tileEntity, "TileEntity cannot be null");
-        Preconditions.checkNotNull(backpackInfo, "BackpackInfo cannot be null");
-
-        NBTTagCompound tagCompound = tileEntity.getTileData();
-        //no null check as always there?
-
-        tagCompound.setTag("packInfo", backpackInfo.serializeNBT());
-        if (backpackInfo.getInventory() != null) {
-            NBTTagList invTag = new NBTTagList();
-            for (int i = 0; i < backpackInfo.getInventory().getSlots(); i++)
-                invTag.appendTag(backpackInfo.getInventory().getStackInSlot(i).serializeNBT());
-
-            tagCompound.setTag("packInv", invTag);
-        }
-
-        tileEntity.writeToNBT(tagCompound); // necessary??
-        return tileEntity;
-    }
-
     // Variants
 
     /**
