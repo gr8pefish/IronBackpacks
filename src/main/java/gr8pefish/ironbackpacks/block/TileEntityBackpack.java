@@ -20,12 +20,28 @@ import javax.annotation.Nullable;
 public class TileEntityBackpack extends TileEntity {
 
     //Add 9 "slots"
+    @Nonnull
     private ItemStackHandler inventory; //ToDo: Dynamic
+    @Nonnull
     private BackpackInfo backpackInfo; //ToDo
+
+    public TileEntityBackpack() {
+        //default constructor
+    }
+
+    //Use BackpackInfo
 
     public TileEntityBackpack(@Nonnull BackpackInfo backpackInfo) {
         this.backpackInfo = backpackInfo;
         this.inventory = backpackInfo.getInventory();
+    }
+
+    public void setBackpackInfo(@Nonnull BackpackInfo backpackInfo) {
+        this.backpackInfo = backpackInfo;
+    }
+
+    public BackpackInfo getBackpackInfo() {
+        return this.backpackInfo;
     }
 
     //Write/Read inventory to/from NBT
@@ -64,11 +80,7 @@ public class TileEntityBackpack extends TileEntity {
     public NBTTagCompound getTileData() {
         return super.getTileData();
     }
-
-    //Unused, trying to keep consistent styling so doing BackpackInfo.fromTE(this), but that may be the wrong approach
-    public BackpackInfo getBackpackInfo() {
-        return backpackInfo;
-    }
+    
 
     //Still have to (re)figure out how the inventory works
     public IItemHandler getInventory() {
