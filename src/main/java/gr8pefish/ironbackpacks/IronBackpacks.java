@@ -25,7 +25,7 @@ public class IronBackpacks {
     public static final String DEPEND = "";
     public static final Logger LOGGER = LogManager.getLogger(NAME);
     public static final SimpleNetworkWrapper NETWORK = new SimpleNetworkWrapper(MODID);
-    public static final CreativeTabs CREATIVE_TAB_IB = new CreativeTabs(MODID) {
+    public static final CreativeTabs TAB_IB = new CreativeTabs(MODID) {
         @Override
         public ItemStack getTabIconItem() {
             return IronBackpacksAPI.getStack(RegistrarIronBackpacks.PACK_IRON /*im not null don't worry*/, BackpackSpecialty.STORAGE);

@@ -35,7 +35,7 @@ public class ItemBackpack extends Item implements IBackpack {
     public ItemBackpack() {
         setUnlocalizedName(IronBackpacks.MODID + ".backpack");
         setHasSubtypes(true);
-        setCreativeTab(IronBackpacks.CREATIVE_TAB_IB);
+        setCreativeTab(IronBackpacks.TAB_IB);
         setMaxStackSize(1);
     }
 

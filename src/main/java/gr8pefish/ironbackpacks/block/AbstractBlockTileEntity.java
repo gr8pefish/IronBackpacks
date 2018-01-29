@@ -28,7 +28,7 @@ public abstract class AbstractBlockTileEntity<TE extends TileEntity> extends Blo
     public AbstractBlockTileEntity(Material material, String name) {
         super(material);
         setUnlocalizedName(IronBackpacks.MODID + "."+ name);
-        setCreativeTab(IronBackpacks.CREATIVE_TAB_IB);
+        setCreativeTab(IronBackpacks.TAB_IB);
     }
 
     /** Get the TileEntity's Class */
