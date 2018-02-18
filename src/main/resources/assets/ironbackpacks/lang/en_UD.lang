@@ -1,0 +1,217 @@
+
+itemGroup.ironbackpacks=sʞɔɐdʞɔɐᗺ uoɹI
+
+item.ironbackpacks.backpack.name=ʞɔɐdʞɔɐᗺ uɹo⟘
+item.ironbackpacks.backpack.ironbackpacks.basic.name=ʞɔɐdʞɔɐᗺ ɔᴉsɐᗺ
+item.ironbackpacks.backpack.ironbackpacks.iron.name=ʞɔɐdʞɔɐᗺ uoɹI
+item.ironbackpacks.backpack.ironbackpacks.gold.name=ʞɔɐdʞɔɐᗺ pꞁo⅁
+item.ironbackpacks.backpack.ironbackpacks.diamond.name=ʞɔɐdʞɔɐᗺ puoɯɐᴉᗡ
+item.ironbackpacks.upgrade.name=ǝpɐɹᵷd∩ ʞuɐꞁᗺ
+
+tooltip.ironbackpacks.upgrade.cost=(s)ʇuᴉod ǝpɐɹᵷdn %d sʇsoƆ
+tooltip.ironbackpacks.upgrade.minimum_tier=%d :ɹǝᴉʇ ɯnɯᴉuᴉW
+tooltip.ironbackpacks.backpack.upgrade.list=:sǝpɐɹᵷdn pǝꞁꞁɐʇsuI
+tooltip.ironbackpacks.shift=uoᴉʇɐɯɹoɟuᴉ ǝɹoɯ ɹoɟ ʇɟᴉɥs pꞁoH
+
+upgrade.ironbackpacks.damage_bar.name=ǝpɐɹᵷd∩ ɹɐᗺ ǝᵷɐɯɐᗡ
+upgrade.ironbackpacks.damage_bar.desc=˙ǝɔuɐꞁᵷ ɐ ʇɐ sᴉ ʞɔɐdʞɔɐq ǝɥʇ ꞁꞁnɟ ʍoɥ ʇuǝsǝɹdǝɹ ʎꞁꞁɐnsᴉʌ oʇ ɹɐq ǝᵷɐɯɐp ɐ sppⱯ
+upgrade.ironbackpacks.lock.name=ǝpɐɹᵷd∩ ɥɔʇɐꞀ
+upgrade.ironbackpacks.lock.desc=˙ʞɔɐd ǝɥʇ ɟo ʇno ɹǝuʍo ǝɥʇ ʇnq ʎpoqʎɹǝʌǝ sʞɔoꞀ
+upgrade.ironbackpacks.extra_upgrade.name=ʇuᴉoԀ ǝpɐɹᵷd∩ ɐɹʇxƎ
+upgrade.ironbackpacks.extra_upgrade.desc=˙ʇuᴉod ǝpɐɹᵷdn ꞁɐuoᴉʇᴉppɐ uɐ sppⱯ
+upgrade.ironbackpacks.everlasting.name=ǝpɐɹᵷd∩ ᵷuᴉʇsɐꞁɹǝʌƎ
+upgrade.ironbackpacks.everlasting.desc=˙ᵷuᴉuʍɐds-ǝp ɯoɹɟ pǝddoɹp uǝǝq ǝʌɐɥ ʇɐɥʇ sʞɔɐdʞɔɐq sdǝǝʞ
+
+container.ironbackpacks.backpack=ʞɔɐdʞɔɐᗺ uǝdO
+
+key.ironbackpacks.open=(pǝꞁqɐsᴉᗡ) ʞɔɐdʞɔɐᗺ uǝdO
+key.ironbackpacks.equip=(pǝꞁqɐsᴉᗡ) ʞɔɐdʞɔɐᗺ dᴉnbǝu∩/dᴉnbƎ
+
+jei.ironbackpacks.increaseTier.name=ɹǝᴉ⟘ ʞɔɐdʞɔɐᗺ ǝsɐǝɹɔuI
+jei.ironbackpacks.increaseTier.desc=§r¡ʎꞁǝsᴉʍ ǝsooɥƆ ˙ᵷuᴉpɐɹᵷdn uǝɥʍ sʞɔɐdʞɔɐq ɟo sǝdʎʇ ʇuǝɹǝɟɟᴉp uǝǝʍʇǝq ǝsooɥɔ oʇ ǝʌɐɥ ʎɐɯ no⅄ ˙§2ǝdᴉɔǝɹ ᵷuᴉʇɟɐɹɔ§f pǝɹᴉsǝp ǝɥʇ ʍoꞁꞁoɟ ʎꞁdɯᴉs 'ʞɔɐdʞɔɐq ɐ ɟo ɹǝᴉʇ ǝɥʇ ǝsɐǝɹɔuᴉ o⟘
+jei.ironbackpacks.increaseTier.desc2=¡ʞɔɐdʞɔɐq snoᴉʌǝɹd ǝɥʇ uᴉ ʇuǝsǝɹd ˙ɔʇǝ 'suoᴉʇɐɹnᵷᴉɟuoɔ 'sǝpɐɹᵷdn 'sɯǝʇᴉ ꞁꞁɐ dǝǝʞ ʎꞁꞁɐɔᴉʇɐɯoʇnɐ noʎ ɹǝᴉʇ ʍǝu ɐ oʇ ᵷuᴉpɐɹᵷdn uǝɥʍ ʇɐɥʇ ǝʇoN
+
+
+item.ironbackpacks.backpack.basicBackpack.name=ʞɔɐdʞɔɐᗺ ɔᴉsɐᗺ
+item.ironbackpacks.backpack.ironBackpackStorageEmphasis.name=(sᴉsɐɥdɯƎ ǝᵷɐɹoʇS) ʞɔɐdʞɔɐᗺ uoɹI
+item.ironbackpacks.backpack.ironBackpackUpgradeEmphasis.name=(sᴉsɐɥdɯƎ ǝpɐɹᵷd∩) ʞɔɐdʞɔɐᗺ uoɹI
+item.ironbackpacks.backpack.goldBackpackStorageEmphasis.name=(sᴉsɐɥdɯƎ ǝᵷɐɹoʇS) ʞɔɐdʞɔɐᗺ pꞁo⅁
+item.ironbackpacks.backpack.goldBackpackUpgradeEmphasis.name=(sᴉsɐɥdɯƎ ǝpɐɹᵷd∩) ʞɔɐdʞɔɐᗺ pꞁo⅁
+item.ironbackpacks.backpack.diamondBackpackStorageEmphasis.name=(sᴉsɐɥdɯƎ ǝᵷɐɹoʇS) ʞɔɐdʞɔɐᗺ puoɯɐᴉᗡ
+item.ironbackpacks.backpack.diamondBackpackUpgradeEmphasis.name=(sᴉsɐɥdɯƎ ǝpɐɹᵷd∩) ʞɔɐdʞɔɐᗺ puoɯɐᴉᗡ
+
+item.ironbackpacks.upgrade.button.name=ǝpɐɹᵷd∩ uoʇʇnᗺ
+item.ironbackpacks.upgrade.nesting.name=ǝpɐɹᵷd∩ ᵷuᴉʇsǝN
+item.ironbackpacks.upgrade.nestingAdvanced.name=ǝpɐɹᵷd∩ ᵷuᴉʇsǝN pǝɔuɐʌpⱯ
+item.ironbackpacks.upgrade.damageBar.name=ǝpɐɹᵷd∩ ɹɐᗺ ǝᵷɐɯɐᗡ
+item.ironbackpacks.upgrade.filterBasic.name=ǝpɐɹᵷd∩ ɹǝʇꞁᴉℲ ɔᴉsɐᗺ
+item.ironbackpacks.upgrade.filterFuzzy.name=ǝpɐɹᵷd∩ ɹǝʇꞁᴉℲ ʎzznℲ
+item.ironbackpacks.upgrade.filterOreDict.name=ǝpɐɹᵷd∩ ɹǝʇꞁᴉℲ ʎɹɐuoᴉʇɔᴉᗡ ǝɹO
+item.ironbackpacks.upgrade.filterModSpecific.name=ǝpɐɹᵷd∩ ɹǝʇꞁᴉℲ ɔᴉɟᴉɔǝdS poW
+item.ironbackpacks.upgrade.filterAdvanced.name=ǝpɐɹᵷd∩ ɹǝʇꞁᴉℲ pǝɔuɐʌpⱯ
+item.ironbackpacks.upgrade.restocking.name=ǝpɐɹᵷd∩ ᵷuᴉʞɔoʇsǝᴚ
+item.ironbackpacks.upgrade.crafting.name=ǝpɐɹᵷd∩ uoᴉssǝɹdɯoƆ
+item.ironbackpacks.upgrade.craftingSmall.name=ǝpɐɹᵷd∩ uoᴉssǝɹdɯoƆ ꞁꞁɐɯS
+item.ironbackpacks.upgrade.craftingTiny.name=ǝpɐɹᵷd∩ uoᴉssǝɹdɯoɔǝᗡ
+item.ironbackpacks.upgrade.renaming.name=ǝpɐɹᵷd∩ ᵷuᴉɯɐuǝᴚ
+item.ironbackpacks.upgrade.eternity.name=ǝpɐɹᵷd∩ ʎʇᴉuɹǝʇƎ
+item.ironbackpacks.upgrade.additionalUpgradePoints.name=ǝpɐɹᵷd∩ sʇuᴉoԀ ǝpɐɹᵷd∩ ꞁɐuoᴉʇᴉppⱯ
+item.ironbackpacks.upgrade.quickDeposit.name=ǝpɐɹᵷd∩ ʇᴉsodǝᗡ ʞɔᴉnΌ
+item.ironbackpacks.upgrade.quickDepositPrecise.name=ǝpɐɹᵷd∩ ʇᴉsodǝᗡ ʞɔᴉnΌ ǝsᴉɔǝɹԀ
+item.ironbackpacks.upgrade.filterMining.name=ǝpɐɹᵷd∩ ɹǝʇꞁᴉℲ ᵷuᴉuᴉW
+item.ironbackpacks.upgrade.filterVoid.name=ǝpɐɹᵷd∩ ɹǝʇꞁᴉℲ pᴉoᴧ
+item.ironbackpacks.upgrade.depth.name=ǝpɐɹᵷd∩ ɥʇdǝᗡ
+
+item.ironbackpacks.crafting.upgradeCore.name=ǝɹoƆ ǝpɐɹᵷd∩
+
+chat.ironbackpacks.command.deletedEquippedPack=ɹoɟ ʞɔɐdʞɔɐq pǝddᴉnbǝ ǝɥʇ pǝʇǝꞁǝᗡ
+chat.ironbackpacks.command.deletedYourEquippedPack=˙ʞɔɐdʞɔɐq pǝddᴉnbǝ ɹnoʎ pǝʇǝꞁǝᗡ
+chat.ironbackpacks.command.removedEquippedPack=ɹoɟ ʞɔɐdʞɔɐq pǝddᴉnbǝ ǝɥʇ (puɐɥɟɟo uᴉ ʇnd) pǝʌoɯǝᴚ
+chat.ironbackpacks.command.removedYourEquippedPack=˙ʞɔɐdʞɔɐq pǝddᴉnbǝ ɹnoʎ (puɐɥɟɟo uᴉ ʇnd) pǝʌoɯǝᴚ
+
+
+gui.ironbackpacks.emptyUpgradeSlot=ʇoꞁS ǝpɐɹᵷd∩ ʎʇdɯƎ
+gui.ironbackpacks.noValidUpgradesFound=¡punoℲ sǝpɐɹᵷd∩ pᴉꞁɐᴧ oN
+gui.ironbackpacks.uuidError=¡ǝɔuo ʎꞁꞁɐɯɹou ʞɔɐdʞɔɐq sᴉɥʇ uǝdO
+
+
+button.ironbackpacks.rename.tooltip=˙,ɹǝʇuƎ, ssǝɹd ʇsnɾ osꞁɐ uɐɔ no⅄ ˙ʞɔɐdʞɔɐq ǝɥʇ sǝɯɐuǝᴚ
+button.ironbackpacks.exact.tooltip=ᵷuᴉɥɔʇɐW ʇɔɐxƎ
+button.ironbackpacks.fuzzy.tooltip=ᵷuᴉɥɔʇɐW ʎzznℲ
+button.ironbackpacks.oreDict.tooltip=ᵷuᴉɥɔʇɐW ʎɹɐuoᴉʇɔᴉᗡ ǝɹO
+button.ironbackpacks.modSpecific.tooltip=ᵷuᴉɥɔʇɐW ɔᴉɟᴉɔǝdS poW
+button.ironbackpacks.void.tooltip=(sɯǝʇᴉ sǝʇǝꞁǝᗡ) ᵷuᴉɥɔʇɐW pᴉoᴧ
+button.ironbackpacks.packToInv.tooltip=˙ʎɹoʇuǝʌuᴉ ɹnoʎ oʇ ʞɔɐdʞɔɐq ǝɥʇ ɯoɹɟ sɯǝʇᴉ sǝʌoW
+button.ironbackpacks.invToPack.tooltip=ʞɔɐdʞɔɐq ǝɥʇ oʇ ʎɹoʇuǝʌuᴉ ɹnoʎ ɯoɹɟ sɯǝʇᴉ sǝʌoW
+button.ironbackpacks.barToPack.tooltip=˙ʞɔɐdʞɔɐq ǝɥʇ oʇ ɹɐqʇoɥ ɹnoʎ ɯoɹɟ sɯǝʇᴉ sǝʌoW
+button.ironbackpacks.sort.tooltip.alphabetical=˙(ǝᵷuɐɥɔ oʇ ʞɔᴉꞁɔ ʇɥᵷᴉɹ) ǝɯɐu ꞁɐɔᴉʇǝqɐɥdꞁɐ 'pǝzᴉꞁɐɔoꞁ ʎq ʞɔɐdʞɔɐq ǝɥʇ uᴉ sɯǝʇᴉ ǝɥʇ sǝsuǝpuoɔ puɐ sʇɹoS
+button.ironbackpacks.sort.tooltip.id=˙(ǝᵷuɐɥɔ oʇ ʞɔᴉꞁɔ ʇɥᵷᴉɹ) ᗡI ɯǝʇᴉ ʎq ʞɔɐdʞɔɐq ǝɥʇ uᴉ sɯǝʇᴉ ǝɥʇ sǝsuǝpuoɔ puɐ sʇɹoS
+button.ironbackpacks.left.tooltip=˙ʇɟǝꞁ ǝɥʇ oʇ ʇɟᴉɥS
+button.ironbackpacks.right.tooltip=˙ʇɥᵷᴉɹ ǝɥʇ oʇ ʇɟᴉɥS
+button.ironbackpacks.info.tooltip=˙ǝɹǝɥ sǝoᵷ ʞɔɐdʞɔɐq ǝɥʇ ʇnoqɐ uoᴉʇɐɯɹoɟuI
+button.ironbackpacks.clear.basicFilter.tooltip=˙sɯǝʇᴉ ɹǝʇꞁᴉɟ ɔᴉsɐq ǝɥʇ sɹɐǝꞁƆ
+button.ironbackpacks.clear.fuzzyFilter.tooltip=˙sɯǝʇᴉ ɹǝʇꞁᴉɟ ʎzznɟ ǝɥʇ sɹɐǝꞁƆ
+button.ironbackpacks.clear.oreDictFilter.tooltip=˙sɯǝʇᴉ ɹǝʇꞁᴉɟ ʎɹɐuoᴉʇɔᴉᗡ ǝɹO ǝɥʇ sɹɐǝꞁƆ
+button.ironbackpacks.clear.modSpecificFilter.tooltip=˙sɯǝʇᴉ ɹǝʇꞁᴉɟ ɔᴉɟᴉɔǝds poɯ ǝɥʇ sɹɐǝꞁƆ
+button.ironbackpacks.clear.miningFilter.tooltip=˙sɯǝʇᴉ ɹǝʇꞁᴉɟ ᵷuᴉuᴉɯ ǝɥʇ sɹɐǝꞁƆ
+button.ironbackpacks.clear.voidFilter.tooltip=˙sɯǝʇᴉ ɹǝʇꞁᴉɟ pᴉoʌ ǝɥʇ sɹɐǝꞁƆ
+button.ironbackpacks.clear.advancedFilter.tooltip=˙(sɹǝʇꞁᴉɟ uoʇʇnq puɐ sɯǝʇᴉ sɹɐǝꞁɔ) ɹǝʇꞁᴉɟ pǝɔuɐʌpɐ ǝɥʇ sʇǝsǝᴚ
+button.ironbackpacks.clear.hopper.tooltip=˙sɯǝʇᴉ ᵷuᴉʞɔoʇsǝɹ ǝɥʇ sɹɐǝꞁƆ
+button.ironbackpacks.clear.condenser.tooltip=˙sɯǝʇᴉ ᵷuᴉʇɟɐɹɔ ǝɥʇ sɹɐǝꞁƆ
+button.ironbackpacks.clear.condenser.small.tooltip=˙sɯǝʇᴉ ᵷuᴉʇɟɐɹɔ ǝɥʇ sɹɐǝꞁƆ
+button.ironbackpacks.clear.condenser.tiny.tooltip=˙sɯǝʇᴉ ᵷuᴉʇɟɐɹɔ ǝɥʇ sɹɐǝꞁƆ
+
+
+tooltip.ironbackpacks.uuid=%s :ᗡI∩∩
+tooltip.ironbackpacks.backpack.upgrade.used=˙pǝsn sʇuᴉod ǝpɐɹᵷdn %2$d/%1$d
+tooltip.ironbackpacks.backpack.upgrade.used.alt=˙pǝsn sǝpɐɹᵷdn ǝꞁqɐɹnᵷᴉɟuoɔ %2$d/%1$d
+tooltip.ironbackpacks.backpack.upgrade.used.additionalPoints=˙pǝppɐ sʇuᴉod ǝpɐɹᵷdn ꞁɐuoᴉʇᴉppɐ %2$d/%1$d
+tooltip.ironbackpacks.backpack.upgrade.rename=(ǝpɐɹᵷdn ᵷuᴉɯɐuǝɹ ǝɥʇ ǝpnꞁɔuᴉ ʇsnɯ ǝpɐɹᵷdn ɥʇ%d ǝɥ⟘)
+tooltip.ironbackpacks.backpack.emphasis.storage=sᴉsɐɥdɯƎ ǝᵷɐɹoʇS
+tooltip.ironbackpacks.backpack.emphasis.upgrade=sᴉsɐɥdɯƎ ǝpɐɹᵷd∩
+tooltip.ironbackpacks.upgrade.minimumTier=˙%s :ɹǝᴉʇ ɯnɯᴉuᴉW
+
+tooltip.ironbackpacks.backpack.tier=%d :ɹǝᴉ⟘
+tooltip.ironbackpacks.backpack.tier.basicBackpack.name=ʞɔɐdʞɔɐᗺ ɔᴉsɐᗺ
+tooltip.ironbackpacks.backpack.tier.ironBackpack.name=ʞɔɐdʞɔɐᗺ uoɹI
+tooltip.ironbackpacks.backpack.tier.goldBackpack.name=ʞɔɐdʞɔɐᗺ pꞁo⅁
+tooltip.ironbackpacks.backpack.tier.diamondBackpack.name=ʞɔɐdʞɔɐᗺ puoɯɐᴉᗡ
+
+tooltip.ironbackpacks.upgrade.recipeDisabled=¡pǝꞁqɐsᴉᗡ ǝdᴉɔǝᴚ
+tooltip.ironbackpacks.upgrade.button.desc=˙ʎꞁʞɔᴉnb ʞɔɐdʞɔɐq ɹnoʎ ʇɹos oʇ uoʇʇnq ɐ sɐ ꞁꞁǝʍ sɐ 'ʞɔɐdʞɔɐq ɹnoʎ ɯoɹɟ puɐ oʇ sɯǝʇᴉ ǝʌoɯ ʎꞁʞɔᴉnb oʇ suoʇʇnq sppⱯ
+tooltip.ironbackpacks.upgrade.nesting.desc=˙ʞɔɐdʞɔɐq ǝɥʇ ǝpᴉsuᴉ ɹǝᴉʇ snoᴉʌǝɹd ɐ ɟo ʞɔɐdʞɔɐq ʎuɐ ǝɔɐꞁd oʇ noʎ sʍoꞁꞁⱯ
+tooltip.ironbackpacks.upgrade.bar.desc=˙ǝɔuɐꞁᵷ ɐ ʇɐ sᴉ ʞɔɐdʞɔɐq ǝɥʇ ꞁꞁnɟ ʍoɥ ʇuǝsǝɹdǝɹ ʎꞁꞁɐnsᴉʌ oʇ ɹɐq ǝᵷɐɯɐp ɐ sppⱯ
+tooltip.ironbackpacks.upgrade.soulbound.desc=˙(uᴉɐᵷɐ ʇᴉ ʇuɐʍ noʎ ɟᴉ ʇᴉ ʎꞁddɐǝɹ oʇ ǝʌɐɥ ꞁꞁᴉʍ noʎ) ɥᵷnoɥʇ ɥʇɐǝp ɹǝʇɟɐ sɹɐǝddɐsᴉp ǝpɐɹᵷdn ǝɥ⟘ ˙ǝᴉp noʎ uǝɥʍ ʞɔɐdʞɔɐq ǝɥʇ dǝǝʞ oʇ noʎ sʍoꞁꞁⱯ
+tooltip.ironbackpacks.upgrade.quickDeposit.desc=˙ʎɹoʇuǝʌuᴉ ǝɥʇ oʇuᴉ sʇuǝʇuoɔ s,ʇᴉ ʎʇdɯǝ oʇ ʇdɯǝʇʇɐ ꞁꞁᴉʍ ʞɔɐdʞɔɐq ǝɥʇ ǝpɐɹᵷdn sᴉɥʇ ɥʇᴉʍ ʎɹoʇuǝʌuᴉ uɐ uo ʞɔᴉꞁɔ ʇɥᵷᴉɹ ʇɟᴉɥs noʎ uǝɥM
+tooltip.ironbackpacks.upgrade.quickDepositPrecise.desc=˙ʎɹoʇuǝʌuᴉ ʇɐɥʇ uᴉ ʇsᴉxǝ ʎpɐǝɹꞁɐ ʎǝɥʇ ɟᴉ ʎɹoʇuǝʌuᴉ ǝɥʇ oʇuᴉ sʇuǝʇuoɔ s,ʇᴉ ʎʇdɯǝ oʇ ʇdɯǝʇʇɐ ʎꞁuo ꞁꞁᴉʍ ʞɔɐdʞɔɐq ǝɥʇ ʇdǝɔxǝ 'ʇᴉsodǝp ʞɔᴉnb ǝɥʇ oʇ ɹɐꞁᴉɯᴉS
+tooltip.ironbackpacks.upgrade.advNesting.desc=˙ʞɔɐdʞɔɐq ǝɥʇ ǝpᴉsuᴉ 'ɹǝᴉʇ ɟo ssǝꞁpɹɐᵷǝɹ 'ʞɔɐdʞɔɐq ʎuɐ ǝɔɐꞁd oʇ noʎ sʍoꞁꞁⱯ
+tooltip.ironbackpacks.upgrade.depth.desc=˙(ᵷuᴉʇsǝu ǝʇᴉuᴉɟuᴉ ou) ǝɔuo pǝʇsǝu sʞɔɐdʞɔɐq uᴉ sʞɹoʍ ʎꞁuO ˙(sǝpɐɹᵷdn uoᴉssǝɹdɯoɔ/ᵷuᴉʞɔoʇsǝɹ/ɹǝʇꞁᴉɟ ˙ǝ˙ᴉ) ʎʇᴉꞁɐuoᴉʇɔunɟ ꞁꞁnɟ ǝʌɐɥ oʇ sʞɔɐdʞɔɐq pǝʇsǝu ʎuɐ sʍoꞁꞁⱯ
+tooltip.ironbackpacks.upgrade.naming.desc=˙ʞɔɐdʞɔɐq ǝɥʇ ǝɯɐuǝɹ oʇ noʎ sʍoꞁꞁⱯ
+
+tooltip.ironbackpacks.upgrade.basicFilter.desc=˙ʇɔǝꞁꞁoɔ ʎꞁꞁɐɔᴉʇɐɯoʇnɐ ꞁꞁᴉʍ ʞɔɐdʞɔɐq ǝɥʇ ʇɐɥʇ sɯǝʇᴉ ɟo ɹǝʇꞁᴉɟ ǝꞁqɐɹnᵷᴉɟuoɔ ɐ sppⱯ
+tooltip.ironbackpacks.upgrade.modSpecificFilter.desc=˙sʇoꞁs ɹǝʇꞁᴉɟ ǝɥʇ uᴉ (s)ɯǝʇᴉ ǝɥʇ sɐ poɯ ǝɯɐs ǝɥʇ ɯoɹɟ sᴉ ʇɐɥʇ ɯǝʇᴉ ʎuɐ dn ʞɔᴉd ꞁꞁᴉʍ ʞɔɐdʞɔɐq ǝɥʇ ʇdǝɔxǝ 'ɹǝʇꞁᴉɟ ɔᴉsɐq ǝɥʇ oʇ ɹɐꞁᴉɯᴉS
+tooltip.ironbackpacks.upgrade.fuzzyFilter.desc=˙sɯǝʇᴉ ǝɥʇ uo sǝnꞁɐʌ ǝᵷɐɯɐp ǝɹouᵷᴉ ꞁꞁᴉʍ ʞɔɐdʞɔɐq ǝɥʇ ʇdǝɔxǝ 'ɹǝʇꞁᴉɟ ɔᴉsɐq ǝɥʇ oʇ ɹɐꞁᴉɯᴉS
+tooltip.ironbackpacks.upgrade.oreDictFilter.desc=˙ʇoꞁs ɹǝʇꞁᴉɟ ǝɥʇ uᴉ (s)ɯǝʇᴉ ǝɥʇ sɐ ǝɯɐs ǝɥʇ sɐ ʎɹɐuoᴉʇɔᴉp ǝɹo ǝɥʇ uᴉ pǝɹǝʇsᴉᵷǝɹ sᴉ ʇɐɥʇ ɯǝʇᴉ ʎuɐ dn ʞɔᴉd ꞁꞁᴉʍ ʞɔɐdʞɔɐq ǝɥʇ ʇdǝɔxǝ 'ɹǝʇꞁᴉɟ ɔᴉsɐq ǝɥʇ oʇ ɹɐꞁᴉɯᴉS
+tooltip.ironbackpacks.upgrade.hopperFilter.desc=˙ʞɔɐdʞɔɐq ɹnoʎ ɯoɹɟ pǝᴉꞁddns sᴉ ɥɔᴉɥʍ ɹɐqʇoɥ/ʎɹoʇuǝʌuᴉ ɹnoʎ uᴉ pǝʞɔoʇs dǝǝʞ oʇ ɯǝʇᴉ uɐ ʎɟᴉɔǝds oʇ noʎ sʍoꞁꞁⱯ
+tooltip.ironbackpacks.upgrade.condenser.desc=˙(ʞɔoꞁq ǝuoʇspǝɹ <- ǝuoʇspǝɹ :xǝ) ʞɔɐdʞɔɐq ɹnoʎ ᵷuᴉɹǝʇuǝ uodn pᴉɹᵷ ƐxƐ ɐ uᴉ pǝʇɟɐɹɔ ǝq oʇ sɯǝʇᴉ ɟo ʇǝs ɐ ʎɟᴉɔǝds oʇ noʎ sʍoꞁꞁⱯ
+tooltip.ironbackpacks.upgrade.advFilter.desc=˙suoᴉʇdo ǝꞁqɐɹnᵷᴉɟuoɔ sɐɥ sʇoꞁs ɥɔɐǝ puɐ sʇoꞁs 8⥝ sɐɥ ɹǝʇꞁᴉɟ ǝɥʇ ʇdǝɔxǝ 'ɹǝʇꞁᴉɟ ɔᴉsɐq ǝɥʇ oʇ ɹɐꞁᴉɯᴉS
+tooltip.ironbackpacks.upgrade.miningFilter.desc=˙(ǝꞁqqoɔ :xǝ) sɯǝʇᴉ ɹǝɥʇo ɹoɟ ɹǝʇꞁᴉɟ ɔᴉsɐq ɐ sɐɥ puɐ sʇsnp ɹo 'sɯǝᵷ 'sǝɹo ʎuɐ dn sʞɔᴉd ʎꞁꞁɐɔᴉʇɐɯoʇnⱯ
+tooltip.ironbackpacks.upgrade.voidFilter.desc=˙(sǝnꞁɐʌ ǝᵷɐɯɐp sǝɹouᵷᴉ) uoᴉʇɔǝʇǝp ʎzznɟ ʎq os sǝop ʇI ˙ɹǝʇꞁᴉɟ ǝɥʇ uᴉ pǝᴉɟᴉɔǝds ǝɹɐ ʇɐɥʇ dn ʞɔᴉd noʎ sɯǝʇᴉ ʎuɐ sǝʇǝꞁǝp ʎꞁꞁɐɔᴉʇɐɯoʇnⱯ
+tooltip.ironbackpacks.upgrade.condenser.small.desc=˙(ǝuoʇspuɐs <- puɐs :xǝ) ʞɔɐdʞɔɐq ɹnoʎ ᵷuᴉɹǝʇuǝ uodn pᴉɹᵷ ᘔxᘔ ɐ uᴉ pǝʇɟɐɹɔ ǝq oʇ sɯǝʇᴉ ɟo ʇǝs ɐ ʎɟᴉɔǝds oʇ noʎ sʍoꞁꞁⱯ
+tooltip.ironbackpacks.upgrade.condenser.tiny.desc=˙(ǝuoʇspǝɹ <- ʞɔoꞁq ǝuoʇspǝɹ :xǝ) ʞɔɐdʞɔɐq ɹnoʎ ᵷuᴉɹǝʇuǝ uodn ɟꞁǝsʇᴉ ʎq pǝʇɟɐɹɔ ǝq oʇ sɯǝʇᴉ ɟo ʇǝs ɐ ʎɟᴉɔǝds oʇ noʎ sʍoꞁꞁⱯ
+tooltip.ironbackpacks.upgrade.addUpgrades.desc=˙ʞɔɐdʞɔɐq ǝɥʇ oʇ %s ɹǝɥʇouɐ sppⱯ
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.single=ʇuᴉod ǝpɐɹᵷdn
+tooltip.ironbackpacks.upgrade.addUpgrades.amount.mult=sʇuᴉod ǝpɐɹᵷdn %d
+
+
+misc.ironbackpacks.default.equipped.backpack.name=ʞɔɐdʞɔɐᗺ pǝddᴉnbƎ
+
+
+achievement.ironbackpacks.basicBackpackCrafted=sɔᴉsɐᗺ ǝɥ⟘
+achievement.ironbackpacks.basicBackpackCrafted.desc=ʞɔɐdʞɔɐq ɔᴉsɐq ɐ ʇɟɐɹƆ
+achievement.ironbackpacks.ironBackpackCrafted=ʇnO sᵷuᴉɥ⟘ ᵷuᴉuoɹI
+achievement.ironbackpacks.ironBackpackCrafted.desc=(uoᴉʇɐzᴉꞁɐᴉɔǝds ɹǝɥʇᴉǝ) ʞɔɐdʞɔɐq uoɹᴉ uɐ ʇɟɐɹƆ
+achievement.ironbackpacks.goldBackpackCrafted=ǝᵷⱯ pǝpꞁᴉ⅁
+achievement.ironbackpacks.goldBackpackCrafted.desc=(uoᴉʇɐzᴉꞁɐᴉɔǝds ɹǝɥʇᴉǝ) ʞɔɐdʞɔɐq pꞁoᵷ ɐ ʇɟɐɹƆ
+achievement.ironbackpacks.diamondBackpackCrafted=pǝʎƎ ʎ-ɹǝᴉ⟘
+achievement.ironbackpacks.diamondBackpackCrafted.desc=(uoᴉʇɐzᴉꞁɐᴉɔǝds ɹǝɥʇᴉǝ) ʞɔɐdʞɔɐq puoɯɐᴉp ɐ ʇɟɐɹƆ
+
+
+
+jei.description.shapelessCrafting=ᵷuᴉʇɟɐɹƆ ssǝꞁǝdɐɥS
+jei.description.shapedCrafting=ᵷuᴉʇɟɐɹƆ pǝdɐɥS
+
+jei.ironbackpacks.addUpgradeRecipe.name=sǝpɐɹᵷd∩ ppⱯ
+jei.description.addUpgrade=˙pᴉɹᵷ ᵷuᴉʇɟɐɹɔ ɐ uᴉ ʞɔɐdʞɔɐq pǝɹᴉsǝp ǝɥʇ ɥʇᴉʍ ʇᴉ ʇɟɐɹɔ ʎꞁdɯᴉs 'ǝpɐɹᵷdn uɐ ppɐ o⟘
+jei.description.addUpgrade.additional=§r˙ǝpɐɹᵷdn ǝɥʇ ʇdǝɔɔɐ oʇ §2sǝsɐɔ ꞁɐᴉɔǝds§f ʎuɐ ʇǝǝɯ puɐ 'ǝꞁqɐꞁᴉɐʌɐ sʇuᴉod ǝpɐɹᵷdn ɥᵷnouǝ ǝʌɐɥ 'ɹǝᴉʇ ɥᵷnouǝ ɥᵷᴉɥ ɐ ǝq ʇsnɯ ʞɔɐdʞɔɐq ǝɥ⟘
+jei.description.addUpgrade.specialConditions=\ ˙ǝpɐɹᵷdn ǝꞁqɐɹnᵷᴉɟuoɔ ɹǝɥʇouɐ ɹoɟ ǝɔɐds ɥᵷnouǝ ǝʌɐɥ ʇsnɯ noʎ 'ǝꞁqɐɹnᵷᴉɟuoɔ sᴉ ǝpɐɹᵷdn ǝɥʇ ɟI
+
+jei.ironbackpacks.removeUpgradeRecipe.name=sǝpɐɹᵷd∩ ǝʌoɯǝᴚ
+jei.description.removeUpgrade.slot1=§2uoᴉʇɐɔoꞀ§f
+jei.description.removeUpgrade.slot2=§2ʇuǝpuǝdǝᗡ§f
+jei.description.removeUpgrade=˙pᴉɹᵷ ᵷuᴉʇɟɐɹɔ ǝɥʇ ɟo ʇoꞁs ʇɔǝɹɹoɔ ǝɥʇ uᴉ ʞɔɐdʞɔɐq pǝɹᴉsǝp ǝɥʇ ǝɔɐꞁd 'ǝpɐɹᵷdn uɐ ǝʌoɯǝɹ o⟘
+jei.description.removeUpgrade.locationDependent=\ ˙pǝʌoɯǝɹ ǝpɐɹᵷdn ǝɥʇ oʇ spuodsǝɹɹoɔ uᴉ sᴉ ʞɔɐdʞɔɐq ǝɥʇ ʇoꞁs ǝɥ⟘
+jei.description.removeUpgrade.additional=˙pᴉɹᵷ ᵷuᴉʇɟɐɹɔ ǝɥʇ uᴉ ʞɔɐq pǝɔɐꞁd ǝq ꞁꞁᴉʍ ʇᴉ ؛ʞɔɐdʞɔɐq ǝɥʇ dn ʞɔᴉd noʎ uǝɥʍ noʎ oʇ pǝuɹnʇǝɹ ǝq ꞁꞁᴉʍ ǝpɐɹᵷdn ǝɥ⟘
+
+jei.ironbackpacks.increaseTierRecipe.name=ɹǝᴉ⟘ ʞɔɐdʞɔɐᗺ ǝsɐǝɹɔuI
+jei.description.increaseTier=§r¡ʎꞁǝsᴉʍ ǝsooɥƆ ˙ᵷuᴉpɐɹᵷdn uǝɥʍ sʞɔɐdʞɔɐq ɟo sǝdʎʇ ʇuǝɹǝɟɟᴉp uǝǝʍʇǝq ǝsooɥɔ oʇ ǝʌɐɥ ʎɐɯ no⅄ ˙§2ǝdᴉɔǝɹ ᵷuᴉʇɟɐɹɔ§f pǝɹᴉsǝp ǝɥʇ ʍoꞁꞁoɟ ʎꞁdɯᴉs 'ʞɔɐdʞɔɐq ɐ ɟo ɹǝᴉʇ ǝɥʇ ǝsɐǝɹɔuᴉ o⟘
+jei.description.increaseTier.tooltip=¡ʞɔɐdʞɔɐq snoᴉʌǝɹd ǝɥʇ uᴉ ʇuǝsǝɹd ˙ɔʇǝ 'suoᴉʇɐɹnᵷᴉɟuoɔ 'sǝpɐɹᵷdn 'sɯǝʇᴉ ꞁꞁɐ dǝǝʞ ʎꞁꞁɐɔᴉʇɐɯoʇnɐ noʎ ɹǝᴉʇ ʍǝu ɐ oʇ ᵷuᴉpɐɹᵷdn uǝɥʍ ʇɐɥʇ ǝʇoN
+
+
+jei.description.backpack.generic=\
+
+jei.description.backpack.storage=\n \n˙(ɯǝɥʇ ᵷuᴉʇɐꞁndᴉuɐɯ oʇ pǝsoddo sɐ) sɯǝʇᴉ ᵷuᴉɹoʇs ɹoɟ ʇsǝq sᴉ sᴉsɐɥdɯǝ sᴉɥ⟘ ˙sʇuᴉod ǝpɐɹᵷdn ssǝꞁ ɟo ʇsoɔ ǝɥʇ ʇɐ 'ǝɔɐds ʎɹoʇuǝʌuᴉ ɟo ʇoꞁ ɐ ǝʌɐɥ ꞁꞁᴉʍ ʇᴉ ǝᵷɐɹoʇs uᴉ ǝzᴉꞁɐᴉɔǝds oʇ ʞɔɐdʞɔɐq sᴉɥʇ uǝsoɥɔ ǝʌɐɥ noʎ sⱯ
+jei.description.backpack.upgrade=\n \n˙(ɯǝɥʇ ᵷuᴉɹoʇs oʇ pǝsoddo sɐ) sɯǝʇᴉ ᵷuᴉʇɐꞁndᴉuɐɯ ɹoɟ ʇsǝq sᴉ sᴉsɐɥdɯǝ sᴉɥ⟘ ˙ǝɔɐds ʎɹoʇuǝʌuᴉ ʍɐɹ ssǝꞁ ɟo ʇsoɔ ǝɥʇ ʇɐ 'sʇuᴉod ǝpɐɹᵷdn ɟo ʇoꞁ ɐ ǝʌɐɥ ꞁꞁᴉʍ ʇᴉ sǝpɐɹᵷdn uᴉ ǝzᴉꞁɐᴉɔǝds oʇ ʞɔɐdʞɔɐq sᴉɥʇ uǝsoɥɔ ǝʌɐɥ noʎ sⱯ
+
+jei.description.backpack.basic=\ ˙sʇuᴉod ǝpɐɹᵷdn ɟo ʇunoɯɐ ꞁꞁɐɯs ɐ sɐɥ puɐ sɯǝʇᴉ ɟo ɹǝqɯnu pǝʇᴉɯᴉꞁ ɐ ǝɹoʇs uɐɔ ʇᴉ 'sʞɔɐdʞɔɐq ǝɥʇ ꞁꞁɐ ɟo ɔᴉsɐq ʇsoɯ ǝɥ⟘
+jei.description.backpack.iron=\n \n \n \n \n˙ꞁꞁǝʍ sɐ sɯǝʇᴉ ǝɹoɯ ǝɹoʇs oʇ ǝꞁqɐꞁᴉɐʌɐ ʍou sᴉ ǝɔɐds ǝɹoW ˙pǝᴉꞁddɐ ǝq oʇ ǝꞁqɐꞁᴉɐʌɐ ʍou ǝɹɐ (ꞁꞁɐ ʇou ʇnq) sǝpɐɹᵷdn ǝɹoɯ 'ʞɔɐdʞɔɐq ɟo ɹǝᴉʇ uᴉɐɯ ǝɥ⟘
+jei.description.backpack.gold=\n \n \n \n \n \n˙sʇuᴉod ǝpɐɹᵷdn puɐ ǝɔɐds ǝᵷɐɹoʇs ǝɹoɯ uǝʌǝ ɥʇᴉʍ 'ʞɔɐdʞɔɐq ɟo ɹǝᴉʇ ǝʇɐɯᴉʇꞁnuǝd ǝɥ⟘
+jei.description.backpack.diamond=\n \n \n \n \n \n˙(ʇᴉ ɹoɟ sʇuᴉod ǝpɐɹᵷdn ǝɥʇ ǝʌɐɥ noʎ ᵷuᴉɯnssɐ) ǝpɐɹᵷdn ʎuɐ ʎꞁddɐ oʇ ǝꞁqɐ 'ʞɔɐdʞɔɐq ɟo ɹǝᴉʇ ʇsǝɥᵷᴉɥ ǝɥ⟘
+
+
+jei.description.upgrade.additionalUpgradePoints=˙sǝʇɐɔᴉpuᴉ ʞɔɐdʞɔɐq ǝɥʇ uo dᴉʇꞁooʇ ǝɥʇ sɐ sǝɯᴉʇ ʎuɐɯ sɐ pǝᴉꞁddɐ ǝq ʎꞁuo uɐɔ ʇI ˙uo sǝpɐɹᵷdn ǝɹoɯ ʇnd uɐɔ noʎ os ʞɔɐdʞɔɐq ǝɥʇ oʇ sʇuᴉod ǝpɐɹᵷdn ꞁɐuoᴉʇᴉppɐ sppɐ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.button=\\n \n \n \n:suoᴉʇɔɐ ǝsǝɥʇ ɯɹoɟɹǝd ʎꞁǝʌᴉʇɔǝdsǝɹ ɥɔᴉɥʍ ǝꞁqɐɹnᵷᴉɟuoɔ ǝɥʇ oʇ suoʇʇnq ɟo ɹǝqɯnu ǝꞁqɐᴉɹɐʌ ɐ puɐ ʎɹoʇuǝʌuᴉ ʇꞁnɐɟǝp ǝɥʇ oʇ suoʇʇnq ᔭ sppɐ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.damageBar=\ ǝɥʇ ʇɐ uʍop ǝɔuɐꞁᵷ ʎꞁdɯᴉs uɐɔ noʎ ʇɐɥʇ ᵷuᴉuɐǝɯ '(ʎʇᴉɔɐdɐɔ ꞁɐʇoʇ s,ʇᴉ oʇ spɹɐᵷǝɹ uᴉ) sᴉ ʇᴉ ꞁꞁnɟ ʍoɥ sʇɔǝꞁɟǝɹ ɥɔᴉɥʍ ʞɔɐdʞɔɐq ǝɥʇ oʇ ɹɐq ǝᵷɐɯɐp ɐ sppɐ sǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.depth=\ ˙ǝpɐɹᵷdn sᴉɥʇ ɥʇᴉʍ ʞɔɐdʞɔɐq ɐ ǝpᴉsuᴉ pǝʇsǝu ǝɹɐ ʎǝɥʇ uǝɥʍ uoᴉʇɔunɟ ꞁꞁᴉʇs oʇ sǝpɐɹᵷdn ǝꞁqɐɹnᵷᴉɟuoɔ s,sʞɔɐdʞɔɐq ɹǝɥʇo sʍoꞁꞁɐ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.eternity=\ ˙ǝᴉp noʎ uǝɥʍ sʇuǝʇuoɔ s,ʇᴉ ɟo ꞁꞁɐ puɐ ʞɔɐdʞɔɐq ǝɥʇ dǝǝʞ oʇ noʎ sʍoꞁꞁɐ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.renaming=˙(ꞁᴉʌuɐ uɐ uᴉ ǝʞᴉꞁ ɥɔnɯ) ʇᴉ ǝɯɐuǝɹ uǝɥʇ puɐ ʞɔɐdʞɔɐq ǝɥʇ ɹoɟ ǝɯɐu ʍǝu ɐ uᴉ ǝdʎʇ uɐɔ noʎ ǝɹǝɥʍ ʎɹoʇuǝʌuᴉ ǝꞁqɐɹnᵷᴉɟuoɔ ǝɥʇ uᴉ ɹɐq ɐ ppɐ ꞁꞁᴉʍ ǝpɐɹᵷdn sᴉɥ⟘
+
+jei.description.upgrade.conflicting=\ ˙ʇᴉ ʎꞁddɐ oʇ ᵷuᴉʎɹʇ uǝɥʍ puᴉɯ uᴉ ʇɐɥʇ dǝǝʞ os 'ʇᴉ ǝpᴉsᵷuoꞁɐ pǝᴉꞁddɐ ʎꞁsnoǝuɐʇꞁnɯᴉs ǝq ʇouuɐɔ ʇɐɥʇ sǝpɐɹᵷdn ɹǝɥʇo sɐɥ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.nesting=\ ˙ʞɔɐdʞɔɐq sᴉɥʇ ǝpᴉsuᴉ ɹǝᴉʇ snoᴉʌǝɹd ʎuɐ ɟo sʞɔɐdʞɔɐq ǝɔɐꞁd oʇ noʎ sʍoꞁꞁɐ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.nestingAdvanced=\\n ˙ʞɔɐdʞɔɐq sᴉɥʇ ǝpᴉsuᴉ ɹǝᴉʇ ʎuɐ ɟo sʞɔɐdʞɔɐq ǝɔɐꞁd oʇ noʎ sʍoꞁꞁɐ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.quickDeposit=\ ˙ʎɹoʇuǝʌuᴉ pᴉɐs oʇuᴉ ʎꞁʇɔǝɹᴉp ʞɔɐdʞɔɐq ǝɥʇ ɟo sʇuǝʇuoɔ ǝɥʇ ʇᴉsodǝp oʇ ʎɹoʇuǝʌuᴉ ʎuɐ uo ʞɔᴉꞁɔ ʇɥᵷᴉɹ ʇɟᴉɥs oʇ ɹǝʎɐꞁd ǝɥʇ sʍoꞁꞁɐ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.quickDepositPrecise=\ sɯǝʇᴉ ǝɥʇ ʇnq 'ʎɹoʇuǝʌuᴉ pᴉɐs oʇuᴉ ʎꞁʇɔǝɹᴉp ʞɔɐdʞɔɐq ǝɥʇ ɟo sʇuǝʇuoɔ ǝɥʇ ʇᴉsodǝp oʇ ʎɹoʇuǝʌuᴉ ʎuɐ uo ʞɔᴉꞁɔ ʇɥᵷᴉɹ ʇɟᴉɥs oʇ ɹǝʎɐꞁd ǝɥʇ sʍoꞁꞁɐ ǝpɐɹᵷdn sᴉɥ⟘
+
+jei.description.upgrade.configurable=\ ˙uᴉ pǝɔɐꞁd ǝq oʇ sɯǝʇᴉ ɹoɟ sʇoꞁs ɟo ɹǝqɯnu ǝꞁqɐᴉɹɐʌ ɐ sppɐ ʇᴉ puɐ '(ᵷuᴉʞɔᴉꞁɔ ʇɥᵷᴉɹ-ʇɟᴉɥs ʎq pǝssǝɔɔɐ) ʎɹoʇuǝʌuᴉ ǝꞁqɐɹnᵷᴉɟuoɔ ǝɥʇ oʇ sppɐ ʇɐɥʇ ǝuo sᴉ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.crafting=\ ˙(ʞɔɐdʞɔɐq ǝɥʇ uᴉ pǝɔɐꞁd ǝq ꞁꞁᴉʍ ɥɔᴉɥʍ) ɯǝʇᴉ ᵷuᴉʇꞁnsǝɹ ʍǝu ɐ oʇuᴉ pǝʇɟɐɹɔ oʇ ʎɹʇ ꞁꞁᴉʍ sʇoꞁs sʇᴉ uᴉ ɯǝʇᴉ ɥɔɐǝ ʇɐɥʇ ʇɔǝɟɟǝ ǝɥʇ sppɐ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.craftingSmall=\ ˙(ʞɔɐdʞɔɐq ǝɥʇ uᴉ pǝɔɐꞁd ǝq ꞁꞁᴉʍ ɥɔᴉɥʍ) ɯǝʇᴉ ᵷuᴉʇꞁnsǝɹ ʍǝu ɐ oʇuᴉ pǝʇɟɐɹɔ oʇ ʎɹʇ ꞁꞁᴉʍ sʇoꞁs sʇᴉ uᴉ ɯǝʇᴉ ɥɔɐǝ ʇɐɥʇ ʇɔǝɟɟǝ ǝɥʇ sppɐ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.craftingTiny=\ ˙(ʞɔɐdʞɔɐq ǝɥʇ uᴉ pǝɔɐꞁd ǝq ꞁꞁᴉʍ ɥɔᴉɥʍ) ɯǝʇᴉ ᵷuᴉʇꞁnsǝɹ ʍǝu ɐ oʇuᴉ pǝʇɟɐɹɔ oʇ ʎɹʇ ꞁꞁᴉʍ sʇoꞁs sʇᴉ uᴉ ɯǝʇᴉ ɥɔɐǝ ʇɐɥʇ ʇɔǝɟɟǝ ǝɥʇ sppɐ ǝpɐɹᵷdn sᴉɥ⟘
+jei.description.upgrade.filter.generic=\ pǝɔɐꞁd ǝq ꞁꞁᴉʍ ʇᴉ dn pǝʞɔᴉd sᴉ ɯǝʇᴉ ʇɐɥʇ uǝɥʍ puɐ 'ʎɹoʇuǝʌuᴉ ǝꞁqɐɹnᵷᴉɟuoɔ ǝɥʇ ɟo ʇoꞁs ɹǝʇꞁᴉɟ ǝɥʇ uᴉ sɯǝʇᴉ ʇnd uɐɔ noʎ ʇɐɥʇ ᵷuᴉuɐǝɯ 'ǝpɐɹᵷdn ɹǝʇꞁᴉɟ ɐ sᴉ sᴉɥ⟘
+jei.description.upgrade.filter.basic=\n \n ˙dn pǝʞɔᴉd ᵷuᴉǝq ɯǝʇᴉ ǝɥʇ ɥɔʇɐɯ ʎꞁʇɔɐxǝ ʇsnɯ (s)ʇoꞁs ɹǝʇꞁᴉɟ ǝɥʇ uᴉ (s)ɯǝʇᴉ ǝɥ⟘\n
+jei.description.upgrade.filter.fuzzy=\n \n ˙dn pǝʞɔᴉd ǝq ꞁꞁᴉʇs uɐɔ puɐ sǝnꞁɐʌ ǝᵷɐɯɐp ʇuǝɹǝɟɟᴉp ǝʌɐɥ uɐɔ (s)ʇoꞁs ɹǝʇꞁᴉɟ ǝɥʇ uᴉ (s)ɯǝʇᴉ ǝɥ⟘\n
+jei.description.upgrade.filter.oreDict=\ ˙dn pǝʞɔᴉd ǝq ꞁꞁᴉʇs uɐɔ puɐ ʎɹɐuoᴉʇɔᴉp ǝɹo ǝɥʇ ʎq ɥɔʇɐɯ uɐɔ (s)ʇoꞁs ɹǝʇꞁᴉɟ ǝɥʇ uᴉ (s)ɯǝʇᴉ ǝɥ⟘\n
+jei.description.upgrade.filter.modSpecific=\ ˙poɯ ǝɯɐs ǝɥʇ uᴉ ᵷuᴉǝq ʎq ʎꞁdɯᴉs ɥɔʇɐɯ uɐɔ (s)ʇoꞁs ɹǝʇꞁᴉɟ ǝɥʇ uᴉ (s)ɯǝʇᴉ ǝɥ⟘\n
+jei.description.upgrade.filter.void=\n \n ˙pǝɹouᵷᴉ ǝɹɐ sǝnꞁɐʌ ǝᵷɐɯɐp os 'uoᴉʇɔǝʇǝp ʎzznɟ ʎq sǝɥɔʇɐɯ ǝpɐɹᵷdn sᴉɥ⟘ ˙dn pǝʞɔᴉd ǝɹɐ ʎǝɥʇ uǝɥʍ ᗡƎ⟘ƎꞀƎᗡ ǝq ꞁꞁᴉʍ (s)ʇoꞁs ɹǝʇꞁᴉɟ ǝɥʇ uᴉ (s)ɯǝʇᴉ ǝɥ⟘\n
+jei.description.upgrade.filter.advanced=\\n ˙uoᴉʇɔǝʇǝp pᴉoʌ puɐ 'ɔᴉɟᴉɔǝds poɯ 'ʎɹɐuoᴉʇɔᴉp ǝɹo 'ʎzznɟ 'ʇɔɐxǝ uǝǝʍʇǝq ǝꞁqɐɹnᵷᴉɟuoɔ ǝɹɐ (s)ʇoꞁs ɹǝʇꞁᴉɟ ǝɥʇ uᴉ (s)ɯǝʇᴉ ǝɥ⟘\n
+jei.description.upgrade.filter.mining=\ ˙ʞɔɐdʞɔɐq ǝɥʇ uᴉ ʎꞁʇɔǝɹᴉp ʇᴉ sǝɔɐꞁd puɐ 'ʇsnp ɹo 'sɯǝᵷ 'sǝɹo puɐ dn sʞɔᴉd ʎꞁꞁɐɔᴉʇɐɯoʇnɐ ǝpɐɹᵷdn sᴉɥ⟘\n
+jei.description.upgrade.restocking=\ ˙ʎꞁddns s,ʞɔɐdʞɔɐq ǝɥʇ ɯoɹɟ ʎɹoʇuǝʌuᴉ s,ɹǝʎɐꞁd ǝɥʇ ꞁꞁᴉɟǝɹ oʇ sʇoꞁs sʇᴉ uᴉ pǝɔɐꞁd sᴉ ɹǝʌǝʇɐɥʍ ʍoꞁꞁɐ ꞁꞁᴉʍ ǝpɐɹᵷdn sᴉɥ⟘
