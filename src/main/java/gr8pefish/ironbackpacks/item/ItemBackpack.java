@@ -90,9 +90,9 @@ public class ItemBackpack extends Item implements IBackpack {
                     //if so, check for IItemHandler for quick deposit upgrade, and do that logic
                 } else {
                     //try to place the backpack
-                    Block backpackBlock = RegistrarIronBackpacks.BACKPACK_BLOCK;
-
                     BackpackInfo info = getBackpackInfoHeld(player, hand).getKey();
+
+                    Block backpackBlock = new BlockBackpack(info.getVariant()); //RegistrarIronBackpacks.BACKPACK_BLOCK; //TODO: Correct block (can't instantiate - blocks are singletons)
 
                     if (world.mayPlace(backpackBlock, pos.up(), false, side, player)) {
                         world.setBlockState(pos.up(), backpackBlock.getBlockState().getBaseState()

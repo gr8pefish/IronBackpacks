@@ -54,7 +54,7 @@ public class ContainerBackpack extends Container {
         Preconditions.checkNotNull(inventoryPlayer, "inventoryPlayer cannot be null");
         Preconditions.checkNotNull(hand, "EnumHand cannot be null");
 
-        BackpackInfo backpackInfo = BackpackInfo.fromTileEntity(backpackTileEntity);
+        BackpackInfo backpackInfo = TileEntityBackpack.fromTileEntity(backpackTileEntity);
         IItemHandler itemHandler = backpackInfo.getInventory();
 
         Preconditions.checkNotNull(backpackInfo, "backpackInfo cannot be null");

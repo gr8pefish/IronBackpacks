@@ -11,6 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -50,6 +51,12 @@ public class BlockBackpack extends AbstractBlockTileEntity<TileEntityBackpack> {
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH)); //Default facing arbitrary
     }
 
+    public BlockBackpack() {
+        super(Material.ROCK, BACKPACK_NAME+"_"+"doesntMatter");
+        this.backpackVariant = null; //TODO WILL BREAK THINGS
+        setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH)); //Default facing arbitrary
+    }
+
     //Getter
 
     public BackpackVariant getBackpackVariant() {
@@ -76,7 +83,7 @@ public class BlockBackpack extends AbstractBlockTileEntity<TileEntityBackpack> {
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_TE_ID, world, pos.getX(), pos.getY(), pos.getZ()); //ToDo: Open correct GUI
+//            player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_TE_ID, world, pos.getX(), pos.getY(), pos.getZ()); //ToDo: Open correct GUI
         }
         return true;
     }
@@ -85,7 +92,7 @@ public class BlockBackpack extends AbstractBlockTileEntity<TileEntityBackpack> {
     @Override
     public void breakBlock(World world, BlockPos pos, IBlockState state) {
         //create new itemstack with all the info
-        ItemStack pack = IronBackpacksAPI.applyPackInfo(new ItemStack(IronBackpacksAPI.BACKPACK_ITEM), BackpackInfo.fromTileEntity(this.getTileEntity(world, pos)));
+        ItemStack pack = IronBackpacksAPI.applyPackInfo(new ItemStack(IronBackpacksAPI.BACKPACK_ITEM), TileEntityBackpack.fromTileEntity(this.getTileEntity(world, pos)));
         spawnAsEntity(world, pos, pack);
 
         super.breakBlock(world, pos, state);
@@ -94,10 +101,15 @@ public class BlockBackpack extends AbstractBlockTileEntity<TileEntityBackpack> {
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         //create new itemstack with all the info
-        ItemStack pack = IronBackpacksAPI.applyPackInfo(new ItemStack(IronBackpacksAPI.BACKPACK_ITEM), BackpackInfo.fromTileEntity(this.getTileEntity(world, pos)));
+        ItemStack pack = IronBackpacksAPI.applyPackInfo(new ItemStack(IronBackpacksAPI.BACKPACK_ITEM), TileEntityBackpack.fromTileEntity(this.getTileEntity(world, pos)));
         drops.add(pack);
 
         super.getDrops(drops, world, pos, state, fortune);
+    }
+
+    @Override
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+        super.getSubBlocks(itemIn, items);
     }
 
     //Uses custom JSON Model, which is not a full cube
