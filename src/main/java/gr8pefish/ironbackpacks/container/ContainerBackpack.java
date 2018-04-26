@@ -5,6 +5,7 @@ import gr8pefish.ironbackpacks.IronBackpacks;
 import gr8pefish.ironbackpacks.api.backpack.BackpackInfo;
 import gr8pefish.ironbackpacks.api.backpack.IBackpack;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSize;
+import gr8pefish.ironbackpacks.block.TileEntityBackpack;
 import gr8pefish.ironbackpacks.util.InventoryBlacklist;
 import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +19,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * The backpack's container class, holding all the slots of the backpack.
@@ -31,8 +33,14 @@ public class ContainerBackpack extends Container {
     private final BackpackInfo backpackInfo;
     @Nonnull
     private final BackpackSize backpackSize;
-    @Nonnull
+    @Nullable
     private final ItemStack backpackStack;
+    @Nullable
+    private final TileEntityBackpack backpackTileEntity;
+
+    private final boolean usesItemStack;
+    private final boolean usesTileEntity;
+
     /**
      * Offhand used or not.
      */
@@ -40,7 +48,31 @@ public class ContainerBackpack extends Container {
 
     // Constructor
 
-    public ContainerBackpack(@Nonnull ItemStack backpackStack, @Nonnull InventoryPlayer inventoryPlayer, @Nonnull EnumHand hand) {
+    /** Constructor for the TE */
+    public ContainerBackpack(@Nonnull InventoryPlayer inventoryPlayer, @Nonnull EnumHand hand, @Nonnull TileEntityBackpack backpackTileEntity) {
+        Preconditions.checkNotNull(backpackTileEntity, "backpackTileEntity cannot be null");
+        Preconditions.checkNotNull(inventoryPlayer, "inventoryPlayer cannot be null");
+        Preconditions.checkNotNull(hand, "EnumHand cannot be null");
+
+        BackpackInfo backpackInfo = TileEntityBackpack.fromTileEntity(backpackTileEntity);
+        IItemHandler itemHandler = backpackInfo.getInventory();
+
+        Preconditions.checkNotNull(backpackInfo, "backpackInfo cannot be null");
+        Preconditions.checkNotNull(itemHandler, "itemHandler cannot be null");
+
+        this.backpackInfo = backpackInfo;
+        this.backpackStack = null; //Unused
+        this.backpackTileEntity = backpackTileEntity;
+        this.backpackSize = backpackInfo.getVariant().getBackpackSize();
+
+        this.usesItemStack = false;
+        this.usesTileEntity = true;
+
+        setupSlots(inventoryPlayer, itemHandler, hand);
+    }
+
+    /** Constructor for the ItemStack */
+    public ContainerBackpack(@Nonnull InventoryPlayer inventoryPlayer, @Nonnull EnumHand hand, @Nonnull ItemStack backpackStack) {
         Preconditions.checkNotNull(backpackStack, "backpackStack cannot be null");
         Preconditions.checkNotNull(inventoryPlayer, "inventoryPlayer cannot be null");
         Preconditions.checkNotNull(hand, "EnumHand cannot be null");
@@ -53,7 +85,11 @@ public class ContainerBackpack extends Container {
 
         this.backpackInfo = backpackInfo;
         this.backpackStack = backpackStack;
+        this.backpackTileEntity = null; //Unused
         this.backpackSize = backpackInfo.getVariant().getBackpackSize();
+
+        this.usesItemStack = true;
+        this.usesTileEntity = false;
 
         setupSlots(inventoryPlayer, itemHandler, hand);
     }
@@ -120,11 +156,18 @@ public class ContainerBackpack extends Container {
     @Override
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
-        if (!(backpackStack.getItem() instanceof IBackpack)) {
-            IronBackpacks.LOGGER.debug("Attempted to close backpack on non-IBackpack item {}. Changes will not persist.");
-            return;
+        if (usesItemStack) {
+            if (!(backpackStack.getItem() instanceof IBackpack)) {
+                IronBackpacks.LOGGER.debug("Attempted to close backpack on non-IBackpack item {}. Changes will not persist.");
+                return;
+            }
+
+            ((IBackpack) backpackStack.getItem()).updateBackpack(backpackStack, backpackInfo);
         }
-        ((IBackpack) backpackStack.getItem()).updateBackpack(backpackStack, backpackInfo);
+        if (usesTileEntity) {
+            backpackTileEntity.markDirty();
+            //ToDo: More TE stuff
+        }
     }
 
     // Helper
@@ -170,8 +213,12 @@ public class ContainerBackpack extends Container {
      * @return - The name as a String
      */
     @Nonnull
-    public String getName() {
-        return backpackStack.getDisplayName();
+    public String getName() { //ToDo: BackpackInfo name?
+        if (usesItemStack)
+            return backpackStack.getDisplayName();
+        if (usesTileEntity)
+            return "TE Name";
+        return "Shouldn't be possible";
     }
 
     /**

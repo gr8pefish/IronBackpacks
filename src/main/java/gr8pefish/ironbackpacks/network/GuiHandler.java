@@ -22,13 +22,13 @@ public class GuiHandler implements IGuiHandler {
         switch (ID) {
             case OPEN_GUI_BACKPACK_ID: {
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
-                return new ContainerBackpack(stack, player.inventory, hand);
+                return new ContainerBackpack(player.inventory, hand, stack);
             }
             case OPEN_GUI_BACKPACK_EQUIPPED_ID: {
                 if (equipped.isEmpty())
                     return null;
 
-                return new ContainerBackpack(equipped, player.inventory, hand);
+                return new ContainerBackpack(player.inventory, hand, equipped);
             }
         }
 
@@ -42,13 +42,13 @@ public class GuiHandler implements IGuiHandler {
         switch (ID) {
             case OPEN_GUI_BACKPACK_ID: {
                 ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
-                return new GuiBackpack(new ContainerBackpack(stack, player.inventory, hand));
+                return new GuiBackpack(new ContainerBackpack(player.inventory, hand, stack));
             }
             case OPEN_GUI_BACKPACK_EQUIPPED_ID: {
                 if (equipped.isEmpty())
                     return null;
 
-                return new GuiBackpack(new ContainerBackpack(equipped, player.inventory, hand));
+                return new GuiBackpack(new ContainerBackpack(player.inventory, hand, equipped));
             }
         }
 

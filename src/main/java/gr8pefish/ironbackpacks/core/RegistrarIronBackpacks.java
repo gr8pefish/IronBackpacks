@@ -11,9 +11,12 @@ import gr8pefish.ironbackpacks.api.backpack.variant.BackpackSpecialty;
 import gr8pefish.ironbackpacks.api.backpack.variant.BackpackType;
 import gr8pefish.ironbackpacks.api.upgrade.BackpackUpgrade;
 import gr8pefish.ironbackpacks.api.upgrade.IUpgrade;
+import gr8pefish.ironbackpacks.block.BlockBackpack;
 import gr8pefish.ironbackpacks.item.ItemBackpack;
 import gr8pefish.ironbackpacks.item.ItemUpgrade;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -37,6 +40,9 @@ public class RegistrarIronBackpacks {
     // Items
     public static final Item BACKPACK = Items.AIR;
     public static final Item UPGRADE = Items.AIR;
+
+    //Block
+    public static final Block BACKPACK_BLOCK = Blocks.AIR;
 
     // Sounds
     @GameRegistry.ObjectHolder("open_backpack")
@@ -72,6 +78,11 @@ public class RegistrarIronBackpacks {
     public static void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(new ItemBackpack().setRegistryName("backpack"));
         event.getRegistry().register(new ItemUpgrade().setRegistryName("upgrade"));
+    }
+
+    @SubscribeEvent
+    public static void registerBlocks(RegistryEvent.Register<Block> event) {
+        event.getRegistry().register(new BlockBackpack().setRegistryName("block_backpack"));
     }
 
     @SubscribeEvent

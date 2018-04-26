@@ -15,8 +15,8 @@ public class IronBackpacksCapabilities {
     //TODO: Refactor to API eventually
 
     //Inject capabilities
-    @CapabilityInject(ItemBackpackHandler.class)
-    public static final Capability<ItemBackpackHandler> ITEM_BACKPACK_HANDLER_CAPABILITY = null;
+    @CapabilityInject(InventoryBackpackHandler.class)
+    public static final Capability<InventoryBackpackHandler> ITEM_BACKPACK_HANDLER_CAPABILITY = null; //it's never even called. What is this sorcery?
     @CapabilityInject(PlayerBackpackHandler.class)
     public static final Capability<PlayerBackpackHandler> PLAYER_BACKPACK_HANDLER_CAPABILITY = null;
 
@@ -33,7 +33,7 @@ public class IronBackpacksCapabilities {
             public void readNBT(Capability<IBackpackInventoryProvider> capability, IBackpackInventoryProvider instance, EnumFacing side, NBTBase nbt) {
 
             }
-        }, ItemBackpackHandler.Default::new);
+        }, InventoryBackpackHandler.Default::new);
 
         CapabilityManager.INSTANCE.register(PlayerBackpackHandler.class, new Capability.IStorage<PlayerBackpackHandler>() {
             @Nullable
