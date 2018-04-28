@@ -16,9 +16,8 @@ public class ColorUtil {
      * @return - RGB value as an {@link int}
      */
     public static int getBackpackColor(ItemStack backpackStack, int tintindex) {
-        int color = getBackpackColorFromStack(backpackStack);
         if (tintindex < 1) return -1;
-        return color;
+        return getBackpackColorFromStack(backpackStack);
     }
 
     /**
