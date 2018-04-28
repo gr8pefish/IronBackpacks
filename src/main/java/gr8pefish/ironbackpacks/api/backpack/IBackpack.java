@@ -25,6 +25,18 @@ public interface IBackpack {
     }
 
     /**
+     * Gets the color backpack data from the stack.
+     *
+     * @param stack - The stack to get the backpack information from
+     * @return - The RGB color; -1 if none
+     */
+    default int getBackpackColor(@Nonnull ItemStack stack) {
+        Preconditions.checkNotNull(stack, "ItemStack cannot be null");
+
+        return BackpackInfo.getColor(stack);
+    }
+
+    /**
      * Writes the modified backpack data back to the stack. Must be called after any changes are made to the BackpackInfo
      *
      * @param stack        - Stack to write backpack data to

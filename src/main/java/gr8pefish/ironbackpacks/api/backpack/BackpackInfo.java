@@ -308,5 +308,26 @@ public class BackpackInfo implements INBTSerializable<NBTTagCompound> {
                 .setInventory(toUpgrade.inventory);
     }
 
+    /**
+     * Gets the color from the backpack's tag data directly
+     * (i.e. inexpensive lookup for rendering purposes)
+     *
+     * @param stack - The backpack item stack to check
+     * @return - The color in RGB, -1 if none
+     */
+    public static int getColor(@Nonnull ItemStack stack) {
+        Preconditions.checkNotNull(stack, "ItemStack cannot be null");
 
+        if (stack.hasTagCompound()) {
+            NBTTagCompound compound = stack.getTagCompound();
+            if (compound.hasKey("packInfo")) {
+                NBTTagCompound packInfo = compound.getCompoundTag("packInfo");
+                if (packInfo.hasKey("color")) {
+                    return packInfo.getInteger("color");
+                }
+            }
+        }
+
+        return -1; // no color
+    }
 }
