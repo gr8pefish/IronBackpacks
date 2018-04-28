@@ -160,8 +160,35 @@ curseforge {
     }
 }
 
+
+//Increment patch number
+task incrementVersionNumber {
+    ant.replace(file: "gradle.properties", token: "patch_number=${patch_number}", value: "patch_number=${patch_number.toString().toInteger() + 1}")
+}
+
+//Adds a new changelog segment
+task makeNewChangelog {
+    def changelogFile = new File('changelog.txt')
+    String newText = '------------------------------------------------------\n' +
+            'Version '+mc_version+" - "+major_version+"."+minor_version+"."+(patch_number.toString().toInteger() + 1)+"\n" +
+            '------------------------------------------------------\n' +
+            'Additions\n' +
+            '- None\n' +
+            '\n' +
+            'Changes\n' +
+            '- None\n' +
+            '\n' +
+            'Bug Fixes\n' +
+            '- None\n'
+    String oldText = changelogFile.getText()
+    changelogFile.setText(newText + oldText);
+}
+
+
+
 //enforce correct order
 tasks.build.mustRunAfter clean
+tasks.makeNewChangelog.mustRunAfter incrementVersionNumber
 
 //curseforge uses these tasks
 tasks.curseforge.dependsOn clean, build
