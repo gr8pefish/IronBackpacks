@@ -2,7 +2,11 @@
 Version 1.12.2 - 3.0.7
 ------------------------------------------------------
 Additions
-- None
+- Enabled the keybind to open backpacks directly. Specifically it checks (in the following order):
+    - The selected item
+    - The offhand
+    - The hotbar (left to right)
+    - The main inventory (left to right, up to down)
 
 Changes
 - None
