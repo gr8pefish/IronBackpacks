@@ -46,14 +46,24 @@ public enum RequestAction {
         @Override
         public void handle(NetHandlerPlayServer serverContext) {
             EntityPlayer player = serverContext.player;
+
+            //return if no equipped pack possible (should never be the case)
             if (!player.hasCapability(IronBackpacksCapabilities.PLAYER_BACKPACK_HANDLER_CAPABILITY, null))
                 return;
 
+            //get the equipped backpack handler
             PlayerBackpackHandler backpackHandler = player.getCapability(IronBackpacksCapabilities.PLAYER_BACKPACK_HANDLER_CAPABILITY, null);
 
-            IronBackpacks.NETWORK.sendTo(new MessageSetEquippedBackpack(backpackHandler.getEquippedBackpack()), (EntityPlayerMP) player);
-            GuiHandler.equipped = backpackHandler.getEquippedBackpack();
-            player.openGui(IronBackpacks.MODID, GuiHandler.OPEN_GUI_BACKPACK_EQUIPPED_ID, player.getEntityWorld(), 1, 0, 0);
+            //has a backpack equipped, open that (and update elsewhere)
+            if (!backpackHandler.getEquippedBackpack().isEmpty()) {
+                IronBackpacks.NETWORK.sendTo(new MessageSetEquippedBackpack(backpackHandler.getEquippedBackpack()), (EntityPlayerMP) player);
+                GuiHandler.equipped = backpackHandler.getEquippedBackpack();
+                player.openGui(IronBackpacks.MODID, GuiHandler.OPEN_GUI_BACKPACK_EQUIPPED_ID, player.getEntityWorld(), 1, 0, 0);
+
+            //no backpack equipped, open any pack in the inventory
+            } else {
+                player.openGui(IronBackpacks.MODID, GuiHandler.OPEN_GUI_BACKPACK_ID, player.getEntityWorld(), 1, 0, 0);
+            }
         }
     },
     ;

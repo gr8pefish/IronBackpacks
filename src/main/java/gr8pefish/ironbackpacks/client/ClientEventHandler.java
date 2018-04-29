@@ -20,7 +20,14 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void onKey(InputEvent.KeyInputEvent event) {
-        if (true) return; // TODO - Remove once backpack equipping has been fully implemented.
+
+        //temporary until equipping is fully implemented
+        if (KEY_OPEN.isPressed())
+            IronBackpacks.NETWORK.sendToServer(new MessageRequestAction(RequestAction.OPEN_BACKPACK));
+        else
+            return;
+
+        // TODO - Use once backpack equipping has been fully implemented.
         if (KEY_EQUIP.isPressed())
             IronBackpacks.NETWORK.sendToServer(new MessageRequestAction(RequestAction.EQUIP_BACKPACK));
         else if (KEY_OPEN.isPressed())

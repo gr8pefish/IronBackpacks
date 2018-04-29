@@ -2,6 +2,7 @@ package gr8pefish.ironbackpacks.network;
 
 import gr8pefish.ironbackpacks.client.gui.GuiBackpack;
 import gr8pefish.ironbackpacks.container.ContainerBackpack;
+import gr8pefish.ironbackpacks.util.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
@@ -21,8 +22,12 @@ public class GuiHandler implements IGuiHandler {
 
         switch (ID) {
             case OPEN_GUI_BACKPACK_ID: {
-                ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
-                return new ContainerBackpack(stack, player.inventory, hand);
+                //get which backpack to open (details in method called)
+                ItemStack selected = Utils.getNonequippedBackpackFromInventory(player, hand);
+                if (selected.isEmpty())
+                    return null;
+
+                return new ContainerBackpack(selected, player.inventory, hand);
             }
             case OPEN_GUI_BACKPACK_EQUIPPED_ID: {
                 if (equipped.isEmpty())
@@ -41,8 +46,12 @@ public class GuiHandler implements IGuiHandler {
 
         switch (ID) {
             case OPEN_GUI_BACKPACK_ID: {
-                ItemStack stack = player.getHeldItem(hand); //ToDo: Helper method (not necessarily held item)
-                return new GuiBackpack(new ContainerBackpack(stack, player.inventory, hand));
+                //get which backpack to open (details in method called)
+                ItemStack selected = Utils.getNonequippedBackpackFromInventory(player, hand);
+                if (selected.isEmpty())
+                    return null;
+
+                return new GuiBackpack(new ContainerBackpack(selected, player.inventory, hand));
             }
             case OPEN_GUI_BACKPACK_EQUIPPED_ID: {
                 if (equipped.isEmpty())

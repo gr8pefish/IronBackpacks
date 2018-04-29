@@ -7,6 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
@@ -97,6 +99,46 @@ public class Utils {
             return ((IBackpack) stack.getItem()).getBackpackInfo(stack);
         }
         throw new RuntimeException("Tried to get backpack info from an ItemStack that isn't an IBackpack. Wrong item: "+stack);
+    }
+
+    /**
+     * Gets the backpack to open from a player's inventory.
+     * Checks the selected slot first, then the offhand then the hotbar (left to right) then the main 3 inventory slots (left to right, top to bottom)
+     *
+     * @param player - the player to check
+     * @param hand - the current selected hand
+     * @return - an ItemStack containing the backpack, {@link ItemStack#EMPTY} if none found
+     */
+    @Nonnull
+    public static ItemStack getNonequippedBackpackFromInventory(EntityPlayer player, EnumHand hand) {
+        //item stack to return
+        ItemStack selected = ItemStack.EMPTY;
+
+        //check current item first
+        if (player.getHeldItem(hand).getItem() instanceof IBackpack) {
+            selected = player.getHeldItem(hand);
+        //loop through inventory second
+        } else {
+            //check offhand
+            NonNullList<ItemStack> offHandInventory = player.inventory.offHandInventory;
+            for (ItemStack stack : offHandInventory) {
+                if (!stack.isEmpty() && stack.getItem() instanceof IBackpack) {
+                    selected = stack;
+                    break;
+                }
+            }
+            //check main inventory (hotbar first left to right, then main inventory)
+            NonNullList<ItemStack> mainInventory = player.inventory.mainInventory;
+            for (ItemStack stack : mainInventory) {
+                if (!stack.isEmpty() && stack.getItem() instanceof IBackpack) {
+                    selected = stack;
+                    break;
+                }
+            }
+        }
+
+        //return item stack
+        return selected;
     }
 
 
