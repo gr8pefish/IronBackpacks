@@ -12,7 +12,8 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public class GuiHandler implements IGuiHandler {
 
     public static final int OPEN_GUI_BACKPACK_ID = 0;
-    public static final int OPEN_GUI_BACKPACK_EQUIPPED_ID = 1;
+    public static final int OPEN_GUI_BACKPACK_INVENTORY_ID = 1;
+    public static final int OPEN_GUI_BACKPACK_EQUIPPED_ID = 2;
 
     static ItemStack equipped = ItemStack.EMPTY;
 
@@ -28,6 +29,14 @@ public class GuiHandler implements IGuiHandler {
                     return null;
 
                 return new ContainerBackpack(selected, player.inventory, hand);
+            }
+            case OPEN_GUI_BACKPACK_INVENTORY_ID: {
+                //get which backpack to open (details in method called)
+                ItemStack selected = Utils.getNonequippedBackpackFromInventory(player, hand);
+                if (selected.isEmpty())
+                    return null;
+
+                return new ContainerBackpack(selected, player.inventory, null).setBlockedStack(selected);
             }
             case OPEN_GUI_BACKPACK_EQUIPPED_ID: {
                 if (equipped.isEmpty())
@@ -52,6 +61,14 @@ public class GuiHandler implements IGuiHandler {
                     return null;
 
                 return new GuiBackpack(new ContainerBackpack(selected, player.inventory, hand));
+            }
+            case OPEN_GUI_BACKPACK_INVENTORY_ID: {
+                //get which backpack to open (details in method called)
+                ItemStack selected = Utils.getNonequippedBackpackFromInventory(player, hand);
+                if (selected.isEmpty())
+                    return null;
+
+                return new GuiBackpack(new ContainerBackpack(selected, player.inventory, null).setBlockedStack(selected));
             }
             case OPEN_GUI_BACKPACK_EQUIPPED_ID: {
                 if (equipped.isEmpty())

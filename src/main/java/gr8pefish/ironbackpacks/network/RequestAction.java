@@ -62,7 +62,7 @@ public enum RequestAction {
 
             //no backpack equipped, open any pack in the inventory
             } else {
-                player.openGui(IronBackpacks.MODID, GuiHandler.OPEN_GUI_BACKPACK_ID, player.getEntityWorld(), 1, 0, 0);
+                player.openGui(IronBackpacks.MODID, GuiHandler.OPEN_GUI_BACKPACK_INVENTORY_ID, player.getEntityWorld(), 1, 0, 0);
             }
         }
     },

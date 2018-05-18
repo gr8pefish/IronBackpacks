@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
@@ -45,7 +44,7 @@ public class Utils {
         for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
             ItemStack foundStack = itemHandler.getStackInSlot(slot);
             if (!foundStack.isEmpty() && foundStack.getItem() instanceof IBackpack && requirements.test(Pair.of(foundStack, (IBackpack) foundStack.getItem()))) {
-                EnumActionResult result = slot >= 0 && slot < 9 ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
+                EnumActionResult result = slot < 9 ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
                 return ActionResult.newResult(result, foundStack);
             }
         }
@@ -73,7 +72,7 @@ public class Utils {
         for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
             ItemStack foundStack = itemHandler.getStackInSlot(slot);
             if (!foundStack.isEmpty() && foundStack.getItem() instanceof IBackpack && requirements.test(Pair.of(foundStack, (IBackpack) foundStack.getItem()))) {
-                EnumActionResult result = slot >= 0 && slot < 9 ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
+                EnumActionResult result = slot < 9 ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
                 backpacks.add(ActionResult.newResult(result, foundStack));
             }
         }
@@ -111,35 +110,19 @@ public class Utils {
      */
     @Nonnull
     public static ItemStack getNonequippedBackpackFromInventory(EntityPlayer player, EnumHand hand) {
-        //item stack to return
-        ItemStack selected = ItemStack.EMPTY;
-
         //check current item first
-        if (player.getHeldItem(hand).getItem() instanceof IBackpack) {
-            selected = player.getHeldItem(hand);
+        ItemStack held = player.getHeldItem(hand);
+        if (!held.isEmpty() && held.getItem() instanceof IBackpack) {
+            return held;
         //loop through inventory second
         } else {
             //check offhand
-            NonNullList<ItemStack> offHandInventory = player.inventory.offHandInventory;
-            for (ItemStack stack : offHandInventory) {
-                if (!stack.isEmpty() && stack.getItem() instanceof IBackpack) {
-                    selected = stack;
-                    break;
-                }
-            }
+            ItemStack offhand = player.getHeldItem(EnumHand.OFF_HAND);
+            if (!offhand.isEmpty() && offhand.getItem() instanceof IBackpack)
+                return offhand;
+
             //check main inventory (hotbar first left to right, then main inventory)
-            NonNullList<ItemStack> mainInventory = player.inventory.mainInventory;
-            for (ItemStack stack : mainInventory) {
-                if (!stack.isEmpty() && stack.getItem() instanceof IBackpack) {
-                    selected = stack;
-                    break;
-                }
-            }
+            return getBackpack(player).getResult();
         }
-
-        //return item stack
-        return selected;
     }
-
-
 }
