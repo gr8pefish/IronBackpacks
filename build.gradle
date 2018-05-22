@@ -185,6 +185,7 @@ task makeNewChangelog {
 }
 
 
+//Note: commit history requires [ci jenkins-build] to build via jenkins
 
 //enforce correct order
 tasks.build.mustRunAfter clean
