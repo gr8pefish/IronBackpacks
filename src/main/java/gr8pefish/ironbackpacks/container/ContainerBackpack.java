@@ -39,6 +39,10 @@ public class ContainerBackpack extends Container {
      */
     private int blocked = -1;
     private ItemStack blockedStack = ItemStack.EMPTY;
+    /**
+     * In which slot of the player's inventory is the backpack.
+     */
+    private Slot backpackSlot;
 
     // Constructor
 
@@ -57,12 +61,29 @@ public class ContainerBackpack extends Container {
         this.backpackSize = backpackInfo.getVariant().getBackpackSize();
 
         setupSlots(inventoryPlayer, itemHandler, hand);
+
+        for (Slot slot : inventorySlots) {
+            if (slot.getStack() == backpackStack) {
+                backpackSlot = slot;
+                break;
+            }
+        }
     }
 
     // Override
 
+    // This method is used by minecraft to prevent a player from interacting with a container
+    // that may have been broken while its window was opened, and therefore prevent item duping
     @Override
     public boolean canInteractWith(@Nonnull EntityPlayer player) {
+        // If the backpack stack is no longer a backpack the player shouldn't be able to interact with this container
+        if (!(backpackStack.getItem() instanceof IBackpack)) {
+            return false;
+        }
+        // If the backpack slot no longer has the backpack the player shouldn't be able to interact with this container
+        if (backpackSlot != null && backpackSlot.getStack() != backpackStack) {
+            return false;
+        }
         return true;
     }
 
@@ -119,16 +140,6 @@ public class ContainerBackpack extends Container {
             return slot.getStack();
 
         return super.slotClick(slotId, button, flag, player);
-    }
-
-    @Override
-    public void onContainerClosed(EntityPlayer playerIn) {
-        super.onContainerClosed(playerIn);
-        if (!(backpackStack.getItem() instanceof IBackpack)) {
-            IronBackpacks.LOGGER.debug("Attempted to close backpack on non-IBackpack item {}. Changes will not persist.");
-            return;
-        }
-        ((IBackpack) backpackStack.getItem()).updateBackpack(backpackStack, backpackInfo);
     }
 
     // Helper
@@ -224,7 +235,16 @@ public class ContainerBackpack extends Container {
         int yOffset = 1 + getBorderTop();
         for (int y = 0; y < backpackSize.getRows(); y++, yOffset += 18)
             for (int x = 0; x < backpackSize.getColumns(); x++)
-                addSlotToContainer(new SlotItemHandler(itemHandler, x + y * backpackSize.getColumns(), xOffset + x * 18, yOffset));
+                addSlotToContainer(new SlotItemHandler(itemHandler, x + y * backpackSize.getColumns(), xOffset + x * 18, yOffset) {
+                    @Override
+                    public void onSlotChanged() {
+                        super.onSlotChanged();
+                        // Update the backpack as soon as its inventory is changed or items will be duped
+                        if (backpackStack.getItem() instanceof IBackpack) {
+                            ((IBackpack) backpackStack.getItem()).updateBackpack(backpackStack, backpackInfo);
+                        }
+                    }
+                });
     }
 
     /**
