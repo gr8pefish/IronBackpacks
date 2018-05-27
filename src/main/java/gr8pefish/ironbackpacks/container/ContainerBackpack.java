@@ -39,9 +39,7 @@ public class ContainerBackpack extends Container {
      */
     private int blocked = -1;
     private ItemStack blockedStack = ItemStack.EMPTY;
-    /**
-     * In which slot of the player's inventory is the backpack.
-     */
+    // In which slot of the player's inventory is the backpack.
     private Slot backpackSlot;
 
     // Constructor
@@ -61,13 +59,6 @@ public class ContainerBackpack extends Container {
         this.backpackSize = backpackInfo.getVariant().getBackpackSize();
 
         setupSlots(inventoryPlayer, itemHandler, hand);
-
-        for (Slot slot : inventorySlots) {
-            if (slot.getStack() == backpackStack) {
-                backpackSlot = slot;
-                break;
-            }
-        }
     }
 
     // Override
@@ -77,13 +68,11 @@ public class ContainerBackpack extends Container {
     @Override
     public boolean canInteractWith(@Nonnull EntityPlayer player) {
         // If the backpack stack is no longer a backpack the player shouldn't be able to interact with this container
-        if (!(backpackStack.getItem() instanceof IBackpack)) {
+        if (!(backpackStack.getItem() instanceof IBackpack))
             return false;
-        }
         // If the backpack slot no longer has the backpack the player shouldn't be able to interact with this container
-        if (backpackSlot != null && backpackSlot.getStack() != backpackStack) {
+        if (backpackSlot != null && backpackSlot.getStack() != backpackStack)
             return false;
-        }
         return true;
     }
 
@@ -221,6 +210,14 @@ public class ContainerBackpack extends Container {
 
         setupBackpackSlots(itemHandler);
         setupPlayerSlots(inventoryPlayer, hand);
+
+        // Store the slot where the backpack is to detect if it's moved in canInteractWith()
+        for (Slot slot : inventorySlots) {
+            if (slot.getStack() == backpackStack) {
+                backpackSlot = slot;
+                break;
+            }
+        }
     }
 
     /**
@@ -240,9 +237,10 @@ public class ContainerBackpack extends Container {
                     public void onSlotChanged() {
                         super.onSlotChanged();
                         // Update the backpack as soon as its inventory is changed or items will be duped
-                        if (backpackStack.getItem() instanceof IBackpack) {
+                        if (backpackStack.getItem() instanceof IBackpack)
                             ((IBackpack) backpackStack.getItem()).updateBackpack(backpackStack, backpackInfo);
-                        }
+                        else
+                            IronBackpacks.LOGGER.debug("Attempted to update backpack on non-IBackpack item {}. Changes will not persist.");
                     }
                 });
     }

@@ -67,7 +67,15 @@ public class ItemBackpack extends Item implements IBackpack {
             return ActionResult.newResult(EnumActionResult.FAIL, held);
 
         world.playSound(player.posX, player.posY, player.posZ, RegistrarIronBackpacks.BACKPACK_OPEN, SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
-        player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_BACKPACK_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
+
+        // GUI opening should be triggered either only on client side or only on server side.
+        // When triggered server side the client will show the window when the server sends
+        // the appropriate packets.
+        // If triggered on both sides the window would be created twice on the client side,
+        // causing a short flash of the window in its previous state and possibly desync
+        // issues in clients with high latency.
+        if (!world.isRemote)
+            player.openGui(IronBackpacks.INSTANCE, GuiHandler.OPEN_GUI_BACKPACK_ID, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
 
         return ActionResult.newResult(EnumActionResult.SUCCESS, held);
     }
@@ -142,5 +150,17 @@ public class ItemBackpack extends Item implements IBackpack {
             for (BackpackUpgrade upgrade : backpackInfo.getUpgrades())
                 tooltip.add("  - " + I18n.format("upgrade.ironbackpacks." + upgrade.getIdentifier().getResourcePath() + ".name"));
         }
+    }
+
+    // This method is provided as a way to let items decide what's sent of its NBT in network packets.
+    @Override
+    public NBTTagCompound getNBTShareTag(ItemStack stack) {
+        // By not sending the inventory part of the backpack we reduce the size and amount of packets
+        // sent to the client. This way both the players holding bags and other players near them
+        // won't receive packets updating the state of backpack when its inventory is changed, only
+        // when they open it.
+        NBTTagCompound shareTag = super.getNBTShareTag(stack).copy();
+        shareTag.removeTag("packInv");
+        return shareTag;
     }
 }
