@@ -155,6 +155,7 @@ public class ItemBackpack extends Item implements IBackpack {
     // Implementing getNBTShareTag() causes at least two bugs:
     // 1) Desync issue when opening the bag using the open key; sometimes gui doesn't block clicking
     //    on backpack but server doesn't acknowledge the click; items not duped but instead voided.
+    //    ^ FIXED
     // 2) Desync issue with the damage bar upgrade; client doesn't know about items in the backpack
     //    until opened; could be solved by adding metadata to the backpack info that tracks the
     //    fullness of it.

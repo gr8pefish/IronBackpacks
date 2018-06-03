@@ -38,7 +38,6 @@ public class ContainerBackpack extends Container {
      * Offhand used or not.
      */
     private int blocked = -1;
-    private ItemStack blockedStack = ItemStack.EMPTY;
     // In which slot of the player's inventory is the backpack.
     private Slot backpackSlot;
 
@@ -96,8 +95,6 @@ public class ContainerBackpack extends Container {
             return ItemStack.EMPTY;
 
         ItemStack stack = slot.getStack();
-        if (!stack.isEmpty() && ItemStack.areItemStacksEqual(stack, blockedStack))
-            return ItemStack.EMPTY;
 
         ItemStack newStack = stack.copy();
 
@@ -139,8 +136,6 @@ public class ContainerBackpack extends Container {
             return false;
 
         ItemStack slotStack = slot.getStack();
-        if (!slotStack.isEmpty() && ItemStack.areItemStacksEqual(slotStack, blockedStack))
-            return false;
 
         // Block placing of backpacks and blacklisted stacks into backpack inventory
         if (slotId <= backpackSize.getTotalSize() - 1) {
@@ -160,8 +155,6 @@ public class ContainerBackpack extends Container {
 
             Slot hotbarSlot = getSlot(hotbarId);
             ItemStack hotbarStack = hotbarSlot.getStack();
-            if (!hotbarStack.isEmpty() && ItemStack.areItemStacksEqual(hotbarStack, blockedStack))
-                return false;
 
             // Block swapping of backpacks and blacklisted stacks into backpack inventory
             if (slotId <= backpackSize.getTotalSize() - 1) {
@@ -267,8 +260,7 @@ public class ContainerBackpack extends Container {
             Slot slot = addSlotToContainer(new Slot(inventoryPlayer, x, xOffset + x * 18, yOffset) {
                 @Override
                 public boolean canTakeStack(final EntityPlayer playerIn) {
-                    ItemStack slotStack = getStack();
-                    return slotNumber != blocked && (!slotStack.isEmpty() && !ItemStack.areItemStacksEqual(slotStack, blockedStack));
+                    return slotNumber != blocked;
                 }
             });
             if (x == inventoryPlayer.currentItem && hand == EnumHand.MAIN_HAND)
@@ -277,7 +269,19 @@ public class ContainerBackpack extends Container {
     }
 
     public ContainerBackpack setBlockedStack(ItemStack blockedStack) {
-        this.blockedStack = blockedStack;
+    	// Previously blockedStack was stored in a property and was checked against
+    	// the stack in a slot using ItemStack.areItemStacksEqual() to see if it
+    	// should be blocked. This caused weird desync client side issues when
+    	// saving the inventory contents eagerly was introduced to prevent item
+    	// duping. What caused this is that ItemStack.EMPTY is created with a stack
+    	// size of 1 but when synced through the network is sent with a stack size
+    	// of 0, making the areItemStacksEqual() check fail client side.
+        for (Slot slot : inventorySlots) {
+            if (slot.getStack() == blockedStack) {
+            	blocked = slot.slotNumber;
+                break;
+            }
+        }
         return this;
     }
 
