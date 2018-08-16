@@ -151,6 +151,12 @@ public class ContainerBackpack extends Container {
                 return false;
         }
 
+        // Moving items by shift clicking them
+        if(clickType == ClickType.QUICK_MOVE){
+            if (slotStack.getItem() instanceof IBackpack) // TODO - Check for nesting upgrades and properly handle
+                return false;
+        }
+
         // Hotbar swapping via number keys
         if (clickType == ClickType.SWAP) {
             int hotbarId = backpackSize.getTotalSize() + 27 + button; // Backpack slots + main inventory + hotbar id
