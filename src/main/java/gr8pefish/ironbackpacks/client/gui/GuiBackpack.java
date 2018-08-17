@@ -1,12 +1,14 @@
 package gr8pefish.ironbackpacks.client.gui;
 
 import com.google.common.base.Preconditions;
+import gr8pefish.ironbackpacks.client.ClientEventHandler;
 import gr8pefish.ironbackpacks.container.ContainerBackpack;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 
 import javax.annotation.Nonnull;
+import java.io.IOException;
 
 /**
  * Class to generate the normal GUI of a backpack.
@@ -120,5 +122,15 @@ public class GuiBackpack extends GuiContainer {
 
         // Player inventory
         CONTAINER_TEX.drawQuad(px - b, y, tpx, ty, pw + b * 2, ph + bBot);
+    }
+
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        // If the user presses the OPEN key while the inventory is already open, then close it
+        if (ClientEventHandler.KEY_OPEN.isActiveAndMatches(keyCode)) {
+            this.mc.player.closeScreen();
+        }
+
+        super.keyTyped(typedChar, keyCode);
     }
 }
