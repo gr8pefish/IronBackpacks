@@ -16,7 +16,7 @@ import org.lwjgl.input.Keyboard;
 public class ClientEventHandler {
 
     public static final KeyBinding KEY_EQUIP = new KeyBinding("key." + IronBackpacks.MODID + ".equip", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_H, IronBackpacks.NAME);
-    public static final KeyBinding KEY_OPEN = new KeyBinding("key." + IronBackpacks.MODID + ".open", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_I, IronBackpacks.NAME);
+    public static final KeyBinding KEY_OPEN = new KeyBinding("key." + IronBackpacks.MODID + ".open", KeyConflictContext.UNIVERSAL, KeyModifier.NONE, Keyboard.KEY_I, IronBackpacks.NAME);
 
     @SubscribeEvent
     public static void onKey(InputEvent.KeyInputEvent event) {
