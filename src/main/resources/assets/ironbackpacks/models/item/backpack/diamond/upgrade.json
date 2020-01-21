@@ -1,8 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "ironbackpacks:items/backpack_diamond_base",
-    "layer1": "ironbackpacks:items/backpack_diamond_border",
-    "layer2": "ironbackpacks:items/backpack_diamond_latch_dark"
-  }
-}

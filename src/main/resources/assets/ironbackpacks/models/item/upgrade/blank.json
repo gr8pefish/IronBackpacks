@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "ironbackpacks:item/upgrade_lock"
+    "layer0": "ironbackpacks:item/upgrade_blank"
   }
 }

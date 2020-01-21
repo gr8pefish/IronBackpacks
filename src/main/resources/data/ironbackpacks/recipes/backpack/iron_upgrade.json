@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IUI",
+    "IBI",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "tag": "ironbackpacks:backpack/tier0"
+    },
+    "U": {
+      "item": "ironbackpacks:upgrade/blank"
+    }
+  },
+  "result": {
+    "item": "ironbackpacks:backpack/iron_upgrade",
+    "data": {
+      "$": "$ i4"
+    }
+  }
+}

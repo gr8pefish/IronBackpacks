@@ -1,28 +1,24 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url "http://files.minecraftforge.net/maven" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath 'org.ajoberstar:gradle-git:0.10.1'
     }
 }
 
 plugins {
-    id "net.minecraftforge.gradle.forge" version "2.0.2"
-    id 'com.matthewprenger.cursegradle' version '1.0.9'
+    id "fabric-loom" version "0.2.6-SNAPSHOT"
+    id "maven-publish"
+    id "io.freefair.lombok" version "4.1.6"
+    id "com.matthewprenger.cursegradle" version "1.0.9"
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'maven-publish'
-
 //set it so it has to be java 8
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
-def username = project.hasProperty("dev_username") ? "{$dev_username}" : "${mod_name}"
 def build_number = System.getenv('BUILD_NUMBER') != null ? System.getenv('BUILD_NUMBER') : "CUSTOM"
 
 group = package_group
@@ -39,47 +35,51 @@ if (file('.git').exists())
     gitHash = repo.log().find().abbreviatedId
 
 repositories {
-    maven { url "http://dvs1.progwml6.com/files/maven" }
-}
-
-dependencies {
-    // compile against the JEI API
-    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}:api"
-    // at runtime, use the full JEI jar
-    runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+	mavenCentral()
+	maven {
+		name = "FabricMC"
+		url = "https://maven.fabricmc.net"
+	}
+	maven {
+		name = "Cotton"
+		url = "http://server.bbkr.space:8081/artifactory/libs-release/"
+	}
+	maven { url "https://jitpack.io" }
 }
 
 minecraft {
-    version = "${mc_version}-${forge_version}"
     runDir = "run"
+}
 
-    clientRunArgs += "--username={$username}"
+dependencies {
+	minecraft "com.mojang:minecraft:${project.mc_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    replace "@VERSION@", project.version
-    replaceIn "IronBackpacks.java"
-
-    mappings = project.mappings_version
+	// MC libraries
+	modImplementation "io.github.cottonmc:LibGui:${project.libgui_version}"
+	include "io.github.cottonmc:LibGui:${project.libgui_version}"
+	modImplementation ("com.github.Siphalor:nbt-crafting:${project.nbtc_version}") { transitive = false }
+	include ("com.github.Siphalor:nbt-crafting:${project.nbtc_version}") { transitive = false }
 }
 
 processResources {
     inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
 
     from(sourceSets.main.resources.srcDirs) {
-        include '**/*.info'
-        include '**/*.properties'
-
-        expand 'version': project.version, 'mcversion': project.minecraft.version
+        include "fabric.mod.json"
+        expand "version": project.version
     }
 
     from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
-        exclude '**/*.properties'
+        exclude "fabric.mod.json"
     }
 }
 
 jar {
-    classifier = ''
+    archiveClassifier.set('')
     manifest.mainAttributes(
         "Built-By": System.getProperty('user.name'),
         "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
@@ -89,25 +89,26 @@ jar {
     )
 }
 
-// API jar
-task apiJar(type: Jar) {
-    from sourceSets.main.allSource
-    from sourceSets.main.output
-    include 'gr8pefish/ironbackpacks/api/**/*'
-    classifier = 'api'
-}
-
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
+}
+
+// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set('sources')
+	from sourceSets.main.allSource
 }
 
 publishing {
     tasks.publish.dependsOn 'build'
     publications {
         mavenJava(MavenPublication) {
-            artifact jar
-            artifact sourceJar
-            artifact apiJar
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
         }
     }
     repositories {
@@ -119,7 +120,7 @@ publishing {
     }
 }
 
-String getChangelogText() {
+static String getChangelogText() {
     def changelogFile = new File('changelog.txt')
     String str = ''
     String separator = '---'
@@ -143,8 +144,7 @@ String getChangelogText() {
 }
 
 def curseRelations = {
-    optionalLibrary 'jei'
-    optionalLibrary 'inventory-tweaks'
+    optionalLibrary 'roughly-enough-items'
 }
 
 curseforge {
@@ -155,19 +155,25 @@ curseforge {
         id = "${curse_id}"
         changelog = getChangelogText()
         releaseType = "${release_type}"
+        mainArtifact(remapJar)
 
         relations curseRelations
+    }
+    options {
+        forgeGradleIntegration = false
     }
 }
 
 
 //Increment patch number
-task incrementVersionNumber {
+//TODO: Fix autoincrement happening even when not running remapJar
+/* task incrementVersionNumber {
+    dependsOn remapJar
     ant.replace(file: "gradle.properties", token: "patch_number=${patch_number}", value: "patch_number=${patch_number.toString().toInteger() + 1}")
-}
+} */
 
 //Adds a new changelog segment
-task makeNewChangelog {
+/*task makeNewChangelog {
     def changelogFile = new File('changelog.txt')
     String newText = '------------------------------------------------------\n' +
             'Version '+mc_version+" - "+major_version+"."+minor_version+"."+(patch_number.toString().toInteger() + 1)+"\n" +
@@ -182,14 +188,13 @@ task makeNewChangelog {
             '- None\n'
     String oldText = changelogFile.getText()
     changelogFile.setText(newText + oldText);
-}
-
+}*/
 
 //Note: commit history requires [ci jenkins-build] to build via jenkins
 
 //enforce correct order
 tasks.build.mustRunAfter clean
-tasks.makeNewChangelog.mustRunAfter incrementVersionNumber
+//tasks.makeNewChangelog.mustRunAfter incrementVersionNumber
 
 //curseforge uses these tasks
-tasks.curseforge.dependsOn clean, build
+tasks.curseforge.dependsOn clean, remapJar

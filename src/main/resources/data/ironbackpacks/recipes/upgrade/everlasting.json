@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " O ",
+    "EUE",
+    " O "
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "U": {
+      "item": "ironbackpacks:upgrade/blank"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "ironbackpacks:upgrade/everlasting"
+  }
+}

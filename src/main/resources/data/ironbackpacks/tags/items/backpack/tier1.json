@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "ironbackpacks:backpack/iron_upgrade",
+    "ironbackpacks:backpack/iron_storage"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "item.ironbackpacks.backpack.basic": "Базовый рюкзак",
+  "item.ironbackpacks.backpack.iron_storage": "Железный рюкзак (Место)",
+  "item.ironbackpacks.backpack.iron_upgrade": "Железный рюкзак (Улучшения)",
+  "item.ironbackpacks.backpack.gold_storage": "Золотой рюкзак (Место)",
+  "item.ironbackpacks.backpack.gold_upgrade": "Золотой рюкзак (Улучшения)",
+  "item.ironbackpacks.backpack.diamond_storage": "Алмазный рюкзак (Место)",
+  "item.ironbackpacks.backpack.diamond_upgrade": "Алмазный рюкзак (Улучшения)",
+
+  "item.ironbackpacks.upgrade.blank": "Пустое улучшение",
+  "item.ironbackpacks.upgrade.damage_bar.name": "Улучшение: Полоса урона",
+  "item.ironbackpacks.upgrade.damage_bar.desc": "Добавляет полосу под рюкзаком для быстрой\nоценки заполненности рюкзака.",
+  "item.ironbackpacks.upgrade.lock.name": "Улучшение: Замок",
+  "item.ironbackpacks.upgrade.lock.desc": "Закрывает доступ к рюкзаку всем\nкроме владельца. После установки\nвладельцем становится первый игрок,\nоткрывший рюкзак.",
+  "item.ironbackpacks.upgrade.everlasting.name": "Улучшение: Вечность",
+  "item.ironbackpacks.upgrade.everlasting.desc": "Предотвращает пропажу\nброшенного на землю рюкзака.",
+  "item.ironbackpacks.upgrade.fireproof.name": "Улучшение: Огнеупорность",
+  "item.ironbackpacks.upgrade.fireproof.desc": "Предотвращает уничтожение\nрюкзака в огне и лаве.",
+
+  "tooltip.ironbackpacks.shift": "Shift для доп. сведений",
+  "tooltip.ironbackpacks.backpack.tier": "Уровень %d",
+  "tooltip.ironbackpacks.backpack.owner": "Владелец: %s",
+  "tooltip.ironbackpacks.backpack.upgrade.points": "Очки улучшений: %d/%d",
+  "tooltip.ironbackpacks.backpack.upgrade.list": "Установленные улучшения:",
+  "tooltip.ironbackpacks.backpack.upgrade.none": "Нет",
+  "tooltip.ironbackpacks.upgrade.cost": "Очки улучшений: %d",
+  "tooltip.ironbackpacks.upgrade.minimum_tier": "Минимальный уровень: %d",
+
+  "gui.ironbackpacks.backpack": "Рюкзак",
+  "gui.ironbackpacks.upgrade": "Улучшения рюкзака"
+}

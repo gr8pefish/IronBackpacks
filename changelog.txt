@@ -1,4 +1,18 @@
 ------------------------------------------------------
+Version 1.15.1 - 4.0.0
+------------------------------------------------------
+First ALPHA build for Fabric-powered 1.15.1.
+
+Additions
+- Practical feature parity with 3.0.9
+
+Changes
+- Complete overhaul of API for mod integration
+- Visual changes and balance adjustments (not final)
+
+Bug Fixes
+- None
+------------------------------------------------------
 Version 1.12.2 - 3.0.9
 ------------------------------------------------------
 Additions

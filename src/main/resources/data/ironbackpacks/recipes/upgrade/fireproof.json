@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " M ",
+    "MUM",
+    " M "
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:magma_cream"
+    },
+    "U": {
+      "item": "ironbackpacks:upgrade/blank"
+    }
+  },
+  "result": {
+    "item": "ironbackpacks:upgrade/fireproof"
+  }
+}
