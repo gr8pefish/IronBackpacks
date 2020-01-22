@@ -110,7 +110,7 @@ public class BaseBackpackItem extends Item implements BackpackItem {
 
         if (data.hasUpgrade(UPGRADE_LOCK)) {
             if (data.getOwner() == null) {
-                user.addChatMessage(new LiteralText("You are now the owner of this backpack"), true);
+                user.addChatMessage(new ModTranslatableText("message", "owner.set"), true);
                 data.setOwner(user.getGameProfile().getId());
                 data.setOwnerName(user.getGameProfile().getName());
             } else {
@@ -123,7 +123,7 @@ public class BaseBackpackItem extends Item implements BackpackItem {
             }
         } else {
             if (data.getOwner() != null) {
-                user.addChatMessage(new LiteralText("Backpack ownership cleared"), true);
+                user.addChatMessage(new ModTranslatableText("message", "owner.clear"), true);
                 data.setOwner(null);
                 data.setOwnerName(null);
             }

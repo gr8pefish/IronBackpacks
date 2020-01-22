@@ -133,7 +133,7 @@ public class UpgradeRegistry {
             return;
         }
         if (UPGRADES.putIfAbsent(id, item) != null) {
-            LOGGER.warn("Upgrade with ID " + id.toString() + " already exists! Skipping...");
+            LOGGER.warn("Upgrade with ID {} already exists! Skipping...", id);
             return;
         }
         Registry.register(Registry.ITEM, id, item.asItem());

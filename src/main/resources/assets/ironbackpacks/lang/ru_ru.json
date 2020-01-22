@@ -17,6 +17,9 @@
   "item.ironbackpacks.upgrade.fireproof.name": "Улучшение: Огнеупорность",
   "item.ironbackpacks.upgrade.fireproof.desc": "Предотвращает уничтожение\nрюкзака в огне и лаве.",
 
+  "message.ironbackpacks.owner.set": "Вы стали владельцем рюкзака",
+  "message.ironbackpacks.owner.clear": "Данные о владельце удалены",
+
   "tooltip.ironbackpacks.shift": "Shift для доп. сведений",
   "tooltip.ironbackpacks.backpack.tier": "Уровень %d",
   "tooltip.ironbackpacks.backpack.owner": "Владелец: %s",

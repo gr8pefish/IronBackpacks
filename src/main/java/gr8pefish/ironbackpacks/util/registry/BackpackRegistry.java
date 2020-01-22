@@ -202,7 +202,7 @@ public class BackpackRegistry {
      */
     public static void register(Identifier id, BackpackItem item) {
         if (BACKPACKS.putIfAbsent(id, item) != null) {
-            LOGGER.warn("Backpack with ID " + id.toString() + " already exists! Skipping...");
+            LOGGER.warn("Backpack with ID {} already exists! Skipping...", id);
             return;
         }
         Registry.register(Registry.ITEM, id, item.asItem());

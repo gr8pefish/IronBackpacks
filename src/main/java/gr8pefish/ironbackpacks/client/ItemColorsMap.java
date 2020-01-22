@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +15,11 @@ public class ItemColorsMap {
     public static final ItemColorsMap INSTANCE = new ItemColorsMap();
 
     private ItemColors backedMap;
-    private final List<Object[]> queue = new ArrayList<>();
+    private final List<Pair<ItemColorProvider, ItemConvertible[]>> queue = new ArrayList<>();
 
     public void register(ItemColorProvider mapper, ItemConvertible... items) {
         if (backedMap == null) {
-            queue.add(new Object[]{ mapper, items });
+            queue.add(new Pair<>(mapper, items));
             return;
         }
         backedMap.register(mapper, items);
@@ -27,8 +28,8 @@ public class ItemColorsMap {
     public void setBackedMap(ItemColors map) {
         backedMap = map;
         if (backedMap != null && !queue.isEmpty()) {
-            for (Object[] args : queue) {
-                backedMap.register((ItemColorProvider) args[0], (ItemConvertible[]) args[1]);
+            for (Pair<ItemColorProvider, ItemConvertible[]> args : queue) {
+                backedMap.register(args.getLeft(), args.getRight());
             }
             queue.clear();
         }

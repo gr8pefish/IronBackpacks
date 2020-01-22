@@ -17,6 +17,9 @@
   "item.ironbackpacks.upgrade.fireproof.name": "Fireproof Upgrade",
   "item.ironbackpacks.upgrade.fireproof.desc": "Prevents the backpack from\nburning in fire and lava.",
 
+  "message.ironbackpacks.owner.set": "You are now the owner of this backpack",
+  "message.ironbackpacks.owner.clear": "Backpack ownership cleared",
+
   "tooltip.ironbackpacks.shift": "Shift for details",
   "tooltip.ironbackpacks.backpack.tier": "Tier %d",
   "tooltip.ironbackpacks.backpack.owner": "Owner: %s",
