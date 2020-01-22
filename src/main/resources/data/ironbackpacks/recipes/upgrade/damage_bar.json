@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "GUG",
+    "RRR"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "U": {
+      "item": "ironbackpacks:upgrade_blank"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "ironbackpacks:upgrade_damage_bar"
+  }
+}

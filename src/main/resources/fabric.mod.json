@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "ironbackpacks",
+  "version": "${version}",
+
+  "name": "Iron Backpacks",
+  "description": "Adds tiered backpacks and a system of modular upgrades to go with them!",
+  "authors": [
+    "gr8pefish",
+    "EngiN33R"
+  ],
+  "contributors": [
+    "cpw",
+    "sapient",
+    "#minecraftforge (especially diesieben07)",
+    "TehNut",
+    "tterrag"
+  ],
+  "contact": {
+    "discord": "https://discord.gg/c9afhTh",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/iron-backpacks",
+    "sources": "https://github.com/gr8pefish/IronBackpacks",
+    "issues": "https://github.com/gr8pefish/IronBackpacks/issues"
+  },
+  "icon": "assets/ironbackpacks/logo.png",
+  "license": "GPL-3.0-only",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "gr8pefish.ironbackpacks.IronBackpacks"
+    ],
+    "client": [
+      "gr8pefish.ironbackpacks.IronBackpacksClient"
+    ]
+  },
+  "mixins": [
+    "ironbackpacks.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.15.x"
+  }
+}

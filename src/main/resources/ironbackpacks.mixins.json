@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "gr8pefish.ironbackpacks.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinItemEntity"
+  ],
+  "client": [
+    "MixinMinecraftClient",
+    "MixinItemRenderer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

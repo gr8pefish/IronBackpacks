@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DUD",
+    "DBD",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "B": {
+      "tag": "ironbackpacks:backpack_tier2"
+    },
+    "U": {
+      "item": "ironbackpacks:upgrade_blank"
+    }
+  },
+  "result": {
+    "item": "ironbackpacks:backpack_diamond_upgrade",
+    "data": {
+      "$": "$ i4"
+    }
+  }
+}

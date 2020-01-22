@@ -1,0 +1,34 @@
+{
+  "item.ironbackpacks.backpack.basic": "Basic Backpack",
+  "item.ironbackpacks.backpack.iron_storage": "Iron Backpack (Storage)",
+  "item.ironbackpacks.backpack.iron_upgrade": "Iron Backpack (Upgrades)",
+  "item.ironbackpacks.backpack.gold_storage": "Gold Backpack (Storage)",
+  "item.ironbackpacks.backpack.gold_upgrade": "Gold Backpack (Upgrades)",
+  "item.ironbackpacks.backpack.diamond_storage": "Diamond Backpack (Storage)",
+  "item.ironbackpacks.backpack.diamond_upgrade": "Diamond Backpack (Upgrades)",
+
+  "item.ironbackpacks.upgrade.blank": "Blank Upgrade",
+  "item.ironbackpacks.upgrade.damage_bar.name": "Damage Bar Upgrade",
+  "item.ironbackpacks.upgrade.damage_bar.desc": "Adds a bar to view how full\nthe backpack is at a glance.",
+  "item.ironbackpacks.upgrade.lock.name": "Latch Upgrade",
+  "item.ironbackpacks.upgrade.lock.desc": "Only allows the owner of the backpack\nto interact with it. Once installed,\nthe first player to use the backpack\nbecomes its owner.",
+  "item.ironbackpacks.upgrade.everlasting.name": "Everlasting Upgrade",
+  "item.ironbackpacks.upgrade.everlasting.desc": "Prevents the backpack from\ndespawning when dropped.",
+  "item.ironbackpacks.upgrade.fireproof.name": "Fireproof Upgrade",
+  "item.ironbackpacks.upgrade.fireproof.desc": "Prevents the backpack from\nburning in fire and lava.",
+
+  "message.ironbackpacks.owner.set": "You are now the owner of this backpack",
+  "message.ironbackpacks.owner.clear": "Backpack ownership cleared",
+
+  "tooltip.ironbackpacks.shift": "Shift for details",
+  "tooltip.ironbackpacks.backpack.tier": "Tier %d",
+  "tooltip.ironbackpacks.backpack.owner": "Owner: %s",
+  "tooltip.ironbackpacks.backpack.upgrade.points": "Upgrade points: %d/%d",
+  "tooltip.ironbackpacks.backpack.upgrade.list": "Installed upgrades:",
+  "tooltip.ironbackpacks.backpack.upgrade.none": "None",
+  "tooltip.ironbackpacks.upgrade.cost": "Upgrade points: %d",
+  "tooltip.ironbackpacks.upgrade.minimum_tier": "Minimum tier: %d",
+
+  "gui.ironbackpacks.backpack": "Backpack",
+  "gui.ironbackpacks.upgrade": "Backpack Upgrades"
+}

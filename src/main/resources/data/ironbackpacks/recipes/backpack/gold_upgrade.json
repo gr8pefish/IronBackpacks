@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GUG",
+    "GBG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "B": {
+      "tag": "ironbackpacks:backpack_tier1"
+    },
+    "U": {
+      "item": "ironbackpacks:upgrade_blank"
+    }
+  },
+  "result": {
+    "item": "ironbackpacks:backpack_gold_upgrade",
+    "data": {
+      "$": "$ i4"
+    }
+  }
+}
