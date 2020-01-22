@@ -10,14 +10,14 @@
       "item": "minecraft:diamond"
     },
     "B": {
-      "tag": "ironbackpacks:backpack/tier2"
+      "tag": "ironbackpacks:backpack_tier2"
     },
     "C": {
       "item": "minecraft:chest"
     }
   },
   "result": {
-    "item": "ironbackpacks:backpack/diamond_storage",
+    "item": "ironbackpacks:backpack_diamond_storage",
     "data": {
       "$": "$ i4"
     }

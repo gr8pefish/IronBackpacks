@@ -10,10 +10,10 @@
       "item": "minecraft:magma_cream"
     },
     "U": {
-      "item": "ironbackpacks:upgrade/blank"
+      "item": "ironbackpacks:upgrade_blank"
     }
   },
   "result": {
-    "item": "ironbackpacks:upgrade/fireproof"
+    "item": "ironbackpacks:upgrade_fireproof"
   }
 }

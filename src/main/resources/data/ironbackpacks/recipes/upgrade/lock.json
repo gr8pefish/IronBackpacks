@@ -10,13 +10,13 @@
       "item": "minecraft:iron_ingot"
     },
     "U": {
-      "item": "ironbackpacks:upgrade/blank"
+      "item": "ironbackpacks:upgrade_blank"
     },
     "R": {
       "item": "minecraft:redstone"
     }
   },
   "result": {
-    "item": "ironbackpacks:upgrade/lock"
+    "item": "ironbackpacks:upgrade_lock"
   }
 }

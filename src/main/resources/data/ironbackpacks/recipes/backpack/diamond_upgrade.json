@@ -10,14 +10,14 @@
       "item": "minecraft:diamond"
     },
     "B": {
-      "tag": "ironbackpacks:backpack/tier2"
+      "tag": "ironbackpacks:backpack_tier2"
     },
     "U": {
-      "item": "ironbackpacks:upgrade/blank"
+      "item": "ironbackpacks:upgrade_blank"
     }
   },
   "result": {
-    "item": "ironbackpacks:backpack/diamond_upgrade",
+    "item": "ironbackpacks:backpack_diamond_upgrade",
     "data": {
       "$": "$ i4"
     }

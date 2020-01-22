@@ -10,14 +10,14 @@
       "item": "minecraft:gold_ingot"
     },
     "B": {
-      "tag": "ironbackpacks:backpack/tier1"
+      "tag": "ironbackpacks:backpack_tier1"
     },
     "U": {
-      "item": "ironbackpacks:upgrade/blank"
+      "item": "ironbackpacks:upgrade_blank"
     }
   },
   "result": {
-    "item": "ironbackpacks:backpack/gold_upgrade",
+    "item": "ironbackpacks:backpack_gold_upgrade",
     "data": {
       "$": "$ i4"
     }

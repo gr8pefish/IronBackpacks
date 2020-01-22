@@ -10,13 +10,13 @@
       "item": "minecraft:emerald"
     },
     "U": {
-      "item": "ironbackpacks:upgrade/blank"
+      "item": "ironbackpacks:upgrade_blank"
     },
     "O": {
       "item": "minecraft:obsidian"
     }
   },
   "result": {
-    "item": "ironbackpacks:upgrade/everlasting"
+    "item": "ironbackpacks:upgrade_everlasting"
   }
 }

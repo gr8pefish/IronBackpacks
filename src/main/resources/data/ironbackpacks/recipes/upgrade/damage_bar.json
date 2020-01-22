@@ -10,13 +10,13 @@
       "item": "minecraft:glass"
     },
     "U": {
-      "item": "ironbackpacks:upgrade/blank"
+      "item": "ironbackpacks:upgrade_blank"
     },
     "R": {
       "item": "minecraft:redstone"
     }
   },
   "result": {
-    "item": "ironbackpacks:upgrade/damage_bar"
+    "item": "ironbackpacks:upgrade_damage_bar"
   }
 }
