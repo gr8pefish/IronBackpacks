@@ -56,19 +56,19 @@ public class ConfigHandler {
         public int sizeIronUpgrade = 27;
 
         @Config.RangeInt(min = 1, max = 54)
-        @Config.Comment({ "Size of the iron backpack - storage emphasis"} )
+        @Config.Comment({ "Size of the gold backpack - storage emphasis"} )
         public int sizeGoldStorage = 45;
 
         @Config.RangeInt(min = 1, max = 54)
-        @Config.Comment({ "Size of the iron backpack - upgrade emphasis"} )
+        @Config.Comment({ "Size of the gold backpack - upgrade emphasis"} )
         public int sizeGoldUpgrade = 36;
 
         @Config.RangeInt(min = 1, max = 54)
-        @Config.Comment({ "Size of the iron backpack - storage emphasis"} )
+        @Config.Comment({ "Size of the diamond backpack - storage emphasis"} )
         public int sizeDiamondStorage = 54;
 
         @Config.RangeInt(min = 1, max = 54)
-        @Config.Comment({ "Size of the iron backpack - upgrade emphasis"} )
+        @Config.Comment({ "Size of the diamond backpack - upgrade emphasis"} )
         public int sizeDiamondUpgrade = 45;
     }
 
